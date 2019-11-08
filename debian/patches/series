@@ -1,0 +1,7 @@
+0001-try-to-avoid-rpath.patch
+0002-wait-dbus-up-to-20-times.patch
+0007-Fix-some-spelling-errors.patch
+0004-forget-to-bump-version.patch
+0006-misc-fix-fall-through-warning.patch
+0007-xkb-use-iso-codes-json-file-to-parse-the-iso-codes-d.patch
+0008-keyboard-iso-code-root-should-be-639-3.patch
