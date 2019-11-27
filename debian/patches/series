@@ -5,3 +5,4 @@
 0006-misc-fix-fall-through-warning.patch
 0007-xkb-use-iso-codes-json-file-to-parse-the-iso-codes-d.patch
 0008-keyboard-iso-code-root-should-be-639-3.patch
+nodisplay.patch
