@@ -59,12 +59,12 @@ Advance=True
 
 [Hotkey/IMSwitchKey]
 Type=Boolean
-DefaultValue=True
+DefaultValue=False
 Description=Enable Hotkey to scroll Between Input Method
 
 [Hotkey/IMSwitchIncludeInactive]
 Type=Boolean
-DefaultValue=False
+DefaultValue=True
 Description=Include Inactivate when scrolling between Input Method
 Advance=True
 
