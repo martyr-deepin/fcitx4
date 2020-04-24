@@ -9,3 +9,4 @@ usr/share/fcitx/imicon/*
 usr/share/icons/*
 usr/share/locale/*
 usr/share/mime/packages/*
+bin/fcitx-ini
