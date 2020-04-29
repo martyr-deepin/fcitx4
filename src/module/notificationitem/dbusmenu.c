@@ -215,7 +215,7 @@ void FcitxDBusMenuDoEvent(void* arg)
                         fcitx_utils_start_process(args);
                     }
                     break;
-                case 4:
+                /*case 4:
                     {
                         FcitxIM* im = FcitxInstanceGetCurrentIM(instance);
                         if (im && im->owner) {
@@ -225,7 +225,7 @@ void FcitxDBusMenuDoEvent(void* arg)
                             fcitx_utils_launch_configure_tool();
                         }
                     }
-                    break;
+                    break;*/
                 case 5:
                     fcitx_utils_launch_configure_tool();
                     break;
@@ -348,10 +348,10 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem* notificationitem, int32_t 
                     value = "separator";
                     FcitxDBusMenuAppendProperty(&sub, properties, "type", DBUS_TYPE_STRING, &value);
                     break;
-                case 4:
+                /*case 4:
                     value = _("Configure Current Input Method");
                     FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
-                    break;
+                    break;*/
                 case 5:
                     value = _("Configure");
                     FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
@@ -540,7 +540,7 @@ void FcitxDBusMenuFillLayooutItem(FcitxNotificationItem* notificationitem, int32
                     }
                     FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,3), depth - 1, properties, &array);
                 }
-                FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,4), depth - 1, properties, &array);
+                //FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,4), depth - 1, properties, &array);
                 FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,5), depth - 1, properties, &array);
                 FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,6), depth - 1, properties, &array);
                 FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,7), depth - 1, properties, &array);
