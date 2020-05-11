@@ -1,0 +1,4 @@
+#!/bin/bash
+fcitx
+fcitx-configtool
+
