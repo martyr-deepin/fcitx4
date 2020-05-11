@@ -164,7 +164,7 @@ Advance=True
 
 [Program/ShareStateAmongWindow]
 Type=Enum
-DefaultValue=No
+DefaultValue=All
 EnumCount=3
 Enum0=No
 Enum1=All
