@@ -1,0 +1,20 @@
+Subject: Active input method as default
+Author: yanbowen <yanbowen@uniontech.com>
+
+---
+ data/config.desc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/data/config.desc b/data/config.desc
+index 03b04e9..7befa9f 100644
+--- a/data/config.desc
++++ b/data/config.desc
+@@ -173,7 +173,7 @@ Description=Share State Among Window
+ 
+ [Program/DefaultInputMethodState]
+ Type=Enum
+-DefaultValue=Inactive
++DefaultValue=Active
+ EnumCount=2
+ Enum0=Inactive
+ Enum1=Active
