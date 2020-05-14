@@ -9,3 +9,4 @@
 #nodisplay.patch
 translate-fcitx-to-chinese.patch
 deepin-active-input-method-default.patch
+deepin-remove-configure-current-input-method.patch
