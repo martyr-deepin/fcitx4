@@ -1,0 +1,13 @@
+Index: fcitx-4.2.9.16/src/module/notificationitem/fcitx-notificationitem.conf.in
+===================================================================
+--- fcitx-4.2.9.16.orig/src/module/notificationitem/fcitx-notificationitem.conf.in
++++ fcitx-4.2.9.16/src/module/notificationitem/fcitx-notificationitem.conf.in
+@@ -3,7 +3,7 @@ Name=fcitx-notificationitem
+ _GeneralName=DBus based new Freedesktop.org tray icon
+ _Comment=DBus based new Freedesktop.org tray icon
+ Category=Module
+-Enabled=True
++Enabled=False
+ Library=fcitx-notificationitem.so
+ Type=SharedLibrary
+ Priority=80
