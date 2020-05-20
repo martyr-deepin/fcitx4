@@ -1,0 +1,19 @@
+Descripts: Fix the bug that when right click the fcitx icon the icon will change to keyboard icon and Traditional/Simplified change not work
+Bug: https://pms.uniontech.com/zentao/task-view-21566.html
+Author: niqiang
+Reviewed-By: huxiaodong
+Last-Update: 2020-05-20
+
+Index: fcitx-4.2.9.16/data/config.desc
+===================================================================
+--- fcitx-4.2.9.16.orig/data/config.desc
++++ fcitx-4.2.9.16/data/config.desc
+@@ -164,7 +164,7 @@ Advance=True
+ 
+ [Program/ShareStateAmongWindow]
+ Type=Enum
+-DefaultValue=No
++DefaultValue=All
+ EnumCount=3
+ Enum0=No
+ Enum1=All
