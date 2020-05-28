@@ -1,0 +1,12 @@
+Index: fcitx-4.2.9.19/src/lib/fcitx/ui.c
+===================================================================
+--- fcitx-4.2.9.19.orig/src/lib/fcitx/ui.c
++++ fcitx-4.2.9.19/src/lib/fcitx/ui.c
+@@ -691,6 +691,7 @@ void FcitxUIOnInputFocus(FcitxInstance*
+ FCITX_EXPORT_API
+ void FcitxUIOnInputUnFocus(struct _FcitxInstance* instance)
+ {
++    return;
+     if (UI_FUNC_IS_VALID(OnInputUnFocus))
+         instance->ui->ui->OnInputUnFocus(instance->ui->addonInstance);
+ 
