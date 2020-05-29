@@ -1,18 +1,20 @@
-Description: 修复鼠标移到，任务栏输入法图标上时，图标样式改变问题
+Description: 修复鼠标移到任务栏输入法图标上时，图标样式改变问题。本身该问题与fcitx无关，系统改变了输入框的焦点状态，为了解决问题屏蔽了丢失焦点后的hook处理。
 Bug:	     https://pms.uniontech.com/zentao/task-view-22252.html
 Author:	     niqiang
 Reviewed-By: huxiaodong
 Last-Update: 2020-05-20
 
-Index: fcitx-4.2.9.19/src/lib/fcitx/ui.c
+Index: fcitx-4.2.9.19/src/module/notificationitem/notificationitem.c
 ===================================================================
---- fcitx-4.2.9.19.orig/src/lib/fcitx/ui.c
-+++ fcitx-4.2.9.19/src/lib/fcitx/ui.c
-@@ -691,6 +691,7 @@ void FcitxUIOnInputFocus(FcitxInstance*
- FCITX_EXPORT_API
- void FcitxUIOnInputUnFocus(struct _FcitxInstance* instance)
- {
-+    return;
-     if (UI_FUNC_IS_VALID(OnInputUnFocus))
-         instance->ui->ui->OnInputUnFocus(instance->ui->addonInstance);
+--- fcitx-4.2.9.19.orig/src/module/notificationitem/notificationitem.c
++++ fcitx-4.2.9.19/src/module/notificationitem/notificationitem.c
+@@ -236,7 +236,9 @@ void* FcitxNotificationItemCreate(FcitxI
+         hk.func = FcitxNotificationItemIMChanged;
+         FcitxInstanceRegisterIMChangedHook(instance, hk);
+         FcitxInstanceRegisterInputFocusHook(instance, hk);
++#if 0
+         FcitxInstanceRegisterInputUnFocusHook(instance, hk);
++#endif
  
+         hk.func = FcitxNotificationItemUpdateIMList;
+         FcitxInstanceRegisterUpdateIMListHook(instance, hk);
