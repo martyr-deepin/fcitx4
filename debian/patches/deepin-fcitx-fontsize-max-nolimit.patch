@@ -1,0 +1,38 @@
+Description: 设置中对字体最大值进行了限制，最大允许设在为30
+Bug:	     https://pms.uniontech.com/zentao/task-view-21390.html
+Author:	     niqiang
+Reviewed-By: huxiaodong
+Last-Update: 2020-06-01
+
+Index: fcitx-4.2.9.19/src/lib/fcitx-config/fcitx-config.c
+===================================================================
+--- fcitx-4.2.9.19.orig/src/lib/fcitx-config/fcitx-config.c
++++ fcitx-4.2.9.19/src/lib/fcitx-config/fcitx-config.c
+@@ -432,9 +432,12 @@ FcitxConfigSyncResult FcitxConfigOptionI
+ 
+     case Raw2Value: {
+         int value = atoi(option->rawValue);
+-        if (value > option->optionDesc2->constrain.integerConstrain.max || value < option->optionDesc2->constrain.integerConstrain.min)
+-            return SyncInvalid;
+-        *option->value.integer = value;
++	if (value > option->optionDesc2->constrain.integerConstrain.max)
++	    *option->value.integer = option->optionDesc2->constrain.integerConstrain.max;
++	else if (value < option->optionDesc2->constrain.integerConstrain.min)
++	    *option->value.integer = option->optionDesc2->constrain.integerConstrain.min;
++	else
++            *option->value.integer = value;
+         return SyncSuccess;
+     }
+ 
+Index: fcitx-4.2.9.19/src/ui/classic/fcitx-classic-ui.desc
+===================================================================
+--- fcitx-4.2.9.19.orig/src/ui/classic/fcitx-classic-ui.desc
++++ fcitx-4.2.9.19/src/ui/classic/fcitx-classic-ui.desc
+@@ -15,6 +15,7 @@ Type=Integer
+ DefaultValue=0
+ Description=Font Size
+ Min=0
++Max=30
+ LongDescription=Override the skin font size
+ 
+ [ClassicUI/Font]

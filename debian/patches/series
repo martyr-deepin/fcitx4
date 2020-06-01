@@ -12,3 +12,4 @@ deepin-active-input-method-default.patch
 deepin-remove-configure-current-input-method.patch
 deepin-fcitx-menu-right-click-icon-change.patch
 deepin-fcitx-icon-change-to-keyboard.patch
+deepin-fcitx-fontsize-max-nolimit.patch
