@@ -238,7 +238,11 @@ void ChttransIMChanged(void* arg)
     FcitxIM* im = FcitxInstanceGetCurrentIM(transState->owner);
     if (!im)
         return;
-    FcitxUIRefreshStatus(transState->owner, "chttrans");
+    boolean enabled = ChttransEnabled(transState);
+    FcitxUISetStatusString(transState->owner, "chttrans",
+                           enabled ? _("Traditional Chinese") :
+                           _("Simplified Chinese"),
+                          _("Toggle Simp/Trad Chinese Conversion"));
 }
 
 /**
