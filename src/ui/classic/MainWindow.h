@@ -49,6 +49,7 @@ typedef struct _MainWindow {
     FcitxXlibWindow parent;
     FcitxClassicUIStatus logostat;
     FcitxClassicUIStatus imiconstat;
+    gboolean isScreenLocked;
 } MainWindow;
 
 MainWindow* MainWindowCreate(FcitxClassicUI* classicui);

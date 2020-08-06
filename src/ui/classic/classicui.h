@@ -26,6 +26,8 @@
 #include "fcitx-utils/utarray.h"
 
 #include <X11/Xlib.h>
+#include <dbus/dbus.h>
+#include "module/dbus/fcitx-dbus.h"
 #include <cairo.h>
 #include "ui/cairostuff/cairostuff.h"
 
@@ -90,6 +92,8 @@ typedef struct _FcitxClassicUI {
 
     unsigned int epoch;
     uint64_t waitDelayed;
+
+    DBusConnection* conn;
 } FcitxClassicUI;
 
 FcitxRect GetScreenGeometry(FcitxClassicUI* classicui, int x, int y);

@@ -63,6 +63,12 @@ static inline boolean MainWindowShouldShow(MainWindow* mainWindow)
     FcitxClassicUI* classicui = window->owner;
     FcitxInstance *instance = window->owner->owner;
     FcitxInputContext2* ic2 = (FcitxInputContext2*) FcitxInstanceGetCurrentIC(instance);
+
+    /* 锁屏状态下不显示状态栏 by UT000591 for TaskID 30163 */
+    if (TRUE == mainWindow->isScreenLocked) {
+        return FALSE;
+    }
+    
     return (window->owner->hideMainWindow == HM_SHOW)
         || (window->owner->hideMainWindow == HM_AUTO && ((ic2 && ic2->switchBySwitchKey) || FcitxInstanceGetCurrentState(window->owner->owner) == IS_ACTIVE))
         || (window->owner->hideMainWindow == HM_HIDE_WHEN_TRAY_AVAILABLE
@@ -101,6 +107,7 @@ MainWindow* MainWindowCreate(FcitxClassicUI* classicui)
                              MainWindowEventHandler, mainWindow);
     FcitxX11AddCompositeHandler(classicui->owner,
                                 ReloadMainWindow, mainWindow);
+    mainWindow->isScreenLocked = FALSE;
     return mainWindow;
 }
 

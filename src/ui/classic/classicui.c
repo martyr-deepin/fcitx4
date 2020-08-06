@@ -47,6 +47,8 @@
 #include "fcitx-utils/utils.h"
 #include "module/notificationitem/fcitx-notificationitem.h"
 
+DBusHandlerResult ClassicuiDBusFilter(DBusConnection* connection, DBusMessage* msg, void* user_data);
+
 struct _FcitxSkin;
 static boolean MainMenuAction(FcitxUIMenu* menu, int index);
 static void UpdateMainMenu(FcitxUIMenu* menu);
@@ -170,6 +172,28 @@ void* ClassicUICreate(FcitxInstance* instance)
     FcitxClassicUIAddFunctions(instance);
 
     classicui->waitDelayed = FcitxInstanceAddTimeout(instance, 0, ClassicUIDelayedInitTray, classicui);
+
+    /* 锁屏状态下不显示状态栏 by UT000591 for TaskID 30163 */
+    classicui->conn = FcitxDBusGetConnection(instance);
+    do {
+        if (NULL != classicui->conn){
+            DBusError err;
+            dbus_error_init(&err);
+
+            dbus_bus_add_match(classicui->conn, "type='signal',sender='com.deepin.dde.lockFront',interface='com.deepin.dde.lockFront'", &err);
+            dbus_connection_flush(classicui->conn);
+            if (dbus_error_is_set(&err)) {
+                FcitxLog(ERROR, "Match Error (%s)", err.message);
+                break;
+            }
+            
+            if (!dbus_connection_add_filter(classicui->conn, ClassicuiDBusFilter, classicui, NULL)) {
+                FcitxLog(ERROR, "No memory");
+                break;
+            }
+            dbus_error_free(&err);
+        }
+    }while(FALSE);
 
     return classicui;
 }
@@ -623,6 +647,24 @@ void ResizeSurface(cairo_surface_t** surface, int w, int h)
     cairo_surface_destroy(*surface);
 
     *surface = newsurface;
+}
+
+/* 锁屏状态下不显示状态栏 by UT000591 for TaskID 30163 */
+DBusHandlerResult ClassicuiDBusFilter(DBusConnection* connection, DBusMessage* msg, void* user_data)
+{
+    FCITX_UNUSED(connection);
+    FcitxClassicUI* classicui = (FcitxClassicUI*) user_data;
+    boolean locked = false;
+    if (dbus_message_is_signal(msg, "com.deepin.dde.lockFront", "Visible")) {
+        DBusError error;
+        dbus_error_init(&error);
+        dbus_message_get_args(msg, &error, DBUS_TYPE_BOOLEAN, &locked , DBUS_TYPE_INVALID);
+        dbus_error_free(&error);
+
+        classicui->mainWindow->isScreenLocked = locked;
+        return DBUS_HANDLER_RESULT_HANDLED;
+    }
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
 
 #include "fcitx-classic-ui-addfunctions.h"
