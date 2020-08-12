@@ -4,16 +4,16 @@
 
 Name:			fcitx
 Summary:		An input method framework
-Version:		4.2.9.7
+Version:		4.2.9.21
 Release:		2%{?dist}
 License:		GPLv2+
 URL:			https://fcitx-im.org/wiki/Fcitx
-Source0:		http://download.fcitx-im.org/fcitx/%{name}-%{version}_dict.tar.xz
+Source0:		%{name}-%{version}_dict.tar.xz
 Source1:		xinput-%{name}
 BuildRequires:		gcc-c++
 BuildRequires:		pango-devel, dbus-devel, opencc-devel
 BuildRequires:		wget, intltool, chrpath, sysconftool, opencc
-BuildRequires:		cmake, libtool, doxygen, libicu-devel
+BuildRequires:		make, cmake, libtool, doxygen, libicu-devel
 BuildRequires:		qt4-devel, gtk3-devel, gtk2-devel, libicu
 BuildRequires:		xorg-x11-proto-devel, xorg-x11-xtrans-devel
 BuildRequires:		gobject-introspection-devel, libxkbfile-devel
