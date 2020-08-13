@@ -5,19 +5,29 @@
 Name:			fcitx
 Summary:		An input method framework
 Version:		4.2.9.21
-Release:		2%{?dist}
+Release:		1%{?dist}
 License:		GPLv2+
 URL:			https://fcitx-im.org/wiki/Fcitx
 Source0:		%{name}_%{version}_dict.tar.xz
 Source1:		xinput_%{name}
 BuildRequires:		gcc-c++
-BuildRequires:		pango-devel, dbus-devel, opencc-devel
-BuildRequires:		wget, intltool, chrpath, sysconftool, opencc
-BuildRequires:		make, cmake, libtool, doxygen, libicu-devel
-BuildRequires:		qt4-devel, gtk3-devel, gtk2-devel, libicu
+BuildRequires:		pango-devel, dbus-devel
+%if 0%{?rhel} < 8
+BuildRequires:		opencc-devel
+BuildRequires:		qt4-devel
+BuildRequires:		enchant-devel
+%else
+%ifarch aarch64 s390x
+%else
+BuildRequires:		enchant-devel
+%endif
+%endif
+BuildRequires:		wget, intltool, chrpath
+BuildRequires:		cmake, libtool, doxygen, libicu-devel
+BuildRequires:		gtk3-devel, gtk2-devel, libicu
 BuildRequires:		xorg-x11-proto-devel, xorg-x11-xtrans-devel
 BuildRequires:		gobject-introspection-devel, libxkbfile-devel
-BuildRequires:		enchant-devel, iso-codes-devel, libicu-devel
+BuildRequires:		iso-codes-devel, libicu-devel
 BuildRequires:		libX11-devel, dbus-glib-devel, dbus-x11
 BuildRequires:		desktop-file-utils, libxml2-devel
 BuildRequires:		lua-devel, extra-cmake-modules
@@ -90,6 +100,7 @@ Requires:		imsettings-gnome
 %description gtk3
 This package contains Fcitx IM module for gtk3.
 
+%if 0%{?rhel} < 8
 %package qt4
 Summary:		Fcitx IM module for qt4
 Requires:		%{name} = %{version}-%{release}
@@ -97,6 +108,7 @@ Requires:		%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description qt4
 This package contains Fcitx IM module for qt4.
+%endif
 
 %package pinyin
 Summary:		Pinyin Engine for Fcitx
@@ -136,7 +148,14 @@ This package contains table engine for Fcitx.
 %build
 mkdir -p build
 pushd build
-%cmake .. -DENABLE_GTK3_IM_MODULE=On -DENABLE_QT_IM_MODULE=On -DENABLE_OPENCC=On -DENABLE_LUA=On -DENABLE_GIR=On -DENABLE_XDGAUTOSTART=Off
+%cmake .. -DENABLE_GTK3_IM_MODULE=On -DENABLE_QT_IM_MODULE=On -DENABLE_OPENCC=On -DENABLE_LUA=On -DENABLE_GIR=On -DENABLE_XDGAUTOSTART=On \
+%if 0%{?el8}
+          -DENABLE_QT=Off \
+%ifarch aarch64 s390x
+          -DENABLE_ENCHANT=Off
+%endif
+%endif
+
 make VERBOSE=1 %{?_smp_mflags}
 
 %install
@@ -293,10 +312,15 @@ fi
 %files gtk3
 %{_libdir}/gtk-3.0/%{gtk3_binary_version}/immodules/im-fcitx.so
 
+%if 0%{?rhel} < 8
 %files qt4
 %{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
+%endif
 
 %changelog
+* Fri Mar 20 2020 Robin Lee <cheeselee@fedoraproject.org> - 4.2.9.7-3
+- Add switches for el8
+
 * Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.9.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
@@ -526,3 +550,4 @@ fi
 
 * Mon Apr 12 2010 Chen Lei <supercyper@163.com> - 3.6.3-1.20100410svn_utf8
 - Initial Package
+
