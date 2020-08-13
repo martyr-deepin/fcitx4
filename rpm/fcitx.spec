@@ -148,7 +148,7 @@ This package contains table engine for Fcitx.
 %build
 mkdir -p build
 pushd build
-%cmake .. -DENABLE_GTK3_IM_MODULE=On -DENABLE_QT_IM_MODULE=On -DENABLE_OPENCC=On -DENABLE_LUA=On -DENABLE_GIR=On -DENABLE_XDGAUTOSTART=On \
+%cmake .. -DENABLE_GTK3_IM_MODULE=On -DENABLE_QT_IM_MODULE=On -DENABLE_OPENCC=Off -DENABLE_LUA=On -DENABLE_QT=Off -DENABLE_GIR=On -DENABLE_ENCHANT=Off -DENABLE_XDGAUTOSTART=On \
 %if 0%{?el8}
           -DENABLE_QT=Off \
 %ifarch aarch64 s390x
