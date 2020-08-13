@@ -9,7 +9,7 @@ Release:		1%{?dist}
 License:		GPLv2+
 URL:			https://fcitx-im.org/wiki/Fcitx
 Source0:		%{name}_%{version}_dict.tar.xz
-Source1:		xinput_%{name}
+#Source1:		xinput_%{name}
 BuildRequires:		gcc-c++
 BuildRequires:		pango-devel, dbus-devel
 %if 0%{?rhel} < 8
@@ -158,12 +158,32 @@ pushd build
 
 make VERBOSE=1 %{?_smp_mflags}
 
+cat > xinput-fcitx <<EOF
+XIM=fcitx
+XIM_PROGRAM=/usr/bin/fcitx
+ICON="/usr/share/pixmaps/fcitx.png"
+XIM_ARGS="-D"
+PREFERENCE_PROGRAM=/usr/bin/fcitx-configtool
+SHORT_DESC="FCITX"
+GTK_IM_MODULE=fcitx
+if test -f /usr/lib/qt4/plugins/inputmethods/qtim-fcitx.so || \
+   test -f /usr/lib64/qt4/plugins/inputmethods/qtim-fcitx.so || \
+   test -f /usr/lib/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so || \
+   test -f /usr/lib64/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so;
+then
+    QT_IM_MODULE=fcitx
+else
+    QT_IM_MODULE=xim
+fi
+EOF
+
 %install
 %make_install INSTALL="install -p" -C build
 
 find %{buildroot}%{_libdir} -name '*.la' -delete -print
 
-install -pm 644 -D %{SOURCE1} %{buildroot}%{_xinputconf}
+#install -pm 644 -D %{SOURCE1} %{buildroot}%{_xinputconf}
+install -pm 644 -D xinput-fcitx %{buildroot}%{_xinputconf}
 
 # patch fcitx4-config to use pkg-config to solve libdir to avoid multiarch
 # confilict
