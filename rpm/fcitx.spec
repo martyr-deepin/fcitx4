@@ -13,9 +13,9 @@ Source0:		%{name}_%{version}_dict.tar.xz
 BuildRequires:		gcc-c++
 BuildRequires:		pango-devel, dbus-devel
 %if 0%{?rhel} < 8
-BuildRequires:		opencc-devel
-BuildRequires:		qt4-devel
-BuildRequires:		enchant-devel
+#BuildRequires:		opencc-devel
+#BuildRequires:		qt4-devel
+#BuildRequires:		enchant-devel
 %else
 %ifarch aarch64 s390x
 %else
@@ -101,13 +101,13 @@ Requires:		imsettings-gnome
 This package contains Fcitx IM module for gtk3.
 
 %if 0%{?rhel} < 8
-%package qt4
-Summary:		Fcitx IM module for qt4
-Requires:		%{name} = %{version}-%{release}
-Requires:		%{name}-libs%{?_isa} = %{version}-%{release}
+#%package qt4
+#Summary:		Fcitx IM module for qt4
+#Requires:		%{name} = %{version}-%{release}
+#Requires:		%{name}-libs%{?_isa} = %{version}-%{release}
 
-%description qt4
-This package contains Fcitx IM module for qt4.
+#%description qt4
+#This package contains Fcitx IM module for qt4.
 %endif
 
 %package pinyin
@@ -333,8 +333,8 @@ fi
 %{_libdir}/gtk-3.0/%{gtk3_binary_version}/immodules/im-fcitx.so
 
 %if 0%{?rhel} < 8
-%files qt4
-%{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
+#%files qt4
+#%{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
 %endif
 
 %changelog
