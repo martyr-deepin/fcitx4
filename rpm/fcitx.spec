@@ -143,7 +143,28 @@ This package contains table engine for Fcitx.
 
 
 %prep
-cp %{_specdir}/xinput_fcitx %{_sourcedir}
+echo "================================================================"
+# cp %{_specdir}/xinput_fcitx %{_sourcedir}
+
+cat > %{_sourcedir}/xinput_fcitx <<EOF
+XIM=fcitx
+XIM_PROGRAM=/usr/bin/fcitx
+ICON="/usr/share/pixmaps/fcitx.png"
+XIM_ARGS="-D"
+PREFERENCE_PROGRAM=/usr/bin/fcitx-configtool
+SHORT_DESC="FCITX"
+GTK_IM_MODULE=fcitx
+if test -f /usr/lib/qt4/plugins/inputmethods/qtim-fcitx.so || \
+   test -f /usr/lib64/qt4/plugins/inputmethods/qtim-fcitx.so || \
+   test -f /usr/lib/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so || \
+   test -f /usr/lib64/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so;
+then
+    QT_IM_MODULE=fcitx
+else
+    QT_IM_MODULE=xim
+fi
+EOF
+
 %setup -q
 
 %build
@@ -165,6 +186,7 @@ make VERBOSE=1 %{?_smp_mflags}
 find %{buildroot}%{_libdir} -name '*.la' -delete -print
 
 #install -pm 644 -D %{Source1} %{buildroot}%{_xinputconf}
+install -pm 644 -D %{_sourcedir}/xinput_fcitx %{buildroot}%{_xinputconf}
 
 # patch fcitx4-config to use pkg-config to solve libdir to avoid multiarch
 # confilict
