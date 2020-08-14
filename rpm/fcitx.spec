@@ -141,6 +141,9 @@ Requires:		%{name}-pinyin = %{version}-%{release}
 %description table
 This package contains table engine for Fcitx.
 
+if 0%{?el8}
+    echo "++++++++++++++______________+++++++++++++++================="
+%endif
 
 %prep
 echo "================================================================"
@@ -170,13 +173,7 @@ EOF
 %build
 mkdir -p build
 pushd build
-%cmake .. -DENABLE_GTK3_IM_MODULE=On -DENABLE_QT_IM_MODULE=On -DENABLE_OPENCC=Off -DENABLE_LUA=On -DENABLE_GIR=On  -DENABLE_XDGAUTOSTART=On \
-%if 0%{?el8}
-          -DENABLE_QT=Off \
-%ifarch aarch64 s390x
-          -DENABLE_ENCHANT=Off
-%endif
-%endif
+%cmake .. -DENABLE_GTK3_IM_MODULE=On -DENABLE_QT_IM_MODULE=On -DENABLE_QT=Off -DENABLE_OPENCC=Off -DENABLE_ENCHANT=Off -DENABLE_LUA=On -DENABLE_GIR=On  -DENABLE_XDGAUTOSTART=On 
 
 make VERBOSE=1 %{?_smp_mflags}
 
