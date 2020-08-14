@@ -9,7 +9,7 @@ Release:		1%{?dist}
 License:		GPLv2+
 URL:			https://fcitx-im.org/wiki/Fcitx
 Source0:		%{name}_%{version}_dict.tar.xz
-Source1:		xinput_%{name}
+#Source1:		xinput_%{name}
 BuildRequires:		gcc-c++
 BuildRequires:		pango-devel, dbus-devel
 %if 0%{?rhel} < 8
