@@ -141,7 +141,7 @@ Requires:		%{name}-pinyin = %{version}-%{release}
 %description table
 This package contains table engine for Fcitx.
 
-if 0%{?el8}
+%if 0%{?el8}
     echo "++++++++++++++______________+++++++++++++++================="
 %endif
 
