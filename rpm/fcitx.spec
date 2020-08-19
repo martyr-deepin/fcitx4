@@ -141,12 +141,7 @@ Requires:		%{name}-pinyin = %{version}-%{release}
 %description table
 This package contains table engine for Fcitx.
 
-%if 0%{?el8}
-    echo "++++++++++++++______________+++++++++++++++================="
-%endif
-
 %prep
-echo "================================================================"
 # cp %{_specdir}/xinput_fcitx %{_sourcedir}
 
 cat > %{_sourcedir}/xinput_fcitx <<EOF
