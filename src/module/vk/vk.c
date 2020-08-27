@@ -24,6 +24,8 @@
 #include <cairo.h>
 #include <libintl.h>
 #include <cairo-xlib.h>
+#include <dbus/dbus.h>
+#include "module/dbus/fcitx-dbus.h"
 
 #include "fcitx/fcitx.h"
 #include "fcitx/module.h"
@@ -90,10 +92,14 @@ typedef struct _FcitxVKState {
     boolean         bVK;
     FcitxUIMenu     vkmenu;
     FcitxInstance* owner;
+
+    DBusConnection* conn;
 } FcitxVKState;
 
 const char            vkTable[VK_NUMBERS + 1] = "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./";
 const char            strCharTable[] = "`~1!2@3#4$5%6^7&8*9(0)-_=+[{]}\\|;:'\",<.>/?";    //用于转换上/下档键
+
+DBusHandlerResult VKStateDBusFilter(DBusConnection* connection, DBusMessage* msg, void* user_data);
 
 static boolean VKWindowEventHandler(void* arg, XEvent* event);
 static void
@@ -184,6 +190,28 @@ void *VKCreate(FcitxInstance* instance)
     vkstate->vkmenu.isSubMenu = false;
 
     FcitxUIRegisterMenu(instance, &vkstate->vkmenu);
+
+    /* 锁屏状态下不显示虚拟键盘 by UT000591 for BugID 44159 */
+    vkstate->conn = FcitxDBusGetConnection(instance);
+    do {
+        if (NULL != vkstate->conn){
+            DBusError err;
+            dbus_error_init(&err);
+
+            dbus_bus_add_match(vkstate->conn, "type='signal',sender='com.deepin.dde.lockFront',interface='com.deepin.dde.lockFront'", &err);
+            dbus_connection_flush(vkstate->conn);
+            if (dbus_error_is_set(&err)) {
+                FcitxLog(ERROR, "Match Error (%s)", err.message);
+                break;
+            }
+            
+            if (!dbus_connection_add_filter(vkstate->conn, VKStateDBusFilter, vkstate, NULL)) {
+                FcitxLog(ERROR, "No memory");
+                break;
+            }
+            dbus_error_free(&err);
+        }
+    }while(FALSE);
 
     return vkstate;
 }
@@ -800,5 +828,24 @@ void ReloadVK(void* arg)
     LoadVKMapFile(vkstate);
 }
 
+/* 锁屏状态下不显示虚拟键盘 by UT000591 for TaskID 44159 */
+DBusHandlerResult VKStateDBusFilter(DBusConnection* connection, DBusMessage* msg, void* user_data)
+{
+    FCITX_UNUSED(connection);
+    FcitxVKState* vkstate = (FcitxVKState*) user_data;
+    boolean locked = false;
+    if (dbus_message_is_signal(msg, "com.deepin.dde.lockFront", "Visible")) {
+        DBusError error;
+        dbus_error_init(&error);
+        dbus_message_get_args(msg, &error, DBUS_TYPE_BOOLEAN, &locked , DBUS_TYPE_INVALID);
+        dbus_error_free(&error);
+
+        if (locked && GetVKState(vkstate)) {
+            ToggleVKState(vkstate);
+        }
+        return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+    }
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+}
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

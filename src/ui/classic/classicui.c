@@ -662,7 +662,7 @@ DBusHandlerResult ClassicuiDBusFilter(DBusConnection* connection, DBusMessage* m
         dbus_error_free(&error);
 
         classicui->mainWindow->isScreenLocked = locked;
-        return DBUS_HANDLER_RESULT_HANDLED;
+        return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }

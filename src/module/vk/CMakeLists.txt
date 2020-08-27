@@ -1,3 +1,6 @@
+include_directories(${DBUS_INCLUDE_DIRS})
+link_directories(${DBUS_LIBRARY_DIRS})
+
 set(FCITX_VK_LINK_LIBS)
 if(_ENABLE_CAIRO)
   include_directories(${CAIRO_XLIB_INCLUDE_DIRS})
