@@ -828,7 +828,7 @@ void ReloadVK(void* arg)
     LoadVKMapFile(vkstate);
 }
 
-/* 锁屏状态下不显示虚拟键盘 by UT000591 for TaskID 44159 */
+/* 锁屏状态下不显示虚拟键盘 by UT000591 for BugID 44159 */
 DBusHandlerResult VKStateDBusFilter(DBusConnection* connection, DBusMessage* msg, void* user_data)
 {
     FCITX_UNUSED(connection);
