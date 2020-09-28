@@ -215,6 +215,17 @@ void FcitxDBusMenuDoEvent(void* arg)
                         fcitx_utils_start_process(args);
                     }
                     break;
+                case 4:
+                    {
+                        FcitxIM* im = FcitxInstanceGetCurrentIM(instance);
+                        if (im && im->owner) {
+                            fcitx_utils_launch_configure_tool_for_addon(im->uniqueName);
+                        }
+                        else {
+                            fcitx_utils_launch_configure_tool();
+                        }
+                    }
+                    break;
                 case 5:
                     fcitx_utils_launch_configure_tool();
                     break;
