@@ -1,0 +1,56 @@
+From 1036fdf79c8f9dfc0b1abc768d77a519d5d604e4 Mon Sep 17 00:00:00 2001
+From: niqiang <niqiang@uniontech.com>
+Date: Wed, 20 May 2020 17:38:29 +0800
+Subject: [PATCH 20/29] =?UTF-8?q?=E4=BF=AE=E6=94=B9=E5=8F=B3=E9=94=AE?=
+ =?UTF-8?q?=E8=BE=93=E5=85=A5=E6=B3=95=E5=9B=BE=E6=A0=87=E6=97=B6=EF=BC=8C?=
+ =?UTF-8?q?=E8=BE=93=E5=85=A5=E6=B3=95=E5=9B=BE=E6=A0=87=E5=8F=98=E5=9B=9E?=
+ =?UTF-8?q?=E9=94=AE=E7=9B=98=E5=9B=BE=E6=A0=87=E3=80=82=E5=90=8C=E6=97=B6?=
+ =?UTF-8?q?=E7=AE=80=E4=BD=93=E7=B9=81=E4=BD=93=E5=88=87=E6=8D=A2=E4=B8=8D?=
+ =?UTF-8?q?=E7=94=9F=E6=95=88?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ ...n-fcitx-menu-right-click-icon-change.patch | 19 +++++++++++++++++++
+ debian/patches/series                         |  1 +
+ 2 files changed, 20 insertions(+)
+ create mode 100644 debian/patches/deepin-fcitx-menu-right-click-icon-change.patch
+
+diff --git a/debian/patches/deepin-fcitx-menu-right-click-icon-change.patch b/debian/patches/deepin-fcitx-menu-right-click-icon-change.patch
+new file mode 100644
+index 0000000..1172a94
+--- /dev/null
++++ b/debian/patches/deepin-fcitx-menu-right-click-icon-change.patch
+@@ -0,0 +1,19 @@
++Descripts: Fix the bug that when right click the fcitx icon the icon will change to keyboard icon and Traditional/Simplified change not work
++Bug: https://pms.uniontech.com/zentao/task-view-21566.html
++Author: niqiang
++Reviewed-By: huxiaodong
++Last-Update: 2020-05-20
++
++Index: fcitx-4.2.9.16/data/config.desc
++===================================================================
++--- fcitx-4.2.9.16.orig/data/config.desc
+++++ fcitx-4.2.9.16/data/config.desc
++@@ -164,7 +164,7 @@ Advance=True
++ 
++ [Program/ShareStateAmongWindow]
++ Type=Enum
++-DefaultValue=No
+++DefaultValue=All
++ EnumCount=3
++ Enum0=No
++ Enum1=All
+diff --git a/debian/patches/series b/debian/patches/series
+index 85723ab..a30228a 100644
+--- a/debian/patches/series
++++ b/debian/patches/series
+@@ -10,3 +10,4 @@
+ translate-fcitx-to-chinese.patch
+ deepin-active-input-method-default.patch
+ deepin-remove-configure-current-input-method.patch
++deepin-fcitx-menu-right-click-icon-change.patch
+-- 
+2.20.1
+

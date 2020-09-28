@@ -1,0 +1,67 @@
+From 0d4b30c147b4cd807819aef78a1458b5500ec2a0 Mon Sep 17 00:00:00 2001
+From: caihouhui <caihouhui@uniontech.com>
+Date: Fri, 24 Apr 2020 14:38:18 +0800
+Subject: [PATCH 09/29] =?UTF-8?q?=20=E8=A7=A3=E5=86=B3=E7=B3=BB=E7=BB=9F?=
+ =?UTF-8?q?=E8=BE=93=E5=85=A5=E6=B3=95=E9=80=80=E5=87=BA=E5=90=8E=EF=BC=8C?=
+ =?UTF-8?q?=E8=BE=93=E5=85=A5=E6=B3=95=E9=85=8D=E7=BD=AE=E5=86=85=E6=B2=A1?=
+ =?UTF-8?q?=E6=9C=89=E8=BE=93=E5=85=A5=E6=B3=95=E7=9A=84=E9=97=AE=E9=A2=98?=
+ =?UTF-8?q?;=E5=B9=B6=E4=B8=94=E4=B8=8D=E4=BD=BF=E7=94=A8=E6=98=BE?=
+ =?UTF-8?q?=E7=A4=BA=E2=80=98=E8=BE=93=E5=85=A5=E6=B3=95=E2=80=99=E5=9B=BE?=
+ =?UTF-8?q?=E6=A0=87=E7=9A=84=E6=96=B9=E5=BC=8F=E6=9D=A5=E8=A7=A3=E5=86=B3?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ bin/fcitx-ini                    | 4 ++++
+ data/fcitx-configtool.desktop.in | 2 +-
+ data/fcitx.desktop.in            | 2 +-
+ debian/fcitx-data.install        | 1 +
+ 4 files changed, 7 insertions(+), 2 deletions(-)
+ create mode 100755 bin/fcitx-ini
+
+diff --git a/bin/fcitx-ini b/bin/fcitx-ini
+new file mode 100755
+index 0000000..36bea1a
+--- /dev/null
++++ b/bin/fcitx-ini
+@@ -0,0 +1,4 @@
++#!/bin/bash
++fcitx
++fcitx-configtool
++
+diff --git a/data/fcitx-configtool.desktop.in b/data/fcitx-configtool.desktop.in
+index 4eb57a3..1d34d88 100644
+--- a/data/fcitx-configtool.desktop.in
++++ b/data/fcitx-configtool.desktop.in
+@@ -2,7 +2,7 @@
+ _Name=Fcitx Configuration
+ _GenericName=Input Method Configuration
+ _Comment=Change Fcitx Configuration
+-Exec=fcitx-configtool
++Exec=/bin/fcitx-ini
+ Icon=fcitx
+ Type=Application
+ Categories=Settings;
+diff --git a/data/fcitx.desktop.in b/data/fcitx.desktop.in
+index ee9a5e3..6bc3932 100644
+--- a/data/fcitx.desktop.in
++++ b/data/fcitx.desktop.in
+@@ -12,4 +12,4 @@ X-GNOME-AutoRestart=false
+ X-GNOME-Autostart-Notify=false
+ X-KDE-autostart-after=panel
+ X-KDE-StartupNotify=false
+-NoDisplay=false
++NoDisplay=true
+diff --git a/debian/fcitx-data.install b/debian/fcitx-data.install
+index 189ce4f..6993edb 100644
+--- a/debian/fcitx-data.install
++++ b/debian/fcitx-data.install
+@@ -9,3 +9,4 @@ usr/share/fcitx/imicon/*
+ usr/share/icons/*
+ usr/share/locale/*
+ usr/share/mime/packages/*
++bin/fcitx-ini
+-- 
+2.20.1
+

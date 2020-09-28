@@ -1,0 +1,35 @@
+From 471e64266a293f991dd5d2be7ded40bc8bf45e1c Mon Sep 17 00:00:00 2001
+From: xiao zhiguo <xiaozhiguo@uniontech.com>
+Date: Thu, 27 Aug 2020 09:16:07 +0800
+Subject: [PATCH 15/29] =?UTF-8?q?Fix:=20=E4=BF=AE=E5=A4=8D=E8=99=9A?=
+ =?UTF-8?q?=E6=8B=9F=E9=94=AE=E7=9B=98=E5=9C=A8=E7=99=BB=E5=BD=95=E7=95=8C?=
+ =?UTF-8?q?=E9=9D=A2=E4=B8=8D=E9=9A=90=E8=97=8F=E9=97=AE=E9=A2=98=E3=80=82?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Description: 根据com.deepin.dde.lockFront的Visible信号判断当前是否锁屏状态，从而隐藏虚拟键盘。
+
+Log: 修复虚拟键盘在登录界面不隐藏问题。
+
+link: https://pms.uniontech.com/zentao/bug-view-44159.html
+---
+ src/module/vk/vk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/module/vk/vk.c b/src/module/vk/vk.c
+index 441f252..18a8791 100644
+--- a/src/module/vk/vk.c
++++ b/src/module/vk/vk.c
+@@ -828,7 +828,7 @@ void ReloadVK(void* arg)
+     LoadVKMapFile(vkstate);
+ }
+ 
+-/* 锁屏状态下不显示虚拟键盘 by UT000591 for TaskID 44159 */
++/* 锁屏状态下不显示虚拟键盘 by UT000591 for BugID 44159 */
+ DBusHandlerResult VKStateDBusFilter(DBusConnection* connection, DBusMessage* msg, void* user_data)
+ {
+     FCITX_UNUSED(connection);
+-- 
+2.20.1
+

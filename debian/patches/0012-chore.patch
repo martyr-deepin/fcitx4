@@ -1,0 +1,151 @@
+From 8ace212f67944c169be96a9b28330e67ba849a77 Mon Sep 17 00:00:00 2001
+From: xiao zhiguo <xiaozhiguo@uniontech.com>
+Date: Mon, 29 Jun 2020 17:31:49 +0800
+Subject: [PATCH 12/29] =?UTF-8?q?chore:=20=E5=88=A0=E9=99=A4=E8=BE=93?=
+ =?UTF-8?q?=E5=85=A5=E6=B3=95=E6=89=98=E7=9B=98=E5=8F=B3=E9=94=AE=E8=8F=9C?=
+ =?UTF-8?q?=E5=8D=95=E4=B8=AD"=E9=85=8D=E7=BD=AE=E5=BD=93=E5=89=8D?=
+ =?UTF-8?q?=E8=BE=93=E5=85=A5=E6=B3=95"=E8=8F=9C=E5=8D=95=E9=A1=B9?=
+ =?UTF-8?q?=E3=80=82?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Description: 删除输入法托盘右键菜单中"配置当前输入法"菜单项。
+
+Log: 删除输入法托盘右键菜单中"配置当前输入法"菜单项。
+
+link:
+---
+ src/module/notificationitem/dbusmenu.c | 18 +-----------------
+ src/ui/classic/classicui.c             |  9 ---------
+ src/ui/kimpanel/kimpanel.c             | 25 ++++++-------------------
+ 3 files changed, 7 insertions(+), 45 deletions(-)
+
+diff --git a/src/module/notificationitem/dbusmenu.c b/src/module/notificationitem/dbusmenu.c
+index df77734..73eb542 100644
+--- a/src/module/notificationitem/dbusmenu.c
++++ b/src/module/notificationitem/dbusmenu.c
+@@ -215,17 +215,6 @@ void FcitxDBusMenuDoEvent(void* arg)
+                         fcitx_utils_start_process(args);
+                     }
+                     break;
+-                case 4:
+-                    {
+-                        FcitxIM* im = FcitxInstanceGetCurrentIM(instance);
+-                        if (im && im->owner) {
+-                            fcitx_utils_launch_configure_tool_for_addon(im->uniqueName);
+-                        }
+-                        else {
+-                            fcitx_utils_launch_configure_tool();
+-                        }
+-                    }
+-                    break;
+                 case 5:
+                     fcitx_utils_launch_configure_tool();
+                     break;
+@@ -348,10 +337,6 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem* notificationitem, int32_t
+                     value = "separator";
+                     FcitxDBusMenuAppendProperty(&sub, properties, "type", DBUS_TYPE_STRING, &value);
+                     break;
+-                case 4:
+-                    value = _("Configure Current Input Method");
+-                    FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
+-                    break;
+                 case 5:
+                     value = _("Configure");
+                     FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
+@@ -464,7 +449,7 @@ void FcitxDBusMenuFillLayooutItem(FcitxNotificationItem* notificationitem, int32
+      *            -> separator (0,8)
+      *            -> registered menu (x,0) -> (x,1) , (x,2), (x,3)
+      *            -> separator (0,3)
+-     *            -> configure current (0,4)
++     *            -> configure current (0,4)  # removed
+      *            -> configure (0,5)
+      *            -> restart (0,6)
+      *            -> exit (0,7)
+@@ -540,7 +525,6 @@ void FcitxDBusMenuFillLayooutItem(FcitxNotificationItem* notificationitem, int32
+                     }
+                     FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,3), depth - 1, properties, &array);
+                 }
+-                FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,4), depth - 1, properties, &array);
+                 FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,5), depth - 1, properties, &array);
+                 FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,6), depth - 1, properties, &array);
+                 FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,7), depth - 1, properties, &array);
+diff --git a/src/ui/classic/classicui.c b/src/ui/classic/classicui.c
+index 0e3a7ba..6384bdb 100644
+--- a/src/ui/classic/classicui.c
++++ b/src/ui/classic/classicui.c
+@@ -498,7 +498,6 @@ static void UpdateMainMenu(FcitxUIMenu* menu)
+         FcitxMenuAddMenuItem(menu, menup->name, MENUTYPE_SUBMENU, menup);
+     }
+     FcitxMenuAddMenuItem(menu, NULL, MENUTYPE_DIVLINE, NULL);
+-    FcitxMenuAddMenuItem(menu, _("Configure Current Input Method"), MENUTYPE_SIMPLE, NULL);
+     FcitxMenuAddMenuItem(menu, _("Configure"), MENUTYPE_SIMPLE, NULL);
+     FcitxMenuAddMenuItem(menu, _("Restart"), MENUTYPE_SIMPLE, NULL);
+     FcitxMenuAddMenuItem(menu, _("Exit"), MENUTYPE_SIMPLE, NULL);
+@@ -522,14 +521,6 @@ boolean MainMenuAction(FcitxUIMenu* menu, int index)
+         FcitxInstanceRestart(instance);
+     } else if (index == length - 3) { /* Configuration */
+         fcitx_utils_launch_configure_tool();
+-    } else if (index == length - 4) { /* Configuration */
+-        FcitxIM* im = FcitxInstanceGetCurrentIM(classicui->owner);
+-        if (im && im->owner) {
+-            fcitx_utils_launch_configure_tool_for_addon(im->uniqueName);
+-        }
+-        else {
+-            fcitx_utils_launch_configure_tool();
+-        }
+     } else {
+         FcitxMenuItem* item = (FcitxMenuItem*) utarray_eltptr(&menu->shell, index);
+         if (item && item->type == MENUTYPE_SIMPLE && item->data) {
+diff --git a/src/ui/kimpanel/kimpanel.c b/src/ui/kimpanel/kimpanel.c
+index 7a97f38..c1a30c2 100644
+--- a/src/ui/kimpanel/kimpanel.c
++++ b/src/ui/kimpanel/kimpanel.c
+@@ -778,37 +778,24 @@ DBusHandlerResult KimpanelDBusFilter(DBusConnection* connection, DBusMessage* ms
+             if (strlen(s0) > strlen("/Fcitx/")) {
+                 s0 += strlen("/Fcitx/");
+                 if (strcmp("logo", s0) == 0) {
+-                    char *prop[3];
++                    char *prop[2];
+                     char *trans_str = _("Toggle Input Method");
+                     fcitx_utils_alloc_cat_str(prop[0], "/Fcitx/logo/toggle:",
+                                               trans_str, "::", trans_str);
+-                    trans_str = _("Configure Current Input Method");
+-                    fcitx_utils_alloc_cat_str(prop[1],
+-                                              "/Fcitx/logo/configureim:",
+-                                              trans_str, ":configure:",
+-                                              trans_str);
+                     trans_str = _("Restart");
+-                    fcitx_utils_alloc_cat_str(prop[2], "/Fcitx/logo/restart:",
++                    fcitx_utils_alloc_cat_str(prop[1], "/Fcitx/logo/restart:",
+                                               trans_str, ":view-refresh:",
+                                               trans_str);
+-                    KimExecMenu(kimpanel, prop, 3);
++                    KimExecMenu(kimpanel, prop, 2);
+                     int i;
+-                    for (i = 0;i < 3;i++) {
++                    for (i = 0;i < 2;i++) {
+                         free(prop[i]);
+                     }
+                 } else if (strncmp("logo/", s0, strlen("logo/")) == 0) {
+                     s0 += strlen("logo/");
+-                    if (strcmp(s0, "toggle") == 0)
++                    if (strcmp(s0, "toggle") == 0) {
+                         FcitxInstanceChangeIMState(instance, FcitxInstanceGetCurrentIC(instance));
+-                    else if (strcmp(s0, "configureim") == 0) {
+-                        FcitxIM* im = FcitxInstanceGetCurrentIM(kimpanel->owner);
+-                        if (im && im->owner) {
+-                            fcitx_utils_launch_configure_tool_for_addon(im->uniqueName);
+-                        }
+-                        else
+-                            fcitx_utils_launch_configure_tool();
+-                    }
+-                    else if (strcmp(s0, "restart") == 0) {
++                    } else if (strcmp(s0, "restart") == 0) {
+                         FcitxInstanceRestart(instance);
+                     }
+                 } else if (strcmp("keyboard", s0) == 0) {
+-- 
+2.20.1
+

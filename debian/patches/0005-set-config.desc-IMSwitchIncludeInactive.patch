@@ -1,0 +1,44 @@
+From bc6f761308433d9f86e38fc65d9d3dbc86c873fa Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E8=B5=96=E6=B4=AA=E5=9C=A3?= <laihongsheng@deepin.com>
+Date: Fri, 20 Mar 2020 17:57:50 +0800
+Subject: [PATCH 05/29] set config.desc IMSwitchIncludeInactive
+
+---
+ data/config.desc      | 4 ++--
+ debian/patches/series | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/data/config.desc b/data/config.desc
+index 71d7f45..8bccacb 100644
+--- a/data/config.desc
++++ b/data/config.desc
+@@ -59,12 +59,12 @@ Advance=True
+ 
+ [Hotkey/IMSwitchKey]
+ Type=Boolean
+-DefaultValue=True
++DefaultValue=False
+ Description=Enable Hotkey to scroll Between Input Method
+ 
+ [Hotkey/IMSwitchIncludeInactive]
+ Type=Boolean
+-DefaultValue=False
++DefaultValue=True
+ Description=Include Inactivate when scrolling between Input Method
+ Advance=True
+ 
+diff --git a/debian/patches/series b/debian/patches/series
+index 3c976a1..f3026cb 100644
+--- a/debian/patches/series
++++ b/debian/patches/series
+@@ -5,6 +5,6 @@
+ 0006-misc-fix-fall-through-warning.patch
+ 0007-xkb-use-iso-codes-json-file-to-parse-the-iso-codes-d.patch
+ 0008-keyboard-iso-code-root-should-be-639-3.patch
+-0009-Fix-input-config.patch
++#0009-Fix-input-config.patch
+ nodisplay.patch
+ translate-fcitx-to-chinese.patch
+-- 
+2.20.1
+
