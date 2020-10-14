@@ -1,0 +1,191 @@
+From 1e3a0eac0dbe3f9d88248a70350ec5e2f285a543 Mon Sep 17 00:00:00 2001
+From: denglinglong <denglinglong@uniontech.com>
+Date: Mon, 28 Sep 2020 09:43:06 +0800
+Subject: [PATCH 26/29] fix: delete debin*.patch  delete Log: deltet
+
+---
+ .../deepin-active-input-method-default.patch  | 20 ---------
+ .../deepin-fcitx-fontsize-max-nolimit.patch   | 38 ----------------
+ ...deepin-fcitx-icon-change-to-keyboard.patch | 20 ---------
+ ...n-fcitx-menu-right-click-icon-change.patch | 19 --------
+ ...emove-configure-current-input-method.patch | 43 -------------------
+ 5 files changed, 140 deletions(-)
+ delete mode 100644 debian/patches/deepin-active-input-method-default.patch
+ delete mode 100644 debian/patches/deepin-fcitx-fontsize-max-nolimit.patch
+ delete mode 100644 debian/patches/deepin-fcitx-icon-change-to-keyboard.patch
+ delete mode 100644 debian/patches/deepin-fcitx-menu-right-click-icon-change.patch
+ delete mode 100644 debian/patches/deepin-remove-configure-current-input-method.patch
+
+diff --git a/debian/patches/deepin-active-input-method-default.patch b/debian/patches/deepin-active-input-method-default.patch
+deleted file mode 100644
+index a5e94e1..0000000
+--- a/debian/patches/deepin-active-input-method-default.patch
++++ /dev/null
+@@ -1,20 +0,0 @@
+-Subject: Active input method as default
+-Author: yanbowen <yanbowen@uniontech.com>
+-
+----
+- data/config.desc | 2 +-
+- 1 file changed, 1 insertion(+), 1 deletion(-)
+-
+-diff --git a/data/config.desc b/data/config.desc
+-index 03b04e9..7befa9f 100644
+---- a/data/config.desc
+-+++ b/data/config.desc
+-@@ -173,7 +173,7 @@ Description=Share State Among Window
+- 
+- [Program/DefaultInputMethodState]
+- Type=Enum
+--DefaultValue=Inactive
+-+DefaultValue=Active
+- EnumCount=2
+- Enum0=Inactive
+- Enum1=Active
+diff --git a/debian/patches/deepin-fcitx-fontsize-max-nolimit.patch b/debian/patches/deepin-fcitx-fontsize-max-nolimit.patch
+deleted file mode 100644
+index 159e37e..0000000
+--- a/debian/patches/deepin-fcitx-fontsize-max-nolimit.patch
++++ /dev/null
+@@ -1,38 +0,0 @@
+-Description: 设置中对字体最大值进行了限制，最大允许设在为30
+-Bug:	     https://pms.uniontech.com/zentao/task-view-21390.html
+-Author:	     niqiang
+-Reviewed-By: huxiaodong
+-Last-Update: 2020-06-01
+-
+-Index: fcitx-4.2.9.19/src/lib/fcitx-config/fcitx-config.c
+-===================================================================
+---- fcitx-4.2.9.19.orig/src/lib/fcitx-config/fcitx-config.c
+-+++ fcitx-4.2.9.19/src/lib/fcitx-config/fcitx-config.c
+-@@ -432,9 +432,12 @@ FcitxConfigSyncResult FcitxConfigOptionI
+- 
+-     case Raw2Value: {
+-         int value = atoi(option->rawValue);
+--        if (value > option->optionDesc2->constrain.integerConstrain.max || value < option->optionDesc2->constrain.integerConstrain.min)
+--            return SyncInvalid;
+--        *option->value.integer = value;
+-+	if (value > option->optionDesc2->constrain.integerConstrain.max)
+-+	    *option->value.integer = option->optionDesc2->constrain.integerConstrain.max;
+-+	else if (value < option->optionDesc2->constrain.integerConstrain.min)
+-+	    *option->value.integer = option->optionDesc2->constrain.integerConstrain.min;
+-+	else
+-+            *option->value.integer = value;
+-         return SyncSuccess;
+-     }
+- 
+-Index: fcitx-4.2.9.19/src/ui/classic/fcitx-classic-ui.desc
+-===================================================================
+---- fcitx-4.2.9.19.orig/src/ui/classic/fcitx-classic-ui.desc
+-+++ fcitx-4.2.9.19/src/ui/classic/fcitx-classic-ui.desc
+-@@ -15,6 +15,7 @@ Type=Integer
+- DefaultValue=0
+- Description=Font Size
+- Min=0
+-+Max=30
+- LongDescription=Override the skin font size
+- 
+- [ClassicUI/Font]
+diff --git a/debian/patches/deepin-fcitx-icon-change-to-keyboard.patch b/debian/patches/deepin-fcitx-icon-change-to-keyboard.patch
+deleted file mode 100644
+index 4f7a8f8..0000000
+--- a/debian/patches/deepin-fcitx-icon-change-to-keyboard.patch
++++ /dev/null
+@@ -1,20 +0,0 @@
+-Description: 修复鼠标移到任务栏输入法图标上时，图标样式改变问题。本身该问题与fcitx无关，系统改变了输入框的焦点状态，为了解决问题屏蔽了丢失焦点后的hook处理。
+-Bug:	     https://pms.uniontech.com/zentao/task-view-22252.html
+-Author:	     niqiang
+-Reviewed-By: huxiaodong
+-Last-Update: 2020-05-20
+-
+-Index: fcitx-4.2.9.19/src/module/notificationitem/notificationitem.c
+-===================================================================
+---- fcitx-4.2.9.19.orig/src/module/notificationitem/notificationitem.c
+-+++ fcitx-4.2.9.19/src/module/notificationitem/notificationitem.c
+-@@ -236,7 +236,9 @@ void* FcitxNotificationItemCreate(FcitxI
+-         hk.func = FcitxNotificationItemIMChanged;
+-         FcitxInstanceRegisterIMChangedHook(instance, hk);
+-         FcitxInstanceRegisterInputFocusHook(instance, hk);
+-+#if 0
+-         FcitxInstanceRegisterInputUnFocusHook(instance, hk);
+-+#endif
+- 
+-         hk.func = FcitxNotificationItemUpdateIMList;
+-         FcitxInstanceRegisterUpdateIMListHook(instance, hk);
+diff --git a/debian/patches/deepin-fcitx-menu-right-click-icon-change.patch b/debian/patches/deepin-fcitx-menu-right-click-icon-change.patch
+deleted file mode 100644
+index 1172a94..0000000
+--- a/debian/patches/deepin-fcitx-menu-right-click-icon-change.patch
++++ /dev/null
+@@ -1,19 +0,0 @@
+-Descripts: Fix the bug that when right click the fcitx icon the icon will change to keyboard icon and Traditional/Simplified change not work
+-Bug: https://pms.uniontech.com/zentao/task-view-21566.html
+-Author: niqiang
+-Reviewed-By: huxiaodong
+-Last-Update: 2020-05-20
+-
+-Index: fcitx-4.2.9.16/data/config.desc
+-===================================================================
+---- fcitx-4.2.9.16.orig/data/config.desc
+-+++ fcitx-4.2.9.16/data/config.desc
+-@@ -164,7 +164,7 @@ Advance=True
+- 
+- [Program/ShareStateAmongWindow]
+- Type=Enum
+--DefaultValue=No
+-+DefaultValue=All
+- EnumCount=3
+- Enum0=No
+- Enum1=All
+diff --git a/debian/patches/deepin-remove-configure-current-input-method.patch b/debian/patches/deepin-remove-configure-current-input-method.patch
+deleted file mode 100644
+index 1d483aa..0000000
+--- a/debian/patches/deepin-remove-configure-current-input-method.patch
++++ /dev/null
+@@ -1,43 +0,0 @@
+-Index: fcitx-4.2.9.16/src/module/notificationitem/dbusmenu.c
+-===================================================================
+---- fcitx-4.2.9.16.orig/src/module/notificationitem/dbusmenu.c
+-+++ fcitx-4.2.9.16/src/module/notificationitem/dbusmenu.c
+-@@ -215,6 +215,7 @@ void FcitxDBusMenuDoEvent(void* arg)
+-                         fcitx_utils_start_process(args);
+-                     }
+-                     break;
+-+#if 0
+-                 case 4:
+-                     {
+-                         FcitxIM* im = FcitxInstanceGetCurrentIM(instance);
+-@@ -226,6 +227,7 @@ void FcitxDBusMenuDoEvent(void* arg)
+-                         }
+-                     }
+-                     break;
+-+#endif
+-                 case 5:
+-                     fcitx_utils_launch_configure_tool();
+-                     break;
+-@@ -348,10 +350,12 @@ void FcitxDBusMenuFillProperty(FcitxNoti
+-                     value = "separator";
+-                     FcitxDBusMenuAppendProperty(&sub, properties, "type", DBUS_TYPE_STRING, &value);
+-                     break;
+-+#if 0
+-                 case 4:
+-                     value = _("Configure Current Input Method");
+-                     FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
+-                     break;
+-+#endif
+-                 case 5:
+-                     value = _("Configure");
+-                     FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
+-@@ -540,7 +544,9 @@ void FcitxDBusMenuFillLayooutItem(FcitxN
+-                     }
+-                     FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,3), depth - 1, properties, &array);
+-                 }
+-+#if 0
+-                 FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,4), depth - 1, properties, &array);
+-+#endif
+-                 FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,5), depth - 1, properties, &array);
+-                 FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,6), depth - 1, properties, &array);
+-                 FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,7), depth - 1, properties, &array);
+-- 
+2.20.1
+

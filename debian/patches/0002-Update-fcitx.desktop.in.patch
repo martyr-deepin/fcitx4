@@ -1,0 +1,21 @@
+From c9c8a77fc53d0906606249bee8ad214fc3fb6fce Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E8=B5=96=E6=B4=AA=E5=9C=A3?= <laihongsheng@deepin.com>
+Date: Thu, 26 Dec 2019 21:02:31 +0800
+Subject: [PATCH 02/29] Update fcitx.desktop.in
+
+---
+ data/fcitx.desktop.in | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/data/fcitx.desktop.in b/data/fcitx.desktop.in
+index 97b042d..6bc3932 100644
+--- a/data/fcitx.desktop.in
++++ b/data/fcitx.desktop.in
+@@ -12,3 +12,4 @@ X-GNOME-AutoRestart=false
+ X-GNOME-Autostart-Notify=false
+ X-KDE-autostart-after=panel
+ X-KDE-StartupNotify=false
++NoDisplay=true
+-- 
+2.20.1
+

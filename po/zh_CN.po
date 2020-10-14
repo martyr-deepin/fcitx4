@@ -179,7 +179,7 @@ msgstr "选择候选词时输入额外空格"
 
 #: src/module/lua/fcitx-lua.conf.in:4
 msgid "Add Lua script support to Fcitx"
-msgstr "为 Fcitx 增加 Lua 支持"
+msgstr "为 输入法 增加 Lua 支持"
 
 #: src/im/table/fcitx-table.desc:4
 msgid "Add Phrase"
@@ -560,7 +560,7 @@ msgstr "中部靠右"
 
 #: data/fcitx-configtool.desktop.in:4
 msgid "Change Fcitx Configuration"
-msgstr "修改 Fcitx 配置"
+msgstr "修改 输入法 配置"
 
 #: src/im/table/table.desc:136
 msgid "Choose"
@@ -966,7 +966,7 @@ msgstr "输入法启用状态"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
 msgid "Enchance pinyin input in Fcitx"
-msgstr "增强 Fcitx 的拼音输入"
+msgstr "增强 输入法 的拼音输入"
 
 #: src/im/table/table.desc:69
 msgid "End Key"
@@ -1078,67 +1078,67 @@ msgstr "备选界面附加组件"
 #: src/ui/kimpanel/kimpanel.c:398 data/fcitx-autostart.desktop.in:2
 #: data/fcitx.desktop.in:2
 msgid "Fcitx"
-msgstr "Fcitx"
+msgstr "输入法"
 
 #: data/script/fcitx-diagnose.sh:1437
 msgid "Fcitx Addons:"
-msgstr "Fcitx 插件:"
+msgstr "输入法 插件:"
 
 #: src/module/clipboard/fcitx-clipboard.conf.in:4
 msgid "Fcitx Clipboard access"
-msgstr "Fcitx 的剪贴板访问支持"
+msgstr "输入法 的剪贴板访问支持"
 
 #: data/fcitx-configtool.desktop.in:2
 msgid "Fcitx Configuration"
-msgstr "Fcitx 配置"
+msgstr "输入法 配置"
 
 #: data/script/fcitx-diagnose.sh:1027
 msgid "Fcitx Configure UI:"
-msgstr "Fcitx 配置界面:"
+msgstr "输入法 配置界面:"
 
 #: src/frontend/ipc/fcitx-ipc.conf.in:3
 msgid "Fcitx DBus Frontend"
-msgstr "Fcitx DBus 前端"
+msgstr "输入法 DBus 前端"
 
 #: src/frontend/ipcportal/fcitx-ipcportal.conf.in:3
 msgid "Fcitx DBus Frontend (Portal version)"
-msgstr "Fcitx DBus 前端 (Portal 版)"
+msgstr "输入法 DBus 前端 (Portal 版)"
 
 #: src/module/lua/fcitx-lua.conf.in:3
 msgid "Fcitx Lua Support"
-msgstr "Fcitx 的 Lua 支持"
+msgstr "输入法 的 Lua 支持"
 
 #: data/script/fcitx-diagnose.sh:837
 msgid "Fcitx Settings Directory:"
-msgstr "Fcitx 设置目录："
+msgstr "输入法 设置目录："
 
 #: src/ui/classic/fcitx-skin-installer.desktop.in:3
 msgid "Fcitx Skin Installer"
-msgstr "Fcitx 皮肤安装器"
+msgstr "输入法 皮肤安装器"
 
 #: src/module/spell/fcitx-spell.conf.in:4
 msgid "Fcitx Spelling Hint/Completion Support"
-msgstr "Fcitx 的拼写提示/补全支持"
+msgstr "输入法 的拼写提示/补全支持"
 
 #: data/script/fcitx-diagnose.sh:885
 msgid "Fcitx State:"
-msgstr "Fcitx 状态:"
+msgstr "输入法 状态:"
 
 #: src/module/unicode/fcitx-unicode.conf.in:3
 msgid "Fcitx Unicode Typing Support"
-msgstr "Fcitx 的 Unicode 输入支持"
+msgstr "输入法 的 Unicode 输入支持"
 
 #: src/frontend/xim/fcitx-xim.conf.in:3
 msgid "Fcitx XIM Frontend"
-msgstr "Fcitx XIM 前端"
+msgstr "输入法 XIM 前端"
 
 #: data/script/fcitx-diagnose.sh:910
 msgid "Fcitx is not running."
-msgstr "Fcitx 没有在运行."
+msgstr "输入法 没有在运行."
 
 #: data/script/fcitx-diagnose.sh:899
 msgid "Fcitx version: ${1}"
-msgstr "Fcitx 版本: ${1}"
+msgstr "输入法 版本: ${1}"
 
 #: src/ui/classic/skin.desc:159 src/ui/classic/skin.desc:301
 #: src/ui/classic/skin.desc:403
@@ -1599,7 +1599,7 @@ msgstr "输入法"
 
 #: src/ui/classic/fcitx-skin-installer.desktop.in:4
 msgid "Installer Script for Fcitx Skin"
-msgstr "Fcitx 皮肤的安装器"
+msgstr "输入法 皮肤的安装器"
 
 #: data/config.desc:90
 msgid "Interval of Two Key Input"
@@ -1678,7 +1678,7 @@ msgstr "Kimpanel"
 
 #: src/ui/kimpanel/fcitx-kimpanel-ui.conf.in:4
 msgid "Kimpanel Support for Fcitx"
-msgstr "Fcitx 的 Kimpanel 支持"
+msgstr "输入法 的 Kimpanel 支持"
 
 #: data/script/fcitx-diagnose.sh:1531
 msgid "Kimpanel process:"
@@ -2206,7 +2206,7 @@ msgstr "输入后联想词组"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
 msgid "Provide extra feature for pinyin in Fcitx"
-msgstr "增强 Fcitx 的拼音输入的功能"
+msgstr "增强 输入法 的拼音输入的功能"
 
 #: src/module/dbus/fcitx-dbus.conf.in:4
 msgid "Provides DBus Support (Used by other Addon)"
@@ -2262,7 +2262,7 @@ msgstr "区位"
 
 #: src/im/qw/fcitx-qw.conf.in:4
 msgid "Quwei Input Method for Fcitx"
-msgstr "Fcitx 的区位输入法"
+msgstr "输入法 的区位输入法"
 
 #: data/config.desc:25
 msgid "R_ALT"
@@ -2399,7 +2399,7 @@ msgstr "搜索 unicode"
 
 #: data/config.desc:162
 msgid "Seconds sleep before fcitx really start"
-msgstr "Fcitx 真正启动前延迟的秒数"
+msgstr "输入法 真正启动前延迟的秒数"
 
 #: src/module/imselector/imselector.c:305
 msgid "Select global input method: "
@@ -2482,7 +2482,7 @@ msgstr "双拼"
 
 #: src/im/pinyin/fcitx-pinyin.conf.in:4
 msgid "Simple Pinyin support for Fcitx"
-msgstr "Fcitx 简单的拼音支持"
+msgstr "输入法 简单的拼音支持"
 
 #: src/module/chttrans/chttrans.c:151 src/module/chttrans/chttrans.c:197
 msgid "Simplified Chinese"
@@ -2746,7 +2746,7 @@ msgstr "码表提示颜色"
 
 #: src/im/table/fcitx-table.conf.in:4
 msgid "Table Input Method for Fcitx"
-msgstr "Fcitx 的码表输入法"
+msgstr "输入法 的码表输入法"
 
 #: src/module/vk/vk.c:61
 msgid "Table Symbol"
@@ -3004,7 +3004,7 @@ msgstr "使用列表中的第一个键盘输入法布局作为默认布局"
 
 #: src/module/remote/fcitx-remote-module.conf.in:4
 msgid "Used by fcitx-remote to change Fcitx state from console"
-msgstr "fcitx-remote 通过它来从命令行改变 Fcitx 的状态"
+msgstr "fcitx-remote 通过它来从命令行改变 输入法 的状态"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:5
 msgid "Useful when you hardly ever use abbreviated pinyin."
@@ -3202,7 +3202,7 @@ msgid ""
 "found, the package name is usually fcitx-config-gtk, fcitx-config-gtk3 or "
 "fcitx-configtool. Now it will open config file with default text editor."
 msgstr ""
-"您正在图形界面下运行 fcitx，但是 fcitx-configtool 未被找到，软件包名通常为 "
+"您正在图形界面下运行 输入法，但是 fcitx-configtool 未被找到，软件包名通常为 "
 "fcitx-config-gtk，fcitx-config-gtk3，或者 fcitx-configtool。现在将用默认文本"
 "编辑器打开配置文件。"
 

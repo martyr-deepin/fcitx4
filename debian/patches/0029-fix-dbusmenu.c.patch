@@ -1,0 +1,34 @@
+From 8d5db85421ee44121fd58c0f2f17472ceb4ddbe9 Mon Sep 17 00:00:00 2001
+From: denglinglong <denglinglong@uniontech.com>
+Date: Mon, 28 Sep 2020 10:21:15 +0800
+Subject: [PATCH 29/29] fix:dbusmenu.c
+
+---
+ src/module/notificationitem/dbusmenu.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/src/module/notificationitem/dbusmenu.c b/src/module/notificationitem/dbusmenu.c
+index 73eb542..07af316 100644
+--- a/src/module/notificationitem/dbusmenu.c
++++ b/src/module/notificationitem/dbusmenu.c
+@@ -215,6 +215,17 @@ void FcitxDBusMenuDoEvent(void* arg)
+                         fcitx_utils_start_process(args);
+                     }
+                     break;
++                case 4:
++                    {
++                        FcitxIM* im = FcitxInstanceGetCurrentIM(instance);
++                        if (im && im->owner) {
++                            fcitx_utils_launch_configure_tool_for_addon(im->uniqueName);
++                        }
++                        else {
++                            fcitx_utils_launch_configure_tool();
++                        }
++                    }
++                    break;
+                 case 5:
+                     fcitx_utils_launch_configure_tool();
+                     break;
+-- 
+2.20.1
+
