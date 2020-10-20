@@ -1,3 +1,9 @@
+fcitx (1:4.2.9.25-1) unstable; urgency=medium
+  
+  *【全平台】【robot】【DDE】【任务栏】【Tooltips】“输入法 配置”变成了“Fcitx 配置”
+  
+ -- chenshijie <chenshijie@uniontech.com>  Tue Oct 20 10:07:19 2020 +0800
+
 fcitx (1:4.2.9.19-2) unstable; urgency=medium
   
   *Modify version
