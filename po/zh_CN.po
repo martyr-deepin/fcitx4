@@ -537,7 +537,7 @@ msgstr "无法加载皮肤%s，回到默认皮肤"
 
 #: data/script/fcitx-diagnose.sh:1549
 msgid "Cannot read im list from fcitx profile."
-msgstr "无法从 fcitx 配置文件中读取输入法列表."
+msgstr "无法从输入法配置文件中读取输入法列表."
 
 #: data/addon.desc:22
 msgid "Category"
@@ -560,7 +560,7 @@ msgstr "中部靠右"
 
 #: data/fcitx-configtool.desktop.in:4
 msgid "Change Fcitx Configuration"
-msgstr "修改 输入法 配置"
+msgstr "修改输入法配置"
 
 #: src/im/table/table.desc:136
 msgid "Choose"
@@ -783,7 +783,7 @@ msgstr "当前输入法名称"
 
 #: data/script/fcitx-diagnose.sh:839
 msgid "Current fcitx settings directory is ${1} (${2})."
-msgstr "当前 fcitx 设置目录是 ${1} (${2})。"
+msgstr "当前输入法设置目录是 ${1} (${2})。"
 
 #: src/module/imselector/imselector.c:312
 msgid "Current local input method is "
@@ -1069,7 +1069,7 @@ msgstr "无法输入法模块缓存 ${1} 中找到 fcitx"
 
 #: data/script/fcitx-diagnose.sh:1311
 msgid "Failed to find fcitx in the output of ${1}"
-msgstr "无法在 ${1} 的输出重找到 fcitx."
+msgstr "无法在 ${1} 的输出重找到输入法配置."
 
 #: data/addon.desc:72
 msgid "Fallback UI Addon"
@@ -1082,19 +1082,19 @@ msgstr "输入法"
 
 #: data/script/fcitx-diagnose.sh:1437
 msgid "Fcitx Addons:"
-msgstr "输入法 插件:"
+msgstr "输入法插件:"
 
 #: src/module/clipboard/fcitx-clipboard.conf.in:4
 msgid "Fcitx Clipboard access"
-msgstr "输入法 的剪贴板访问支持"
+msgstr "输入法的剪贴板访问支持"
 
 #: data/fcitx-configtool.desktop.in:2
 msgid "Fcitx Configuration"
-msgstr "输入法 配置"
+msgstr "输入法配置"
 
 #: data/script/fcitx-diagnose.sh:1027
 msgid "Fcitx Configure UI:"
-msgstr "输入法 配置界面:"
+msgstr "输入法配置界面:"
 
 #: src/frontend/ipc/fcitx-ipc.conf.in:3
 msgid "Fcitx DBus Frontend"
@@ -1599,7 +1599,7 @@ msgstr "输入法"
 
 #: src/ui/classic/fcitx-skin-installer.desktop.in:4
 msgid "Installer Script for Fcitx Skin"
-msgstr "输入法 皮肤的安装器"
+msgstr "输入法皮肤的安装器"
 
 #: data/config.desc:90
 msgid "Interval of Two Key Input"
@@ -2114,7 +2114,7 @@ msgstr "请访问 ${1} 查看如何安装 fcitx."
 msgid ""
 "Please check the Configure link of your distribution in ${1} for how to "
 "setup fcitx autostart."
-msgstr "请访问 ${1} 页面上对应您发行版的配置链接查看如何配置 fcitx 的自动启动."
+msgstr "请访问 ${1} 页面上对应您发行版的配置链接查看如何配置输入法的自动启动."
 
 #: src/frontend/xim/xim.c:161
 msgid "Please set XMODIFIERS."
@@ -2399,7 +2399,7 @@ msgstr "搜索 unicode"
 
 #: data/config.desc:162
 msgid "Seconds sleep before fcitx really start"
-msgstr "输入法 真正启动前延迟的秒数"
+msgstr "输入法真正启动前延迟的秒数"
 
 #: src/module/imselector/imselector.c:305
 msgid "Select global input method: "
@@ -3004,7 +3004,7 @@ msgstr "使用列表中的第一个键盘输入法布局作为默认布局"
 
 #: src/module/remote/fcitx-remote-module.conf.in:4
 msgid "Used by fcitx-remote to change Fcitx state from console"
-msgstr "fcitx-remote 通过它来从命令行改变 输入法 的状态"
+msgstr "fcitx-remote 通过它来从命令行改变输入法的状态"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:5
 msgid "Useful when you hardly ever use abbreviated pinyin."
@@ -3202,7 +3202,7 @@ msgid ""
 "found, the package name is usually fcitx-config-gtk, fcitx-config-gtk3 or "
 "fcitx-configtool. Now it will open config file with default text editor."
 msgstr ""
-"您正在图形界面下运行 输入法，但是 fcitx-configtool 未被找到，软件包名通常为 "
+"您正在图形界面下运行输入法配置，但是 fcitx-configtool 未被找到，软件包名通常为 "
 "fcitx-config-gtk，fcitx-config-gtk3，或者 fcitx-configtool。现在将用默认文本"
 "编辑器打开配置文件。"
 
