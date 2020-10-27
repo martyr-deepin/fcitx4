@@ -2,7 +2,7 @@
 _Name=Fcitx Configuration
 _GenericName=Input Method Configuration
 _Comment=Change Fcitx Configuration
-Exec=/bin/fcitx-ini
+Exec=/bin/fcitx-configtool
 Icon=fcitx
 Type=Application
 Categories=Settings;
