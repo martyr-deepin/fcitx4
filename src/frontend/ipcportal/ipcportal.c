@@ -49,7 +49,7 @@ typedef struct _FcitxLastSentIMInfo
 typedef struct _FcitxPortalIC {
     int id;
     char* sender;
-    char path[32];
+    char path[64];
     uuid_t uuid;
     int width;
     int height;
@@ -234,7 +234,8 @@ void* PortalCreate(FcitxInstance* instance, int frontendid)
     }
 
     DBusObjectPathVTable fcitxPortalVTable = {NULL, &PortalDBusEventHandler, NULL, NULL, NULL, NULL };
-    dbus_connection_register_object_path(ipc->_conn,  FCITX_IM_DBUS_PATH, &fcitxPortalVTable, ipc);
+    dbus_connection_register_object_path(ipc->_conn,  FCITX_IM_DBUS_PORTAL_PATH, &fcitxPortalVTable, ipc);
+    dbus_connection_register_object_path(ipc->_conn,  FCITX_IM_DBUS_PORTAL_PATH_OLD, &fcitxPortalVTable, ipc);
     dbus_connection_flush(ipc->_conn);
 
     FcitxIMEventHook hook;
@@ -266,13 +267,41 @@ void PortalCreateIC(void* arg, FcitxInputContext* context, void* priv)
     ipcic->sender = strdup(dbus_message_get_sender(message));
     ipc->maxid ++;
     ipcic->lastPreeditIsEmpty = false;
-    sprintf(ipcic->path, "/inputcontext/%d", ipcic->id);
+    sprintf(ipcic->path, FCITX_IC_DBUS_PORTAL_PATH, ipcic->id);
     uuid_generate(ipcic->uuid);
 
+    DBusMessageIter iter, array, sub;
+    dbus_message_iter_init(message, &iter);
+    /* Message type is a(ss) */
+    if (dbus_message_iter_get_arg_type(&iter) == DBUS_TYPE_ARRAY) {
+        /* First pass: calculate string length */
+        dbus_message_iter_recurse(&iter, &array);
+        while (dbus_message_iter_get_arg_type(&array) == DBUS_TYPE_STRUCT) {
+            dbus_message_iter_recurse(&array, &sub);
+            do {
+                char *property = NULL, *value = NULL;
+                if (dbus_message_iter_get_arg_type(&sub) != DBUS_TYPE_STRING) {
+                    break;
+                }
+                dbus_message_iter_get_basic(&sub, &property);
+                dbus_message_iter_next(&sub);
+                if (dbus_message_iter_get_arg_type(&sub) != DBUS_TYPE_STRING) {
+                    break;
+                }
+                dbus_message_iter_get_basic(&sub, &value);
+                dbus_message_iter_next(&sub);
+                if (property && value && strcmp(property, "program") == 0) {
+                    ((FcitxInputContext2*)context)->prgname = strdup(value);
+                }
+            } while(0);
+            dbus_message_iter_next(&array);
+        }
+    }
+
+
+
     int icpid = 0;
-    char* appname = NULL;
     ipcic->pid = icpid;
-    ((FcitxInputContext2*)context)->prgname = appname;
 
     if (config->shareState == ShareState_PerProgram) {
         FcitxInstanceSetICStateFromSameApplication(ipc->owner, ipc->frontendid, context);
@@ -283,7 +312,7 @@ void PortalCreateIC(void* arg, FcitxInputContext* context, void* priv)
                              DBUS_TYPE_OBJECT_PATH, &path,
                              // FIXME uuid
                              DBUS_TYPE_INVALID);
-    DBusMessageIter args, array;
+    DBusMessageIter args;
     dbus_message_iter_init_append(reply, &args);
     dbus_message_iter_open_container(&args, DBUS_TYPE_ARRAY, "y", &array);
     for (int i = 0; i < sizeof(uuid_t); i++) {
@@ -420,7 +449,7 @@ static DBusHandlerResult PortalICDBusEventHandler(DBusConnection *connection, DB
 {
     FcitxPortalFrontend* ipc = (FcitxPortalFrontend*) user_data;
     int id = -1;
-    sscanf(dbus_message_get_path(msg), "/inputcontext/%d", &id);
+    sscanf(dbus_message_get_path(msg), FCITX_IC_DBUS_PORTAL_PATH, &id);
     FcitxInputContext* ic = FcitxInstanceFindIC(ipc->owner, ipc->frontendid, &id);
     DBusHandlerResult result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     DBusMessage *reply = NULL;
