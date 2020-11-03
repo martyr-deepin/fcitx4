@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e17a56b3_710c53fd",
+        "filename": "src/frontend/qt/fcitxinputcontextproxy.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-03T07:18:32Z",
+      "side": 1,
+      "message": "注释行数: 19; 改动行数(修改和新增): 19; 注释率: 100.0%",
+      "revId": "7dbce49b01a6aa2fd30b01990e0db3eefb58dc69",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea7d989d_47d883e2",
+        "filename": "src/frontend/qt/fcitxinputcontextproxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-03T07:18:32Z",
+      "side": 1,
+      "message": "注释行数: 19; 改动行数(修改和新增): 19; 注释率: 100.0%",
+      "revId": "7dbce49b01a6aa2fd30b01990e0db3eefb58dc69",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "645832ed_f5247ca0",
+        "filename": "src/frontend/qt/fcitxqtdbustypes.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-03T07:18:32Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 13; 注释率: 0.0%",
+      "revId": "7dbce49b01a6aa2fd30b01990e0db3eefb58dc69",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23ccc1ff_0b8f9d28",
+        "filename": "src/frontend/qt/fcitxqtdbustypes.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-03T07:18:32Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 13; 注释率: 0.0%",
+      "revId": "7dbce49b01a6aa2fd30b01990e0db3eefb58dc69",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bf28b31_eace9817",
+        "filename": "src/frontend/qt/fcitxwatcher.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-03T07:18:32Z",
+      "side": 1,
+      "message": "注释行数: 19; 改动行数(修改和新增): 19; 注释率: 100.0%",
+      "revId": "7dbce49b01a6aa2fd30b01990e0db3eefb58dc69",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0271023_7fd20ded",
+        "filename": "src/frontend/qt/fcitxwatcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-03T07:18:32Z",
+      "side": 1,
+      "message": "注释行数: 19; 改动行数(修改和新增): 19; 注释率: 100.0%",
+      "revId": "7dbce49b01a6aa2fd30b01990e0db3eefb58dc69",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "622c460f_5982b1f7",
+        "filename": "src/frontend/qt/qfcitxinputcontext.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-03T07:18:32Z",
+      "side": 1,
+      "message": "注释行数: 19; 改动行数(修改和新增): 40; 注释率: 47.5%",
+      "revId": "7dbce49b01a6aa2fd30b01990e0db3eefb58dc69",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c38406c_f5e1084b",
+        "filename": "src/frontend/qt/qfcitxinputcontext.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-03T07:18:32Z",
+      "side": 1,
+      "message": "注释行数: 76; 改动行数(修改和新增): 79; 注释率: 96.2%",
+      "revId": "7dbce49b01a6aa2fd30b01990e0db3eefb58dc69",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
