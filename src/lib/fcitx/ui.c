@@ -995,9 +995,9 @@ void FcitxUIUpdateInputWindowReal(FcitxInstance *instance)
 
     boolean toshow = false;
 
-    if (FcitxMessagesGetMessageCount(input->msgAuxUp) != 0
-        || FcitxMessagesGetMessageCount(input->msgAuxDown) != 0)
-        toshow = true;
+//    if (FcitxMessagesGetMessageCount(input->msgAuxUp) != 0
+//        || FcitxMessagesGetMessageCount(input->msgAuxDown) != 0)
+//        toshow = true;
 
     if (FcitxCandidateWordGetListSize(input->candList) > 1)
         toshow = true;
