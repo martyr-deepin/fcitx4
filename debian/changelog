@@ -1,3 +1,9 @@
+fcitx (1:4.2.9.28-1) unstable; urgency=medium
+  
+ * fcitx-dbus-watcher 有coredump文件生成
+
+ -- chenshijie <chenshijie@uniontech.com>  Fri Nov 13 16:00:00 2020 +0800
+  
 fcitx (1:4.2.9.27-1) unstable; urgency=medium
   
  * update github fcitx fork
