@@ -1,3 +1,9 @@
+fcitx (1:4.2.9.28-1) unstable; urgency=medium
+
+ * 修复盘古 fcitx-watcher 产生崩溃日志
+
+ -- chenshijie <chenshijie@uniontech.com>  Wed Nov 18 11:07:19 2020 +0800
+
 fcitx (1:4.2.9.27-1) unstable; urgency=medium
   
  * update github fcitx fork
@@ -8,7 +14,7 @@ fcitx (1:4.2.9.26-1) unstable; urgency=medium
 
  * 通过启动器/任务栏快捷方式/桌面快捷方式打开输入法配置，任务栏有两个输入法配置图标(一般+必现+常用功能)
 
- -- chenshijie <chenshijie@uniontech.com>  MON Oct 27 10:07:19 2020 +0800
+ -- chenshijie <chenshijie@uniontech.com>  Mon Oct 27 10:07:19 2020 +0800
 
 fcitx (1:4.2.9.25-1) unstable; urgency=medium
   
