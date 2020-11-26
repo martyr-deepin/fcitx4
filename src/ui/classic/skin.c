@@ -93,7 +93,7 @@ reload:
         free(buf);
     } else {
         char *path = fcitx_utils_get_fcitx_path_with_filename(
-            "pkgdatadir", "/skin/default/fcitx_skin.conf");
+            "pkgdatadir", "/skin/默认/fcitx_skin.conf");
         fp = fopen(path, "r");
         free(path);
     }
@@ -126,7 +126,7 @@ reload:
             FcitxLog(WARNING, _("Cannot load skin %s, return to default"), *skinType);
             if (*skinType)
                 free(*skinType);
-            *skinType = strdup("default");
+            *skinType = strdup("默认");
             isreload = true;
             goto reload;
         }
@@ -203,9 +203,9 @@ SkinImage* LoadImageFromTable(SkinImage** imageTable, const char* skinType, cons
     char *buf;
     fcitx_utils_alloc_cat_str(buf, "skin/", skinType);
     const char* fallbackChainNoFallback[] = { buf };
-    const char* fallbackChainPanel[] = { buf, "skin/default" };
+    const char* fallbackChainPanel[] = { buf, "skin/默认" };
     const char* fallbackChainTray[] = { "imicon" };
-    const char* fallbackChainPanelIMIcon[] = { buf, "imicon", "skin/default" };
+    const char* fallbackChainPanelIMIcon[] = { buf, "imicon", "skin/默认" };
 
     if (name[0] == '@') {
         name ++;
