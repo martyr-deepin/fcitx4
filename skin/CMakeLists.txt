@@ -1,9 +1,9 @@
 
-foreach(skin default classic dark)
+foreach(skin 默认 经典 黑暗)
     install(DIRECTORY ${skin} DESTINATION ${pkgdatadir}/skin
              PATTERN .* EXCLUDE
              PATTERN *~ EXCLUDE)
-endforeach(skin default classic dark)
+endforeach(skin 默认 经典 黑暗)
 
 install(DIRECTORY imicon DESTINATION ${pkgdatadir}
             PATTERN .* EXCLUDE
