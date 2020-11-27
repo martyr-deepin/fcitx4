@@ -65,6 +65,7 @@ typedef struct _FcitxClassicUI {
 
     FcitxSkin skin;
     UT_array skinBuf;
+    UT_array skinNameBuf;
     struct _FcitxInstance *owner;
 
     int fontSize;
