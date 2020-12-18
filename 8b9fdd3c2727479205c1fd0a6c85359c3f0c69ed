@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b49a66f1_f3e1a477",
+        "filename": "test/testarray.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-18T05:36:46Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 75; 注释率: 0.0%",
+      "revId": "8b9fdd3c2727479205c1fd0a6c85359c3f0c69ed",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
