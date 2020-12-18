@@ -1,4 +1,11 @@
 
+fcitx (1:4.2.9.30-1) unstable; urgency=medium
+
+ * 添加香港繁体中文显示
+
+ -- chenshijie <chenshijie@uniontech.com>  Fri Dec 18 10:19:00 2020 +0800
+
+
 fcitx (1:4.2.9.29-1) unstable; urgency=medium
 
  * 提示信息为英文【classic】、【default】、【dark】 国产自主化，建议修改提示信息为中文【经典】、【默认】、【黑暗】
