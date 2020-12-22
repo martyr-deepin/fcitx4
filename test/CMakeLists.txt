@@ -22,6 +22,9 @@ target_link_libraries(teststring fcitx-utils)
 add_executable(testarray testarray.c)
 target_link_libraries(testarray fcitx-utils)
 
+add_executable(testhash testhash.c)
+target_link_libraries(testhash fcitx-utils)
+
 add_executable(testutf8 testutf8.c)
 target_link_libraries(testutf8 fcitx-utils)
 
@@ -86,6 +89,9 @@ add_test(NAME teststring
 
 add_test(NAME testarray
          COMMAND testarray)
+
+add_test(NAME testhash
+         COMMAND testhash)
 
 add_test(NAME testobjpool
          COMMAND testobjpool)
