@@ -1,4 +1,4 @@
-#include "fcitx-utils/uthash.h"
+#include "fcitx-utils/utils.h"
 #include <assert.h>
 
 struct my_struct {
