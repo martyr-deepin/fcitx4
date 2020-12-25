@@ -46,6 +46,9 @@ target_link_libraries(testhandlertable fcitx-utils)
 add_executable(testhotkey testhotkey.c)
 target_link_libraries(testhotkey fcitx-config)
 
+add_executable(testenv testenv.c)
+target_link_libraries(testenv fcitx-config)
+
 add_executable(testpinyin
     ../src/im/pinyin/pyParser.c
     ../src/im/pinyin/pyMapTable.c
@@ -119,3 +122,7 @@ add_test(NAME testhotkey
 
 add_test(NAME testsort
          COMMAND testsort)
+
+add_test(NAME testenv
+         COMMAND testenv)
+
