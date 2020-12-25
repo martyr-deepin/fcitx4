@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8cf3c7c9_a3e58d14",
+        "filename": "test/testenv.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-25T09:28:20Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 8; 注释率: 0.0%",
+      "revId": "c9f02b43e330452a7dc616b9698e2ed3339f9fa9",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7efe622_b6706805",
+        "filename": "test/testrewritefile.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-12-25T09:28:20Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 32; 注释率: 0.0%",
+      "revId": "c9f02b43e330452a7dc616b9698e2ed3339f9fa9",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
