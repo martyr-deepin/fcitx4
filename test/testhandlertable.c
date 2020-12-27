@@ -1,7 +1,4 @@
-#include <assert.h>
-#include <string.h>
-#include <stdint.h>
-#include "fcitx-utils/handler-table.h"
+#include "testhandlertable.h"
 
 #define KEY1 "key1"
 #define KEY2 "key-different-length2"
@@ -16,11 +13,6 @@ int order[] = {11, 10, 9, 8, 7, 6, 0, 1, 2, 3, 4, 5};
 
 int free_count = 0;
 
-typedef struct {
-    int id;
-    char *str;
-} HandlerObj;
-
 static void
 test_free_handler_obj(void *obj)
 {
@@ -29,7 +21,7 @@ test_free_handler_obj(void *obj)
     free(handler->str);
 }
 
-int main()
+int test_handlertable()
 {
     FcitxHandlerTable *table = fcitx_handler_table_new(sizeof(HandlerObj),
                                                        test_free_handler_obj);

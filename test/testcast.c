@@ -1,15 +1,6 @@
-#include <assert.h>
-#include <string.h>
-#include <stdint.h>
-#include "fcitx-utils/utils.h"
-#include "fcitx/fcitx.h"
+#include "testcast.h"
 
-typedef struct {
-    char str[3];
-} TestType;
-
-int
-main()
+int test_cast()
 {
     void *p;
     void *p1;

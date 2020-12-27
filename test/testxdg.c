@@ -1,8 +1,6 @@
-#include <assert.h>
-#include <string.h>
-#include "fcitx-config/xdg.h"
+#include "testxdg.h"
 
-int main()
+int test_xdg()
 {
     char* ret = NULL;
     FcitxXDGGetFileUserWithPrefix("test", "/test", NULL, &ret);

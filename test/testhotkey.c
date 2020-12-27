@@ -1,16 +1,6 @@
-#include <assert.h>
-#include "fcitx-config/hotkey.h"
+#include "testhotkey.h"
 
-#define TEST_HOTKEY_UNIFICATION(ORGSYM, ORGSTATE, OBJSYM, OBJSTATE) \
-    do { \
-        FcitxKeySym sym = ORGSYM; \
-        unsigned int state = ORGSTATE; \
-        FcitxHotkeyGetKey(sym, state, &sym, &state); \
-        assert(OBJSYM == sym); \
-        assert(OBJSTATE == state); \
-    } while(0)
-
-int main()
+int test_hotkey()
 {
     TEST_HOTKEY_UNIFICATION(FcitxKey_a, 0, FcitxKey_a, 0);
     TEST_HOTKEY_UNIFICATION(FcitxKey_A, FcitxKeyState_Shift, FcitxKey_A, 0);

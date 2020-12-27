@@ -1,10 +1,6 @@
-#include <assert.h>
-#include "fcitx/instance.h"
-#include "fcitx/candidate.h"
-#include "fcitx/instance-internal.h"
-#include "fcitx/ime-internal.h"
+#include "testmessage.h"
 
-int main()
+int test_message()
 {
     char* words[] = { "a", "b", "c" , "d", "e" };
     char* extras[] = { "A", "B", "C" , "D", "E" };

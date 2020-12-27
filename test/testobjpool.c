@@ -1,9 +1,6 @@
-#include <assert.h>
-#include <string.h>
-#include <stdint.h>
-#include "fcitx-utils/objpool.h"
+#include "testobjpool.h"
 
-int main()
+int test_objpool()
 {
     FcitxObjPool* pool = fcitx_obj_pool_new(4);
     int id[32];
