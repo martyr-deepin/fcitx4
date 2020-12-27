@@ -1,11 +1,8 @@
-#include <assert.h>
-#include <string.h>
-#include "fcitx-utils/utf8.h"
-#include "fcitx/fcitx.h"
+#include "testutf8.h"
 
 #define BUF_SIZE 9
 
-int main()
+int test_utf8()
 {
     char buf[BUF_SIZE];
     const char string[] =

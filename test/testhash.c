@@ -1,11 +1,4 @@
-#include "fcitx-utils/utils.h"
-#include <assert.h>
-
-struct my_struct {
-    int id; /* key */
-    char name[10];
-    UT_hash_handle hh; /* makes this structure hashable */
-};
+#include "testhash.h"
 
 struct my_struct *users = NULL;
 
@@ -55,7 +48,7 @@ void sort_by_name() { HASH_SORT(users, name_sort); }
 
 void sort_by_id() { HASH_SORT(users, id_sort); }
 
-int main(int argc, char *argv[]) {
+int test_hash() {
     int id;
     int i;
     char *c;

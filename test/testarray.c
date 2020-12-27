@@ -1,15 +1,8 @@
-#include "fcitx-utils/utils.h"
-#include "fcitx/fcitx.h"
-#include <assert.h>
-
-typedef struct {
-    int a;
-    int b;
-} intpair_t;
+#include "testarray.h"
 
 UT_icd intpair_icd = {sizeof(intpair_t), NULL, NULL, NULL};
 
-int main() {
+int test_array() {
     UT_array array;
     utarray_init(&array, &ut_int_icd);
     int test1[] = {3, 1, 2};

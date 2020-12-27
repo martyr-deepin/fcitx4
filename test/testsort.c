@@ -1,13 +1,5 @@
-#include <stdio.h>
-#include <assert.h>
-#include <time.h>
-#include <stdlib.h>
-#include "fcitx-utils/utarray.h"
+#include "testsort.h"
 
-typedef struct {
-    int a;
-    int b;
-} SortItem;
 
 SortItem array[] = {
     {3, 4},
@@ -69,7 +61,7 @@ int intcmp(const void* a, const void* b, void* thunk)
 
 #define _AS(ARRAY) (sizeof(ARRAY) / sizeof(ARRAY[0]))
 
-int main()
+int test_sort()
 {
     /* stable test */
     fcitx_msort_r(array, _AS(array), sizeof(array[0]), cmp, NULL);

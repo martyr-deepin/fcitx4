@@ -1,10 +1,4 @@
-#include <assert.h>
-#include <fcitx/fcitx.h>
-
-#include "pyParser.h"
-#include "pyconfig.h"
-#include "PYFA.h"
-
+#include "testpinyin.h"
 
 void PrintParsedPY(ParsePYStruct *parse, const char *expect)
 {
@@ -22,7 +16,7 @@ void PrintParsedPY(ParsePYStruct *parse, const char *expect)
     free(buf);
 }
 
-int main()
+int test_pinyin()
 {
     FcitxPinyinConfig pyconfig;
     ParsePYStruct parse;

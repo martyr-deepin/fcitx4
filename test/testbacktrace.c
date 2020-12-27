@@ -1,8 +1,6 @@
-#include <assert.h>
-#include <string.h>
-#include "fcitx-utils/utils.h"
+#include "testbacktrace.h"
 
-int main()
+int test_backtrace()
 {
     fcitx_utils_backtrace();
 

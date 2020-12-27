@@ -1,9 +1,6 @@
-#include <assert.h>
-#include <stdio.h>
-#include <signal.h>
-#include "dbuslauncher.h"
+#include "testdbuslaunch.h"
 
-int main()
+int test_dbuslaunch()
 {
     DBusDaemonProperty daemonProp = DBusLaunch(NULL);
     if (daemonProp.pid != 0)
