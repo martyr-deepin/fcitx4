@@ -793,9 +793,9 @@ DBusHandlerResult KimpanelDBusFilter(DBusConnection* connection, DBusMessage* ms
                     }
                 } else if (strncmp("logo/", s0, strlen("logo/")) == 0) {
                     s0 += strlen("logo/");
-                    if (strcmp(s0, "toggle") == 0) {
+                    if (strcmp(s0, "toggle") == 0)
                         FcitxInstanceChangeIMState(instance, FcitxInstanceGetCurrentIC(instance));
-                    } else if (strcmp(s0, "restart") == 0) {
+                    else if (strcmp(s0, "restart") == 0) {
                         FcitxInstanceRestart(instance);
                     }
                 } else if (strcmp("keyboard", s0) == 0) {
