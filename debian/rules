@@ -19,7 +19,7 @@ override_dh_auto_configure: gen_control
 	    -DENABLE_CAIRO=ON \
 	    -DENABLE_DBUS=ON \
 	    -DENABLE_PANGO=ON \
-	    -DENABLE_LIBXML2=ON \
+	    -DENABLE_XKB=ON \
 	    -DENABLE_DEBUG=OFF \
 	    -DENABLE_PINYIN=ON \
 	    -DENABLE_TABLE=ON \

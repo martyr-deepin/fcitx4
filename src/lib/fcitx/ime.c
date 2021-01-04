@@ -1111,12 +1111,12 @@ void FcitxInstanceSwitchIMByIndex(FcitxInstance* instance, int index)
         if (ic)
             FcitxInstanceSetLocalIMName(instance, ic, NULL);
         FcitxInstanceSwitchIMInternal(instance, index, true, true, true);
-        FcitxInstanceShowInputSpeed(instance, false);
 
         if (FcitxInstanceGetCurrentState(instance) != IS_ACTIVE) {
             FcitxInstanceEnableIM(instance, FcitxInstanceGetCurrentIC(instance), false);
         }
     }
+    FcitxInstanceShowInputSpeed(instance, false);
 }
 
 FCITX_EXPORT_API
@@ -1351,6 +1351,7 @@ void FcitxInstanceReloadAddonConfig(FcitxInstance *instance, const char* addonna
                 case AC_FRONTEND:
                     if (addon->frontend->ReloadConfig)
                         addon->frontend->ReloadConfig(addon->addonInstance);
+                    break;
                 case AC_INPUTMETHOD:
                     /* imclass and imclass2 are in same union, only check one of them */
                     if (addon->imclass) {
