@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "d9fe61d0_1473497a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-04T05:16:48Z",
+      "side": 1,
+      "message": "fix:后必须存在一个空格",
+      "revId": "d352edfb3240c3626c2dc5282a25d030fb3feb63",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f07de551_892e6f98",
         "filename": "src/lib/fcitx/ui.c",
         "patchSetId": 1
