@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d9e3765_0b712203",
+        "filename": "src/im/keyboard/isocodes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-04T05:16:50Z",
+      "side": 1,
+      "message": "注释行数: 4; 改动行数(修改和新增): 78; 注释率: 5.1%",
+      "revId": "4413450e555cd7720f91274e3721ce0bc10c650b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c36c4505_21d97f29",
+        "filename": "src/im/keyboard/keyboard.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-04T05:16:50Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 14; 注释率: 0.0%",
+      "revId": "4413450e555cd7720f91274e3721ce0bc10c650b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
