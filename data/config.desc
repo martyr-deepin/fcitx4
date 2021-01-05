@@ -64,7 +64,7 @@ Description=Enable Hotkey to scroll Between Input Method
 
 [Hotkey/IMSwitchIncludeInactive]
 Type=Boolean
-DefaultValue=False
+DefaultValue=True
 Description=Include Inactivate when scrolling between Input Method
 Advance=True
 
@@ -219,7 +219,7 @@ Advance=True
 
 [Appearance/ShowInputWindowAfterTriggering]
 Type=Boolean
-DefaultValue=False
+DefaultValue=True
 Description=Show Input Method Hint After Input method changed
 Advance=True
 
