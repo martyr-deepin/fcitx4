@@ -17,7 +17,6 @@
  *    may be used to endorse or promote products derived from this
  *    software without specific prior written permission.
  */
-
 #include <QDBusMetaType>
 
 #include "fcitxqtdbustypes.h"
