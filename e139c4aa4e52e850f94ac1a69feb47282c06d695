@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c8892bd_d3b7e0ef",
+        "filename": "src/lib/fcitx-gclient/fcitxinputmethod.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-20T03:11:32Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "e139c4aa4e52e850f94ac1a69feb47282c06d695",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b1ce027_2009e1ef",
+        "filename": "src/lib/fcitx-gclient/fcitxkbd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-20T03:11:32Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "e139c4aa4e52e850f94ac1a69feb47282c06d695",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81c9b5e0_fe7ce953",
+        "filename": "src/lib/fcitx-utils/desktop-parse.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-20T03:11:32Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 1; 注释率: 100.0%",
+      "revId": "e139c4aa4e52e850f94ac1a69feb47282c06d695",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa873696_242fa314",
+        "filename": "src/lib/fcitx-utils/uthash.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-20T03:11:32Z",
+      "side": 1,
+      "message": "注释行数: 10; 改动行数(修改和新增): 10; 注释率: 100.0%",
+      "revId": "e139c4aa4e52e850f94ac1a69feb47282c06d695",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e739d2ab_42f3b032",
+        "filename": "src/lib/fcitx/context.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-20T03:11:32Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 1; 注释率: 100.0%",
+      "revId": "e139c4aa4e52e850f94ac1a69feb47282c06d695",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84111c9f_cd56d8ea",
+        "filename": "src/lib/fcitx/ime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-20T03:11:32Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 30; 注释率: 3.3%",
+      "revId": "e139c4aa4e52e850f94ac1a69feb47282c06d695",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38fc2e3b_624ccf4b",
+        "filename": "src/lib/fcitx/ime.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-20T03:11:32Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 8; 注释率: 0.0%",
+      "revId": "e139c4aa4e52e850f94ac1a69feb47282c06d695",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4635387a_67d4cbb1",
+        "filename": "src/lib/fcitx/instance.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-20T03:11:32Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 16; 注释率: 6.2%",
+      "revId": "e139c4aa4e52e850f94ac1a69feb47282c06d695",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
