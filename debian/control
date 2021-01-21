@@ -782,3 +782,9 @@ Description: Flexible Input Method Framework - various tools
   * readPYMB: read Pinyin data file (.mb)
   * scel2org: convert scel data file (Sougou) to .org file
   * txt2mb: convert text file to .mb data file
+
+Package: fcitx-implugin
+Architecture: any
+Depends:  ${misc:Depends}, ${shlibs:Depends}
+Breaks: fcitx (<< ${source:Upstream-Version})
+Description: Closed source input method configuration software support

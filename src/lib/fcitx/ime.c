@@ -592,6 +592,7 @@ INPUT_RETURN_VALUE _DoActivate(FcitxInstance* instance)
 {
     if (FcitxInstanceGetCurrentState(instance) != IS_ACTIVE) {
         FcitxInstanceEnableIM(instance, instance->CurrentIC, false);
+        FcitxInstanceShowInputSpeed(instance, false);
         return IRV_DO_NOTHING;
     }
     return IRV_TO_PROCESS;
@@ -601,6 +602,7 @@ INPUT_RETURN_VALUE _DoDeactivate(FcitxInstance* instance)
 {
     if (FcitxInstanceGetCurrentState(instance) == IS_ACTIVE) {
         FcitxInstanceCloseIM(instance, instance->CurrentIC);
+        FcitxInstanceShowInputSpeed(instance, false);
         return IRV_DO_NOTHING;
     }
     return IRV_TO_PROCESS;
@@ -1874,6 +1876,37 @@ FCITX_EXPORT_API
 FcitxIM* FcitxInstanceGetCurrentIM(FcitxInstance* instance)
 {
     return fcitx_array_eltptr(&instance->imes, instance->iIMIndex);
+}
+
+FCITX_EXPORT_API
+FcitxIM* FcitxInstanceGetIM(FcitxInstance* instance, FcitxInputContext* ic)
+{
+    if (!ic)
+        return NULL;
+    FcitxInputContext2* ic2 = (FcitxInputContext2*) ic;
+    int globalIndex = FcitxInstanceGetIMIndexByName(instance, instance->globalIMName);
+    /* global index is not valid, that's why we need to fix it. */
+    if (globalIndex <= 0) {
+        UT_array *ime = &instance->imes;
+        FcitxIM *im = (FcitxIM*)utarray_eltptr(ime, 1);
+        if (im) {
+            globalIndex = 1;
+        }
+    }
+    int targetIMIndex = 0;
+    if (ic && ic->state != IS_ACTIVE) {
+        targetIMIndex = 0;
+    }
+    else {
+        if (ic2 && ic2->imname)
+            targetIMIndex = FcitxInstanceGetIMIndexByName(instance, ic2->imname);
+
+        if (targetIMIndex <= 0) {
+            targetIMIndex = globalIndex;
+        }
+    }
+
+    return fcitx_array_eltptr(&instance->imes, targetIMIndex);
 }
 
 FCITX_EXPORT_API
