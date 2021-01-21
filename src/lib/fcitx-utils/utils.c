@@ -996,6 +996,30 @@ fcitx_utils_set_escape_str_with_set(char *res, const char *str, const char *set)
     return res;
 }
 
+FCITX_EXPORT_API int fcitx_utils_judge_implugin_service_exist()
+{
+    FILE* fp;
+    int count;
+    char buf[150];
+    char command[150];
+
+    sprintf(command, "ps -ef | grep fcitx-implugin-service | grep -v grep | wc -l" );
+
+    if((fp = popen(command,"r")) == NULL)
+        return 0;
+
+    if( (fgets(buf,150,fp))!= NULL ) {
+        count = atoi(buf);
+        if(count != 0)
+        {
+            pclose(fp);
+            return 1;
+        }
+    }
+    pclose(fp);
+    return 0;
+}
+
 #ifdef __FCITX_ATOMIC_USE_SYNC_FETCH
 /**
  * Also define lib function when there is builtin function for

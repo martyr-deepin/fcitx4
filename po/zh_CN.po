@@ -2675,6 +2675,16 @@ msgstr "Super+右 Ctrl"
 msgid "Switch Embedded Preedit"
 msgstr "切换嵌入预编辑字符串"
 
+#: src/module/chttrans/chttrans.c:151 src/module/chttrans/chttrans.c:197
+#: src/module/chttrans/chttrans.c:244
+msgid "Switch to Simplified Chinese"
+msgstr "切换为简体中文"
+
+#: src/module/chttrans/chttrans.c:152 src/module/chttrans/chttrans.c:198
+#: src/module/chttrans/chttrans.c:245
+msgid "Switch to Traditional Chinese"
+msgstr "切换为繁体中文"
+
 #: data/config.desc:114
 msgid "Switch Full Width Punc Mode"
 msgstr "切换全角标点"
@@ -2824,7 +2834,8 @@ msgstr "切换输入法"
 msgid "Toggle Remind"
 msgstr "切换联想"
 
-#: src/module/chttrans/chttrans.c:152 src/module/chttrans/chttrans.c:198
+#: src/module/chttrans/chttrans.c:153 src/module/chttrans/chttrans.c:199
+#: src/module/chttrans/chttrans.c:246
 msgid "Toggle Simp/Trad Chinese Conversion"
 msgstr "切换简繁转换"
 
