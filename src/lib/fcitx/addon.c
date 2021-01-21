@@ -146,10 +146,7 @@ FcitxAddon* FcitxAddonsLoadInternal(UT_array* addons, boolean reloadIM)
                 error = true;
 
             if (error)
-            {
-                FcitxLog(INFO, _("Load Addon Config File error:%s"), string->name);
                 utarray_pop_back(addons);
-            }
             else
                 FcitxLog(INFO, _("Load Addon Config File:%s"), string->name);
         }
