@@ -1,0 +1,32 @@
+[chineseime/SettingWizard]
+Type=String
+DefaultValue=/opt/apps/org.deepin.chineseime/files/bin/chinime-setw
+Description= chineseime setting wizard path
+
+[chineseime/Setting]
+Type=String
+DefaultValue=/opt/apps/org.deepin.chineseime/files/bin/chinime-sett
+Description= chineseime setting path
+
+[iflyime/SettingWizard]
+Type=String
+DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-set-w
+Description= iflyime setting wizard path
+
+[iflyime/Setting]
+Type=String
+DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-set
+Description= iflyime setting path
+
+[huayupy/SettingWizard]
+Type=String
+DefaultValue=opt/apps/com.thunisoft.input/files/bin/huayupy-config-tools-fcitx
+Description= huayupy setting wizard path
+
+[huayupy/Setting]
+Type=String
+DefaultValue= opt/apps/com.thunisoft.input/files/bin/huayupy-config-tools-fcitx
+Description= huayupy setting path
+
+[DescriptionFile]
+LocaleDomain= implugin

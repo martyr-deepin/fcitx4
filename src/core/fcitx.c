@@ -56,6 +56,9 @@ char* crashlog = NULL;
 
 int main(int argc, char* argv[])
 {
+    if(!fcitx_utils_judge_implugin_service_exist())
+        fcitx_utils_launch_tool("fcitx-implugin-service","");
+
     char* localedir = fcitx_utils_get_fcitx_path("localedir");
     setlocale(LC_ALL, "");
     bindtextdomain("fcitx", localedir);
