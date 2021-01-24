@@ -925,6 +925,26 @@ void FcitxInstanceChooseCandidateByIndex(
     FcitxInstanceProcessInputReturnValue(instance, retVal);
 }
 
+FCITX_EXPORT_API
+void FcitxInstanceChooseCandidateByTotalIndex(
+    FcitxInstance* instance,
+    int index)
+{
+    if (!(FcitxInstanceGetCurrentStatev2(instance) == IS_ACTIVE)) {
+        return;
+    }
+    FcitxInputState *input = instance->input;
+    INPUT_RETURN_VALUE retVal = FcitxCandidateWordChooseByTotalIndex(input->candList, index);
+    FcitxIM* currentIM = FcitxInstanceGetCurrentIM(instance);
+    if (FcitxInstanceGetCurrentStatev2(instance) == IS_ACTIVE && currentIM && (retVal & IRV_FLAG_UPDATE_CANDIDATE_WORDS)) {
+        if (currentIM->GetCandWords) {
+            FcitxInstanceCleanInputWindow(instance);
+            retVal = currentIM->GetCandWords(currentIM->klass);
+            FcitxInstanceProcessUpdateCandidates(instance);
+        }
+    }
+    FcitxInstanceProcessInputReturnValue(instance, retVal);
+}
 
 FCITX_EXPORT_API
 INPUT_RETURN_VALUE FcitxInstanceDoInputCallback(

@@ -145,6 +145,7 @@ libfcitx-core.so.0 libfcitx-core0 #MINVER#
  FcitxInstanceCheckTimeoutByFunc@Base 4.2.9.29
  FcitxInstanceCheckTimeoutById@Base 4.2.9.29
  FcitxInstanceChooseCandidateByIndex@Base 4.2.9.29
+ FcitxInstanceChooseCandidateByTotalIndex@Base 4.2.9.29
  FcitxInstanceCleanInputWindow@Base 4.2.9.29
  FcitxInstanceCleanInputWindowDown@Base 4.2.9.29
  FcitxInstanceCleanInputWindowUp@Base 4.2.9.29
