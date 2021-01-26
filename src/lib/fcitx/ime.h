@@ -569,8 +569,7 @@ extern "C" {
         FcitxKeySym sym,
         unsigned int state);
 
-
-    /**
+     /**
      * @brief choose candidate by index
      *
      * @param instance instance
@@ -583,6 +582,17 @@ extern "C" {
     
     /**
      * @brief choose total candidate by index
+     *
+     * @param instance instance
+     * @param index idx
+     * @return INPUT_RETURN_VALUE
+     **/
+    void FcitxInstanceChooseCandidateByTotalIndex(
+        struct _FcitxInstance* instance,
+        int index);
+
+    /**
+     * @brief choose candidate total by index
      *
      * @param instance instance
      * @param index idx
