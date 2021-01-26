@@ -789,3 +789,11 @@ Depends:  ${misc:Depends}, ${shlibs:Depends}
 Breaks: fcitx (<< ${source:Upstream-Version})
 Description: Closed source input method configuration software support
  Improve some closed source input method support, add shortcuts to open the on-screen keyboard function, add automatic loading installation input method, automatically remove uninstall input method.
+
+Package: fcitx-defaultim
+Architecture: any
+Depends:  ${misc:Depends}, ${shlibs:Depends}
+Breaks: fcitx (<< ${source:Upstream-Version})
+Description: The default input method
+ Set the default input method shortcut and the default input method name.
+ Shortcuts allow you to switch the default input method.
