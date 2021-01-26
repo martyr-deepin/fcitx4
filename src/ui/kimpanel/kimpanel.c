@@ -770,7 +770,18 @@ DBusHandlerResult KimpanelDBusFilter(DBusConnection* connection, DBusMessage* ms
             FcitxInstanceProcessInputReturnValue(instance, IRV_DISPLAY_CANDWORDS);
         }
         return DBUS_HANDLER_RESULT_HANDLED;
-    } else if (dbus_message_is_signal(msg, "org.kde.impanel", "TriggerProperty")) {
+    } 
+    else if (dbus_message_is_signal(msg, "org.kde.impanel", "SelectTotalCandidate")) {
+        FcitxLog(DEBUG, "SelectTotalCandidate: ");
+        DBusError error;
+        dbus_error_init(&error);
+        if (dbus_message_get_args(msg, &error, DBUS_TYPE_INT32, &int0, DBUS_TYPE_INVALID)) {
+            FcitxInstanceChooseCandidateByTotalIndex(instance, int0);
+        }
+        dbus_error_free(&error);
+        return DBUS_HANDLER_RESULT_HANDLED;
+    }
+    else if (dbus_message_is_signal(msg, "org.kde.impanel", "TriggerProperty")) {
         FcitxLog(DEBUG, "TriggerProperty: ");
         DBusError error;
         dbus_error_init(&error);
