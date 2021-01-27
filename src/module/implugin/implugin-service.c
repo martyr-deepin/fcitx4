@@ -75,18 +75,33 @@ int main(int argc, char *argv[])
                 if((event->mask >> i) & 1) {
                     if(event->len > 0)
                     {
+                        char* imname= fcitx_utils_malloc0(50*sizeof(char));
+                        strcpy(imname, event->name);
+                        imname[strlen(imname)-3] = '\0';
+
+                        char* curdeimname= fcitx_utils_malloc0(50*sizeof(char));
+
                         if(fcitx_utils_strcmp0(event_str[i],"IN_CREATE") == 0 && strcmp("fcitx-baidupinyin.so",event->name)!=0 )
                         {
-                            char imname[50];
-                            memset(imname,0,sizeof(char)*50);
-                            strcpy(imname, event->name);
-                            imname[strlen(imname)-3] = '\0';
-
                             ini_puts("GlobalSelector", "IMNAME", imname, defaultimconfigpath);
                             fprintf(stdout, "%s --- %s --- %s\n", " ", event_str[i],event->name,imname);
 
                             fcitx_utils_launch_restart();
                         }
+                        else if(fcitx_utils_strcmp0(event_str[i],"IN_DELETE") == 0)
+                        {
+                            ini_gets("GlobalSelector", "IMNAME", "fcitx-keyboard-us",curdeimname, FCITX_ARRAY_SIZE(curdeimname), defaultimconfigpath);
+                            if(strcmp(curdeimname,imname)==0)
+                            {
+                                ini_puts("GlobalSelector", "IMNAME", "fcitx-keyboard-us", defaultimconfigpath);
+                            }
+
+                            fprintf(stdout, "%s --- %s --- %s\n", " ", event_str[i],event->name,imname);
+
+                            fcitx_utils_launch_restart();
+                        }
+
+                        free(imname);
                     }
                     else
                         fprintf(stdout, "%s --- %s\n", " ", event_str[i]);
@@ -96,6 +111,7 @@ int main(int argc, char *argv[])
             len = len - sizeof(struct inotify_event) - event->len;
         }
     }
+    free(defaultimconfigpath);
 
     return 0;
 }
