@@ -69,7 +69,7 @@ FCITX_DEFINE_PLUGIN(fcitx_defaultim, module, FcitxModule) = {
 };
 
 CONFIG_BINDING_BEGIN(IMSelector)
-CONFIG_BINDING_REGISTER("GlobalSelector", "IM1", selectorKey)
+CONFIG_BINDING_REGISTER("GlobalSelector", "IM", selectorKey)
 CONFIG_BINDING_REGISTER("GlobalSelector", "IMNAME", imname)
 CONFIG_BINDING_END()
 

@@ -4,24 +4,25 @@
 #include <sys/inotify.h>
 #include <unistd.h>
 
-//#include "fcitx/fcitx.h"
 #include "fcitx-utils/utils.h"
+#include "minIni.h"
 
 #define EVENT_NUM 12
+
 char *event_str[EVENT_NUM] =
 {
-"IN_ACCESS",
-"IN_MODIFY",        //文件修改
-"IN_ATTRIB",
-"IN_CLOSE_WRITE",
-"IN_CLOSE_NOWRITE",
-"IN_OPEN",
-"IN_MOVED_FROM",    //文件移动from
-"IN_MOVED_TO",      //文件移动to
-"IN_CREATE",        //文件创建
-"IN_DELETE",        //文件删除
-"IN_DELETE_SELF",
-"IN_MOVE_SELF"
+  "IN_ACCESS",
+  "IN_MODIFY",        //文件修改
+  "IN_ATTRIB",
+  "IN_CLOSE_WRITE",
+  "IN_CLOSE_NOWRITE",
+  "IN_OPEN",
+  "IN_MOVED_FROM",    //文件移动from
+  "IN_MOVED_TO",      //文件移动to
+  "IN_CREATE",        //文件创建
+  "IN_DELETE",        //文件删除
+  "IN_DELETE_SELF",
+  "IN_MOVE_SELF"
 };
 
 int main(int argc, char *argv[])
@@ -37,6 +38,12 @@ int main(int argc, char *argv[])
     int i;
 
     char* fcitxlibpath = fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
+    char* defaultimconfigpath = fcitx_utils_malloc0(50*sizeof(char));
+
+    FILE *fp;
+    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config", "r", &defaultimconfigpath);
+    if (fp)
+        fclose(fp);
 
     printf("%s",fcitxlibpath);
     if(!fcitxlibpath)
@@ -68,8 +75,18 @@ int main(int argc, char *argv[])
                 if((event->mask >> i) & 1) {
                     if(event->len > 0)
                     {
-                        fprintf(stdout, "%s --- %s\n", event->name, event_str[i]);
-                        fcitx_utils_launch_restart();
+                        if(fcitx_utils_strcmp0(event_str[i],"IN_CREATE") == 0 && strcmp("fcitx-baidupinyin.so",event->name)!=0 )
+                        {
+                            char imname[50];
+                            memset(imname,0,sizeof(char)*50);
+                            strcpy(imname, event->name);
+                            imname[strlen(imname)-3] = '\0';
+
+                            ini_puts("GlobalSelector", "IMNAME", imname, defaultimconfigpath);
+                            fprintf(stdout, "%s --- %s --- %s\n", " ", event_str[i],event->name,imname);
+
+                            fcitx_utils_launch_restart();
+                        }
                     }
                     else
                         fprintf(stdout, "%s --- %s\n", " ", event_str[i]);

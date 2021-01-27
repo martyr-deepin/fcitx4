@@ -6,6 +6,9 @@ fcitx_add_addon_full(implugin DESC
 
 set(FCITX_IMPLUGIN_SERVICE_SOURCES
   implugin-service.c
+  minGlue.h
+  minIni.h
+  minIni.c
   )
 
 add_executable(fcitx-implugin-service ${FCITX_IMPLUGIN_SERVICE_SOURCES})
