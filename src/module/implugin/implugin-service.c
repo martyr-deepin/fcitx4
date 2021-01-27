@@ -39,9 +39,16 @@ int main(int argc, char *argv[])
 
     char* fcitxlibpath = fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
     char* defaultimconfigpath = fcitx_utils_malloc0(50*sizeof(char));
+    char* impluginconfigpath = fcitx_utils_malloc0(50*sizeof(char));
 
+    //获取默认输入法配置文件路径
     FILE *fp;
     fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config", "r", &defaultimconfigpath);
+    if (fp)
+        fclose(fp);
+
+    //获取输入法插件配置文件路径
+    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config", "r", &impluginconfigpath);
     if (fp)
         fclose(fp);
 
@@ -87,6 +94,15 @@ int main(int argc, char *argv[])
                             fprintf(stdout, "%s --- %s --- %s\n", " ", event_str[i],event->name,imname);
 
                             fcitx_utils_launch_restart();
+
+                            char* settingwizard = fcitx_utils_malloc0(50*sizeof(char));
+                            ini_gets(imname, "SettingWizard", "none",settingwizard, FCITX_ARRAY_SIZE(settingwizard), impluginconfigpath);
+                            if(strcmp(settingwizard,"none")!=0)
+                            {
+                               fcitx_utils_start_process(settingwizard);
+                            }
+                            free(settingwizard);
+
                         }
                         else if(fcitx_utils_strcmp0(event_str[i],"IN_DELETE") == 0)
                         {

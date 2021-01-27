@@ -51,12 +51,12 @@ FCITX_DEFINE_PLUGIN(fcitx_implugin, module, FcitxModule) = {
 };
 
 CONFIG_BINDING_BEGIN(IMPlugin)
-CONFIG_BINDING_REGISTER("chineseime", "SettingWizard", chineseime.swizardpath)
-CONFIG_BINDING_REGISTER("chineseime", "Setting", chineseime.spath)
-CONFIG_BINDING_REGISTER("iflyime", "SettingWizard", iflyime.swizardpath)
-CONFIG_BINDING_REGISTER("iflyime", "Setting", iflyime.spath)
-CONFIG_BINDING_REGISTER("huayupy", "SettingWizard", huayupy.swizardpath)
-CONFIG_BINDING_REGISTER("huayupy", "Setting", huayupy.spath)
+CONFIG_BINDING_REGISTER("fcitx-chineseime", "SettingWizard", chineseime.swizardpath)
+CONFIG_BINDING_REGISTER("fcitx-chineseime", "Setting", chineseime.spath)
+CONFIG_BINDING_REGISTER("fcitx-iflyime", "SettingWizard", iflyime.swizardpath)
+CONFIG_BINDING_REGISTER("fcitx-iflyime", "Setting", iflyime.spath)
+CONFIG_BINDING_REGISTER("fcitx-huayupy", "SettingWizard", huayupy.swizardpath)
+CONFIG_BINDING_REGISTER("fcitx-huayupy", "Setting", huayupy.spath)
 CONFIG_BINDING_END()
 
 void* IMPluginCreate(FcitxInstance* instance)
