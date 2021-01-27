@@ -33,6 +33,8 @@ struct _IMPlugin {
     ClosedSourceIM chineseime;
     ClosedSourceIM iflyime;
     ClosedSourceIM huayupy;
+    ClosedSourceIM sogoupinyin;
+    ClosedSourceIM baidupinyin;
     FcitxInstance* owner;
 };
 
@@ -57,6 +59,10 @@ CONFIG_BINDING_REGISTER("fcitx-iflyime", "SettingWizard", iflyime.swizardpath)
 CONFIG_BINDING_REGISTER("fcitx-iflyime", "Setting", iflyime.spath)
 CONFIG_BINDING_REGISTER("fcitx-huayupy", "SettingWizard", huayupy.swizardpath)
 CONFIG_BINDING_REGISTER("fcitx-huayupy", "Setting", huayupy.spath)
+CONFIG_BINDING_REGISTER("fcitx-sogoupinyin", "SettingWizard", sogoupinyin.swizardpath)
+CONFIG_BINDING_REGISTER("fcitx-sogoupinyin", "Setting", sogoupinyin.spath)
+CONFIG_BINDING_REGISTER("fcitx-baidupinyin", "SettingWizard", baidupinyin.swizardpath)
+CONFIG_BINDING_REGISTER("fcitx-baidupinyin", "Setting", baidupinyin.spath)
 CONFIG_BINDING_END()
 
 void* IMPluginCreate(FcitxInstance* instance)
