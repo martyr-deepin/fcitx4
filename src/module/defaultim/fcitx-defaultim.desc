@@ -1,11 +1,11 @@
-[GlobalSelector/IM1]
+[GlobalSelector/IM]
 Type=Hotkey
 DefaultValue=
 Description=Switch to the First Input Method
 
 [GlobalSelector/IMNAME]
 Type=String
-DefaultValue=
+DefaultValue=fcitx-keyboard-us
 Description=Switch to Input Method by Name
 
 [DescriptionFile]
