@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "36fc8579_9f2b48e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-27T07:35:20Z",
+      "side": 1,
+      "message": "fix后必须存在一个\u0027:\u0027",
+      "revId": "406dddaf67c81ca1b361a83c01f4a87cba799b9b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "133237c1_12df4ad3",
         "filename": "src/module/defaultim/defaultim.c",
         "patchSetId": 1
