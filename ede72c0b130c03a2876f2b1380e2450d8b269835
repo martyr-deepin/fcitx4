@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8df93c97_5d0bf5e6",
+        "filename": "src/module/defaultim/defaultim.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-27T07:39:48Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "ede72c0b130c03a2876f2b1380e2450d8b269835",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa7de8e6_503e5712",
+        "filename": "src/module/implugin/implugin-service.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-27T07:39:48Z",
+      "side": 1,
+      "message": "注释行数: 5; 改动行数(修改和新增): 28; 注释率: 17.9%",
+      "revId": "ede72c0b130c03a2876f2b1380e2450d8b269835",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f428e841_ae5027fc",
+        "filename": "src/module/implugin/minGlue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-27T07:39:48Z",
+      "side": 1,
+      "message": "注释行数: 14; 改动行数(修改和新增): 30; 注释率: 46.7%",
+      "revId": "ede72c0b130c03a2876f2b1380e2450d8b269835",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d73e67cd_324049f1",
+        "filename": "src/module/implugin/minIni.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-27T07:39:48Z",
+      "side": 1,
+      "message": "注释行数: 287; 改动行数(修改和新增): 832; 注释率: 34.5%",
+      "revId": "ede72c0b130c03a2876f2b1380e2450d8b269835",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6d712c3_60689e9f",
+        "filename": "src/module/implugin/minIni.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-27T07:39:48Z",
+      "side": 1,
+      "message": "注释行数: 25; 改动行数(修改和新增): 125; 注释率: 20.0%",
+      "revId": "ede72c0b130c03a2876f2b1380e2450d8b269835",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
