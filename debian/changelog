@@ -1,3 +1,9 @@
+fcitx (4.2.9.31-1) unstable; urgency=medium
+
+ * 平板项目支持,直接选中备选词接口SelectTotalCandidate
+
+ -- chenshijie <chenshijie@uniontech.com>  Mon Jan 28 10:00:00 2021 +0800
+
 fcitx (4.2.9.30-1) unstable; urgency=medium
 
  * 替换 ISOCODES_ISO639_XML iso_639.xml 为 ISOCODES_ISO639_JSON iso_639-3.json
