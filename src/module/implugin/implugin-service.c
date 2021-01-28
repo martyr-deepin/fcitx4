@@ -91,9 +91,6 @@ int main(int argc, char *argv[]) {
                         fcitx_util_strc_to_imname(imname, strlen(imname));
                         strstr(imname, ".so")[0] = '\0';
 
-                        char *curdeimname =
-                            fcitx_utils_malloc0(50 * sizeof(char));
-
                         if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") ==
                                 0 &&
                             fcitx_utils_strcmp0("fcitx-baidupinyin.so",
@@ -102,6 +99,10 @@ int main(int argc, char *argv[]) {
                                      defaultimconfigpath);
                             fprintf(stdout, "%s --- %s --- %s\n", " ",
                                     event_str[i], event->name, imname);
+
+                            sleep(3000);
+                            fcitx_utils_launch_restart();
+                            sleep(3000);
 
                             char *settingwizard =
                                 fcitx_utils_malloc0(50 * sizeof(char));
@@ -115,9 +116,10 @@ int main(int argc, char *argv[]) {
                             }
                             free(settingwizard);
 
-                            fcitx_utils_launch_restart();
                         } else if (fcitx_utils_strcmp0(event_str[i],
                                                        "IN_DELETE") == 0) {
+                            char *curdeimname =
+                                fcitx_utils_malloc0(50 * sizeof(char));
                             ini_gets("GlobalSelector", "IMNAME",
                                      "fcitx-keyboard-us", curdeimname,
                                      FCITX_ARRAY_SIZE(curdeimname),
@@ -132,6 +134,8 @@ int main(int argc, char *argv[]) {
 
                             fprintf(stdout, "%s --- %s --- %s\n", " ",
                                     event_str[i], event->name, imname);
+                            free(curdeimname);
+                            sleep(3000);
 
                             fcitx_utils_launch_restart();
                         }
@@ -145,6 +149,7 @@ int main(int argc, char *argv[]) {
         }
     }
     free(defaultimconfigpath);
+    free(impluginconfigpath);
 
     return 0;
 }
