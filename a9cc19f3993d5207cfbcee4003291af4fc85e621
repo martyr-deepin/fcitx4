@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e40881e_13cde76e",
+        "filename": "src/module/implugin/implugin-service.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-28T09:08:39Z",
+      "side": 1,
+      "message": "注释行数: 6; 改动行数(修改和新增): 69; 注释率: 8.7%",
+      "revId": "a9cc19f3993d5207cfbcee4003291af4fc85e621",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd513f4a_493d7922",
+        "filename": "src/module/implugin/implugin.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-28T09:08:39Z",
+      "side": 1,
+      "message": "注释行数: 2; 改动行数(修改和新增): 23; 注释率: 8.7%",
+      "revId": "a9cc19f3993d5207cfbcee4003291af4fc85e621",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
