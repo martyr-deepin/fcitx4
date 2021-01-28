@@ -25,6 +25,14 @@ char *event_str[EVENT_NUM] =
   "IN_MOVE_SELF"
 };
 
+void fcitx_util_strc_to_imname(char* imname,int size)
+{
+    for (int i = 6; i <= size; i++) {
+        imname[i-6]=imname[i];
+    }
+    return;
+}
+
 int main(int argc, char *argv[])
 {
     fcitx_utils_init_as_daemon();
@@ -84,6 +92,7 @@ int main(int argc, char *argv[])
                     {
                         char* imname= fcitx_utils_malloc0(50*sizeof(char));
                         strcpy(imname, event->name);
+                        fcitx_util_strc_to_imname(imname,strlen(imname));
                         imname[strlen(imname)-3] = '\0';
 
                         char* curdeimname= fcitx_utils_malloc0(50*sizeof(char));
