@@ -25,6 +25,14 @@ char *event_str[EVENT_NUM] =
   "IN_MOVE_SELF"
 };
 
+void fcitx_util_strc_to_imname(char* imname,int size)
+{
+    for (int i = 6; i <= size; i++) {
+        imname[i-6]=imname[i];
+    }
+    return;
+}
+
 int main(int argc, char *argv[])
 {
     fcitx_utils_init_as_daemon();
@@ -84,7 +92,8 @@ int main(int argc, char *argv[])
                     {
                         char* imname= fcitx_utils_malloc0(50*sizeof(char));
                         strcpy(imname, event->name);
-                        imname[strlen(imname)-3] = '\0';
+                        fcitx_util_strc_to_imname(imname,strlen(imname));
+                        strstr(imname, ".so")[0] = '\0';
 
                         char* curdeimname= fcitx_utils_malloc0(50*sizeof(char));
 
@@ -111,6 +120,7 @@ int main(int argc, char *argv[])
                             {
                                 ini_puts("GlobalSelector", "IMNAME", "fcitx-keyboard-us", defaultimconfigpath);
                             }
+                            ini_puts("GlobalSelector", "IMLOG", imname, defaultimconfigpath);
 
                             fprintf(stdout, "%s --- %s --- %s\n", " ", event_str[i],event->name,imname);
 

@@ -1,49 +1,49 @@
-[fcitx-chineseime/SettingWizard]
+[chineseime/SettingWizard]
 Type=String
 DefaultValue=/opt/apps/org.deepin.chineseime/files/bin/chinime-setw
 Description= chineseime setting wizard path
 
-[fcitx-chineseime/Setting]
+[chineseime/Setting]
 Type=String
 DefaultValue=/opt/apps/org.deepin.chineseime/files/bin/chinime-sett
 Description= chineseime setting path
 
-[fcitx-iflyime/SettingWizard]
+[iflyime/SettingWizard]
 Type=String
 DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-set-w
 Description= iflyime setting wizard path
 
-[fcitx-iflyime/Setting]
+[iflyime/Setting]
 Type=String
 DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-set
 Description= iflyime setting path
 
-[fcitx-huayupy/SettingWizard]
+[huayupy/SettingWizard]
 Type=String
 DefaultValue=/opt/apps/com.thunisoft.input/files/bin/huayupy-config-tools-fcitx
 Description= huayupy setting wizard path
 
-[fcitx-huayupy/Setting]
+[huayupy/Setting]
 Type=String
 DefaultValue=/opt/apps/com.thunisoft.input/files/bin/huayupy-config-tools-fcitx
 Description= huayupy setting path
 
-[fcitx-sogoupinyin/SettingWizard]
+[sogoupinyin/SettingWizard]
 Type=String
 DefaultValue=/opt/sogoupinyin/files/bin/sogoupinyin-configtool
 Description= sogoupinyin setting wizard path
 
-[fcitx-sogoupinyin/Setting]
+[sogoupinyin/Setting]
 Type=String
 DefaultValue=/opt/sogoupinyin/files/bin/sogoupinyin-configtool
 Description= sogoupinyin setting path
 
-[fcitx-baidupinyin/SettingWizard]
+[baidupinyin/SettingWizard]
 Type=String
 DefaultValue=/opt/apps/com.baidu.fcitx-baidupinyin/files/bin/BDIMWizard
 Description= baidupinyin setting wizard path
 
-[fcitx-baidupinyin/Setting]
+[baidupinyin/Setting]
 Type=String
 DefaultValue=/opt/apps/com.baidu.fcitx-baidupinyin/files/bin/BDIMSettings
 Description= baidupinyin setting path

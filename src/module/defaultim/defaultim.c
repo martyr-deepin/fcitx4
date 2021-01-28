@@ -46,6 +46,7 @@ struct _IMSelector {
     SelectorHandle handle;
     boolean triggered;
     char* imname;
+    char* log;
     FcitxInstance* owner;
 };
 
@@ -71,6 +72,7 @@ FCITX_DEFINE_PLUGIN(fcitx_defaultim, module, FcitxModule) = {
 CONFIG_BINDING_BEGIN(IMSelector)
 CONFIG_BINDING_REGISTER("GlobalSelector", "IM", selectorKey)
 CONFIG_BINDING_REGISTER("GlobalSelector", "IMNAME", imname)
+CONFIG_BINDING_REGISTER("GlobalSelector", "IMLOG", log)
 CONFIG_BINDING_END()
 
 void* IMSelectorCreate(FcitxInstance* instance)
