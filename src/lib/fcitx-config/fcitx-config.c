@@ -1218,6 +1218,73 @@ boolean FcitxConfigSaveConfigFileFp(FILE* fp, FcitxGenericConfig *config, FcitxC
 }
 
 FCITX_EXPORT_API
+boolean FcitxConfigSaveConfigFileFpNdc(FILE* fp, FcitxGenericConfig *config, FcitxConfigFileDesc* cdesc)
+{
+    if (!fp)
+        return false;
+
+    FcitxConfigFile* cfile = config->configFile;
+
+    HASH_FOREACH(groupdesc, cdesc->groupsDesc, FcitxConfigGroupDesc) {
+        fprintf(fp, "[%s]\n", groupdesc->groupName);
+
+        FcitxConfigGroup *group = NULL;
+
+        if (cfile)
+            HASH_FIND_STR(cfile->groups, groupdesc->groupName, group);
+
+        HASH_FOREACH(optiondesc, groupdesc->optionsDesc, FcitxConfigOptionDesc) {
+            FcitxConfigOption *option = NULL;
+
+            if (group)
+                HASH_FIND_STR(group->options, optiondesc->optionName, option);
+
+            if (optiondesc->desc && strlen(optiondesc->desc) != 0)
+                fprintf(fp, "# %s\n", dgettext(cdesc->domain, optiondesc->desc));
+
+            switch (optiondesc->type) {
+            case T_Enum: {
+                fprintf(fp, "# %s\n", _("Available Value:"));
+                int i;
+                for (i = 0; i < optiondesc->configEnum.enumCount; i++)
+                    fprintf(fp, "# %s\n", optiondesc->configEnum.enumDesc[i]);
+            }
+            break;
+            case T_Boolean: {
+                fprintf(fp, "# %s\n", _("Available Value:"));
+                fprintf(fp, "# True False\n");
+            }
+            break;
+            default:
+                break;
+            }
+
+            if (!option) {
+                if (optiondesc->rawDefaultValue)
+                    fprintf(fp, "%s=%s\n", optiondesc->optionName,
+                            optiondesc->rawDefaultValue);
+                else
+                    FcitxLog(FATAL, _("no default option for %s/%s"),
+                             groupdesc->groupName, optiondesc->optionName);
+            } else {
+                FcitxConfigSyncValue(config, group, option, Value2Raw);
+                /* comment out the default value, for future automatical change */
+                if (optiondesc->rawDefaultValue && strcmp(option->rawValue, optiondesc->rawDefaultValue) == 0)
+                    fprintf(fp, "#");
+                fprintf(fp, "%s=%s\n", option->optionName, option->rawValue);
+                HASH_FOREACH(subkey, option->subkey, FcitxConfigOptionSubkey) {
+                    fprintf(fp, "%s[%s]=%s\n", option->optionName, subkey->subkeyName, subkey->rawValue);
+                }
+            }
+        }
+
+        fprintf(fp, "\n");
+    }
+
+    return true;
+}
+
+FCITX_EXPORT_API
 void FcitxConfigBindValue(FcitxConfigFile* cfile, const char *groupName, const char *optionName, void* var, FcitxSyncFilter filter, void *arg)
 {
     FcitxConfigGroup *group = NULL;

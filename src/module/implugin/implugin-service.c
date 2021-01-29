@@ -40,8 +40,8 @@ int main(int argc, char *argv[]) {
 
     char *fcitxlibpath =
         fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
-    char *defaultimconfigpath = fcitx_utils_malloc0(50 * sizeof(char));
-    char *impluginconfigpath = fcitx_utils_malloc0(50 * sizeof(char));
+    char defaultimconfigpath[50];
+    char impluginconfigpath[50];
 
     //获取默认输入法配置文件路径
     FILE *fp;
@@ -87,7 +87,8 @@ int main(int argc, char *argv[]) {
                 if ((event->mask >> i) & 1) {
                     if (event->len > 0) {
                         //获取输入法名称
-                        char *imname = fcitx_utils_malloc0(50 * sizeof(char));
+                        char imname[50];
+                        memset(imname,0,FCITX_ARRAY_SIZE(imname));
                         strcpy(imname, event->name);
                         fcitx_util_strc_to_pop(imname, strlen(imname), 6);
                         strstr(imname, ".so")[0] = '\0';
@@ -105,40 +106,37 @@ int main(int argc, char *argv[]) {
                             fcitx_utils_launch_restart();
                             sleep(5);
 
-                            char *settingwizard =
-                                fcitx_utils_malloc0(50 * sizeof(char));
-                            ini_gets(imname, "#SettingWizard", "none",
-                                     settingwizard, 50, impluginconfigpath);
+                            char settingwizard[50];
+                            memset(settingwizard,0,FCITX_ARRAY_SIZE(settingwizard));
+                            ini_gets(imname, "SettingWizard", "none",
+                                     settingwizard, FCITX_ARRAY_SIZE(settingwizard), impluginconfigpath);
                             if (fcitx_utils_strcmp0(settingwizard, "none") !=
                                 0) {
-                                fcitx_utils_launch_tool(settingwizard, NULL);
+                               fcitx_utils_launch_tool(settingwizard, NULL);
                             }
-                            free(settingwizard);
 
                         } else if (fcitx_utils_strcmp0(event_str[i],
                                                        "IN_DELETE") == 0) {
-                            char *curdeimname =
-                                fcitx_utils_malloc0(50 * sizeof(char));
-                            ini_gets("GlobalSelector", "#IMNAME",
-                                     "fcitx-keyboard-us", curdeimname, 50,
+                            char curdeimname[50];
+                            memset(curdeimname,0,FCITX_ARRAY_SIZE(curdeimname));
+                            ini_gets("GlobalSelector", "IMNAME",
+                                     "fcitx-keyboard-us", curdeimname, FCITX_ARRAY_SIZE(curdeimname),
                                      defaultimconfigpath);
 
                             if (fcitx_utils_strcmp0(curdeimname, imname) == 0) {
-                                ini_puts("GlobalSelector", "#IMNAME",
+                                ini_puts("GlobalSelector", "IMNAME",
                                          "fcitx-keyboard-us",
                                          defaultimconfigpath);
                             }
-                            ini_puts("GlobalSelector", "#IMLOG", curdeimname,
+                            ini_puts("GlobalSelector", "IMLOG", curdeimname,
                                      defaultimconfigpath);
 
                             fprintf(stdout, "%s --- %s --- %s\n", " ",
                                     event_str[i], event->name, imname);
-                            free(curdeimname);
                             sleep(3);
 
                             fcitx_utils_launch_restart();
                         }
-                        free(imname);
                     } else
                         fprintf(stdout, "%s --- %s\n", " ", event_str[i]);
                 }
@@ -147,8 +145,6 @@ int main(int argc, char *argv[]) {
             len = len - sizeof(struct inotify_event) - event->len;
         }
     }
-    free(defaultimconfigpath);
-    free(impluginconfigpath);
 
     return 0;
 }

@@ -160,7 +160,7 @@ INPUT_RETURN_VALUE IMSelectorSelect(void* arg)
     FcitxIM* im = FcitxInstanceGetIMByIndex(instance, handle->idx);
     if (!im)
         return IRV_TO_PROCESS;
-        FcitxInstanceSwitchIMByIndex(instance, handle->idx);
+    FcitxInstanceSwitchIMByIndex(instance, handle->idx);
     return IRV_CLEAN;
 }
 

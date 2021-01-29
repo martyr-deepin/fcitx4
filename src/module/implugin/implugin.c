@@ -101,7 +101,7 @@ void SaveIMPluginConfig(IMPlugin *implugin) {
     FcitxConfigFileDesc *configDesc = GetIMPluginConfig();
     FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config",
                                              "w", NULL);
-    FcitxConfigSaveConfigFileFp(fp, &implugin->gconfig, configDesc);
+    FcitxConfigSaveConfigFileFpNdc(fp, &implugin->gconfig, configDesc);
     if (fp)
         fclose(fp);
 }
