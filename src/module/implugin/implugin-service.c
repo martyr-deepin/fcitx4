@@ -91,7 +91,7 @@ int main(int argc, char *argv[]) {
                         memset(imname,0,FCITX_ARRAY_SIZE(imname));
                         strcpy(imname, event->name);
                         fcitx_util_strc_to_pop(imname, strlen(imname), 6);
-                        strstr(imname, ".so")[0] = '\0';
+                        memset(strstr(imname, ".so"),0,FCITX_ARRAY_SIZE(strstr(imname, ".so")));
 
                         if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") ==
                                 0 &&
