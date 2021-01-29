@@ -40,8 +40,8 @@ int main(int argc, char *argv[]) {
 
     char *fcitxlibpath =
         fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
-    char defaultimconfigpath[50];
-    char impluginconfigpath[50];
+    char *defaultimconfigpath = NULL;
+    char *impluginconfigpath = NULL;
 
     //获取默认输入法配置文件路径
     FILE *fp;
@@ -145,6 +145,9 @@ int main(int argc, char *argv[]) {
             len = len - sizeof(struct inotify_event) - event->len;
         }
     }
+
+    free(impluginconfigpath);
+    free(defaultimconfigpath);
 
     return 0;
 }
