@@ -100,9 +100,9 @@ int main(int argc, char *argv[]) {
                             fprintf(stdout, "%s --- %s --- %s\n", " ",
                                     event_str[i], event->name, imname);
 
-                            sleep(3000);
+                            sleep(10);
                             fcitx_utils_launch_restart();
-                            sleep(3000);
+                            sleep(5);
 
                             char *settingwizard =
                                 fcitx_utils_malloc0(50 * sizeof(char));
@@ -135,7 +135,7 @@ int main(int argc, char *argv[]) {
                             fprintf(stdout, "%s --- %s --- %s\n", " ",
                                     event_str[i], event->name, imname);
                             free(curdeimname);
-                            sleep(3000);
+                            sleep(3);
 
                             fcitx_utils_launch_restart();
                         }
