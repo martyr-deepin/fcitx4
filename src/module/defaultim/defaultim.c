@@ -206,7 +206,7 @@ void SaveIMSelectorConfig(IMSelector* imselector)
 {
     FcitxConfigFileDesc* configDesc = GetIMSelectorConfig();
     FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config", "w", NULL);
-    FcitxConfigSaveConfigFileFp(fp, &imselector->gconfig, configDesc);
+    FcitxConfigSaveConfigFileFpNdc(fp, &imselector->gconfig, configDesc);
     if (fp)
         fclose(fp);
 }
