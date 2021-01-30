@@ -20,12 +20,12 @@ Description= iflyime setting path
 
 [huayupy/SettingWizard]
 Type=String
-DefaultValue=/opt/apps/com.thunisoft.input/files/bin/huayupy-config-tools-fcitx
+DefaultValue=/opt/apps/com.thunisoft.input/files/bin/huayupy-config-tools-fcitx 14760634-a01a-4919-872a-f5844996b1d2
 Description= huayupy setting wizard path
 
 [huayupy/Setting]
 Type=String
-DefaultValue=/opt/apps/com.thunisoft.input/files/bin/huayupy-config-tools-fcitx
+DefaultValue=/opt/apps/com.thunisoft.input/files/bin/huayupy-config-tools-fcitx 14760634-a01a-4919-872a-f5844996b1d2
 Description= huayupy setting path
 
 [sogoupinyin/SettingWizard]

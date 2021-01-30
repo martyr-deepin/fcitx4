@@ -37,11 +37,17 @@ char *find_target(const char *input) {
         return NULL;
     }
     //[1] 第一次与 "fcitx-" 不匹配的字段位置
-    const char * start_point_position = strstr(input, "fcitx-");
-    int start_position = (start_point_position - input ) + strlen("fcitx-");
+    const char * s_point_position = strstr(input, "fcitx-");
+    if(s_point_position == NULL){
+        return NULL;
+    }
+    int start_position = (s_point_position - input ) + strlen("fcitx-");
     //[2] 第一次与 ".so" 匹配的字段位置
-    const char *end_point_position = strstr(input, ".so");
-    size_t end_position = end_point_position - input;
+    const char *e_point_position = strstr(input, ".so");
+    if(e_point_position == NULL){
+        return NULL;
+    }
+    size_t end_position = e_point_position - input;
 
     //确保是 开头是 "fcitx-" , 后缀是 ".so"
     if (end_position > start_position && start_position > 0) {
