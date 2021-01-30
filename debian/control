@@ -797,3 +797,11 @@ Breaks: fcitx (<< ${source:Upstream-Version})
 Description: The default input method
  Set the default input method shortcut and the default input method name.
  Shortcuts allow you to switch the default input method.
+
+Package: fcitx-onboard
+Architecture: any
+Depends:  ${misc:Depends}, ${shlibs:Depends}
+Breaks: fcitx (<< ${source:Upstream-Version})
+Description: Evoke a virtual keyboard
+ The shortcut switches to the on-screen keyboard.
+ It takes effect only when the onboard is installed on the machine.
