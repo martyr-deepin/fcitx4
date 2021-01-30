@@ -19,12 +19,42 @@ char *event_str[EVENT_NUM] = {"IN_ACCESS",
                               "IN_DELETE",     //文件删除
                               "IN_DELETE_SELF",   "IN_MOVE_SELF"};
 
-//字符串向前移动
-void fcitx_util_strc_to_pop(char *imname, int size, int pop) {
-    for (int i = pop; i <= size; i++) {
-        imname[i - pop] = imname[i];
+// \brief 检索目标内容 fcitx-vvv.soxxxx中间内容
+// \param input: 传入等待检测的字段
+// \return 返回 传出中间字段的内容， NULL
+// \note
+// 用法
+// const char *strexam = "fcitx-s1.sodpkgcccc";
+// char* result = find_target(strexam);
+// printf("%s", result);
+
+char *find_target(const char *input) {
+    char localname[BUFSIZ];
+    char *output = NULL;
+    memset(localname, 0, BUFSIZ * sizeof(char));
+
+    if (input == NULL) {
+        return NULL;
     }
-    return;
+    //[1] 第一次与 "fcitx-" 不匹配的字段位置
+    size_t start_position = strspn(input, "fcitx-");
+    start_position = start_position - 1;
+    //[2] 第一次与 ".so" 匹配的字段位置
+    const char *point_position = strstr(input, ".so");
+    size_t end_position = point_position - input;
+
+    //确保是 开头是 "fcitx-" , 后缀是 ".so"
+    if (end_position > start_position && start_position > 0) {
+        for (int i = start_position; i < (int)end_position; i++) {
+            localname[i - start_position] = *(input + i);
+        }
+
+        output = malloc((strlen(localname) + 1) * sizeof(char));
+        memset(output, 0, (strlen(localname) + 1) * sizeof(char));
+        strncpy(output, localname, strlen(localname));
+        return output;
+    }
+    return NULL;
 }
 
 int main(int argc, char *argv[]) {
@@ -56,7 +86,6 @@ int main(int argc, char *argv[]) {
     if (fp)
         fclose(fp);
 
-    printf("%s", fcitxlibpath);
     if (!fcitxlibpath)
         return -1;
 
@@ -87,56 +116,75 @@ int main(int argc, char *argv[]) {
                 if ((event->mask >> i) & 1) {
                     if (event->len > 0) {
                         //获取输入法名称
-                        char imname[50];
-                        memset(imname,0,FCITX_ARRAY_SIZE(imname));
-                        strcpy(imname, event->name);
-                        fcitx_util_strc_to_pop(imname, strlen(imname), 6);
-                        memset(strstr(imname, ".so"),0,FCITX_ARRAY_SIZE(strstr(imname, ".so")));
-
+                        char *imname = find_target(event->name);
+                        if(imname == NULL)
+                        {
+                            continue;
+                        }
                         if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") ==
                                 0 &&
-                            fcitx_utils_strcmp0("fcitx-baidupinyin.so",
-                                                event->name) != 0) {
+                            fcitx_utils_strcmp0("baidupinyin", imname) != 0) {
                             ini_puts("GlobalSelector", "IMNAME", imname,
                                      defaultimconfigpath);
-                            fprintf(stdout, "%s --- %s --- %s\n", " ",
-                                    event_str[i], event->name, imname);
 
                             sleep(10);
                             fcitx_utils_launch_restart();
                             sleep(5);
 
-                            char settingwizard[50];
-                            memset(settingwizard,0,FCITX_ARRAY_SIZE(settingwizard));
+                            char settingwizard[BUFSIZ];
+                            memset(settingwizard, 0,
+                                   FCITX_ARRAY_SIZE(settingwizard));
                             ini_gets(imname, "SettingWizard", "none",
-                                     settingwizard, FCITX_ARRAY_SIZE(settingwizard), impluginconfigpath);
-                            if (fcitx_utils_strcmp0(settingwizard, "none") !=
+                                     settingwizard,
+                                     FCITX_ARRAY_SIZE(settingwizard),
+                                     impluginconfigpath);
+
+                            char *psettingwizard = malloc(
+                                (strlen(settingwizard) + 1) * sizeof(char));
+                            memset(psettingwizard, 0,
+                                   (strlen(settingwizard) + 1) * sizeof(char));
+                            strncpy(psettingwizard, settingwizard,
+                                    (strlen(settingwizard) + 1) * sizeof(char));
+
+                            if (fcitx_utils_strcmp0(psettingwizard, "none") !=
                                 0) {
-                               fcitx_utils_launch_tool(settingwizard, NULL);
+                                fcitx_utils_launch_tool(psettingwizard, NULL);
                             }
+                            free(psettingwizard);
 
                         } else if (fcitx_utils_strcmp0(event_str[i],
                                                        "IN_DELETE") == 0) {
-                            char curdeimname[50];
-                            memset(curdeimname,0,FCITX_ARRAY_SIZE(curdeimname));
+                            char curdeimname[BUFSIZ];
+                            memset(curdeimname, 0,
+                                   FCITX_ARRAY_SIZE(curdeimname));
                             ini_gets("GlobalSelector", "IMNAME",
-                                     "fcitx-keyboard-us", curdeimname, FCITX_ARRAY_SIZE(curdeimname),
+                                     "fcitx-keyboard-us", curdeimname,
+                                     FCITX_ARRAY_SIZE(curdeimname),
                                      defaultimconfigpath);
 
-                            if (fcitx_utils_strcmp0(curdeimname, imname) == 0) {
+                            char *pcurdeimname = malloc(
+                                (strlen(curdeimname) + 1) * sizeof(char));
+                            memset(pcurdeimname, 0,
+                                   (strlen(curdeimname) + 1) * sizeof(char));
+                            strncpy(pcurdeimname, curdeimname,
+                                    (strlen(curdeimname) + 1) * sizeof(char));
+
+                            if (fcitx_utils_strcmp0(pcurdeimname, imname) ==
+                                0) {
                                 ini_puts("GlobalSelector", "IMNAME",
                                          "fcitx-keyboard-us",
                                          defaultimconfigpath);
                             }
-                            ini_puts("GlobalSelector", "IMLOG", curdeimname,
+                            ini_puts("GlobalSelector", "IMLOG", pcurdeimname,
                                      defaultimconfigpath);
 
-                            fprintf(stdout, "%s --- %s --- %s\n", " ",
-                                    event_str[i], event->name, imname);
+                            free(pcurdeimname);
+
                             sleep(3);
 
                             fcitx_utils_launch_restart();
                         }
+                        free(imname);
                     } else
                         fprintf(stdout, "%s --- %s\n", " ", event_str[i]);
                 }
