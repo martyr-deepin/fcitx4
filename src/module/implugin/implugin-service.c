@@ -148,7 +148,11 @@ int main(int argc, char *argv[]) {
 
                             if (fcitx_utils_strcmp0(psettingwizard, "none") !=
                                 0) {
-                                fcitx_utils_start_process(&psettingwizard);
+                                char* commod[] = {
+                                    psettingwizard,
+                                    NULL
+                                };
+                                fcitx_utils_start_process(commod);
                             }
                             free(psettingwizard);
 
