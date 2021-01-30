@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
 
                             if (fcitx_utils_strcmp0(psettingwizard, "none") !=
                                 0) {
-                                fcitx_utils_launch_tool(psettingwizard, NULL);
+                                fcitx_utils_start_process(&psettingwizard);
                             }
                             free(psettingwizard);
 
