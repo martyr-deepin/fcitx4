@@ -2068,7 +2068,7 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
                  * then add something else.
                  */
                 if (!imListIsEmpty || MatchLanguage(ime->langCode, lang)) {
-                    utarray_push_back(&instance->imes, ime);
+                    utarray_insert(&instance->imes, ime, 1);
                 }
             }
         }

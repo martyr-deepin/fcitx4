@@ -1,3 +1,20 @@
+/*
+* Copyright (C) 2021 ~ 2025 Uniontech Software Technology Co.,Ltd.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -37,11 +54,17 @@ char *find_target(const char *input) {
         return NULL;
     }
     //[1] 第一次与 "fcitx-" 不匹配的字段位置
-    const char * start_point_position = strstr(input, "fcitx-");
-    int start_position = (start_point_position - input ) + strlen("fcitx-");
+    const char * s_point_position = strstr(input, "fcitx-");
+    if(s_point_position == NULL){
+        return NULL;
+    }
+    int start_position = (s_point_position - input ) + strlen("fcitx-");
     //[2] 第一次与 ".so" 匹配的字段位置
-    const char *end_point_position = strstr(input, ".so");
-    size_t end_position = end_point_position - input;
+    const char *e_point_position = strstr(input, ".so");
+    if(e_point_position == NULL){
+        return NULL;
+    }
+    size_t end_position = e_point_position - input;
 
     //确保是 开头是 "fcitx-" , 后缀是 ".so"
     if (end_position > start_position && start_position > 0) {

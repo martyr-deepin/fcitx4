@@ -1,7 +1,4 @@
-/*  
- *  Copyright (c) CompuPhase                             *
- *  
- *  Glue functions for the minIni library, based on the C/C++ stdio library
+/*  Glue functions for the minIni library, based on the C/C++ stdio library
  *
  *  Or better said: this file contains macros that maps the function interface
  *  used by minIni to the standard C/C++ file I/O functions.
