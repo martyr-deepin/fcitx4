@@ -23,6 +23,7 @@ typedef struct _IMPlugin IMPlugin;
 typedef struct _ClosedSourceIM {
     char *swizardpath; // SettingWizard 设置向导软件目录
     char *spath;       // Setting 设置属性软件目录
+    char *sparameter;  // 设值向导启动参数
 } ClosedSourceIM;
 
 struct _IMPlugin {
@@ -47,14 +48,19 @@ FCITX_DEFINE_PLUGIN(fcitx_implugin, module, FcitxModule) = {
 CONFIG_BINDING_BEGIN(IMPlugin)
 CONFIG_BINDING_REGISTER("chineseime", "SettingWizard", chineseime.swizardpath)
 CONFIG_BINDING_REGISTER("chineseime", "Setting", chineseime.spath)
+CONFIG_BINDING_REGISTER("chineseime", "Parameter", chineseime.sparameter)
 CONFIG_BINDING_REGISTER("iflyime", "SettingWizard", iflyime.swizardpath)
 CONFIG_BINDING_REGISTER("iflyime", "Setting", iflyime.spath)
+CONFIG_BINDING_REGISTER("iflyime", "Parameter", iflyime.sparameter)
 CONFIG_BINDING_REGISTER("huayupy", "SettingWizard", huayupy.swizardpath)
 CONFIG_BINDING_REGISTER("huayupy", "Setting", huayupy.spath)
+CONFIG_BINDING_REGISTER("huayupy", "Parameter", huayupy.sparameter)
 CONFIG_BINDING_REGISTER("sogoupinyin", "SettingWizard", sogoupinyin.swizardpath)
 CONFIG_BINDING_REGISTER("sogoupinyin", "Setting", sogoupinyin.spath)
+CONFIG_BINDING_REGISTER("sogoupinyin", "Parameter", sogoupinyin.sparameter)
 CONFIG_BINDING_REGISTER("baidupinyin", "SettingWizard", baidupinyin.swizardpath)
 CONFIG_BINDING_REGISTER("baidupinyin", "Setting", baidupinyin.spath)
+CONFIG_BINDING_REGISTER("baidupinyin", "Parameter", baidupinyin.sparameter)
 CONFIG_BINDING_END()
 
 void *IMPluginCreate(FcitxInstance *instance) {

@@ -1,17 +1,12 @@
-[GlobalSelector/IM]
+[DefaultIM/HOTKEY]
 Type=Hotkey
 DefaultValue=
-Description=Switch to the First Input Method
+Description=Switch to the Default Method
 
-[GlobalSelector/IMNAME]
+[DefaultIM/IMNAME]
 Type=String
 DefaultValue=fcitx-keyboard-us
 Description=Switch to Input Method by Name
-
-[GlobalSelector/IMLOG]
-Type=String
-DefaultValue=fcitx-log
-Description=Input Method Log
 
 [DescriptionFile]
 LocaleDomain=fcitx

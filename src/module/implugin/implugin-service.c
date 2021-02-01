@@ -150,7 +150,7 @@ int main(int argc, char *argv[]) {
                         if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") ==
                                 0 &&
                             fcitx_utils_strcmp0("baidupinyin", imName) != 0) {
-                            ini_puts("GlobalSelector", "IMNAME", imName,
+                            ini_puts("DefaultIM", "IMNAME", imName,
                                      dimConfigPath);
 
                             sleep(10);
@@ -172,22 +172,38 @@ int main(int argc, char *argv[]) {
                             strncpy(pSettingWizard, settingWizard,
                                     (strlen(settingWizard) + 1) * sizeof(char));
 
+                            char parameter[BUFSIZ];
+                            memset(parameter, 0,
+                                   FCITX_ARRAY_SIZE(parameter));
+                            ini_gets(imName, "Parameter", "none",
+                                     parameter,
+                                     FCITX_ARRAY_SIZE(parameter),
+                                     imPluginConfigPath);
+
+                            char *pParameter = malloc(
+                                (strlen(parameter) + 1) * sizeof(char));
+                            memset(pParameter, 0,
+                                   (strlen(parameter) + 1) * sizeof(char));
+                            strncpy(pParameter, parameter,
+                                    (strlen(parameter) + 1) * sizeof(char));
+
                             if (fcitx_utils_strcmp0(pSettingWizard, "none") !=
                                 0) {
                                 char* commod[] = {
                                     pSettingWizard,
-                                    NULL
+                                    pParameter
                                 };
                                 fcitx_utils_start_process(commod);
                             }
                             free(pSettingWizard);
+                            free(pParameter);
 
                         } else if (fcitx_utils_strcmp0(event_str[i],
                                                        "IN_DELETE") == 0) {
                             char curDeimName[BUFSIZ];
                             memset(curDeimName, 0,
                                    FCITX_ARRAY_SIZE(curDeimName));
-                            ini_gets("GlobalSelector", "IMNAME",
+                            ini_gets("DefaultIM", "IMNAME",
                                      "fcitx-keyboard-us", curDeimName,
                                      FCITX_ARRAY_SIZE(curDeimName),
                                      dimConfigPath);
@@ -201,12 +217,10 @@ int main(int argc, char *argv[]) {
 
                             if (fcitx_utils_strcmp0(pCurDeimName, imName) ==
                                 0) {
-                                ini_puts("GlobalSelector", "IMNAME",
+                                ini_puts("DefaultIM", "IMNAME",
                                          "fcitx-keyboard-us",
                                          dimConfigPath);
                             }
-                            ini_puts("GlobalSelector", "IMLOG", pCurDeimName,
-                                     dimConfigPath);
 
                             free(pCurDeimName);
 
