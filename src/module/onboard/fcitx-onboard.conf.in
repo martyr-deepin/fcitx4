@@ -1,9 +1,0 @@
-[Addon]
-Name=fcitx-onboard
-_GeneralName=Set default input method shortcut
-_Comment=Set the default input method and the default input method shortcut
-Category=Module
-Enabled=True
-Library=fcitx-onboard.so
-Type=SharedLibrary
-Priority=40
