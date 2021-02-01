@@ -30,88 +30,86 @@
 #include "fcitx/module.h"
 #include <fcitx/context.h>
 
-typedef struct _IMOnboard IMOnboard;
+typedef struct _IMSelector IMSelector;
 
-typedef struct _OnboardHandle {
+typedef struct _SelectorHandle {
     int idx;
-    IMOnboard *imonboard;
-} OnboardHandle;
+    IMSelector *imselector;
+} SelectorHandle;
 
-struct _IMOnboard {
+struct _IMSelector {
     FcitxGenericConfig gconfig;
-    FcitxHotkey onboardKey;
-    OnboardHandle handle;
+    FcitxHotkey selectorKey;
+    SelectorHandle handle;
     boolean triggered;
     char *commond;
-    char *log;
     FcitxInstance *owner;
 };
 
-static void *IMOnboardCreate(FcitxInstance *instance);
-static boolean IMOnboardPreFilter(void *arg, FcitxKeySym sym,
-                                  unsigned int state,
-                                  INPUT_RETURN_VALUE *retval);
-static void IMOnboardReset(void *arg);
-static void IMOnboardReload(void *arg);
-static INPUT_RETURN_VALUE IMOnboardSelect(void *arg);
-static boolean LoadIMOnboardConfig(IMOnboard *imonboard);
-static void SaveIMOnboardConfig(IMOnboard *imonboard);
+static void *IMSelectorCreate(FcitxInstance *instance);
+static boolean IMSelectorPreFilter(void *arg, FcitxKeySym sym,
+                                   unsigned int state,
+                                   INPUT_RETURN_VALUE *retval);
+static void IMSelectorReset(void *arg);
+static void IMSelectorReload(void *arg);
+static INPUT_RETURN_VALUE IMSelectorSelect(void *arg);
+static boolean LoadIMSelectorConfig(IMSelector *imselector);
+static void SaveIMSelectorConfig(IMSelector *imselector);
 
-FCITX_DEFINE_PLUGIN(fcitx_onboard, module, FcitxModule) = {
-    IMOnboardCreate, NULL, NULL, NULL, IMOnboardReload};
+FCITX_DEFINE_PLUGIN(fcitx_defaultim, module, FcitxModule) = {
+    IMSelectorCreate, NULL, NULL, NULL, IMSelectorReload};
 
-CONFIG_BINDING_BEGIN(IMOnboard)
-CONFIG_BINDING_REGISTER("GlobalOnboard", "IM", onboardKey)
-CONFIG_BINDING_REGISTER("GlobalOnboard", "IMNAME", commond)
-CONFIG_BINDING_REGISTER("GlobalOnboard", "IMLOG", log)
+CONFIG_BINDING_BEGIN(IMSelector)
+CONFIG_BINDING_REGISTER("Onboard", "HOTKEY", selectorKey)
+CONFIG_BINDING_REGISTER("Onboard", "COMMOND", imname)
 CONFIG_BINDING_END()
 
-void *IMOnboardCreate(FcitxInstance *instance) {
-    IMOnboard *imonboard = fcitx_utils_malloc0(sizeof(IMOnboard));
-    imonboard->owner = instance;
-    if (!LoadIMOnboardConfig(imonboard)) {
-        free(imonboard);
+void *IMSelectorCreate(FcitxInstance *instance) {
+    IMSelector *imselector = fcitx_utils_malloc0(sizeof(IMSelector));
+    imselector->owner = instance;
+    if (!LoadIMSelectorConfig(imselector)) {
+        free(imselector);
         return NULL;
     }
 
     FcitxKeyFilterHook hk;
-    hk.arg = imonboard;
-    hk.func = IMOnboardPreFilter;
+    hk.arg = imselector;
+    hk.func = IMSelectorPreFilter;
     FcitxInstanceRegisterPreInputFilter(instance, hk);
 
-    hk.arg = &imonboard->triggered;
+    hk.arg = &imselector->triggered;
     hk.func = FcitxDummyReleaseInputHook;
     FcitxInstanceRegisterPreReleaseInputFilter(instance, hk);
 
     FcitxHotkeyHook hkhk;
-    hkhk.arg = imonboard;
+    hkhk.arg = imselector;
 
     /* this key is ignore the very first input method which is for inactive */
 
     do {
-        OnboardHandle *handle = &imonboard->handle;
+        SelectorHandle *handle = &imselector->handle;
         handle->idx = 0;
-        handle->imonboard = imonboard;
+        handle->imselector = imselector;
         hkhk.arg = handle;
-        hkhk.hotkeyhandle = IMOnboardSelect;
-        hkhk.hotkey = &imonboard->onboardKey;
+        hkhk.hotkeyhandle = IMSelectorSelect;
+        hkhk.hotkey = &imselector->selectorKey;
         FcitxInstanceRegisterHotkeyFilter(instance, hkhk);
     } while (0);
 
     FcitxIMEventHook resethk;
-    resethk.arg = imonboard;
-    resethk.func = IMOnboardReset;
+    resethk.arg = imselector;
+    resethk.func = IMSelectorReset;
     FcitxInstanceRegisterResetInputHook(instance, resethk);
-    return imonboard;
+    return imselector;
 }
 
-boolean IMOnboardPreFilter(void *arg, FcitxKeySym sym, unsigned int state,
-                           INPUT_RETURN_VALUE *retval) {
-    IMOnboard *imonboard = arg;
-    FcitxInstance *instance = imonboard->owner;
+boolean IMSelectorPreFilter(void *arg, FcitxKeySym sym, unsigned int state,
+                            INPUT_RETURN_VALUE *retval) {
+    IMSelector *imselector = arg;
+    FcitxInstance *instance = imselector->owner;
     FcitxInputState *input = FcitxInstanceGetInputState(instance);
     FcitxGlobalConfig *fc = FcitxInstanceGetGlobalConfig(instance);
-    if (!imonboard->triggered)
+    if (!imselector->triggered)
         return false;
     FcitxCandidateWordList *candList = FcitxInputStateGetCandidateList(input);
     if (FcitxHotkeyIsHotKey(sym, state, FcitxConfigPrevPageKey(instance, fc))) {
@@ -136,28 +134,28 @@ boolean IMOnboardPreFilter(void *arg, FcitxKeySym sym, unsigned int state,
     return true;
 }
 
-INPUT_RETURN_VALUE IMOnboardSelect(void *arg) {
-    OnboardHandle *handle = arg;
-    IMOnboard *onboard = handle->imonboard;
-    char *commod[] = {onboard->commond, NULL};
+INPUT_RETURN_VALUE IMSelectorSelect(void *arg) {
+    SelectorHandle *handle = arg;
+    IMSelector *imselector = handle->imselector;
+    char *commod[] = {imselector->commond, NULL};
     fcitx_utils_start_process(commod);
     return IRV_TO_PROCESS;
 }
 
-void IMOnboardReset(void *arg) {
-    IMOnboard *imonboard = arg;
-    imonboard->triggered = false;
+void IMSelectorReset(void *arg) {
+    IMSelector *imselector = arg;
+    imselector->triggered = false;
 }
 
-void IMOnboardReload(void *arg) {
-    IMOnboard *imonboard = arg;
-    LoadIMOnboardConfig(imonboard);
+void IMSelectorReload(void *arg) {
+    IMSelector *imselector = arg;
+    LoadIMSelectorConfig(imselector);
 }
 
-CONFIG_DESC_DEFINE(GetIMOnboardConfig, "fcitx-onboard.desc")
+CONFIG_DESC_DEFINE(GetIMSelectorConfig, "fcitx-onboard.desc")
 
-boolean LoadIMOnboardConfig(IMOnboard *imonboard) {
-    FcitxConfigFileDesc *configDesc = GetIMOnboardConfig();
+boolean LoadIMSelectorConfig(IMSelector *imselector) {
+    FcitxConfigFileDesc *configDesc = GetIMSelectorConfig();
     if (configDesc == NULL)
         return false;
 
@@ -166,13 +164,13 @@ boolean LoadIMOnboardConfig(IMOnboard *imonboard) {
                                        NULL);
     if (!fp) {
         if (errno == ENOENT)
-            SaveIMOnboardConfig(imonboard);
+            SaveIMSelectorConfig(imselector);
     }
 
     FcitxConfigFile *cfile = FcitxConfigParseConfigFileFp(fp, configDesc);
 
-    IMOnboardConfigBind(imonboard, cfile, configDesc);
-    FcitxConfigBindSync((FcitxGenericConfig *)imonboard);
+    IMSelectorConfigBind(imselector, cfile, configDesc);
+    FcitxConfigBindSync((FcitxGenericConfig *)imselector);
 
     if (fp)
         fclose(fp);
@@ -180,11 +178,11 @@ boolean LoadIMOnboardConfig(IMOnboard *imonboard) {
     return true;
 }
 
-void SaveIMOnboardConfig(IMOnboard *imonboard) {
-    FcitxConfigFileDesc *configDesc = GetIMOnboardConfig();
+void SaveIMSelectorConfig(IMSelector *imselector) {
+    FcitxConfigFileDesc *configDesc = GetIMSelectorConfig();
     FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-onboard.config",
                                              "w", NULL);
-    FcitxConfigSaveConfigFileFpNdc(fp, &imonboard->gconfig, configDesc);
+    FcitxConfigSaveConfigFileFpNdc(fp, &imselector->gconfig, configDesc);
     if (fp)
         fclose(fp);
 }
