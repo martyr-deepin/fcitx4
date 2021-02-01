@@ -175,7 +175,7 @@ int main(int argc, char *argv[]) {
                             char parameter[BUFSIZ];
                             memset(parameter, 0,
                                    FCITX_ARRAY_SIZE(parameter));
-                            ini_gets(imName, "Parameter", "none",
+                            ini_gets(imName, "Parameter", NULL,
                                      parameter,
                                      FCITX_ARRAY_SIZE(parameter),
                                      imPluginConfigPath);
@@ -191,7 +191,8 @@ int main(int argc, char *argv[]) {
                                 0) {
                                 char* commod[] = {
                                     pSettingWizard,
-                                    pParameter
+                                    pParameter,
+                                    NULL
                                 };
                                 fcitx_utils_start_process(commod);
                             }
