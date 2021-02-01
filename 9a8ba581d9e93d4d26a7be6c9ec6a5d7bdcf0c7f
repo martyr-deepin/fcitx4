@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2da0932d_70bfcba8",
+        "filename": "src/module/defaultim/defaultim.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-01T07:55:57Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 72; 注释率: 1.4%",
+      "revId": "9a8ba581d9e93d4d26a7be6c9ec6a5d7bdcf0c7f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42863059_5cbeba55",
+        "filename": "src/module/onboard/onboard.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-01T07:55:57Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 61; 注释率: 0.0%",
+      "revId": "9a8ba581d9e93d4d26a7be6c9ec6a5d7bdcf0c7f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
