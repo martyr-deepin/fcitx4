@@ -1,7 +1,7 @@
 [Addon]
 Name=fcitx-onboard
-_GeneralName=Set default input method shortcut
-_Comment=Set the default input method and the default input method shortcut
+_GeneralName=Onboard Support
+_Comment=The shortcut starts the onboard
 Category=Module
 Enabled=True
 Library=fcitx-onboard.so
