@@ -905,6 +905,17 @@ DBusHandlerResult KimpanelDBusFilter(DBusConnection* connection, DBusMessage* ms
         fcitx_utils_launch_configure_tool();
         return DBUS_HANDLER_RESULT_HANDLED;
     }
+    else if (dbus_message_is_signal(msg, "org.kde.impanel", "LookupTablePageSkip")) {
+        FcitxLog(DEBUG, "LookupTablePageSkip");
+        DBusError error;
+        dbus_error_init(&error);
+        if (dbus_message_get_args(msg, &error, DBUS_TYPE_INT32, &int0, DBUS_TYPE_INVALID)) {
+            FcitxCandidateWordSetPage(FcitxInputStateGetCandidateList(input), int0);
+        }
+        dbus_error_free(&error);
+
+        return DBUS_HANDLER_RESULT_HANDLED;
+    }
 
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
