@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef7f35ae_4af88b95",
+        "filename": "src/module/defaultim/defaultim.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-01T09:01:07Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 72; 注释率: 1.4%",
+      "revId": "3b397ae827d8ee6ca1e6160c8a001990dcd258a1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d3c1af3_2fbdf6d6",
+        "filename": "src/module/implugin/implugin-service.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-01T09:01:07Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 18; 注释率: 0.0%",
+      "revId": "3b397ae827d8ee6ca1e6160c8a001990dcd258a1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fc0fca1_c8dd8f4d",
+        "filename": "src/module/implugin/implugin.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-01T09:01:07Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 6; 注释率: 16.7%",
+      "revId": "3b397ae827d8ee6ca1e6160c8a001990dcd258a1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffa6084a_feb70f16",
+        "filename": "src/module/onboard/onboard.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-01T09:01:07Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 60; 注释率: 0.0%",
+      "revId": "3b397ae827d8ee6ca1e6160c8a001990dcd258a1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
