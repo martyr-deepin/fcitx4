@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/inotify.h>
+#include <fcntl.h>
 #include <unistd.h>
 
 #include "fcitx-utils/utils.h"
@@ -68,6 +69,34 @@ char *find_target(const char *inputFIleInfo) {
     return NULL;
 }
 
+void delete_comment(char str[]){
+    int i,j;
+    for(i=j=0;str[i]!='\0';i++){
+        if(str[i]!='\#' || str[i+1]==' ')
+        {
+            str[j++]=str[i];
+        }
+    }
+    str[j]='\0';
+}
+
+void file_checkout(const char * filename) {
+    int fd,len;
+    char str[BUFSIZ];
+
+    fd=open(filename,O_CREAT|O_RDWR,S_IRUSR|S_IWUSR);
+    if(fd){
+    len=read(fd,str,BUFSIZ);
+    str[len]='\0';
+    delete_comment(str);
+    ftruncate(fd, 0);
+    lseek(fd, 0, SEEK_SET);
+    write(fd,str,strlen(str));
+
+    }
+    close(fd);
+}
+
 #define EVENT_NUM 12
 
 char *event_str[EVENT_NUM] = {"IN_ACCESS",
@@ -105,12 +134,14 @@ int main(int argc, char *argv[]) {
                                        &dimConfigPath);
     if (fp)
         fclose(fp);
+    file_checkout(dimConfigPath);
 
     //获取输入法插件配置文件路径
     fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config", "r",
                                        &imPluginConfigPath);
     if (fp)
         fclose(fp);
+    file_checkout(imPluginConfigPath);
 
     if (!fcitxLibPath)
         return -1;
@@ -192,7 +223,8 @@ int main(int argc, char *argv[]) {
                                 if(pParameter){
                                     char* commod[] = {
                                         pSettingWizard,
-                                        (char*)(intptr_t)pParameter
+                                        (char*)(intptr_t)pParameter,
+                                        NULL
                                     };
                                     fcitx_utils_start_process(commod);
                                 }
