@@ -85,7 +85,6 @@ char *event_str[EVENT_NUM] = {"IN_ACCESS",
 
 
 int main(int argc, char *argv[]) {
-    fcitx_utils_init_as_daemon();
 
     int inotifyFd = -1;
     int inotifyWd = -1;
@@ -189,12 +188,22 @@ int main(int argc, char *argv[]) {
 
                             if (fcitx_utils_strcmp0(pSettingWizard, "none") !=
                                 0) {
-                                char* commod[] = {
-                                    pSettingWizard,
-                                    pParameter,
-                                    NULL
-                                };
-                                fcitx_utils_start_process(commod);
+
+                                if(pParameter){
+                                    char* commod[] = {
+                                        pSettingWizard,
+                                        (char*)(intptr_t)pParameter
+                                    };
+                                    fcitx_utils_start_process(commod);
+                                }
+                                else {
+                                    char* commod[] = {
+                                        pSettingWizard,
+                                        NULL
+                                    };
+                                    fcitx_utils_start_process(commod);
+                                }
+
                             }
                             free(pSettingWizard);
                             free(pParameter);
