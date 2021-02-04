@@ -26,10 +26,10 @@
 #include "config.h"
 #endif
 
-#include <locale.h>
-#include <libintl.h>
-#include <semaphore.h>
 #include <fcntl.h>
+#include <libintl.h>
+#include <locale.h>
+#include <semaphore.h>
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -39,54 +39,58 @@
 #include <malloc.h>
 #endif // HAVE_MALLOC_H
 
-#include "fcitx/configfile.h"
-#include "fcitx/addon.h"
-#include "fcitx/module.h"
-#include "fcitx/ime-internal.h"
-#include "fcitx/frontend.h"
-#include "fcitx/profile.h"
-#include "fcitx/instance.h"
-#include "fcitx/instance-internal.h"
-#include "fcitx-utils/utils.h"
 #include "errorhandler.h"
+#include "fcitx-utils/utils.h"
+#include "fcitx/addon.h"
+#include "fcitx/configfile.h"
+#include "fcitx/frontend.h"
+#include "fcitx/ime-internal.h"
+#include "fcitx/instance-internal.h"
+#include "fcitx/instance.h"
+#include "fcitx/module.h"
+#include "fcitx/profile.h"
 
-FcitxInstance* instance = NULL;
+FcitxInstance *instance = NULL;
 int selfpipe[2];
-char* crashlog = NULL;
+char *crashlog = NULL;
 
-int main(int argc, char* argv[])
-{
-    if(!fcitx_utils_judge_implugin_service_exist())
-        fcitx_utils_launch_tool("fcitx-implugin-service","");
-
-    char* localedir = fcitx_utils_get_fcitx_path("localedir");
-    setlocale(LC_ALL, "");
-    bindtextdomain("fcitx", localedir);
-    free(localedir);
-    bind_textdomain_codeset("fcitx", "UTF-8");
-    textdomain("fcitx");
-    if (pipe(selfpipe)) {
-        fprintf(stderr, "Could not create self-pipe.\n");
-        exit(1);
+int main(int argc, char *argv[]) {
+    if (!fcitx_utils_judge_implugin_service_exist()) {
+        FcitxLog(DEBUG, "start fcitx-implugin-service");
+        fcitx_utils_launch_tool("fcitx-implugin-service", "");
+    } else {
+        FcitxLog(DEBUG, "exited no start fcitx-implugin-service");
     }
+}
 
-    fcntl(selfpipe[0], F_SETFL, O_NONBLOCK);
-    fcntl(selfpipe[0], F_SETFD, FD_CLOEXEC);
-    fcntl(selfpipe[1], F_SETFL, O_NONBLOCK);
-    fcntl(selfpipe[1], F_SETFD, FD_CLOEXEC);
+char *localedir = fcitx_utils_get_fcitx_path("localedir");
+setlocale(LC_ALL, "");
+bindtextdomain("fcitx", localedir);
+free(localedir);
+bind_textdomain_codeset("fcitx", "UTF-8");
+textdomain("fcitx");
+if (pipe(selfpipe)) {
+    fprintf(stderr, "Could not create self-pipe.\n");
+    exit(1);
+}
 
-    /* prepare filename first */
-    FcitxXDGMakeDirUser("log");
-    FcitxXDGGetFileUserWithPrefix("log", "crash.log", NULL, &crashlog);
-    SetMyExceptionHandler();
+fcntl(selfpipe[0], F_SETFL, O_NONBLOCK);
+fcntl(selfpipe[0], F_SETFD, FD_CLOEXEC);
+fcntl(selfpipe[1], F_SETFL, O_NONBLOCK);
+fcntl(selfpipe[1], F_SETFD, FD_CLOEXEC);
 
-    boolean result = FcitxInstanceRun(argc, argv, selfpipe[0]);
+/* prepare filename first */
+FcitxXDGMakeDirUser("log");
+FcitxXDGGetFileUserWithPrefix("log", "crash.log", NULL, &crashlog);
+SetMyExceptionHandler();
 
-    free(crashlog);
-    crashlog = NULL;
-    if (result) {
-        return 1;
-    }
-    return 0;
+boolean result = FcitxInstanceRun(argc, argv, selfpipe[0]);
+
+free(crashlog);
+crashlog = NULL;
+if (result) {
+    return 1;
+}
+return 0;
 }
 // kate: indent-mode cstyle; space-indent on; indent-width 0;
