@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5eb0693a_19f0a9fc",
+        "filename": "src/core/fcitx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-04T09:33:48Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 46; 注释率: 2.2%",
+      "revId": "05f65572a95e0fe9562d564e0a4dbeef3da58525",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89c47c2d_4cd604b4",
+        "filename": "src/lib/fcitx-utils/utils.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-04T09:33:48Z",
+      "side": 1,
+      "message": "注释行数: 5; 改动行数(修改和新增): 185; 注释率: 2.7%",
+      "revId": "05f65572a95e0fe9562d564e0a4dbeef3da58525",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96fe75ec_7507b332",
+        "filename": "src/module/implugin/implugin-service.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-02-04T09:33:48Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 62; 注释率: 1.6%",
+      "revId": "05f65572a95e0fe9562d564e0a4dbeef3da58525",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
