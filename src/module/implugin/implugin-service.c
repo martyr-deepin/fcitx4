@@ -121,9 +121,9 @@ int main(int argc, char *argv[]) {
         fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
     char *dimConfigPath = NULL;
     char *imPluginConfigPath = NULL;
+    FILE *fp = NULL;
 
     //获取默认输入法配置文件路径
-    FILE *fp;
     fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config", "r",
                                        &dimConfigPath);
     if (fp) {
@@ -174,6 +174,29 @@ int main(int argc, char *argv[]) {
                         if (imName == NULL) {
                             continue;
                         }
+
+                        if(!dimConfigPath)
+                        {
+                            //获取默认输入法配置文件路径
+                            fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config", "r",
+                                                               &dimConfigPath);
+                            if (fp) {
+                                fclose(fp);
+                                file_comment_checkout(dimConfigPath);
+                            }
+                        }
+
+                        if(!imPluginConfigPath)
+                        {
+                            //获取输入法插件配置文件路径
+                            fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config", "r",
+                                                               &imPluginConfigPath);
+                            if (fp) {
+                                fclose(fp);
+                                file_comment_checkout(imPluginConfigPath);
+                            }
+                        }
+
                         if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") ==
                                 0 &&
                             fcitx_utils_strcmp0("baidupinyin", imName) != 0) {
