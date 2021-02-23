@@ -1,6 +1,6 @@
 [DefaultIM/HOTKEY]
 Type=Hotkey
-DefaultValue=
+DefaultValue=CTRL_SPACE
 Description=Switch to the Default Method
 
 [DefaultIM/IMNAME]
