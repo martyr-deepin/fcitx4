@@ -812,7 +812,8 @@ fcitx_utils_align_to(uintptr_t len, uintptr_t align)
     return len;
 }
 
-int fcitx_utils_judge_implugin_service_exist();
+int fcitx_utils_judge_implugin_service_so_exist();
+int fcitx_utils_judge_implugin_service_mb_exist();
 
 
 #ifdef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4

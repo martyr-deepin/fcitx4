@@ -1,5 +1,9 @@
 /*
- * Copyright (C) 2021 ~ 2025 Uniontech Software Technology Co.,Ltd.
+ * Copyright (C) 2021 ~ 2021 Deepin Technology Co., Ltd.
+ *
+ * Author:     chenshijie <chenshijie@uniontech.com>
+ *
+ * Maintainer: chenshijie <chenshijie@uniontech.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,13 +39,14 @@
 // printf("%s", result);
 
 char *find_target(const char *inputFIleInfo) {
-    char localName[BUFSIZ];
-    char *result = NULL;
-    memset(localName, 0, BUFSIZ * sizeof(char));
-
     if (inputFIleInfo == NULL) {
         return NULL;
     }
+
+    char localName[BUFSIZ];
+    char *result = NULL;
+    memset(localName, 0, BUFSIZ );
+
     //[1] 第一次与 "fcitx-" 不匹配的字段位置
     const char *sPointPosition = strstr(inputFIleInfo, "fcitx-");
     if (sPointPosition == NULL) {
@@ -61,14 +66,16 @@ char *find_target(const char *inputFIleInfo) {
             localName[i - startPosition] = *(inputFIleInfo + i);
         }
 
-        result = malloc((strlen(localName) + 1) * sizeof(char));
-        memset(result, 0, (strlen(localName) + 1) * sizeof(char));
+        result = malloc(strlen(localName) + 1);
+        memset(result, 0, (strlen(localName) + 1) );
         strncpy(result, localName, strlen(localName));
         return result;
     }
     return NULL;
 }
 
+// \brief 删除注释符号
+// \param input: 传入需要修改的字符串
 void delete_comment(char str[]) {
     int i, j;
     for (i = j = 0; str[i] != '\0'; i++) {
@@ -79,6 +86,7 @@ void delete_comment(char str[]) {
     str[j] = '\0';
 }
 
+// \brief 文件注释检查并修改
 void file_comment_checkout(const char *filename) {
     int fd, len;
     char str[BUFSIZ];
@@ -91,8 +99,8 @@ void file_comment_checkout(const char *filename) {
         ftruncate(fd, 0);
         lseek(fd, 0, SEEK_SET);
         write(fd, str, strlen(str));
+        close(fd);
     }
-    close(fd);
 }
 
 #define EVENT_NUM 12
@@ -111,33 +119,16 @@ int main(int argc, char *argv[]) {
 
     int inotifyFd = -1;
     int inotifyWd = -1;
-    int len;
-    int nread;
+    int len = 0;
+    int nread = 0;
     char buf[BUFSIZ];
     struct inotify_event *event;
-    int i;
+    int i = 0;
 
-    char *fcitxLibPath =
-        fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
+    char *fcitxLibPath = fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
     char *dimConfigPath = NULL;
     char *imPluginConfigPath = NULL;
     FILE *fp = NULL;
-
-    //获取默认输入法配置文件路径
-    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config", "r",
-                                       &dimConfigPath);
-    if (fp) {
-        fclose(fp);
-        file_comment_checkout(dimConfigPath);
-    }
-
-    //获取输入法插件配置文件路径
-    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config", "r",
-                                       &imPluginConfigPath);
-    if (fp) {
-        fclose(fp);
-        file_comment_checkout(imPluginConfigPath);
-    }
 
     if (!fcitxLibPath)
         return -1;
@@ -175,22 +166,22 @@ int main(int argc, char *argv[]) {
                             continue;
                         }
 
-                        if(!dimConfigPath)
-                        {
+                        if (!dimConfigPath) {
                             //获取默认输入法配置文件路径
-                            fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config", "r",
-                                                               &dimConfigPath);
+                            fp = FcitxXDGGetFileUserWithPrefix(
+                                "conf", "fcitx-defaultim.config", "r",
+                                &dimConfigPath);
                             if (fp) {
                                 fclose(fp);
                                 file_comment_checkout(dimConfigPath);
                             }
                         }
 
-                        if(!imPluginConfigPath)
-                        {
+                        if (!imPluginConfigPath) {
                             //获取输入法插件配置文件路径
-                            fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config", "r",
-                                                               &imPluginConfigPath);
+                            fp = FcitxXDGGetFileUserWithPrefix(
+                                "conf", "fcitx-implugin.config", "r",
+                                &imPluginConfigPath);
                             if (fp) {
                                 fclose(fp);
                                 file_comment_checkout(imPluginConfigPath);
@@ -216,11 +207,11 @@ int main(int argc, char *argv[]) {
                                      imPluginConfigPath);
 
                             char *pSettingWizard = malloc(
-                                (strlen(settingWizard) + 1) * sizeof(char));
+                                (strlen(settingWizard) + 1) );
                             memset(pSettingWizard, 0,
-                                   (strlen(settingWizard) + 1) * sizeof(char));
+                                   (strlen(settingWizard) + 1) );
                             strncpy(pSettingWizard, settingWizard,
-                                    (strlen(settingWizard) + 1) * sizeof(char));
+                                    (strlen(settingWizard) + 1) );
 
                             char parameter[BUFSIZ];
                             memset(parameter, 0, FCITX_ARRAY_SIZE(parameter));
@@ -229,11 +220,11 @@ int main(int argc, char *argv[]) {
                                      imPluginConfigPath);
 
                             char *pParameter =
-                                malloc((strlen(parameter) + 1) * sizeof(char));
+                                malloc((strlen(parameter) + 1) );
                             memset(pParameter, 0,
-                                   (strlen(parameter) + 1) * sizeof(char));
+                                   (strlen(parameter) + 1) );
                             strncpy(pParameter, parameter,
-                                    (strlen(parameter) + 1) * sizeof(char));
+                                    (strlen(parameter) + 1) );
 
                             if (fcitx_utils_strcmp0(pSettingWizard, "none") !=
                                 0) {
@@ -261,11 +252,11 @@ int main(int argc, char *argv[]) {
                                      dimConfigPath);
 
                             char *pCurDeimName = malloc(
-                                (strlen(curDeimName) + 1) * sizeof(char));
+                                (strlen(curDeimName) + 1) );
                             memset(pCurDeimName, 0,
-                                   (strlen(curDeimName) + 1) * sizeof(char));
+                                   (strlen(curDeimName) + 1) );
                             strncpy(pCurDeimName, curDeimName,
-                                    (strlen(curDeimName) + 1) * sizeof(char));
+                                    (strlen(curDeimName) + 1) );
 
                             if (fcitx_utils_strcmp0(pCurDeimName, imName) ==
                                 0) {

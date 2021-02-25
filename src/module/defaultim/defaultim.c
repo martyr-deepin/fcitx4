@@ -1,5 +1,9 @@
 /*
- * Copyright (C) 2021 ~ 2025 Uniontech Software Technology Co.,Ltd.
+ * Copyright (C) 2021 ~ 2021 Deepin Technology Co., Ltd.
+ *
+ * Author:     chenshijie <chenshijie@uniontech.com>
+ *
+ * Maintainer: chenshijie <chenshijie@uniontech.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +18,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "fcitx/instance.h"
 #include <ctype.h>
 #include <errno.h>
 #include <libintl.h>
@@ -26,18 +29,19 @@
 #include "fcitx/candidate.h"
 #include "fcitx/fcitx.h"
 #include "fcitx/hook.h"
+#include "fcitx/instance.h"
 #include "fcitx/keys.h"
 #include "fcitx/module.h"
-#include <fcitx/context.h>
+#include "fcitx/context.h"
 
-typedef struct _IMSelector IMSelector;
+typedef struct _DefaultIM DefaultIM;
 
 typedef struct _SelectorHandle {
     int idx;
-    IMSelector *imselector;
+    DefaultIM *defaultim;
 } SelectorHandle;
 
-struct _IMSelector {
+struct _DefaultIM {
     FcitxGenericConfig gconfig;
     FcitxHotkey selectorKey;
     SelectorHandle handle;
@@ -46,71 +50,68 @@ struct _IMSelector {
     FcitxInstance *owner;
 };
 
-static void *IMSelectorCreate(FcitxInstance *instance);
-static boolean IMSelectorPreFilter(void *arg, FcitxKeySym sym,
+static void *DefaultIMCreate(FcitxInstance *instance);
+static boolean DefaultIMPreFilter(void *arg, FcitxKeySym sym,
                                    unsigned int state,
                                    INPUT_RETURN_VALUE *retval);
-static void IMSelectorReset(void *arg);
-static void IMSelectorReload(void *arg);
-static INPUT_RETURN_VALUE IMSelectorSelect(void *arg);
-static boolean LoadIMSelectorConfig(IMSelector *imselector);
-static void SaveIMSelectorConfig(IMSelector *imselector);
+static void DefaultIMReset(void *arg);
+static void DefaultIMReload(void *arg);
+static INPUT_RETURN_VALUE DefaultIMSelect(void *arg);
+static boolean LoadDefaultIMConfig(DefaultIM *defaultim);
+static void SaveDefaultIMConfig(DefaultIM *defaultim);
 
 FCITX_DEFINE_PLUGIN(fcitx_defaultim, module, FcitxModule) = {
-    IMSelectorCreate, NULL, NULL, NULL, IMSelectorReload};
+    DefaultIMCreate, NULL, NULL, NULL, DefaultIMReload};
 
-CONFIG_BINDING_BEGIN(IMSelector)
+CONFIG_BINDING_BEGIN(DefaultIM)
 CONFIG_BINDING_REGISTER("DefaultIM", "HOTKEY", selectorKey)
 CONFIG_BINDING_REGISTER("DefaultIM", "IMNAME", imname)
 CONFIG_BINDING_END()
 
-void *IMSelectorCreate(FcitxInstance *instance) {
-    IMSelector *imselector = fcitx_utils_malloc0(sizeof(IMSelector));
-    imselector->owner = instance;
-    if (!LoadIMSelectorConfig(imselector)) {
-        free(imselector);
+void *DefaultIMCreate(FcitxInstance *instance) {
+    DefaultIM *defaultim = fcitx_utils_malloc0(sizeof(DefaultIM));
+    defaultim->owner = instance;
+    if (!LoadDefaultIMConfig(defaultim)) {
+        free(defaultim);
         return NULL;
     }
 
     FcitxKeyFilterHook hk;
-    hk.arg = imselector;
-    hk.func = IMSelectorPreFilter;
+    hk.arg = defaultim;
+    hk.func = DefaultIMPreFilter;
     FcitxInstanceRegisterPreInputFilter(instance, hk);
 
-    hk.arg = &imselector->triggered;
+    hk.arg = &defaultim->triggered;
     hk.func = FcitxDummyReleaseInputHook;
     FcitxInstanceRegisterPreReleaseInputFilter(instance, hk);
 
     FcitxHotkeyHook hkhk;
-    hkhk.arg = imselector;
+    hkhk.arg = defaultim;
 
     /* this key is ignore the very first input method which is for inactive */
-
-    do {
-        SelectorHandle *handle = &imselector->handle;
-        handle->idx = 0;
-        handle->imselector = imselector;
-        hkhk.arg = handle;
-        hkhk.hotkeyhandle = IMSelectorSelect;
-        hkhk.hotkey = &imselector->selectorKey;
-        FcitxInstanceRegisterHotkeyFilter(instance, hkhk);
-    } while (0);
+    SelectorHandle *handle = &defaultim->handle;
+    handle->idx = 0;
+    handle->defaultim = defaultim;
+    hkhk.arg = handle;
+    hkhk.hotkeyhandle = DefaultIMSelect;
+    hkhk.hotkey = &defaultim->selectorKey;
+    FcitxInstanceRegisterHotkeyFilter(instance, hkhk);
 
     FcitxIMEventHook resethk;
-    resethk.arg = imselector;
-    resethk.func = IMSelectorReset;
+    resethk.arg = defaultim;
+    resethk.func = DefaultIMReset;
     FcitxInstanceRegisterResetInputHook(instance, resethk);
-    return imselector;
+    return defaultim;
 }
 
-boolean IMSelectorPreFilter(void *arg, FcitxKeySym sym, unsigned int state,
+boolean DefaultIMPreFilter(void *arg, FcitxKeySym sym, unsigned int state,
                             INPUT_RETURN_VALUE *retval) {
-    IMSelector *imselector = arg;
-    FcitxInstance *instance = imselector->owner;
+    DefaultIM *defaultim = arg;
+    if (!defaultim->triggered)
+        return false;
+    FcitxInstance *instance = defaultim->owner;
     FcitxInputState *input = FcitxInstanceGetInputState(instance);
     FcitxGlobalConfig *fc = FcitxInstanceGetGlobalConfig(instance);
-    if (!imselector->triggered)
-        return false;
     FcitxCandidateWordList *candList = FcitxInputStateGetCandidateList(input);
     if (FcitxHotkeyIsHotKey(sym, state, FcitxConfigPrevPageKey(instance, fc))) {
         FcitxCandidateWordGoPrevPage(candList);
@@ -134,11 +135,11 @@ boolean IMSelectorPreFilter(void *arg, FcitxKeySym sym, unsigned int state,
     return true;
 }
 
-INPUT_RETURN_VALUE IMSelectorSelect(void *arg) {
+INPUT_RETURN_VALUE DefaultIMSelect(void *arg) {
     SelectorHandle *handle = arg;
-    IMSelector *imselector = handle->imselector;
-    FcitxInstance *instance = imselector->owner;
-    handle->idx = FcitxInstanceGetIMIndexByName(instance, imselector->imname);
+    DefaultIM *defaultim = handle->defaultim;
+    FcitxInstance *instance = defaultim->owner;
+    handle->idx = FcitxInstanceGetIMIndexByName(instance, defaultim->imname);
 
     if (handle->idx == -1) {
         handle->idx = 0;
@@ -150,20 +151,20 @@ INPUT_RETURN_VALUE IMSelectorSelect(void *arg) {
     return IRV_CLEAN;
 }
 
-void IMSelectorReset(void *arg) {
-    IMSelector *imselector = arg;
-    imselector->triggered = false;
+void DefaultIMReset(void *arg) {
+    DefaultIM *defaultim = arg;
+    defaultim->triggered = false;
 }
 
-void IMSelectorReload(void *arg) {
-    IMSelector *imselector = arg;
-    LoadIMSelectorConfig(imselector);
+void DefaultIMReload(void *arg) {
+    DefaultIM *defaultim = arg;
+    LoadDefaultIMConfig(defaultim);
 }
 
-CONFIG_DESC_DEFINE(GetIMSelectorConfig, "fcitx-defaultim.desc")
+CONFIG_DESC_DEFINE(GetDefaultIMConfig, "fcitx-defaultim.desc")
 
-boolean LoadIMSelectorConfig(IMSelector *imselector) {
-    FcitxConfigFileDesc *configDesc = GetIMSelectorConfig();
+boolean LoadDefaultIMConfig(DefaultIM *defaultim) {
+    FcitxConfigFileDesc *configDesc = GetDefaultIMConfig();
     if (configDesc == NULL)
         return false;
 
@@ -172,13 +173,13 @@ boolean LoadIMSelectorConfig(IMSelector *imselector) {
                                        NULL);
     if (!fp) {
         if (errno == ENOENT)
-            SaveIMSelectorConfig(imselector);
+            SaveDefaultIMConfig(defaultim);
     }
 
     FcitxConfigFile *cfile = FcitxConfigParseConfigFileFp(fp, configDesc);
 
-    IMSelectorConfigBind(imselector, cfile, configDesc);
-    FcitxConfigBindSync((FcitxGenericConfig *)imselector);
+    DefaultIMConfigBind(defaultim, cfile, configDesc);
+    FcitxConfigBindSync((FcitxGenericConfig *)defaultim);
 
     if (fp)
         fclose(fp);
@@ -186,11 +187,11 @@ boolean LoadIMSelectorConfig(IMSelector *imselector) {
     return true;
 }
 
-void SaveIMSelectorConfig(IMSelector *imselector) {
-    FcitxConfigFileDesc *configDesc = GetIMSelectorConfig();
+void SaveDefaultIMConfig(DefaultIM *defaultim) {
+    FcitxConfigFileDesc *configDesc = GetDefaultIMConfig();
     FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config",
                                              "w", NULL);
-    FcitxConfigSaveConfigFileFpNdc(fp, &imselector->gconfig, configDesc);
+    FcitxConfigSaveConfigFileFpNdc(fp, &defaultim->gconfig, configDesc);
     if (fp)
         fclose(fp);
 }
