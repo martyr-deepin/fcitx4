@@ -1,4 +1,5 @@
-usr/bin/fcitx-implugin-service
+usr/bin/fcitx-implugin-service-so
+usr/bin/fcitx-implugin-service-mb
 usr/lib/*/fcitx/fcitx-implugin.so
 usr/share/fcitx/addon/fcitx-implugin.conf
 usr/share/fcitx/configdesc/fcitx-implugin.desc

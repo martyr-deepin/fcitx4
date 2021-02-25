@@ -25,7 +25,7 @@
 #include "fcitx-utils/utils.h"
 #include "minIni.h"
 
-// \brief 检索目标内容 fcitx-vvv.soxxxx中间内容
+// \brief 检索目标内容 fcitx-vvv.mbxxxx中间内容
 // \param input: 传入等待检测的字段
 // \return 返回 传出中间字段的内容， NULL
 // \note
@@ -42,20 +42,15 @@ char *find_target(const char *inputFIleInfo) {
     if (inputFIleInfo == NULL) {
         return NULL;
     }
-    //[1] 第一次与 "fcitx-" 不匹配的字段位置
-    const char *sPointPosition = strstr(inputFIleInfo, "fcitx-");
-    if (sPointPosition == NULL) {
-        return NULL;
-    }
-    int startPosition = (sPointPosition - inputFIleInfo) + strlen("fcitx-");
-    //[2] 第一次与 ".so" 匹配的字段位置
-    const char *ePointPosition = strstr(inputFIleInfo, ".so");
+    int startPosition = 0;
+    //第一次与 ".mb" 匹配的字段位置
+    const char *ePointPosition = strstr(inputFIleInfo, ".mb");
     if (ePointPosition == NULL) {
         return NULL;
     }
     size_t endPosition = ePointPosition - inputFIleInfo;
 
-    //确保是 开头是 "fcitx-" , 后缀是 ".so"
+    //确保是 后缀是 ".mb"
     if (endPosition > startPosition && startPosition > 0) {
         for (int i = startPosition; i < (int)endPosition; i++) {
             localName[i - startPosition] = *(inputFIleInfo + i);
@@ -69,6 +64,8 @@ char *find_target(const char *inputFIleInfo) {
     return NULL;
 }
 
+// \brief 删除注释符号
+// \param input: 传入需要修改的字符串
 void delete_comment(char str[]) {
     int i, j;
     for (i = j = 0; str[i] != '\0'; i++) {
@@ -79,6 +76,7 @@ void delete_comment(char str[]) {
     str[j] = '\0';
 }
 
+// \brief 文件注释检查并修改
 void file_comment_checkout(const char *filename) {
     int fd, len;
     char str[BUFSIZ];
@@ -118,7 +116,7 @@ int main(int argc, char *argv[]) {
     int i;
 
     char *fcitxLibPath =
-        fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
+        fcitx_utils_get_fcitx_path_with_filename("tabledir", "fcitx");
     char *dimConfigPath = NULL;
     char *imPluginConfigPath = NULL;
     FILE *fp = NULL;
@@ -198,8 +196,7 @@ int main(int argc, char *argv[]) {
                         }
 
                         if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") ==
-                                0 &&
-                            fcitx_utils_strcmp0("baidupinyin", imName) != 0) {
+                                0 ) {
                             ini_puts("DefaultIM", "IMNAME", imName,
                                      dimConfigPath);
 

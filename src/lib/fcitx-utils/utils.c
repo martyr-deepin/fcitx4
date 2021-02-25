@@ -554,6 +554,11 @@ char *fcitx_utils_get_fcitx_path(const char *type) {
             fcitx_utils_alloc_cat_str(result, fcitxdir, "/share/locale");
         } else
             result = strdup(LOCALEDIR);
+    } else if (strcmp(type, "tabledir") == 0) {
+        if (fcitxdir) {
+            fcitx_utils_alloc_cat_str(result, fcitxdir, "/share/table");
+        } else
+            result = strdup(LOCALEDIR);
     }
     return result;
 }
@@ -917,14 +922,36 @@ FCITX_EXPORT_API char *fcitx_utils_set_escape_str_with_set(char *res,
     return res;
 }
 
-FCITX_EXPORT_API int fcitx_utils_judge_implugin_service_exist() {
+FCITX_EXPORT_API int fcitx_utils_judge_implugin_service_so_exist() {
     FILE *fp;
     int count;
     char buf[150];
     char command[150];
 
     sprintf(command,
-            "ps -ef | grep fcitx-implugin-service | grep -v grep | wc -l");
+            "ps -ef | grep fcitx-implugin-service-so | grep -v grep | wc -l");
+
+    if ((fp = popen(command, "r")) == NULL)
+        return 0;
+
+    if ((fgets(buf, 150, fp)) != NULL) {
+        count = atoi(buf);
+        if (count != 0) {
+            pclose(fp);
+            return 1;
+        }
+    }
+    pclose(fp);
+    return 0;
+}
+FCITX_EXPORT_API int fcitx_utils_judge_implugin_service_mb_exist() {
+    FILE *fp;
+    int count;
+    char buf[150];
+    char command[150];
+
+    sprintf(command,
+            "ps -ef | grep fcitx-implugin-service-mb | grep -v grep | wc -l");
 
     if ((fp = popen(command, "r")) == NULL)
         return 0;
