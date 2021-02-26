@@ -219,7 +219,7 @@ Advance=True
 
 [Appearance/ShowInputWindowAfterTriggering]
 Type=Boolean
-DefaultValue=True
+DefaultValue=False
 Description=Show Input Method Hint After Input method changed
 Advance=True
 
