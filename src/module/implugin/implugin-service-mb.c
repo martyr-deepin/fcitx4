@@ -204,7 +204,7 @@ int main(int argc, char *argv[]) {
                             ini_puts("DefaultIM", "IMNAME", imName,
                                      dimConfigPath);
 
-                            sleep(10);
+                            sleep(5);
                             fcitx_utils_launch_restart();
                             sleep(5);
 

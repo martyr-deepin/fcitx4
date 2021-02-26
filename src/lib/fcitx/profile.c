@@ -77,7 +77,7 @@ boolean FcitxProfileLoad(FcitxProfile* profile, FcitxInstance* instance)
      * 2. in reload phase, this function is useless too, due to
      * LoadAllIM will be called anyway.
      */
-    // FcitxInstanceUpdateIMList(instance);
+    FcitxInstanceUpdateIMList(instance);
 
     return true;
 }
