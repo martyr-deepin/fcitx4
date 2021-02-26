@@ -558,7 +558,7 @@ char *fcitx_utils_get_fcitx_path(const char *type) {
         if (fcitxdir) {
             fcitx_utils_alloc_cat_str(result, fcitxdir, "/share/table");
         } else
-            result = strdup(LOCALEDIR);
+            result = strdup(PKGDATADIR"/table");
     }
     return result;
 }
