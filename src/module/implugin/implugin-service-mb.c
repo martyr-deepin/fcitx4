@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
     int i;
 
     char *fcitxLibPath =
-        fcitx_utils_get_fcitx_path_with_filename("tabledir", "fcitx");
+        fcitx_utils_get_fcitx_path_with_filename("tabledir", "");
     char *dimConfigPath = NULL;
     char *imPluginConfigPath = NULL;
     FILE *fp = NULL;

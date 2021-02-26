@@ -188,9 +188,37 @@ int main(int argc, char *argv[]) {
                             }
                         }
 
-                        if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") ==
-                                0 &&
-                            fcitx_utils_strcmp0("baidupinyin", imName) != 0) {
+                        if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") == 0
+                            && fcitx_utils_strcmp0("baidupinyin", imName) != 0
+                                && fcitx_utils_strcmp0("autoeng", imName) != 0
+                                && fcitx_utils_strcmp0("freedesktop-notify", imName) != 0
+                                && fcitx_utils_strcmp0("keyboard", imName) != 0
+                                && fcitx_utils_strcmp0("punc", imName) != 0
+                                && fcitx_utils_strcmp0("vk", imName) != 0
+                                && fcitx_utils_strcmp0("fullwidth-char", imName) != 0
+                                && fcitx_utils_strcmp0("kimpanel-ui", imName) != 0
+                                && fcitx_utils_strcmp0("quickphrase", imName) != 0
+                                && fcitx_utils_strcmp0("x11", imName) != 0
+                                && fcitx_utils_strcmp0("chttrans", imName) != 0
+                                && fcitx_utils_strcmp0("lua", imName) != 0
+                                && fcitx_utils_strcmp0("qw", imName) != 0
+                                && fcitx_utils_strcmp0("xim", imName) != 0
+                                && fcitx_utils_strcmp0("classic-ui", imName) != 0
+                                && fcitx_utils_strcmp0("implugin", imName) != 0
+                                && fcitx_utils_strcmp0("notificationitem", imName) != 0
+                                && fcitx_utils_strcmp0("remote-module", imName) != 0
+                                && fcitx_utils_strcmp0("clipboard", imName) != 0
+                                && fcitx_utils_strcmp0("imselector", imName) != 0
+                                && fcitx_utils_strcmp0("onboard", imName) != 0
+                                && fcitx_utils_strcmp0("spell", imName) != 0
+                                && fcitx_utils_strcmp0("xkb", imName) != 0
+                                && fcitx_utils_strcmp0("dbus", imName) != 0
+                                && fcitx_utils_strcmp0("ipcportal", imName) != 0
+                                && fcitx_utils_strcmp0("pinyin-enhance", imName) != 0
+                                && fcitx_utils_strcmp0("table", imName) != 0
+                                && fcitx_utils_strcmp0("defaultim", imName) != 0
+                                && fcitx_utils_strcmp0("ipc", imName) != 0
+                                && fcitx_utils_strcmp0("unicode", imName) != 0) {
                             ini_puts("DefaultIM", "IMNAME", imName,
                                      dimConfigPath);
 
