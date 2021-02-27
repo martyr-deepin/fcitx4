@@ -295,7 +295,7 @@ void* RunInstance(void* arg)
     }
 
     FcitxInstanceSwitchIMByIndex(instance, instance->iIMIndex);
-
+    FcitxInstanceUpdateIMList(instance);
     if (!FcitxInstanceLoadFrontend(instance)) {
         goto error_exit;
     }
