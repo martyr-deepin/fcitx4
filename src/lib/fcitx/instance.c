@@ -295,7 +295,14 @@ void* RunInstance(void* arg)
     }
 
     FcitxInstanceSwitchIMByIndex(instance, instance->iIMIndex);
+
+    //重新加载输入法
+    FcitxProfile* profile = FcitxInstanceGetProfile(instance);
+    if (profile->imList)
+        free(profile->imList);
+    profile->imList = strdup("");;
     FcitxInstanceUpdateIMList(instance);
+
     if (!FcitxInstanceLoadFrontend(instance)) {
         goto error_exit;
     }
