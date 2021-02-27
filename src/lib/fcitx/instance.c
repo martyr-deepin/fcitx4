@@ -263,8 +263,6 @@ void* RunInstance(void* arg)
     FcitxInitThread(instance);
     if (!FcitxProfileLoad(instance->profile, instance))
         goto error_exit;
-    else
-        FcitxProfileSave(instance->profile);
     if (FcitxAddonGetConfigDesc() == NULL)
         goto error_exit;
     if (GetIMConfigDesc() == NULL)
