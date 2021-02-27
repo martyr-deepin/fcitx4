@@ -297,6 +297,7 @@ void* RunInstance(void* arg)
     FcitxInstanceSwitchIMByIndex(instance, instance->iIMIndex);
 
     //重新加载输入法
+    FcitxInstanceUpdateIMList(instance);
     FcitxProfile* profile = FcitxInstanceGetProfile(instance);
     if (profile->imList)
         free(profile->imList);
