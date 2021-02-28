@@ -2016,6 +2016,7 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
         return;
 
     UT_array* imList = fcitx_utils_split_string(instance->profile->imList, ',');
+
     utarray_sort(&instance->availimes, IMPriorityCmp);
     utarray_clear(&instance->imes);
     UnusedIMItemFreeAll(instance->unusedItem);
@@ -2023,12 +2024,13 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
 
     boolean imListIsEmpty = utarray_len(imList) == 0;
 
-
+    int index;
     char** pstr;
     FcitxIM* ime;
-    for (pstr = (char**) utarray_front(imList);
+    char* newImList;
+    for (pstr = (char**) utarray_front(imList),index = 0;
             pstr != NULL;
-            pstr = (char**) utarray_next(imList, pstr)) {
+            pstr = (char**) utarray_next(imList, pstr),index++) {
         char* str = *pstr;
         char* pos = strchr(str, ':');
         if (pos) {
@@ -2037,6 +2039,7 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
             pos ++;
             ime = FcitxInstanceGetIMFromIMList(instance, IMAS_Disable, str);
             boolean status = (strcmp(pos, "True") == 0);
+
             if (status && ime)
                 utarray_push_back(&instance->imes, ime);
 
@@ -2048,8 +2051,13 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
                     item->name = strdup(str);
                     item->status = status;
                     HASH_ADD_KEYPTR(hh, instance->unusedItem, item->name, strlen(item->name), item);
+                    utarray_erase(imList,index,1);
+                    index --;
                 }
             }
+
+            pos --;
+            *pos = ':';
         }
     }
 
@@ -2075,12 +2083,15 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
     }
     free(lang);
 
+    free(instance->profile->imList);
+    instance->profile->imList = fcitx_utils_join_string_list(imList,',');
+
     utarray_free(imList);
 
     FcitxInstanceUpdateCurrentIM(instance, true, false);
     FcitxInstanceProcessUpdateIMListHook(instance);
 
-//    if (instance->globalIMName || utarray_len(imList) != (utarray_len(&instance->availimes)+utarray_len(&instance->imes)))
+    //if (instance->globalIMName)
     FcitxProfileSave(instance->profile);
 }
 
