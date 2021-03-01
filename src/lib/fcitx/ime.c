@@ -2016,6 +2016,7 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
         return;
 
     UT_array* imList = fcitx_utils_split_string(instance->profile->imList, ',');
+    UT_array* imList_bak = fcitx_utils_split_string(instance->profile->imList, ',');
 
     utarray_sort(&instance->availimes, IMPriorityCmp);
     utarray_clear(&instance->imes);
@@ -2026,11 +2027,12 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
 
     int index;
     char** pstr;
+    char** pstr_bak;
     FcitxIM* ime;
     char* newImList;
-    for (pstr = (char**) utarray_front(imList),index = 0;
+    for (pstr = (char**) utarray_front(imList),index = 0,utarray_front(imList_bak);
             pstr != NULL;
-            pstr = (char**) utarray_next(imList, pstr),index++) {
+            pstr = (char**) utarray_next(imList, pstr),index++,pstr_bak = (char**)utarray_next(imList_bak, pstr_bak)) {
         char* str = *pstr;
         char* pos = strchr(str, ':');
         if (pos) {
@@ -2052,14 +2054,11 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
                     item->status = status;
                     HASH_ADD_KEYPTR(hh, instance->unusedItem, item->name, strlen(item->name), item);
                 }
-                utarray_prev(imList, pstr);
-                utarray_erase(imList,index,1);
+                utarray_prev(imList_bak, pstr_bak);
+                utarray_erase(imList_bak,index,1);
 
                 index --;
             }
-
-            pos --;
-            *pos = ':';
         }
     }
 
@@ -2086,9 +2085,10 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
     free(lang);
 
     free(instance->profile->imList);
-    instance->profile->imList = fcitx_utils_join_string_list(imList,',');
+    instance->profile->imList = fcitx_utils_join_string_list(imList_bak,',');
 
     utarray_free(imList);
+    utarray_free(imList_bak);
 
     FcitxInstanceUpdateCurrentIM(instance, true, false);
     FcitxInstanceProcessUpdateIMListHook(instance);
