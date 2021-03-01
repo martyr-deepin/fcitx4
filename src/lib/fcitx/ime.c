@@ -2051,9 +2051,11 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
                     item->name = strdup(str);
                     item->status = status;
                     HASH_ADD_KEYPTR(hh, instance->unusedItem, item->name, strlen(item->name), item);
-                    utarray_erase(imList,index,1);
-                    index --;
                 }
+                utarray_prev(imList, pstr);
+                utarray_erase(imList,index,1);
+
+                index --;
             }
 
             pos --;
