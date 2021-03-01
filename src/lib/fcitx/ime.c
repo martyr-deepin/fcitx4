@@ -2091,8 +2091,8 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
     FcitxInstanceUpdateCurrentIM(instance, true, false);
     FcitxInstanceProcessUpdateIMListHook(instance);
 
-    //if (instance->globalIMName)
-    FcitxProfileSave(instance->profile);
+    if (instance->globalIMName)
+        FcitxProfileSave(instance->profile);
 }
 
 FCITX_EXPORT_API
