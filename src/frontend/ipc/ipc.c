@@ -176,6 +176,10 @@ const char * im_introspection_xml =
     "<method name=\"GetCurrentIM\">"
     "<arg name=\"im\" direction=\"out\" type=\"s\"/>"
     "</method>"
+    "<method name=\"GetIMByIndex\">"
+    "<arg name=\"index\" direction=\"in\" type=\"i\"/>"
+    "<arg name=\"im\" direction=\"out\" type=\"s\"/>"
+    "</method>"
     "<method name=\"SetCurrentIM\">"
     "<arg name=\"im\" direction=\"in\" type=\"s\"/>"
     "</method>"
@@ -655,6 +659,22 @@ static DBusHandlerResult IPCDBusEventHandler(DBusConnection *connection, DBusMes
             name = im->uniqueName;
         }
         dbus_message_append_args(reply, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
+    }  else if (dbus_message_is_method_call(msg, FCITX_IM_DBUS_INTERFACE, "GetIMByIndex")) {
+        DBusError error;
+        dbus_error_init(&error);
+        int32_t index = -1;
+        if(dbus_message_get_args(msg, &error,DBUS_TYPE_INT32,&index,DBUS_TYPE_INVALID)){
+            reply = dbus_message_new_method_return(msg);
+            FcitxIM* im = FcitxInstanceGetIMByIndex(ipc->owner,index);
+            const char* name = "";
+            if (im) {
+                name = im->uniqueName;
+            }
+            dbus_message_append_args(reply, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
+        }
+        else {
+            reply = FcitxDBusPropertyUnknownMethod(msg);
+        }
     } else if (dbus_message_is_method_call(msg, FCITX_IM_DBUS_INTERFACE, "SetCurrentIM")) {
         DBusError error;
         dbus_error_init(&error);
