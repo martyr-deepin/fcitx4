@@ -1,3 +1,4 @@
+
 set(FCITX_IMPLUGIN_SOURCES
   implugin.c)
 
@@ -18,10 +19,16 @@ set(FCITX_IMPLUGIN_SERVICE_MB_SOURCES
   minIni.c
   )
 
-add_executable(fcitx-implugin-service-so ${FCITX_IMPLUGIN_SERVICE_SO_SOURCES})
-target_link_libraries(fcitx-implugin-service-so fcitx-config fcitx-utils)
-install(TARGETS fcitx-implugin-service-so DESTINATION "${bindir}")
+if(_ENABLE_DBUS AND _ENABLE_GLIB2)
+  include_directories(${DBUS_INCLUDE_DIRS})
+  include_directories(${GLIB2_INCLUDE_DIRS})
 
-add_executable(fcitx-implugin-service-mb ${FCITX_IMPLUGIN_SERVICE_MB_SOURCES})
-target_link_libraries(fcitx-implugin-service-mb fcitx-config fcitx-utils)
-install(TARGETS fcitx-implugin-service-mb DESTINATION "${bindir}")
+  add_executable(fcitx-implugin-service-so ${FCITX_IMPLUGIN_SERVICE_SO_SOURCES})
+  target_link_libraries(fcitx-implugin-service-so fcitx-config fcitx-utils dbus-1 dbus-glib-1)
+  install(TARGETS fcitx-implugin-service-so DESTINATION "${bindir}")
+
+  add_executable(fcitx-implugin-service-mb ${FCITX_IMPLUGIN_SERVICE_MB_SOURCES})
+  target_link_libraries(fcitx-implugin-service-mb fcitx-config fcitx-utils dbus-1 dbus-glib-1)
+  install(TARGETS fcitx-implugin-service-mb DESTINATION "${bindir}")
+endif()
+
