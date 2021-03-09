@@ -120,6 +120,7 @@ int send_a_method(int32_t sigvalue, char **imname) {
         fprintf(stderr, "ConnectionErr: %s\n", err.message);
         dbus_error_free(&err);
     }
+
     if (connection == NULL) {
         return -1;
     }
@@ -315,7 +316,16 @@ int main(int argc, char *argv[]) {
                             free(pParameter);
 
                         } else if (fcitx_utils_strcmp0(event_str[i],
-                                                       "IN_DELETE") == 0) {
+                                                       "IN_DELETE") == 0 &&
+                                   (fcitx_utils_strcmp0("chineseime", imName) ==
+                                        0 ||
+                                    fcitx_utils_strcmp0("iflyime", imName) ==
+                                        0 ||
+                                    fcitx_utils_strcmp0("huayupy", imName) ==
+                                        0 ||
+                                    fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
+                                    fcitx_utils_strcmp0("sogoupinyin",
+                                                        imName) == 0)) {
                             char curDeimName[BUFSIZ];
                             memset(curDeimName, 0,
                                    FCITX_ARRAY_SIZE(curDeimName));
@@ -331,13 +341,13 @@ int main(int argc, char *argv[]) {
 
                             if (fcitx_utils_strcmp0(pCurDeimName, imName) ==
                                 0) {
-                                char **secName;
-                                send_a_method(1, secName);
-                                if (fcitx_utils_strcmp0(*secName, "") == 0) {
-                                    *secName = "fcitx-keyboard-us";
+                                char *secName;
+                                send_a_method(1, &secName);
+                                if (fcitx_utils_strcmp0(secName, "") == 0) {
+                                    secName = "fcitx-keyboard-us";
                                 }
 
-                                ini_puts("DefaultIM", "IMNAME", *secName,
+                                ini_puts("DefaultIM", "IMNAME", secName,
                                          dimConfigPath);
                             }
 
