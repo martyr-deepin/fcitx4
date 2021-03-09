@@ -2029,7 +2029,6 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
     char** pstr;
     char** pstr_bak;
     FcitxIM* ime;
-    char* newImList;
     for (pstr = (char**) utarray_front(imList),index = 0,utarray_front(imList_bak);
             pstr != NULL;
             pstr = (char**) utarray_next(imList, pstr),index++,pstr_bak = (char**)utarray_next(imList_bak, pstr_bak)) {
