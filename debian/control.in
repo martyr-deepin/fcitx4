@@ -785,7 +785,7 @@ Description: Flexible Input Method Framework - various tools
 
 Package: fcitx-implugin
 Architecture: any
-Depends:  ${misc:Depends}, ${shlibs:Depends}
+Depends: libc6, libdbus-glib-1-dev, libdbus-1-dev, libfcitx-config4 (>= 4.2.9.29), libfcitx-utils0 (>= 4.2.9.29)
 Breaks: fcitx (<< ${source:Upstream-Version})
 Description: Closed source input method configuration software support
  Improve some closed source input method support, add shortcuts to open the on-screen keyboard function, add automatic loading installation input method, automatically remove uninstall input method.
