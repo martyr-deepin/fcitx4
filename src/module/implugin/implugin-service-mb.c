@@ -327,7 +327,7 @@ int main(int argc, char *argv[]) {
                             if (fcitx_utils_strcmp0(pCurDeimName, imName) ==
                                 0) {
                                 char *secName;
-                                send_a_method(1, &secName);
+                                send_a_method(2, &secName);
                                 if (fcitx_utils_strcmp0(secName, "") == 0) {
                                     secName = "fcitx-keyboard-us";
                                 }
