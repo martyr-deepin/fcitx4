@@ -38,7 +38,8 @@ override_dh_auto_configure: gen_control
 	    -DENABLE_ICU=ON \
 	    -DENABLE_BACKTRACE=ON \
 	    -DENABLE_XDGAUTOSTART=ON \
-	    -DENABLE_GETTEXT=ON
+	    -DENABLE_GETTEXT=ON \ 
+        pkg-config --libs dbus-1
 
 override_dh_missing:
 	dh_missing --fail-missing

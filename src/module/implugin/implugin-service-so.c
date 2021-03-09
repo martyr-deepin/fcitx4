@@ -19,6 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "fcitx-utils/utils.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +27,9 @@
 #include <sys/inotify.h>
 #include <unistd.h>
 
-#include "fcitx-utils/utils.h"
+#include <dbus/dbus-glib.h>
+#include <dbus/dbus.h>
+
 #include "minIni.h"
 
 // \brief 检索目标内容 fcitx-vvv.soxxxx中间内容
@@ -45,7 +48,7 @@ char *find_target(const char *inputFIleInfo) {
 
     char localName[BUFSIZ];
     char *result = NULL;
-    memset(localName, 0, BUFSIZ );
+    memset(localName, 0, BUFSIZ);
 
     //[1] 第一次与 "fcitx-" 不匹配的字段位置
     const char *sPointPosition = strstr(inputFIleInfo, "fcitx-");
@@ -67,7 +70,7 @@ char *find_target(const char *inputFIleInfo) {
         }
 
         result = malloc(strlen(localName) + 1);
-        memset(result, 0, (strlen(localName) + 1) );
+        memset(result, 0, (strlen(localName) + 1));
         strncpy(result, localName, strlen(localName));
         return result;
     }
@@ -99,8 +102,74 @@ void file_comment_checkout(const char *filename) {
         ftruncate(fd, 0);
         lseek(fd, 0, SEEK_SET);
         write(fd, str, strlen(str));
-        close(fd);
     }
+    close(fd);
+}
+
+int send_a_method(int32_t sigvalue, char **imname) {
+    DBusError err;
+    DBusConnection *connection;
+    DBusMessage *msg;
+    DBusMessageIter arg;
+    DBusPendingCall *pending;
+
+    dbus_error_init(&err);
+
+    connection = dbus_bus_get(DBUS_BUS_SESSION, &err);
+    if (dbus_error_is_set(&err)) {
+        fprintf(stderr, "ConnectionErr: %s\n", err.message);
+        dbus_error_free(&err);
+    }
+    if (connection == NULL) {
+        return -1;
+    }
+
+    if ((msg = dbus_message_new_method_call("org.fcitx.Fcitx-0", "/inputmethod",
+                                            "org.fcitx.Fcitx.InputMethod",
+                                            "GetIMByIndex")) == NULL) {
+        fprintf(stderr, "MethodNULL\n");
+        return -1;
+    }
+
+    dbus_message_iter_init_append(msg, &arg);
+    if (!dbus_message_iter_append_basic(&arg, DBUS_TYPE_INT32, &sigvalue)) {
+        fprintf(stderr, "Out of Memory!\n");
+        return -1;
+    }
+
+    if (!dbus_connection_send_with_reply(connection, msg, &pending, -1)) {
+        fprintf(stderr, "Out of Memory!\n");
+        return -1;
+    }
+
+    if (NULL == pending) {
+        fprintf(stderr, "Pending Call Null\n");
+        exit(1);
+    }
+
+    dbus_connection_flush(connection);
+    dbus_message_unref(msg);
+
+    dbus_pending_call_block(pending);
+    msg = dbus_pending_call_steal_reply(pending);
+    if (msg == NULL) {
+        fprintf(stderr, "Reply Null/n");
+        exit(1);
+    }
+
+    if (!dbus_message_iter_init(msg, &arg))
+        fprintf(stderr, "Message has no arguments!n");
+    else if (DBUS_TYPE_STRING != dbus_message_iter_get_arg_type(&arg))
+        fprintf(stderr, "Argument is not string!n");
+    else
+        dbus_message_iter_get_basic(&arg, imname);
+
+    dbus_connection_flush(connection);
+
+    // free message
+    dbus_message_unref(msg);
+
+    return 0;
 }
 
 #define EVENT_NUM 12
@@ -125,7 +194,8 @@ int main(int argc, char *argv[]) {
     struct inotify_event *event;
     int i = 0;
 
-    char *fcitxLibPath = fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
+    char *fcitxLibPath =
+        fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
     char *dimConfigPath = NULL;
     char *imPluginConfigPath = NULL;
     FILE *fp = NULL;
@@ -188,41 +258,17 @@ int main(int argc, char *argv[]) {
                             }
                         }
 
-                        if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") == 0
-                            && fcitx_utils_strcmp0("baidupinyin", imName) != 0
-                                && fcitx_utils_strcmp0("autoeng", imName) != 0
-                                && fcitx_utils_strcmp0("freedesktop-notify", imName) != 0
-                                && fcitx_utils_strcmp0("keyboard", imName) != 0
-                                && fcitx_utils_strcmp0("punc", imName) != 0
-                                && fcitx_utils_strcmp0("vk", imName) != 0
-                                && fcitx_utils_strcmp0("fullwidth-char", imName) != 0
-                                && fcitx_utils_strcmp0("kimpanel-ui", imName) != 0
-                                && fcitx_utils_strcmp0("quickphrase", imName) != 0
-                                && fcitx_utils_strcmp0("x11", imName) != 0
-                                && fcitx_utils_strcmp0("chttrans", imName) != 0
-                                && fcitx_utils_strcmp0("lua", imName) != 0
-                                && fcitx_utils_strcmp0("qw", imName) != 0
-                                && fcitx_utils_strcmp0("xim", imName) != 0
-                                && fcitx_utils_strcmp0("classic-ui", imName) != 0
-                                && fcitx_utils_strcmp0("implugin", imName) != 0
-                                && fcitx_utils_strcmp0("notificationitem", imName) != 0
-                                && fcitx_utils_strcmp0("remote-module", imName) != 0
-                                && fcitx_utils_strcmp0("clipboard", imName) != 0
-                                && fcitx_utils_strcmp0("imselector", imName) != 0
-                                && fcitx_utils_strcmp0("onboard", imName) != 0
-                                && fcitx_utils_strcmp0("spell", imName) != 0
-                                && fcitx_utils_strcmp0("xkb", imName) != 0
-                                && fcitx_utils_strcmp0("dbus", imName) != 0
-                                && fcitx_utils_strcmp0("ipcportal", imName) != 0
-                                && fcitx_utils_strcmp0("pinyin-enhance", imName) != 0
-                                && fcitx_utils_strcmp0("table", imName) != 0
-                                && fcitx_utils_strcmp0("defaultim", imName) != 0
-                                && fcitx_utils_strcmp0("ipc", imName) != 0
-                                && fcitx_utils_strcmp0("unicode", imName) != 0) {
+                        if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") ==
+                                0 &&
+                            (fcitx_utils_strcmp0("chineseime", imName) == 0 ||
+                             fcitx_utils_strcmp0("iflyime", imName) == 0 ||
+                             fcitx_utils_strcmp0("huayupy", imName) == 0 ||
+                             fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
+                             fcitx_utils_strcmp0("sogoupinyin", imName) == 0)) {
                             ini_puts("DefaultIM", "IMNAME", imName,
                                      dimConfigPath);
 
-                            sleep(10);
+                            sleep(5);
                             fcitx_utils_launch_restart();
                             sleep(5);
 
@@ -234,12 +280,12 @@ int main(int argc, char *argv[]) {
                                      FCITX_ARRAY_SIZE(settingWizard),
                                      imPluginConfigPath);
 
-                            char *pSettingWizard = malloc(
-                                (strlen(settingWizard) + 1) );
+                            char *pSettingWizard =
+                                malloc((strlen(settingWizard) + 1));
                             memset(pSettingWizard, 0,
-                                   (strlen(settingWizard) + 1) );
+                                   (strlen(settingWizard) + 1));
                             strncpy(pSettingWizard, settingWizard,
-                                    (strlen(settingWizard) + 1) );
+                                    (strlen(settingWizard) + 1));
 
                             char parameter[BUFSIZ];
                             memset(parameter, 0, FCITX_ARRAY_SIZE(parameter));
@@ -247,12 +293,10 @@ int main(int argc, char *argv[]) {
                                      FCITX_ARRAY_SIZE(parameter),
                                      imPluginConfigPath);
 
-                            char *pParameter =
-                                malloc((strlen(parameter) + 1) );
-                            memset(pParameter, 0,
-                                   (strlen(parameter) + 1) );
+                            char *pParameter = malloc((strlen(parameter) + 1));
+                            memset(pParameter, 0, (strlen(parameter) + 1));
                             strncpy(pParameter, parameter,
-                                    (strlen(parameter) + 1) );
+                                    (strlen(parameter) + 1));
 
                             if (fcitx_utils_strcmp0(pSettingWizard, "none") !=
                                 0) {
@@ -279,17 +323,22 @@ int main(int argc, char *argv[]) {
                                      curDeimName, FCITX_ARRAY_SIZE(curDeimName),
                                      dimConfigPath);
 
-                            char *pCurDeimName = malloc(
-                                (strlen(curDeimName) + 1) );
-                            memset(pCurDeimName, 0,
-                                   (strlen(curDeimName) + 1) );
+                            char *pCurDeimName =
+                                malloc((strlen(curDeimName) + 1));
+                            memset(pCurDeimName, 0, (strlen(curDeimName) + 1));
                             strncpy(pCurDeimName, curDeimName,
-                                    (strlen(curDeimName) + 1) );
+                                    (strlen(curDeimName) + 1));
 
                             if (fcitx_utils_strcmp0(pCurDeimName, imName) ==
                                 0) {
-                                ini_puts("DefaultIM", "IMNAME",
-                                         "fcitx-keyboard-us", dimConfigPath);
+                                char **secName;
+                                send_a_method(1, secName);
+                                if (fcitx_utils_strcmp0(*secName, "") == 0) {
+                                    *secName = "fcitx-keyboard-us";
+                                }
+
+                                ini_puts("DefaultIM", "IMNAME", *secName,
+                                         dimConfigPath);
                             }
 
                             free(pCurDeimName);
