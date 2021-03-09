@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f268352e_aa809bfc",
+        "filename": "src/module/implugin/implugin-service-mb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-09T09:57:11Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 9; 注释率: 0.0%",
+      "revId": "c5198aca77940664166d6b58cba5360216ae90ee",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08bd7116_9b5abfd5",
+        "filename": "src/module/implugin/implugin-service-so.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-09T09:57:11Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 15; 注释率: 0.0%",
+      "revId": "c5198aca77940664166d6b58cba5360216ae90ee",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99dab84c_1a78895b",
+        "filename": "src/module/implugin/minIni.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-09T09:57:11Z",
+      "side": 1,
+      "message": "注释行数: 162; 改动行数(修改和新增): 675; 注释率: 24.0%",
+      "revId": "c5198aca77940664166d6b58cba5360216ae90ee",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
