@@ -615,26 +615,15 @@ boolean name##LoadConfig(type* _cfg) { \
      **/
     boolean FcitxConfigSaveConfigFileFp(FILE* fp, FcitxGenericConfig *cfile, FcitxConfigFileDesc* cdesc);
 
-/**
- * Save config file to fp
- *
- * @see SaveConfigFile
- * @param fp file pointer
- * @param cfile config
- * @param cdesc config file dsecription
- * @return boolean
- **/
-boolean FcitxConfigSaveConfigFileFpNdc(FILE *fp, FcitxGenericConfig *cfile, FcitxConfigFileDesc *cdesc);
-
-/**
- * sync a single value
- *
- * @param config config
- * @param group config group
- * @param option config option
- * @param sync sync direction
- * @return Svoid
- **/
+    /**
+     * sync a single value
+     *
+     * @param config config
+     * @param group config group
+     * @param option config option
+     * @param sync sync direction
+     * @return Svoid
+     **/
     void FcitxConfigSyncValue(FcitxGenericConfig* config, FcitxConfigGroup* group, FcitxConfigOption* option, FcitxConfigSync sync);
 
     /**
