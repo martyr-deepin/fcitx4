@@ -30,30 +30,30 @@
 
 #include "config.h"
 
-#include <ctype.h>
-#include <errno.h>
-#include <libgen.h>
-#include <limits.h>
 #include <pthread.h>
-#include <signal.h>
-#include <stdarg.h>
 #include <stdio.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
+#include <signal.h>
 #include <unistd.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <limits.h>
+#include <libgen.h>
+#include <ctype.h>
+#include <stdarg.h>
+#include <errno.h>
 
 #if defined(ENABLE_BACKTRACE)
 #include <execinfo.h>
 #endif
 
 #include "fcitx/fcitx.h"
-#include "log.h"
-#include "utf8.h"
 #include "utils.h"
+#include "utf8.h"
+#include "log.h"
 
 #if defined(LIBKVM_FOUND)
-#include <fcntl.h>
 #include <kvm.h>
+#include <fcntl.h>
 #include <sys/param.h>
 #include <sys/sysctl.h>
 #include <sys/user.h>
@@ -69,13 +69,14 @@
 #include <sys/endian.h>
 #endif
 
-#define DEFINE_SIMPLE_UT_ICD(type, name)                                       \
-    static const UT_icd __fcitx_##name##_icd = {sizeof(type), NULL, NULL,      \
-                                                NULL};                         \
-    FCITX_EXPORT_API const UT_icd *const fcitx_##name##_icd =                  \
+#define DEFINE_SIMPLE_UT_ICD(type, name)                      \
+    static const UT_icd __fcitx_##name##_icd = {              \
+        sizeof(type), NULL, NULL, NULL                        \
+    };                                                        \
+    FCITX_EXPORT_API const UT_icd *const fcitx_##name##_icd = \
         &__fcitx_##name##_icd;
 
-DEFINE_SIMPLE_UT_ICD(void *, ptr)
+DEFINE_SIMPLE_UT_ICD(void*, ptr)
 DEFINE_SIMPLE_UT_ICD(int8_t, int8)
 DEFINE_SIMPLE_UT_ICD(int16_t, int16)
 DEFINE_SIMPLE_UT_ICD(int32_t, int32)
@@ -84,26 +85,28 @@ DEFINE_SIMPLE_UT_ICD(int64_t, int64)
 FCITX_EXPORT_API const UT_icd *const fcitx_str_icd = &ut_str_icd;
 FCITX_EXPORT_API const UT_icd *const fcitx_int_icd = &ut_int_icd;
 
-FCITX_EXPORT_API UT_array *
-fcitx_utils_string_list_append_no_copy(UT_array *list, char *str) {
+FCITX_EXPORT_API UT_array*
+fcitx_utils_string_list_append_no_copy(UT_array *list, char *str)
+{
     utarray_extend_back(list);
-    *(char **)utarray_back(list) = str;
+    *(char**)utarray_back(list) = str;
     return list;
 }
 
-FCITX_EXPORT_API UT_array *fcitx_utils_string_list_append_len(UT_array *list,
-                                                              const char *str,
-                                                              size_t len) {
+FCITX_EXPORT_API UT_array*
+fcitx_utils_string_list_append_len(UT_array *list, const char *str, size_t len)
+{
     char *buff = fcitx_utils_set_str_with_len(NULL, str, len);
     fcitx_utils_string_list_append_no_copy(list, buff);
     return list;
 }
 
 FCITX_EXPORT_API
-int fcitx_utils_calculate_record_number(FILE *fpDict) {
-    char *strBuf = NULL;
-    size_t bufLen = 0;
-    int nNumber = 0;
+int fcitx_utils_calculate_record_number(FILE* fpDict)
+{
+    char           *strBuf = NULL;
+    size_t          bufLen = 0;
+    int             nNumber = 0;
 
     while (getline(&strBuf, &bufLen, fpDict) != -1) {
         nNumber++;
@@ -118,7 +121,8 @@ int fcitx_utils_calculate_record_number(FILE *fpDict) {
 FCITX_EXPORT_API
 void *fcitx_utils_custom_bsearch(const void *key, const void *base,
                                  size_t nmemb, size_t size, int accurate,
-                                 int (*compar)(const void *, const void *)) {
+                                 int (*compar)(const void *, const void *))
+{
     if (accurate)
         return bsearch(key, base, nmemb, size, compar);
     else {
@@ -130,7 +134,7 @@ void *fcitx_utils_custom_bsearch(const void *key, const void *base,
         u = nmemb;
         while (l < u) {
             idx = (l + u) / 2;
-            p = (void *)(((const char *)base) + (idx * size));
+            p = (void *)(((const char *) base) + (idx * size));
             comparison = (*compar)(key, p);
             if (comparison <= 0)
                 u = idx;
@@ -141,14 +145,15 @@ void *fcitx_utils_custom_bsearch(const void *key, const void *base,
         if (u >= nmemb)
             return NULL;
         else
-            return (void *)(((const char *)base) + (l * size));
+            return (void *)(((const char *) base) + (l * size));
     }
 }
 
-typedef void (*_fcitx_sighandler_t)(int);
+typedef void (*_fcitx_sighandler_t) (int);
 
 FCITX_EXPORT_API
-void fcitx_utils_init_as_daemon() {
+void fcitx_utils_init_as_daemon()
+{
     pid_t pid;
     if ((pid = fork()) > 0) {
         waitpid(pid, NULL, 0);
@@ -156,7 +161,7 @@ void fcitx_utils_init_as_daemon() {
     }
     setsid();
     _fcitx_sighandler_t oldint = signal(SIGINT, SIG_IGN);
-    _fcitx_sighandler_t oldhup = signal(SIGHUP, SIG_IGN);
+    _fcitx_sighandler_t oldhup  =signal(SIGHUP, SIG_IGN);
     _fcitx_sighandler_t oldquit = signal(SIGQUIT, SIG_IGN);
     _fcitx_sighandler_t oldpipe = signal(SIGPIPE, SIG_IGN);
     _fcitx_sighandler_t oldttou = signal(SIGTTOU, SIG_IGN);
@@ -175,15 +180,18 @@ void fcitx_utils_init_as_daemon() {
     signal(SIGCHLD, oldchld);
 }
 
-FCITX_EXPORT_API UT_array *fcitx_utils_new_string_list() {
+FCITX_EXPORT_API UT_array*
+fcitx_utils_new_string_list()
+{
     UT_array *array;
     utarray_new(array, fcitx_str_icd);
     return array;
 }
 
-FCITX_EXPORT_API UT_array *fcitx_utils_append_split_string(UT_array *list,
-                                                           const char *str,
-                                                           const char *delm) {
+FCITX_EXPORT_API UT_array*
+fcitx_utils_append_split_string(UT_array *list,
+                                const char* str, const char *delm)
+{
     const char *src = str;
     const char *pos;
     size_t len;
@@ -197,17 +205,18 @@ FCITX_EXPORT_API UT_array *fcitx_utils_append_split_string(UT_array *list,
 }
 
 FCITX_EXPORT_API
-UT_array *fcitx_utils_split_string(const char *str, char delm) {
-    UT_array *array;
+UT_array* fcitx_utils_split_string(const char* str, char delm)
+{
+    UT_array* array;
     char delm_s[2] = {delm, '\0'};
     utarray_new(array, fcitx_str_icd);
     return fcitx_utils_append_split_string(array, str, delm_s);
 }
 
 FCITX_EXPORT_API
-void fcitx_utils_string_list_printf_append(UT_array *list, const char *fmt,
-                                           ...) {
-    char *buffer;
+void fcitx_utils_string_list_printf_append(UT_array* list, const char* fmt,...)
+{
+    char* buffer;
     va_list ap;
     va_start(ap, fmt);
     vasprintf(&buffer, fmt, ap);
@@ -216,7 +225,8 @@ void fcitx_utils_string_list_printf_append(UT_array *list, const char *fmt,
 }
 
 FCITX_EXPORT_API
-char *fcitx_utils_join_string_list(UT_array *list, char delm) {
+char* fcitx_utils_join_string_list(UT_array* list, char delm)
+{
     if (!list)
         return NULL;
 
@@ -224,16 +234,20 @@ char *fcitx_utils_join_string_list(UT_array *list, char delm) {
         return strdup("");
 
     size_t len = 0;
-    char **str;
-    for (str = (char **)utarray_front(list); str != NULL;
-         str = (char **)utarray_next(list, str)) {
+    char** str;
+    for (str = (char**) utarray_front(list);
+         str != NULL;
+         str = (char**) utarray_next(list, str))
+    {
         len += strlen(*str) + 1;
     }
 
-    char *result = (char *)malloc(sizeof(char) * len);
-    char *p = result;
-    for (str = (char **)utarray_front(list); str != NULL;
-         str = (char **)utarray_next(list, str)) {
+    char* result = (char*)malloc(sizeof(char) * len);
+    char* p = result;
+    for (str = (char**) utarray_front(list);
+         str != NULL;
+         str = (char**) utarray_next(list, str))
+    {
         size_t strl = strlen(*str);
         memcpy(p, *str, strl);
         p += strl;
@@ -246,10 +260,13 @@ char *fcitx_utils_join_string_list(UT_array *list, char delm) {
 }
 
 FCITX_EXPORT_API
-int fcitx_utils_string_list_contains(UT_array *list, const char *scmp) {
-    char **str;
-    for (str = (char **)utarray_front(list); str != NULL;
-         str = (char **)utarray_next(list, str)) {
+int fcitx_utils_string_list_contains(UT_array* list, const char* scmp)
+{
+    char** str;
+    for (str = (char**) utarray_front(list);
+         str != NULL;
+         str = (char**) utarray_next(list, str))
+    {
         if (strcmp(scmp, *str) == 0)
             return 1;
     }
@@ -257,10 +274,14 @@ int fcitx_utils_string_list_contains(UT_array *list, const char *scmp) {
 }
 
 FCITX_EXPORT_API
-void fcitx_utils_free_string_list(UT_array *list) { utarray_free(list); }
+void fcitx_utils_free_string_list(UT_array* list)
+{
+    utarray_free(list);
+}
 
 FCITX_EXPORT_API
-char *fcitx_utils_string_hash_set_join(FcitxStringHashSet *sset, char delim) {
+char* fcitx_utils_string_hash_set_join(FcitxStringHashSet* sset, char delim)
+{
     if (!sset)
         return NULL;
 
@@ -272,8 +293,8 @@ char *fcitx_utils_string_hash_set_join(FcitxStringHashSet *sset, char delim) {
         len += strlen(string->name) + 1;
     }
 
-    char *result = (char *)malloc(sizeof(char) * len);
-    char *p = result;
+    char* result = (char*)malloc(sizeof(char) * len);
+    char* p = result;
     HASH_FOREACH(string2, sset, FcitxStringHashSet) {
         size_t strl = strlen(string2->name);
         memcpy(p, string2->name, strl);
@@ -287,13 +308,13 @@ char *fcitx_utils_string_hash_set_join(FcitxStringHashSet *sset, char delim) {
 }
 
 FCITX_EXPORT_API
-FcitxStringHashSet *fcitx_utils_string_hash_set_parse(const char *str,
-                                                      char delim) {
-    FcitxStringHashSet *sset = NULL;
+FcitxStringHashSet* fcitx_utils_string_hash_set_parse(const char* str, char delim)
+{
+    FcitxStringHashSet* sset = NULL;
     const char *src = str;
     const char *pos;
     size_t len;
-
+    
     char delim_s[2] = {delim, '\0'};
     while ((len = strcspn(src, delim_s)), *(pos = src + len)) {
         sset = fcitx_utils_string_hash_set_insert_len(sset, src, len);
@@ -305,36 +326,35 @@ FcitxStringHashSet *fcitx_utils_string_hash_set_parse(const char *str,
 }
 
 FCITX_EXPORT_API
-FcitxStringHashSet *fcitx_utils_string_hash_set_insert(FcitxStringHashSet *sset,
-                                                       const char *str) {
-    FcitxStringHashSet *string = fcitx_utils_new(FcitxStringHashSet);
+FcitxStringHashSet* fcitx_utils_string_hash_set_insert(FcitxStringHashSet* sset, const char* str)
+{
+    FcitxStringHashSet* string = fcitx_utils_new(FcitxStringHashSet);
     string->name = strdup(str);
     HASH_ADD_KEYPTR(hh, sset, string->name, strlen(string->name), string);
     return sset;
 }
 
 FCITX_EXPORT_API
-FcitxStringHashSet *
-fcitx_utils_string_hash_set_insert_len(FcitxStringHashSet *sset,
-                                       const char *str, size_t len) {
-    FcitxStringHashSet *string = fcitx_utils_new(FcitxStringHashSet);
+FcitxStringHashSet* fcitx_utils_string_hash_set_insert_len(FcitxStringHashSet* sset, const char* str, size_t len)
+{
+    FcitxStringHashSet* string = fcitx_utils_new(FcitxStringHashSet);
     string->name = strndup(str, len);
     HASH_ADD_KEYPTR(hh, sset, string->name, strlen(string->name), string);
     return sset;
 }
 
 FCITX_EXPORT_API
-boolean fcitx_utils_string_hash_set_contains(FcitxStringHashSet *sset,
-                                             const char *str) {
-    FcitxStringHashSet *string = NULL;
+boolean fcitx_utils_string_hash_set_contains(FcitxStringHashSet* sset, const char* str)
+{
+    FcitxStringHashSet* string = NULL;
     HASH_FIND_STR(sset, str, string);
     return (string != NULL);
 }
 
 FCITX_EXPORT_API
-FcitxStringHashSet *fcitx_util_string_hash_set_remove(FcitxStringHashSet *sset,
-                                                      const char *str) {
-    FcitxStringHashSet *string = NULL;
+FcitxStringHashSet* fcitx_util_string_hash_set_remove(FcitxStringHashSet* sset, const char* str)
+{
+    FcitxStringHashSet* string = NULL;
     HASH_FIND_STR(sset, str, string);
     if (string) {
         HASH_DEL(sset, string);
@@ -345,7 +365,8 @@ FcitxStringHashSet *fcitx_util_string_hash_set_remove(FcitxStringHashSet *sset,
 }
 
 FCITX_EXPORT_API
-void fcitx_utils_free_string_hash_set(FcitxStringHashSet *sset) {
+void fcitx_utils_free_string_hash_set(FcitxStringHashSet* sset)
+{
     FcitxStringHashSet *curStr;
     while (sset) {
         curStr = sset;
@@ -356,13 +377,14 @@ void fcitx_utils_free_string_hash_set(FcitxStringHashSet *sset) {
 }
 
 FCITX_EXPORT_API
-int fcitx_utils_string_hash_set_compare(FcitxStringHashSet *sseta,
-                                        FcitxStringHashSet *ssetb) {
+int fcitx_utils_string_hash_set_compare(FcitxStringHashSet* sseta, FcitxStringHashSet* ssetb)
+{
     return strcmp(sseta->name, ssetb->name);
 }
 
 FCITX_EXPORT_API
-void *fcitx_utils_malloc0(size_t bytes) {
+void* fcitx_utils_malloc0(size_t bytes)
+{
     void *p = malloc(bytes);
     if (!p)
         return NULL;
@@ -372,25 +394,28 @@ void *fcitx_utils_malloc0(size_t bytes) {
 }
 
 FCITX_EXPORT_API
-char *fcitx_utils_trim(const char *s) {
+char* fcitx_utils_trim(const char* s)
+{
     register const char *end;
 
     s += strspn(s, "\f\n\r\t\v ");
     end = s + (strlen(s) - 1);
-    while (end >= s && isspace(*end)) /* skip trailing space */
+    while (end >= s && isspace(*end))               /* skip trailing space */
         --end;
 
     end++;
 
     size_t len = end - s;
 
-    char *result = malloc(len + 1);
+    char* result = malloc(len + 1);
     memcpy(result, s, len);
     result[len] = '\0';
     return result;
 }
 
-FCITX_EXPORT_API int fcitx_utils_get_display_number() {
+FCITX_EXPORT_API int
+fcitx_utils_get_display_number()
+{
     const char *display = getenv("DISPLAY");
     if (!display)
         return 0;
@@ -407,8 +432,9 @@ FCITX_EXPORT_API int fcitx_utils_get_display_number() {
 }
 
 FCITX_EXPORT_API
-int fcitx_utils_current_locale_is_utf8() {
-    const char *p;
+int fcitx_utils_current_locale_is_utf8()
+{
+    const char* p;
     p = getenv("LC_CTYPE");
     if (!p) {
         p = getenv("LC_ALL");
@@ -423,9 +449,10 @@ int fcitx_utils_current_locale_is_utf8() {
 }
 
 FCITX_EXPORT_API
-char *fcitx_utils_get_current_langcode() {
+char* fcitx_utils_get_current_langcode()
+{
     /* language[_territory][.codeset][@modifier]" or "C" */
-    const char *p;
+    const char* p;
     p = getenv("LC_CTYPE");
     if (!p) {
         p = getenv("LC_ALL");
@@ -438,16 +465,18 @@ char *fcitx_utils_get_current_langcode() {
 }
 
 FCITX_EXPORT_API
-int fcitx_utils_pid_exists(pid_t pid) {
+int fcitx_utils_pid_exists(pid_t pid)
+{
     if (pid <= 0)
         return 0;
     return !(kill(pid, 0) && (errno == ESRCH));
 }
 
 FCITX_EXPORT_API
-char *fcitx_utils_get_process_name() {
+char* fcitx_utils_get_process_name()
+{
 #if defined(__linux__)
-#define _PR_GET_NAME_MAX 16
+    #define _PR_GET_NAME_MAX 16
     char name[_PR_GET_NAME_MAX + 1];
     if (prctl(PR_GET_NAME, (unsigned long)name, 0, 0, 0))
         return strdup("");
@@ -486,15 +515,14 @@ char *fcitx_utils_get_process_name() {
     if (vm == 0)
         return strdup("");
 
-    char *result = NULL;
+    char* result = NULL;
     do {
         int cnt;
         int mypid = getpid();
 #ifdef __NetBSD__
-        struct kinfo_proc2 *kp = kvm_getproc2(vm, KERN_PROC_PID, mypid,
-                                              sizeof(struct kinfo_proc2), &cnt);
+        struct kinfo_proc2 * kp = kvm_getproc2(vm, KERN_PROC_PID, mypid, sizeof(struct kinfo_proc2), &cnt);
 #else
-        struct kinfo_proc *kp = kvm_getprocs(vm, KERN_PROC_PID, mypid, &cnt);
+        struct kinfo_proc * kp = kvm_getprocs(vm, KERN_PROC_PID, mypid, &cnt);
 #endif
         if ((cnt != 1) || (kp == 0)) {
             break;
@@ -524,35 +552,43 @@ char *fcitx_utils_get_process_name() {
 }
 
 FCITX_EXPORT_API
-char *fcitx_utils_get_fcitx_path(const char *type) {
-    char *fcitxdir = getenv("FCITXDIR");
-    char *result = NULL;
+char* fcitx_utils_get_fcitx_path(const char* type)
+{
+    char* fcitxdir = getenv("FCITXDIR");
+    char* result = NULL;
     if (strcmp(type, "datadir") == 0) {
         if (fcitxdir) {
             fcitx_utils_alloc_cat_str(result, fcitxdir, "/share");
         } else {
             result = strdup(DATADIR);
         }
-    } else if (strcmp(type, "pkgdatadir") == 0) {
+    }
+    else if (strcmp(type, "pkgdatadir") == 0) {
         if (fcitxdir) {
-            fcitx_utils_alloc_cat_str(result, fcitxdir, "/share/" PACKAGE);
+            fcitx_utils_alloc_cat_str(result, fcitxdir, "/share/"PACKAGE);
         } else {
             result = strdup(PKGDATADIR);
         }
-    } else if (strcmp(type, "bindir") == 0) {
+    }
+    else if (strcmp(type, "bindir") == 0) {
         if (fcitxdir) {
             fcitx_utils_alloc_cat_str(result, fcitxdir, "/bin");
-        } else
+        }
+        else
             result = strdup(BINDIR);
-    } else if (strcmp(type, "libdir") == 0) {
+    }
+    else if (strcmp(type, "libdir") == 0) {
         if (fcitxdir) {
             fcitx_utils_alloc_cat_str(result, fcitxdir, "/lib");
-        } else
+        }
+        else
             result = strdup(LIBDIR);
-    } else if (strcmp(type, "localedir") == 0) {
+    }
+    else if (strcmp(type, "localedir") == 0) {
         if (fcitxdir) {
             fcitx_utils_alloc_cat_str(result, fcitxdir, "/share/locale");
-        } else
+        }
+        else
             result = strdup(LOCALEDIR);
     } else if (strcmp(type, "tabledir") == 0) {
         if (fcitxdir) {
@@ -564,9 +600,9 @@ char *fcitx_utils_get_fcitx_path(const char *type) {
 }
 
 FCITX_EXPORT_API
-char *fcitx_utils_get_fcitx_path_with_filename(const char *type,
-                                               const char *filename) {
-    char *path = fcitx_utils_get_fcitx_path(type);
+char* fcitx_utils_get_fcitx_path_with_filename(const char* type, const char* filename)
+{
+    char* path = fcitx_utils_get_fcitx_path(type);
     if (path == NULL)
         return NULL;
     char *result;
@@ -576,7 +612,8 @@ char *fcitx_utils_get_fcitx_path_with_filename(const char *type,
 }
 
 FCITX_EXPORT_API
-void fcitx_utils_string_swap(char **obj, const char *str) {
+void fcitx_utils_string_swap(char** obj, const char* str)
+{
     if (str) {
         *obj = fcitx_utils_set_str(*obj, str);
     } else if (*obj) {
@@ -586,7 +623,8 @@ void fcitx_utils_string_swap(char **obj, const char *str) {
 }
 
 FCITX_EXPORT_API
-void fcitx_utils_string_swap_with_len(char **obj, const char *str, size_t len) {
+void fcitx_utils_string_swap_with_len(char** obj, const char* str, size_t len)
+{
     if (str) {
         *obj = fcitx_utils_set_str_with_len(*obj, str, len);
     } else if (*obj) {
@@ -595,50 +633,61 @@ void fcitx_utils_string_swap_with_len(char **obj, const char *str, size_t len) {
     }
 }
 
-FCITX_EXPORT_API void fcitx_utils_launch_tool(const char *name,
-                                              const char *arg) {
-    char *command = fcitx_utils_get_fcitx_path_with_filename("bindir", name);
-    char *args[] = {
+FCITX_EXPORT_API void
+fcitx_utils_launch_tool(const char* name, const char* arg)
+{
+    char* command = fcitx_utils_get_fcitx_path_with_filename("bindir", name);
+    char* args[] = {
         command,
-        (char *)(intptr_t)arg, /* parent process haven't even touched this... */
-        NULL};
-    FcitxLog(DEBUG, "command : %s args : %s", command, args);
+        (char*)(intptr_t)arg, /* parent process haven't even touched this... */
+        NULL
+    };
     fcitx_utils_start_process(args);
     free(command);
 }
 
 FCITX_EXPORT_API
-void fcitx_utils_launch_configure_tool() {
+void fcitx_utils_launch_configure_tool()
+{
     fcitx_utils_launch_tool("fcitx-configtool", NULL);
 }
 
 FCITX_EXPORT_API
-void fcitx_utils_launch_configure_tool_for_addon(const char *imaddon) {
+void fcitx_utils_launch_configure_tool_for_addon(const char* imaddon)
+{
     fcitx_utils_launch_tool("fcitx-configtool", imaddon);
 }
 
 FCITX_EXPORT_API
-void fcitx_utils_launch_restart() { fcitx_utils_launch_tool("fcitx", "-r"); }
+void fcitx_utils_launch_restart()
+{
+    fcitx_utils_launch_tool("fcitx", "-r");
+}
 
 FCITX_EXPORT_API
-void fcitx_utils_restart_in_place(void) {
-    char *command = fcitx_utils_get_fcitx_path_with_filename("bindir", "fcitx");
-    char *const argv[] = {command, "-D", /* Don't start as daemon */
-                          NULL};
+void fcitx_utils_restart_in_place(void)
+{
+    char* command = fcitx_utils_get_fcitx_path_with_filename("bindir", "fcitx");
+    char* const argv[] = {
+        command,
+        "-D", /* Don't start as daemon */
+        NULL
+    };
     execv(argv[0], argv);
     perror("Restart failed: execvp:");
     _exit(1);
 }
 
 FCITX_EXPORT_API
-void fcitx_utils_start_process(char **args) {
+void fcitx_utils_start_process(char** args)
+{
     /* exec command */
     pid_t child_pid;
 
     child_pid = fork();
     if (child_pid < 0) {
         perror("fork");
-    } else if (child_pid == 0) { /* child process  */
+    } else if (child_pid == 0) {         /* child process  */
         setsid();
         pid_t grandchild_pid;
 
@@ -653,14 +702,16 @@ void fcitx_utils_start_process(char **args) {
         } else {
             _exit(0);
         }
-    } else { /* parent process */
+    } else {                              /* parent process */
         int status;
         waitpid(child_pid, &status, 0);
     }
 }
 
 FCITX_EXPORT_API
-void fcitx_utils_backtrace() {
+void
+fcitx_utils_backtrace()
+{
 #if defined(ENABLE_BACKTRACE)
     void *array[32];
 
@@ -672,20 +723,27 @@ void fcitx_utils_backtrace() {
 }
 
 FCITX_EXPORT_API
-int fcitx_utils_get_boolean_env(const char *name, int defval) {
+int
+fcitx_utils_get_boolean_env(const char *name,
+                            int defval)
+{
     const char *value = getenv(name);
 
     if (value == NULL)
         return defval;
 
-    if ((!*value) || strcmp(value, "0") == 0 || strcasecmp(value, "false") == 0)
+    if ((!*value) ||
+        strcmp(value, "0") == 0 ||
+        strcasecmp(value, "false") == 0)
         return 0;
 
     return 1;
 }
 
 FCITX_EXPORT_API
-size_t fcitx_utils_read_uint32(FILE *fp, uint32_t *p) {
+size_t
+fcitx_utils_read_uint32(FILE *fp, uint32_t *p)
+{
     uint32_t res = 0;
     size_t size;
     size = fread(&res, sizeof(uint32_t), 1, fp);
@@ -694,13 +752,17 @@ size_t fcitx_utils_read_uint32(FILE *fp, uint32_t *p) {
 }
 
 FCITX_EXPORT_API
-size_t fcitx_utils_write_uint32(FILE *fp, uint32_t i) {
+size_t
+fcitx_utils_write_uint32(FILE *fp, uint32_t i)
+{
     i = htole32(i);
     return fwrite(&i, sizeof(uint32_t), 1, fp);
 }
 
 FCITX_EXPORT_API
-size_t fcitx_utils_read_uint16(FILE *fp, uint16_t *p) {
+size_t
+fcitx_utils_read_uint16(FILE *fp, uint16_t *p)
+{
     uint16_t res = 0;
     size_t size;
     size = fread(&res, sizeof(uint16_t), 1, fp);
@@ -709,13 +771,17 @@ size_t fcitx_utils_read_uint16(FILE *fp, uint16_t *p) {
 }
 
 FCITX_EXPORT_API
-size_t fcitx_utils_write_uint16(FILE *fp, uint16_t i) {
+size_t
+fcitx_utils_write_uint16(FILE *fp, uint16_t i)
+{
     i = htole16(i);
     return fwrite(&i, sizeof(uint16_t), 1, fp);
 }
 
 FCITX_EXPORT_API
-size_t fcitx_utils_read_uint64(FILE *fp, uint64_t *p) {
+size_t
+fcitx_utils_read_uint64(FILE *fp, uint64_t *p)
+{
     uint64_t res = 0;
     size_t size;
     size = fread(&res, sizeof(uint64_t), 1, fp);
@@ -724,26 +790,30 @@ size_t fcitx_utils_read_uint64(FILE *fp, uint64_t *p) {
 }
 
 FCITX_EXPORT_API
-size_t fcitx_utils_write_uint64(FILE *fp, uint64_t i) {
+size_t
+fcitx_utils_write_uint64(FILE *fp, uint64_t i)
+{
     i = htole64(i);
     return fwrite(&i, sizeof(uint64_t), 1, fp);
 }
 
-FCITX_EXPORT_API size_t fcitx_utils_str_lens(size_t n, const char **str_list,
-                                             size_t *size_list) {
+FCITX_EXPORT_API size_t
+fcitx_utils_str_lens(size_t n, const char **str_list, size_t *size_list)
+{
     size_t i;
     size_t total = 0;
-    for (i = 0; i < n; i++) {
+    for (i = 0;i < n;i++) {
         total += (size_list[i] = str_list[i] ? strlen(str_list[i]) : 0);
     }
     return total + 1;
 }
 
-FCITX_EXPORT_API void fcitx_utils_cat_str(char *out, size_t n,
-                                          const char **str_list,
-                                          const size_t *size_list) {
+FCITX_EXPORT_API void
+fcitx_utils_cat_str(char *out, size_t n, const char **str_list,
+                        const size_t *size_list)
+{
     size_t i = 0;
-    for (i = 0; i < n; i++) {
+    for (i = 0;i < n;i++) {
         if (!size_list[i])
             continue;
         memcpy(out, str_list[i], size_list[i]);
@@ -752,14 +822,14 @@ FCITX_EXPORT_API void fcitx_utils_cat_str(char *out, size_t n,
     *out = '\0';
 }
 
-FCITX_EXPORT_API void fcitx_utils_cat_str_with_len(char *out, size_t len,
-                                                   size_t n,
-                                                   const char **str_list,
-                                                   const size_t *size_list) {
+FCITX_EXPORT_API void
+fcitx_utils_cat_str_with_len(char *out, size_t len, size_t n,
+                             const char **str_list, const size_t *size_list)
+{
     char *limit = out + len - 1;
     char *tmp = out;
     size_t i = 0;
-    for (i = 0; i < n; i++) {
+    for (i = 0;i < n;i++) {
         if (!size_list[i])
             continue;
         tmp += size_list[i];
@@ -774,7 +844,9 @@ FCITX_EXPORT_API void fcitx_utils_cat_str_with_len(char *out, size_t len,
     *out = '\0';
 }
 
-FCITX_EXPORT_API int fcitx_utils_strcmp0(const char *a, const char *b) {
+FCITX_EXPORT_API int
+fcitx_utils_strcmp0(const char *a, const char *b)
+{
     if (!a) {
         if (!b)
             return 0;
@@ -783,10 +855,13 @@ FCITX_EXPORT_API int fcitx_utils_strcmp0(const char *a, const char *b) {
         return 1;
     }
     return strcmp(a, b);
+
 }
 
 FCITX_EXPORT_API
-int fcitx_utils_strcmp_empty(const char *a, const char *b) {
+int
+fcitx_utils_strcmp_empty(const char* a, const char* b)
+{
     int isemptya = (a == NULL || (*a) == 0);
     int isemptyb = (b == NULL || (*b) == 0);
     if (isemptya && isemptyb)
@@ -798,8 +873,9 @@ int fcitx_utils_strcmp_empty(const char *a, const char *b) {
     return strcmp(a, b);
 }
 
-FCITX_EXPORT_API char *fcitx_utils_set_str_with_len(char *res, const char *str,
-                                                    size_t len) {
+FCITX_EXPORT_API char*
+fcitx_utils_set_str_with_len(char *res, const char *str, size_t len)
+{
     if (res) {
         res = realloc(res, len + 1);
     } else {
@@ -810,11 +886,11 @@ FCITX_EXPORT_API char *fcitx_utils_set_str_with_len(char *res, const char *str,
     return res;
 }
 
-FCITX_EXPORT_API char fcitx_utils_unescape_char(char c) {
+FCITX_EXPORT_API char
+fcitx_utils_unescape_char(char c)
+{
     switch (c) {
-#define CASE_UNESCAPE(from, to)                                                \
-    case from:                                                                 \
-        return to
+#define CASE_UNESCAPE(from, to) case from: return to
         CASE_UNESCAPE('a', '\a');
         CASE_UNESCAPE('b', '\b');
         CASE_UNESCAPE('f', '\f');
@@ -828,7 +904,9 @@ FCITX_EXPORT_API char fcitx_utils_unescape_char(char c) {
     return c;
 }
 
-FCITX_EXPORT_API char *fcitx_utils_unescape_str_inplace(char *str) {
+FCITX_EXPORT_API char*
+fcitx_utils_unescape_str_inplace(char *str)
+{
     char *dest = str;
     char *src = str;
     char *pos;
@@ -848,8 +926,9 @@ FCITX_EXPORT_API char *fcitx_utils_unescape_str_inplace(char *str) {
     return str;
 }
 
-FCITX_EXPORT_API char *fcitx_utils_set_unescape_str(char *res,
-                                                    const char *str) {
+FCITX_EXPORT_API char*
+fcitx_utils_set_unescape_str(char *res, const char *str)
+{
     size_t len = strlen(str) + 1;
     if (res) {
         res = realloc(res, len);
@@ -873,11 +952,11 @@ FCITX_EXPORT_API char *fcitx_utils_set_unescape_str(char *res,
     return res;
 }
 
-FCITX_EXPORT_API char fcitx_utils_escape_char(char c) {
+FCITX_EXPORT_API char
+fcitx_utils_escape_char(char c)
+{
     switch (c) {
-#define CASE_ESCAPE(to, from)                                                  \
-    case from:                                                                 \
-        return to
+#define CASE_ESCAPE(to, from) case from: return to
         CASE_ESCAPE('a', '\a');
         CASE_ESCAPE('b', '\b');
         CASE_ESCAPE('f', '\f');
@@ -891,9 +970,9 @@ FCITX_EXPORT_API char fcitx_utils_escape_char(char c) {
     return c;
 }
 
-FCITX_EXPORT_API char *fcitx_utils_set_escape_str_with_set(char *res,
-                                                           const char *str,
-                                                           const char *set) {
+FCITX_EXPORT_API char*
+fcitx_utils_set_escape_str_with_set(char *res, const char *str, const char *set)
+{
     if (!set)
         set = FCITX_CHAR_NEED_ESCAPE;
     size_t len = strlen(str) * 2 + 1;
@@ -973,22 +1052,24 @@ FCITX_EXPORT_API int fcitx_utils_judge_implugin_service_mb_exist() {
  * atomic operation in case the function address is needed or the builtin
  * is not available when compiling other modules.
  **/
-#define FCITX_UTIL_DEFINE_ATOMIC(name, op, type)                               \
-    FCITX_EXPORT_API type(fcitx_utils_atomic_##name)(volatile type * atomic,   \
-                                                     type val) {               \
-        return __sync_fetch_and_##name(atomic, val);                           \
+#define FCITX_UTIL_DEFINE_ATOMIC(name, op, type)                        \
+    FCITX_EXPORT_API type                                               \
+    (fcitx_utils_atomic_##name)(volatile type *atomic, type val)        \
+    {                                                                   \
+        return __sync_fetch_and_##name(atomic, val);                    \
     }
 #else
 static pthread_mutex_t __fcitx_utils_atomic_lock = PTHREAD_MUTEX_INITIALIZER;
-#define FCITX_UTIL_DEFINE_ATOMIC(name, op, type)                               \
-    FCITX_EXPORT_API type(fcitx_utils_atomic_##name)(volatile type * atomic,   \
-                                                     type val) {               \
-        type oldval;                                                           \
-        pthread_mutex_lock(&__fcitx_utils_atomic_lock);                        \
-        oldval = *atomic;                                                      \
-        *atomic = oldval op val;                                               \
-        pthread_mutex_unlock(&__fcitx_utils_atomic_lock);                      \
-        return oldval;                                                         \
+#define FCITX_UTIL_DEFINE_ATOMIC(name, op, type)                        \
+    FCITX_EXPORT_API type                                               \
+    (fcitx_utils_atomic_##name)(volatile type *atomic, type val)        \
+    {                                                                   \
+        type oldval;                                                    \
+        pthread_mutex_lock(&__fcitx_utils_atomic_lock);                 \
+        oldval = *atomic;                                               \
+        *atomic = oldval op val;                                        \
+        pthread_mutex_unlock(&__fcitx_utils_atomic_lock);               \
+        return oldval;                                                  \
     }
 #endif
 

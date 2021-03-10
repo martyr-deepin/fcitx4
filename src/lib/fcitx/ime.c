@@ -946,6 +946,7 @@ void FcitxInstanceChooseCandidateByTotalIndex(
     FcitxInstanceProcessInputReturnValue(instance, retVal);
 }
 
+
 FCITX_EXPORT_API
 INPUT_RETURN_VALUE FcitxInstanceDoInputCallback(
     FcitxInstance* instance,

@@ -569,7 +569,8 @@ extern "C" {
         FcitxKeySym sym,
         unsigned int state);
 
-     /**
+
+    /**
      * @brief choose candidate by index
      *
      * @param instance instance
