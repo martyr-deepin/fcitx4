@@ -23,7 +23,6 @@ libfcitx-config.so.4 libfcitx-config4 #MINVER#
  FcitxConfigResetConfigToDefaultValue@Base 4.2.9.29
  FcitxConfigSaveConfigFile@Base 4.2.9.29
  FcitxConfigSaveConfigFileFp@Base 4.2.9.29
- FcitxConfigSaveConfigFileFpNdc@Base 4.2.9.31
  FcitxConfigSyncValue@Base 4.2.9.29
  FcitxHotkeyFree@Base 4.2.9.29
  FcitxHotkeyGetKey@Base 4.2.9.29

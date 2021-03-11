@@ -182,7 +182,7 @@ void SaveIMSelectorConfig(IMSelector *imselector) {
     FcitxConfigFileDesc *configDesc = GetIMSelectorConfig();
     FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-onboard.config",
                                              "w", NULL);
-    FcitxConfigSaveConfigFileFpNdc(fp, &imselector->gconfig, configDesc);
+    FcitxConfigSaveConfigFileFp(fp, &imselector->gconfig, configDesc);
     if (fp)
         fclose(fp);
 }

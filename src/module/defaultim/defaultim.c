@@ -191,7 +191,7 @@ void SaveDefaultIMConfig(DefaultIM *defaultim) {
     FcitxConfigFileDesc *configDesc = GetDefaultIMConfig();
     FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config",
                                              "w", NULL);
-    FcitxConfigSaveConfigFileFpNdc(fp, &defaultim->gconfig, configDesc);
+    FcitxConfigSaveConfigFileFp(fp, &defaultim->gconfig, configDesc);
     if (fp)
         fclose(fp);
 }

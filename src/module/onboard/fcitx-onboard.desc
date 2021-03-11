@@ -1,6 +1,6 @@
 [Onboard/HOTKEY]
 Type=Hotkey
-DefaultValue=CTRL_O
+DefaultValue=
 Description=Switch to the Commond
 
 [Onboard/COMMOND]

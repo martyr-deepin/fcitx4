@@ -1,6 +1,6 @@
 [chineseime/SettingWizard]
 Type=String
-DefaultValue=/opt/apps/org.deepin.chineseime/files/bin/chinime-setw
+DefaultValue=/opt/apps/org.deepin.chineseime/files/bin/chinime-sett
 Description= chineseime setting wizard path
 
 [chineseime/Setting]
@@ -15,7 +15,7 @@ Description= chineseime parameter
 
 [iflyime/SettingWizard]
 Type=String
-DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-set-w
+DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-set
 Description= iflyime setting wizard path
 
 [iflyime/Setting]

@@ -211,6 +211,8 @@ const char * im_introspection_xml =
     "</method>"
     "<method name=\"ToggleIM\">"
     "</method>"
+    "<method name=\"SwitchIM\">"
+    "</method>"
     "<method name=\"ResetIMList\">"
     "</method>"
     "<method name=\"GetCurrentState\">"
@@ -720,6 +722,9 @@ static DBusHandlerResult IPCDBusEventHandler(DBusConnection *connection, DBusMes
         reply = dbus_message_new_method_return(msg);
     } else if (dbus_message_is_method_call(msg, FCITX_IM_DBUS_INTERFACE, "ToggleIM")) {
         FcitxInstanceChangeIMState(ipc->owner, FcitxInstanceGetCurrentIC(ipc->owner));
+        reply = dbus_message_new_method_return(msg);
+    } else if (dbus_message_is_method_call(msg, FCITX_IM_DBUS_INTERFACE, "SwitchIM")) {
+        FcitxInstanceSwitchIMByIndex(instance, -2);
         reply = dbus_message_new_method_return(msg);
     } else if (dbus_message_is_method_call(msg, FCITX_IM_DBUS_INTERFACE, "ResetIMList")) {
         FcitxProfile* profile = FcitxInstanceGetProfile(instance);

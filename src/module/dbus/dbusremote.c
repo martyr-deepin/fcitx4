@@ -74,6 +74,7 @@ void usage(FILE* fp)
             "\t-a\t\tprint fcitx's dbus address\n"
             "\t-m <imname>\tprint corresponding addon name for im\n"
             "\t-s <imname>\tswitch to the input method uniquely identified by <imname>\n"
+            "\t-w\t\tswitch to the input method by index++ \n"
             "\t[no option]\tdisplay fcitx state, %d for close, %d for inactive, %d for acitve\n"
             "\t-h\t\tdisplay this help and exit\n",
            IS_CLOSED, IS_INACTIVE, IS_ACTIVE);
@@ -87,7 +88,8 @@ enum {
     FCITX_DBUS_TOGGLE,
     FCITX_DBUS_GET_CURRENT_STATE,
     FCITX_DBUS_GET_IM_ADDON,
-    FCITX_DBUS_SET_CURRENT_IM
+    FCITX_DBUS_SET_CURRENT_IM,
+    FCITX_DBUS_SWITCHIM
 };
 
 int main (int argc, char* argv[])
@@ -100,7 +102,7 @@ int main (int argc, char* argv[])
     int ret = 1;
     int messageType = FCITX_DBUS_GET_CURRENT_STATE;
     char *imname = NULL;
-    while ((c = getopt(argc, argv, "chortTeam:s:")) != -1) {
+    while ((c = getopt(argc, argv, "chortTeam:s:w")) != -1) {
         switch (c) {
         case 'o':
             messageType = FCITX_DBUS_ACTIVATE;
@@ -133,6 +135,10 @@ int main (int argc, char* argv[])
             imname = strdup(optarg);
             break;
 
+        case 'w':
+            messageType = FCITX_DBUS_SWITCHIM;
+            break;
+
         case 'a':
             address = _fcitx_get_address();
             if (address) {
@@ -142,9 +148,11 @@ int main (int argc, char* argv[])
             } else {
                 return 1;
             }
+
         case 'h':
             usage(stdout);
             return 0;
+
         default:
             usage(stderr);
             return 1;
@@ -166,6 +174,7 @@ int main (int argc, char* argv[])
         CASE(GET_CURRENT_STATE, GetCurrentState);
         CASE(GET_IM_ADDON, GetIMAddon);
         CASE(SET_CURRENT_IM, SetCurrentIM);
+        CASE(SWITCHIM, SwitchIM);
 
         default:
             goto some_error;
