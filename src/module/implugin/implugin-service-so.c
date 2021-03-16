@@ -265,7 +265,9 @@ int main(int argc, char *argv[]) {
                              fcitx_utils_strcmp0("iflyime", imName) == 0 ||
                              fcitx_utils_strcmp0("huayupy", imName) == 0 ||
                              fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
-                             fcitx_utils_strcmp0("sogoupinyin", imName) == 0)) {
+                             fcitx_utils_strcmp0("sogoupinyin", imName) == 0 ||
+                             fcitx_utils_strcmp0("sunpinyin", imName) == 0 ||
+                             fcitx_utils_strcmp0("rime", imName) == 0)) {
                             ini_puts("DefaultIM", "IMNAME", imName,
                                      dimConfigPath);
 
@@ -317,15 +319,13 @@ int main(int argc, char *argv[]) {
 
                         } else if (fcitx_utils_strcmp0(event_str[i],
                                                        "IN_DELETE") == 0 &&
-                                   (fcitx_utils_strcmp0("chineseime", imName) ==
-                                        0 ||
-                                    fcitx_utils_strcmp0("iflyime", imName) ==
-                                        0 ||
-                                    fcitx_utils_strcmp0("huayupy", imName) ==
-                                        0 ||
+                                   (fcitx_utils_strcmp0("chineseime", imName) == 0 ||
+                                    fcitx_utils_strcmp0("iflyime", imName) == 0 ||
+                                    fcitx_utils_strcmp0("huayupy", imName) == 0 ||
                                     fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
-                                    fcitx_utils_strcmp0("sogoupinyin",
-                                                        imName) == 0)) {
+                                    fcitx_utils_strcmp0("sogoupinyin",imName) == 0 ||
+                                    fcitx_utils_strcmp0("sunpinyin", imName) == 0 ||
+                                    fcitx_utils_strcmp0("rime", imName) == 0)) {
                             char curDeimName[BUFSIZ];
                             memset(curDeimName, 0,
                                    FCITX_ARRAY_SIZE(curDeimName));
@@ -339,8 +339,7 @@ int main(int argc, char *argv[]) {
                             strncpy(pCurDeimName, curDeimName,
                                     (strlen(curDeimName) + 1));
 
-                            if (fcitx_utils_strcmp0(pCurDeimName, imName) ==
-                                0) {
+                            if (fcitx_utils_strcmp0(pCurDeimName, imName) == 0) {
                                 char *secName;
                                 send_a_method(2, &secName);
                                 if (fcitx_utils_strcmp0(secName, "") == 0) {
