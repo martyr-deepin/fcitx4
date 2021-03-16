@@ -1,9 +1,0 @@
-[Addon]
-Name=fcitx-onboard
-_GeneralName=Onboard Support
-_Comment=The shortcut starts the onboard
-Category=Module
-Enabled=True
-Library=fcitx-onboard.so
-Type=SharedLibrary
-Priority=40
