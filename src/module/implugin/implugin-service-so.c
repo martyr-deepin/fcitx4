@@ -267,7 +267,19 @@ int main(int argc, char *argv[]) {
                              fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
                              fcitx_utils_strcmp0("sogoupinyin", imName) == 0 ||
                              fcitx_utils_strcmp0("sunpinyin", imName) == 0 ||
-                             fcitx_utils_strcmp0("rime", imName) == 0)) {
+                             fcitx_utils_strcmp0("pinyin", imName) == 0 ||
+                             fcitx_utils_strcmp0("libpinyin", imName) == 0 ||
+                             fcitx_utils_strcmp0("rime", imName) == 0 ||
+                             fcitx_utils_strcmp0("zhuyin", imName) == 0 ||
+                             fcitx_utils_strcmp0("chewing", imName) == 0 ||
+                             fcitx_utils_strcmp0("mozc", imName) == 0 ||
+                             fcitx_utils_strcmp0("skk", imName) == 0 ||
+                             fcitx_utils_strcmp0("kkc", imName) == 0 ||
+                             fcitx_utils_strcmp0("anthy", imName) == 0 ||
+                             fcitx_utils_strcmp0("sayura", imName) == 0 ||
+                             fcitx_utils_strcmp0("hangul", imName) == 0 ||
+                             fcitx_utils_strcmp0("libthai", imName) == 0 ||
+                             fcitx_utils_strcmp0("m17n", imName) == 0)) {
                             ini_puts("DefaultIM", "IMNAME", imName,
                                      dimConfigPath);
 
@@ -323,9 +335,21 @@ int main(int argc, char *argv[]) {
                                     fcitx_utils_strcmp0("iflyime", imName) == 0 ||
                                     fcitx_utils_strcmp0("huayupy", imName) == 0 ||
                                     fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
-                                    fcitx_utils_strcmp0("sogoupinyin",imName) == 0 ||
+                                    fcitx_utils_strcmp0("sogoupinyin", imName) == 0 ||
                                     fcitx_utils_strcmp0("sunpinyin", imName) == 0 ||
-                                    fcitx_utils_strcmp0("rime", imName) == 0)) {
+                                    fcitx_utils_strcmp0("pinyin", imName) == 0 ||
+                                    fcitx_utils_strcmp0("libpinyin", imName) == 0 ||
+                                    fcitx_utils_strcmp0("rime", imName) == 0 ||
+                                    fcitx_utils_strcmp0("zhuyin", imName) == 0 ||
+                                    fcitx_utils_strcmp0("chewing", imName) == 0 ||
+                                    fcitx_utils_strcmp0("mozc", imName) == 0 ||
+                                    fcitx_utils_strcmp0("skk", imName) == 0 ||
+                                    fcitx_utils_strcmp0("kkc", imName) == 0 ||
+                                    fcitx_utils_strcmp0("anthy", imName) == 0 ||
+                                    fcitx_utils_strcmp0("sayura", imName) == 0 ||
+                                    fcitx_utils_strcmp0("hangul", imName) == 0 ||
+                                    fcitx_utils_strcmp0("libthai", imName) == 0 ||
+                                    fcitx_utils_strcmp0("m17n", imName) == 0)) {
                             char curDeimName[BUFSIZ];
                             memset(curDeimName, 0,
                                    FCITX_ARRAY_SIZE(curDeimName));

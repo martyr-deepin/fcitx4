@@ -254,8 +254,8 @@ int main(int argc, char *argv[]) {
                             }
                         }
 
-                        if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") ==
-                                0 &&
+                        if ((fcitx_utils_strcmp0(event_str[i], "IN_CREATE") == 0 ||
+                             fcitx_utils_strcmp0(event_str[i], "IN_MODIFY") == 0 )&&
                             (fcitx_utils_strcmp0("wbpy", imName) == 0 ||
                              fcitx_utils_strcmp0("wbx", imName) == 0)) {
                             ini_puts("DefaultIM", "IMNAME", imName,
