@@ -267,7 +267,10 @@ int main(int argc, char *argv[]) {
                              fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
                              fcitx_utils_strcmp0("sogoupinyin", imName) == 0 ||
                              fcitx_utils_strcmp0("sunpinyin", imName) == 0 ||
-                             fcitx_utils_strcmp0("rime", imName) == 0)) {
+                             fcitx_utils_strcmp0("rime", imName) == 0 ||
+                             fcitx_utils_strcmp0("pinyin", imName) == 0 ||
+                             fcitx_utils_strcmp0("mozc", imName) == 0 ||
+                             fcitx_utils_strcmp0("pinyin", imName) == 0)) {
                             ini_puts("DefaultIM", "IMNAME", imName,
                                      dimConfigPath);
 
@@ -325,7 +328,8 @@ int main(int argc, char *argv[]) {
                                     fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
                                     fcitx_utils_strcmp0("sogoupinyin",imName) == 0 ||
                                     fcitx_utils_strcmp0("sunpinyin", imName) == 0 ||
-                                    fcitx_utils_strcmp0("rime", imName) == 0)) {
+                                    fcitx_utils_strcmp0("rime", imName) == 0 ||
+                                    fcitx_utils_strcmp0("pinyin", imName) == 0)) {
                             char curDeimName[BUFSIZ];
                             memset(curDeimName, 0,
                                    FCITX_ARRAY_SIZE(curDeimName));

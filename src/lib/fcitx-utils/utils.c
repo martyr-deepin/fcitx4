@@ -592,7 +592,7 @@ char* fcitx_utils_get_fcitx_path(const char* type)
             result = strdup(LOCALEDIR);
     } else if (strcmp(type, "tabledir") == 0) {
         if (fcitxdir) {
-            fcitx_utils_alloc_cat_str(result, fcitxdir, "/share/table");
+            fcitx_utils_alloc_cat_str(result, fcitxdir, "/share/"PACKAGE"/table");
         } else
             result = strdup(PKGDATADIR"/table");
     }
