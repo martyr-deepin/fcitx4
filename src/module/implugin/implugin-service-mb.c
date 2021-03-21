@@ -277,18 +277,17 @@ void display_inotify_event(char** dimConfigPath,char **imPluginConfigPath,struct
                 && str_find_target(".conf",i->name,&imName) == 1){
             printf("imName %s",imName);
 
-            if(!*dimConfigPath){
+            if(*dimConfigPath){
                 ini_puts("DefaultIM", "IMNAME", imName, *dimConfigPath);
             }
 
             sleep(3);
             fcitx_utils_launch_restart();
-//            system("fcitx -r");
             sleep(3);
 
             char settingWizard[BUFSIZ];
             memset(settingWizard, 0,FCITX_ARRAY_SIZE(settingWizard));
-            if(!*dimConfigPath){
+            if(*imPluginConfigPath){
                 ini_gets(imName, "SettingWizard", "none",settingWizard,FCITX_ARRAY_SIZE(settingWizard),*imPluginConfigPath);
             }
             char *pSettingWizard =malloc((strlen(settingWizard) + 1));
@@ -297,7 +296,7 @@ void display_inotify_event(char** dimConfigPath,char **imPluginConfigPath,struct
 
             char parameter[BUFSIZ];
             memset(parameter, 0, FCITX_ARRAY_SIZE(parameter));
-            if(!*dimConfigPath){
+            if(*imPluginConfigPath){
                 ini_gets(imName, "Parameter", NULL, parameter, FCITX_ARRAY_SIZE(parameter),*imPluginConfigPath);
             }
             char *pParameter = malloc((strlen(parameter) + 1));
@@ -349,7 +348,6 @@ void display_inotify_event(char** dimConfigPath,char **imPluginConfigPath,struct
 
             sleep(3);
             fcitx_utils_launch_restart();
-//            system("fcitx -r");
             sleep(3);
 
             if(!*dimConfigPath){
@@ -409,7 +407,6 @@ int main(int argc, char *argv[])
                 if ((event->mask >> i) & 1) {
                     if (event->len > 0)
                         if (strncmp(event->name, ".", 1)) {
-                            display_inotify_event(&dimConfigPath,&imPluginConfigPath,event);
                             if ((strcmp(event_str[i], "IN_CREATE") == 0) || (strcmp(event_str[i], "IN_MOVED_TO") == 0)) {
                                 memset(path, 0, sizeof(path));
                                 strncat(path, dir.path[event->wd], BUFSIZ);
@@ -421,6 +418,7 @@ int main(int argc, char *argv[])
                                     id_add(path);
                                 }
                             }
+                            display_inotify_event(&dimConfigPath,&imPluginConfigPath,event);
                         }
                 }
             }
@@ -429,8 +427,8 @@ int main(int argc, char *argv[])
         }
     }
     free(watchpath);
-    free(dimConfigPath);
-    free(imPluginConfigPath);
+    free(*dimConfigPath);
+    free(*imPluginConfigPath);
     return 0;
 }
 
