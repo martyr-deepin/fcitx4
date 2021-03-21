@@ -19,58 +19,133 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "fcitx-utils/utils.h"
-#include <fcntl.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/inotify.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/inotify.h>
+#include <sys/stat.h>
+#include <time.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <malloc.h>
+#include <fcntl.h>
+
+#include "fcitx-utils/utils.h"
 
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus.h>
 
 #include "minIni.h"
+#define EVENT_NUM 12
+#define IS_FILE 8
+#define IS_DIR 4
+#define DATA_W 200
 
-// \brief 检索目标内容 fcitx-vvv.mbxxxx中间内容
+static struct dir_path {
+    int id;
+    char **path;
+} dir;
+
+char *event_str[EVENT_NUM] = {
+    "IN_ACCESS",
+    "IN_MODIFY",        //文件修改
+    "IN_ATTRIB",
+    "IN_CLOSE_WRITE",
+    "IN_CLOSE_NOWRITE",
+    "IN_OPEN",
+    "IN_MOVED_FROM",    //文件移动from
+    "IN_MOVED_TO",      //文件移动to
+    "IN_CREATE",        //文件创建
+    "IN_DELETE",        //文件删除
+    "IN_DELETE_SELF",
+    "IN_MOVE_SELF"
+};
+
+//=======================================================================
+int id_add(char *path_id)
+{
+    //free(dir.path[dir.id]);
+    dir.path[dir.id] = (char *)malloc(DATA_W);
+    strncpy(dir.path[dir.id], path_id, DATA_W);
+    dir.id = dir.id + 1;
+    return 0;
+}
+//=======================================================================
+int inotify_watch_dir(char *dir_path, int fd)
+{
+    int wd;
+    DIR *dp;
+    char pdir_home[DATA_W];
+    char pdir[DATA_W];
+    strcpy(pdir_home, dir_path);
+    struct dirent *dirp;
+    struct inotify_event *event;
+    if (fd < 0) {
+        fprintf(stderr, "inotify_init failed\n");
+        return -1;
+    }
+    wd = inotify_add_watch(fd, dir_path, IN_CREATE | IN_ATTRIB | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
+    if ((dp = opendir(dir_path)) == NULL) {
+        return -1;
+    }
+    while ((dirp = readdir(dp)) != NULL) {
+        if (strcmp(dirp->d_name, ".") == 0 || strcmp(dirp->d_name, "..") == 0) {
+            continue;
+        }
+
+        if (dirp->d_type == IS_FILE) {
+            continue;
+        }
+        if (dirp->d_type == IS_DIR) {
+            strncpy(pdir, pdir_home, DATA_W);
+            strncat(pdir, "/", 1);
+            strncat(pdir, dirp->d_name, BUFSIZ);
+            id_add(pdir);
+            inotify_watch_dir(pdir, fd);
+        }
+    }
+    closedir(dp);
+}
+// \brief 检索目标内容 fcitx-vvv.soxxxx中间内容
 // \param input: 传入等待检测的字段
 // \return 返回 传出中间字段的内容， NULL
 // \note
 // 用法
 // const char *strexam = "fcitx-s1.sodpkgcccc";
-// char* result = find_target(strexam);
-// printf("%s", result);
+// char* result = NULL;
+// if(find_target("fcitx-",".so",strexam,result) == 1)
+//      printf("%s", result);
 
-char *find_target(const char *inputFIleInfo) {
+int str_find_target(const char *strback,const char *strfilter,char **strTarget) {
+    if (strfilter == NULL) {
+        return 0;
+    }
+
     char localName[BUFSIZ];
-    char *result = NULL;
     memset(localName, 0, BUFSIZ);
 
-    if (inputFIleInfo == NULL) {
-        return NULL;
-    }
-    int startPosition = 0;
-    //第一次与 ".mb" 匹配的字段位置
-    const char *ePointPosition = strstr(inputFIleInfo, ".mb");
+    //[2] 第一次与 "strback" 匹配的字段位置
+    const char *ePointPosition = strstr(strfilter, strback);
     if (ePointPosition == NULL) {
-        return NULL;
+        return 0;
     }
-    size_t endPosition = ePointPosition - inputFIleInfo;
+    size_t endPosition = ePointPosition - strfilter;
 
-    //确保是 后缀是 ".mb"
-    if (endPosition > startPosition) {
-        for (int i = startPosition; i < (int)endPosition; i++) {
-            localName[i - startPosition] = *(inputFIleInfo + i);
+    //确保是 后缀是 "strback"
+    if (endPosition > 0) {
+        for (int i = 0; i < (int)endPosition; i++) {
+            localName[i] = *(strfilter + i);
         }
 
-        result = malloc(strlen(localName) + 1);
-        memset(result, 0, (strlen(localName) + 1));
-        strncpy(result, localName, strlen(localName));
-        return result;
-    }
-    return NULL;
-}
+        *strTarget = malloc(strlen(localName) + 1);
+        memset(*strTarget, 0, (strlen(localName) + 1));
+        strncpy(*strTarget, localName, strlen(localName));
 
+        return 1;
+    }
+    return 0;
+}
 // \brief 删除注释符号
 // \param input: 传入需要修改的字符串
 void delete_comment(char str[]) {
@@ -84,7 +159,7 @@ void delete_comment(char str[]) {
 }
 
 // \brief 文件注释检查并修改
-void file_comment_checkout(const char *filename) {
+void file_comment_modify(const char *filename) {
     int fd, len;
     char str[BUFSIZ];
 
@@ -100,13 +175,12 @@ void file_comment_checkout(const char *filename) {
     close(fd);
 }
 
-int send_a_method(int32_t sigvalue, char **imname) {
+int get_curindex_inputmethod(int32_t sigvalue, char **imname) {
     DBusError err;
     DBusConnection *connection;
     DBusMessage *msg;
     DBusMessageIter arg;
     DBusPendingCall *pending;
-    int ret;
 
     dbus_error_init(&err);
 
@@ -168,193 +242,195 @@ int send_a_method(int32_t sigvalue, char **imname) {
     return 0;
 }
 
-#define EVENT_NUM 12
+void get_config_path(char** dimConfigPath,char** imPluginConfigPath)
+{
+    FILE *fp = NULL;
+    if (!*dimConfigPath) {
+        //获取默认输入法配置文件路径
+        fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config", "r",dimConfigPath);
+        if (fp) {
+            fclose(fp);
+            file_comment_modify(*dimConfigPath);
+        }
+    }
 
-char *event_str[EVENT_NUM] = {"IN_ACCESS",
-                              "IN_MODIFY", //文件修改
-                              "IN_ATTRIB",        "IN_CLOSE_WRITE",
-                              "IN_CLOSE_NOWRITE", "IN_OPEN",
-                              "IN_MOVED_FROM", //文件移动from
-                              "IN_MOVED_TO",   //文件移动to
-                              "IN_CREATE",     //文件创建
-                              "IN_DELETE",     //文件删除
-                              "IN_DELETE_SELF",   "IN_MOVE_SELF"};
+    if (!*imPluginConfigPath) {
+        //获取输入法插件配置文件路径
+        fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config", "r",imPluginConfigPath);
+        if (fp) {
+            fclose(fp);
+            file_comment_modify(*imPluginConfigPath);
+        }
+    }
+}
+//====================================================================
+/* Display information from inotify_event structure */
+void display_inotify_event(char** dimConfigPath,char **imPluginConfigPath,struct inotify_event *i)
+{
+    if (i->cookie > 0)
+    get_config_path(dimConfigPath,imPluginConfigPath);
+    if (i->mask & IN_MOVED_TO){
+        char* imName = NULL;
+        printf("dir.path[i->wd] %s",dir.path[i->wd]);
+        printf("i->name %s",i->name);
+        if((strcmp(dir.path[i->wd],"/usr/share/fcitx/inputmethod") == 0 || strcmp(dir.path[i->wd],"/usr/share/fcitx/table") == 0)
+                && str_find_target(".conf",i->name,&imName) == 1){
+            printf("imName %s",imName);
 
-int main(int argc, char *argv[]) {
+            if(!*dimConfigPath){
+                ini_puts("DefaultIM", "IMNAME", imName, *dimConfigPath);
+            }
 
-    int inotifyFd = -1;
-    int inotifyWd = -1;
-    int len = 0;
-    int nread = 0;
+            sleep(3);
+            fcitx_utils_launch_restart();
+//            system("fcitx -r");
+            sleep(3);
+
+            char settingWizard[BUFSIZ];
+            memset(settingWizard, 0,FCITX_ARRAY_SIZE(settingWizard));
+            if(!*dimConfigPath){
+                ini_gets(imName, "SettingWizard", "none",settingWizard,FCITX_ARRAY_SIZE(settingWizard),*imPluginConfigPath);
+            }
+            char *pSettingWizard =malloc((strlen(settingWizard) + 1));
+            memset(pSettingWizard, 0,(strlen(settingWizard) + 1));
+            strncpy(pSettingWizard, settingWizard,(strlen(settingWizard) + 1));
+
+            char parameter[BUFSIZ];
+            memset(parameter, 0, FCITX_ARRAY_SIZE(parameter));
+            if(!*dimConfigPath){
+                ini_gets(imName, "Parameter", NULL, parameter, FCITX_ARRAY_SIZE(parameter),*imPluginConfigPath);
+            }
+            char *pParameter = malloc((strlen(parameter) + 1));
+            memset(pParameter, 0, (strlen(parameter) + 1));
+            strncpy(pParameter, parameter, (strlen(parameter) + 1));
+
+            if (fcitx_utils_strcmp0(pSettingWizard, "none") != 0 &&
+                    fcitx_utils_strcmp0(imName, "baidupinyin") != 0 ) {
+                if (pParameter) {
+                    char *commod[] = {
+                        pSettingWizard,
+                        (char *)(intptr_t)pParameter,
+                        NULL};
+                    fcitx_utils_start_process(commod);
+                } else {
+                    char *commod[] = {
+                        pSettingWizard,
+                        NULL};
+                    fcitx_utils_start_process(commod);
+                }
+            }
+            else if(fcitx_utils_strcmp0(imName, "none") != 0 &&
+                    fcitx_utils_strcmp0(dir.path[i->wd],"/usr/share/fcitx/table") != 0){
+                sleep(5);
+                char *result = NULL;
+                fcitx_utils_alloc_cat_str(result, "fcitx-", imName);
+                char *commod[] = {
+                    "fcitx-config-gtk3",
+                    result};
+                fcitx_utils_start_process(commod);
+                free(result);
+            }
+            else if(strcmp(dir.path[i->wd],"/usr/share/fcitx/table") == 0){
+                char *commod[] = {
+                    "fcitx-config-gtk3",
+                    "fcitx-table"};
+                fcitx_utils_start_process(commod);
+            }
+            free(pSettingWizard);
+            free(pParameter);
+            printf("add imname = %s; \n", imName);
+        }
+        free(imName);
+    }
+    if (i->mask & IN_DELETE) {
+        char* imName = NULL;
+        if((strcmp(dir.path[i->wd],"/usr/share/fcitx/inputmethod") == 0 || strcmp(dir.path[i->wd],"/usr/share/fcitx/table") == 0)
+                && str_find_target(".conf",i->name,&imName) == 1){
+
+            sleep(3);
+            fcitx_utils_launch_restart();
+//            system("fcitx -r");
+            sleep(3);
+
+            if(!*dimConfigPath){
+                char curDeimName[BUFSIZ];
+                memset(curDeimName, 0,FCITX_ARRAY_SIZE(curDeimName));
+                ini_gets("DefaultIM", "IMNAME", "fcitx-keyboard-us",curDeimName, FCITX_ARRAY_SIZE(curDeimName),*dimConfigPath);
+                printf("curDeimName %s,",*curDeimName);
+
+                char *pCurDeimName =malloc((strlen(curDeimName) + 1));
+                memset(pCurDeimName, 0, (strlen(curDeimName) + 1));
+                strncpy(pCurDeimName, curDeimName,(strlen(curDeimName) + 1));
+
+                if (fcitx_utils_strcmp0(pCurDeimName, imName) == 0) {
+                    char *secName;
+                    get_curindex_inputmethod(2, &secName);
+                    if (fcitx_utils_strcmp0(secName, "") == 0) {
+                        secName = "fcitx-keyboard-us";
+                    }
+
+                    ini_puts("DefaultIM", "IMNAME", secName, *dimConfigPath);
+                    free(secName);
+                }
+                free(pCurDeimName);
+            }
+            printf("remove imname = %s; \n", imName);
+        }
+        free(imName);
+    }
+}
+
+//====================================================================
+int main(int argc, char *argv[])
+{
+    dir.id = 1;
+    dir.path = (char **)malloc(65534);
+    char* watchpath = fcitx_utils_get_fcitx_path("pkgdatadir");//"/usr/share/fcitx";
+    id_add(watchpath);
+    int fd = inotify_init();
+
+    inotify_watch_dir(watchpath, fd);
+
+    int i;
+    int len;
+    int nread;
+    struct stat res;
+    char path[BUFSIZ];
     char buf[BUFSIZ];
     struct inotify_event *event;
-    int i = 0;
-
-    char *fcitxLibPath =
-        fcitx_utils_get_fcitx_path_with_filename("tabledir", "");
+    buf[sizeof(buf) - 1] = 0;
     char *dimConfigPath = NULL;
     char *imPluginConfigPath = NULL;
-    FILE *fp = NULL;
-
-    if (!fcitxLibPath)
-        return -1;
-
-    // 初始化
-    inotifyFd = inotify_init();
-    if (inotifyFd < 0) {
-        fprintf(stderr, "inotify_init failed\n");
-        return -1;
-    }
-
-    /* 增加监听事件
-     * 监听所有事件：IN_ALL_EVENTS
-     * 监听文件是否被创建,删除,移动：IN_CREATE|IN_DELETE|IN_MOVED_FROM|IN_MOVED_TO
-     */
-    inotifyWd =
-        inotify_add_watch(inotifyFd, fcitxLibPath,
-                          IN_CREATE | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
-    if (inotifyWd < 0) {
-        fprintf(stderr, "inotify_add_watch %s failed\n", argv[1]);
-        return -1;
-    }
-
-    buf[sizeof(buf) - 1] = 0;
-    while ((len = read(inotifyFd, buf, sizeof(buf) - 1)) > 0) {
+    while ((len = read(fd, buf, sizeof(buf) - 1)) > 0) {
         nread = 0;
         while (len > 0) {
             event = (struct inotify_event *)&buf[nread];
             for (i = 0; i < EVENT_NUM; i++) {
                 if ((event->mask >> i) & 1) {
-                    if (event->len > 0) {
-                        //获取输入法名称
-                        char *imName = find_target(event->name);
-                        if (imName == NULL) {
-                            continue;
-                        }
-
-                        if (!dimConfigPath) {
-                            //获取默认输入法配置文件路径
-                            fp = FcitxXDGGetFileUserWithPrefix(
-                                "conf", "fcitx-defaultim.config", "r",
-                                &dimConfigPath);
-                            if (fp) {
-                                fclose(fp);
-                                file_comment_checkout(dimConfigPath);
-                            }
-                        }
-
-                        if (!imPluginConfigPath) {
-                            //获取输入法插件配置文件路径
-                            fp = FcitxXDGGetFileUserWithPrefix(
-                                "conf", "fcitx-implugin.config", "r",
-                                &imPluginConfigPath);
-                            if (fp) {
-                                fclose(fp);
-                                file_comment_checkout(imPluginConfigPath);
-                            }
-                        }
-
-                        if ((fcitx_utils_strcmp0(event_str[i], "IN_CREATE") == 0 ||
-                             fcitx_utils_strcmp0(event_str[i], "IN_MODIFY") == 0 )&&
-                            (fcitx_utils_strcmp0("wbpy", imName) == 0 ||
-                             fcitx_utils_strcmp0("wbx", imName) == 0)) {
-                            ini_puts("DefaultIM", "IMNAME", imName,
-                                     dimConfigPath);
-
-                            sleep(5);
-                            fcitx_utils_launch_restart();
-                            sleep(5);
-
-                            char settingWizard[BUFSIZ];
-                            memset(settingWizard, 0,
-                                   FCITX_ARRAY_SIZE(settingWizard));
-                            ini_gets(imName, "SettingWizard", "none",
-                                     settingWizard,
-                                     FCITX_ARRAY_SIZE(settingWizard),
-                                     imPluginConfigPath);
-
-                            char *pSettingWizard =
-                                malloc((strlen(settingWizard) + 1));
-                            memset(pSettingWizard, 0,
-                                   (strlen(settingWizard) + 1));
-                            strncpy(pSettingWizard, settingWizard,
-                                    (strlen(settingWizard) + 1));
-
-                            char parameter[BUFSIZ];
-                            memset(parameter, 0, FCITX_ARRAY_SIZE(parameter));
-                            ini_gets(imName, "Parameter", NULL, parameter,
-                                     FCITX_ARRAY_SIZE(parameter),
-                                     imPluginConfigPath);
-
-                            char *pParameter = malloc((strlen(parameter) + 1));
-                            memset(pParameter, 0, (strlen(parameter) + 1));
-                            strncpy(pParameter, parameter,
-                                    (strlen(parameter) + 1));
-
-                            if (fcitx_utils_strcmp0(pSettingWizard, "none") !=
-                                0) {
-
-                                if (pParameter) {
-                                    char *commod[] = {
-                                        pSettingWizard,
-                                        (char *)(intptr_t)pParameter, NULL};
-                                    fcitx_utils_start_process(commod);
-                                } else {
-                                    char *commod[] = {pSettingWizard, NULL};
-                                    fcitx_utils_start_process(commod);
+                    if (event->len > 0)
+                        if (strncmp(event->name, ".", 1)) {
+                            display_inotify_event(&dimConfigPath,&imPluginConfigPath,event);
+                            if ((strcmp(event_str[i], "IN_CREATE") == 0) || (strcmp(event_str[i], "IN_MOVED_TO") == 0)) {
+                                memset(path, 0, sizeof(path));
+                                strncat(path, dir.path[event->wd], BUFSIZ);
+                                strncat(path, "/", 1);
+                                strncat(path, event->name, BUFSIZ);
+                                stat(path, &res);
+                                if (S_ISDIR(res.st_mode)) {
+                                    inotify_add_watch(fd, path, IN_CREATE | IN_ATTRIB | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
+                                    id_add(path);
                                 }
                             }
-                            free(pSettingWizard);
-                            free(pParameter);
-
-                        } else if (fcitx_utils_strcmp0(event_str[i],
-                                                       "IN_DELETE") == 0 &&
-                                   (fcitx_utils_strcmp0("wbpy", imName) == 0 ||
-                                    fcitx_utils_strcmp0("wbx", imName) == 0)) {
-                            char curDeimName[BUFSIZ];
-                            memset(curDeimName, 0,
-                                   FCITX_ARRAY_SIZE(curDeimName));
-                            ini_gets("DefaultIM", "IMNAME", "fcitx-keyboard-us",
-                                     curDeimName, FCITX_ARRAY_SIZE(curDeimName),
-                                     dimConfigPath);
-
-                            char *pCurDeimName =
-                                malloc((strlen(curDeimName) + 1));
-                            memset(pCurDeimName, 0, (strlen(curDeimName) + 1));
-                            strncpy(pCurDeimName, curDeimName,
-                                    (strlen(curDeimName) + 1));
-
-                            if (fcitx_utils_strcmp0(pCurDeimName, imName) ==
-                                0) {
-                                char *secName;
-                                send_a_method(2, &secName);
-                                if (fcitx_utils_strcmp0(secName, "") == 0) {
-                                    secName = "fcitx-keyboard-us";
-                                }
-
-                                ini_puts("DefaultIM", "IMNAME", secName,
-                                         dimConfigPath);
-                            }
-
-                            free(pCurDeimName);
-
-                            sleep(3);
-
-                            fcitx_utils_launch_restart();
                         }
-                        free(imName);
-                    } else
-                        fprintf(stdout, "%s --- %s\n", " ", event_str[i]);
                 }
             }
             nread = nread + sizeof(struct inotify_event) + event->len;
             len = len - sizeof(struct inotify_event) - event->len;
         }
     }
-
-    free(imPluginConfigPath);
+    free(watchpath);
     free(dimConfigPath);
-    close(inotifyFd);
-
+    free(imPluginConfigPath);
     return 0;
 }
+

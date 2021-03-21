@@ -187,212 +187,212 @@ char *event_str[EVENT_NUM] = {"IN_ACCESS",
 
 int main(int argc, char *argv[]) {
 
-    int inotifyFd = -1;
-    int inotifyWd = -1;
-    int len = 0;
-    int nread = 0;
-    char buf[BUFSIZ];
-    struct inotify_event *event;
-    int i = 0;
+//    int inotifyFd = -1;
+//    int inotifyWd = -1;
+//    int len = 0;
+//    int nread = 0;
+//    char buf[BUFSIZ];
+//    struct inotify_event *event;
+//    int i = 0;
 
-    char *fcitxLibPath =
-        fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
-    char *dimConfigPath = NULL;
-    char *imPluginConfigPath = NULL;
-    FILE *fp = NULL;
+//    char *fcitxLibPath =
+//        fcitx_utils_get_fcitx_path_with_filename("libdir", "fcitx");
+//    char *dimConfigPath = NULL;
+//    char *imPluginConfigPath = NULL;
+//    FILE *fp = NULL;
 
-    if (!fcitxLibPath)
-        return -1;
+//    if (!fcitxLibPath)
+//        return -1;
 
-    // 初始化
-    inotifyFd = inotify_init();
-    if (inotifyFd < 0) {
-        fprintf(stderr, "inotify_init failed\n");
-        return -1;
-    }
+//    // 初始化
+//    inotifyFd = inotify_init();
+//    if (inotifyFd < 0) {
+//        fprintf(stderr, "inotify_init failed\n");
+//        return -1;
+//    }
 
-    /* 增加监听事件
-     * 监听所有事件：IN_ALL_EVENTS
-     * 监听文件是否被创建,删除,移动：IN_CREATE|IN_DELETE|IN_MOVED_FROM|IN_MOVED_TO
-     */
-    inotifyWd =
-        inotify_add_watch(inotifyFd, fcitxLibPath,
-                          IN_CREATE | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
-    if (inotifyWd < 0) {
-        fprintf(stderr, "inotify_add_watch %s failed\n", argv[1]);
-        return -1;
-    }
+//    /* 增加监听事件
+//     * 监听所有事件：IN_ALL_EVENTS
+//     * 监听文件是否被创建,删除,移动：IN_CREATE|IN_DELETE|IN_MOVED_FROM|IN_MOVED_TO
+//     */
+//    inotifyWd =
+//        inotify_add_watch(inotifyFd, fcitxLibPath,
+//                          IN_CREATE | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
+//    if (inotifyWd < 0) {
+//        fprintf(stderr, "inotify_add_watch %s failed\n", argv[1]);
+//        return -1;
+//    }
 
-    buf[sizeof(buf) - 1] = 0;
-    while ((len = read(inotifyFd, buf, sizeof(buf) - 1)) > 0) {
-        nread = 0;
-        while (len > 0) {
-            event = (struct inotify_event *)&buf[nread];
-            for (i = 0; i < EVENT_NUM; i++) {
-                if ((event->mask >> i) & 1) {
-                    if (event->len > 0) {
-                        //获取输入法名称
-                        char *imName = find_target(event->name);
-                        if (imName == NULL) {
-                            continue;
-                        }
+//    buf[sizeof(buf) - 1] = 0;
+//    while ((len = read(inotifyFd, buf, sizeof(buf) - 1)) > 0) {
+//        nread = 0;
+//        while (len > 0) {
+//            event = (struct inotify_event *)&buf[nread];
+//            for (i = 0; i < EVENT_NUM; i++) {
+//                if ((event->mask >> i) & 1) {
+//                    if (event->len > 0) {
+//                        //获取输入法名称
+//                        char *imName = find_target(event->name);
+//                        if (imName == NULL) {
+//                            continue;
+//                        }
 
-                        if (!dimConfigPath) {
-                            //获取默认输入法配置文件路径
-                            fp = FcitxXDGGetFileUserWithPrefix(
-                                "conf", "fcitx-defaultim.config", "r",
-                                &dimConfigPath);
-                            if (fp) {
-                                fclose(fp);
-                                file_comment_checkout(dimConfigPath);
-                            }
-                        }
+//                        if (!dimConfigPath) {
+//                            //获取默认输入法配置文件路径
+//                            fp = FcitxXDGGetFileUserWithPrefix(
+//                                "conf", "fcitx-defaultim.config", "r",
+//                                &dimConfigPath);
+//                            if (fp) {
+//                                fclose(fp);
+//                                file_comment_checkout(dimConfigPath);
+//                            }
+//                        }
 
-                        if (!imPluginConfigPath) {
-                            //获取输入法插件配置文件路径
-                            fp = FcitxXDGGetFileUserWithPrefix(
-                                "conf", "fcitx-implugin.config", "r",
-                                &imPluginConfigPath);
-                            if (fp) {
-                                fclose(fp);
-                                file_comment_checkout(imPluginConfigPath);
-                            }
-                        }
+//                        if (!imPluginConfigPath) {
+//                            //获取输入法插件配置文件路径
+//                            fp = FcitxXDGGetFileUserWithPrefix(
+//                                "conf", "fcitx-implugin.config", "r",
+//                                &imPluginConfigPath);
+//                            if (fp) {
+//                                fclose(fp);
+//                                file_comment_checkout(imPluginConfigPath);
+//                            }
+//                        }
 
-                        if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") ==
-                                0 &&
-                            (fcitx_utils_strcmp0("chineseime", imName) == 0 ||
-                             fcitx_utils_strcmp0("iflyime", imName) == 0 ||
-                             fcitx_utils_strcmp0("huayupy", imName) == 0 ||
-                             fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
-                             fcitx_utils_strcmp0("sogoupinyin", imName) == 0 ||
-                             fcitx_utils_strcmp0("sunpinyin", imName) == 0 ||
-                             fcitx_utils_strcmp0("pinyin", imName) == 0 ||
-                             fcitx_utils_strcmp0("libpinyin", imName) == 0 ||
-                             fcitx_utils_strcmp0("rime", imName) == 0 ||
-                             fcitx_utils_strcmp0("zhuyin", imName) == 0 ||
-                             fcitx_utils_strcmp0("chewing", imName) == 0 ||
-                             fcitx_utils_strcmp0("mozc", imName) == 0 ||
-                             fcitx_utils_strcmp0("skk", imName) == 0 ||
-                             fcitx_utils_strcmp0("kkc", imName) == 0 ||
-                             fcitx_utils_strcmp0("anthy", imName) == 0 ||
-                             fcitx_utils_strcmp0("sayura", imName) == 0 ||
-                             fcitx_utils_strcmp0("hangul", imName) == 0 ||
-                             fcitx_utils_strcmp0("libthai", imName) == 0 ||
-                             fcitx_utils_strcmp0("m17n", imName) == 0)) {
-                            ini_puts("DefaultIM", "IMNAME", imName,
-                                     dimConfigPath);
+//                        if (fcitx_utils_strcmp0(event_str[i], "IN_CREATE") ==
+//                                0 &&
+//                            (fcitx_utils_strcmp0("chineseime", imName) == 0 ||
+//                             fcitx_utils_strcmp0("iflyime", imName) == 0 ||
+//                             fcitx_utils_strcmp0("huayupy", imName) == 0 ||
+//                             fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
+//                             fcitx_utils_strcmp0("sogoupinyin", imName) == 0 ||
+//                             fcitx_utils_strcmp0("sunpinyin", imName) == 0 ||
+//                             fcitx_utils_strcmp0("pinyin", imName) == 0 ||
+//                             fcitx_utils_strcmp0("libpinyin", imName) == 0 ||
+//                             fcitx_utils_strcmp0("rime", imName) == 0 ||
+//                             fcitx_utils_strcmp0("zhuyin", imName) == 0 ||
+//                             fcitx_utils_strcmp0("chewing", imName) == 0 ||
+//                             fcitx_utils_strcmp0("mozc", imName) == 0 ||
+//                             fcitx_utils_strcmp0("skk", imName) == 0 ||
+//                             fcitx_utils_strcmp0("kkc", imName) == 0 ||
+//                             fcitx_utils_strcmp0("anthy", imName) == 0 ||
+//                             fcitx_utils_strcmp0("sayura", imName) == 0 ||
+//                             fcitx_utils_strcmp0("hangul", imName) == 0 ||
+//                             fcitx_utils_strcmp0("libthai", imName) == 0 ||
+//                             fcitx_utils_strcmp0("m17n", imName) == 0)) {
+//                            ini_puts("DefaultIM", "IMNAME", imName,
+//                                     dimConfigPath);
 
-                            sleep(5);
-                            fcitx_utils_launch_restart();
-                            sleep(5);
+//                            sleep(5);
+//                            fcitx_utils_launch_restart();
+//                            sleep(5);
 
-                            char settingWizard[BUFSIZ];
-                            memset(settingWizard, 0,
-                                   FCITX_ARRAY_SIZE(settingWizard));
-                            ini_gets(imName, "SettingWizard", "none",
-                                     settingWizard,
-                                     FCITX_ARRAY_SIZE(settingWizard),
-                                     imPluginConfigPath);
+//                            char settingWizard[BUFSIZ];
+//                            memset(settingWizard, 0,
+//                                   FCITX_ARRAY_SIZE(settingWizard));
+//                            ini_gets(imName, "SettingWizard", "none",
+//                                     settingWizard,
+//                                     FCITX_ARRAY_SIZE(settingWizard),
+//                                     imPluginConfigPath);
 
-                            char *pSettingWizard =
-                                malloc((strlen(settingWizard) + 1));
-                            memset(pSettingWizard, 0,
-                                   (strlen(settingWizard) + 1));
-                            strncpy(pSettingWizard, settingWizard,
-                                    (strlen(settingWizard) + 1));
+//                            char *pSettingWizard =
+//                                malloc((strlen(settingWizard) + 1));
+//                            memset(pSettingWizard, 0,
+//                                   (strlen(settingWizard) + 1));
+//                            strncpy(pSettingWizard, settingWizard,
+//                                    (strlen(settingWizard) + 1));
 
-                            char parameter[BUFSIZ];
-                            memset(parameter, 0, FCITX_ARRAY_SIZE(parameter));
-                            ini_gets(imName, "Parameter", NULL, parameter,
-                                     FCITX_ARRAY_SIZE(parameter),
-                                     imPluginConfigPath);
+//                            char parameter[BUFSIZ];
+//                            memset(parameter, 0, FCITX_ARRAY_SIZE(parameter));
+//                            ini_gets(imName, "Parameter", NULL, parameter,
+//                                     FCITX_ARRAY_SIZE(parameter),
+//                                     imPluginConfigPath);
 
-                            char *pParameter = malloc((strlen(parameter) + 1));
-                            memset(pParameter, 0, (strlen(parameter) + 1));
-                            strncpy(pParameter, parameter,
-                                    (strlen(parameter) + 1));
+//                            char *pParameter = malloc((strlen(parameter) + 1));
+//                            memset(pParameter, 0, (strlen(parameter) + 1));
+//                            strncpy(pParameter, parameter,
+//                                    (strlen(parameter) + 1));
 
-                            if (fcitx_utils_strcmp0(pSettingWizard, "none") !=
-                                0) {
+//                            if (fcitx_utils_strcmp0(pSettingWizard, "none") !=
+//                                0) {
 
-                                if (pParameter) {
-                                    char *commod[] = {
-                                        pSettingWizard,
-                                        (char *)(intptr_t)pParameter, NULL};
-                                    fcitx_utils_start_process(commod);
-                                } else {
-                                    char *commod[] = {pSettingWizard, NULL};
-                                    fcitx_utils_start_process(commod);
-                                }
-                            }
-                            free(pSettingWizard);
-                            free(pParameter);
+//                                if (pParameter) {
+//                                    char *commod[] = {
+//                                        pSettingWizard,
+//                                        (char *)(intptr_t)pParameter, NULL};
+//                                    fcitx_utils_start_process(commod);
+//                                } else {
+//                                    char *commod[] = {pSettingWizard, NULL};
+//                                    fcitx_utils_start_process(commod);
+//                                }
+//                            }
+//                            free(pSettingWizard);
+//                            free(pParameter);
 
-                        } else if (fcitx_utils_strcmp0(event_str[i],
-                                                       "IN_DELETE") == 0 &&
-                                   (fcitx_utils_strcmp0("chineseime", imName) == 0 ||
-                                    fcitx_utils_strcmp0("iflyime", imName) == 0 ||
-                                    fcitx_utils_strcmp0("huayupy", imName) == 0 ||
-                                    fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
-                                    fcitx_utils_strcmp0("sogoupinyin", imName) == 0 ||
-                                    fcitx_utils_strcmp0("sunpinyin", imName) == 0 ||
-                                    fcitx_utils_strcmp0("pinyin", imName) == 0 ||
-                                    fcitx_utils_strcmp0("libpinyin", imName) == 0 ||
-                                    fcitx_utils_strcmp0("rime", imName) == 0 ||
-                                    fcitx_utils_strcmp0("zhuyin", imName) == 0 ||
-                                    fcitx_utils_strcmp0("chewing", imName) == 0 ||
-                                    fcitx_utils_strcmp0("mozc", imName) == 0 ||
-                                    fcitx_utils_strcmp0("skk", imName) == 0 ||
-                                    fcitx_utils_strcmp0("kkc", imName) == 0 ||
-                                    fcitx_utils_strcmp0("anthy", imName) == 0 ||
-                                    fcitx_utils_strcmp0("sayura", imName) == 0 ||
-                                    fcitx_utils_strcmp0("hangul", imName) == 0 ||
-                                    fcitx_utils_strcmp0("libthai", imName) == 0 ||
-                                    fcitx_utils_strcmp0("m17n", imName) == 0)) {
-                            char curDeimName[BUFSIZ];
-                            memset(curDeimName, 0,
-                                   FCITX_ARRAY_SIZE(curDeimName));
-                            ini_gets("DefaultIM", "IMNAME", "fcitx-keyboard-us",
-                                     curDeimName, FCITX_ARRAY_SIZE(curDeimName),
-                                     dimConfigPath);
+//                        } else if (fcitx_utils_strcmp0(event_str[i],
+//                                                       "IN_DELETE") == 0 &&
+//                                   (fcitx_utils_strcmp0("chineseime", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("iflyime", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("huayupy", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("cqsrf", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("sogoupinyin", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("sunpinyin", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("pinyin", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("libpinyin", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("rime", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("zhuyin", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("chewing", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("mozc", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("skk", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("kkc", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("anthy", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("sayura", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("hangul", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("libthai", imName) == 0 ||
+//                                    fcitx_utils_strcmp0("m17n", imName) == 0)) {
+//                            char curDeimName[BUFSIZ];
+//                            memset(curDeimName, 0,
+//                                   FCITX_ARRAY_SIZE(curDeimName));
+//                            ini_gets("DefaultIM", "IMNAME", "fcitx-keyboard-us",
+//                                     curDeimName, FCITX_ARRAY_SIZE(curDeimName),
+//                                     dimConfigPath);
 
-                            char *pCurDeimName =
-                                malloc((strlen(curDeimName) + 1));
-                            memset(pCurDeimName, 0, (strlen(curDeimName) + 1));
-                            strncpy(pCurDeimName, curDeimName,
-                                    (strlen(curDeimName) + 1));
+//                            char *pCurDeimName =
+//                                malloc((strlen(curDeimName) + 1));
+//                            memset(pCurDeimName, 0, (strlen(curDeimName) + 1));
+//                            strncpy(pCurDeimName, curDeimName,
+//                                    (strlen(curDeimName) + 1));
 
-                            if (fcitx_utils_strcmp0(pCurDeimName, imName) == 0) {
-                                char *secName;
-                                send_a_method(2, &secName);
-                                if (fcitx_utils_strcmp0(secName, "") == 0) {
-                                    secName = "fcitx-keyboard-us";
-                                }
+//                            if (fcitx_utils_strcmp0(pCurDeimName, imName) == 0) {
+//                                char *secName;
+//                                send_a_method(2, &secName);
+//                                if (fcitx_utils_strcmp0(secName, "") == 0) {
+//                                    secName = "fcitx-keyboard-us";
+//                                }
 
-                                ini_puts("DefaultIM", "IMNAME", secName,
-                                         dimConfigPath);
-                            }
+//                                ini_puts("DefaultIM", "IMNAME", secName,
+//                                         dimConfigPath);
+//                            }
 
-                            free(pCurDeimName);
+//                            free(pCurDeimName);
 
-                            sleep(3);
+//                            sleep(3);
 
-                            fcitx_utils_launch_restart();
-                        }
-                        free(imName);
-                    } else
-                        fprintf(stdout, "%s --- %s\n", " ", event_str[i]);
-                }
-            }
-            nread = nread + sizeof(struct inotify_event) + event->len;
-            len = len - sizeof(struct inotify_event) - event->len;
-        }
-    }
+//                            fcitx_utils_launch_restart();
+//                        }
+//                        free(imName);
+//                    } else
+//                        fprintf(stdout, "%s --- %s\n", " ", event_str[i]);
+//                }
+//            }
+//            nread = nread + sizeof(struct inotify_event) + event->len;
+//            len = len - sizeof(struct inotify_event) - event->len;
+//        }
+//    }
 
-    free(imPluginConfigPath);
-    free(dimConfigPath);
-    close(inotifyFd);
+//    free(imPluginConfigPath);
+//    free(dimConfigPath);
+//    close(inotifyFd);
 
     return 0;
 }
