@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a8d6a0f_278d87c1",
+        "filename": "src/lib/fcitx-utils/utils.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-22T05:05:15Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 23; 注释率: 0.0%",
+      "revId": "72491c83ad74e6bc2b0f8800c7497de6f363b3a7",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f01e49a_9c84db9d",
+        "filename": "src/lib/fcitx-utils/utils.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-22T05:05:15Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "72491c83ad74e6bc2b0f8800c7497de6f363b3a7",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d116acfc_61bc1e80",
+        "filename": "src/module/notificationitem/dbusmenu.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-03-22T05:05:15Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "72491c83ad74e6bc2b0f8800c7497de6f363b3a7",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
