@@ -812,6 +812,7 @@ extern "C" {
         return len;
     }
 
+int fcitx_utils_kill_fcitx_config_gtk3();
 #ifdef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4
 #define __FCITX_ATOMIC_USE_SYNC_FETCH
 #elif defined __has_builtin

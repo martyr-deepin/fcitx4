@@ -996,6 +996,36 @@ fcitx_utils_set_escape_str_with_set(char *res, const char *str, const char *set)
     return res;
 }
 
+FCITX_EXPORT_API int fcitx_utils_kill_fcitx_config_gtk3() {
+    FILE *fp;
+    int pid;
+    int checkpid;
+    char unused[150];
+    char buf[150];
+    char command[150];
+
+    sprintf(command,
+            "ps -ef | grep fcitx-config-gtk3 | grep -v grep");
+
+    if ((fp = popen(command, "r")) == NULL)
+        return 0;
+
+    if ((fgets(buf, 150, fp)) != NULL) {
+        sscanf(buf, "%s\t%d\t%s", unused, &pid, unused);
+    }
+    pclose(fp);
+
+    if(pid == 32767)
+        return 0;
+
+    sprintf(command, "kill -9 %d", pid);
+
+    if ((fp = popen(command, "r")) == NULL)
+        return 0;
+
+    pclose(fp);
+    return 1;
+}
 #ifdef __FCITX_ATOMIC_USE_SYNC_FETCH
 /**
  * Also define lib function when there is builtin function for

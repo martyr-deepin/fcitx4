@@ -123,6 +123,7 @@ libfcitx-utils.so.0 libfcitx-utils0 #MINVER#
  fcitx_utils_get_process_name@Base 4.2.7
  fcitx_utils_init_as_daemon@Base 4.2.7
  fcitx_utils_join_string_list@Base 4.2.7
+ fcitx_utils_kill_fcitx_config_gtk3@Base 4.2.9.29
  fcitx_utils_launch_configure_tool@Base 4.2.7
  fcitx_utils_launch_configure_tool_for_addon@Base 4.2.7
  fcitx_utils_launch_restart@Base 4.2.7
