@@ -351,9 +351,12 @@ void display_inotify_event(struct inotify_event *i) {
                 fcitx_utils_start_process(commod);
             }
             free(pSettingWizard);
+            pSettingWizard = NULL;
             free(pParameter);
+            pParameter = NULL;
             fprintf(gFp, "%s: add imname = %s; \n", gettime(), imName);
             free(imName);
+            imName = NULL;
         }
     }
     if (i->mask & IN_DELETE) {
@@ -364,7 +367,6 @@ void display_inotify_event(struct inotify_event *i) {
 
             sleep(3);
             fcitx_utils_launch_restart();
-            sleep(3);
 
             if (gDimConfigPath) {
                 char curDeimName[BUFSIZ];
@@ -385,11 +387,14 @@ void display_inotify_event(struct inotify_event *i) {
                     }
                     ini_puts("DefaultIM", "IMNAME", secName, gDimConfigPath);
                     free(secName);
+                    secName = NULL;
                 }
                 free(pCurDeimName);
+                pCurDeimName = NULL;
             }
             fprintf(gFp, "%s: remove imname = %s; \n", gettime(), imName);
             free(imName);
+            imName = NULL;
         }
     }
 }
@@ -448,7 +453,15 @@ int main(int argc, char *argv[]) {
                             }
                             if ((strcmp(event_str[i], "IN_DELETE") == 0) ||
                                 (strcmp(event_str[i], "IN_MOVED_FROM") == 0)) {
-                                free(dir.path[event->wd]);
+                                memset(path, 0, sizeof path);
+                                strncat(path, dir.path[event->wd], BUFSIZ);
+                                strncat(path, "/", 1);
+                                strncat(path, event->name, BUFSIZ);
+                                stat(path, &res);
+                                if (S_ISDIR(res.st_mode)) {
+                                    free(dir.path[event->wd]);
+                                    dir.path[event->wd] = NULL;
+                                }
                             }
                         }
                         fflush(gFp);
@@ -457,6 +470,12 @@ int main(int argc, char *argv[]) {
             nread = nread + sizeof(struct inotify_event) + event->len;
             len = len - sizeof(struct inotify_event) - event->len;
         }
+    }
+
+    for (i=0;i<dir.id;i++) {
+        free(dir.path[i]);
+        dir.path[i] = NULL;
+
     }
     fclose(gFp);
     free(gDimConfigPath);
