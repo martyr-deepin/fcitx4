@@ -327,19 +327,16 @@ void display_inotify_event(struct inotify_event *i)
             }
             else if(fcitx_utils_strcmp0(imName, "none") != 0 ){
                 sleep(5);
-                char *result = NULL;
-                fcitx_utils_alloc_cat_str(result, "fcitx-", imName);
                 char *commod[] = {
                     "fcitx-config-gtk3",
-                    result};
+                    imName};
                 fcitx_utils_start_process(commod);
-                free(result);
             }
             free(pSettingWizard);
             free(pParameter);
             printf("add imname = %s; \n", imName);
+            free(imName);
         }
-        free(imName);
     }
     if (i->mask & IN_DELETE) {
         char* imName = NULL;
@@ -371,8 +368,8 @@ void display_inotify_event(struct inotify_event *i)
                 free(pCurDeimName);
             }
             printf("remove imname = %s; \n", imName);
+            free(imName);
         }
-        free(imName);
     }
 }
 
