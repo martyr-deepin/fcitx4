@@ -351,6 +351,7 @@ void display_inotify_event(struct inotify_event *i) {
                 char *result = NULL;
                 fcitx_utils_alloc_cat_str(result, "fcitx-", imName);
                 char *commod[] = {"fcitx-config-gtk3", result};
+                fprintf(gFp, "%s: commod is %s; \n", gettime(), result);
                 free(result);
                 result = NULL;
                 fcitx_utils_start_process(commod);
