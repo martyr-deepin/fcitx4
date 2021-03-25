@@ -75,39 +75,47 @@ int id_add(char *path_id)
     return 0;
 }
 //=======================================================================
-int inotify_watch_dir(char *dir_path, int fd)
+int inotify_watch_dir(char *dir_path,int fd)
 {
     int wd;
+    int len;
     DIR *dp;
     char pdir_home[DATA_W];
     char pdir[DATA_W];
-    strcpy(pdir_home, dir_path);
+    strcpy(pdir_home,dir_path);
     struct dirent *dirp;
-    if (fd < 0) {
+    struct inotify_event *event;
+    if (fd < 0)
+    {
         fprintf(stderr, "inotify_init failed\n");
         return -1;
     }
-    wd = inotify_add_watch(fd, dir_path, IN_CREATE | IN_ATTRIB | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
-    if ((dp = opendir(dir_path)) == NULL) {
+    wd = inotify_add_watch(fd, dir_path, IN_CREATE|IN_ATTRIB|IN_DELETE|IN_MOVED_FROM|IN_MOVED_TO);
+    if ((dp = opendir(dir_path)) == NULL)
+    {
         return -1;
     }
-    while ((dirp = readdir(dp)) != NULL) {
-        if (strcmp(dirp->d_name, ".") == 0 || strcmp(dirp->d_name, "..") == 0) {
-            continue;
-        }
+    while ((dirp = readdir(dp)) != NULL)
+    {
+         if(strcmp(dirp->d_name,".") == 0 || strcmp(dirp->d_name,"..") == 0)
+         {
+             continue;
+         }
 
-        if (dirp->d_type == IS_FILE) {
-            continue;
-        }
-        if (dirp->d_type == IS_DIR) {
-            strncpy(pdir, pdir_home, DATA_W);
-            strncat(pdir, "/", 1);
-            strncat(pdir, dirp->d_name, BUFSIZ);
+         if (dirp->d_type == IS_FILE)
+         {
+             continue;
+         }
+         if (dirp->d_type == IS_DIR)
+         {
+            strncpy(pdir,pdir_home,DATA_W);
+            strncat(pdir,"/",1);
+            strncat(pdir,dirp->d_name,BUFSIZ);
             id_add(pdir);
             inotify_watch_dir(pdir, fd);
-        }
-    }
-    closedir(dp);
+         }
+     }
+     closedir(dp);
 }
 // \brief 检索目标内容 fcitx-vvv.soxxxx中间内容
 // \param input: 传入等待检测的字段
@@ -317,8 +325,7 @@ void display_inotify_event(struct inotify_event *i)
                     fcitx_utils_start_process(commod);
                 }
             }
-            else if(fcitx_utils_strcmp0(imName, "none") != 0 &&
-                    fcitx_utils_strcmp0(dir.path[i->wd],"/usr/share/fcitx/table") != 0){
+            else if(fcitx_utils_strcmp0(imName, "none") != 0 ){
                 sleep(5);
                 char *result = NULL;
                 fcitx_utils_alloc_cat_str(result, "fcitx-", imName);
@@ -327,12 +334,6 @@ void display_inotify_event(struct inotify_event *i)
                     result};
                 fcitx_utils_start_process(commod);
                 free(result);
-            }
-            else if(strcmp(dir.path[i->wd],"/usr/share/fcitx/table") == 0){
-                char *commod[] = {
-                    "fcitx-config-gtk3",
-                    "fcitx-table"};
-                fcitx_utils_start_process(commod);
             }
             free(pSettingWizard);
             free(pParameter);
@@ -376,15 +377,15 @@ void display_inotify_event(struct inotify_event *i)
 }
 
 //====================================================================
-int main(int argc, char *argv[])
+int main(int argc,char *argv[])
 {
-    dir.id = 1;
-    dir.path = (char **)malloc(65534);
-    char* watchpath = fcitx_utils_get_fcitx_path("pkgdatadir");//"/usr/share/fcitx";
+    dir.id=1;
+    dir.path=(char **)malloc(65534);
+    char* watchpath = fcitx_utils_get_fcitx_path("pkgdatadir");
     id_add(watchpath);
-    int fd = inotify_init();
+    int fd=inotify_init();
 
-    inotify_watch_dir(watchpath, fd);
+    inotify_watch_dir(watchpath,fd);
 
     int i;
     int len;
@@ -393,38 +394,51 @@ int main(int argc, char *argv[])
     char path[BUFSIZ];
     char buf[BUFSIZ];
     struct inotify_event *event;
+    char log_dir[DATA_W]={};
+    getcwd(log_dir,DATA_W);
+    strncat(log_dir,"/inotify.log",12);
+    //printf("log path: %s\n",log_dir);
     buf[sizeof(buf) - 1] = 0;
-
-    while ((len = read(fd, buf, sizeof(buf) - 1)) > 0) {
+    while( (len = read(fd, buf, sizeof(buf) - 1)) > 0 )
+    {
         nread = 0;
-        while (len > 0) {
+        while(len> 0)
+        {
             event = (struct inotify_event *)&buf[nread];
-            for (i = 0; i < EVENT_NUM; i++) {
-                if ((event->mask >> i) & 1) {
-                    if (event->len > 0)
-                        if (strncmp(event->name, ".", 1)) {
-                            if((!strcmp(event_str[i],"IN_CREATE"))|(!strcmp(event_str[i],"IN_MOVED_TO"))){
-                                memset(path, 0, sizeof(path));
-                                strncat(path, dir.path[event->wd], BUFSIZ);
-                                strncat(path, "/", 1);
-                                strncat(path, event->name, BUFSIZ);
-                                stat(path, &res);
-                                if (S_ISDIR(res.st_mode)) {
-                                    inotify_add_watch(fd, path, IN_CREATE | IN_ATTRIB | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
-                                    id_add(path);
-                                }
+            for(i=0; i<EVENT_NUM; i++)
+            {
+                if((event->mask >> i) & 1)
+                {
+                    if(event->len > 0)
+                    if(strncmp(event->name,".",1))
+                    {
+                        FILE *fp=NULL;
+                        fp=fopen(log_dir,"a");
+                        fprintf(fp," %s/%s --- %s\n",dir.path[event->wd],event->name,event_str[i]);
+                        fprintf(stdout," %s/%s --- %s\n",dir.path[event->wd],event->name,event_str[i]);
+                        display_inotify_event(event);
+
+                        if((!strcmp(event_str[i],"IN_CREATE"))|(!strcmp(event_str[i],"IN_MOVED_TO"))){
+                            memset(path,0,sizeof path);
+                            strncat(path,dir.path[event->wd],BUFSIZ);
+                            strncat(path,"/",1);
+                            strncat(path,event->name,BUFSIZ);
+                            stat(path ,&res);
+                            if (S_ISDIR(res.st_mode))
+                            {
+                                id_add(path);
+                                inotify_add_watch(fd, path, IN_CREATE|IN_ATTRIB|IN_DELETE|IN_MOVED_FROM|IN_MOVED_TO);
                             }
-                            display_inotify_event(event);
                         }
+                        fclose(fp);
+                    }
                 }
             }
             nread = nread + sizeof(struct inotify_event) + event->len;
             len = len - sizeof(struct inotify_event) - event->len;
         }
     }
-    free(watchpath);
     free(dimConfigPath);
     free(imPluginConfigPath);
     return 0;
 }
-
