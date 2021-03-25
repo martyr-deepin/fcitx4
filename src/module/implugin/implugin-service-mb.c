@@ -252,9 +252,11 @@ int get_curindex_inputmethod(int32_t sigvalue, char **imname) {
     }
     if (!dbus_message_iter_init(msg, &arg)){
         fprintf(gFp, "%s: Message has no arguments!\n", gettime());
+        return -1;
     }
     else if (DBUS_TYPE_STRING != dbus_message_iter_get_arg_type(&arg)){
         fprintf(gFp, "%s: Argument is not string!\n", gettime());
+        return -1;
     }
     else{
         dbus_message_iter_get_basic(&arg, imname);
@@ -414,7 +416,7 @@ int main(int argc, char *argv[]) {
     char buf[BUFSIZ];
     struct inotify_event *event;
     char log_dir[DATA_W]={};
-    strncat(log_dir,"/tmp/fcitx/inotify.log",23);
+    strncat(log_dir,"/tmp/fcitx-inotify.log",23);
     gFp=fopen(log_dir,"a");
     buf[sizeof(buf) - 1] = 0;
     while ((len = read(fd, buf, sizeof(buf) - 1)) > 0) {
@@ -449,6 +451,7 @@ int main(int argc, char *argv[]) {
                                 free(dir.path[event->wd]);
                             }
                         }
+                        fflush(gFp);
                 }
             }
             nread = nread + sizeof(struct inotify_event) + event->len;
