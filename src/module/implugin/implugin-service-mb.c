@@ -345,9 +345,19 @@ void display_inotify_event(struct inotify_event *i) {
                     char *commod[] = {pSettingWizard, NULL};
                     fcitx_utils_start_process(commod);
                 }
-            } else if (fcitx_utils_strcmp0(imName, "none") != 0) {
+            } else if (fcitx_utils_strcmp0(imName, "none") != 0 &&
+                       strcmp(dir.path[i->wd],"/usr/share/fcitx/table") != 0) {
                 sleep(5);
-                char *commod[] = {"fcitx-config-gtk3", imName};
+                char *result = NULL;
+                fcitx_utils_alloc_cat_str(result, "fcitx-", imName);
+                char *commod[] = {"fcitx-config-gtk3", result};
+                free(result);
+                result = NULL;
+                fcitx_utils_start_process(commod);
+            } else if (fcitx_utils_strcmp0(imName, "none") != 0 &&
+                       strcmp(dir.path[i->wd],"/usr/share/fcitx/table") == 0) {
+                sleep(5);
+                char *commod[] = {"fcitx-config-gtk3", "fcitx-table"};
                 fcitx_utils_start_process(commod);
             }
             free(pSettingWizard);
