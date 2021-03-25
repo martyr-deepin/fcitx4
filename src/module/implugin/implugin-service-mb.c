@@ -78,13 +78,11 @@ int id_add(char *path_id)
 int inotify_watch_dir(char *dir_path,int fd)
 {
     int wd;
-    int len;
     DIR *dp;
     char pdir_home[DATA_W];
     char pdir[DATA_W];
     strcpy(pdir_home,dir_path);
     struct dirent *dirp;
-    struct inotify_event *event;
     if (fd < 0)
     {
         fprintf(stderr, "inotify_init failed\n");
@@ -391,9 +389,9 @@ int main(int argc,char *argv[])
     char path[BUFSIZ];
     char buf[BUFSIZ];
     struct inotify_event *event;
-    char log_dir[DATA_W]={};
-    getcwd(log_dir,DATA_W);
-    strncat(log_dir,"/inotify.log",12);
+//    char log_dir[DATA_W]={};
+//    getcwd(log_dir,DATA_W);
+//    strncat(log_dir,"/inotify.log",12);
     //printf("log path: %s\n",log_dir);
     buf[sizeof(buf) - 1] = 0;
     while( (len = read(fd, buf, sizeof(buf) - 1)) > 0 )
@@ -409,9 +407,9 @@ int main(int argc,char *argv[])
                     if(event->len > 0)
                     if(strncmp(event->name,".",1))
                     {
-                        FILE *fp=NULL;
-                        fp=fopen(log_dir,"a");
-                        fprintf(fp," %s/%s --- %s\n",dir.path[event->wd],event->name,event_str[i]);
+//                        FILE *fp=NULL;
+//                        fp=fopen(log_dir,"a");
+//                        fprintf(fp," %s/%s --- %s\n",dir.path[event->wd],event->name,event_str[i]);
                         fprintf(stdout," %s/%s --- %s\n",dir.path[event->wd],event->name,event_str[i]);
                         display_inotify_event(event);
 
@@ -427,7 +425,7 @@ int main(int argc,char *argv[])
                                 inotify_add_watch(fd, path, IN_CREATE|IN_ATTRIB|IN_DELETE|IN_MOVED_FROM|IN_MOVED_TO);
                             }
                         }
-                        fclose(fp);
+//                        fclose(fp);
                     }
                 }
             }
