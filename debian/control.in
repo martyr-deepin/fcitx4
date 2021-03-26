@@ -647,11 +647,11 @@ Recommends: fcitx,
             fcitx5-module-quickphrase-editor
 Replaces: fcitx (<< ${source:Upstream-Version}),
           fcitx-keyboard,
-          fcitx-module-quickphrase-editor (<< ${source:Upstream-Version}),
+          fcitx-module-quickphrase-editor,
           fcitx-modules-x11 (<< 1:4.2.7)
 Breaks: fcitx (<< ${source:Upstream-Version}),
         fcitx-keyboard,
-        fcitx-module-quickphrase-editor (<< ${source:Upstream-Version}),
+        fcitx-module-quickphrase-editor,
         fcitx-modules-x11 (<< 1:4.2.7)
 Provides: fcitx-keyboard
 Description: Flexible Input Method Framework - core modules
@@ -680,6 +680,7 @@ Package: fcitx-module-dbus
 Architecture: any
 Multi-Arch: foreign
 Depends: fcitx-modules, ${misc:Depends}, ${shlibs:Depends}
+Recommends: dbus-x11
 Description: Flexible Input Method Framework - D-Bus module and IPC frontend
  Fcitx is a input method framework with extension support, which provides
  an interface for entering characters of different scripts in applications
