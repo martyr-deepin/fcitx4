@@ -56,17 +56,11 @@ char* crashlog = NULL;
 
 int main(int argc, char* argv[])
 {
-    if (!fcitx_utils_judge_implugin_service_so_exist()) {
-        FcitxLog(DEBUG, "start fcitx-implugin-service-so");
-        fcitx_utils_launch_tool("fcitx-implugin-service-so", "");
+    if (!fcitx_utils_judge_implugin_service_exist()) {
+        FcitxLog(DEBUG, "start fcitx-implugin-service");
+        fcitx_utils_launch_tool("fcitx-implugin-service", "");
     } else {
-        FcitxLog(DEBUG, "exited no start fcitx-implugin-service-so");
-    }
-    if (!fcitx_utils_judge_implugin_service_mb_exist()) {
-        FcitxLog(DEBUG, "start fcitx-implugin-service-mb");
-        fcitx_utils_launch_tool("fcitx-implugin-service-mb", "");
-    } else {
-        FcitxLog(DEBUG, "exited no start fcitx-implugin-service-mb");
+        FcitxLog(DEBUG, "exited no start fcitx-implugin-service");
     }
 
     char* localedir = fcitx_utils_get_fcitx_path("localedir");
