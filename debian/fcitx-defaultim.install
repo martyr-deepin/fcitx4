@@ -2,3 +2,5 @@ usr/lib/*/fcitx/fcitx-defaultim.so
 usr/share/fcitx/addon/fcitx-defaultim.conf
 usr/share/fcitx/configdesc/fcitx-defaultim.desc
 usr/bin/switch-fcitx-default
+usr/share/man/man1/switch-fcitx-default.1
+
