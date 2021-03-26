@@ -56,7 +56,8 @@ char *event_str[EVENT_NUM] = {"IN_ACCESS",
                               "IN_MOVED_TO",   //文件移动to
                               "IN_CREATE",     //文件创建
                               "IN_DELETE",     //文件删除
-                              "IN_DELETE_SELF",   "IN_MOVE_SELF"};
+                              "IN_DELETE_SELF",
+                              "IN_MOVE_SELF"};
 
 char *gDimConfigPath = NULL;
 char *gImPluginConfigPath = NULL;
@@ -335,8 +336,8 @@ void display_inotify_event(struct inotify_event *i) {
             memset(pParameter, 0, (strlen(parameter) + 1));
             strncpy(pParameter, parameter, (strlen(parameter) + 1));
 
-            if (fcitx_utils_strcmp0(pSettingWizard, "none") != 0 &&
-                fcitx_utils_strcmp0(imName, "baidupinyin") != 0) {
+            if (strcmp(pSettingWizard, "none") != 0 &&
+                strcmp(imName, "baidupinyin") != 0) {
                 if (pParameter) {
                     char *commod[] = {pSettingWizard,
                                       (char *)(intptr_t)pParameter, NULL};
@@ -345,17 +346,19 @@ void display_inotify_event(struct inotify_event *i) {
                     char *commod[] = {pSettingWizard, NULL};
                     fcitx_utils_start_process(commod);
                 }
-            } else if (fcitx_utils_strcmp0(imName, "none") != 0 &&
+            } else if (strcmp(imName, "none") != 0 &&
                        strcmp(dir.path[i->wd],"/usr/share/fcitx/table") != 0) {
-                sleep(5);
+                sleep(10);
                 char *result = NULL;
                 fcitx_utils_alloc_cat_str(result, "fcitx-", imName);
-                char *commod[] = {"fcitx-config-gtk3", result};
+                char *commod[] = {"fcitx-config-gtk3",
+                                  (char *)(intptr_t)result,
+                                  NULL};
                 fprintf(gFp, "%s: commod is %s; \n", gettime(), result);
                 free(result);
                 result = NULL;
                 fcitx_utils_start_process(commod);
-            } else if (fcitx_utils_strcmp0(imName, "none") != 0 &&
+            } else if (strcmp(imName, "none") != 0 &&
                        strcmp(dir.path[i->wd],"/usr/share/fcitx/table") == 0) {
                 sleep(5);
                 char *commod[] = {"fcitx-config-gtk3", "fcitx-table"};
@@ -489,7 +492,10 @@ int main(int argc, char *argv[]) {
 
     }
     fclose(gFp);
+    gFp = NULL;
     free(gDimConfigPath);
+    gDimConfigPath = NULL;
     free(gImPluginConfigPath);
+    gImPluginConfigPath = NULL;
     return 0;
 }
