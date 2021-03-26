@@ -812,8 +812,7 @@ extern "C" {
         return len;
     }
 
-int fcitx_utils_judge_implugin_service_so_exist();
-int fcitx_utils_judge_implugin_service_mb_exist();
+int fcitx_utils_judge_implugin_service_exist();
 int fcitx_utils_kill_fcitx_config_gtk3();
 
 #ifdef __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4
