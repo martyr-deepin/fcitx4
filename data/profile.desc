@@ -25,7 +25,7 @@ DefaultValue=
 
 [Profile/PreeditStringInClientWindow]
 Type=Boolean
-DefaultValue=True
+DefaultValue=False
 Description=Show Preedit String in Client Window
 
 [DescriptionFile]
