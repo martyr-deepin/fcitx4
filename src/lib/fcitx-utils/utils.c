@@ -1026,7 +1026,6 @@ FCITX_EXPORT_API int fcitx_utils_judge_implugin_service_exist() {
 FCITX_EXPORT_API int fcitx_utils_kill_fcitx_config_gtk3() {
     FILE *fp;
     int pid;
-    int checkpid;
     char unused[150];
     char buf[150];
     char command[150];

@@ -96,19 +96,19 @@ void id_add(char *path_id) {
  * @param 监控目录树，inotify文件描述符
  * 添加监控目录树
  */
-int inotify_watch_dir(char *dir_path, int fd) {
+int inotify_watch_dir(char *dirPath, int fd) {
     int wd = 0;
     DIR *dp = NULL;
-    char pdir_home[DATA_W];
+    char pdirHome[DATA_W];
     char pdir[DATA_W];
-    strcpy(pdir_home, dir_path);
+    strcpy(pdirHome, dirPath);
     struct dirent *dirp;
     if (fd < 0) {
         fprintf(gFp, "%s: inotify_init failed\n", gettime());
         return -1;
     }
-    wd = inotify_add_watch(fd, dir_path, IN_CREATE | IN_ATTRIB | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
-    if ((dp = opendir(dir_path)) == NULL) {
+    wd = inotify_add_watch(fd, dirPath, IN_CREATE | IN_ATTRIB | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
+    if ((dp = opendir(dirPath)) == NULL) {
         return -1;
     }
     while ((dirp = readdir(dp)) != NULL) {
@@ -116,7 +116,7 @@ int inotify_watch_dir(char *dir_path, int fd) {
             continue;
         }
         if (dirp->d_type == IS_DIR) {
-            strncpy(pdir, pdir_home, DATA_W);
+            strncpy(pdir, pdirHome, DATA_W);
             strncat(pdir, "/", 1);
             strncat(pdir, dirp->d_name, BUFSIZ);
             id_add(pdir);
@@ -434,9 +434,9 @@ int main(int argc, char *argv[]) {
     char path[BUFSIZ];
     char buf[BUFSIZ];
     struct inotify_event *event;
-    char log_dir[DATA_W]={};
-    strncat(log_dir,"/tmp/fcitx-inotify.log",23);
-    gFp=fopen(log_dir,"a");
+    char logDir[DATA_W]={};
+    strncat(logDir,"/tmp/fcitx-inotify.log",23);
+    gFp=fopen(logDir,"a");
     buf[sizeof(buf) - 1] = 0;
     while ((len = read(fd, buf, sizeof(buf) - 1)) > 0) {
         nread = 0;

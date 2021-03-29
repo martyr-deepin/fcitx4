@@ -26,8 +26,9 @@
 #include <string.h>
 #include <sys/inotify.h>
 #include <unistd.h>
-
 #include "minIni.h"
+
+#define LOGFILE "/tmp/fcitx-switch.log"
 
 // \brief 删除注释符号
 // \param input: 传入需要修改的字符串
@@ -58,9 +59,22 @@ void file_comment_checkout(const char *filename) {
     close(fd);
 }
 
-int main(int argc, char *argv[]) {
+int if_frist_switch()
+{
+    int isFirst = access(LOGFILE, F_OK);
+    FILE* gFp=fopen(LOGFILE,"a");
+    if(isFirst == 0){//不是第一次启动
+        fprintf(gFp, "not the first switch\n");
+    } else {//是第一次启动
+        fprintf(gFp, "the first switch\n");
+    }
+    fclose(gFp);
+    return isFirst;
+}
 
-    FILE *fp = NULL;
+void switch_default()
+{
+    FILE* fp = NULL;
     char *dimConfigPath = NULL;
     fp = FcitxXDGGetFileUserWithPrefix(
         "conf", "fcitx-defaultim.config", "r",
@@ -84,5 +98,34 @@ int main(int argc, char *argv[]) {
         NULL
     };
     fcitx_utils_start_process(args);
+}
+
+void seq_switch()
+{
+    char* args[] = {
+        "/usr/bin/fcitx-remote",
+        "-w",
+        NULL
+    };
+    fcitx_utils_start_process(args);
+}
+
+int main(int argc, char *argv[]) {
+    int c;
+    while ((c = getopt(argc, argv, "sd")) != -1) {
+        switch (c) {
+        case 's':
+            if(if_frist_switch()){
+                switch_default();
+            }
+            else {
+                seq_switch();
+            }
+            break;
+        case 'd':
+            switch_default();
+            break;
+        }
+    }
     return 0;
 }
