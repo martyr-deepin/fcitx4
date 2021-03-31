@@ -348,13 +348,14 @@ void display_inotify_event(struct inotify_event *i) {
                 }
             } else if (strcmp(imName, "none") != 0 &&
                        strcmp(dir.path[i->wd],"/usr/share/fcitx/table") != 0) {
-                sleep(10);
+                fprintf(gFp, "%s: commod is %s; \n", gettime(), "start");
+                sleep(20);
                 char *result = NULL;
                 fcitx_utils_alloc_cat_str(result, "fcitx-", imName);
                 char *commod[] = {"fcitx-config-gtk3",
                                   (char *)(intptr_t)result,
                                   NULL};
-                fprintf(gFp, "%s: commod is %s; \n", gettime(), result);
+                fprintf(gFp, "%s: commod is end %s; \n", gettime(), result);
                 free(result);
                 result = NULL;
                 fcitx_utils_start_process(commod);
