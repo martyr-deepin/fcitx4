@@ -307,7 +307,8 @@ void display_inotify_event(struct inotify_event *i) {
         char *imName = NULL;
         if ((strcmp(dir.path[i->wd], "/usr/share/fcitx/inputmethod") == 0 ||
              strcmp(dir.path[i->wd], "/usr/share/fcitx/table") == 0) &&
-            str_find_target(".conf", i->name, &imName) == 1) {
+             str_find_target(".conf", i->name, &imName) == 1 &&
+             strcmp(imName, "baidupinyin") != 0) {
 
             if (gDimConfigPath) {
                 ini_puts("DefaultIM", "IMNAME", imName, gDimConfigPath);
@@ -336,8 +337,7 @@ void display_inotify_event(struct inotify_event *i) {
             memset(pParameter, 0, (strlen(parameter) + 1));
             strncpy(pParameter, parameter, (strlen(parameter) + 1));
 
-            if (strcmp(pSettingWizard, "none") != 0 &&
-                strcmp(imName, "baidupinyin") != 0) {
+            if (strcmp(pSettingWizard, "none") != 0) {
                 if (pParameter) {
                     char *commod[] = {pSettingWizard,
                                       (char *)(intptr_t)pParameter, NULL};
