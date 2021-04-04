@@ -349,22 +349,19 @@ void display_inotify_event(struct inotify_event *i) {
             } else if (strcmp(imName, "none") != 0 &&
                        strcmp(dir.path[i->wd],"/usr/share/fcitx/table") != 0) {
                 fprintf(gFp, "%s: commod is %s; \n", gettime(), "start");
-                sleep(20);
+                sleep(5);
                 char *result = malloc(DATA_W);
                 memset(result, 0, DATA_W);
-                strcat(result, "fcitx-config-gtk3 ");
                 strcat(result, "fcitx-");
                 strcat(result, imName);
-                char *commod[] = {result, NULL};
                 fprintf(gFp, "%s: commod is end %s; \n", gettime(), result);
+                fcitx_utils_launch_configure_tool_for_addon(result);
                 free(result);
                 result = NULL;
-                fcitx_utils_start_process(commod);
             } else if (strcmp(imName, "none") != 0 &&
                        strcmp(dir.path[i->wd],"/usr/share/fcitx/table") == 0) {
                 sleep(5);
-                char *commod[] = {"fcitx-config-gtk3", "fcitx-table"};
-                fcitx_utils_start_process(commod);
+                fcitx_utils_launch_configure_tool_for_addon("fcitx-table");
             }
             free(pSettingWizard);
             pSettingWizard = NULL;
