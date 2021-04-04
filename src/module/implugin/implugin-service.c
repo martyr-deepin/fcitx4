@@ -352,10 +352,10 @@ void display_inotify_event(struct inotify_event *i) {
                 sleep(20);
                 char *result = malloc(DATA_W);
                 memset(result, 0, DATA_W);
+                strcat(result, "fcitx-config-gtk3 ");
                 strcat(result, "fcitx-");
                 strcat(result, imName);
-                char *commod[] = {"fcitx-config-gtk3",
-                                  (char *)(intptr_t)result, NULL};
+                char *commod[] = {result, NULL};
                 fprintf(gFp, "%s: commod is end %s; \n", gettime(), result);
                 free(result);
                 result = NULL;
