@@ -352,14 +352,12 @@ void display_inotify_event(struct inotify_event *i) {
                 sleep(20);
                 char *result = malloc(DATA_W);
                 memset(result, 0, DATA_W);
-                strcat(result, "fcitx-config-gtk3 ");
                 strcat(result, "fcitx-");
                 strcat(result, imName);
-                char *commod[] = {result, NULL};
                 fprintf(gFp, "%s: commod is end %s; \n", gettime(), result);
                 free(result);
                 result = NULL;
-                fcitx_utils_start_process(commod);
+                fcitx_utils_launch_configure_tool_for_addon(result);
             } else if (strcmp(imName, "none") != 0 &&
                        strcmp(dir.path[i->wd],"/usr/share/fcitx/table") == 0) {
                 sleep(5);
