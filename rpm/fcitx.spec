@@ -4,12 +4,12 @@
 
 Name:			fcitx
 Summary:		An input method framework
-Version:		4.2.9.21
+Version:		4.2.9.31.79
 Release:		1%{?dist}
 License:		GPLv2+
 URL:			https://fcitx-im.org/wiki/Fcitx
-Source0:		%{name}_%{version}_dict.tar.xz
-#Source1:		xinput_%{name}
+Source0:		%{name}-%{version}.tar.xz
+#Source1:		xinput_%%{name}
 BuildRequires:		gcc-c++
 BuildRequires:		pango-devel, dbus-devel
 %if 0%{?rhel} < 8
@@ -103,8 +103,8 @@ This package contains Fcitx IM module for gtk3.
 %if 0%{?rhel} < 8
 #%package qt4
 #Summary:		Fcitx IM module for qt4
-#Requires:		%{name} = %{version}-%{release}
-#Requires:		%{name}-libs%{?_isa} = %{version}-%{release}
+#Requires:		%%{name} = %%{version}-%%{release}
+#Requires:		%%{name}-libs%%{?_isa} = %%{version}-%%{release}
 
 #%description qt4
 #This package contains Fcitx IM module for qt4.
@@ -168,14 +168,14 @@ EOF
 %build
 mkdir -p build
 pushd build
-%cmake .. -DENABLE_GTK3_IM_MODULE=On -DENABLE_QT_IM_MODULE=On -DENABLE_QT=Off -DENABLE_OPENCC=Off -DENABLE_ENCHANT=Off -DENABLE_LUA=On -DENABLE_GIR=On  -DENABLE_XDGAUTOSTART=Off 
+cmake .. -DENABLE_GTK3_IM_MODULE=On -DENABLE_QT_IM_MODULE=On -DENABLE_QT=Off -DENABLE_OPENCC=Off -DENABLE_ENCHANT=Off -DENABLE_LUA=On -DENABLE_GIR=On  -DENABLE_XDGAUTOSTART=Off  -DCMAKE_INSTALL_PREFIX:PATH=/usr -DLIB_INSTALL_DIR=/usr/lib64 
 
 make VERBOSE=1 %{?_smp_mflags}
 
 %install
 %make_install INSTALL="install -p" -C build
 
-find %{buildroot}%{_libdir} -name '*.la' -delete -print
+#find %{buildroot}%{_libdir} -name '*.la' -delete -print
 
 #install -pm 644 -D %{Source1} %{buildroot}%{_xinputconf}
 install -pm 644 -D %{_sourcedir}/xinput_fcitx %{buildroot}%{_xinputconf}
@@ -235,6 +235,7 @@ fi
 %{_mandir}/man1/createPYMB.1*
 %{_mandir}/man1/fcitx-remote.1*
 %{_mandir}/man1/fcitx.1*
+%{_mandir}/man1/fcitx*
 %{_mandir}/man1/mb2org.1*
 %{_mandir}/man1/mb2txt.1*
 %{_mandir}/man1/readPYBase.1*
@@ -329,7 +330,7 @@ fi
 
 %if 0%{?rhel} < 8
 #%files qt4
-#%{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
+#%%{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
 %endif
 
 %changelog
