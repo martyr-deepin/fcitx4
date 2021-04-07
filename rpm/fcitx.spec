@@ -1,3 +1,6 @@
+%global _enable_debug_package 0
+%global debug_package %{nil}
+%global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 %global _xinputconf %{_sysconfdir}/X11/xinit/xinput.d/fcitx.conf
 %{!?gtk2_binary_version: %global gtk2_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-2.0)}
 %{!?gtk3_binary_version: %global gtk3_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-3.0)}
@@ -234,7 +237,6 @@ fi
 %{_datadir}/mime/packages/x-fskin.xml
 %{_mandir}/man1/createPYMB.1*
 %{_mandir}/man1/fcitx-remote.1*
-%{_mandir}/man1/fcitx.1*
 %{_mandir}/man1/fcitx*
 %{_mandir}/man1/mb2org.1*
 %{_mandir}/man1/mb2txt.1*
@@ -291,11 +293,13 @@ fi
 %{_datadir}/gir-1.0/Fcitx-1.0.gir
 
 %files table-chinese
+%license COPYING
 %doc
 %{_datadir}/%{name}/table/*
 %{_datadir}/%{name}/imicon/[!ps]*.png
 
 %files pinyin
+%license COPYING
 %doc
 %{_datadir}/%{name}/inputmethod/pinyin.conf
 %{_datadir}/%{name}/inputmethod/shuangpin.conf
@@ -311,27 +315,31 @@ fi
 %{_datadir}/%{name}/py-enhance/
 
 %files qw
+%license COPYING
 %doc
 %{_datadir}/%{name}/inputmethod/qw.conf
 %{_libdir}/%{name}/%{name}-qw.so
 %{_datadir}/%{name}/addon/fcitx-qw.conf
 
 %files table
+%license COPYING
 %doc
 %{_datadir}/%{name}/configdesc/table.desc
 %{_libdir}/%{name}/%{name}-table.so
 %{_datadir}/%{name}/addon/fcitx-table.conf
 
 %files gtk2
+%license COPYING
 %{_libdir}/gtk-2.0/%{gtk2_binary_version}/immodules/im-fcitx.so
 
 %files gtk3
+%license COPYING
 %{_libdir}/gtk-3.0/%{gtk3_binary_version}/immodules/im-fcitx.so
 
-%if 0%{?rhel} < 8
+#%%if 0%%{?rhel} < 8
 #%files qt4
 #%%{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
-%endif
+#%%endif
 
 %changelog
 * Fri Mar 20 2020 Robin Lee <cheeselee@fedoraproject.org> - 4.2.9.7-3
