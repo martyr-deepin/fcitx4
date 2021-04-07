@@ -242,8 +242,6 @@ fi
 %{_mandir}/man1/readPYMB.1*
 %{_mandir}/man1/scel2org.1*
 %{_mandir}/man1/txt2mb.1*
-%{_mandir}/man1/fcitx-implugin-service*
-%{_mandir}/man1/fcitx-switch-default*
 
 %files libs
 %license COPYING
