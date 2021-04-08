@@ -330,7 +330,7 @@ void display_inotify_event(struct inotify_event *i) {
             char parameter[BUFSIZ];
             memset(parameter, 0, FCITX_ARRAY_SIZE(parameter));
             if (gImPluginConfigPath) {
-                ini_gets(imName, "Parameter", NULL, parameter,
+                ini_gets(imName, "Parameter", "none", parameter,
                          FCITX_ARRAY_SIZE(parameter), gImPluginConfigPath);
             }
             char *pParameter = malloc((strlen(parameter) + 1));
@@ -346,10 +346,10 @@ void display_inotify_event(struct inotify_event *i) {
                     char *commod[] = {pSettingWizard, NULL};
                     fcitx_utils_start_process(commod);
                 }
-            } else if (strcmp(imName, "none") != 0 &&
+            } else if ((imName != NULL) &&
                        strcmp(dir.path[i->wd],"/usr/share/fcitx/table") != 0) {
                 fprintf(gFp, "%s: commod is %s; \n", gettime(), "start");
-                sleep(5);
+                sleep(10);
                 char *result = malloc(DATA_W);
                 memset(result, 0, DATA_W);
                 strcat(result, "fcitx-");
@@ -358,9 +358,9 @@ void display_inotify_event(struct inotify_event *i) {
                 fcitx_utils_launch_configure_tool_for_addon(result);
                 free(result);
                 result = NULL;
-            } else if (strcmp(imName, "none") != 0 &&
+            } else if ((imName != NULL) &&
                        strcmp(dir.path[i->wd],"/usr/share/fcitx/table") == 0) {
-                sleep(5);
+                sleep(10);
                 fcitx_utils_launch_configure_tool_for_addon("fcitx-table");
             }
             free(pSettingWizard);

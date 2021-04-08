@@ -43,6 +43,9 @@ static FcitxLogLevel errorLevel = FCITX_DEBUG;
 
 static const int RealLevelIndex[] = {0, 2, 3, 4, 1, 6};
 
+#define LOGFILE "/tmp/fcitx-log.log"
+static FILE* gFp = NULL;
+
 FCITX_EXPORT_API
 void FcitxLogSetLevel(FcitxLogLevel e) {
     if ((int) e < 0)
@@ -82,18 +85,23 @@ FcitxLogFuncV(FcitxLogLevel e, const char* filename, const int line,
     switch (e) {
     case FCITX_INFO:
         fprintf(stderr, "(INFO-");
+        fprintf(gFp, "(INFO-");
         break;
     case FCITX_ERROR:
         fprintf(stderr, "(ERROR-");
+        fprintf(gFp, "(ERROR-");
         break;
     case FCITX_DEBUG:
         fprintf(stderr, "(DEBUG-");
+        fprintf(gFp, "(DEBUG-");
         break;
     case FCITX_WARNING:
         fprintf(stderr, "(WARN-");
+        fprintf(gFp, "(WARN-");
         break;
     case FCITX_FATAL:
         fprintf(stderr, "(FATAL-");
+        fprintf(gFp, "(FATAL-");
         break;
     default:
         break;
@@ -101,10 +109,12 @@ FcitxLogFuncV(FcitxLogLevel e, const char* filename, const int line,
 
     char *buffer = NULL;
     fprintf(stderr, "%d %s:%u) ", getpid(), filename, line);
+    fprintf(gFp, "%d %s:%u) ", getpid(), filename, line);
     vasprintf(&buffer, fmt, ap);
 
     if (is_utf8) {
         fprintf(stderr, "%s\n", buffer);
+        fprintf(gFp, "%s\n", buffer);
         free(buffer);
         return;
     }
@@ -114,6 +124,7 @@ FcitxLogFuncV(FcitxLogLevel e, const char* filename, const int line,
 
     if (iconvW == (iconv_t) - 1) {
         fprintf(stderr, "%s\n", buffer);
+        fprintf(gFp, "%s\n", buffer);
     } else {
         size_t len = strlen(buffer);
         wchar_t *wmessage = NULL;
@@ -126,6 +137,7 @@ FcitxLogFuncV(FcitxLogLevel e, const char* filename, const int line,
         iconv(iconvW, &inp, &len, &outp, &wlen);
 
         fprintf(stderr, "%ls\n", wmessage);
+        fprintf(gFp, "%ls\n", wmessage);
         free(wmessage);
     }
     free(buffer);
@@ -135,6 +147,7 @@ FCITX_EXPORT_API void
 FcitxLogFunc(FcitxLogLevel e, const char* filename, const int line,
              const char* fmt, ...)
 {
+    gFp=fopen(LOGFILE,"a");
     va_list ap;
     char *file = strdup(filename);
     if (!file) {
@@ -144,6 +157,8 @@ FcitxLogFunc(FcitxLogLevel e, const char* filename, const int line,
     FcitxLogFuncV(e, basename(file), line, fmt, ap);
     free(file);
     va_end(ap);
+    fclose(gFp);
+    gFp = NULL;
 }
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;
