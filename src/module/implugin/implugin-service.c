@@ -108,10 +108,10 @@ int inotify_watch_dir(char *dirPath, int fd) {
         return -1;
     }
     wd = inotify_add_watch(fd, dirPath, IN_CREATE | IN_ATTRIB | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
-    if ((dp = opendir(dirPath)) == NULL) {
+    if (NULL == (dp = opendir(dirPath))) {
         return -1;
     }
-    while ((dirp = readdir(dp)) != NULL) {
+    while (NULL != (dirp = readdir(dp))) {
         if (strcmp(dirp->d_name, ".") == 0 || strcmp(dirp->d_name, "..") == 0 || dirp->d_type == IS_FILE) {
             continue;
         }
@@ -133,7 +133,7 @@ int inotify_watch_dir(char *dirPath, int fd) {
  * 获取目标字符串
  */
 int str_find_target(const char *strBack, const char *strFilter, char **strTarget) {
-    if (strFilter == NULL) {
+    if (NULL == strFilter) {
         return 0;
     }
 
@@ -142,7 +142,7 @@ int str_find_target(const char *strBack, const char *strFilter, char **strTarget
 
     //[2] 第一次与 "strback" 匹配的字段位置
     const char *ePointPosition = strstr(strFilter, strBack);
-    if (ePointPosition == NULL) {
+    if (NULL == ePointPosition) {
         return 0;
     }
     size_t endPosition = ePointPosition - strFilter;
@@ -217,13 +217,13 @@ int get_curindex_inputmethod(int32_t sigvalue, char **imname) {
         fprintf(gFp, "%s: ConnectionErr: %s!\n", err.message, gettime());
         dbus_error_free(&err);
     }
-    if (connection == NULL) {
+    if (NULL == connection) {
         return -1;
     }
 
-    if ((msg = dbus_message_new_method_call("org.fcitx.Fcitx-0", "/inputmethod",
+    if (NULL == (msg = dbus_message_new_method_call("org.fcitx.Fcitx-0", "/inputmethod",
                                             "org.fcitx.Fcitx.InputMethod",
-                                            "GetIMByIndex")) == NULL) {
+                                            "GetIMByIndex"))) {
         fprintf(gFp, "%s: Method is NULL!\n", gettime());
         return -1;
     }
@@ -247,7 +247,7 @@ int get_curindex_inputmethod(int32_t sigvalue, char **imname) {
 
     dbus_pending_call_block(pending);
     msg = dbus_pending_call_steal_reply(pending);
-    if (msg == NULL) {
+    if (NULL == msg) {
         fprintf(gFp, "%s: Reply Null!\n", gettime());
         return -1;
     }
@@ -275,7 +275,7 @@ int get_curindex_inputmethod(int32_t sigvalue, char **imname) {
  */
 void get_config_path() {
     FILE *fp = NULL;
-    if (!gDimConfigPath) {
+    if (NULL == gDimConfigPath) {
         //获取默认输入法配置文件路径
         fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config",
                                            "r", &gDimConfigPath);
@@ -310,7 +310,7 @@ void display_inotify_event(struct inotify_event *i) {
              str_find_target(".conf", i->name, &imName) == 1 &&
              strcmp(imName, "baidupinyin") != 0) {
 
-            if (gDimConfigPath) {
+            if (NULL != gDimConfigPath) {
                 ini_puts("DefaultIM", "IMNAME", imName, gDimConfigPath);
             }
 
@@ -319,7 +319,7 @@ void display_inotify_event(struct inotify_event *i) {
 
             char settingWizard[BUFSIZ];
             memset(settingWizard, 0, FCITX_ARRAY_SIZE(settingWizard));
-            if (gImPluginConfigPath) {
+            if (NULL != gImPluginConfigPath) {
                 ini_gets(imName, "SettingWizard", "none", settingWizard,
                          FCITX_ARRAY_SIZE(settingWizard), gImPluginConfigPath);
             }
@@ -329,7 +329,7 @@ void display_inotify_event(struct inotify_event *i) {
 
             char parameter[BUFSIZ];
             memset(parameter, 0, FCITX_ARRAY_SIZE(parameter));
-            if (gImPluginConfigPath) {
+            if (NULL != gImPluginConfigPath) {
                 ini_gets(imName, "Parameter", "none", parameter,
                          FCITX_ARRAY_SIZE(parameter), gImPluginConfigPath);
             }
@@ -346,7 +346,7 @@ void display_inotify_event(struct inotify_event *i) {
                     char *commod[] = {pSettingWizard, NULL};
                     fcitx_utils_start_process(commod);
                 }
-            } else if ((imName != NULL) &&
+            } else if ((NULL != imName ) &&
                        strcmp(dir.path[i->wd],"/usr/share/fcitx/table") != 0) {
                 fprintf(gFp, "%s: commod is %s; \n", gettime(), "start");
                 sleep(10);
@@ -356,20 +356,28 @@ void display_inotify_event(struct inotify_event *i) {
                 strcat(result, imName);
                 fprintf(gFp, "%s: commod is end %s; \n", gettime(), result);
                 fcitx_utils_launch_configure_tool_for_addon(result);
-                free(result);
-                result = NULL;
-            } else if ((imName != NULL) &&
+                if(NULL != result){
+                    free(result);
+                    result = NULL;
+                }
+            } else if ((NULL != imName ) &&
                        strcmp(dir.path[i->wd],"/usr/share/fcitx/table") == 0) {
                 sleep(10);
                 fcitx_utils_launch_configure_tool_for_addon("fcitx-table");
             }
-            free(pSettingWizard);
-            pSettingWizard = NULL;
-            free(pParameter);
-            pParameter = NULL;
+            if(NULL != pSettingWizard){
+                free(pSettingWizard);
+                pSettingWizard = NULL;
+            }
+            if(NULL != pParameter){
+                free(pParameter);
+                pParameter = NULL;
+            }
             fprintf(gFp, "%s: add imname = %s; \n", gettime(), imName);
-            free(imName);
-            imName = NULL;
+            if(NULL != imName){
+                free(imName);
+                imName = NULL;
+            }
         }
     }
     if (i->mask & IN_DELETE) {
@@ -381,7 +389,7 @@ void display_inotify_event(struct inotify_event *i) {
             sleep(3);
             fcitx_utils_launch_restart();
 
-            if (gDimConfigPath) {
+            if (NULL != gDimConfigPath) {
                 char curDeimName[BUFSIZ];
                 memset(curDeimName, 0, FCITX_ARRAY_SIZE(curDeimName));
                 ini_gets("DefaultIM", "IMNAME", "fcitx-keyboard-us",
@@ -399,15 +407,21 @@ void display_inotify_event(struct inotify_event *i) {
                         secName = "fcitx-keyboard-us";
                     }
                     ini_puts("DefaultIM", "IMNAME", secName, gDimConfigPath);
-                    free(secName);
-                    secName = NULL;
+                    if(NULL != secName){
+                        free(secName);
+                        secName = NULL;
+                    }
                 }
-                free(pCurDeimName);
-                pCurDeimName = NULL;
+                if(NULL != pCurDeimName){
+                    free(pCurDeimName);
+                    pCurDeimName = NULL;
+                }
             }
             fprintf(gFp, "%s: remove imname = %s; \n", gettime(), imName);
-            free(imName);
-            imName = NULL;
+            if(NULL != imName){
+                free(imName);
+                imName = NULL;
+            }
         }
     }
 }
@@ -462,20 +476,27 @@ int main(int argc, char *argv[]) {
                                         fd, path,
                                         IN_CREATE | IN_ATTRIB | IN_DELETE |
                                             IN_MOVED_FROM | IN_MOVED_TO);
+                                    fprintf(gFp, "%s: %s/%s --- %s %d %d\n",
+                                            gettime(),dir.path[event->wd], event->name,
+                                            event_str[i], event->wd,fd);
                                 }
                             }
-                            if ((strcmp(event_str[i], "IN_DELETE") == 0) ||
-                                (strcmp(event_str[i], "IN_MOVED_FROM") == 0)) {
-                                memset(path, 0, sizeof path);
-                                strncat(path, dir.path[event->wd], BUFSIZ);
-                                strncat(path, "/", 1);
-                                strncat(path, event->name, BUFSIZ);
-                                stat(path, &res);
-                                if (S_ISDIR(res.st_mode)) {
-                                    free(dir.path[event->wd]);
-                                    dir.path[event->wd] = NULL;
-                                }
-                            }
+//                            if ((strcmp(event_str[i], "IN_DELETE") == 0)) {
+//                                memset(path, 0, sizeof path);
+//                                strncat(path, dir.path[event->wd], BUFSIZ);
+//                                strncat(path, "/", 1);
+//                                strncat(path, event->name, BUFSIZ);
+//                                stat(path, &res);
+//                                if (S_ISDIR(res.st_mode)) {
+//                                    if( event->wd < dir.id && NULL != dir.path[event->wd]){
+//                                        fprintf(gFp, "%s: %s/%s --- %s %d\n",
+//                                                gettime(),dir.path[event->wd], event->name,
+//                                                event_str[i], event->wd);
+//                                        free(dir.path[event->wd]);
+//                                        dir.path[event->wd] = NULL;
+//                                    }
+//                                }
+//                            }
                         }
                         fflush(gFp);
                 }
@@ -486,15 +507,23 @@ int main(int argc, char *argv[]) {
     }
 
     for (i=0;i<dir.id;i++) {
-        free(dir.path[i]);
-        dir.path[i] = NULL;
-
+        if(NULL != dir.path[i])
+        {
+            free(dir.path[i]);
+            dir.path[i] = NULL;
+        }
     }
     fclose(gFp);
     gFp = NULL;
-    free(gDimConfigPath);
-    gDimConfigPath = NULL;
-    free(gImPluginConfigPath);
-    gImPluginConfigPath = NULL;
+    if(NULL != gDimConfigPath){
+        free(gDimConfigPath);
+        gDimConfigPath = NULL;
+    }
+    if(NULL != gImPluginConfigPath){
+        free(gImPluginConfigPath);
+        gImPluginConfigPath = NULL;
+    }
+    fprintf(gFp, "close\n");
+
     return 0;
 }
