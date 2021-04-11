@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <wchar.h>
 #include <libgen.h>
+#include <time.h>
 
 #include "config.h"
 #include "fcitx/fcitx.h"
@@ -45,6 +46,22 @@ static const int RealLevelIndex[] = {0, 2, 3, 4, 1, 6};
 
 #define LOGFILE "/tmp/fcitx-log.log"
 static FILE* gFp = NULL;
+
+/**
+ * @brief gettime
+ * @return 当前时间字符串
+ * 获取当前时间
+ */
+char *gettime()
+{
+    static char timestr[40];
+    time_t t;
+    struct tm *nowtime;
+    time(&t);
+    nowtime = localtime(&t);
+    strftime(timestr,sizeof(timestr),"%Y-%m-%d %H:%M:%S",nowtime);
+    return timestr;
+}
 
 FCITX_EXPORT_API
 void FcitxLogSetLevel(FcitxLogLevel e) {
@@ -84,24 +101,24 @@ FcitxLogFuncV(FcitxLogLevel e, const char* filename, const int line,
 
     switch (e) {
     case FCITX_INFO:
-        fprintf(stderr, "(INFO-");
-        fprintf(gFp, "(INFO-");
+        fprintf(stderr, "%s (INFO-", gettime());
+        fprintf(gFp, "%s (INFO-", gettime());
         break;
     case FCITX_ERROR:
-        fprintf(stderr, "(ERROR-");
-        fprintf(gFp, "(ERROR-");
+        fprintf(stderr, "%s (ERROR-", gettime());
+        fprintf(gFp, "%s (ERROR-", gettime());
         break;
     case FCITX_DEBUG:
-        fprintf(stderr, "(DEBUG-");
-        fprintf(gFp, "(DEBUG-");
+        fprintf(stderr, "%s (DEBUG-", gettime());
+        fprintf(gFp, "%s (DEBUG-", gettime());
         break;
     case FCITX_WARNING:
-        fprintf(stderr, "(WARN-");
-        fprintf(gFp, "(WARN-");
+        fprintf(stderr, "%s (WARN-", gettime());
+        fprintf(gFp, "%s (WARN-", gettime());
         break;
     case FCITX_FATAL:
-        fprintf(stderr, "(FATAL-");
-        fprintf(gFp, "(FATAL-");
+        fprintf(stderr, "%s (FATAL-", gettime());
+        fprintf(gFp, "%s (FATAL-", gettime());
         break;
     default:
         break;
@@ -109,7 +126,7 @@ FcitxLogFuncV(FcitxLogLevel e, const char* filename, const int line,
 
     char *buffer = NULL;
     fprintf(stderr, "%d %s:%u) ", getpid(), filename, line);
-    fprintf(gFp, "%d %s:%u) ", getpid(), filename, line);
+    fprintf(gFp, "%d %s:%u)", getpid(), filename, line);
     vasprintf(&buffer, fmt, ap);
 
     if (is_utf8) {
