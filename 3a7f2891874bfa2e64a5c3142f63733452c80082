@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0538086e_115e4ead",
+        "filename": "src/module/implugin/implugin-service.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-12T03:30:41Z",
+      "side": 1,
+      "message": "注释行数: 5; 改动行数(修改和新增): 19; 注释率: 26.3%",
+      "revId": "3a7f2891874bfa2e64a5c3142f63733452c80082",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
