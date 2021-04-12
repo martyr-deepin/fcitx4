@@ -5,7 +5,7 @@
  *
  * Maintainer: chenshijie <chenshijie@uniontech.com>
  *
- * This program is free software: you can redistribute it and/or modify
+ * This program is safe_free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * any later version.
@@ -40,6 +40,8 @@
 #define IS_FILE 8
 #define IS_DIR 4
 #define DATA_W 200
+
+#define safe_free(EXP)  if((EXP)!=NULL) {printf("%d AAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAA Want to safe_free:%p\n", __LINE__, (EXP)); free((EXP)); EXP = NULL;}
 
 static struct dir_path {
     int id;
@@ -357,7 +359,7 @@ void display_inotify_event(struct inotify_event *i) {
                 fprintf(gFp, "%s: commod is end %s; \n", gettime(), result);
                 fcitx_utils_launch_configure_tool_for_addon(result);
                 if(NULL != result){
-                    free(result);
+                    safe_free(result);
                     result = NULL;
                 }
             } else if ((NULL != imName ) &&
@@ -366,16 +368,16 @@ void display_inotify_event(struct inotify_event *i) {
                 fcitx_utils_launch_configure_tool_for_addon("fcitx-table");
             }
             if(NULL != pSettingWizard){
-                free(pSettingWizard);
+                safe_free(pSettingWizard);
                 pSettingWizard = NULL;
             }
             if(NULL != pParameter){
-                free(pParameter);
+                safe_free(pParameter);
                 pParameter = NULL;
             }
             fprintf(gFp, "%s: add imname = %s; \n", gettime(), imName);
             if(NULL != imName){
-                free(imName);
+                safe_free(imName);
                 imName = NULL;
             }
         }
@@ -401,25 +403,27 @@ void display_inotify_event(struct inotify_event *i) {
                 strncpy(pCurDeimName, curDeimName, (strlen(curDeimName) + 1));
 
                 if (strcmp(pCurDeimName, imName) == 0) {
-                    char *secName;
+                    char secName[256] = {0};
                     get_curindex_inputmethod(2, &secName);
                     if (strcmp(secName, "") == 0) {
-                        secName = "fcitx-keyboard-us";
+						memset(secName, 0, 256);
+                        sprintf(secName, "fcitx-keyboard-us");
+                        //secName = "fcitx-keyboard-us";
                     }
                     ini_puts("DefaultIM", "IMNAME", secName, gDimConfigPath);
-                    if(NULL != secName){
-                        free(secName);
+                    /*if(NULL != secName){
+                        safe_free(secName);
                         secName = NULL;
-                    }
+                    }*/
                 }
                 if(NULL != pCurDeimName){
-                    free(pCurDeimName);
+                    safe_free(pCurDeimName);
                     pCurDeimName = NULL;
                 }
             }
             fprintf(gFp, "%s: remove imname = %s; \n", gettime(), imName);
             if(NULL != imName){
-                free(imName);
+                safe_free(imName);
                 imName = NULL;
             }
         }
@@ -492,7 +496,7 @@ int main(int argc, char *argv[]) {
 //                                        fprintf(gFp, "%s: %s/%s --- %s %d\n",
 //                                                gettime(),dir.path[event->wd], event->name,
 //                                                event_str[i], event->wd);
-//                                        free(dir.path[event->wd]);
+//                                        safe_free(dir.path[event->wd]);
 //                                        dir.path[event->wd] = NULL;
 //                                    }
 //                                }
@@ -509,18 +513,18 @@ int main(int argc, char *argv[]) {
     for (i=0;i<dir.id;i++) {
         if(NULL != dir.path[i])
         {
-            free(dir.path[i]);
+            safe_free(dir.path[i]);
             dir.path[i] = NULL;
         }
     }
     fclose(gFp);
     gFp = NULL;
     if(NULL != gDimConfigPath){
-        free(gDimConfigPath);
+        safe_free(gDimConfigPath);
         gDimConfigPath = NULL;
     }
     if(NULL != gImPluginConfigPath){
-        free(gImPluginConfigPath);
+        safe_free(gImPluginConfigPath);
         gImPluginConfigPath = NULL;
     }
     fprintf(gFp, "close\n");
