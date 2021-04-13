@@ -109,7 +109,7 @@ void Usage()
            "\t--enable\t\tspecify a comma separated list for addon that will override the enable option\n"
            "\t--disable\t\tspecify a comma separated list for addon that will explicitly disabled,\n"
            "\t\t\t\t\tpriority is lower than --enable, can use all for disable all module\n"
-#ifdef DEBUG
+#ifdef _DEBUG
            "\t--debug\t\t\tshow more debug log\n"
 #endif
            "\t-h, --help\t\tdisplay this help and exit\n");
@@ -574,7 +574,7 @@ boolean ProcessOption(FcitxInstance* instance, int argc, char* argv[])
         {"enable", 1, 0, 0},
         {"disable", 1, 0, 0},
         {"version", 0, 0, 0},
-#ifdef DEBUG
+#ifdef _DEBUG
         {"debug", 0, 0, 0},
 #endif
         {"help", 0, 0, 0},
@@ -615,7 +615,7 @@ boolean ProcessOption(FcitxInstance* instance, int argc, char* argv[])
                 Version();
                 return false;
                 break;
-#ifdef DEBUG
+#ifdef _DEBUG
             case 5:
                 FcitxLogSetLevel(FCITX_DEBUG);
                 break;
