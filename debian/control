@@ -457,10 +457,10 @@ Depends: fcitx-bin,
          fcitx-modules,
          ${misc:Depends},
          ${shlibs:Depends}
-Recommends: fcitx, fcitx-pinyin (>= ${source:Upstream-Version})
+Recommends: fcitx
 Replaces: fcitx (<< ${source:Upstream-Version})
 Breaks: fcitx (<< ${source:Upstream-Version})
-Suggests: fcitx-table-all
+Suggests: fcitx-table-all, fcitx-pinyin (>= ${source:Upstream-Version})
 Description: Flexible Input Method Framework - table engine
  Fcitx is a input method framework with extension support, which provides
  an interface for entering characters of different scripts in applications
