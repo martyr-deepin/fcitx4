@@ -1047,17 +1047,15 @@ msgstr "自動英文條目過長"
 msgid "Press Enter to input text"
 msgstr "按下 Enter 輸入文字"
 
-#: src/module/chttrans/chttrans.c:151 src/module/chttrans/chttrans.c:196
-msgid "Traditional Chinese"
-msgstr "正體中文"
-
 #: src/module/chttrans/chttrans.c:151 src/module/chttrans/chttrans.c:197
-msgid "Simplified Chinese"
-msgstr "簡體中文"
+#: src/module/chttrans/chttrans.c:244
+msgid "Switch to Simplified Chinese"
+msgstr "切換到簡體中文"
 
 #: src/module/chttrans/chttrans.c:152 src/module/chttrans/chttrans.c:198
-msgid "Toggle Simp/Trad Chinese Conversion"
-msgstr "切換正簡轉換"
+#: src/module/chttrans/chttrans.c:245
+msgid "Switch to Traditional Chinese"
+msgstr "切換到繁體中文"
 
 #: src/module/chttrans/chttrans.c:176
 #: src/module/chttrans/fcitx-chttrans.conf.in:3

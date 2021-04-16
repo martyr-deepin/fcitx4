@@ -5,6 +5,7 @@
 # 
 # Translators:
 # yeshe lhamo <981611630@qq.com>, 2021
+# Cindy0514, 2021
 # 
 #, fuzzy
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2017-10-15 20:02-0700\n"
 "PO-Revision-Date: 2021-04-07 08:12+0000\n"
-"Last-Translator: yeshe lhamo <981611630@qq.com>, 2021\n"
+"Last-Translator: Cindy0514, 2021\n"
 "Language-Team: Tibetan (https://www.transifex.com/linuxdeepin/teams/114346/bo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1100,17 +1101,15 @@ msgstr "དབྱིན་ཡིག་རིང་དྲགས་པ།"
 msgid "Press Enter to input text"
 msgstr "འབེབས་བརྡ་མནན་ནས་ཡིག་ཆ་ནང་འཇུག"
 
-#: src/module/chttrans/chttrans.c:151 src/module/chttrans/chttrans.c:196
-msgid "Traditional Chinese"
-msgstr "ཟོར་་ལྕིའི་རྒྱ་ཡིག"
-
 #: src/module/chttrans/chttrans.c:151 src/module/chttrans/chttrans.c:197
-msgid "Simplified Chinese"
-msgstr "ཟོར་ཡང་རྒྱ་ཡིག"
+#: src/module/chttrans/chttrans.c:244
+msgid "Switch to Simplified Chinese"
+msgstr "ཚུགས་གསར་རྒྱ་ཡིག་ཏུ་སྒྱུར་བ།"
 
 #: src/module/chttrans/chttrans.c:152 src/module/chttrans/chttrans.c:198
-msgid "Toggle Simp/Trad Chinese Conversion"
-msgstr "གཟུགས་ལྕི་ཡང་བརྗེ་བ།"
+#: src/module/chttrans/chttrans.c:245
+msgid "Switch to Traditional Chinese"
+msgstr "ཚུགས་རྙིང་རྒྱ་ཡིག་ཏུ་སྒྱུར་བ།"
 
 #: src/module/chttrans/chttrans.c:176
 #: src/module/chttrans/fcitx-chttrans.conf.in:3

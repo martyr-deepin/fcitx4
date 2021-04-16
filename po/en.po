@@ -1077,17 +1077,15 @@ msgstr "Too long item for AutoEng"
 msgid "Press Enter to input text"
 msgstr "Press Enter to input text"
 
-#: src/module/chttrans/chttrans.c:151 src/module/chttrans/chttrans.c:196
-msgid "Traditional Chinese"
-msgstr "Traditional Chinese"
-
 #: src/module/chttrans/chttrans.c:151 src/module/chttrans/chttrans.c:197
-msgid "Simplified Chinese"
-msgstr "Simplified Chinese"
+#: src/module/chttrans/chttrans.c:244
+msgid "Switch to Simplified Chinese"
+msgstr "Switch to Simplified Chinese"
 
 #: src/module/chttrans/chttrans.c:152 src/module/chttrans/chttrans.c:198
-msgid "Toggle Simp/Trad Chinese Conversion"
-msgstr "Toggle Simp/Trad Chinese Conversion"
+#: src/module/chttrans/chttrans.c:245
+msgid "Switch to Traditional Chinese"
+msgstr "Switch to Traditional Chinese"
 
 #: src/module/chttrans/chttrans.c:176
 #: src/module/chttrans/fcitx-chttrans.conf.in:3
