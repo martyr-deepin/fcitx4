@@ -1,0 +1,3373 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# yeshe lhamo <981611630@qq.com>, 2021
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2017-10-15 20:02-0700\n"
+"PO-Revision-Date: 2021-04-07 08:12+0000\n"
+"Last-Translator: yeshe lhamo <981611630@qq.com>, 2021\n"
+"Language-Team: Tibetan (https://www.transifex.com/linuxdeepin/teams/114346/bo/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bo\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: data/script/fcitx-configtool.sh:144
+msgid ""
+"You're currently running KDE, but KCModule for fcitx couldn't be found, the "
+"package name of this KCModule is usually kcm-fcitx or kde-config-fcitx. Now "
+"it will open config file with default text editor."
+msgstr ""
+"ཁྱོད་ཀྱིས་ད་ལྟ་KDEའཁོར་སྐྱོད་བྱེད་བཞིན་ཡོད། འོན་ཀྱང་fcitx ཡི་ KCModule "
+"རྙེད་མ་སོང་། KCModuleཡི་མཉེན་ཆས་ཁུག་མའི་མིང་ནི་སྤྱིར་kcm-fcitx ཡང་ན་ kde-"
+"config-fcitxཡིན། "
+"ད་ལྟ་སོར་བཞག་གི་ཡིག་ཆ་རྩོམ་སྒྲིག་བྱེད་ཆས་ཀྱིས་ཡིག་ཆ་ཁ་ཕྱེ་རྒྱུ་ཡིན།"
+
+#: data/script/fcitx-configtool.sh:147
+msgid ""
+"You're currently running Fcitx with GUI, but fcitx-configtool couldn't be "
+"found, the package name is usually fcitx-config-gtk, fcitx-config-gtk3 or "
+"fcitx-configtool. Now it will open config file with default text editor."
+msgstr ""
+"ཁྱོད་ཀྱིས་ད་ལྟ་པར་རིས་མཐུད་ངོས་ནས་ནང་འཇུག་བྱེད་སྟངས་བགོ་སྒྲིག་བྱེད་བཞིན་ཡོད།"
+" འོན་ཀྱང་ fcitx-configtool རྙེད་མ་སོང་། མཉེས་ཆས་ཁུག་མའི་མིང་ནི་སྤྱིར་ fcitx-"
+"config-gtkདང་fcitx-config-gtk3ཡང་ན་ fcitx-configtoolཡིན། "
+"ད་ལྟ་སོར་བཞག་གི་ཡིག་ཆ་རྩོམ་སྒྲིག་བྱེད་ཆས་ཀྱིས་ཡིག་ཆ་ཁ་ཕྱེ་རྒྱུ་ཡིན།"
+
+#: data/script/fcitx-diagnose.sh:514
+msgid "${1} not found."
+msgstr "${1} རྙེད་མ་སོང་།"
+
+#: data/script/fcitx-diagnose.sh:655
+msgid "Beginner's Guide"
+msgstr "འཇུག་སྒོ་ཕྱོགས་སྟོན།"
+
+#: data/script/fcitx-diagnose.sh:656
+msgid "/Beginner%27s_Guide"
+msgstr "/Beginner%27s_Guide/zh-cn"
+
+#: data/script/fcitx-diagnose.sh:663
+msgid ""
+"Please set environment variable ${env_name} to \"${value}\" using the tool "
+"your distribution provides or add ${1} to your ${2}. See ${link}."
+msgstr ""
+"ཁྱོད་ཀྱི་འགྲེམ་སྤེལ་པར་གཞིས་མཁོ་འདོན་བྱས་པའི་ཡོ་བྱད་བེད་སྤྱོད་བྱས་ཏེ་ཁོར་ཡུག་གི་འགྱུར་ཚད་${env_name}དེ་ཉིད་\"${value}\"བཟོ་བའམ་${1}ཁྱོད་ཀྱི་${2}"
+" ཁྲོད་སྣོན་རོགས། ཞིབ་ཕྲ་${link}གསལ།"
+
+#: data/script/fcitx-diagnose.sh:666
+msgid "Input Method Related Environment Variables: "
+msgstr "ནང་འཇུག་བྱེད་སྟངས་དང་འབྲེལ་བའི་ཁོར་ཡུག་འགྱུར་ཚད།"
+
+#: data/script/fcitx-diagnose.sh:667
+msgid "/Input_method_related_environment_variables"
+msgstr "/Input_method_related_environment_variables/zh-cn"
+
+#: data/script/fcitx-diagnose.sh:682
+msgid "Note for GNOME Later than 3.6"
+msgstr "3.6རྗེས་ཀྱི་པར་གཞི་དང་འབྲེལ་བའི་GNOMEཡི་ཞར་མཆན།"
+
+#: data/script/fcitx-diagnose.sh:683
+msgid "/Note_for_GNOME_Later_than_3.6"
+msgstr "/Note_for_GNOME_Later_than_3.6"
+
+#: data/script/fcitx-diagnose.sh:689
+msgid ""
+"If you are using ${1}, you may want to uninstall ${2}, remove ${3} or use "
+"the command ${g36_disable_ibus} to disable IBus integration in order to use "
+"any input method other than ${2}. See ${link} for more detail."
+msgstr ""
+"གལ་ཏེ་ཁྱོད་ཀྱིས་ད་ལྟ་${1}སྤྱོད་བཞིན་ཡོད་ཚེ། "
+"${2}བཤིག་འདོན་བྱེད་པའམ་${3}བསུབ་པ། ཡང་ན་བཀའ་${g36_disable_ibus} "
+"ཕབ་ནས་འདུས་གྲུབ་IBusཡིས་${2} "
+"བེད་སྤྱོད་བྱས་པ་ཕུད་པའི་ནང་འཇུག་བྱེད་སྟངས་དག་སྤྱོད་མི་ཆོག་པར་བཟོ་དགོས། "
+"ཞིབ་ཕྲ་${link}གསལ།"
+
+#: data/script/fcitx-diagnose.sh:691
+msgid ""
+"If you are using ${1}, you may want to uninstall ${2} or remove ${3} in "
+"order to use any input method other than ${2}. See ${link} for more detail "
+"as well as alternative solutions."
+msgstr ""
+"གལ་ཏེ་ཁྱོད་ཀྱིས་ད་ལྟ་${1}སྤྱོད་བཞིན་ཡོད་ཚེ། "
+"${2}བཤིག་འདོན་བྱེད་པའམ་${3}གྱིས་${2}བེད་སྤྱོད་བྱས་པ་ཕུད་པའི་ནང་འཇུག་བྱེད་སྟངས་གཞན་དག་བསུབ་དགོས།"
+" ཞིབ་ཕྲ་དང་ཐག་གཅོད་བྱ་ཐབས་གཞན་${link}གསལ།"
+
+#: data/script/fcitx-diagnose.sh:699
+#, sh-format
+msgid ""
+"To see some application specific problems you may have when using xim, check"
+" ${link1}. For other more general problems of using XIM including "
+"application freezing, see ${link2}."
+msgstr ""
+"ཁྱོད་ཀྱིས་${link1} ཁྲོད་xim "
+"སྤྱོད་སྐབས་འཕྲད་སྲིད་པའི་གནད་དོན་གྱི་ཉེར་སྤྱོད་བྱ་རིམ་འགའ་འཚོལ་ཆོག "
+"ཉེར་སྤྱོད་བྱ་རིམ་འགག་པའི་གནད་དོན་ཚུད་པའི་xim "
+"སྤྱོད་སྐབས་འཕྲད་སྲིད་པའི་གནད་དོན་དེ་བས་མང་བ་ཞིབ་ཕྲ་${link2}ལས་གསལ།"
+
+#: data/script/fcitx-diagnose.sh:702
+msgid "Hall of Shame for Linux IME Support"
+msgstr "Linux ནང་འཇུག་བྱེད་སྟངས་ཀྱིས་ངོ་ཚའི་སློབ་ཚན་ལ་རྒྱབ་སྐྱོར་བྱེད་པ།"
+
+#: data/script/fcitx-diagnose.sh:703
+msgid "/Hall_of_Shame_for_Linux_IME_Support"
+msgstr "/Hall_of_Shame_for_Linux_IME_Support"
+
+#: data/script/fcitx-diagnose.sh:706
+msgid "here"
+msgstr "འདིར།"
+
+#: data/script/fcitx-diagnose.sh:707
+msgid "/XIM"
+msgstr "/XIM/zh-cn"
+
+#: data/script/fcitx-diagnose.sh:743
+msgid "System Info:"
+msgstr "རྒྱུད་ཁོངས་ཆ་འཕྲིན།"
+
+#: data/script/fcitx-diagnose.sh:771
+msgid "Desktop Environment:"
+msgstr "ཅོག་ངོས་ཁོར་ཡུག"
+
+#: data/script/fcitx-diagnose.sh:774
+msgid "Cannot determine desktop environment."
+msgstr "ཅོག་ངོས་ཁོར་ཡུག་གཏན་ཁེལ་བྱ་ཐབས་མེད།"
+
+#: data/script/fcitx-diagnose.sh:776
+msgid "Desktop environment is ${1}."
+msgstr "ཅོག་ངོས་ཁོར་ཡུག་ནི་${1}"
+
+#: data/script/fcitx-diagnose.sh:779
+msgid "Bash Version:"
+msgstr "Bash པར་གཞི།"
+
+#: data/script/fcitx-diagnose.sh:784
+msgid "Environment:"
+msgstr "ཁོར་ཡུག"
+
+#: data/script/fcitx-diagnose.sh:787
+msgid "Keyboard Layout:"
+msgstr "མཐེབ་གཞོང་གི་བཀོད་པ།"
+
+#: data/script/fcitx-diagnose.sh:802
+msgid "Locale:"
+msgstr "Locale:"
+
+#: data/script/fcitx-diagnose.sh:805
+msgid "All locale:"
+msgstr "ཆ་ཚང་སྤྱོད་རུང་བ། locale"
+
+#: data/script/fcitx-diagnose.sh:807
+msgid "Current locale:"
+msgstr "མིག་སྔར། locale"
+
+#: data/script/fcitx-diagnose.sh:811
+msgid "Error occurs when running ${1}. Please check your locale settings."
+msgstr ""
+"${1}འཁོར་སྐྱོད་བྱེད་སྐབས་ནོར་འཁྲུལ་བྱུང་བས། "
+"ཁྱོད་ཀྱི་ཁུལ་ཁོངས་ཀྱི་སྒྲིག་འགོད་ལ་ཞིབ་བཤེར་བྱེད་རོགས།"
+
+#: data/script/fcitx-diagnose.sh:819
+msgid "Directories:"
+msgstr "དཀར་ཆག"
+
+#: data/script/fcitx-diagnose.sh:821
+msgid "Home:"
+msgstr "དཀར་ཆག་གཙོ་བོ།"
+
+#: data/script/fcitx-diagnose.sh:825
+msgid "Environment variable ${1} is not set."
+msgstr "ཁོར་ཡུག་འགྱུར་ཚད་${1} བཟོས་མེད།"
+
+#: data/script/fcitx-diagnose.sh:829
+msgid "Environment variable ${1} is set to ${2}."
+msgstr "ཁོར་ཡུག་འགྱུར་ཚད་${1} དེ་${2} བཟོས་པ།"
+
+#: data/script/fcitx-diagnose.sh:833
+msgid "Current value of ${1} is ${2} (${3})."
+msgstr "${1} གི་མིག་སྔའི་གྲངས་ཐང་ནི་${2} (${3})རེད།"
+
+#: data/script/fcitx-diagnose.sh:837
+msgid "Fcitx Settings Directory:"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ལ་དཀར་ཆག་བཟོ་བ།"
+
+#: data/script/fcitx-diagnose.sh:839
+msgid "Current fcitx settings directory is ${1} (${2})."
+msgstr "མིག་སྔའི་ནང་འཇུག་བྱེད་སྟངས་ལ་བཟོས་པའི་དཀར་ཆག་ནི་${1} (${2})རེད།"
+
+#: data/script/fcitx-diagnose.sh:844
+msgid "Current user:"
+msgstr "མིག་སྔའི་སྤྱོད་མཁན།"
+
+#: data/script/fcitx-diagnose.sh:845
+msgid "The script is run as ${1} (${2})."
+msgstr "འཁྲབ་གཞུང་ ${1} (${2}) བྱས་ནས་འཁོར་སྐྱོད་བྱེད་པ།"
+
+#: data/script/fcitx-diagnose.sh:850
+msgid "${1} Environment Variables:"
+msgstr "${1} ཁོར་ཡུག་འགྱུར་ཚད།"
+
+#: data/script/fcitx-diagnose.sh:856
+msgid "${1} is set to ${2}."
+msgstr "${1}དེ་${2}བཟོ་བ།"
+
+#: data/script/fcitx-diagnose.sh:859
+msgid "${1} is not set."
+msgstr "${1} བཟོས་མེད།"
+
+#: data/script/fcitx-diagnose.sh:866
+msgid "Running as root:"
+msgstr "དོ་དམ་པས་འཁོར་སྐྱོད་བྱེད་པ།"
+
+#: data/script/fcitx-diagnose.sh:869
+msgid ""
+"You are probably using ${1} to run this script. This means the result of "
+"this script may not be accurate. See ${2} for more information."
+msgstr ""
+"ཁྱོད་ཀྱིས་${1} སྤྱད་ནས་འཁྲབ་གཞུང་འདི་ཉིད་འཁོར་སྐྱོད་བྱེད་བཞིན་ཡོད་སྲིད། "
+"དེས་ན་འཁྲབ་གཞུང་དེའི་འབྲས་བུ་ཡང་དག་མིན་གཏན་ཁེལ་མེད།  "
+"དེ་བས་མང་བའི་ཆ་འཕྲིན་${2}ན་གསལ།"
+
+#: data/script/fcitx-diagnose.sh:871 data/script/fcitx-diagnose.sh:877
+msgid "sudo environment variables"
+msgstr "sudoཡི་ཁོར་ཡུག་འགྱུར་ཚད།"
+
+#: data/script/fcitx-diagnose.sh:874
+msgid ""
+"You are probably logging in as ${1} or using ${2} to run this script. This "
+"either means you have security problems or the result of this script may not"
+" be accurate. See ${3} or ${4} for more information."
+msgstr ""
+"ཁྱོད་ཀྱིས་${1}གམ་ཡང་ན་${2}སྤྱད་དེ་ཐོ་འཇུག་བྱས་ནས་འཁྲབ་གཞུང་འདི་ཉིད་འཁོར་སྐྱོད་བྱེད་ཀྱི་ཡོད་ཀྱང་སྲིད།"
+" དེས་གནམ་ཚུལ་གཉིས་མཚོན་གྱི་ཡོད། "
+"གཅིག་ནི་ཁྱོད་ལ་བདེ་འཇགས་གནད་དོན་ཡོད་པའམ་འཁྲབ་གཞུང་འདིའི་འབྲས་བུ་ཡང་དག་མིན་གཏན་ཁེལ་མེད་པ་རེད།"
+" དེ་འབྲེལ་གྱི་ཆ་འཕྲིན་མང་པོ་ཞིག་${3}མམ་ཡང་ན་ ${4}ལས་གསལ། "
+
+#: data/script/fcitx-diagnose.sh:876
+msgid "Why is it bad to run as root"
+msgstr "rootཐོབ་ཐང་གི་ངོས་ནས་འཁོར་སྐྱོད་བྱས་ཚེ་ཡག་པོ་མེད་པའི་རྒྱུ་མཚན་ནི།"
+
+#: data/script/fcitx-diagnose.sh:885
+msgid "Fcitx State:"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་རྣམ་པ།"
+
+#: data/script/fcitx-diagnose.sh:886
+msgid "executable:"
+msgstr "ལག་བསྟར་བྱེད་ཆོག་པའི་ཡིག་ཆ།"
+
+#: data/script/fcitx-diagnose.sh:888
+msgid "Cannot find fcitx executable!"
+msgstr "fcitx ཡི་ལག་བསྟར་བྱེད་ཆོག་པའི་ཡིག་ཆ་མ་རྙེད།"
+
+#: data/script/fcitx-diagnose.sh:890
+msgid "Please check ${1} for how to install fcitx."
+msgstr "${1} འདྲི་རྩད་བྱས་ཏེ་fcitxསྒྲིག་འཇུག་ཇི་ལྟར་བྱེད་དགོས་པར་ལྟ་བ།"
+
+#: data/script/fcitx-diagnose.sh:894
+msgid "Found fcitx at ${1}."
+msgstr "${1} ཁྲོད་fcitxརྙེད་པ།"
+
+#: data/script/fcitx-diagnose.sh:896
+msgid "version:"
+msgstr "པར་གཞི།"
+
+#: data/script/fcitx-diagnose.sh:899
+msgid "Fcitx version: ${1}"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་པར་གཞི།${1}"
+
+#: data/script/fcitx-diagnose.sh:900
+msgid "process:"
+msgstr "བརྒྱུད་རིམ།"
+
+#: data/script/fcitx-diagnose.sh:910
+msgid "Fcitx is not running."
+msgstr "ནང་འཇུག་བྱེད་སྟངས་འཁོར་སྐྱོད་བྱེད་ཀྱི་མེད།"
+
+#: data/script/fcitx-diagnose.sh:912
+msgid ""
+"Please check the Configure link of your distribution in ${1} for how to "
+"setup fcitx autostart."
+msgstr ""
+"${1} "
+"ཤོག་ངོས་ཐོག་གི་ཁྱེད་རང་གི་འགྲེལ་སྤེལ་པར་གཞི་དང་འཚམ་པའི་སྦྲེལ་ཐག་ལ་འདྲི་རྩད་བྱས་ཏེ་ནང་འཇུག་བྱེད་སྟངས་རང་སྒྲུབ་འགོ་ཇི་ལྟར་སློང་བར་ལྟ་བཤེར་བྱེད།"
+
+#: data/script/fcitx-diagnose.sh:917
+msgid "Found ${1} fcitx processes:"
+msgstr " ${1} བྱས་པའི་fcitxབརྒྱུད་རིམ་རྙེད་སོང་། "
+
+#: data/script/fcitx-diagnose.sh:919
+msgid "Found ${1} fcitx process:"
+msgstr " ${1} བྱས་པའི་fcitxབརྒྱུད་རིམ་རྙེད་སོང་། "
+
+#: data/script/fcitx-diagnose.sh:925
+msgid "Cannot connect to fcitx correctly."
+msgstr "fcitx.དང་སྦྲེལ་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:927
+msgid "${1} works properly."
+msgstr "${1} ལས་ཀ་རྒྱུན་ལྡན།"
+
+#: data/script/fcitx-diagnose.sh:933
+msgid "DBus interface:"
+msgstr "DBus མཐུད་ངོས།"
+
+#: data/script/fcitx-diagnose.sh:935
+msgid "Using ${1} to check dbus."
+msgstr "${1} སྤྱད་དེ་dbusཞིབ་བཤེར་བྱེད་པ།"
+
+#: data/script/fcitx-diagnose.sh:940
+msgid "Owner of DBus name ${1} is ${2}."
+msgstr "DBus མིང་ ${1} དབང་མཁན་ནི་${2}རེད།"
+
+#: data/script/fcitx-diagnose.sh:944
+msgid "Cannot find DBus name ${1} owner."
+msgstr "DBusམིང་${1} གི་དབང་མཁན་མ་རྙེད།"
+
+#: data/script/fcitx-diagnose.sh:948
+msgid "PID of DBus name ${1} owner is ${2}."
+msgstr "DBusམིང་${1}གི་PID ཡི་དབང་མཁན་ནི་${2}རེད།"
+
+#: data/script/fcitx-diagnose.sh:952
+msgid "Cannot find pid of DBus name ${1} owner."
+msgstr "DBusམིང་${1}གི་pidཡི་དབང་མཁན་མ་རྙེད།"
+
+#: data/script/fcitx-diagnose.sh:956
+msgid "Unable to find a program to check dbus."
+msgstr "བྱ་རིམ་ཞིབ་བཤེར་dbusརྙེད་མ་ཐུབ།"
+
+#: data/script/fcitx-diagnose.sh:992
+msgid "Config GUI for gtk${1}:"
+msgstr "GTK+-${1}.0སྤྱོད་པའི་སྡེབ་སྒྲིག་མཐུད་ངོས།"
+
+#: data/script/fcitx-diagnose.sh:996
+msgid "Config GUI for gtk${1} not found."
+msgstr "gtk${1} སྡེབ་སྒྲིག་མཐུད་ངོས་རྙེད་མ་སོང་།"
+
+#: data/script/fcitx-diagnose.sh:1005
+msgid "Found ${1} at ${2}."
+msgstr "${2} ནང་ལས་ ${1}རྙེད་བྱུང་།"
+
+#: data/script/fcitx-diagnose.sh:1012
+msgid "Config GUI for kde:"
+msgstr "KDE ཡི་སྡེབ་སྒྲིག་མཐུད་ངོས།"
+
+#: data/script/fcitx-diagnose.sh:1018
+msgid "Found fcitx kcm module."
+msgstr " fcitxཡི་དཔེ་དུམ་kcmརྙེད་པ།"
+
+#: data/script/fcitx-diagnose.sh:1027
+msgid "Fcitx Configure UI:"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་སྡེབ་སྒྲིག་མཐུད་ངོས།"
+
+#: data/script/fcitx-diagnose.sh:1028
+msgid "Config Tool Wrapper:"
+msgstr "སྡེབ་སྒྲིག་ཡོ་བྱད་ཐུམ་སྒྲིལ།"
+
+#: data/script/fcitx-diagnose.sh:1030
+msgid "Cannot find fcitx-configtool executable!"
+msgstr " fcitx-configtoolཡི་ལག་བསྟར་བྱེད་རུང་བའི་ཡིག་ཆ་རྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1032
+msgid "Found fcitx-configtool at ${1}."
+msgstr "${1}ཁྲོད་ནས་ fcitx-configtoolརྙེད་པ།"
+
+#: data/script/fcitx-diagnose.sh:1040
+msgid ""
+"Cannot find a GUI config tool, please install one of ${1}, ${2}, or ${3}."
+msgstr ""
+"པར་རིས་མཐུད་ངོས་ཀྱི་སྡེབ་སྒྲིག་ཡོ་བྱད་རྙེད་ཐབས་བྲལ་བས། ${1}དང་${2}  "
+"${3}ལས་གང་རུང་ཞིག་ནང་འཇུག་བྱེད། "
+
+#: data/script/fcitx-diagnose.sh:1053
+msgid "Environment variable ${1} is set to \"${2}\" correctly."
+msgstr "ཁོར་ཡུག་འགྱུར་ཚད་${1}དེ་ \"${2}\"ཡང་དག་པར་བཅོས་ཡོད།"
+
+#: data/script/fcitx-diagnose.sh:1059
+msgid ""
+"Environment variable ${1} is \"${2}\" instead of \"${3}\". Please check if "
+"you have exported it incorrectly in any of your init files."
+msgstr ""
+"ཁོར་ཡུག་འགྱུར་ཚད་${1}གི་གྲངས་ཐང་དེ་ "
+"\"${2}\"ལ་བཟོས་ཡོད་པ་ལས་\"${3}\"ལ་བཟོས་མེད། "
+"ཁྱོད་ཀྱིས་འགོ་འཛུགས་ཡིག་ཆའི་ཁྲོད་དེའི་གྲངས་ཐང་ནོར་ཡོད་མེད་ལ་ཞིབ་བཤེར་བྱེད།"
+
+#: data/script/fcitx-diagnose.sh:1068
+msgid "XMODIFIERS is not set"
+msgstr "XMODIFIERSསྒྲིག་འགོད་བྱས་མེད།"
+
+#: data/script/fcitx-diagnose.sh:1081
+msgid "Cannot interpret XMODIFIERS: ${1}."
+msgstr " XMODIFIERS: ${1}གསེད་དཀྲོལ་བྱེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1089
+msgid "Xim Server Name from Environment variable is ${1}."
+msgstr "ཁོར་ཡུག་འགྱུར་ཚད་ཁྲོད་ལས་རག་བའི་Xim ཞབས་ཞུའི་མིང་${1}རེད་འདུག"
+
+#: data/script/fcitx-diagnose.sh:1091
+msgid "XIM_SERVERS on root window:"
+msgstr "རྩ་བའི་སྒེའུ་ཁུང་ཐོག་གི་XIM_SERVERS"
+
+#: data/script/fcitx-diagnose.sh:1101
+msgid "Xim server name is the same with that set in the environment variable."
+msgstr ""
+"Ximཞབས་ཞུའི་མིང་དང་ཁོར་ཡུག་འགྱུར་ཚད་ཁྲོད་ཀྱི་སྒྲིག་འགོད་གཅིག་པ་རེད་འདུག"
+
+#: data/script/fcitx-diagnose.sh:1103
+msgid ""
+"Xim server name: \"${1}\" is different from that set in the environment "
+"variable: \"${2}\"."
+msgstr ""
+"Ximཞབས་ཞུའི་མིང་\"${1}\" "
+"འདི་ཁོར་ཡུག་འགྱུར་ཚད་ཁྲོད་སྒྲིག་འགོད་ཀྱི་གྲངས་ཐང་\"${2}\"དང་གཅིག་པ་རེད་མི་འདུག"
+
+#: data/script/fcitx-diagnose.sh:1107
+msgid "Cannot find xim_server on root window."
+msgstr "རྩ་བའི་སྒེའུ་ཁུང་ནང་xim_serverརྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1113
+msgid "XIM for Emacs:"
+msgstr " Emacs ལ་སྤྱོད་པའི་ XIM："
+
+#: data/script/fcitx-diagnose.sh:1115
+msgid ""
+"Your LC_CTYPE is set to ${1} instead of one of zh, ja, ko. You may not be "
+"able to use input method in emacs because of an really old emacs bug that "
+"upstream refuse to fix for years."
+msgstr ""
+"ཁྱོད་ཀྱི་ LC_CTYPEཡི་སྒྲིག་འགོད་དེ་${1} ཡིན་པ་ལས་zhདང་ ja  "
+"koགསུམ་གྱི་གང་རུང་ཞིག་རེད་མི་འདུག ཁྱོད་ཀྱིས་Emacs "
+"ཁྲོད་ནང་འཇུག་བྱེད་སྟངས་སྤྱོད་ཐབས་བྲལ། "
+"དེའི་རྩ་བ་ནི་ལོ་མང་རིང་གི་སྐྱོན་ཆ་རྙིང་པ་ཞིག་སླར་གསོ་བྱ་རྒྱུ་དང་ལེན་བྱས་མེད་པས་རེད།"
+
+#: data/script/fcitx-diagnose.sh:1118
+msgid "XIM encoding:"
+msgstr "XIM ཨང་སྒྲིག"
+
+#: data/script/fcitx-diagnose.sh:1120
+msgid ""
+"Your LC_CTYPE is set to ${1} whose encoding is not UTF-8. You may have "
+"trouble committing strings using XIM."
+msgstr ""
+"ཁྱོད་ཀྱི་ LC_CTYPEདེ་ ${1}ལ་སྒྲིག་འགོད་བྱས་འདུག དེའི་ཨང་ཀི་ UTF-8རེད་མི་འདུག"
+" ཁྱོད་ཀྱིས་XIMསྤྱད་དེ་ཡིག་རྟགས་སྐྱེལ་སྤྲོད་བྱེད་སྐབས་གནད་དོན་འཕྲད་ཀྱང་སྲིད།"
+
+#: data/script/fcitx-diagnose.sh:1140
+msgid "You are using xim in ${1} programs."
+msgstr "ཁྱོད་ཀྱིས་བྱ་རིམ་${1} ཁྲོད་ximསྤྱོད་བཞིན་འདུག"
+
+#: data/script/fcitx-diagnose.sh:1145
+msgid "You may have trouble using fcitx in ${1} programs."
+msgstr "ཁྱོད་ཀྱིས་བྱ་རིམ་${1}ཁྲོད་ fcitxསྤྱོད་སྐབས་གནད་དོན་འཕྲད་སྲིད།"
+
+#: data/script/fcitx-diagnose.sh:1171
+msgid "Qt IM module files:"
+msgstr "Qtནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་གྱི་ཡིག་ཆ།"
+
+#: data/script/fcitx-diagnose.sh:1178 data/script/fcitx-diagnose.sh:1183
+msgid "Found fcitx im module for ${2}: ${1}."
+msgstr " ${2}ཡི་ནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་${1}རྙེད་སོང་།"
+
+#: data/script/fcitx-diagnose.sh:1187
+msgid "Found fcitx qt module: ${1}."
+msgstr "fcitx ཡི་དཔེ་དུམ་qt ${1}རྙེད་སོང་།"
+
+#: data/script/fcitx-diagnose.sh:1190
+msgid "Found unknown fcitx qt module: ${1}."
+msgstr "མི་ཤེས་པའི་fcitx qt ཡི་དཔེ་དུམ་${1}རྙེད་པ།"
+
+#: data/script/fcitx-diagnose.sh:1197 data/script/fcitx-diagnose.sh:1202
+msgid "Cannot find fcitx input method module for ${1}."
+msgstr " ${1} ཡི་ fcitxནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་རྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1250
+msgid "Gtk ${1} immodule file ${2} does not exist."
+msgstr "Gtk ${1} ནང་འཇུག་བྱེད་སྟངས་ཀྱི་དཔེ་དུམ་ཡིག་ཆ་${2} མི་འདུག"
+
+#: data/script/fcitx-diagnose.sh:1256
+msgid "All found Gtk ${1} immodule files exist."
+msgstr ""
+"བཙལ་ནས་རྙེད་པའི་ Gtk ${1} ཡི་ནང་འཇུག་བྱེད་སྟངས་ཀྱི་དཔེ་དུམ་ཡིག་ཆ་ཆ་ཚང་ཡོད་པ།"
+
+#: data/script/fcitx-diagnose.sh:1289
+msgid "Found ${3} for gtk ${1} at ${2}."
+msgstr "${2} ལས་gtk ${1} ཡི་${3}རྙེད་བྱུང་།"
+
+#: data/script/fcitx-diagnose.sh:1294 data/script/fcitx-diagnose.sh:1377
+msgid "Version Line:"
+msgstr "པར་གཞིའི་སྟར་པ།"
+
+#: data/script/fcitx-diagnose.sh:1297
+msgid "Found ${2} for unknown gtk version at ${1}."
+msgstr "${1} ལས་མི་ཤེས་པའི་པར་གཞི་gtkཡི་${2}རྙེད་པ།"
+
+#: data/script/fcitx-diagnose.sh:1305 data/script/fcitx-diagnose.sh:1388
+msgid "Found fcitx im modules for gtk ${1}."
+msgstr "gtk ${1} ཡི་ནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་ fcitxརྙེད་པ།"
+
+#: data/script/fcitx-diagnose.sh:1311
+msgid "Failed to find fcitx in the output of ${1}"
+msgstr "${1} གི་ནང་འཇུག་ཁྲོད་ནང་འཇུག་བྱེད་སྟངས་ཀྱི་སྡེབ་སྒྲིག་རྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1317
+msgid "Cannot find ${2} for gtk ${1}"
+msgstr "gtk ${1} ཡི་ ${2}རྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1323
+msgid "Cannot find fcitx im module for gtk ${1}."
+msgstr "gtk ${1}ཡི་ནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་ fcitxརྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1373
+msgid "Found immodules cache for gtk ${1} at ${2}."
+msgstr "${2} ལས་gtk ${1} ཡི་ནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་གྱི་གསོག་ཉར་རྙེད་བྱུང་།"
+
+#: data/script/fcitx-diagnose.sh:1381
+msgid "Found immodule cache for unknown gtk version at ${1}."
+msgstr ""
+"${1} "
+"ཁྲོད་མི་ཤེས་པའི་པར་གཞི་gtkགི་ནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་གྱི་གསོག་ཉར་རྙེད་བྱུང་།"
+
+#: data/script/fcitx-diagnose.sh:1394
+msgid "Failed to find fcitx in immodule cache at ${1}"
+msgstr ""
+"ནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་གྱི་གསོག་ཉར་ ${1} ཁྲོད་ལས་ fcitxརྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1400
+msgid "Cannot find immodules cache for gtk ${1}"
+msgstr "gtk ${1}ཡི་ནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་གྱི་གསོག་ཉར་རྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1405
+msgid "Cannot find fcitx im module for gtk ${1} in cache."
+msgstr ""
+"གསོག་ཉར་ཁྲོད་ལས་ gtk ${1} ཡི་ནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་fcitxརྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1418
+msgid "Gtk IM module cache:"
+msgstr "Gtkནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་གྱི་གསོག་ཉར།"
+
+#: data/script/fcitx-diagnose.sh:1423
+msgid "Gtk IM module files:"
+msgstr "Gtkནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་གྱི་ཡིག་ཆ།"
+
+#: data/script/fcitx-diagnose.sh:1437
+msgid "Fcitx Addons:"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ལྷུ་ལག"
+
+#: data/script/fcitx-diagnose.sh:1438
+msgid "Addon Config Dir:"
+msgstr "ལྷུ་ལག་གིས་ཡིག་ཆའི་དཀར་ཆག་སྡེབ་སྒྲིག་བྱེད་པ།"
+
+#: data/script/fcitx-diagnose.sh:1440
+msgid "Cannot find fcitx addon config directory."
+msgstr "ལྷུ་ལག་གི་སྡེབ་སྒྲིག་དཀར་ཆག་རྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1450
+msgid "Found fcitx addon config directory: ${1}."
+msgstr " fcitxལྷུ་ལག་སྡེབ་སྒྲིག་དཀར་ཆག་ ${1}རྙེད་བྱུང་།"
+
+#: data/script/fcitx-diagnose.sh:1452
+msgid "Addon List:"
+msgstr "ལྷུ་ལག་རེའུ་མིག"
+
+#: data/script/fcitx-diagnose.sh:1456
+msgid "Invalid addon config file ${1}."
+msgstr "ཕན་མེད་ཀྱི་ལྷུ་ལག་སྡེབ་སྒྲིག་ཡིག་ཆ། ${1}"
+
+#: data/script/fcitx-diagnose.sh:1480
+msgid "Found ${1} enabled addons:"
+msgstr "འགོ་བསླངས་པའི་ལྷུ་ལག་${1} རྙེད་བྱུང་།"
+
+#: data/script/fcitx-diagnose.sh:1485
+msgid "Found ${1} disabled addons:"
+msgstr "སྤྱོད་མི་ཆོག་པའི་ལྷུ་ལག་${1} རྙེད་སོང་།"
+
+#: data/script/fcitx-diagnose.sh:1491
+msgid "Addon Libraries:"
+msgstr "ལྷུ་ལག་མཛོད།"
+
+#: data/script/fcitx-diagnose.sh:1499
+msgid "Cannot find file ${1} of addon ${2}."
+msgstr "ལྷུ་ལག་ ${2} ཡི་ཡིག་ཆ་ ${1}རྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1509
+msgid "Cannot find following required libraries for ${1} of addon ${2}."
+msgstr "${2}ལ་མཁོ་བའི་མཛོད་${1}རྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1517
+msgid "All libraries for all addons are found."
+msgstr "ལྷུ་ལག་ཚང་མར་མཁོ་བའི་མཛོད་རྙེད་བྱུང་།"
+
+#: data/script/fcitx-diagnose.sh:1518
+msgid "User Interface:"
+msgstr "སྤྱོད་མཁན་གྱི་མཐུད་ངོས།"
+
+#: data/script/fcitx-diagnose.sh:1520
+msgid "Cannot find enabled fcitx user interface!"
+msgstr "འགོ་བསླངས་པའི་fcitx སྤྱོད་མཁན་གྱི་མཐུད་ངོས་རྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1522
+msgid "Found ${1} enabled user interface addons:"
+msgstr "འགོ་བསླངས་པའི་སྤྱོད་མཁན་གྱི་མཐུད་ངོས་ལྷུ་ལག་${1} རྙེད་བྱུང་།"
+
+#: data/script/fcitx-diagnose.sh:1531
+msgid "Kimpanel process:"
+msgstr "Kimpanelབརྒྱུད་རིམ།"
+
+#: data/script/fcitx-diagnose.sh:1539
+msgid ""
+"Cannot find kimpanel dbus interface or enabled non-kimpanel user interface."
+msgstr ""
+" kimpanel "
+"dbusཡི་མཐུད་སྣེའམ་kimpanelམ་ཡིན་པའི་སྤྱོད་མཁན་གྱི་མཐུད་ངོས་རྙེད་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1545
+msgid "Input Methods:"
+msgstr "ནང་འཇུག་བྱེད་སྟངས།"
+
+#: data/script/fcitx-diagnose.sh:1549
+msgid "Cannot read im list from fcitx profile."
+msgstr ""
+"ནང་འཇུག་བྱེད་སྟངས་ཀྱི་སྡེབ་སྒྲིག་ཡིག་ཆའི་ཁྲོད་ནས་ནང་འཇུག་བྱེད་སྟངས་ཀྱི་རེའུ་མིག་ཀློག་ཐབས་བྲལ།"
+
+#: data/script/fcitx-diagnose.sh:1559
+msgid "Invalid item ${1} in im list."
+msgstr "ནང་འཇུག་བྱེད་སྟངས་རེའུ་མིག་ཁྲོད་ཀྱི་རྣམ་གྲངས་ཕན་མེད། ${1}"
+
+#: data/script/fcitx-diagnose.sh:1570
+msgid "Found ${1} enabled input methods:"
+msgstr "འགོ་བསླངས་པའི་ནང་འཇུག་བྱེད་སྟངས་${1} རྙེད་བྱུང་།"
+
+#: data/script/fcitx-diagnose.sh:1575
+msgid "Default input methods:"
+msgstr "སོར་བཞག་གི་ནང་འཇུག་བྱེད་སྟངས།"
+
+#: data/script/fcitx-diagnose.sh:1578
+msgid "You don't have any input methods enabled."
+msgstr "ཁྱོད་ལ་འགོ་བསླངས་པའི་ནང་འཇུག་བྱེད་སྟངས་གང་ཡང་མེད།"
+
+#: data/script/fcitx-diagnose.sh:1582
+msgid ""
+"You only have one keyboard input method enabled. You may want to add another"
+" input method to input other languages."
+msgstr ""
+"ཁྱོད་ལ་ནང་འཇུག་བྱེད་སྟངས་མཐེབ་གཞོང་འགོ་བསླངས་པ་གཅིག་ཡོད། "
+"ཁྱོད་ཀྱིས་ནང་འཇུག་བྱེད་སྟངས་གཞན་སྣོན་ནས་སྐད་ཡིག་གཞན་ནང་འཇུག་བྱེད་དགོས་ཀྱང་སྲིད།"
+
+#: data/script/fcitx-diagnose.sh:1584
+msgid ""
+"You only have one input method enabled, please add a keyboard input method "
+"as the first one and your main input method as the second one."
+msgstr ""
+"ཁྱོད་ཀྱིས་ནང་འཇུག་བྱེད་སྟངས་གཅིག་མ་གཏོགས་འགོ་བསླང་མེད་པས། "
+"མཐེབ་གཞོང་ནང་འཇུག་བྱེད་སྟངས་གཅིག་ཨང་དང་པོར་འཇོག་པ་དང་སྦྲགས་ཁྱོད་ཀྱི་ནང་འཇུག་བྱེད་སྟངས་གཙོ་བོ་དེ་ཨངགཉིས་པར་འཇོག་རོགས།"
+
+#: data/script/fcitx-diagnose.sh:1590
+msgid ""
+"You have a keyboard input method \"${1}\" correctly added as your default "
+"input method."
+msgstr "ཁྱོད་ཀྱིས་མཐེབ་གཞོང་ནང་འཇུག་བྱེད་སྟངས་གཅིག་\"${1}\" སོར་བཞག་ཏུ་བཟོས་ཡོད།"
+
+#: data/script/fcitx-diagnose.sh:1594
+msgid ""
+"Your first (default) input method is ${1} instead of a keyboard input "
+"method. You may have trouble deactivate fcitx."
+msgstr ""
+"ཁྱོད་ཀྱི་ (སོར་བཞག་)ནང་འཇུག་བྱེད་སྟངས་ཨང་དང་པོ་དེ་${1} "
+"ཡིན་པ་ལས་མཐེབ་གཞོང་ནང་འཇུག་བྱེད་སྟངས་རེད་མི་འདུག་པས་ཁྱོད་ཀྱི་ནང་འཇུག་བྱེད་སྟངས་fcitxསྤྱོད་མི་ཆོག་པ་བཟོ་ཐབས་མེད།"
+" "
+
+#: data/script/fcitx-diagnose.sh:1676
+msgid "Frontends setup:"
+msgstr "མདུན་སྣེ་སྒྲིག་འགོད།"
+
+#: data/script/fcitx-diagnose.sh:1683
+msgid "Configuration:"
+msgstr "སྡེབ་སྒྲིག"
+
+#: data/script/fcitx-diagnose.sh:1689
+msgid "Log:"
+msgstr "ཉིན་ཐོ།"
+
+#: src/frontend/xim/xim.c:134
+msgid "X11 not initialized"
+msgstr "X11 འགོ་བཙུགས་མེད་པ།"
+
+#: src/frontend/xim/xim.c:146
+msgid "Can't Create imWindow"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་སྒེའུ་ཁུང་གསར་བཟོ་བྱེད་ཐབས་བྲལ།"
+
+#: src/frontend/xim/xim.c:157
+msgid "XMODIFIERS Error."
+msgstr "XMODIFIERSནོར་འཁྲུལ།"
+
+#: src/frontend/xim/xim.c:161
+msgid "Please set XMODIFIERS."
+msgstr "ཁོར་ཡུག་འགྱུར་ཚད་XMODIFIERSསྒྲིག་འགོད་བྱེད་རོགས།"
+
+#: src/frontend/xim/xim.c:239
+#, c-format
+msgid "Start XIM error. Another XIM daemon named %s is running?"
+msgstr "XIMའགོ་སློང་བ་ནོར་འདུག མིང་%sབྱས་པའི་XIMཡིས་བྱ་རིམ་སྲུང་བཞིན་ཡོད་དམ།"
+
+#: src/im/keyboard/keyboard.c:359 src/im/keyboard/keyboard.c:376
+#: src/im/keyboard/keyboard.c:424 src/im/keyboard/keyboard.c:437
+#: src/im/keyboard/keyboard.c:462 src/im/keyboard/keyboard.c:468
+#: src/im/keyboard/fcitx-keyboard.desc:1 src/im/keyboard/fcitx-keyboard.desc:6
+#: src/im/keyboard/fcitx-keyboard.desc:16
+#: src/im/keyboard/fcitx-keyboard.desc:21
+#: src/im/keyboard/fcitx-keyboard.desc:27
+#: src/im/keyboard/fcitx-keyboard.desc:36
+#: src/im/keyboard/fcitx-keyboard.desc:41
+msgid "Keyboard"
+msgstr "མཐེབ་གཞོང་།"
+
+#: src/im/keyboard/keyboard.c:426 src/im/keyboard/keyboard.c:443
+msgid "(Unavailable)"
+msgstr "(སྤྱོད་མི་རུང་།)"
+
+#: src/im/keyboard/keyboard.c:900
+msgid "Spell hint"
+msgstr "སྦྱོར་འབྲི་དྲན་སློང་།"
+
+#: src/im/keyboard/keyboard.c:901
+msgid "Spell hint is enabled."
+msgstr "སྦྱོར་འབྲི་དྲན་སློང་སྒོ་ཕྱེ་བ།"
+
+#: src/im/keyboard/keyboard.c:902
+msgid "Spell hint is disabled."
+msgstr "སྦྱོར་འབྲི་དྲན་སློང་སྒོ་ཕྱེ་མེད་པ།"
+
+#: src/im/pinyin/py.c:106 src/im/pinyin/fcitx-pinyin.conf.in:3
+#: src/im/pinyin/pinyin.conf.in:3 src/im/pinyin/fcitx-pinyin.desc:1
+#: src/im/pinyin/fcitx-pinyin.desc:15 src/im/pinyin/fcitx-pinyin.desc:20
+#: src/im/pinyin/fcitx-pinyin.desc:25 src/im/pinyin/fcitx-pinyin.desc:30
+#: src/im/pinyin/fcitx-pinyin.desc:35 src/im/pinyin/fcitx-pinyin.desc:40
+#: src/im/pinyin/fcitx-pinyin.desc:45 src/im/pinyin/fcitx-pinyin.desc:50
+#: src/im/pinyin/fcitx-pinyin.desc:55 src/im/pinyin/fcitx-pinyin.desc:64
+#: src/im/pinyin/fcitx-pinyin.desc:73 src/im/pinyin/fcitx-pinyin.desc:82
+#: src/im/pinyin/fcitx-pinyin.desc:87 src/im/pinyin/fcitx-pinyin.desc:92
+#: src/im/pinyin/fcitx-pinyin.desc:97 src/im/pinyin/fcitx-pinyin.desc:102
+#: src/im/pinyin/fcitx-pinyin.desc:107 src/im/pinyin/fcitx-pinyin.desc:112
+#: src/im/pinyin/fcitx-pinyin.desc:117 src/im/pinyin/fcitx-pinyin.desc:122
+#: src/im/pinyin/fcitx-pinyin.desc:127 src/im/pinyin/fcitx-pinyin.desc:132
+#: src/im/pinyin/fcitx-pinyin.desc:137 src/im/pinyin/fcitx-pinyin.desc:142
+msgid "Pinyin"
+msgstr "སྒྲ་སྦྱོར།"
+
+#: src/im/pinyin/py.c:121 src/im/pinyin/shuangpin.conf.in:3
+msgid "Shuangpin"
+msgstr "ཉིས་སྡེབ།"
+
+#: src/im/pinyin/py.c:393
+msgid "Cannot find System Database of Pinyin!"
+msgstr "རྒྱུད་ཁོངས་ཀྱི་སྒྲ་སྦྱོར་མིང་མཛོད་རྙེད་ཐབས་བྲལ།"
+
+#: src/im/pinyin/py.c:457
+msgid "Pinyin Index Magic Number Doesn't match"
+msgstr "སྒྲ་སྦྱོར་འདྲེན་བྱང་གི་Magic Numberསྒྲིག་མི་ཐུབ།"
+
+#: src/im/pinyin/py.c:729
+msgid "Press index to delete user phrase (ESC for cancel)"
+msgstr "འདྲེན་བྱང་མནན་ནས་སྤྱོད་མཁན་གྱི་ཚིག་གྲུབ་བསུབ་པ། (ESC འདོར་བ།)"
+
+#: src/im/pinyin/py.c:743
+msgid "Press number to make word in frequent list"
+msgstr "ཨང་ཀི་མནན་ནས་རྒྱུན་སྤྱོད་ཡི་གེའི་རེའུ་མིག་སྣོན་པ།"
+
+#: src/im/pinyin/py.c:769
+#, c-format
+msgid "Press 1 to delete %s in frequent list (ESC for cancel)"
+msgstr "1མནན་ནས་རྒྱུན་སྤྱོད་ཡི་གེའི་རེའུ་མིག་གི་%sབསུབ་པ།  (ESC འདོར་བ།)"
+
+#: src/im/pinyin/py.c:771
+#, c-format
+msgid "Press 1-%d to delete %s in frequent list (ESC for cancel)"
+msgstr "1-%dམནན་ནས་རྒྱུན་སྤྱོད་ཡི་གེའི་རེའུ་མིག་གི་%sབསུབ་པ། (ESCབསུབ་པ།)"
+
+#: src/im/pinyin/py.c:1672
+#, c-format
+msgid "Cannot Save User Pinyin Database: %s"
+msgstr "སྤྱོད་མཁན་གྱི་སྒྲ་སྦྱོར་མིང་མཛོད་ཉར་ཚགས་བྱ་ཐབས་བྲལ།%s"
+
+#: src/im/pinyin/py.c:1735
+#, c-format
+msgid "Cannot Save Frequent word: %s"
+msgstr "ཚིག་ཉར་ཚགས་བྱེད་ཐབས་མེད།%s"
+
+#: src/im/pinyin/py.c:1798
+#, c-format
+msgid "Cannot Save Pinyin Index: %s"
+msgstr "སྒྲ་སྦྱོར་འདྲེན་བྱང་ཉར་ཚགས་བྱེད་ཐབས་བྲལ།%s"
+
+#: src/im/pinyin/py.c:2059
+msgid "Remind: "
+msgstr "གཅིག་བརྟེན་གཅིག་དྲན།"
+
+#: src/im/pinyin/py.c:2141
+msgid "Migrate the old file path to the new one"
+msgstr "ཡིག་ཆ་རྙིང་པའི་འགྲོ་ལམ་ཡིག་ཆ་གསར་པའི་འགྲོ་ལམ་དུ་སྤོ་བ།"
+
+#: src/im/qw/qw.c:64 src/im/qw/fcitx-qw.conf.in:3 src/im/qw/qw.conf.in:3
+msgid "Quwei"
+msgstr "ཁུལ་གནས།"
+
+#: src/im/table/table.c:596
+msgid ""
+"Left/Right to choose selected character, Press Enter to confirm, Press "
+"Escape to Cancel"
+msgstr ""
+"གཡོན་ནམ་གཡས་མནན་ནས་ཡི་གེ་འདེམས་པ་དང་། "
+"ཕྱིར་ལོག་མཐེབ་གཞོང་མནན་ནས་ངོས་འཛིན་བྱེད་པ། Escapeམནན་ནས་འདོར་བ།"
+
+#: src/im/table/table.c:621
+msgid "Pinyin: "
+msgstr "སྒྲ་སྦྱོར།"
+
+#: src/im/table/table.c:645
+msgid "Cannot found Pinyin"
+msgstr "སྒྲ་སྦྱོར་རྙེད་ཐབས་བྲལ།"
+
+#: src/im/table/table.c:705
+msgid "Choose the phrase to be put in the front, Press Escape to Cancel"
+msgstr "མདུན་ན་ཡོད་པའི་ཚིག་གྲུབ་འདེམས་པ། Escapeམནན་ནས་འདོར་བ།"
+
+#: src/im/table/table.c:713
+msgid "Choose the phrase to be deleted, Press Escape to Cancel"
+msgstr "བསུབ་བྱའི་ཚིག་གྲུབ་འདེམས་པ། Escapeམནན་ནས་འདོར་བ།"
+
+#: src/im/table/table.c:721
+msgid "Choose the phrase to clear typing history, Press Escape to Cancel"
+msgstr "གཙང་སེལ་བྱ་རྒྱུའི་ཚིག་གྲུབ་འདེམས་པ། Escapeམནན་ནས་འདོར་བ།"
+
+#: src/im/table/table.c:1287
+msgid "Remind:"
+msgstr "གཅིག་བརྟེན་གཅིག་དྲན།"
+
+#: src/im/table/table.c:1395
+msgid "Phrase is already in Dict "
+msgstr "ཚིག་གྲུབ་རེའུ་མིག་ནང་འདུག"
+
+#: src/im/table/table.c:1399
+msgid "Code is "
+msgstr "ཨང་ཀི་ནི།"
+
+#: src/im/table/table.c:1403
+msgid " Ctrl+Delete To Delete"
+msgstr " Ctrl+Delete བསུབ་པ།"
+
+#: src/im/table/tabledict.c:41
+msgid "Loading Table Dict"
+msgstr "ཨང་རྟགས་རེའུ་མིག་གི་ཚིག་མཛོད་སྣོན་འཇུག"
+
+#: src/im/table/tabledict.c:248
+msgid "Load Table Dict OK"
+msgstr "ཨང་རྟགས་རེའུ་མིག་ཡིག་ཆ་སྣོན་འཇུག"
+
+#: src/im/table/tabledict.c:285
+msgid "Loading Autophrase."
+msgstr "རང་སྒྲུབ་ཚིག་གྲུབ་ཀྱི་ཆ་འཕྲིན་སྣོན་འཇུག་བྱེད་པ།"
+
+#: src/im/table/tabledict.c:341
+msgid "Load Autophrase OK"
+msgstr "རང་སྒྲུབ་ཚིག་གྲུབ་ཀྱི་ཆ་འཕྲིན་སྣོན་འཇུག་བྱས་ཟིན།"
+
+#: src/im/table/tabledict.c:372
+msgid "Save dict error"
+msgstr "ཨང་རྟགས་རེའུ་མིག་ཉར་ཚགས་ནོར་བ།"
+
+#: src/im/table/tabledict.c:466
+msgid "Rename OK"
+msgstr "མིང་བསྐྱར་དུ་བཏགས་པ།"
+
+#: src/lib/fcitx/addon.c:138
+#, c-format
+msgid "Addon Config %s is %s"
+msgstr "Addon Config %s is %s"
+
+#: src/lib/fcitx/addon.c:151
+#, c-format
+msgid "Load Addon Config File:%s"
+msgstr "ཟུར་སྣོན་སྒྲིག་ལྷུའི་སྡེབ་སྒྲིག་ཡིག་ཆ་སྣོན་འཇུག %s"
+
+#: src/lib/fcitx/addon.c:298
+#, c-format
+msgid "Disable addon %s, dependency %s cannot be satisfied."
+msgstr "ལྷུ་ལག་སྤྱོད་མི་ཆོག་%s རྟེན་པ་%sའདོད་བློ་སྐོང་མི་ཐུབ།"
+
+#: src/lib/fcitx-config/fcitx-config.c:376
+msgid "Enum option duplicated."
+msgstr "མེ་ཅུ་གདམ་བྱ་བསྐྱར་ཟློས།"
+
+#: src/lib/fcitx-config/fcitx-config.c:386
+msgid "Enum option number must larger than 0"
+msgstr "མེ་ཅུ་ཡི་གཅིག་གནས་0ལས་ཆེ་བ་དགོས།"
+
+#: src/lib/fcitx-config/fcitx-config.c:400
+msgid "Enum Option is invalid, take it as string"
+msgstr ""
+"མེ་ཅུའི་གདམ་གསེས་ཁྲིམས་དང་མི་མཐུན་པས་ཡིག་རྟགས་ཕྲེང་དུ་བྱས་ནས་ཐག་གཅོད་རྒྱུ།"
+
+#: src/lib/fcitx-config/fcitx-config.c:406
+#, c-format
+msgid "Unknown type, take it as string: %s"
+msgstr "མི་ཤེས་པའི་རིགས་གྲས། ཡིག་རྟགས་ཕྲེང་དུ་བྱས་ནས་ཐག་གཅོད་རྒྱུ། %s"
+
+#: src/lib/fcitx-config/fcitx-config.c:410
+msgid "Missing type, take it as string"
+msgstr "རིགས་གྲས་ཚང་མི་འདུག་པས་ཡིག་རྟགས་ཕྲེང་དུ་བྱས་ནས་ཐག་གཅོད་རྒྱུ།"
+
+#: src/lib/fcitx-config/fcitx-config.c:894
+#, c-format
+msgid "Configure group name error: line %d"
+msgstr "སྡེབ་སྒྲིག་ཚོ་ཆུང་གི་མིང་ནོར་འདུག སྟར་པ་%d"
+
+#: src/lib/fcitx-config/fcitx-config.c:901
+#, c-format
+msgid "Duplicate group name, merge with the previous: %s :line %d"
+msgstr "ཚོ་ཆུང་གི་མིང་བསྐྱར་ཟློས། དེ་སྔའི་ཚོ་ཆུང་དང་ཟླ་སྒྲིལ་བ། %sསྟར་པ་%d"
+
+#: src/lib/fcitx-config/fcitx-config.c:922
+#, c-format
+msgid "Invalid Entry: line %d missing '='"
+msgstr "སྡེབ་སྒྲིག་དོན་ཚན་ཁྲིམས་དང་མི་མཐུན། སྟར་པ་%d '='མི་འདུག "
+
+#: src/lib/fcitx-config/fcitx-config.c:968
+#, c-format
+msgid "Duplicate option, overwrite: line %d"
+msgstr "སྡེབ་སྒྲིག་དོན་ཚན་བསྐྱར་ཟློས། བཀབ་པ། སྟར་པ་%d"
+
+#: src/lib/fcitx-config/fcitx-config.c:1136
+#, c-format
+msgid "Option %s is Invalid, Use Default Value %s"
+msgstr "སྡེབ་སྒྲིག་དོན་ཚན་%sཁྲིམས་དང་མི་མཐུན། སོར་བཞག་གྲངས་ཐང་%sསྤྱོད་པ།"
+
+#: src/lib/fcitx-config/fcitx-config.c:1144
+#, c-format
+msgid "Option %s is Invalid."
+msgstr "སྡེབ་སྒྲིག་དོན་ཚན་%sཁྲིམས་དང་མི་མཐུན།"
+
+#: src/lib/fcitx-config/fcitx-config.c:1180
+#: src/lib/fcitx-config/fcitx-config.c:1187
+msgid "Available Value:"
+msgstr "འདེམས་ཆོག་པའི་གྲངས་ཐང་།"
+
+#: src/lib/fcitx-config/fcitx-config.c:1200
+#, c-format
+msgid "no default option for %s/%s"
+msgstr "གདམ་བྱ་%sདང་ཡང་ན་%sལ་སོར་བཞག་འདེམས་གསེས་མི་འདུག"
+
+#: src/lib/fcitx/frontend.c:530
+#, c-format
+msgid "Frontend: open %s fail %s"
+msgstr "མདུན་སྣེ་%sཁ་ཕྱེ་བ་དང་། %sཕམ་པ།"
+
+#: src/lib/fcitx/frontend.c:542
+msgid "Frontend: bad frontend"
+msgstr "མདུན་སྣེ། གནད་དོན་ཡོད་པའི་མདུན་སྣེ།"
+
+#: src/lib/fcitx/frontend.c:565
+msgid "No available frontend"
+msgstr "སྤྱོད་རུང་བའི་མདུན་སྣེ་མེད།"
+
+#: src/lib/fcitx/ime.c:303
+#, c-format
+msgid "IM: open %s fail %s"
+msgstr "ནང་འཇུག་བྱེད་སྟངས། %sཁ་ཕྱེ་བ་དང་། %sཕམ་པ།"
+
+#: src/lib/fcitx/ime.c:322
+#, c-format
+msgid "IM: bad im %s"
+msgstr "ནང་འཇུག་བྱེད་སྟངས། གནད་དོན་ཡོད་པའི་ནང་འཇུག་བྱེད་སྟངས། %s"
+
+#: src/lib/fcitx/ime.c:536
+msgid "No available Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཕན་མེད།"
+
+#: src/lib/fcitx/ime.c:1695 src/module/notificationitem/notificationitem.c:411
+#: data/fcitx-autostart.desktop.in:3 data/fcitx.desktop.in:3
+msgid "Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས།"
+
+#: src/lib/fcitx/ime.c:1797
+msgid "Input Speed: "
+msgstr "ནང་འཇུག་མྱུར་ཚད།"
+
+#: src/lib/fcitx/ime.c:1800
+msgid "/min  Time Used: "
+msgstr "སྐར་མ། བརྒྱུད་སྐབས་ཀྱི་དུས་ཚོད།"
+
+#: src/lib/fcitx/ime.c:1803
+msgid "min Num of Characters: "
+msgstr "སྐར་མ། ཡིག་རྟགས་ཀྱི་གྲངས།"
+
+#: src/lib/fcitx/instance.c:286 src/lib/fcitx/instance.c:555
+msgid "Use remind"
+msgstr "གཅིག་བརྟེན་གཅིག་དྲན།"
+
+#: src/lib/fcitx/instance.c:286 src/lib/fcitx/instance.c:555
+msgid "No remind"
+msgstr "གཅིག་བརྟེན་གཅིག་དྲན་མེད།"
+
+#: src/lib/fcitx/instance.c:287 src/lib/fcitx/instance.c:556
+msgid "Toggle Remind"
+msgstr "གཅིག་བརྟེན་གཅིག་དྲན་བརྗེ་བ།"
+
+#: src/lib/fcitx/instance.c:531
+msgid "pthread mutex init failed"
+msgstr "pthread mutex init failed"
+
+#: src/lib/fcitx/module.c:61
+#, c-format
+msgid "Module: open %s fail %s"
+msgstr "དཔེ་དུམ། %sཁ་ཕྱེ་བ་དང་། %sཕམ་པ།"
+
+#: src/lib/fcitx/module.c:73
+msgid "Module: bad module"
+msgstr "དཔེ་དུམ། གནད་དོན་ཡོད་པའི་དཔེ་དུམ།"
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:161
+msgid "Clear"
+msgstr "སྟོང་པ་བཟོ་བ།"
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:314
+msgid "Left"
+msgstr "གཡོན།"
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:316
+msgid "Right"
+msgstr "གཡས།"
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:358
+msgid "Empty"
+msgstr "སྟོང་པ།"
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:401
+msgid "The key you just pressed is not supported by Qt."
+msgstr "ཁྱོད་ཀྱིས་ད་ལྟ་བསྣན་པའི་མཐེབ་གཞོང་ལ་Qtཡི་རྒྱབ་སྐྱོར་མེད།"
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:402
+msgid "Unsupported Key"
+msgstr "རྒྱབ་སྐྱོར་མེད་པའི་མཐེབ་གཞོང་།"
+
+#: src/lib/fcitx/ui.c:192
+#, c-format
+msgid "UI: open %s fail %s"
+msgstr "མཐུད་ངོས་%sཁ་ཕྱེ་མ་ཐུབ།%s"
+
+#: src/lib/fcitx/ui.c:205
+msgid "UI: bad ui"
+msgstr "མཐུད་ངོས། གནད་དོན་ཡོད་པའི་མཐུད་ངོས།"
+
+#: src/lib/fcitx-utils/desktop-parse.c:550
+#, c-format
+msgid "Invalid group name line @ line %d %s"
+msgstr "ཁྲིམས་བརྒལ་གྱི་ཚོ་མིང་ཤོག་ངོས་%dསྟར་པ་%sའདུག"
+
+#: src/lib/fcitx-utils/desktop-parse.c:562
+#, c-format
+msgid ""
+"Duplicate group %s in a desktop file,@ line %d, merge with previous one."
+msgstr "ཚོ་མིང་བསྐྱར་ཟློས་%s@ཤོལ་ངོས་%dསྟར་པ། དེ་སྔའི་ཚོ་མིང་དང་ཟླ་སྒྲིལ་བ།"
+
+#: src/lib/fcitx-utils/desktop-parse.c:586
+#, c-format
+msgid "Non-comment doesn't belongs to any group @ %d %s"
+msgstr "མཆན་འགྲེལ་མིན་པ་ཚོ་ཆུང་གང་གི་ཁོངས་སུའང་མི་གཏོགས། @%d%s"
+
+#: src/lib/fcitx-utils/desktop-parse.c:592
+#, c-format
+msgid "Invalid entry line @ line %d %s"
+msgstr "ཁྲིམས་དང་མི་མཐུན་པའི་མཐེབ་གཞོང་གི་གྲངས་ཐང་%dསྟར་པ་%sའདུག"
+
+#: src/lib/fcitx-utils/desktop-parse.c:602
+#, c-format
+msgid "Duplicate entry %s in group %s,@ line %d, override previous one."
+msgstr ""
+"མཐེབ་གཞོང་བསྐྱར་ཟློས་%sཚོ་ཆུང་%sཁྲོད་འདུག @%dསྟར་པ། དེ་སྔའི་གྲངས་ཐང་བཀབ་པ།"
+
+#: src/module/autoeng/AutoEng.c:557
+msgid "Too long item for AutoEng"
+msgstr "དབྱིན་ཡིག་རིང་དྲགས་པ།"
+
+#: src/module/autoeng/AutoEng.c:686 src/module/quickphrase/quickphrase.c:456
+msgid "Press Enter to input text"
+msgstr "འབེབས་བརྡ་མནན་ནས་ཡིག་ཆ་ནང་འཇུག"
+
+#: src/module/chttrans/chttrans.c:151 src/module/chttrans/chttrans.c:196
+msgid "Traditional Chinese"
+msgstr "ཟོར་་ལྕིའི་རྒྱ་ཡིག"
+
+#: src/module/chttrans/chttrans.c:151 src/module/chttrans/chttrans.c:197
+msgid "Simplified Chinese"
+msgstr "ཟོར་ཡང་རྒྱ་ཡིག"
+
+#: src/module/chttrans/chttrans.c:152 src/module/chttrans/chttrans.c:198
+msgid "Toggle Simp/Trad Chinese Conversion"
+msgstr "གཟུགས་ལྕི་ཡང་བརྗེ་བ།"
+
+#: src/module/chttrans/chttrans.c:176
+#: src/module/chttrans/fcitx-chttrans.conf.in:3
+msgid "Simplified Chinese To Traditional Chinese"
+msgstr "ཟོར་ལྕི་ཡང་བརྗེ་བ།"
+
+#: src/module/chttrans/chttrans.c:177
+msgid "Traditional Chinese is enabled."
+msgstr "ཟོར་་ལྕིའི་རྒྱ་ཡིག་འགོ་བསླངས།"
+
+#: src/module/chttrans/chttrans.c:178
+msgid "Simplified Chinese is enabled."
+msgstr "ཟོར་ཡང་རྒྱ་ཡིག་འགོ་བསླངས་པ།"
+
+#: src/module/clipboard/clipboard.c:372
+msgid "Select to paste"
+msgstr "བདམས་ནས་སྦྱར་བ།"
+
+#: src/module/freedesktop-notify/freedesktop-notify.c:620
+msgid "Do not show again"
+msgstr "སླར་མི་མངོན་པ།"
+
+#: src/module/fullwidthchar/fullwidthchar.c:114
+#: src/module/fullwidthchar/fullwidthchar.c:191
+msgid "Full width Character"
+msgstr "ཟུར་ཧྲིལ་ཡིག་རྟགས།"
+
+#: src/module/fullwidthchar/fullwidthchar.c:114
+#: src/module/fullwidthchar/fullwidthchar.c:191
+msgid "Half width Character"
+msgstr "ཟུར་ཕྱེད་ཡིག་རྟགས།"
+
+#: src/module/fullwidthchar/fullwidthchar.c:115
+#: src/module/fullwidthchar/fullwidthchar.c:192
+msgid "Toggle Half/Full width Character"
+msgstr "ཟུར་ཕྱེད་དམ་ཟུར་ཧྲིལ་གྱི་ཡིག་རྟགས་བརྗེ་བ།"
+
+#: src/module/imselector/imselector.c:305
+msgid "Select global input method: "
+msgstr "ཁྱོན་ཡོངས་ནང་འཇུག་བྱེད་སྟངས་འདེམས་པ།"
+
+#: src/module/imselector/imselector.c:306
+msgid "Select local input method: "
+msgstr "ཆ་ཤས་ཀྱི་ནང་འཇུག་བྱེད་སྟངས་འདེམས་པ།"
+
+#: src/module/imselector/imselector.c:312
+msgid "Current local input method is "
+msgstr "མིག་སྔའི་ཆ་ཤས་ནང་འཇུག་བྱེད་སྟངས་ནི།"
+
+#: src/module/imselector/imselector.c:316
+msgid "No local input method"
+msgstr "ཆ་ཤས་ཀྱི་ནང་འཇུག་བྱེད་སྟངས་མེད།"
+
+#: src/module/imselector/imselector.c:326
+msgid "Clear local input method"
+msgstr "ཆ་ཤས་ཀྱི་ནང་འཇུག་བྱེད་སྟངས་གཙང་སེལ།"
+
+#: src/module/notificationitem/dbusmenu.c:340 src/ui/classic/classicui.c:440
+msgid "Online Help"
+msgstr "དྲ་ཐོག་རོགས་རམ།"
+
+#: src/module/notificationitem/dbusmenu.c:352 src/ui/classic/classicui.c:501
+#: src/ui/kimpanel/kimpanel.c:785
+msgid "Configure Current Input Method"
+msgstr "མིག་སྔའི་ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག་བྱེད་པ།"
+
+#: src/module/notificationitem/dbusmenu.c:356 src/ui/classic/classicui.c:502
+msgid "Configure"
+msgstr "སྡེབ་སྒྲིག"
+
+#: src/module/notificationitem/dbusmenu.c:365 src/ui/classic/classicui.c:503
+#: src/ui/kimpanel/kimpanel.c:790
+msgid "Restart"
+msgstr "ཡང་བསྐྱར་འགོ་སློང་།"
+
+#: src/module/notificationitem/dbusmenu.c:371 src/ui/classic/classicui.c:504
+msgid "Exit"
+msgstr "ཕྱིར་དོན།"
+
+#: src/module/notificationitem/notificationitem.c:456
+#: src/ui/kimpanel/kimpanel.c:256 src/ui/kimpanel/kimpanel.c:257
+msgid "No input window"
+msgstr "ནང་འཇུག་བྱེད་སའི་སྒེའུ་ཁུང་མེད།"
+
+#: src/module/notificationitem/notificationitem.c:462
+#: src/ui/kimpanel/kimpanel.c:282 src/ui/kimpanel/kimpanel.c:287
+#: data/config.desc:34
+msgid "Disabled"
+msgstr "སྤྱོད་མི་ཆོག"
+
+#: src/module/notificationitem/notificationitem.c:463
+#: src/ui/kimpanel/kimpanel.c:283 src/ui/kimpanel/kimpanel.c:288
+msgid "Input Method Disabled"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་སྤྱོད་མི་ཆོག"
+
+#: src/module/punc/punc.c:148 src/module/punc/punc.c:567
+msgid "Full width punct"
+msgstr "ཟུར་ཧྲིལ་ཚེག་རྟགས།"
+
+#: src/module/punc/punc.c:149 src/module/punc/punc.c:568
+msgid "Latin punct"
+msgstr "དབྱིན་ཡིག་ཚེག་རྟགས།"
+
+#: src/module/punc/punc.c:150 src/module/punc/punc.c:569
+msgid "Toggle Full Width Punctuation"
+msgstr "ཟུར་ཧྲིལ་ཚེག་རྟགས་ལ་བརྗེ་བ།"
+
+#: src/module/punc/punc.c:410
+msgid "Can't open punc file."
+msgstr "ཚེག་རྟགས་ཡིག་ཆ་ཁ་ཕྱེ་ཐབས་བྲལ།"
+
+#: src/module/punc/punc.c:585 src/module/punc/fcitx-punc.conf.in:3
+msgid "Punctuation Support"
+msgstr "ཚེག་རྟགས་རྒྱབ་སྐྱོར།"
+
+#: src/module/punc/punc.c:586
+msgid "Full width punctuations are used."
+msgstr "ཟུར་ཧྲིལ་ཚེག་རྟགས་འགོ་བསླངས།"
+
+#: src/module/punc/punc.c:587
+msgid "Latin punctuations are used."
+msgstr "ཟུར་ཕྱེད་ཚེ་རྟགས་འགོ་བསླངས།"
+
+#: src/module/quickphrase/quickphrase.c:247
+#, c-format
+msgid "Space for %s Enter for %s"
+msgstr "སྟོང་མིག་ནང་འཇུག་%s འབེབས་བརྡ་ནང་འཇུག་%s"
+
+#: src/module/quickphrase/quickphrase.c:378
+msgid "Quick Phrase: "
+msgstr "མྱུར་མགྱོགས་ནང་འཇུག"
+
+#: src/module/remote/remote.c:70
+#, c-format
+msgid "Can't open socket %s: %s"
+msgstr "Socket %sཁ་ཕྱེ་མི་ཐུབ། %s"
+
+#: src/module/unicode/charselectdata.c:245
+msgid "<Non Private Use High Surrogate>"
+msgstr "<ཆེད་སྤྱོད་མ་ཡིན་པའི་མཐོ་ཕྱེད་ལས་ཚབ་ཁུལ།>"
+
+#: src/module/unicode/charselectdata.c:247
+msgid "<Private Use High Surrogate>"
+msgstr "<ཆེད་སྤྱོད་མཐོ་ཕྱེད་ལས་ཚབ་ཁུལ།>"
+
+#: src/module/unicode/charselectdata.c:249
+msgid "<Low Surrogate>"
+msgstr "<དམའ་ཕྱེད་ལས་ཚབ་ཁུལ།>"
+
+#: src/module/unicode/charselectdata.c:251
+msgid "<Private Use>"
+msgstr "<ཆེད་སྤྱོད་ཁུལ།>"
+
+#: src/module/unicode/charselectdata.c:279
+msgid "<not assigned>"
+msgstr "<མངག་གཏོང་བྱས་མེད།>"
+
+#: src/module/unicode/unicode.c:272
+msgid "Search unicode"
+msgstr "བཤེར་འཚོལ་unicode"
+
+#: src/module/vk/vk.c:51
+msgid "Latin"
+msgstr "ལ་ཏིང་གསལ་བྱེད།"
+
+#: src/module/vk/vk.c:52
+msgid "Fullwidth"
+msgstr "ཟུར་ཧྲིལ་ཡིག་རྟགས།"
+
+#: src/module/vk/vk.c:53
+msgid "Greek"
+msgstr "གྷི་རིག་ཡི་གེ།"
+
+#: src/module/vk/vk.c:54
+msgid "Russian"
+msgstr "ཨུ་རུ་སུའི་ཡིག་རྟགས།"
+
+#: src/module/vk/vk.c:55
+msgid "Index"
+msgstr "འདྲེན་བྱང་།"
+
+#: src/module/vk/vk.c:56
+msgid "Math"
+msgstr "ཨང་རྩིས་ཀྱི་རྟགས།"
+
+#: src/module/vk/vk.c:57
+msgid "Number"
+msgstr "ཨང་ཀི།"
+
+#: src/module/vk/vk.c:58
+msgid "Special"
+msgstr "དམིགས་བསལ་རྟགས།"
+
+#: src/module/vk/vk.c:59
+msgid "Hiragana"
+msgstr "ཧི་ར་གྷ་ན།"
+
+#: src/module/vk/vk.c:60
+msgid "Katakana"
+msgstr "ཀ་ཏ་ཀ་ན།"
+
+#: src/module/vk/vk.c:61
+msgid "Table Symbol"
+msgstr "རེའུ་མིག་བཟོ་རྟགས།"
+
+#: src/module/vk/vk.c:154
+msgid "Toggle Virtual Keyboard"
+msgstr "རྟོག་བཟོའི་མཐེབ་གཞོང་བརྗེ་བ།"
+
+#: src/module/vk/vk.c:154
+msgid "Virtual Keyboard State"
+msgstr "རྟོག་བཟོའི་མཐེབ་གཞོང་གི་རྣམ་པ།"
+
+#: src/module/vk/vk.c:179
+msgid "Virtual Keyboard"
+msgstr "རྟོག་བཟོའི་མཐེབ་གཞོང་།"
+
+#: src/module/vk/vk.c:212
+msgid "Close virtual keyboard"
+msgstr "རྟོག་བཟོའི་མཐེབ་གཞོང་སྒོ་བརྒྱབ།"
+
+#: src/module/xkbdbus/xkbdbus.c:258
+msgid "English (US)"
+msgstr "དབྱིན་ཡིག (ཨ་རི།)"
+
+#: src/ui/cairostuff/font.c:46
+msgid "Error: Load fontconfig failed"
+msgstr "ནོར་འཁྲུལ།  fontconfigསྣོན་འཇུག་བྱེད་མ་ཐུབ།"
+
+#: src/ui/cairostuff/font.c:119
+#, c-format
+msgid "your current font is: %s"
+msgstr "མིག་སྔའི་ཡིག་གཟུགས་ནི་%sརེད།"
+
+#: src/ui/cairostuff/font.c:121
+msgid "no valid font."
+msgstr "སྤྱོད་རུང་བའི་ཡིག་གཟུགས་མེད།"
+
+#: src/ui/classic/fcitx-skin-installer.sh:50
+msgid "Error: skin file should only contain one directory."
+msgstr "ནོར་འཁྲུལ། པགས་པའི་ཡིག་ཆའི་ནང་དཀར་ཆག་གཅིག་ལས་མེད།"
+
+#: src/ui/classic/fcitx-skin-installer.sh:55
+msgid "Error: skin file doesn't contain skin config."
+msgstr "ནོར་འཁྲུལ། པགས་པའི་ཡིག་ཆའི་ནང་པགས་པའི་སྡེབ་སྒྲིག་ཚུད་མེད།"
+
+#: src/ui/classic/fcitx-skin-installer.sh:64
+#, sh-format
+msgid ""
+"Error: $HOME or $XDG_CONFIG_HOME is not set, cannot determine the install "
+"path"
+msgstr ""
+"ནོར་འཁྲུལ། $HOME ཡང་ན་ "
+"$XDG_CONFIG_HOMEསྒྲིག་འགོད་བྱས་མེད་པས་ནང་འཇུག་བྱེད་ལམ་གཏན་ཁེལ་བྱ་ཐབས་བྲལ།"
+
+#: src/ui/classic/fcitx-skin-installer.sh:74
+msgid "Successfully Installed skin"
+msgstr "པགས་པ་ནང་འཇུག་བྱས་ཟིན།"
+
+#: src/ui/classic/fcitx-skin-installer.sh:76
+msgid "Error: skin failed to install"
+msgstr "ནོར་འཁྲུལ། པགས་པ་ནང་འཇུག་བྱེད་མ་ཐུབ།"
+
+#: src/ui/classic/skin.c:125
+msgid "Cannot load default skin, is installation correct?"
+msgstr "སོར་བཞག་གི་པགས་པ་སྣོན་འཇུག་བྱེད་ཐབས་བྲལ། སྒྲིག་འཇུག་ཡང་དག་ཡིན་ནམ།"
+
+#: src/ui/classic/skin.c:130
+#, c-format
+msgid "Cannot load skin %s, return to default"
+msgstr "པགས་པ་སྣོན་འཇུག་བྱེད་ཐབས་བྲལ། %s སོར་བཞག་གི་པགས་པར་ཕྱིར་ལོག"
+
+#: src/ui/classic/skin.c:708 src/ui/classic/fcitx-classic-ui.conf.in:10
+msgid "Skin"
+msgstr "པགས་པ།"
+
+#: src/ui/classic/tray.c:160
+#, c-format
+msgid "X error %i on opcode send"
+msgstr "X error %i on opcode send"
+
+#: src/ui/kimpanel/kimpanel.c:398 data/fcitx-autostart.desktop.in:2
+#: data/fcitx.desktop.in:2
+msgid "Fcitx"
+msgstr "ནང་འཇུག་བྱེད་སྟངས།"
+
+#: src/ui/kimpanel/kimpanel.c:782
+msgid "Toggle Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་བརྗེ་བ།"
+
+#: tools/gui/wrapper/mainwindow.cpp:40
+msgid "&Save"
+msgstr "ཉར་ཚགས།(&S)"
+
+#: tools/gui/wrapper/mainwindow.cpp:41
+msgid "&Reset"
+msgstr "བསྐྱར་བཟོ།(&R)"
+
+#: tools/gui/wrapper/mainwindow.cpp:42
+msgid "&Close"
+msgstr "སྒོ་བརྒྱབ།(&C)"
+
+#: data/fcitx-autostart.desktop.in:4 data/fcitx.desktop.in:4
+msgid "Start Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་འགོ་སློང་།"
+
+#: data/fcitx-configtool.desktop.in:2
+msgid "Fcitx Configuration"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག"
+
+#: data/fcitx-configtool.desktop.in:3
+msgid "Input Method Configuration"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག"
+
+#: data/fcitx-configtool.desktop.in:4
+msgid "Change Fcitx Configuration"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་སྡེབ་སྒྲིག་བཟོ་བཅོས།"
+
+#: skin/classic/fcitx_skin.conf.in:2 src/ui/classic/fcitx-classic-ui.conf.in:3
+msgid "Classic"
+msgstr "དཔེ་མཚོན།"
+
+#: skin/classic/fcitx_skin.conf.in:5
+msgid "Classic Skin"
+msgstr "དཔེ་མཚོན་པགས་པ།"
+
+#: skin/dark/fcitx_skin.conf.in:2 skin/dark/fcitx_skin.conf.in:5
+msgid "Dark"
+msgstr "ནག་པོ།"
+
+#: skin/default/fcitx_skin.conf.in:2 src/module/spell/fcitx-spell.desc:5
+msgid "Default"
+msgstr "སོར་བཞག"
+
+#: skin/default/fcitx_skin.conf.in:5
+msgid "Default Skin"
+msgstr "སོར་བཞག་པགས་པ།"
+
+#: src/frontend/ipc/fcitx-ipc.conf.in:3
+msgid "Fcitx DBus Frontend"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་གི་མདུན་སྣེ་DBus "
+
+#: src/frontend/ipc/fcitx-ipc.conf.in:4
+#: src/frontend/ipcportal/fcitx-ipcportal.conf.in:4
+msgid "Frontend Used by IM Modules"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་དཔེ་དུམ་གྱིས་སྤྱོད་པའི་མདུན་སྣེ།"
+
+#: src/frontend/ipcportal/fcitx-ipcportal.conf.in:3
+msgid "Fcitx DBus Frontend (Portal version)"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་གི་མདུན་སྣེ་DBus (Portal པར་མ།)"
+
+#: src/frontend/xim/fcitx-xim.conf.in:3
+msgid "Fcitx XIM Frontend"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་XIMཡི་མདུན་སྣེ།"
+
+#: src/frontend/xim/fcitx-xim.conf.in:4
+msgid "Provides XIM support"
+msgstr "XIMཡི་རྒྱབ་སྐྱོར་མཁོ་འདོན།"
+
+#: src/im/keyboard/fcitx-keyboard.conf.in:3
+msgid "Keyboard Layout"
+msgstr "མཐེབ་གཞོང་གི་བཀོད་པ།"
+
+#: src/im/keyboard/fcitx-keyboard.conf.in:4
+msgid "Use Keyboard Layout as Input Method"
+msgstr "མཐེབ་གཞོང་གི་བཀོད་པ་ནང་འཇུག་བྱེད་སྟངས་སུ་བྱེད་པ།"
+
+#: src/im/pinyin/fcitx-pinyin.conf.in:4
+msgid "Simple Pinyin support for Fcitx"
+msgstr "ནང་འཇུག་བྱེད་སྟངས། སྟབས་བདེའི་སྒྲ་སྦྱོར་ལ་རྒྱབ་སྐྱོར།"
+
+#: src/im/pinyin/fcitx-pinyin.conf.in:9
+msgid "Shuang Pin Schema"
+msgstr "སོར་བཞག་གི་ཉིས་སྡེབ་ཇུས་གཞི།"
+
+#: src/im/qw/fcitx-qw.conf.in:4
+msgid "Quwei Input Method for Fcitx"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་ཁུལ་གནས་ནང་འཇུག་བྱེད་སྟངས།"
+
+#: src/im/table/data/cangjie.conf.in:3
+msgid "Cangjie"
+msgstr "ཚང་ཅེ།"
+
+#: src/im/table/data/db.conf.in:3
+msgid "Dianbaoma"
+msgstr "གློག་འཕྲིན་ཨང་རྟགས།"
+
+#: src/im/table/data/erbi.conf.in:3
+msgid "Erbi"
+msgstr "སྨྱུག་རིས་གཉིས།"
+
+#: src/im/table/data/qxm.conf.in:3
+msgid "Bingchan"
+msgstr "པིང་ཁྲེན།"
+
+#: src/im/table/data/wanfeng.conf.in:3
+msgid "Wanfeng"
+msgstr "དགུང་རླུང་།"
+
+#: src/im/table/data/wbpy.conf.in:3
+msgid "WubiPinyin"
+msgstr "སྨྱུག་རིམ་ལྔའི་སྒྲ་སྦྱོར།"
+
+#: src/im/table/data/wbx.conf.in:3
+msgid "Wubi"
+msgstr "སྨྱུག་རིམ་ཡིག་གཟུགས།"
+
+#: src/im/table/data/zrm.conf.in:3 src/im/pinyin/fcitx-pinyin.desc:4
+msgid "Ziranma"
+msgstr "རང་བྱུང་ཨང་རྟགས།"
+
+#: src/im/table/fcitx-table.conf.in:3 src/im/table/fcitx-table.conf.in:10
+msgid "Table"
+msgstr "ཨང་རྟགས་རེའུ་མིག"
+
+#: src/im/table/fcitx-table.conf.in:4
+msgid "Table Input Method for Fcitx"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་ཨང་རྟགས་རེའུ་མིག་ནང་འཇུག་བྱེད་སྟངས།"
+
+#: src/module/autoeng/fcitx-autoeng.conf.in:3
+msgid "Auto English Mode"
+msgstr "དབྱིན་ཡིག་དཔེ་རྣམ།"
+
+#: src/module/autoeng/fcitx-autoeng.conf.in:4
+msgid "Auto Change to English Mode while Input Specific String"
+msgstr ""
+"དམིགས་བསལ་གྱི་ཡིག་རྟགས་ཕྲེང་ནང་འཇུག་བྱེད་སྐབས་དབྱིན་ཡིག་དཔེ་རྣམ་ལ་བརྗེ་བ།"
+
+#: src/module/autoeng/fcitx-autoeng.conf.in:9
+msgid "Auto English Trigger Word"
+msgstr "དབྱིན་ཡིག་དཔེ་རྣམ་རང་སྒྲུབ།"
+
+#: src/module/chttrans/fcitx-chttrans.conf.in:4
+msgid "Convert Simplified Chinese To Traditional Chinese"
+msgstr "ཟོར་ཡང་རྒྱ་ཡིག་ཟེུ་ལྕིའི་རྒྱ་ཡིག་ལ་བརྗེ་བ།"
+
+#: src/module/clipboard/fcitx-clipboard.conf.in:3
+#: src/module/clipboard/fcitx-clipboard.desc:1
+#: src/module/clipboard/fcitx-clipboard.desc:6
+#: src/module/clipboard/fcitx-clipboard.desc:13
+#: src/module/clipboard/fcitx-clipboard.desc:22
+#: src/module/clipboard/fcitx-clipboard.desc:27
+#: src/module/clipboard/fcitx-clipboard.desc:34
+#: src/module/clipboard/fcitx-clipboard.desc:44
+msgid "Clipboard"
+msgstr "དྲས་སྦྱར་པང་།"
+
+#: src/module/clipboard/fcitx-clipboard.conf.in:4
+msgid "Fcitx Clipboard access"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་དྲས་སྦྱར་པང་འདྲི་རྩད་ལ་རྒྱབ་སྐྱོར།"
+
+#: src/module/dbus/fcitx-dbus.conf.in:3
+msgid "DBus Support"
+msgstr "DBus རྒྱབ་སྐྱོར།"
+
+#: src/module/dbus/fcitx-dbus.conf.in:4
+msgid "Provides DBus Support (Used by other Addon)"
+msgstr "DBusརྒྱབ་སྐྱོར་མཁོ་འདོན། (ལྷུ་ལག་གཞན་གྱིས་སྤྱོད་པ།)"
+
+#: src/module/freedesktop-notify/fcitx-freedesktop-notify.conf.in:3
+msgid "Freedesktop.org Notification Support"
+msgstr "Freedesktop.orgཅོག་ངོས་ཀྱི་དྲན་སྐུལ་རྒྱབ་སྐྱོར།"
+
+#: src/module/freedesktop-notify/fcitx-freedesktop-notify.conf.in:4
+msgid "Provides Freedesktop.org Notification Support (Used by other Addon)"
+msgstr ""
+"Freedesktop.orgཅོག་ངོས་ཀྱི་དྲན་སྐུལ་རྒྱབ་སྐྱོར།(ལྷུ་ལག་གཞན་ལ་སྤྱོད་པ།)"
+
+#: src/module/fullwidthchar/fcitx-fullwidth-char.conf.in:3
+msgid "Fullwidth Character"
+msgstr "ཟུར་ཧྲིལ་ཡིག་རྟགས།"
+
+#: src/module/fullwidthchar/fcitx-fullwidth-char.conf.in:4
+msgid "Provides Fullwidth Character Input Support"
+msgstr "ཟུར་ཧྲིལ་ཡིག་རྟགས་ནང་འཇུག་རྒྱབ་སྐྱོར་མཁོ་འདོན།"
+
+#: src/module/imselector/fcitx-imselector.conf.in:3
+msgid "Input method selector"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་འདེམས་ཆས།"
+
+#: src/module/imselector/fcitx-imselector.conf.in:4
+msgid "Select specific input method via keyboard"
+msgstr "མཐེབ་གཞོང་གིས་དམིགས་བཙུགས་བྱས་པའི་ནང་འཇུག་བྱེད་སྟངས་འདེམས་པ།"
+
+#: src/module/lua/fcitx-lua.conf.in:3
+msgid "Fcitx Lua Support"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་Luaརྒྱབ་སྐྱོར།"
+
+#: src/module/lua/fcitx-lua.conf.in:4
+msgid "Add Lua script support to Fcitx"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ལ་Luaཡི་རྒྱབ་སྐྱོར་སྣོན་པ།"
+
+#: src/module/notificationitem/fcitx-notificationitem.conf.in:3
+#: src/module/notificationitem/fcitx-notificationitem.conf.in:4
+msgid "DBus based new Freedesktop.org tray icon"
+msgstr "DBusཡི་Freedesktop.orgསྡུད་སྡེར་རྟགས་རིས་གསར་པ།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
+msgid "Enchance pinyin input in Fcitx"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་སྒྲ་སྦྱོར་ནང་འཇུག་ཆེར་གཏོང་།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
+msgid "Provide extra feature for pinyin in Fcitx"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་སྒྲ་སྦྱོར་ནང་འཇུག་གི་བྱེད་ནུས་ཆེར་གཏོང་།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:9
+#: src/im/table/table.desc:126
+msgid "Symbol"
+msgstr "མཚོན་རྟགས།"
+
+#: src/module/punc/fcitx-punc.conf.in:4
+msgid "Punctuation Conversion Support"
+msgstr "ཚེག་རྟགས་བརྗེ་སྒྱུར་རྒྱབ་སྐྱོར།"
+
+#: src/module/quickphrase/fcitx-quickphrase.conf.in:3
+msgid "Quickphrase"
+msgstr "མྱུར་མགྱོགས་ནང་འཇུག"
+
+#: src/module/quickphrase/fcitx-quickphrase.conf.in:4
+msgid "Conveniently Input English or User-Defined Simple Table"
+msgstr ""
+"སྟབས་བདེའི་ངང་དབྱིན་ཡིག་གམ་སྤྱོད་མཁན་གྱིས་མཚན་ཉིད་བཞག་པའི་ཨང་རྟགས་རེའུ་མིག་ནང་འཇུག"
+
+#: src/module/quickphrase/fcitx-quickphrase.conf.in:9
+msgid "Quick Phrase List"
+msgstr "མྱུར་འཇུག་རེའུ་མིག"
+
+#: src/module/remote/fcitx-remote-module.conf.in:3
+msgid "Remote"
+msgstr "རྒྱང་སྦྲེལ་བསྐོ་སྤྱོད།"
+
+#: src/module/remote/fcitx-remote-module.conf.in:4
+msgid "Used by fcitx-remote to change Fcitx state from console"
+msgstr "fcitx-remoteསྤྱད་དེ་བཀའ་སྟར་ལས་ནང་འཇུག་བྱེད་སྟངས་བརྗེ་བ།"
+
+#: src/module/spell/fcitx-spell.conf.in:3
+msgid "Spell"
+msgstr "སྦྱོར་འབྲི།"
+
+#: src/module/spell/fcitx-spell.conf.in:4
+msgid "Fcitx Spelling Hint/Completion Support"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་སྦྱོར་འབྲི་དྲན་སྐུལ་ལམ་ཁ་གསབ་རྒྱབ་སྐྱོར།"
+
+#: src/module/unicode/fcitx-unicode.conf.in:3
+msgid "Fcitx Unicode Typing Support"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་Unicode ནང་འཇུག་རྒྱབ་སྐྱོར།"
+
+#: src/module/unicode/fcitx-unicode.conf.in:4
+msgid "Add Unicode Typing Support"
+msgstr "Unicode ནང་འཇུག་རྒྱབ་སྐྱོར་སྣོན་པ།"
+
+#: src/module/vk/fcitx-vk.conf.in:3 src/module/vk/fcitx-vk.conf.in:10
+msgid "Virtual Key Board"
+msgstr "རྟོག་བཟོའི་མཐེབ་གཞོང་།"
+
+#: src/module/vk/fcitx-vk.conf.in:4
+msgid "Virtual Key Board in order to input special character"
+msgstr "དམིགས་བསལ་གྱི་ཡིག་རྟགས་ནང་འཇུག་བྱེད་པའི་རྟོག་བཟོའི་མཐེབ་གཞོང་།"
+
+#: src/module/x11/fcitx-x11.conf.in:3
+msgid "X11 Support"
+msgstr "X11རྒྱབ་སྐྱོར།"
+
+#: src/module/x11/fcitx-x11.conf.in:4
+msgid "X11 Utilitiy used by other Addon"
+msgstr "ལྷུ་ལག་གཞན་གྱིས་སྤྱོད་པའི་X11 ཡོ་བྱད་རྟེན་འབྱུང་གྲངས།"
+
+#: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
+#: src/module/xkbdbus/fcitx-xkbdbus.conf.in:4
+msgid "X Keyboard Integration export with DBus"
+msgstr "DBus བརྒྱུད་དེ་བཏོན་པའི་མཐེབ་གཞོང་Xའདུས་གྲུབ་མཐུད་ཁ།"
+
+#: src/module/xkb/fcitx-xkb.conf.in:3 src/module/xkb/fcitx-xkb.conf.in:4
+msgid "X Keyboard Integration"
+msgstr "Xམཐེབ་གཞོང་འདུས་གྲུབ།"
+
+#: src/ui/classic/fcitx-classic-ui.conf.in:4
+msgid "Classic User Interface with Skin support"
+msgstr "པགས་པ་ཡོད་དེ་རྒྱབ་སྐྱོར་བྱེད་པའི་དཔེ་མཚོན་མཐུད་ངོས།"
+
+#: src/ui/classic/fcitx-skin-installer.desktop.in:3
+msgid "Fcitx Skin Installer"
+msgstr "ནང་འཇུག་བྱེད་སྟངས། ་པགས་པ་སྒྲིག་འཇུག་བྱེད་ཆས།"
+
+#: src/ui/classic/fcitx-skin-installer.desktop.in:4
+msgid "Installer Script for Fcitx Skin"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་པགས་པ་སྒྲིག་འཇུག་བྱེད་ཆས།"
+
+#: src/ui/kimpanel/fcitx-kimpanel-ui.conf.in:3
+msgid "Kimpanel"
+msgstr "Kimpanel"
+
+#: src/ui/kimpanel/fcitx-kimpanel-ui.conf.in:4
+msgid "Kimpanel Support for Fcitx"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་Kimpanelརྒྱབ་སྐྱོར།"
+
+#: data/addon.desc:1 data/addon.desc:5 data/addon.desc:10 data/addon.desc:15
+#: data/addon.desc:24 data/addon.desc:29 data/addon.desc:33 data/addon.desc:40
+#: data/addon.desc:45 data/addon.desc:50 data/addon.desc:55 data/addon.desc:64
+#: data/addon.desc:69 data/addon.desc:74 data/addon.desc:79
+msgid "Addon"
+msgstr "ཟུར་སྣོན་སྒྲིག་ལྷུ།"
+
+#: data/addon.desc:3 data/inputmethod.desc:7
+msgid "Name"
+msgstr "མིང་།"
+
+#: data/addon.desc:7
+msgid "Name that can be display in UI"
+msgstr "སྤྱོད་མཁན་མཐུད་ངོས་ཁྲོད་ཀྱི་མིང་དུ་མངོན་པ།"
+
+#: data/addon.desc:12
+msgid "Comment"
+msgstr "ཞིབ་བརྗོད།"
+
+#: data/addon.desc:18 data/inputmethod.desc:1 data/inputmethod.desc:5
+#: data/inputmethod.desc:9 data/inputmethod.desc:13 data/inputmethod.desc:17
+#: data/inputmethod.desc:21
+msgid "InputMethod"
+msgstr "ནང་འཇུག་བྱེད་སྟངས།"
+
+#: data/addon.desc:19
+msgid "Frontend"
+msgstr "མདུན་སྣེ།"
+
+#: data/addon.desc:20
+msgid "Module"
+msgstr "དཔེ་དུམ།"
+
+#: data/addon.desc:21
+msgid "UI"
+msgstr "མཐུད་ངོས།"
+
+#: data/addon.desc:22
+msgid "Category"
+msgstr "རིགས།"
+
+#: data/addon.desc:27
+msgid "Enabled"
+msgstr "འགོ་སློང་།"
+
+#: data/addon.desc:31
+msgid "Library"
+msgstr "མཛོད།"
+
+#: data/addon.desc:36
+msgid "SharedLibrary"
+msgstr "མཉམ་སྤྱོད་མཛོད།"
+
+#: data/addon.desc:37
+msgid "DBus"
+msgstr "DBus"
+
+#: data/addon.desc:38
+msgid "Type"
+msgstr "རིགས་གྲས།"
+
+#: data/addon.desc:43
+msgid "Dependency"
+msgstr "རྟེན་པ།"
+
+#: data/addon.desc:48
+msgid "Priority of addon"
+msgstr "ཟུར་སྣོན་སྒྲིག་ལྷུའི་སྔོན་འཇོག་རིམ་པ།"
+
+#: data/addon.desc:53
+msgid "Sub Configuration for Module"
+msgstr "དཔེ་དུམ་གྱི་སྡེབ་སྒྲིག་བུ་ཆ།"
+
+#: data/addon.desc:58
+msgid "Register IM"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་ཐབས་ཤེས་ཐོ་འགོད།"
+
+#: data/addon.desc:60
+msgid "Self"
+msgstr "རང་འདོན།"
+
+#: data/addon.desc:61
+msgid "Exec"
+msgstr "Exec"
+
+#: data/addon.desc:62
+msgid "ConfigFile"
+msgstr "སྡེབ་སྒྲིག་ཡིག་ཆ།"
+
+#: data/addon.desc:67
+msgid "Argument for InputMethod Register"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་ཞུགས་གྲངས་ཐོ་འགོད།"
+
+#: data/addon.desc:72
+msgid "Fallback UI Addon"
+msgstr "གདམ་གྲབས་མཐུད་ངོས་ཀྱི་ཟུར་སྣོན་སྒྲིག་ལྷུ།"
+
+#: data/addon.desc:77
+msgid "Use RTLD_LOCAL to load library"
+msgstr "RTLD_GLOBAL སྤྱད་དེ་མཛོད་སྣོན་འཇུག"
+
+#: data/addon.desc:82
+msgid "Do not show in GUI"
+msgstr "པར་རིས་མཐུད་ངོས་སུ་མི་མངོན།"
+
+#: data/config.desc:1 data/config.desc:7 data/config.desc:13
+#: data/config.desc:39 data/config.desc:46 data/config.desc:53
+#: data/config.desc:60 data/config.desc:65 data/config.desc:71
+#: data/config.desc:81 data/config.desc:87 data/config.desc:93
+#: data/config.desc:99 data/config.desc:105 data/config.desc:111
+#: data/config.desc:117 data/config.desc:122 data/config.desc:127
+#: data/config.desc:133 data/config.desc:139 data/config.desc:145
+#: data/config.desc:152
+msgid "Hotkey"
+msgstr "མྱུར་མཐེབ།"
+
+#: data/config.desc:5
+msgid "Trigger Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་འགོ་སློང་ངམ་འགོ་མི་སློང་བ་བརྗེ་བ།"
+
+#: data/config.desc:10
+msgid "Use extra trigger key only after using it to inactivate"
+msgstr "བརྗེ་མཐེབ་འདོར་བ་སྐུལ་སློང་བྱས་རྗེས་གཞི་ནས་དེ་སྐྱད་དེ་བརྗེ་བ།"
+
+#: data/config.desc:16
+msgid "R_CTRL"
+msgstr "གཡས་Ctrl"
+
+#: data/config.desc:17
+msgid "R_SHIFT"
+msgstr "གཡས་Shift"
+
+#: data/config.desc:18
+msgid "L_SHIFT"
+msgstr "གཡོན་Shift"
+
+#: data/config.desc:19
+msgid "L_CTRL"
+msgstr "གཡོན་Ctrl"
+
+#: data/config.desc:20
+msgid "ALT_L_SHIFT"
+msgstr "Alt+གཡོན་Shift"
+
+#: data/config.desc:21
+msgid "ALT_R_SHIFT"
+msgstr "Alt+གཡས་Shift"
+
+#: data/config.desc:22
+msgid "CTRL Both"
+msgstr "ཟུར་གཉིས་ཀྱི་ Ctrl"
+
+#: data/config.desc:23
+msgid "SHIFT Both"
+msgstr "ཟུར་གཉིས་ཀྱི་Shift"
+
+#: data/config.desc:24
+msgid "L_ALT"
+msgstr "གཡོན་ Alt"
+
+#: data/config.desc:25
+msgid "R_ALT"
+msgstr "གཡས་Alt"
+
+#: data/config.desc:26
+msgid "ALT Both"
+msgstr "ཟུར་གཉིས་ཀྱི་Alt"
+
+#: data/config.desc:27
+msgid "Left Super"
+msgstr "གཡོན་Super"
+
+#: data/config.desc:28
+msgid "Right Super"
+msgstr "གཡས་Super"
+
+#: data/config.desc:29
+msgid "Super Both"
+msgstr "ཟུར་གཉིས་ཀྱི་Super"
+
+#: data/config.desc:30
+msgid "Ctrl+Left Super"
+msgstr "Ctrl+གཡོན་ Super"
+
+#: data/config.desc:31
+msgid "Ctrl+Right Super"
+msgstr "Ctrl+གཡས་ Super"
+
+#: data/config.desc:32
+msgid "Super+Left Ctrl"
+msgstr "Super+གཡོན་ Ctrl"
+
+#: data/config.desc:33
+msgid "Super+Right Ctrl"
+msgstr "Super+གཡས་ Ctrl"
+
+#: data/config.desc:35
+msgid "Custom"
+msgstr "རང་སྒྲུབ།"
+
+#: data/config.desc:37
+msgid "Extra key for trigger input method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་སྐུལ་སློང་མྱུར་མཐེབ།"
+
+#: data/config.desc:42
+msgid "Custom switch key"
+msgstr "རང་སྒྲུབ་བརྗེ་མཐེབ།"
+
+#: data/config.desc:49
+msgid "Activate input method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་སྐུལ་སློང་།"
+
+#: data/config.desc:56
+msgid "Inactivate Input Method"
+msgstr "ནང་འཇུག་བྱེད་ཐབས་སྐུལ་སློང་བྱེད་པ་འདོར་བ།"
+
+#: data/config.desc:63
+msgid "Enable Hotkey to scroll Between Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་དབར་གྱི་བརྗེ་སྒྱུར་འགོ་སློང་།"
+
+#: data/config.desc:68
+msgid "Include Inactivate when scrolling between Input Method"
+msgstr ""
+"ནང་འཇུག་བྱེད་སྟངས་དབར་བརྗེ་སྒྱུར་བྱེད་དུས་འགོ་བསླངས་མེད་པའི་རྣམ་པ་ཚུད་པ།"
+
+#: data/config.desc:74
+msgid "CTRL_SHIFT"
+msgstr "Ctrl+Shift"
+
+#: data/config.desc:75
+msgid "ALT_SHIFT"
+msgstr "Alt+Shift"
+
+#: data/config.desc:76
+msgid "CTRL_SUPER"
+msgstr "Ctrl+Super"
+
+#: data/config.desc:77
+msgid "ALT_SUPER"
+msgstr "Alt+Super"
+
+#: data/config.desc:79
+msgid "Scroll between Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་བརྗེ་མཐེབ།"
+
+#: data/config.desc:84
+msgid "Reload configuration"
+msgstr "སྡེབ་སྒྲིག་ཡང་བསྐྱར་སྣོན་འཇུག"
+
+#: data/config.desc:90
+msgid "Interval of Two Key Input"
+msgstr "ནང་འཇུག་བར་སྟོང་།"
+
+#: data/config.desc:96
+msgid "Switching Virtual Keyboard"
+msgstr "རྟོག་བཟོའི་མཐེབ་གཞོང་བརྗེ་བ།"
+
+#: data/config.desc:102
+msgid "Switching Remind Mode"
+msgstr "གཅིག་བརྟེན་གཅིག་དྲན་གྱི་དཔེ་རྣམ་ལ་བརྗེ་བ།"
+
+#: data/config.desc:108
+msgid "Switching Full Width Character Mode"
+msgstr "ཟུར་ཧྲིལ་ལ་བརྗེ་བ།"
+
+#: data/config.desc:114
+msgid "Switch Full Width Punc Mode"
+msgstr "ཟུར་ཧྲིལ་ཚེག་རྟགས་ལ་བརྗེ་བ།"
+
+#: data/config.desc:120
+msgid "Prev Page"
+msgstr "ཤོག་ལྷེ་གོང་མ།"
+
+#: data/config.desc:125
+msgid "Next Page"
+msgstr "ཤོག་ལྷེ་རྗེས་མ།"
+
+#: data/config.desc:130
+msgid "Choose Second and Third Candidate Word"
+msgstr "གདམ་བྱའི་ཚིག་གཉིས་པ་གསུམ་པ་འདེམས་པ།"
+
+#: data/config.desc:136
+msgid "Saving All Config and Input History"
+msgstr "སྡེབ་སྒྲིག་དང་ནང་འཇུག་གི་ལོ་རྒྱུས་ཉར་ཚགས།"
+
+#: data/config.desc:142
+msgid "Switch Embedded Preedit"
+msgstr "རྩོམ་སྒྲིག་བྱེད་གྲབས་ཡོད་པའི་ཡིག་རྟགས་ཕྲེང་བརྗེ་བ།"
+
+#: data/config.desc:148
+msgid "Previous Candidate Word"
+msgstr "གདམ་བྱའི་ཚིག་སྔ་མ།"
+
+#: data/config.desc:149
+msgid ""
+"This is used in some modules and input methods to navigate to the previous "
+"candidate word"
+msgstr ""
+"ལྷུ་ལག་ཆ་ཤས་སམ་ནང་འཇུག་བྱེད་སྟངས་ཁྲོད་གདམ་བྱའི་ཚིག་སྔ་མར་བརྗེ་བའི་མྱུར་མཐེབ།"
+
+#: data/config.desc:155
+msgid "Next Candidate Word"
+msgstr "གདམ་བྱའི་ཚིག་རྗེས་མ།"
+
+#: data/config.desc:156
+msgid ""
+"This is used in some modules and input methods to navigate to the next "
+"candidate word"
+msgstr ""
+"ལྷུ་ལག་ཆ་ཤས་སམ་ནང་འཇུག་བྱེད་སྟངས་ཁྲོད་གདམ་བྱའི་ཚིག་རྗེས་མར་བརྗེ་བའི་མྱུར་མཐེབ།"
+
+#: data/config.desc:159 data/config.desc:165 data/config.desc:174
+msgid "Program"
+msgstr "བྱ་རིམ།"
+
+#: data/config.desc:162
+msgid "Seconds sleep before fcitx really start"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་དངོས་སུ་འགོ་མ་བསླང་གོང་གི་སྐར་ཆ།"
+
+#: data/config.desc:169
+msgid "No"
+msgstr "མིན།"
+
+#: data/config.desc:170
+msgid "All"
+msgstr "ཆ་ཚང་།"
+
+#: data/config.desc:171
+msgid "PerProgram"
+msgstr "བྱ་རིམ་ལྟར།"
+
+#: data/config.desc:172
+msgid "Share State Among Window"
+msgstr "སྒེའུ་ཁུང་བར་མཉམ་སྤྱོད་བྱེད་པའི་རྣམ་པ།"
+
+#: data/config.desc:178
+msgid "Inactive"
+msgstr "སྐུལ་སློང་མིན་པ།"
+
+#: data/config.desc:179
+msgid "Active"
+msgstr "སྐུལ་སློང་།"
+
+#: data/config.desc:180
+msgid "Default Input Method State"
+msgstr "སོར་བཞག་གི་ནང་འཇུག་བྱེད་སྟངས།"
+
+#: data/config.desc:183 data/config.desc:189 data/config.desc:195
+#: data/config.desc:201 data/config.desc:208 data/config.desc:214
+msgid "Output"
+msgstr "ཕྱིར་འདྲེན།"
+
+#: data/config.desc:186
+msgid "Type half width Punc After a Number"
+msgstr "ཨང་ཀིའི་རྗེས་ཟུར་ཕྱེད་མཚོན་རྟགས་འཇོག་པ།"
+
+#: data/config.desc:192
+msgid "Disable Paging in Remind Mode"
+msgstr "གཅིག་བརྟེན་གཅིག་དྲན་དཔེ་རྣམ་གྱིས་ཤོག་ངོས་ཨ་སློག་བྱེད་མི་ཆོག"
+
+#: data/config.desc:198
+msgid "Commit when toggle state"
+msgstr "བརྗེ་སྐབས་སྐྱེལ་བ།"
+
+#: data/config.desc:199
+msgid "Send typed raw text if Switch to inactive Mode"
+msgstr ""
+"སྐུལ་སློང་མིན་པར་བརྗེ་སྐབས་མིག་སྔར་ནང་འཇུག་བྱས་པའི་ཐོག་མའི་ཡིག་ཆ་ཡོལ་དུ་འཆར་བ།"
+
+#: data/config.desc:204 src/im/table/table.desc:176
+msgid "Candidate Word Number"
+msgstr "གདམ་བྱའི་ཚིག་གི་གྲངས།"
+
+#: data/config.desc:211
+msgid "Give the tips of Phrase"
+msgstr "ཚིག་མཛོད་ཀྱི་ཚིག་གྲུབ་དྲན་སྐུལ།"
+
+#: data/config.desc:217
+msgid "Do not commit preedit text when unfocus a window"
+msgstr "སྒེའུ་ཁུལ་ལ་མདོ་ཚེག་མེད་སྐབས་རྩོམ་སྒྲིག་བྱེད་གྲབས་ཀྱི་ཡིག་ཆ་མི་སྐྱེལ།"
+
+#: data/config.desc:220 data/config.desc:226 data/config.desc:232
+#: data/config.desc:238 data/config.desc:244 data/config.desc:250
+#: data/config.desc:256
+msgid "Appearance"
+msgstr "ཕྱི་ཚུལ།"
+
+#: data/config.desc:223
+msgid "Show Input Method Hint After Input method changed"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་བརྗེ་སྐབས་དྲན་དྐུལ་བྱེད་པ།"
+
+#: data/config.desc:229
+msgid "Show Input Method Hint After Input method changed and Focus in"
+msgstr ""
+"ནང་འཇུག་མདོ་ཚེག་རག་པ་མ་ཟད་ནང་འཇུག་བྱེད་སྟངས་འགྱུར་སྐབས་དྲན་སྐུལ་བྱེད་པ།"
+
+#: data/config.desc:235
+msgid "Input Method Hint will be only shown when state is active"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་དྲན་སྐུལ་དེ་སྐུལ་སློང་བྱས་ཡོད་སྐབས་མངོན་པ།"
+
+#: data/config.desc:241
+msgid "Show Input Speed"
+msgstr "ནང་འཇུག་གི་མྱུར་ཚད་མངོན་པ།"
+
+#: data/config.desc:247
+msgid "Show Version"
+msgstr "མངོན་སྟོན་པར་གཞི།"
+
+#: data/config.desc:253
+msgid "Do not show input window if there is only preedit string"
+msgstr ""
+"རྩོམ་སྒྲིག་བྱེད་གྲབས་ཀྱི་ཡིག་རྟགས་ཕྲེང་ཁོ་ན་ཡོད་དུས་ནང་འཇུག་སྒེའུ་ཁུང་མི་མངོན།"
+
+#: data/config.desc:259
+msgid "Do not show input window if there is only one candidate and preedit"
+msgstr ""
+"གདམ་བྱའི་ཚིག་གཅིག་དང་རྩོམ་སྒྲིག་བྱེད་གྲབས་ཀྱི་ཡིག་རྟགས་ཕྲེང་ཁོ་ན་ཡོད་དུས་ནང་འཇུག་སྒེའུ་ཁུང་མི་མངོན།"
+
+#: data/inputmethod.desc:3
+msgid "UniqueName"
+msgstr "མིང་ཉག་ཅིག"
+
+#: data/inputmethod.desc:11
+msgid "IconName"
+msgstr "པར་རིས་མིང་།"
+
+#: data/inputmethod.desc:15
+msgid "Priority"
+msgstr "སྔོན་འཇོག་རིམ་པ།"
+
+#: data/inputmethod.desc:19
+msgid "LangCode"
+msgstr "སྐད་ཡིག་ཚབ་ཨང་།"
+
+#: data/inputmethod.desc:23
+msgid "Parent"
+msgstr "ཁོངས་གཏོགས་ཀྱི་ཟུར་སྣོན་སྒྲིག་ལྷུ།"
+
+#: data/profile.desc:1 data/profile.desc:6 data/profile.desc:11
+#: data/profile.desc:16 data/profile.desc:21 data/profile.desc:26
+msgid "Profile"
+msgstr "སྔོན་འགོད་ཡིག་ཆ།"
+
+#: data/profile.desc:2
+msgid "Use Full Width Character"
+msgstr "ཟུར་ཕྱེད་ཡིག་རྟགས་བེད་སྤྱོད།"
+
+#: data/profile.desc:7
+msgid "Use Wide Punctuation"
+msgstr "ཟུར་ཧྲིལ་ཚེག་རྟགས་བེད་སྤྱོད།"
+
+#: data/profile.desc:12
+msgid "Prompt the phrases after input"
+msgstr "ནང་འཇུག་བྱས་རྗེས་མིང་ཚིག་གཅིག་བརྟེན་གཅིག་དྲན།"
+
+#: data/profile.desc:17
+msgid "Current Input Method Name"
+msgstr "མིག་སྔའི་ནང་འཇུག་བྱེད་སྟངས་ཀྱི་མིང་།"
+
+#: data/profile.desc:22
+msgid "Current Enabled Input Method List"
+msgstr "མིག་སྔར་འགོ་བསླངས་པའི་ནང་འཇུག་བྱེད་སྟངས་ཀྱི་རེའུ་མིག"
+
+#: data/profile.desc:29
+msgid "Show Preedit String in Client Window"
+msgstr ""
+"མཁོ་མཁན་གྱི་སྒེའུ་ཁུང་ན་རྩོམ་སྒྲིག་བྱེད་གྲབས་ཀྱི་ཡིག་རྟགས་ཕྲེང་མངོན་པ།"
+
+#: src/frontend/xim/fcitx-xim.desc:1
+msgid "Xim"
+msgstr "Xim"
+
+#: src/frontend/xim/fcitx-xim.desc:4
+msgid "Use On The Spot Style for XIM (Cannot change during running)"
+msgstr "XIMལ་རྣམ་པ་On The Spotསྤྱོད་པ། （སྐོར་སྐྱོད་བྱེད་དུས་བརྗེ་ཐབས་མེད།）"
+
+#: src/im/keyboard/fcitx-keyboard.desc:4
+msgid "Commit with extra space when choose candidate word"
+msgstr "གདམ་བྱའི་ཚིག་འདེམས་སྐབས་སྟོང་པ་འཇོག"
+
+#: src/im/keyboard/fcitx-keyboard.desc:7 src/im/table/table.desc:141
+#: src/module/autoeng/fcitx-autoeng.desc:2
+#: src/module/clipboard/fcitx-clipboard.desc:35
+#: src/module/quickphrase/fcitx-quickphrase.desc:16
+msgid "Choose key modifier"
+msgstr "རྒྱན་མཐེབ་འདེམས་པ།"
+
+#: src/im/keyboard/fcitx-keyboard.desc:11 src/im/table/table.desc:145
+#: src/module/autoeng/fcitx-autoeng.desc:6
+#: src/module/clipboard/fcitx-clipboard.desc:39
+#: src/module/quickphrase/fcitx-quickphrase.desc:5
+#: src/module/quickphrase/fcitx-quickphrase.desc:20
+msgid "None"
+msgstr "མེད།"
+
+#: src/im/keyboard/fcitx-keyboard.desc:12 src/im/table/table.desc:146
+#: src/module/autoeng/fcitx-autoeng.desc:7
+#: src/module/clipboard/fcitx-clipboard.desc:40
+#: src/module/quickphrase/fcitx-quickphrase.desc:21
+msgid "Alt"
+msgstr "Alt"
+
+#: src/im/keyboard/fcitx-keyboard.desc:13 src/im/table/table.desc:147
+#: src/module/autoeng/fcitx-autoeng.desc:8
+#: src/module/clipboard/fcitx-clipboard.desc:41
+#: src/module/quickphrase/fcitx-quickphrase.desc:22
+msgid "Ctrl"
+msgstr "Ctrl"
+
+#: src/im/keyboard/fcitx-keyboard.desc:14 src/im/table/table.desc:148
+#: src/module/autoeng/fcitx-autoeng.desc:9
+#: src/module/clipboard/fcitx-clipboard.desc:42
+#: src/module/quickphrase/fcitx-quickphrase.desc:23
+msgid "Shift"
+msgstr "Shift"
+
+#: src/im/keyboard/fcitx-keyboard.desc:19
+msgid "Toggle the word hint"
+msgstr "མིང་ཚིག་དྲན་སྐུལ་བརྗེ་བ།"
+
+#: src/im/keyboard/fcitx-keyboard.desc:25
+msgid "Minimum length to trigger word hint"
+msgstr "མིང་ཚིག་ཆུང་ཤོས་ཀྱི་རིང་ཚད་དྲན་སྐུལ།"
+
+#: src/im/keyboard/fcitx-keyboard.desc:32
+msgid "Maximum length of spell hint list"
+msgstr "སྦྱོར་འབྲི་དྲན་སྐུལ་གྱི་གདམ་བྱའི་ཚིག་མང་ཤོས།"
+
+#: src/im/keyboard/fcitx-keyboard.desc:33
+msgid ""
+"A different value from the global one may be useful when using horizontal "
+"candidate list"
+msgstr ""
+"ཁྱོད་ཀྱིས་གལ་ཏེ་འཕྲེད་ངོས་ཀྱི་གདམ་བྱའི་ཚིག་སྤྱོད་སྐབས་ཁྱོན་ཡོངས་ཀྱི་སྒྲིག་འགོད་དང་མི་གཅིག་པས་རོགས་རམ་བྱེད་ཐུབ།"
+
+#: src/im/keyboard/fcitx-keyboard.desc:39
+msgid "Use enter to commit the existing string"
+msgstr "འབེབས་བརྡ་སྤྱད་དེ་ནང་འཇུག་བྱས་པའི་ཡིག་རྟགས་ཕྲེང་གཏན་ཁེལ་བྱེད།"
+
+#: src/im/keyboard/fcitx-keyboard.desc:44
+msgid "Add current input buffer to user dictionary"
+msgstr "མིག་སྔར་ནང་འཇུག་བྱས་པའི་ནང་དོན་དག་སྤྱོད་མཁན་གྱི་ཚིག་མཛོད་ནང་འཇུག་པ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:5
+msgid "MS"
+msgstr "མཉེན་ཆས་ཆུང་ངུ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:6
+msgid "Ziguang"
+msgstr "འོད་སྨུག་པོ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:7
+msgid "ABC"
+msgstr "རིག་ནུས་ABC"
+
+#: src/im/pinyin/fcitx-pinyin.desc:8
+msgid "Zhongwenzhixing"
+msgstr "རྒྱ་ཡིག་གི་སྐར་མ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:9
+msgid "PinyinJiaJia"
+msgstr "སྒྲ་སྦྱོར་ཅ་ཅ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:10
+msgid "XiaoHe"
+msgstr "ཞའོ་ཧོ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:11
+msgid "User Defined"
+msgstr "མཁོ་མཁན་གྱི་མཚན་ཉིད།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:13
+msgid "Default Shuangpin Schema"
+msgstr "སོར་བཞག་གི་ཉིས་སྡེབ་ཇུས་གཞི།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:18
+msgid "Fix preedit cursor at head"
+msgstr "འོད་རྟགས་ནང་འཇུག་བྱ་གྲབས་ཡོད་པའི་ཡིག་ཆའི་འགོར་འཇོག་པ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:23
+msgid "Use V to trigger quickphrase"
+msgstr "Vབེད་སྤྱོད་བྱས་ཏེ་མྱུར་འཇུག་ཐུག་ཐོན།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:28
+msgid "Use Complete Pinyin"
+msgstr "སྒྲ་སྦྱོར་ཆ་ཚང་བ་སྤྱོད་པ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:33
+msgid "Auto Create Phrase"
+msgstr "མིང་རང་སྒྲུབ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:38
+msgid "Save Auto Created Phrase"
+msgstr "མིང་རང་སྒྲུབ་ཉར་ཚགས།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:43
+msgid "Hotkey of Adding Frequent Word"
+msgstr "མྱུར་མཐེབ། རྒྱུན་སྤྱོད་ཡི་གེ་སྣོན་པ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:48
+msgid "Hotkey of Deleting Frequent Word"
+msgstr "མྱུར་མཐེབ། རྒྱུན་སྤྱོད་ཡི་གེ་བསུབ་པ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:53
+msgid "Hotkey of Delete User Phrase"
+msgstr "མྱུར་མཐེབ། སྤྱོད་མཁན་གྱི་ཚིག་གྲུབ་བསུབ་པ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:58 src/im/pinyin/fcitx-pinyin.desc:67
+#: src/im/pinyin/fcitx-pinyin.desc:76 src/im/table/table.desc:23
+msgid "AdjustNo"
+msgstr "ལེགས་སྒྲིག་མི་བྱེད།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:59 src/im/pinyin/fcitx-pinyin.desc:68
+#: src/im/pinyin/fcitx-pinyin.desc:77 src/im/table/table.desc:24
+msgid "AdjustFast"
+msgstr "མྱུར་མགྱོགས།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:60 src/im/pinyin/fcitx-pinyin.desc:69
+#: src/im/pinyin/fcitx-pinyin.desc:78 src/im/table/table.desc:25
+msgid "AdjustFreq"
+msgstr "འགུལ་ཚད་ལྟར།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:62
+msgid "Rule of Candidate Word Order"
+msgstr "བདམ་བྱའི་ཡི་གེའི་གོ་རིམ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:71
+msgid "Rule of Candidate Phrase Order"
+msgstr "བདམ་བྱའི་མིང་གི་གོ་རིམ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:80
+msgid "Rule of Frequent Word Order"
+msgstr "རྒྱུན་སྤྱོད་ཡི་གེའི་གོ་རིམ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:85
+msgid "Fuzzy an and ang"
+msgstr "anདང་angམི་གསལ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:90
+msgid "Fuzzy en and eng"
+msgstr "enདང་engམི་གསལ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:95
+msgid "Fuzzy ian and iang"
+msgstr "ianདང་iangམི་གསལ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:100
+msgid "Fuzzy in and ing"
+msgstr "inདང་ingམི་གསལ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:105
+msgid "Fuzzy ou and u"
+msgstr "ouདང་uམི་གསལ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:110
+msgid "Fuzzy uan and uang"
+msgstr "uanདང་uangམི་གསལ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:115
+msgid "Fuzzy c and ch"
+msgstr "cདང་chམི་གསལ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:120
+msgid "Fuzzy f and h"
+msgstr "fདང་hམི་གསལ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:125
+msgid "Fuzzy l and n"
+msgstr "lདང་nམི་གསལ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:130
+msgid "Fuzzy s and sh"
+msgstr "sདང་shམི་གསལ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:135
+msgid "Fuzzy z and zh"
+msgstr "zདང་zhམི་གསལ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:140
+msgid "Fix misstype gn/ng"
+msgstr "སྒྲ་སྦྱོར་ཁྲོད་ཀྱི་ng->gnཡི་ནང་འཇུག་ནོར་འཁྲུལ་སྣང་མེད་དུ་གཏོང་བ།"
+
+#: src/im/pinyin/fcitx-pinyin.desc:145
+msgid "Fix misstype v/u like jv, qv, xv, yv"
+msgstr ""
+"སྒྲ་སྦྱོར་vདང་qv  xv  yvཁྲོད་ཀྱི་u->vཡི་ནང་འཇུག་ནོར་འཁྲུལ་སྣང་མེད་དུ་གཏོང་བ།"
+
+#: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
+#: src/im/table/fcitx-table.desc:11 src/im/table/fcitx-table.desc:16
+#: src/im/table/fcitx-table.desc:21 src/module/unicode/fcitx-unicode.desc:3
+msgid "Key"
+msgstr "མཐེབ་མནོན།"
+
+#: src/im/table/fcitx-table.desc:4
+msgid "Add Phrase"
+msgstr "ཚིག་གྲུབ་སྣོན་པ།"
+
+#: src/im/table/fcitx-table.desc:9
+msgid "Delete Phrase"
+msgstr "ཚིག་གྲུབ་བསུབ་པ།"
+
+#: src/im/table/fcitx-table.desc:14 src/im/table/table.desc:19
+msgid "Adjust Order"
+msgstr "ནང་འཇུག་གོ་རིམ།"
+
+#: src/im/table/fcitx-table.desc:19
+msgid "Clear Frequency"
+msgstr "ནང་འཇུག་བྱུང་ཚད་གཙང་སེལ།"
+
+#: src/im/table/fcitx-table.desc:24
+msgid "Lookup Pinyin"
+msgstr "སྒྲ་སྦྱོར་ལྡོག་བཤེར།"
+
+#: src/im/table/table.desc:1 src/im/table/table.desc:6
+#: src/im/table/table.desc:10 src/im/table/table.desc:14
+#: src/im/table/table.desc:18 src/im/table/table.desc:27
+#: src/im/table/table.desc:33 src/im/table/table.desc:38
+#: src/im/table/table.desc:43 src/im/table/table.desc:48
+#: src/im/table/table.desc:53 src/im/table/table.desc:58
+#: src/im/table/table.desc:63 src/im/table/table.desc:68
+#: src/im/table/table.desc:73 src/im/table/table.desc:78
+#: src/im/table/table.desc:83 src/im/table/table.desc:87
+#: src/im/table/table.desc:92 src/im/table/table.desc:97
+#: src/im/table/table.desc:102 src/im/table/table.desc:107
+#: src/im/table/table.desc:112 src/im/table/table.desc:116
+#: src/im/table/table.desc:125 src/im/table/table.desc:130
+#: src/im/table/table.desc:135 src/im/table/table.desc:140
+#: src/im/table/table.desc:150 src/im/table/table.desc:155
+#: src/im/table/table.desc:160 src/im/table/table.desc:165
+#: src/im/table/table.desc:170 src/im/table/table.desc:175
+#: src/im/table/table.desc:182 src/im/table/table.desc:187
+#: src/im/table/table.desc:192 src/im/table/table.desc:197
+#: src/im/table/table.desc:202 src/im/table/table.desc:207
+#: src/im/table/table.desc:212 src/im/table/table.desc:217
+#: src/im/table/table.desc:222
+msgid "CodeTable"
+msgstr "ཨང་རྟགས་རེའུ་མིག"
+
+#: src/im/table/table.desc:2
+msgid "Unique Name for Table"
+msgstr "ཨང་རྟགས་རེའུ་མིག་གི་མིང་ཉག་གཅིག་པུ།"
+
+#: src/im/table/table.desc:7
+msgid "Code Table Name"
+msgstr "ཨང་རྟགས་རེའུ་མིག་གི་མིང་།"
+
+#: src/im/table/table.desc:11
+msgid "Icon Name"
+msgstr "རྟགས་རིས་མིང་།"
+
+#: src/im/table/table.desc:15
+msgid "Code Table File"
+msgstr "ཨང་རྟགས་རེའུ་མིག་ཡིག་ཆ།"
+
+#: src/im/table/table.desc:28
+msgid "Level of simple code"
+msgstr "སྟབས་བདེའི་ཨང་རྟགས་རིམ་པ།"
+
+#: src/im/table/table.desc:29
+msgid "Do not sort word with code less than this level"
+msgstr "རིམ་པ་འདི་ལས་ཐུང་བའི་ཨང་རྟགས་གོ་རིམ་མི་སྒྲིག"
+
+#: src/im/table/table.desc:34
+msgid "Order of Code Table"
+msgstr "ཨང་རྟགས་རེའུ་མིག་གོ་རིམ།"
+
+#: src/im/table/table.desc:39
+msgid "Use Pinyin"
+msgstr "སྒྲ་སྦྱོར་སྤྱོད་པ།"
+
+#: src/im/table/table.desc:44
+msgid "Pinyin Key"
+msgstr "སྒྲ་སྦྱོར་གྱི་མཐེབ་གཞོང་།"
+
+#: src/im/table/table.desc:49
+msgid "Auto Send Candidate Word"
+msgstr "རང་སྒུལ་ངང་འཆར་བ།"
+
+#: src/im/table/table.desc:54
+msgid ""
+"Minimum length trigger auto send candidate word when only one candidate"
+msgstr ""
+"གདམ་བྱའི་ཚིག་གཅིག་ཁོ་ན་ཡོད་དུས་རང་བཞིན་གྱིས་འཆར་བའི་ནང་འཇུག་རིང་ཚད་ཐུང་ཤོས།"
+
+#: src/im/table/table.desc:59
+msgid ""
+"Minimum length trigger auto send candidate when there will be no candidate"
+msgstr "གདམ་བྱའི་ཚིག་མེད་པའི་རང་བཞིན་གྱིས་འཆར་བའི་ནང་འཇུག་རིང་ཚད་ཐུང་ཤོས།"
+
+#: src/im/table/table.desc:64
+msgid "Send Raw Preedit"
+msgstr "ཐོག་མའི་ནང་འཇུག་མཐེབ་གཞོང་སྐྱེལ་གཏོང་།"
+
+#: src/im/table/table.desc:69
+msgid "End Key"
+msgstr "མཚམས་འཇོག་མཐེབ་གཞོང་།"
+
+#: src/im/table/table.desc:74
+msgid "Use Matching Key"
+msgstr "རབ་རིབ་མཐེབ་གཞོང་སྤྱོད་པ།"
+
+#: src/im/table/table.desc:79
+msgid "Matching Key"
+msgstr "རབ་རབ་མཐེབ་གཞོང་།"
+
+#: src/im/table/table.desc:84
+msgid "Exact Match"
+msgstr "ཟླ་སྒྲིག་ཏན་ཏིག"
+
+#: src/im/table/table.desc:88
+msgid "Auto Phrase"
+msgstr "རང་སྒྲུལ་ཚིག་གྲུབ།"
+
+#: src/im/table/table.desc:93
+msgid ""
+"Keep current buffer when there is no match item and input length is equal "
+"code length"
+msgstr ""
+"མིག་སྔར་འླ་སྒྲིག་འོས་འཚམ་མེད་པ་མ་ཟད་ནང་འཇུག་གི་རིང་ཚད་ཨང་རྟགས་ཀྱི་རིང་ཚད་དང་གཅིག་མཚུངས་ཡིན་སྐབས་མིག་སྔའི་ནང་འཇུག་གི་བར་ཁུལ་རྒྱུན་འཁྱོངས་བྱེད།"
+
+#: src/im/table/table.desc:98
+msgid "Auto Phrase Length"
+msgstr "ཚིག་གྲུབ་ཀྱི་རིང་ཚད།"
+
+#: src/im/table/table.desc:103
+msgid "Auto Phrase Phrase"
+msgstr "ཚིག་གྲུབ་ཀྱིས་མིང་བཟོ་བ།"
+
+#: src/im/table/table.desc:108
+msgid "Save Auto Phrase"
+msgstr "ཚིག་གྲུབ་ཉར་ཚགས།"
+
+#: src/im/table/table.desc:113
+msgid "Prompt Table Code"
+msgstr "ཨང་རྟགས་རེའུ་མིག་གི་ཨང་སྒྲིག་དྲན་སྐུལ།"
+
+#: src/im/table/table.desc:117
+msgid "Candidate Table Layout"
+msgstr "གདམ་བྱའི་ཚིག་གི་རེའུ་མིག་བཀོད་པ།"
+
+#: src/im/table/table.desc:121
+msgid "Not Set"
+msgstr "སྒྲིག་འགོད་བྱས་མེད།"
+
+#: src/im/table/table.desc:122
+msgid "Vertical"
+msgstr "འཕྲེད་སྟར།"
+
+#: src/im/table/table.desc:123
+msgid "Horizontal"
+msgstr "གཞུང་སྟར།"
+
+#: src/im/table/table.desc:131
+msgid "Symbol File"
+msgstr "མཚོན་རྟགས་ཡིག་ཆ།"
+
+#: src/im/table/table.desc:136
+msgid "Choose"
+msgstr "འདེམས་མཐེབ།"
+
+#: src/im/table/table.desc:151
+msgid "Language Code for this table"
+msgstr "ཨང་རྟགས་རེའུ་མིག་འདིའི་སྐད་ཡིག་ཚབ་རྟགས།"
+
+#: src/im/table/table.desc:156
+msgid "Enable"
+msgstr "འགོ་སློང་།"
+
+#: src/im/table/table.desc:161
+msgid "Use Custom Prompt String defined in table"
+msgstr "ཨང་རྟགས་རེའུ་མིག་ཁྲོད་ཀྱི་རང་སྒྲུབ་དྲན་སློང་ཡིག་ཆ་སྤྱོད་པ།"
+
+#: src/im/table/table.desc:166
+msgid "Keyboard Layout to be used"
+msgstr "མཐེབ་གཞོང་གི་བཀོད་པ།"
+
+#: src/im/table/table.desc:171
+msgid "Use Alternative Candidate Word Number"
+msgstr "རང་སྒྲུབ་ཀྱི་གདམ་བྱའི་ཚིག་གི་ཁ་གྲངས་བེད་སྤྱོད།"
+
+#: src/im/table/table.desc:183
+msgid "Use Alternative Key for paging"
+msgstr "རང་སྒྲུབ་ཀྱི་ཤོག་ངོས་ཨ་སློག་བེད་སྤྱོད།"
+
+#: src/im/table/table.desc:188
+msgid "Alternative Prev Page Key"
+msgstr "ཤོག་ངོས་སྔ་མའི་མྱུར་མཐེབ།"
+
+#: src/im/table/table.desc:193
+msgid "Alternative Next Page Key"
+msgstr "ཤོག་ངོས་ཕྱི་མའི་མྱུར་མཐེབ།"
+
+#: src/im/table/table.desc:198
+msgid "First Candidate Display as Preedit"
+msgstr "གདམ་བྱའི་ཚིག་དང་པོ་དེ་རྩོམ་སྒྲིག་བྱེད་གྲབས་ཀྱི་ཡིག་ཆར་བཟོ་བ།"
+
+#: src/im/table/table.desc:203
+msgid "Commit and pass when invalid key of this table pressed"
+msgstr ""
+"ཨང་རྟགས་རེའུ་མིག་ཁྲོད་ཀྱི་ཁྲིམས་དང་མི་མཐུན་པའི་མཐེབ་གཞོང་མནོན་སྐབས་ནང་འཇུག་སྐྱེལ་བ་མ་ཟད་མཐེབ་གཞོང་འདི་སྐྱེལ་བ།"
+
+#: src/im/table/table.desc:208
+msgid "Commit key for select first candidate"
+msgstr "གདམ་བྱའི་ཚིག་དང་པོའི་སྐྱེལ་མཐེབ།"
+
+#: src/im/table/table.desc:213
+msgid "Commit string when there is no match"
+msgstr "ཟླ་སྒྲིག་མེད་སྐབས་ནང་འཇུག་སྐྱེལ་བ།"
+
+#: src/im/table/table.desc:218
+msgid "Ignore Punctuation"
+msgstr "ཚེག་རྟགས་སྣང་མེད་དུ་གཏོང་བ།"
+
+#: src/im/table/table.desc:223
+msgid "Ignore some Punctuation, if it is empty, then ignore all punctuation"
+msgstr ""
+"ཚེག་རྟགས་འགའ་སྣང་མེད་དུ་གཏོང་བ། "
+"གལ་ཏེ་སྟོང་པ་ཡིན་ཚེ་ཚེག་རྟགས་ཆ་ཚང་སྣང་མེད་དུ་གཏོང་བ།"
+
+#: src/module/autoeng/fcitx-autoeng.desc:1
+#: src/module/autoeng/fcitx-autoeng.desc:11
+#: src/module/autoeng/fcitx-autoeng.desc:17
+#: src/module/autoeng/fcitx-autoeng.desc:26
+#: src/module/autoeng/fcitx-autoeng.desc:34
+msgid "Auto English"
+msgstr "དབྱིན་ཡིག་དཔེ་རྣམ།"
+
+#: src/module/autoeng/fcitx-autoeng.desc:12
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:14
+#: src/module/quickphrase/fcitx-quickphrase.desc:26
+msgid "Do not show spell hint"
+msgstr "འབྲི་སྦྱོར་གྱི་དྲན་སྐུལ་མི་མངོན་པ།"
+
+#: src/module/autoeng/fcitx-autoeng.desc:22
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:23
+#: src/module/quickphrase/fcitx-quickphrase.desc:36
+msgid "Maximum hint length"
+msgstr "སྦྱོར་འབྲི་དྲན་སྐུལ་གྱི་གདམ་བྱའི་ཚིག་མང་ཤོས།"
+
+#: src/module/autoeng/fcitx-autoeng.desc:23
+msgid "Maximum length of spell hint list for Auto English"
+msgstr "རང་སྒྲུབ་དབྱིན་ཡིག་གི་སྦྱོར་འབྲི་དྲན་སྐུལ་གྱི་གདམ་བྱའི་ཚིག་མང་ཤོས།"
+
+#: src/module/autoeng/fcitx-autoeng.desc:30
+msgid "Maximum words number kept in preedit"
+msgstr "རྩོམ་སྒྲིག་བྱེད་གྲབས་ཁྲོད་ཉར་བའི་མིང་རྐྱང་པའི་ཁང་གྲངས་མང་ཤོས།"
+
+#: src/module/autoeng/fcitx-autoeng.desc:31
+msgid "0 for commit immediately, -1 for keep all words"
+msgstr "0གྱིས་ལམ་སེང་སྐྱེལ་བ་དང་། -1གིས་བདམས་ཟིན་པའི་མིང་རྐྱང་དག་ཉར་བ་མཚོན་པ།"
+
+#: src/module/autoeng/fcitx-autoeng.desc:37
+msgid "Add Extra space when selecting a candidate word"
+msgstr "གདམ་བྱའི་ཚིག་འདེམས་སྐབས་སྟོང་པ་ཐོལ་པ་ནང་འཇུག"
+
+#: src/module/chttrans/fcitx-chttrans.desc:1
+#: src/module/chttrans/fcitx-chttrans.desc:9
+#: src/module/chttrans/fcitx-chttrans.desc:14
+msgid "TraditionalChinese"
+msgstr "ཟོར་ལྕིའི་རྒྱ་ཡིག"
+
+#: src/module/chttrans/fcitx-chttrans.desc:4
+msgid "Native"
+msgstr "གདོད་སྐྱེས།"
+
+#: src/module/chttrans/fcitx-chttrans.desc:5
+msgid "OpenCC"
+msgstr "OpenCC"
+
+#: src/module/chttrans/fcitx-chttrans.desc:6
+msgid "Traditional Chinese Translate Engine"
+msgstr "ཟོར་ལྕི་ཡང་བརྗེ་ཆས།"
+
+#: src/module/chttrans/fcitx-chttrans.desc:12
+msgid "Toggle for enable or disable"
+msgstr "བརྗེས་ཏེ་སྤྱོད་མི་ཆོག་པའམ་འགོ་སློབ་བ།"
+
+#: src/module/chttrans/fcitx-chttrans.desc:17
+msgid "Enabled state for im"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་འགོ་བསླངས་པའི་རྣམ་པ།"
+
+#: src/module/clipboard/fcitx-clipboard.desc:4
+msgid "Save Clipboard History To File"
+msgstr "དྲས་སྦྱར་པང་གི་ལོ་རྒྱུས་ཡིག་ཆར་ཉར་བ།"
+
+#: src/module/clipboard/fcitx-clipboard.desc:11
+msgid "Length of Clipboard History to Save"
+msgstr "དྲས་སྦྱར་པང་གི་ལོ་རྒྱུས་རིང་ཚད།"
+
+#: src/module/clipboard/fcitx-clipboard.desc:19
+msgid "Maximum length of each candidate word"
+msgstr "གདམ་བྱའི་ཚིག་རེའི་རིང་ཚད།"
+
+#: src/module/clipboard/fcitx-clipboard.desc:20
+msgid ""
+"Roughly the same length with this number of english letters, the actual "
+"length depends on the font and the content"
+msgstr ""
+"སྤྱིར་རིང་ཚད་དབྱིན་ཡིག་གི་གསལ་བྱེད་དང་གཅིག་མཚུངས་ཡིན། "
+"དོན་དངོས་ཀྱི་རིང་ཚད་ནི་ཡིག་གཟུགས་དང་ནང་དོན་ལ་གཞིགས་དགོས།"
+
+#: src/module/clipboard/fcitx-clipboard.desc:25
+msgid "Trigger Key for Clipboard History List"
+msgstr "དྲས་སྦྱར་པང་གི་ལོ་རྒྱུས་མྱུར་མཐེབ།"
+
+#: src/module/clipboard/fcitx-clipboard.desc:30
+msgid "Use Selection Text"
+msgstr "འདེམས་ཁུལ་གྱི་ཡི་གེ་སྤྱོད་པ།"
+
+#: src/module/clipboard/fcitx-clipboard.desc:31
+msgid "Include the text currently selected in clipboard history."
+msgstr "བདམས་པའི་ཡི་གེ་དག་དྲས་སྦྱར་པང་གི་ལོ་རྒྱུས་ནང་བླུགས་པ།"
+
+#: src/module/clipboard/fcitx-clipboard.desc:45
+msgid "Ignore blank selections"
+msgstr "དྲས་སྦྱར་པང་གི་ནང་དོན་སྟོང་པ་དག་སྣང་མེད་དུ་འཇོག་པ།"
+
+#: src/module/imselector/fcitx-imselector.desc:1
+#: src/module/imselector/fcitx-imselector.desc:6
+#: src/module/imselector/fcitx-imselector.desc:11
+msgid "IMSelector"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་འདེམས་ཆས།"
+
+#: src/module/imselector/fcitx-imselector.desc:4
+msgid "Local Input Method SelectKey"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་ཆ་ཤས་འདེམས་པ།"
+
+#: src/module/imselector/fcitx-imselector.desc:9
+msgid "Global Input Method SelectKey"
+msgstr "ཁྱོན་ཡོངས་ཀྱི་ནང་འཇུག་བྱེད་སྟངས་འདེམས་པ།"
+
+#: src/module/imselector/fcitx-imselector.desc:14
+msgid "Clear local Input Method"
+msgstr "ཆ་ཤས་ཀྱི་ནང་འཇུག་བྱེད་སྟངས་གཙང་སེལ།"
+
+#: src/module/imselector/fcitx-imselector.desc:16
+#: src/module/imselector/fcitx-imselector.desc:21
+#: src/module/imselector/fcitx-imselector.desc:26
+#: src/module/imselector/fcitx-imselector.desc:31
+#: src/module/imselector/fcitx-imselector.desc:36
+#: src/module/imselector/fcitx-imselector.desc:41
+#: src/module/imselector/fcitx-imselector.desc:46
+#: src/module/imselector/fcitx-imselector.desc:51
+#: src/module/imselector/fcitx-imselector.desc:56
+msgid "GlobalSelector"
+msgstr "སྤྱི་ཡོངས་འདེམས་པ།"
+
+#: src/module/imselector/fcitx-imselector.desc:19
+#: src/module/imselector/fcitx-imselector.desc:64
+msgid "Switch to the First Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་1པོར་བརྗེ་བ།"
+
+#: src/module/imselector/fcitx-imselector.desc:24
+#: src/module/imselector/fcitx-imselector.desc:69
+msgid "Switch to the Second Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་2པར་བརྗེ་བ།"
+
+#: src/module/imselector/fcitx-imselector.desc:29
+#: src/module/imselector/fcitx-imselector.desc:74
+msgid "Switch to the Third Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་3པར་བརྗེ་བ།"
+
+#: src/module/imselector/fcitx-imselector.desc:34
+#: src/module/imselector/fcitx-imselector.desc:79
+msgid "Switch to the Fourth Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་4པར་བརྗེ་བ།"
+
+#: src/module/imselector/fcitx-imselector.desc:39
+#: src/module/imselector/fcitx-imselector.desc:84
+msgid "Switch to the Fifth Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་5པར་བརྗེ་བ།"
+
+#: src/module/imselector/fcitx-imselector.desc:44
+#: src/module/imselector/fcitx-imselector.desc:89
+msgid "Switch to the Sixth Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་6པར་བརྗེ་བ།"
+
+#: src/module/imselector/fcitx-imselector.desc:49
+#: src/module/imselector/fcitx-imselector.desc:94
+msgid "Switch to the Seventh Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་7པར་བརྗེ་བ།"
+
+#: src/module/imselector/fcitx-imselector.desc:54
+#: src/module/imselector/fcitx-imselector.desc:99
+msgid "Switch to the Eighth Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་8པར་བརྗེ་བ།"
+
+#: src/module/imselector/fcitx-imselector.desc:59
+#: src/module/imselector/fcitx-imselector.desc:104
+msgid "Switch to the Ninth Input Method"
+msgstr "ནང་འཇུག་བྱེད་སྟངས་9པར་བརྗེ་བ།"
+
+#: src/module/imselector/fcitx-imselector.desc:61
+#: src/module/imselector/fcitx-imselector.desc:66
+#: src/module/imselector/fcitx-imselector.desc:71
+#: src/module/imselector/fcitx-imselector.desc:76
+#: src/module/imselector/fcitx-imselector.desc:81
+#: src/module/imselector/fcitx-imselector.desc:86
+#: src/module/imselector/fcitx-imselector.desc:91
+#: src/module/imselector/fcitx-imselector.desc:96
+#: src/module/imselector/fcitx-imselector.desc:101
+msgid "LocalSelector"
+msgstr "ཆ་ཤས་འདེམས་པ།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:1
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:7
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:13
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:18
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:27
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:32
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:37
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:42
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:50
+msgid "Pinyin Enhance"
+msgstr "སྒྲ་སྦྱོར་ཆེ་རུ་གཏོང་བ།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:4
+msgid "Treating abbreviated Pinyin as English"
+msgstr "བདེ་འབྲི་དབྱིན་ཡིག་ཏུ་བརྩི་བ།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:5
+msgid "Useful when you hardly ever use abbreviated pinyin."
+msgstr "བདེ་བྲིས་སྤྱོད་པ་ཉུང་བའི་སྐབས་ལ་སྤྱོད་འཚམ་པ།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:10
+msgid "Allow replacing the first candidate"
+msgstr "གདམ་བྱའི་ཚིག་དང་པོ་བརྗེ་ཆོག་པ།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:11
+msgid ""
+"Allow Pinyin Enhance to replace the first candidate word when the input "
+"string is very closed to English."
+msgstr "ཡིག་རྟགས་ཕྲེང་དབྱིན་ཡིག་དང་འདྲ་པོ་ཡོད་དུས་གདམ་བྱའི་ཚིག་དང་པོ་བརྗེ་ཆོག"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:24
+msgid "Maximum length of spell hint list for Pinyin Enhance"
+msgstr ""
+"སྒྲ་སྦྱོར་ཆེ་རུ་བཏང་བའི་སྒྲ་སྦྱོར་དྲན་སྐུལ་གྱི་གདམ་བྱའི་ཚིག་གི་ཁ་གྲངས་མང་ཤོས།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:30
+msgid "Hotkey for Inputing Character From Phrase"
+msgstr "ཚིག་གིས་ཡི་གེ་གཏན་ཁེལ།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:35
+msgid "Hotkey for switching to Inputing Character From Phrase mode"
+msgstr "ཚིག་གིས་ཡི་གེ་གཏན་ཁེལ་བྱེད་པའི་དཔེ་རྣམ་ལ་བརྗེ་བ།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:40
+msgid "Disable Pinyin Symbol"
+msgstr "སྒྲ་སྦྱོར་ཡིག་རྟགས་སྤྱོད་མི་ཆོག"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:46
+msgid "Minimum input length to trigger stroke input (set to -1 to disable)"
+msgstr ""
+"ཐུག་ཐོན་སྨྱུག་རིམ་ཆུང་ཤོས་ཀྱིས་ནང་འཇུག་བྱས་པའི་རིང་ཚད། "
+"(-1སྨྱུག་རིམ་ནང་འཇུག་སྤྱོད་མི་ཆོག་པར་བཟོ་བ།)"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:47
+msgid "Stroke input trigger length"
+msgstr "སྨྱུག་རིམ་ནང་འཇུག་ཐུག་ཐོན་གྱི་རིང་ཚད།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:55
+msgid "Maximum results from stroke input."
+msgstr "སྨྱུག་རིམ་ནང་འཇུག་བྱས་འབྲས་ཆེ་ཤོས།"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:56
+msgid ""
+"This is only a soft limit, the actually number of candidate words may be "
+"larger than this when multiple characters have the same order of strokes."
+msgstr "འདྲེན་རྟགས།"
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:1
+#: src/module/quickphrase/fcitx-quickphrase.desc:10
+#: src/module/quickphrase/fcitx-quickphrase.desc:15
+#: src/module/quickphrase/fcitx-quickphrase.desc:25
+#: src/module/quickphrase/fcitx-quickphrase.desc:31
+msgid "QuickPhrase"
+msgstr "མྱུར་མགྱོགས་ནང་འཇུག"
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:6
+msgid "Semicolon"
+msgstr "དབྱེ་རྟགས།"
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:7
+msgid "Grave"
+msgstr "འདྲེན་རྟགས།"
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:8
+msgid "Trigger Key for QuickPhrase"
+msgstr "མྱུར་འཇུག་གི་ཐུག་ཐོན་མཐེབ་གཞོང་།"
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:13
+msgid "Alternative Trigger Key for QuickPhrase"
+msgstr "མྱུར་འཇུག་གི་ཐུག་ཐོན་མཐེབ་གཞོང་འཐོལ་པ།"
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:37
+msgid "Maximum length of spell hint list for Quick Phrase"
+msgstr "མྱུར་འཇུག་སྒྲ་སྦྱོར་དྲན་སྐུལ་གྱི་གདམ་བྱའི་ཚིག་མང་ཤོ།ས"
+
+#: src/module/spell/fcitx-spell.desc:1 src/module/spell/fcitx-spell.desc:10
+msgid "Spell Hint"
+msgstr "སྦྱོར་འབྲི་དྲན་སློང་།"
+
+#: src/module/spell/fcitx-spell.desc:6
+msgid "Aspell"
+msgstr "Aspell"
+
+#: src/module/spell/fcitx-spell.desc:7
+msgid "Myspell"
+msgstr "Myspell"
+
+#: src/module/spell/fcitx-spell.desc:8
+msgid "Preferred Enchant provider"
+msgstr "སྔོན་ལ་བདམས་པའི་Enchantརྒྱབ་སྣེ།"
+
+#: src/module/spell/fcitx-spell.desc:11
+msgid "Default Spell Hint Backends Order"
+msgstr "སྦྱོར་འབྲི་དྲན་སྐུལ་སོར་བཞག་ལ་སྤྱད་པའི་རྒྱབ་སྣེའི་གོ་རིམ།"
+
+#: src/module/spell/fcitx-spell.desc:14
+msgid "Possible Providers: presage, custom, enchant (separate with comma)"
+msgstr ""
+"འདེམས་ཆོག་པའི་རྒྱབ་སྣེ་presageདང་custom  enchant "
+"(དབྱིན་ཡིག་ཚེག་འབྲིང་གིས་བར་གཅོད་པ།)"
+
+#: src/module/unicode/fcitx-unicode.desc:1
+msgid "Unicode"
+msgstr "Unicode"
+
+#: src/module/xkb/fcitx-xkb.desc:1 src/module/xkb/fcitx-xkb.desc:6
+#: src/module/xkb/fcitx-xkb.desc:12 src/module/xkb/fcitx-xkb.desc:17
+msgid "X Keyboard"
+msgstr "X མཐེབ་གཞོང་།"
+
+#: src/module/xkb/fcitx-xkb.desc:4
+msgid "Allow to Override System XKB Settings"
+msgstr "རྒྱུད་ཁོངས་ཀྱི་XKB སྒྲིག་འགོད་བཀབ་ཆོག"
+
+#: src/module/xkb/fcitx-xkb.desc:9
+msgid ""
+"Use the layout of first keyboard input method in list as default layout"
+msgstr ""
+"རེའུ་མིག་གི་མཐེབ་གཞོང་ནང་འཇུག་བྱེད་སྟངས་ཀྱི་བཀོད་པ་དེ་སོར་བཞག་བཀོད་པར་བྱེད་པ།"
+
+#: src/module/xkb/fcitx-xkb.desc:10
+msgid ""
+"For example, if Keyboard - English (US) is the first input method in the "
+"list, then English (US) will be applied to all other non keyboard input "
+"method layout"
+msgstr ""
+"དཔེར་ན། "
+"གལ་ཏེ་མཐེབ་གཞོང་དབྱིན་ཡིག་(ཨ་རི་)འདི་རེའུ་མིག་གི་ནང་འཇུག་བྱེད་སྟངས་དང་པོ་ཡིན་ཚེ།"
+" "
+"དབྱིན་ཡིག་(ཨ་རི་)འདི་ཉིད་སྒྲིག་འགོད་བྱས་མེད་པའི་མཐེབ་གཞོང་ནང་འཇུག་བྱེད་སྟངས་ཀྱི་བཀོད་པར་སྤྱོད་ཆོག"
+
+#: src/module/xkb/fcitx-xkb.desc:15
+msgid "xmodmap command"
+msgstr "xmodmap བཀའ།"
+
+#: src/module/xkb/fcitx-xkb.desc:20
+msgid "Apply this custom xmodmap script after layout change"
+msgstr "མཐེབ་གཞོང་བཀོད་པ་བཟོས་རྗེས་རང་སྒྲུབ་ཀྱི་འཁྲབ་གཞུང་xmodmapསེད་སྤྱོད།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:1
+#: src/ui/classic/fcitx-classic-ui.desc:7
+#: src/ui/classic/fcitx-classic-ui.desc:13
+#: src/ui/classic/fcitx-classic-ui.desc:20
+#: src/ui/classic/fcitx-classic-ui.desc:25
+#: src/ui/classic/fcitx-classic-ui.desc:30
+#: src/ui/classic/fcitx-classic-ui.desc:36
+#: src/ui/classic/fcitx-classic-ui.desc:41
+#: src/ui/classic/fcitx-classic-ui.desc:51
+#: src/ui/classic/fcitx-classic-ui.desc:56
+msgid "ClassicUI"
+msgstr "དཔེ་མཚོན་མཐུད་ངོས།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:2
+msgid "Status Panel Position X"
+msgstr "རྣམ་པའི་ཚན་བྱང་Xཡི་གནས་ཡུལ།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:8
+msgid "Status Panel Position Y"
+msgstr "རྣམ་པའི་ཚན་བྱང་Yཡི་གནས་ཡུལ།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:16
+msgid "Font Size"
+msgstr "ཡིག་གཟུགས་ཆེ་ཆུང་།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:18
+msgid "Override the skin font size"
+msgstr "པགས་པའི་ཡིག་གཟུགས་ཀྱི་སྒྲིག་འགོད་འགེབ་པ།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:23
+msgid "Font"
+msgstr "ཡིག་གཟུགས།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:28
+msgid "Menu Font"
+msgstr "འདེམས་བྱང་གི་ཡིག་གཟུགས།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:33
+msgid "Font Locale to display"
+msgstr "ཡིག་གཟུགས་ཀྱི་ཁུལ་ཁོངས།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:39
+msgid "Use System Tray Icon"
+msgstr "རྒྱུད་ཁོངས་ཀྱི་སྡུད་སྡཻར་སྤྱོད་པ།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:44
+msgid "Show"
+msgstr "མངོན་སྟོན།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:45
+msgid "Auto"
+msgstr "རང་བཞིན།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:46
+msgid "Hide when tray icon is available"
+msgstr "སྡུད་སྡེར་གྱི་རྟགས་རིས་སྤྱོད་རུང་སྐབས་ཡིབ་པ།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:47
+msgid "Hide"
+msgstr "ཡིབ་པ།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:49
+msgid "Status Panel Hide Mode"
+msgstr "རྣམ་པའི་ཚན་བྱང་ཡིབ་པའི་དཔེ་རྣམ།"
+
+#: src/ui/classic/fcitx-classic-ui.desc:54
+msgid "Vertical Candidate Word List"
+msgstr "གཞུང་སྟར་གི་གདམ་བྱའི་ཚིག་གི་རེའུ་མིག"
+
+#: src/ui/classic/fcitx-classic-ui.desc:59 src/ui/classic/skin.desc:3
+msgid "Skin Name"
+msgstr "པགས་པའི་མིང་།"
+
+#: src/ui/classic/skin.desc:1 src/ui/classic/skin.desc:5
+#: src/ui/classic/skin.desc:9 src/ui/classic/skin.desc:13
+msgid "SkinInfo"
+msgstr "པགས་པའི་ཆ་འཕྲིན།"
+
+#: src/ui/classic/skin.desc:7
+msgid "Skin Version"
+msgstr "པགས་པའི་པར་གཞི།"
+
+#: src/ui/classic/skin.desc:11
+msgid "Skin Author"
+msgstr "པགས་པའི་རྩོམ་པ་པོ།"
+
+#: src/ui/classic/skin.desc:15
+msgid "Description of Skin"
+msgstr "ཞིབ་བརྗོད།"
+
+#: src/ui/classic/skin.desc:17 src/ui/classic/skin.desc:21
+#: src/ui/classic/skin.desc:26 src/ui/classic/skin.desc:31
+#: src/ui/classic/skin.desc:35 src/ui/classic/skin.desc:39
+#: src/ui/classic/skin.desc:43 src/ui/classic/skin.desc:47
+#: src/ui/classic/skin.desc:51 src/ui/classic/skin.desc:55
+#: src/ui/classic/skin.desc:59 src/ui/classic/skin.desc:63
+msgid "SkinFont"
+msgstr "པགས་པའི་ཡིག་གཟུགས།"
+
+#: src/ui/classic/skin.desc:19
+msgid "Input Font Size"
+msgstr "ནང་འཇུག་ཡིག་གཟུགས་ཀྱི་ཆེ་ཆུང་།"
+
+#: src/ui/classic/skin.desc:23
+msgid "Menu Font Size"
+msgstr "འདེམས་བྱང་གི་ཡིག་གཟུགས་ཆེ་ཆུང་།"
+
+#: src/ui/classic/skin.desc:28
+msgid "Font sizes respect dpi setting"
+msgstr "ཡིག་གཟུགས་ཆེ་ཆུང་dpiསྒྲིག་འགོད་ལྟར་བརྩི་བ།"
+
+#: src/ui/classic/skin.desc:33
+msgid "Tip Message Color"
+msgstr "ཆ་འཕྲིན་གྱི་ཚོན་མདོག་དྲན་སྐུལ།"
+
+#: src/ui/classic/skin.desc:37
+msgid "Input Message Color"
+msgstr "ཆ་འཕྲིན་གྱི་ཚོན་མདོག་ནང་འཇུག"
+
+#: src/ui/classic/skin.desc:41
+msgid "Candidate Index Color"
+msgstr "གདམ་བྱའི་ཚིག་གི་གསལ་བྱང་གི་མདོག"
+
+#: src/ui/classic/skin.desc:45
+msgid "First Candidate Color"
+msgstr "གདམ་བྱའི་ཚིག་དང་པོའི་མདོག"
+
+#: src/ui/classic/skin.desc:49
+msgid "User Phrase Color"
+msgstr "སྤྱོད་མཁན་གྱི་ཚིག་གི་མདོག"
+
+#: src/ui/classic/skin.desc:53
+msgid "Table Code Color"
+msgstr "ཨང་རྟགས་རེའུ་མིག་གིས་མདོག་དྲན་སྐུལ།"
+
+#: src/ui/classic/skin.desc:57
+msgid "Other Color"
+msgstr "ཚོན་མདོག་གཞན།"
+
+#: src/ui/classic/skin.desc:61
+msgid "Active Menu Item Character Color"
+msgstr "བྱེད་སྒོའི་འདེམས་བྱང་གི་མདོག"
+
+#: src/ui/classic/skin.desc:65
+msgid "Inactive Menu Item Character Color"
+msgstr "བྱེད་སྒོའི་འདེམས་བྱང་མིན་པའི་མདོག"
+
+#: src/ui/classic/skin.desc:67 src/ui/classic/skin.desc:71
+#: src/ui/classic/skin.desc:75 src/ui/classic/skin.desc:79
+#: src/ui/classic/skin.desc:83 src/ui/classic/skin.desc:87
+#: src/ui/classic/skin.desc:91 src/ui/classic/skin.desc:95
+#: src/ui/classic/skin.desc:99 src/ui/classic/skin.desc:104
+#: src/ui/classic/skin.desc:109 src/ui/classic/skin.desc:114
+#: src/ui/classic/skin.desc:119 src/ui/classic/skin.desc:124
+#: src/ui/classic/skin.desc:139 src/ui/classic/skin.desc:144
+#: src/ui/classic/skin.desc:149 src/ui/classic/skin.desc:157
+#: src/ui/classic/skin.desc:165 src/ui/classic/skin.desc:170
+#: src/ui/classic/skin.desc:175 src/ui/classic/skin.desc:180
+msgid "SkinMainBar"
+msgstr "པགས་པའི་སྒེའུ་ཁུང་ཨ་མའི་སྒྲིག་འགོད།"
+
+#: src/ui/classic/skin.desc:69 src/ui/classic/skin.desc:187
+#: src/ui/classic/skin.desc:317
+msgid "Background Image"
+msgstr "རྒྱབ་ལྗོངས་པར་རིས།"
+
+#: src/ui/classic/skin.desc:73
+msgid "Logo Icon"
+msgstr "Logoརྟགས་རིས།"
+
+#: src/ui/classic/skin.desc:77
+msgid "English Mode Icon"
+msgstr "དབྱིན་ཡིག་དཔེ་རྣམ་གྱི་རྟགས་རིས།"
+
+#: src/ui/classic/skin.desc:81
+msgid "Active Mode Icon"
+msgstr "འགོ་བསླངས་པའི་ནང་འཇུག་བྱེད་སྟངས་རྟགས་རིས།"
+
+#: src/ui/classic/skin.desc:85 src/ui/classic/skin.desc:191
+#: src/ui/classic/skin.desc:329
+msgid "Resize Margin Left"
+msgstr "གཡོན་ཐག"
+
+#: src/ui/classic/skin.desc:89 src/ui/classic/skin.desc:195
+#: src/ui/classic/skin.desc:333
+msgid "Resize Margin Right"
+msgstr "གཡས་ཐག"
+
+#: src/ui/classic/skin.desc:93 src/ui/classic/skin.desc:199
+#: src/ui/classic/skin.desc:321
+msgid "Resize Margin Top"
+msgstr "སྟེང་ཐག"
+
+#: src/ui/classic/skin.desc:97 src/ui/classic/skin.desc:203
+#: src/ui/classic/skin.desc:325
+msgid "Resize Margin Bottom"
+msgstr "མཐའ་ཐག་འོག་མ།"
+
+#: src/ui/classic/skin.desc:102 src/ui/classic/skin.desc:208
+#: src/ui/classic/skin.desc:338
+msgid "Margin Left for clickable region"
+msgstr "མནོན་ཆོག་པའི་གཡོན་ཐག"
+
+#: src/ui/classic/skin.desc:107 src/ui/classic/skin.desc:213
+#: src/ui/classic/skin.desc:343
+msgid "Margin Right for clickable region"
+msgstr "མནོན་ཆོག་པའི་གཡས་ཐག"
+
+#: src/ui/classic/skin.desc:112 src/ui/classic/skin.desc:218
+#: src/ui/classic/skin.desc:348
+msgid "Margin Top for clickable region"
+msgstr "མནོན་ཆོག་པའི་སྟེང་ཐག"
+
+#: src/ui/classic/skin.desc:117 src/ui/classic/skin.desc:223
+#: src/ui/classic/skin.desc:353
+msgid "Margin Bottom for clickable region"
+msgstr "མནོན་ཆོག་པའི་མཐའ་ཐག་འོག་མ།"
+
+#: src/ui/classic/skin.desc:122 src/ui/classic/skin.desc:228
+#: src/ui/classic/skin.desc:358
+msgid "Overlay image"
+msgstr "པར་རིས་འགེབ་པ།"
+
+#: src/ui/classic/skin.desc:128 src/ui/classic/skin.desc:234
+#: src/ui/classic/skin.desc:364
+msgid "TopLeft"
+msgstr "གཡོན་གྱི་སྟེང་ཟུར།"
+
+#: src/ui/classic/skin.desc:129 src/ui/classic/skin.desc:235
+#: src/ui/classic/skin.desc:365
+msgid "TopCenter"
+msgstr "སྟེང་དེ་དཀྱིལ་སྒྲིག"
+
+#: src/ui/classic/skin.desc:130 src/ui/classic/skin.desc:236
+#: src/ui/classic/skin.desc:366
+msgid "TopRight"
+msgstr "གཡས་ཀྱི་སྟེང་ཟུར།"
+
+#: src/ui/classic/skin.desc:131 src/ui/classic/skin.desc:237
+#: src/ui/classic/skin.desc:367
+msgid "CenterLeft"
+msgstr "དཀྱིལ་གྱི་གཡོན།"
+
+#: src/ui/classic/skin.desc:132 src/ui/classic/skin.desc:238
+#: src/ui/classic/skin.desc:368
+msgid "Center"
+msgstr "དཀྱིལ་སྒྲིག"
+
+#: src/ui/classic/skin.desc:133 src/ui/classic/skin.desc:239
+#: src/ui/classic/skin.desc:369
+msgid "CenterRight"
+msgstr "དཀྱིལ་གྱི་གཡས།"
+
+#: src/ui/classic/skin.desc:134 src/ui/classic/skin.desc:240
+#: src/ui/classic/skin.desc:370
+msgid "BottomLeft"
+msgstr "གཡོན་གྱི་འོག་ཟུར།"
+
+#: src/ui/classic/skin.desc:135 src/ui/classic/skin.desc:241
+#: src/ui/classic/skin.desc:371
+msgid "BottomCenter"
+msgstr "འོག་གི་དཀྱིལ།"
+
+#: src/ui/classic/skin.desc:136 src/ui/classic/skin.desc:242
+#: src/ui/classic/skin.desc:372
+msgid "BottomRight"
+msgstr "གཡས་ཀྱི་འོག་ཟུར།"
+
+#: src/ui/classic/skin.desc:137 src/ui/classic/skin.desc:243
+#: src/ui/classic/skin.desc:373
+msgid "Overlay dock position"
+msgstr "པར་རིས་བཀབ་ནས་འཇོག་ས།"
+
+#: src/ui/classic/skin.desc:142 src/ui/classic/skin.desc:248
+#: src/ui/classic/skin.desc:378
+msgid "Overlay X offset"
+msgstr "པར་རིས་བཀབ་པ་Xསྤོ་བ།"
+
+#: src/ui/classic/skin.desc:147 src/ui/classic/skin.desc:253
+#: src/ui/classic/skin.desc:383
+msgid "Overlay Y offset"
+msgstr "པར་རིས་བཀབ་པ་Y སྤོ་བ།"
+
+#: src/ui/classic/skin.desc:151 src/ui/classic/skin.desc:293
+#: src/ui/classic/skin.desc:395
+msgid "Fill Background Vertical rule"
+msgstr "གཞུང་ངོས་ཁ་སྐོང་སྒྲིག་སྲོལ།"
+
+#: src/ui/classic/skin.desc:153 src/ui/classic/skin.desc:161
+#: src/ui/classic/skin.desc:295 src/ui/classic/skin.desc:303
+#: src/ui/classic/skin.desc:397 src/ui/classic/skin.desc:405
+msgid "Copy"
+msgstr "པར་སློག"
+
+#: src/ui/classic/skin.desc:154 src/ui/classic/skin.desc:162
+#: src/ui/classic/skin.desc:296 src/ui/classic/skin.desc:304
+#: src/ui/classic/skin.desc:398 src/ui/classic/skin.desc:406
+msgid "Resize"
+msgstr "གཟུགས་འགྱུར་སྒྲིག་སྲོལ།"
+
+#: src/ui/classic/skin.desc:159 src/ui/classic/skin.desc:301
+#: src/ui/classic/skin.desc:403
+msgid "Fill Background Horizontal rule"
+msgstr "འཕྲེད་ངོས་ཁ་སྐོང་སྒྲིག་སྲོལ།"
+
+#: src/ui/classic/skin.desc:167
+msgid "Use Custom text icon color"
+msgstr "རང་གིས་བཟོས་པའི་ཡིག་ཆའི་རྟགས་རིས་ཀྱི་མདོག་བེད་སྤྱོད།"
+
+#: src/ui/classic/skin.desc:172
+msgid "Active Text Icon Color"
+msgstr "བྱེད་སྒོའི་ཡིག་ཆའི་རྟགས་རིས་ཀྱི་མདོག"
+
+#: src/ui/classic/skin.desc:177
+msgid "Inactive Text Icon Color"
+msgstr "བྱེད་སྒོ་མིན་པའི་ཡིག་ཆའི་རྟགས་རིས་ཀྱི་མདོག"
+
+#: src/ui/classic/skin.desc:182
+msgid "Special Icon position"
+msgstr "དམིགས་བསལ་རྟགས་རིས་ཀྱི་གནས་ཡུལ།"
+
+#: src/ui/classic/skin.desc:185 src/ui/classic/skin.desc:189
+#: src/ui/classic/skin.desc:193 src/ui/classic/skin.desc:197
+#: src/ui/classic/skin.desc:201 src/ui/classic/skin.desc:205
+#: src/ui/classic/skin.desc:210 src/ui/classic/skin.desc:215
+#: src/ui/classic/skin.desc:220 src/ui/classic/skin.desc:225
+#: src/ui/classic/skin.desc:230 src/ui/classic/skin.desc:245
+#: src/ui/classic/skin.desc:250 src/ui/classic/skin.desc:255
+#: src/ui/classic/skin.desc:259 src/ui/classic/skin.desc:263
+#: src/ui/classic/skin.desc:267 src/ui/classic/skin.desc:271
+#: src/ui/classic/skin.desc:275 src/ui/classic/skin.desc:279
+#: src/ui/classic/skin.desc:283 src/ui/classic/skin.desc:287
+#: src/ui/classic/skin.desc:291 src/ui/classic/skin.desc:299
+msgid "SkinInputBar"
+msgstr "པགས་པའི་ནང་འཇུག་སྒྲོམ་སྒྲིག་འགོད།"
+
+#: src/ui/classic/skin.desc:257
+msgid "Color of Cursor"
+msgstr "འོད་རྟགས་གི་མདོག"
+
+#: src/ui/classic/skin.desc:261
+msgid "Position or offset of Preedit"
+msgstr "རྩོམ་སྒྲིག་བྱེད་གྲས་ཡིག་ཆའི་གནས་ཡུལ་ལམ་ཕྱོགས་འཛོལ།"
+
+#: src/ui/classic/skin.desc:265
+msgid "Position or offset of LookupTable"
+msgstr "གདམ་བྱའི་ཚིག་གི་གནས་ཡུལ་ལམ་ཕྱོགས་འཛོལ།"
+
+#: src/ui/classic/skin.desc:269 src/ui/classic/skin.desc:277
+#: src/ui/classic/skin.desc:285
+msgid "Prev Page Icon"
+msgstr "ཤོག་ངོས་གོང་མའི་རྟགས་རིས།"
+
+#: src/ui/classic/skin.desc:273 src/ui/classic/skin.desc:281
+#: src/ui/classic/skin.desc:289
+msgid "Next Page Icon"
+msgstr "ཤོག་ངོས་འོག་མའི་རྟགས་རིས།"
+
+#: src/ui/classic/skin.desc:307 src/ui/classic/skin.desc:311
+msgid "SkinTrayIcon"
+msgstr "པགས་པའི་སྡུད་སྡེར་གྱི་རྟགས་རིས་སྒྲིག་འགོད།"
+
+#: src/ui/classic/skin.desc:309
+msgid "Active Tray Icon"
+msgstr "བྱེད་སྒོའི་ནང་འཇུག་བྱེད་སྟངས་རྟགས་རིས།"
+
+#: src/ui/classic/skin.desc:313
+msgid "Inctive Tray Icon"
+msgstr "བྱེད་སྒོ་མིན་པའི་ནང་འཇུག་བྱེད་སྟངས་རྟགས་རིས།"
+
+#: src/ui/classic/skin.desc:315 src/ui/classic/skin.desc:319
+#: src/ui/classic/skin.desc:323 src/ui/classic/skin.desc:327
+#: src/ui/classic/skin.desc:331 src/ui/classic/skin.desc:335
+#: src/ui/classic/skin.desc:340 src/ui/classic/skin.desc:345
+#: src/ui/classic/skin.desc:350 src/ui/classic/skin.desc:355
+#: src/ui/classic/skin.desc:360 src/ui/classic/skin.desc:375
+#: src/ui/classic/skin.desc:380 src/ui/classic/skin.desc:385
+#: src/ui/classic/skin.desc:389 src/ui/classic/skin.desc:393
+#: src/ui/classic/skin.desc:401
+msgid "SkinMenu"
+msgstr "པགས་པའི་འདེམས་བྱང་སྒྲིག་འགོད།"
+
+#: src/ui/classic/skin.desc:387
+msgid "Active Menu Color"
+msgstr "བྱེད་སྒོའི་འདེམས་བྱང་གི་མདོག"
+
+#: src/ui/classic/skin.desc:391
+msgid "Space Line Color"
+msgstr "དབྱེ་ཐིག་མདོག"
+
+#: src/ui/classic/skin.desc:409 src/ui/classic/skin.desc:414
+msgid "SkinKeyboard"
+msgstr "མཐེབ་གཞོང་།"
+
+#: src/ui/classic/skin.desc:411
+msgid "Virtual Keyboard Image"
+msgstr "རྟོག་བཟོའི་མཐེབ་གཞོང་གི་པར་རིས།"
+
+#: src/ui/classic/skin.desc:416
+msgid "Key Color On Virtual Keyboard"
+msgstr "མཉེན་མཐེབ་ཡི་གེའི་མདོག"
