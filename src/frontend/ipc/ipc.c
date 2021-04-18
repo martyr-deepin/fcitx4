@@ -966,9 +966,9 @@ static int IPCProcessKey(FcitxIPCFrontend* ipc, FcitxInputContext* callic, const
     state = originstate & FcitxKeyState_SimpleMask;
     state &= FcitxKeyState_UsedMask;
     FcitxHotkeyGetKey(originsym, state, &sym, &state);
-    FcitxLog(DEBUG,
-             "KeyRelease=%d  state=%d  KEYCODE=%d  KEYSYM=%u ",
-             (type == FCITX_RELEASE_KEY), state, keycode, sym);
+//    FcitxLog(DEBUG,
+//             "KeyRelease=%d  state=%d  KEYCODE=%d  KEYSYM=%u ",
+//             (type == FCITX_RELEASE_KEY), state, keycode, sym);
 
     if (originsym == 0)
         return 0;
