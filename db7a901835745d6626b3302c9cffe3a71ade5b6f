@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a519ba10_2851fb07",
+        "filename": "src/frontend/ipc/ipc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-18T05:03:25Z",
+      "side": 1,
+      "message": "注释行数: 3; 改动行数(修改和新增): 3; 注释率: 100.0%",
+      "revId": "db7a901835745d6626b3302c9cffe3a71ade5b6f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be8d8623_c766ed4f",
+        "filename": "src/lib/fcitx-utils/utils.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-18T05:03:25Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 0; 注释率: 不计算",
+      "revId": "db7a901835745d6626b3302c9cffe3a71ade5b6f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "873be59f_d2f5fb12",
+        "filename": "src/lib/fcitx/instance.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-18T05:03:25Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 6; 注释率: 不计算",
+      "revId": "db7a901835745d6626b3302c9cffe3a71ade5b6f",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
