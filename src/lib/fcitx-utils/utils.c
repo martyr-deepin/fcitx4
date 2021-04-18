@@ -1023,6 +1023,7 @@ FCITX_EXPORT_API int fcitx_utils_judge_implugin_service_exist() {
     pclose(fp);
     return 0;
 }
+
 FCITX_EXPORT_API int fcitx_utils_kill_fcitx_config_gtk3() {
     FILE *fp;
     int pid;
