@@ -1,6 +1,6 @@
 [Hotkey/TriggerKey]
 Type=Hotkey
-DefaultValue=
+DefaultValue=L_SHIFT
 AllowModifierOnly=True
 Description=Trigger Input Method
 
