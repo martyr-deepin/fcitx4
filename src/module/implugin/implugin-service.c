@@ -310,7 +310,8 @@ void display_inotify_event(struct inotify_event *i) {
         if ((strcmp(dir.path[i->wd], "/usr/share/fcitx/inputmethod") == 0 ||
              strcmp(dir.path[i->wd], "/usr/share/fcitx/table") == 0) &&
              str_find_target(".conf", i->name, &imName) == 1 &&
-             strcmp(imName, "baidupinyin") != 0) {
+                strcmp(imName, "baidupinyin") != 0 &&
+                strcmp(imName, "chineseime") != 0) {
 
             if (NULL != gDimConfigPath) {
                 ini_puts("DefaultIM", "IMNAME", imName, gDimConfigPath);
