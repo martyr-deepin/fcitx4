@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2017-10-15 20:02-0700\n"
+"POT-Creation-Date: 2021-04-23 00:01+0100\n"
 "PO-Revision-Date: 2021-04-07 08:12+0000\n"
 "Last-Translator: Cindy0514, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/linuxdeepin/teams/114346/zh_CN/)\n"
@@ -941,20 +941,20 @@ msgstr "输入法: 有问题的输入法 %s"
 msgid "No available Input Method"
 msgstr "无用输入法"
 
-#: src/lib/fcitx/ime.c:1695 src/module/notificationitem/notificationitem.c:411
+#: src/lib/fcitx/ime.c:1719 src/module/notificationitem/notificationitem.c:410
 #: data/fcitx-autostart.desktop.in:3 data/fcitx.desktop.in:3
 msgid "Input Method"
 msgstr "输入法"
 
-#: src/lib/fcitx/ime.c:1797
+#: src/lib/fcitx/ime.c:1821
 msgid "Input Speed: "
 msgstr "输入速度: "
 
-#: src/lib/fcitx/ime.c:1800
+#: src/lib/fcitx/ime.c:1824
 msgid "/min  Time Used: "
 msgstr "/分  经过时间: "
 
-#: src/lib/fcitx/ime.c:1803
+#: src/lib/fcitx/ime.c:1827
 msgid "min Num of Characters: "
 msgstr "分 字符数: "
 
@@ -1016,28 +1016,28 @@ msgstr "界面: 打开 %s 失败 %s"
 msgid "UI: bad ui"
 msgstr "界面: 有问题的界面"
 
-#: src/lib/fcitx-utils/desktop-parse.c:550
+#: src/lib/fcitx-utils/desktop-parse.c:551
 #, c-format
 msgid "Invalid group name line @ line %d %s"
 msgstr "非法组名出现在第 %d 行: %s"
 
-#: src/lib/fcitx-utils/desktop-parse.c:562
+#: src/lib/fcitx-utils/desktop-parse.c:563
 #, c-format
 msgid ""
 "Duplicate group %s in a desktop file,@ line %d, merge with previous one."
 msgstr "重复的组名 %s，@第 %d 行，与之前的组合并。"
 
-#: src/lib/fcitx-utils/desktop-parse.c:586
+#: src/lib/fcitx-utils/desktop-parse.c:587
 #, c-format
 msgid "Non-comment doesn't belongs to any group @ %d %s"
 msgstr "非注释不属于任何组 @ %d %s"
 
-#: src/lib/fcitx-utils/desktop-parse.c:592
+#: src/lib/fcitx-utils/desktop-parse.c:593
 #, c-format
 msgid "Invalid entry line @ line %d %s"
 msgstr "非法键值出现在第 %d 行: %s"
 
-#: src/lib/fcitx-utils/desktop-parse.c:602
+#: src/lib/fcitx-utils/desktop-parse.c:603
 #, c-format
 msgid "Duplicate entry %s in group %s,@ line %d, override previous one."
 msgstr "重复的键 %s 出现在组 %s 中, @第 %d 行, 覆盖之前的值."
@@ -1060,16 +1060,21 @@ msgstr "切换到简体中文"
 msgid "Switch to Traditional Chinese"
 msgstr "切换到繁体中文"
 
-#: src/module/chttrans/chttrans.c:176
+#: src/module/chttrans/chttrans.c:153 src/module/chttrans/chttrans.c:199
+#: src/module/chttrans/chttrans.c:246
+msgid "Toggle Simp/Trad Chinese Conversion"
+msgstr "切换简繁转换"
+
+#: src/module/chttrans/chttrans.c:177
 #: src/module/chttrans/fcitx-chttrans.conf.in:3
 msgid "Simplified Chinese To Traditional Chinese"
 msgstr "简繁转换"
 
-#: src/module/chttrans/chttrans.c:177
+#: src/module/chttrans/chttrans.c:178
 msgid "Traditional Chinese is enabled."
 msgstr "已启用繁体中文。"
 
-#: src/module/chttrans/chttrans.c:178
+#: src/module/chttrans/chttrans.c:179
 msgid "Simplified Chinese is enabled."
 msgstr "已启用简体中文。"
 
@@ -1116,40 +1121,35 @@ msgstr "无局部输入法"
 msgid "Clear local input method"
 msgstr "清除局部输入法"
 
-#: src/module/notificationitem/dbusmenu.c:340 src/ui/classic/classicui.c:440
+#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
 msgid "Online Help"
 msgstr "在线帮助"
 
-#: src/module/notificationitem/dbusmenu.c:352 src/ui/classic/classicui.c:501
-#: src/ui/kimpanel/kimpanel.c:785
-msgid "Configure Current Input Method"
-msgstr "配置当前输入法"
-
-#: src/module/notificationitem/dbusmenu.c:356 src/ui/classic/classicui.c:502
+#: src/module/notificationitem/dbusmenu.c:386 src/ui/classic/classicui.c:525
 msgid "Configure"
 msgstr "配置"
 
-#: src/module/notificationitem/dbusmenu.c:365 src/ui/classic/classicui.c:503
-#: src/ui/kimpanel/kimpanel.c:790
+#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/ui/kimpanel/kimpanel.c:796
 msgid "Restart"
 msgstr "重新启动"
 
-#: src/module/notificationitem/dbusmenu.c:371 src/ui/classic/classicui.c:504
+#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
 msgid "Exit"
 msgstr "退出"
 
-#: src/module/notificationitem/notificationitem.c:456
+#: src/module/notificationitem/notificationitem.c:454
 #: src/ui/kimpanel/kimpanel.c:256 src/ui/kimpanel/kimpanel.c:257
 msgid "No input window"
 msgstr "无输入窗口"
 
-#: src/module/notificationitem/notificationitem.c:462
+#: src/module/notificationitem/notificationitem.c:460
 #: src/ui/kimpanel/kimpanel.c:282 src/ui/kimpanel/kimpanel.c:287
 #: data/config.desc:34
 msgid "Disabled"
 msgstr "禁用"
 
-#: src/module/notificationitem/notificationitem.c:463
+#: src/module/notificationitem/notificationitem.c:461
 #: src/ui/kimpanel/kimpanel.c:283 src/ui/kimpanel/kimpanel.c:288
 msgid "Input Method Disabled"
 msgstr "输入法被禁用"

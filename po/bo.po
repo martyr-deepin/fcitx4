@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# yeshe lhamo <981611630@qq.com>, 2021
 # Cindy0514, 2021
+# yeshe lhamo <981611630@qq.com>, 2021
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2017-10-15 20:02-0700\n"
+"POT-Creation-Date: 2021-04-23 00:01+0100\n"
 "PO-Revision-Date: 2021-04-07 08:12+0000\n"
-"Last-Translator: Cindy0514, 2021\n"
+"Last-Translator: yeshe lhamo <981611630@qq.com>, 2021\n"
 "Language-Team: Tibetan (https://www.transifex.com/linuxdeepin/teams/114346/bo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -991,20 +991,20 @@ msgstr "ནང་འཇུག་བྱེད་སྟངས། གནད་ད�
 msgid "No available Input Method"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་ཕན་མེད།"
 
-#: src/lib/fcitx/ime.c:1695 src/module/notificationitem/notificationitem.c:411
+#: src/lib/fcitx/ime.c:1719 src/module/notificationitem/notificationitem.c:410
 #: data/fcitx-autostart.desktop.in:3 data/fcitx.desktop.in:3
 msgid "Input Method"
 msgstr "ནང་འཇུག་བྱེད་སྟངས།"
 
-#: src/lib/fcitx/ime.c:1797
+#: src/lib/fcitx/ime.c:1821
 msgid "Input Speed: "
 msgstr "ནང་འཇུག་མྱུར་ཚད།"
 
-#: src/lib/fcitx/ime.c:1800
+#: src/lib/fcitx/ime.c:1824
 msgid "/min  Time Used: "
 msgstr "སྐར་མ། བརྒྱུད་སྐབས་ཀྱི་དུས་ཚོད།"
 
-#: src/lib/fcitx/ime.c:1803
+#: src/lib/fcitx/ime.c:1827
 msgid "min Num of Characters: "
 msgstr "སྐར་མ། ཡིག་རྟགས་ཀྱི་གྲངས།"
 
@@ -1066,28 +1066,28 @@ msgstr "མཐུད་ངོས་%sཁ་ཕྱེ་མ་ཐུབ།%s"
 msgid "UI: bad ui"
 msgstr "མཐུད་ངོས། གནད་དོན་ཡོད་པའི་མཐུད་ངོས།"
 
-#: src/lib/fcitx-utils/desktop-parse.c:550
+#: src/lib/fcitx-utils/desktop-parse.c:551
 #, c-format
 msgid "Invalid group name line @ line %d %s"
 msgstr "ཁྲིམས་བརྒལ་གྱི་ཚོ་མིང་ཤོག་ངོས་%dསྟར་པ་%sའདུག"
 
-#: src/lib/fcitx-utils/desktop-parse.c:562
+#: src/lib/fcitx-utils/desktop-parse.c:563
 #, c-format
 msgid ""
 "Duplicate group %s in a desktop file,@ line %d, merge with previous one."
 msgstr "ཚོ་མིང་བསྐྱར་ཟློས་%s@ཤོལ་ངོས་%dསྟར་པ། དེ་སྔའི་ཚོ་མིང་དང་ཟླ་སྒྲིལ་བ།"
 
-#: src/lib/fcitx-utils/desktop-parse.c:586
+#: src/lib/fcitx-utils/desktop-parse.c:587
 #, c-format
 msgid "Non-comment doesn't belongs to any group @ %d %s"
 msgstr "མཆན་འགྲེལ་མིན་པ་ཚོ་ཆུང་གང་གི་ཁོངས་སུའང་མི་གཏོགས། @%d%s"
 
-#: src/lib/fcitx-utils/desktop-parse.c:592
+#: src/lib/fcitx-utils/desktop-parse.c:593
 #, c-format
 msgid "Invalid entry line @ line %d %s"
 msgstr "ཁྲིམས་དང་མི་མཐུན་པའི་མཐེབ་གཞོང་གི་གྲངས་ཐང་%dསྟར་པ་%sའདུག"
 
-#: src/lib/fcitx-utils/desktop-parse.c:602
+#: src/lib/fcitx-utils/desktop-parse.c:603
 #, c-format
 msgid "Duplicate entry %s in group %s,@ line %d, override previous one."
 msgstr ""
@@ -1111,16 +1111,21 @@ msgstr "ཚུགས་གསར་རྒྱ་ཡིག་ཏུ་སྒྱུ
 msgid "Switch to Traditional Chinese"
 msgstr "ཚུགས་རྙིང་རྒྱ་ཡིག་ཏུ་སྒྱུར་བ།"
 
-#: src/module/chttrans/chttrans.c:176
+#: src/module/chttrans/chttrans.c:153 src/module/chttrans/chttrans.c:199
+#: src/module/chttrans/chttrans.c:246
+msgid "Toggle Simp/Trad Chinese Conversion"
+msgstr "གཟུགས་ལྕི་ཡང་བརྗེ་བ།"
+
+#: src/module/chttrans/chttrans.c:177
 #: src/module/chttrans/fcitx-chttrans.conf.in:3
 msgid "Simplified Chinese To Traditional Chinese"
 msgstr "ཟོར་ལྕི་ཡང་བརྗེ་བ།"
 
-#: src/module/chttrans/chttrans.c:177
+#: src/module/chttrans/chttrans.c:178
 msgid "Traditional Chinese is enabled."
 msgstr "ཟོར་་ལྕིའི་རྒྱ་ཡིག་འགོ་བསླངས།"
 
-#: src/module/chttrans/chttrans.c:178
+#: src/module/chttrans/chttrans.c:179
 msgid "Simplified Chinese is enabled."
 msgstr "ཟོར་ཡང་རྒྱ་ཡིག་འགོ་བསླངས་པ།"
 
@@ -1167,40 +1172,35 @@ msgstr "ཆ་ཤས་ཀྱི་ནང་འཇུག་བྱེད་སྟ
 msgid "Clear local input method"
 msgstr "ཆ་ཤས་ཀྱི་ནང་འཇུག་བྱེད་སྟངས་གཙང་སེལ།"
 
-#: src/module/notificationitem/dbusmenu.c:340 src/ui/classic/classicui.c:440
+#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
 msgid "Online Help"
 msgstr "དྲ་ཐོག་རོགས་རམ།"
 
-#: src/module/notificationitem/dbusmenu.c:352 src/ui/classic/classicui.c:501
-#: src/ui/kimpanel/kimpanel.c:785
-msgid "Configure Current Input Method"
-msgstr "མིག་སྔའི་ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག་བྱེད་པ།"
-
-#: src/module/notificationitem/dbusmenu.c:356 src/ui/classic/classicui.c:502
+#: src/module/notificationitem/dbusmenu.c:386 src/ui/classic/classicui.c:525
 msgid "Configure"
 msgstr "སྡེབ་སྒྲིག"
 
-#: src/module/notificationitem/dbusmenu.c:365 src/ui/classic/classicui.c:503
-#: src/ui/kimpanel/kimpanel.c:790
+#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/ui/kimpanel/kimpanel.c:796
 msgid "Restart"
 msgstr "ཡང་བསྐྱར་འགོ་སློང་།"
 
-#: src/module/notificationitem/dbusmenu.c:371 src/ui/classic/classicui.c:504
+#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
 msgid "Exit"
 msgstr "ཕྱིར་དོན།"
 
-#: src/module/notificationitem/notificationitem.c:456
+#: src/module/notificationitem/notificationitem.c:454
 #: src/ui/kimpanel/kimpanel.c:256 src/ui/kimpanel/kimpanel.c:257
 msgid "No input window"
 msgstr "ནང་འཇུག་བྱེད་སའི་སྒེའུ་ཁུང་མེད།"
 
-#: src/module/notificationitem/notificationitem.c:462
+#: src/module/notificationitem/notificationitem.c:460
 #: src/ui/kimpanel/kimpanel.c:282 src/ui/kimpanel/kimpanel.c:287
 #: data/config.desc:34
 msgid "Disabled"
 msgstr "སྤྱོད་མི་ཆོག"
 
-#: src/module/notificationitem/notificationitem.c:463
+#: src/module/notificationitem/notificationitem.c:461
 #: src/ui/kimpanel/kimpanel.c:283 src/ui/kimpanel/kimpanel.c:288
 msgid "Input Method Disabled"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་སྤྱོད་མི་ཆོག"
