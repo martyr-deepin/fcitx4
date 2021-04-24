@@ -164,10 +164,29 @@ FCITX_EXPORT_API void
 FcitxLogFunc(FcitxLogLevel e, const char* filename, const int line,
              const char* fmt, ...)
 {
-    gFp=fopen(LOGFILE,"a");
+    char *username = getlogin();
+    int log_path_len = strlen(username)+strlen(LOGFILE)+2;
+    char *log_path = fcitx_utils_malloc0(log_path_len);
+    if (NULL == log_path) {
+        return;
+    }
+
+    memset(log_path, 0, log_path_len);
+    sprintf(log_path, "%s_%s", LOGFILE, username);
+    gFp=fopen(log_path,"a");
+    if (NULL == gFp) {
+        free(log_path);
+        log_path = NULL;
+        return;
+    }
+
     va_list ap;
     char *file = strdup(filename);
     if (!file) {
+        fclose(gFp);
+        gFp = NULL;
+        free(log_path);
+        log_path = NULL;
         return;
     }
     va_start(ap, fmt);
@@ -176,6 +195,8 @@ FcitxLogFunc(FcitxLogLevel e, const char* filename, const int line,
     va_end(ap);
     fclose(gFp);
     gFp = NULL;
+    free(log_path);
+    log_path = NULL;
 }
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

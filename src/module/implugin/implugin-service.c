@@ -5,7 +5,7 @@
  *
  * Maintainer: chenshijie <chenshijie@uniontech.com>
  *
- * This program is safe_free software: you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * any later version.
@@ -41,7 +41,7 @@
 #define IS_DIR 4
 #define DATA_W 200
 
-#define safe_free(EXP)  if((EXP)!=NULL) {printf("%d AAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAA Want to safe_free:%p\n", __LINE__, (EXP)); free((EXP)); EXP = NULL;}
+#define safe_free(EXP)  if((EXP)!=NULL) {free((EXP)); EXP = NULL;}
 
 static struct dir_path {
     int id;
