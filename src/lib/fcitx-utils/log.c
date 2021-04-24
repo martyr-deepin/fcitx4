@@ -165,6 +165,10 @@ FcitxLogFunc(FcitxLogLevel e, const char* filename, const int line,
              const char* fmt, ...)
 {
     gFp=fopen(LOGFILE,"a");
+    if (gFp == NULL) {
+        return;
+    }
+
     va_list ap;
     char *file = strdup(filename);
     if (!file) {
