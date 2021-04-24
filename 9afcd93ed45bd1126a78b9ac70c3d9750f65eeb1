@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c2ade002_4584a2f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-04-24T07:21:41Z",
+      "side": 1,
+      "message": "标题不存在或者名称错误, 模块名推荐使用fix|feat|chore|docs|style|refactor|perf|test|abigail 例fix: xxxxx",
+      "revId": "9afcd93ed45bd1126a78b9ac70c3d9750f65eeb1",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "66cfd946_697b1665",
         "filename": "src/lib/fcitx-utils/log.c",
         "patchSetId": 1
