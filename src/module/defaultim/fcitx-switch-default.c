@@ -28,7 +28,7 @@
 #include <unistd.h>
 #include "minIni.h"
 
-#define LOGFILE "/tmp/fcitx-switch.log"
+//#define LOGFILE "/tmp/fcitx-switch.log"
 
 // \brief 删除注释符号
 // \param input: 传入需要修改的字符串
@@ -61,8 +61,12 @@ void file_comment_checkout(const char *filename) {
 
 int if_frist_switch()
 {
-    int isFirst = access(LOGFILE, F_OK);
-    FILE* gFp=fopen(LOGFILE,"a");
+    char logDir[BUFSIZ]={};
+    char *username = getlogin();
+    sprintf(logDir, "%s_%s_%s", "/tmp/fcitx", username,"switch.log");
+
+    int isFirst = access(logDir, F_OK);
+    FILE* gFp=fopen(logDir,"a");
     if(isFirst == 0){//不是第一次启动
         fprintf(gFp, "not the first switch\n");
     } else {//是第一次启动
