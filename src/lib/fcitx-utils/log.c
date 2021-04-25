@@ -173,6 +173,7 @@ FcitxLogFunc(FcitxLogLevel e, const char* filename, const int line,
 
     memset(log_path, 0, log_path_len);
     sprintf(log_path, "%s_%s", LOGFILE, username);
+    free(username);
     gFp=fopen(log_path,"a");
     if (NULL == gFp) {
         free(log_path);

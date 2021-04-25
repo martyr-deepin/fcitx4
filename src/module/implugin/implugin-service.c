@@ -453,7 +453,9 @@ int main(int argc, char *argv[]) {
     char buf[BUFSIZ];
     struct inotify_event *event;
     char logDir[DATA_W]={};
-    strncat(logDir,"/tmp/fcitx-inotify.log",23);
+
+    char *username = getlogin();
+    sprintf(logDir, "%s_%s_%s", "/tmp/fcitx", username,"inotify.log");
     gFp=fopen(logDir,"a");
     buf[sizeof(buf) - 1] = 0;
     while ((len = read(fd, buf, sizeof(buf) - 1)) > 0) {
@@ -486,22 +488,6 @@ int main(int argc, char *argv[]) {
                                             event_str[i], event->wd,fd);
                                 }
                             }
-//                            if ((strcmp(event_str[i], "IN_DELETE") == 0)) {
-//                                memset(path, 0, sizeof path);
-//                                strncat(path, dir.path[event->wd], BUFSIZ);
-//                                strncat(path, "/", 1);
-//                                strncat(path, event->name, BUFSIZ);
-//                                stat(path, &res);
-//                                if (S_ISDIR(res.st_mode)) {
-//                                    if( event->wd < dir.id && NULL != dir.path[event->wd]){
-//                                        fprintf(gFp, "%s: %s/%s --- %s %d\n",
-//                                                gettime(),dir.path[event->wd], event->name,
-//                                                event_str[i], event->wd);
-//                                        safe_free(dir.path[event->wd]);
-//                                        dir.path[event->wd] = NULL;
-//                                    }
-//                                }
-//                            }
                         }
                         fflush(gFp);
                 }
