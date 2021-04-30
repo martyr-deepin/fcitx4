@@ -101,8 +101,8 @@ void id_add(char *path_id) {
 int inotify_watch_dir(char *dirPath, int fd) {
     int wd = 0;
     DIR *dp = NULL;
-    char pdirHome[DATA_W];
-    char pdir[DATA_W];
+    char pdirHome[DATA_W] = {0};
+    char pdir[DATA_W]= {0};
     strcpy(pdirHome, dirPath);
     struct dirent *dirp;
     if (fd < 0) {
@@ -190,7 +190,7 @@ void delete_comment(char str[]) {
 void file_comment_modify(const char *filename) {
     int fd = 0;
     int len = 0;
-    char str[BUFSIZ];
+    char str[BUFSIZ] = {0};
 
     fd = open(filename, O_RDWR, S_IRUSR | S_IWUSR);
     if (fd) {
@@ -451,10 +451,10 @@ int main(int argc, char *argv[]) {
     int len = 0;
     int nread = 0;
     struct stat res;
-    char path[BUFSIZ];
-    char buf[BUFSIZ];
+    char path[BUFSIZ] = {0};
+    char buf[BUFSIZ] = {0};
     struct inotify_event *event;
-    char logDir[DATA_W] = {};
+    char logDir[DATA_W] = {0};
 
     char *username = getlogin();
     sprintf(logDir, "%s_%s_%s", "/tmp/fcitx", username, "inotify.log");
