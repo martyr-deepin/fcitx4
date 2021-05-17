@@ -234,6 +234,7 @@ libfcitx-core.so.0 libfcitx-core0 #MINVER#
  FcitxInstanceSendCloseEvent@Base 4.2.8.4
  FcitxInstanceSetContext@Base 4.2.7
  FcitxInstanceSetCurrentIC@Base 4.2.7
+ FcitxInstanceGetLastIC@Base 4.2.9.29
  FcitxInstanceSetICData@Base 4.2.7
  FcitxInstanceSetICStateFromSameApplication@Base 4.2.7
  FcitxInstanceSetLocalIMName@Base 4.2.7
