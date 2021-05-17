@@ -175,6 +175,7 @@ libfcitx-core.so.0 libfcitx-core0 #MINVER#
  FcitxInstanceGetExceptFDSet@Base 4.2.7
  FcitxInstanceGetGlobalConfig@Base 4.2.7
  FcitxInstanceGetICData@Base 4.2.7
+ FcitxInstanceGetIM@Base 4.2.9.29
  FcitxInstanceGetIMByIndex@Base 4.2.7
  FcitxInstanceGetIMByName@Base 4.2.7
  FcitxInstanceGetIMEs@Base 4.2.7
