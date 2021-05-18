@@ -254,9 +254,19 @@ void FcitxDBusMenuDoEvent(void* arg)
                         }
                     }
                     break;
-//                case 5:
-//                    fcitx_utils_launch_configure_tool();
-//                    break;
+               case 5:
+                    //fcitx_utils_launch_configure_tool();
+                    {
+                        char* args[] = {
+                            "dde-control-center",
+                            "-m",
+                            "\'keyboard\'",
+                            "-p",
+                            "\'Manage Input Methods\'"
+                        };
+                        fcitx_utils_start_process(args);
+                    }
+                   break;
                 case 6:
                     FcitxInstanceRestart(instance);
                     break;
@@ -378,19 +388,18 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem* notificationitem, int32_t 
                 case 2:
                 case 3:
                 case 8:
-                case 5:
                     value = "separator";
                     FcitxDBusMenuAppendProperty(&sub, properties, "type", DBUS_TYPE_STRING, &value);
                     break;
-//                case 5:
-//                    value = _("Configure");
-//                    FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
-//                    /* this icon sucks on KDE, why configure doesn't have "configure" */
-//#if 0
-//                    value = "preferences-system";
-//                    FcitxDBusMenuAppendProperty(&sub, properties, "icon-name", DBUS_TYPE_STRING, &value);
-//#endif
-//                    break;
+               case 5:
+                   value = _("Configure");
+                   FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
+                   /* this icon sucks on KDE, why configure doesn't have "configure" */
+#if 0
+                   value = "preferences-system";
+                   FcitxDBusMenuAppendProperty(&sub, properties, "icon-name", DBUS_TYPE_STRING, &value);
+#endif
+                   break;
                 case 6:
                     value = _("Restart");
                     FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
