@@ -650,11 +650,11 @@ FCITX_EXPORT_API
 void fcitx_utils_launch_configure_tool()
 {
     char* args[] = {
-        "dde-control-center",
-        "-m",
-        "\"keyboard\"",
-        "-p",
-        "\"Manage Input Methods\""
+    "dde-control-center",
+    "-m",
+    "\'keyboard\'",
+    "-p",
+    "\'Manage Input Methods\'"
     };
     fcitx_utils_start_process(args);
 //    fcitx_utils_launch_tool("fcitx-configtool", NULL);
