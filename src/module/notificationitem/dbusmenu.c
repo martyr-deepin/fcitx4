@@ -255,17 +255,7 @@ void FcitxDBusMenuDoEvent(void* arg)
                     }
                     break;
                case 5:
-                    //fcitx_utils_launch_configure_tool();
-                    {
-                        char* args[] = {
-                            "dde-control-center",
-                            "-m",
-                            "\'keyboard\'",
-                            "-p",
-                            "\'Manage Input Methods\'"
-                        };
-                        fcitx_utils_start_process(args);
-                    }
+                    fcitx_utils_launch_configure_tool();
                    break;
                 case 6:
                     FcitxInstanceRestart(instance);
