@@ -1,6 +1,6 @@
 [Hotkey/TriggerKey]
 Type=Hotkey
-DefaultValue=CTRL_SHIFT
+DefaultValue=CTRL_SPACE
 AllowModifierOnly=True
 Description=Trigger Input Method
 
