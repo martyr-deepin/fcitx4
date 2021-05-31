@@ -160,6 +160,7 @@ libfcitx-core.so.0 libfcitx-core0 #MINVER#
  FcitxInstanceDoInputCallback@Base 4.2.9.29
  FcitxInstanceEnableIM@Base 4.2.9.29
  FcitxInstanceEnd@Base 4.2.9.29
+ FcitxInstanceEndWithKill@Base 4.2.9.29
  FcitxInstanceFindIC@Base 4.2.9.29
  FcitxInstanceForwardKey@Base 4.2.9.29
  FcitxInstanceGetAddons@Base 4.2.9.29
