@@ -11,7 +11,7 @@ Version:		4.2.9.31.79
 Release:		1%{?dist}
 License:		GPLv2+
 URL:			https://fcitx-im.org/wiki/Fcitx
-Source0:		%{name}-%{version}.tar.xz
+Source0:		%{name}-%{version}.tar.gz
 #Source1:		xinput_%%{name}
 BuildRequires:		gcc-c++
 BuildRequires:		pango-devel, dbus-devel
