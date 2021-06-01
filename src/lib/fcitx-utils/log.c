@@ -165,7 +165,20 @@ FcitxLogFunc(FcitxLogLevel e, const char* filename, const int line,
              const char* fmt, ...)
 {
     char *username = getlogin();
-    int log_path_len = strlen(username)+strlen(LOGFILE)+2;
+    char default_name[32] = {0};
+
+    int log_path_len = 0;
+    if (username) {
+        log_path_len = strlen(username)+strlen(LOGFILE)+2;
+    } else {
+        //if getlogin() failed, call getuid(). getuid() is always successful
+        uid_t uid = getuid();
+        sprintf(default_name, "user_id_%u", uid);
+        username = default_name;
+
+        log_path_len = strlen(username)+strlen(LOGFILE)+2;
+    }
+
     char *log_path = fcitx_utils_malloc0(log_path_len);
     if (NULL == log_path) {
         return;
