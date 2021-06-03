@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b22197e5_b089922b",
+        "filename": "src/lib/fcitx-utils/utils.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-03T05:41:13Z",
+      "side": 1,
+      "message": "注释行数: 9; 改动行数(修改和新增): 10; 注释率: 90.0%",
+      "revId": "8aeb26f49eb825bd54959119a8eae13f071b1f7d",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
