@@ -1,3 +1,9 @@
+fcitx (4.2.9.31.93-1) unstable; urgency=medium
+
+ * 1040 集成版本
+
+ -- chenshijie <chenshijie@uniontech.com>  Thu Jun 17 10:00:00 2021 +0800
+
 fcitx (4.2.9.31-1) unstable; urgency=medium
 
  * 平板项目支持,直接选中备选词接口SelectTotalCandidate
