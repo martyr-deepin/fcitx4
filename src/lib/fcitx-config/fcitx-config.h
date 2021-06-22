@@ -616,17 +616,6 @@ boolean FcitxConfigSaveConfigFile(char *filename, FcitxGenericConfig *cfile, Fci
 boolean FcitxConfigSaveConfigFileFp(FILE *fp, FcitxGenericConfig *cfile, FcitxConfigFileDesc *cdesc);
 
 /**
- * Save config file to fp
- *
- * @see SaveConfigFile
- * @param fp file pointer
- * @param cfile config
- * @param cdesc config file dsecription
- * @return boolean
- **/
-boolean FcitxConfigSaveConfigFileFpNdc(FILE *fp, FcitxGenericConfig *cfile, FcitxConfigFileDesc *cdesc);
-
-/**
  * sync a single value
  *
  * @param config config

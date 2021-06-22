@@ -1,8 +1,8 @@
-fcitx (4.2.9.31-1) unstable; urgency=medium
+fcitx (4.2.9.30.3-1) unstable; urgency=medium
 
- * 平板项目支持,直接选中备选词接口SelectTotalCandidate
+ * 去掉1040需求部分,设定为klu单独分支
 
- -- chenshijie <chenshijie@uniontech.com>  Mon Jan 28 10:00:00 2021 +0800
+ -- chenshijie <chenshijie@uniontech.com>  Tue Jun 22 15:00:00 2021 +0800
 
 fcitx (4.2.9.30-1) unstable; urgency=medium
 
