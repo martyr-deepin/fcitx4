@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c71a845b_3d14e58b",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-22T08:43:26Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 55; 注释率: 不计算",
+      "revId": "a2cf572d95dff47dbf9bab457dc83293a3b7b818",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "335ca762_03c59164",
+        "filename": "src/lib/fcitx-config/fcitx-config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-06-22T08:43:26Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 10; 注释率: 不计算",
+      "revId": "a2cf572d95dff47dbf9bab457dc83293a3b7b818",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
