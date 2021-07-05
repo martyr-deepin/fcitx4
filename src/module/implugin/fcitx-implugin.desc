@@ -58,6 +58,21 @@ Type=String
 DefaultValue=
 Description= sogoupinyin parameter
 
+[sogoupinyinuos/SettingWizard]
+Type=String
+DefaultValue=
+Description=
+
+[sogoupinyinuos/Setting]
+Type=String
+DefaultValue=/opt/apps/com.sogou.sogoupinyin-uos/files/bin/sogouIme-configtool-uos
+Description= sogoupinyinuos setting path
+
+[sogoupinyinuos/Parameter]
+Type=String
+DefaultValue=
+Description= sogoupinyinuos parameter
+
 [baidupinyin/SettingWizard]
 Type=String
 DefaultValue=/opt/apps/com.baidu.fcitx-baidupinyin/files/bin/BDIMWizard
