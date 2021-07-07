@@ -134,7 +134,8 @@ extern "C"
         T_File,
         T_Hotkey,
         T_Font,
-        T_I18NString
+        T_I18NString,
+        T_ExternalOption
     } FcitxConfigType;
 
     /**

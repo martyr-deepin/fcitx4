@@ -336,6 +336,8 @@ FcitxConfigFileDesc *FcitxConfigParseConfigFileDescFp(FILE *fp)
                 codesc->type = T_File;
             else if (!strcmp(option->rawValue, "Font"))
                 codesc->type = T_Font;
+            else if (!strcmp(option->rawValue, "ExternalOption"))
+                codesc->type = T_ExternalOption;
             else if (!strcmp(option->rawValue, "Hotkey")) {
                 codesc->type = T_Hotkey;
                 FcitxConfigOption* coption;
