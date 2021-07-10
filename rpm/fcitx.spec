@@ -2,6 +2,7 @@
 %global debug_package %{nil}
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 %global _xinputconf %{_sysconfdir}/X11/xinit/xinput.d/fcitx.conf
+%global _fcitxsh %{_sysconfdir}/X11/xinit/xinput.d/99_fcitx.sh
 %{!?gtk2_binary_version: %global gtk2_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-2.0)}
 %{!?gtk3_binary_version: %global gtk3_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-3.0)}
 
@@ -180,7 +181,7 @@ make VERBOSE=1 %{?_smp_mflags}
 
 #find %{buildroot}%{_libdir} -name '*.la' -delete -print
 
-#install -pm 644 -D %{Source1} %{buildroot}%{_xinputconf}
+install -pm 644 -D %{_sourcedir}/99_fcitx.sh %{buildroot}%{_fcitxsh}
 install -pm 644 -D %{_sourcedir}/xinput_fcitx %{buildroot}%{_xinputconf}
 
 # patch fcitx4-config to use pkg-config to solve libdir to avoid multiarch
@@ -220,6 +221,7 @@ fi
 %doc AUTHORS ChangeLog THANKS TODO
 %license COPYING
 %config %{_xinputconf}
+%config %{_fcitxsh}
 %{_bindir}/fcitx-*
 %{_bindir}/fcitx
 %{_bindir}/createPYMB
