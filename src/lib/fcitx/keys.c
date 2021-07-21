@@ -112,13 +112,13 @@ FcitxHotkey FCITX_RCTRL_RSHIFT2[2] = {
 FCITX_EXPORT_API
 FcitxHotkey FCITX_LALT_LSHIFT[2] = {
     {NULL, FcitxKey_Shift_L, FcitxKeyState_Alt_Shift},
-    {NULL, FcitxKey_Alt_L, FcitxKeyState_Alt_Shift},
+    {NULL, FcitxKey_Meta_L, FcitxKeyState_Alt_Shift},
 };
 
 FCITX_EXPORT_API
 FcitxHotkey FCITX_LALT_LSHIFT2[2] = {
     {NULL, FcitxKey_Shift_L, FcitxKeyState_Alt},
-    {NULL, FcitxKey_Alt_L, FcitxKeyState_Shift},
+    {NULL, FcitxKey_Meta_L, FcitxKeyState_Shift},
 };
 
 FCITX_EXPORT_API
@@ -130,7 +130,7 @@ FcitxHotkey FCITX_RALT_RSHIFT[2] = {
 FCITX_EXPORT_API
 FcitxHotkey FCITX_RALT_RSHIFT2[2] = {
     {NULL, FcitxKey_Shift_R, FcitxKeyState_Alt},
-    {NULL, 0, 0},
+    {NULL, FcitxKey_Alt_R, FcitxKeyState_Shift},
 };
 
 FCITX_EXPORT_API
