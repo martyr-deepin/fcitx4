@@ -219,12 +219,18 @@ desktop-file-install --delete-original \
 
 %post 
 %{_sbindir}/alternatives --install %{_sysconfdir}/X11/xinit/xinputrc xinputrc %{_xinputconf} 55 || :
+%{_sbindir}/alternatives --install %{_sysconfdir}/X11/xinit/99_fcitx.sh 99_fcitx.sh %{_fcitxsh} 55 || :
 
 %postun  
 if [ "$1" = "0" ]; then
   %{_sbindir}/alternatives --remove xinputrc %{_xinputconf} || :
   # if alternative was set to manual, reset to auto
   [ -L %{_sysconfdir}/alternatives/xinputrc -a "`readlink %{_sysconfdir}/alternatives/xinputrc`" = "%{_xinputconf}" ] && %{_sbindir}/alternatives --auto xinputrc || :
+fi
+if [ "$1" = "0" ]; then
+  %{_sbindir}/alternatives --remove 99_fcitx.sh %{_fcitxsh} || :
+  # if alternative was set to manual, reset to auto
+  [ -L %{_sysconfdir}/alternatives/99_fcitx.sh -a "`readlink %{_sysconfdir}/alternatives/99_fcitx.sh`" = "%{_fcitxsh}" ] && %{_sbindir}/alternatives --auto 99_fcitx.sh || :
 fi
 
 %ldconfig_scriptlets libs
