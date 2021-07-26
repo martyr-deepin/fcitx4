@@ -33,7 +33,7 @@ Enum16=Super+Left Ctrl
 Enum17=Super+Right Ctrl
 Enum18=Disabled
 Enum19=Custom
-DefaultValue=L_SHIFT
+DefaultValue=Disabled
 Description=Extra key for trigger input method
 
 [Hotkey/CustomSwitchKey]
