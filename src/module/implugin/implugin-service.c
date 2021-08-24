@@ -314,7 +314,6 @@ void display_inotify_event(struct inotify_event *i) {
             str_find_target(".conf", i->name, &imName) == 1 &&
             strcmp(imName, "baidupinyin") != 0 &&
             strcmp(imName, "chineseime") != 0 &&
-            strcmp(imName, "sogoupinyinuos") != 0 &&
             strcmp(imName, "shuangpin") != 0) {
 
             if (NULL != gDimConfigPath) {

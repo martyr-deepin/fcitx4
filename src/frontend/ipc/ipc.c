@@ -218,6 +218,8 @@ const char * im_introspection_xml =
     "<method name=\"GetCurrentState\">"
     "<arg name=\"state\" direction=\"out\" type=\"i\"/>"
     "</method>"
+    "<signal name=\"ReloadConfigUI\">"
+    "</signal>"
     "<property access=\"readwrite\" type=\"a(sssb)\" name=\"IMList\">"
     "<annotation name=\"org.freedesktop.DBus.Property.EmitsChangedSignal\" value=\"true\"/>"
     "</property>"
