@@ -71,6 +71,8 @@ static const gchar introspection_xml[] =
     "    <method name=\"GetCurrentState\">\n"
     "      <arg name=\"state\" direction=\"out\" type=\"i\"/>\n"
     "    </method>\n"
+    "    <signal name=\"ReloadConfigUI\">\n"
+    "    </signal>\n"
     "    <property access=\"readwrite\" type=\"a(sssb)\" name=\"IMList\">"
     "      <annotation "
     "name=\"org.freedesktop.DBus.Property.EmitsChangedSignal\" value=\"true\"/>"
