@@ -89,6 +89,7 @@ libfcitx-qt.so.0 libfcitx-qt0 #MINVER#
  (c++)"FcitxQtFormattedPreedit::string() const@Base" 4.2.7
  (c++)"FcitxQtFormattedPreedit::operator==(FcitxQtFormattedPreedit const&) const@Base" 4.2.7
  (c++)"FcitxQtInputMethodProxy::metaObject() const@Base" 4.2.7
+ (c++)"FcitxQtInputMethodProxy::ReloadConfigUI()@Base" 4.2.9
  (c++)"FcitxQtInputContextProxy::metaObject() const@Base" 4.2.7
  (c++)"typeinfo for FcitxQtConnection@Base" 4.2.7
  (c++)"typeinfo for FcitxQtKeyboardProxy@Base" 4.2.7
