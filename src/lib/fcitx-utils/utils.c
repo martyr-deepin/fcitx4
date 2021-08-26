@@ -658,6 +658,7 @@ void fcitx_utils_launch_configure_tool()
 //    NULL
 //    };
 //     fcitx_utils_start_process(args);
+    FcitxLog(DEBUG, "The startup of fcitx-configtool was successful");
     fcitx_utils_launch_tool("fcitx-configtool", NULL);
 
 }
