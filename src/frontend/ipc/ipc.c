@@ -74,6 +74,7 @@ typedef struct _FcitxIPCKeyEvent {
     unsigned int state;
 } FcitxIPCKeyEvent;
 
+static void ReloadConfigUI(void* arg);
 static void* IPCCreate(FcitxInstance* instance, int frontendid);
 static boolean IPCDestroy(void* arg);
 void IPCCreateIC(void* arg, FcitxInputContext* context, void *priv);
@@ -556,6 +557,17 @@ void IPCSendSignal(FcitxIPCFrontend* ipc, FcitxIPCIC* ipcic, DBusMessage* msg)
     dbus_message_unref(msg);
 }
 
+void IPCReloadConfigUI(void* arg)
+{
+    FcitxIPCFrontend* ipc = (FcitxIPCFrontend*) arg;
+    DBusMessage* msg = dbus_message_new_signal(FCITX_IM_DBUS_PATH, // object name of the signal
+                       FCITX_IM_DBUS_INTERFACE, // interface name of the signal
+                       "ReloadConfigUI"); // name of the signal
+
+    IPCSendSignal(ipc, NULL, msg);
+}
+
+
 void IPCEnableIM(void* arg, FcitxInputContext* ic)
 {
     FcitxIPCFrontend* ipc = (FcitxIPCFrontend*) arg;
@@ -805,6 +817,7 @@ static DBusHandlerResult IPCDBusEventHandler(DBusConnection *connection, DBusMes
         FcitxInstanceReloadConfig(instance);
         reply = dbus_message_new_method_return(msg);
         flush = true;
+        IPCReloadConfigUI(ipc);
     } else if (dbus_message_is_method_call(msg, FCITX_IM_DBUS_INTERFACE, "Restart")) {
         FcitxLog(DEBUG, "Restart");
         FcitxInstanceRestart(instance);
