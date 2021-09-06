@@ -88,7 +88,7 @@ enum { PROP_0, PROP_CURRENT_IM, N_PROPERTIES };
 
 static GParamSpec *properties[N_PROPERTIES];
 
-enum { IMLIST_CHANGED_SIGNAL, LAST_SIGNAL };
+enum { UI_CHANGED_SIGNAL, LAST_SIGNAL };
 
 static guint signals[LAST_SIGNAL] = {0};
 
@@ -236,8 +236,8 @@ static void fcitx_input_method_g_properties_changed(
     if (changed_properties != NULL) {
         g_variant_get(changed_properties, "a{sv}", &iter);
         while (g_variant_iter_next(iter, "{&sv}", &key, NULL)) {
-            if (g_strcmp0(key, "IMList") == 0)
-                g_signal_emit(user, signals[IMLIST_CHANGED_SIGNAL], 0);
+            if (g_strcmp0(key, "ReloadConfigUI") == 0)
+                g_signal_emit(user, signals[UI_CHANGED_SIGNAL], 0);
             else if (g_strcmp0(key, "CurrentIM") == 0)
                 g_object_notify_by_pspec(G_OBJECT(user),
                                          properties[PROP_CURRENT_IM]);
@@ -248,8 +248,8 @@ static void fcitx_input_method_g_properties_changed(
     if (invalidated_properties != NULL) {
         const gchar *const *item = invalidated_properties;
         while (*item) {
-            if (g_strcmp0(*item, "IMList") == 0)
-                g_signal_emit(user, signals[IMLIST_CHANGED_SIGNAL], 0);
+            if (g_strcmp0(*item, "ReloadConfigUI") == 0)
+                g_signal_emit(user, signals[UI_CHANGED_SIGNAL], 0);
             else if (g_strcmp0(*item, "CurrentIM") == 0)
                 g_object_notify_by_pspec(G_OBJECT(user),
                                          properties[PROP_CURRENT_IM]);
@@ -333,8 +333,8 @@ static void fcitx_input_method_class_init(FcitxInputMethodClass *klass) {
      *
      * Emit when input method list changed
      */
-    signals[IMLIST_CHANGED_SIGNAL] = g_signal_new(
-        "imlist-changed", FCITX_TYPE_INPUT_METHOD, G_SIGNAL_RUN_LAST, 0, NULL,
+    signals[UI_CHANGED_SIGNAL] = g_signal_new(
+        "ui-changed", FCITX_TYPE_INPUT_METHOD, G_SIGNAL_RUN_LAST, 0, NULL,
         NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 }
 
