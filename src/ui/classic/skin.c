@@ -249,7 +249,6 @@ SkinImage* LoadImageFromTable(SkinImage** imageTable, const char* skinType, cons
         for (i = 0; i < fallbackSize; i ++) {
             char* filename = NULL;
             const char* skintype = fallbackChain[i];
-            FcitxLog(DEBUG, "fallbackChain[i] : %s，i : %d"，fallbackChain[i], i);
 
             FILE* fp = FcitxXDGGetFileWithPrefix(skintype, name, "r", &filename);
             do {
@@ -289,14 +288,10 @@ SkinImage* LoadImageFromTable(SkinImage** imageTable, const char* skinType, cons
 
 SkinImage* LoadImage(FcitxSkin* sc, const char* name, int flag)
 {
-    if (flag == 2){
-        FcitxLog(DEBUG, "skin::LoadImage flag == 2");
+    if (flag == 2)
         return LoadImageFromTable(&sc->trayImageTable, *sc->skinType, name, flag);
-    }
-    else{
-        FcitxLog(DEBUG, "skin::LoadImage");
+    else
         return LoadImageFromTable(&sc->imageTable, *sc->skinType, name, flag);
-    }
 }
 
 void DrawResizableBackground(cairo_t *c,
