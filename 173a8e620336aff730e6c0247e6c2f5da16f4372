@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9db39c40_6e3d4516",
+        "filename": "src/lib/fcitx-gclient/fcitxinputmethod.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-09-07T12:54:18Z",
+      "side": 1,
+      "message": "注释行数: 6; 改动行数(修改和新增): 8; 注释率: 75.0%",
+      "revId": "173a8e620336aff730e6c0247e6c2f5da16f4372",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
