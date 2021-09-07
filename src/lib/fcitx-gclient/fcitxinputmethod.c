@@ -88,7 +88,7 @@ enum { PROP_0, PROP_CURRENT_IM, N_PROPERTIES };
 
 static GParamSpec *properties[N_PROPERTIES];
 
-enum { UI_CHANGED_SIGNAL, LAST_SIGNAL };
+enum { IMLIST_CHANGED_SIGNAL, UI_CHANGED_SIGNAL, LAST_SIGNAL };
 
 static guint signals[LAST_SIGNAL] = {0};
 
@@ -337,6 +337,15 @@ static void fcitx_input_method_class_init(FcitxInputMethodClass *klass) {
     signals[UI_CHANGED_SIGNAL] = g_signal_new(
         "ui-changed", FCITX_TYPE_INPUT_METHOD, G_SIGNAL_RUN_LAST, 0, NULL,
         NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+    /**
+     * FcitxInputMethod::imlist-changed:
+     * @im: A #FcitxInputMethod
+     *
+     * Emit when ui config changed
+     */
+     signals[IMLIST_CHANGED_SIGNAL] = g_signal_new(
+        "imlist-changed", FCITX_TYPE_INPUT_METHOD, G_SIGNAL_RUN_LAST, 0, NULL,
+        NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 }
 
 /**
@@ -564,16 +573,14 @@ gchar *fcitx_input_method_get_im_addon(FcitxInputMethod *im, gchar *imname) {
  **/
 FCITX_EXPORT_API
 void fcitx_input_method_reload_config(FcitxInputMethod *im) {
-
-//    GError* error;
-//    gchar* argv[3];
-//    argv[0] = "/usr/bin/fcitx-remote";
-//    argv[1] = "-r";
-//    argv[2] = 0;
-//    g_spawn_async(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
-
-    g_dbus_proxy_call(G_DBUS_PROXY(im), "ReloadConfig", NULL,
-                      G_DBUS_CALL_FLAGS_NO_AUTO_START, 0, NULL, NULL, NULL);
+    GError* error;
+    gchar* argv[3];
+    argv[0] = "/usr/bin/fcitx-remote";
+    argv[1] = "-r";
+    argv[2] = 0;
+    g_spawn_async(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
+//    g_dbus_proxy_call(G_DBUS_PROXY(im), "ReloadConfig", NULL,
+//                      G_DBUS_CALL_FLAGS_NO_AUTO_START, 0, NULL, NULL, NULL);
 }
 
 /**
