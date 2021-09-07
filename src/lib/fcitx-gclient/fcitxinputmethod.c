@@ -218,6 +218,8 @@ void fcitx_input_method_set_imlist(FcitxInputMethod *im, GPtrArray *array) {
         G_VARIANT_TYPE_UNIT, G_DBUS_CALL_FLAGS_NONE, -1, /* timeout */
         NULL, &error);
 
+    fcitx_input_method_reload_config(im);
+
     if (error) {
         g_warning("%s", error->message);
         g_error_free(error);
@@ -236,9 +238,7 @@ static void fcitx_input_method_g_properties_changed(
     if (changed_properties != NULL) {
         g_variant_get(changed_properties, "a{sv}", &iter);
         while (g_variant_iter_next(iter, "{&sv}", &key, NULL)) {
-            if (g_strcmp0(key, "ReloadConfigUI") == 0)
-                g_signal_emit(user, signals[UI_CHANGED_SIGNAL], 0);
-            else if (g_strcmp0(key, "CurrentIM") == 0)
+            if (g_strcmp0(key, "CurrentIM") == 0)
                 g_object_notify_by_pspec(G_OBJECT(user),
                                          properties[PROP_CURRENT_IM]);
         }
@@ -248,9 +248,7 @@ static void fcitx_input_method_g_properties_changed(
     if (invalidated_properties != NULL) {
         const gchar *const *item = invalidated_properties;
         while (*item) {
-            if (g_strcmp0(*item, "ReloadConfigUI") == 0)
-                g_signal_emit(user, signals[UI_CHANGED_SIGNAL], 0);
-            else if (g_strcmp0(*item, "CurrentIM") == 0)
+            if (g_strcmp0(*item, "CurrentIM") == 0)
                 g_object_notify_by_pspec(G_OBJECT(user),
                                          properties[PROP_CURRENT_IM]);
             item++;
@@ -262,10 +260,13 @@ static void fcitx_input_method_g_signal(GDBusProxy *proxy,
                                         const gchar *sender_name,
                                         const gchar *signal_name,
                                         GVariant *parameters) {
-    FCITX_UNUSED(proxy);
     FCITX_UNUSED(sender_name);
-    FCITX_UNUSED(signal_name);
     FCITX_UNUSED(parameters);
+    FcitxLog(DEBUG, "fcitx_input_method_g_signal");
+    if(g_strcmp0(signal_name,"ReloadConfigUI")){
+        FcitxLog(DEBUG, "ReloadConfigUI");
+        g_signal_emit(proxy, signals[UI_CHANGED_SIGNAL], 0);
+    }
 }
 
 static void fcitx_input_method_get_property(GObject *object, guint property_id,
@@ -328,10 +329,10 @@ static void fcitx_input_method_class_init(FcitxInputMethodClass *klass) {
 
     /* install signals */
     /**
-     * FcitxInputMethod::imlist-changed:
+     * FcitxInputMethod::ui-changed:
      * @im: A #FcitxInputMethod
      *
-     * Emit when input method list changed
+     * Emit when ui config changed
      */
     signals[UI_CHANGED_SIGNAL] = g_signal_new(
         "ui-changed", FCITX_TYPE_INPUT_METHOD, G_SIGNAL_RUN_LAST, 0, NULL,
@@ -563,6 +564,14 @@ gchar *fcitx_input_method_get_im_addon(FcitxInputMethod *im, gchar *imname) {
  **/
 FCITX_EXPORT_API
 void fcitx_input_method_reload_config(FcitxInputMethod *im) {
+
+//    GError* error;
+//    gchar* argv[3];
+//    argv[0] = "/usr/bin/fcitx-remote";
+//    argv[1] = "-r";
+//    argv[2] = 0;
+//    g_spawn_async(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
+
     g_dbus_proxy_call(G_DBUS_PROXY(im), "ReloadConfig", NULL,
                       G_DBUS_CALL_FLAGS_NO_AUTO_START, 0, NULL, NULL, NULL);
 }
