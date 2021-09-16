@@ -313,8 +313,9 @@ static void ClassicUIRegisterStatus(void *arg, FcitxUIStatus* status)
 
 static void ClassicUIOnInputFocus(void *arg)
 {
+    printf("ClassicUIOnInputFocus\n");
     FcitxClassicUI* classicui = (FcitxClassicUI*) arg;
-    if (classicui->isSuspend)
+    if (classicui->isSuspend||classicui->mainMenuWindow->visible)
         return;
     MainWindowShow(classicui->mainWindow);
     TrayWindowDraw(classicui->trayWindow);
@@ -322,8 +323,9 @@ static void ClassicUIOnInputFocus(void *arg)
 
 static void ClassicUIOnInputUnFocus(void *arg)
 {
+    printf("ClassicUIOnInputUnFocus\n");
     FcitxClassicUI* classicui = (FcitxClassicUI*) arg;
-    if (classicui->isSuspend)
+    if (classicui->isSuspend||classicui->mainMenuWindow->visible)
         return;
     MainWindowShow(classicui->mainWindow);
     TrayWindowDraw(classicui->trayWindow);
