@@ -1365,15 +1365,15 @@ msgstr "启动输入法"
 
 #: data/fcitx-configtool.desktop.in:2
 msgid "Fcitx Configuration"
-msgstr "输入法配置"
+msgstr "Fcitx 配置"
 
 #: data/fcitx-configtool.desktop.in:3
 msgid "Input Method Configuration"
-msgstr "输入法配置"
+msgstr "Fcitx 配置"
 
 #: data/fcitx-configtool.desktop.in:4
 msgid "Change Fcitx Configuration"
-msgstr "修改输入法配置"
+msgstr "修改 Fcitx 配置"
 
 #: skin/classic/fcitx_skin.conf.in:2 src/ui/classic/fcitx-classic-ui.conf.in:3
 msgid "Classic"
