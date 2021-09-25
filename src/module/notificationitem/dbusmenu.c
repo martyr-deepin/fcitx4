@@ -261,7 +261,6 @@ void FcitxDBusMenuDoEvent(void* arg)
                     FcitxInstanceRestart(instance);
                     break;
                 case 7:
-                    fcitx_utils_kill_fcitx_config_gtk3();
                     FcitxInstanceEnd(instance);
                     break;
             }
