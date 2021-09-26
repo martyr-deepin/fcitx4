@@ -248,9 +248,6 @@ int get_curindex_inputmethod(int32_t sigvalue, char **imname) {
         return -1;
     }
 
-    dbus_connection_flush(connection);
-    dbus_message_unref(msg);
-
     dbus_pending_call_block(pending);
     msg = dbus_pending_call_steal_reply(pending);
     if (NULL == msg) {
@@ -267,9 +264,56 @@ int get_curindex_inputmethod(int32_t sigvalue, char **imname) {
         dbus_message_iter_get_basic(&arg, imname);
     }
     dbus_connection_flush(connection);
-
     dbus_message_unref(msg);
+    return 0;
+}
 
+int set_layout_for_im(char *imname) {
+    DBusError err;
+    DBusConnection *connection;
+    DBusMessage *msg;
+    DBusPendingCall *pending;
+
+    char *var2 = malloc(30);
+    memset(var2, 0, 30);
+    strcat(var2, "cn");
+
+    char *var3 = malloc(30);
+    memset(var3, 0, 30);
+    strcat(var3, "");
+
+
+    dbus_error_init(&err);
+
+    connection = dbus_bus_get(DBUS_BUS_SESSION, &err);
+    if (dbus_error_is_set(&err)) {
+        dbus_error_free(&err);
+    }
+    if (NULL == connection) {
+        return -1;
+    }
+
+    if (NULL == (msg = dbus_message_new_method_call(
+                     "org.fcitx.Fcitx-0", "/keyboard",
+                     "org.fcitx.Fcitx.Keyboard", "SetLayoutForIM"))) {
+        return -1;
+    }
+
+    dbus_message_append_args(msg,
+                             DBUS_TYPE_STRING, &imname,
+                             DBUS_TYPE_STRING, &var2,
+                             DBUS_TYPE_STRING, &var3,
+                             DBUS_TYPE_INVALID);
+
+    if (!dbus_connection_send_with_reply(connection, msg, &pending, -1)) {
+        return -1;
+    }
+    if (NULL == pending) {
+        return -1;
+    }
+
+    dbus_connection_flush(connection);
+    dbus_message_unref(msg);
     return 0;
 }
 
@@ -352,6 +396,7 @@ void display_inotify_event(struct inotify_event *i) {
                     char *commod[] = {pSettingWizard, NULL};
                     fcitx_utils_start_process(commod);
                 }
+                set_layout_for_im(imName);
             } else if ((NULL != imName) &&
                        strcmp(dir.path[i->wd], "/usr/share/fcitx/table") != 0) {
                 fprintf(gFp, "%s: commod is %s; \n", gettime(), "start");
@@ -362,14 +407,17 @@ void display_inotify_event(struct inotify_event *i) {
                 strcat(result, imName);
                 fprintf(gFp, "%s: commod is end %s; \n", gettime(), result);
                 fcitx_utils_launch_configure_tool_for_addon(result);
+                set_layout_for_im(imName);
                 if (NULL != result) {
                     safe_free(result);
                     result = NULL;
                 }
+                set_layout_for_im(imName);
             } else if ((NULL != imName) &&
                        strcmp(dir.path[i->wd], "/usr/share/fcitx/table") == 0) {
                 sleep(10);
                 fcitx_utils_launch_configure_tool_for_addon("fcitx-table");
+                set_layout_for_im(imName);
             }
             if (NULL != pSettingWizard) {
                 safe_free(pSettingWizard);
@@ -412,13 +460,9 @@ void display_inotify_event(struct inotify_event *i) {
                     if (strcmp(secName, "") == 0) {
                         memset(secName, 0, 256);
                         sprintf(secName, "fcitx-keyboard-us");
-                        // secName = "fcitx-keyboard-us";
                     }
                     ini_puts("DefaultIM", "IMNAME", secName, gDimConfigPath);
-                    /*if(NULL != secName){
-                        safe_free(secName);
-                        secName = NULL;
-                    }*/
+
                 }
                 if (NULL != pCurDeimName) {
                     safe_free(pCurDeimName);
