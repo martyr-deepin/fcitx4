@@ -396,7 +396,6 @@ void display_inotify_event(struct inotify_event *i) {
                     char *commod[] = {pSettingWizard, NULL};
                     fcitx_utils_start_process(commod);
                 }
-                set_layout_for_im(imName);
             } else if ((NULL != imName) &&
                        strcmp(dir.path[i->wd], "/usr/share/fcitx/table") != 0) {
                 fprintf(gFp, "%s: commod is %s; \n", gettime(), "start");
@@ -407,18 +406,17 @@ void display_inotify_event(struct inotify_event *i) {
                 strcat(result, imName);
                 fprintf(gFp, "%s: commod is end %s; \n", gettime(), result);
                 fcitx_utils_launch_configure_tool_for_addon(result);
-                set_layout_for_im(imName);
                 if (NULL != result) {
                     safe_free(result);
                     result = NULL;
                 }
-                set_layout_for_im(imName);
             } else if ((NULL != imName) &&
                        strcmp(dir.path[i->wd], "/usr/share/fcitx/table") == 0) {
                 sleep(10);
                 fcitx_utils_launch_configure_tool_for_addon("fcitx-table");
-                set_layout_for_im(imName);
             }
+            sleep(3);
+            set_layout_for_im(imName);
             if (NULL != pSettingWizard) {
                 safe_free(pSettingWizard);
                 pSettingWizard = NULL;
@@ -432,6 +430,15 @@ void display_inotify_event(struct inotify_event *i) {
                 safe_free(imName);
                 imName = NULL;
             }
+        }
+        else if ((strcmp(dir.path[i->wd], "/usr/share/fcitx/inputmethod") == 0 ||
+             strcmp(dir.path[i->wd], "/usr/share/fcitx/table") == 0) &&
+            str_find_target(".conf", i->name, &imName) == 1 &&
+            strcmp(imName, "chineseime") == 0){
+            sleep(3);
+            fcitx_utils_launch_restart();
+            sleep(3);
+            set_layout_for_im(imName);
         }
     }
     if (i->mask & IN_DELETE) {
