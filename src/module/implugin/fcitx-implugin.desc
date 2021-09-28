@@ -15,12 +15,12 @@ Description= chineseime parameter
 
 [iflyime/SettingWizard]
 Type=String
-DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-set
+DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-setw
 Description= iflyime setting wizard path
 
 [iflyime/Setting]
 Type=String
-DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-set
+DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-sett
 Description= iflyime setting path
 
 [iflyime/Parameter]
