@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "148d1cbc_80791fc9",
+        "filename": "src/module/uos-notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-14T10:59:27Z",
+      "side": 1,
+      "message": "注释行数: 58; 改动行数(修改和新增): 694; 注释率: 8.4%",
+      "revId": "a68a05672f8605ddfc6211940ae3dc32d2235cdf",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e321bf5_b42c9ce4",
+        "filename": "src/module/uos-notificationitem/uosnotificationitem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-14T10:59:27Z",
+      "side": 1,
+      "message": "注释行数: 21; 改动行数(修改和新增): 576; 注释率: 3.6%",
+      "revId": "a68a05672f8605ddfc6211940ae3dc32d2235cdf",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbc57c76_264fdfa3",
+        "filename": "src/module/uos-notificationitem/uosnotificationitem.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-14T10:59:27Z",
+      "side": 1,
+      "message": "注释行数: 39; 改动行数(修改和新增): 78; 注释率: 50.0%",
+      "revId": "a68a05672f8605ddfc6211940ae3dc32d2235cdf",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
