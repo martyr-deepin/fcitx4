@@ -19,6 +19,74 @@
     },
     {
       "key": {
+        "uuid": "f8048db1_aa0691d9",
+        "filename": "src/module/uos-notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-14T10:59:28Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16342091642540.3202153077102873/changeCache/src/module/uos-notificationitem/dbusmenu.c:290]: (style) Local variable menu shadows outer variabl",
+      "revId": "a68a05672f8605ddfc6211940ae3dc32d2235cdf",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42cc5cc5_2137f1bd",
+        "filename": "src/module/uos-notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-14T10:59:28Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16342091642540.3202153077102873/changeCache/src/module/uos-notificationitem/dbusmenu.c:269]: (style) Local variable index shadows outer variabl",
+      "revId": "a68a05672f8605ddfc6211940ae3dc32d2235cdf",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edeefe52_1457af32",
+        "filename": "src/module/uos-notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-14T10:59:28Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16342091642540.3202153077102873/changeCache/src/module/uos-notificationitem/dbusmenu.c:407]: (style) Local variable index shadows outer variabl",
+      "revId": "a68a05672f8605ddfc6211940ae3dc32d2235cdf",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10bd9336_e9a64cb0",
+        "filename": "src/module/uos-notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-14T10:59:28Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16342091642540.3202153077102873/changeCache/src/module/uos-notificationitem/dbusmenu.c:549]: (style) Local variable i shadows outer variabl",
+      "revId": "a68a05672f8605ddfc6211940ae3dc32d2235cdf",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e321bf5_b42c9ce4",
         "filename": "src/module/uos-notificationitem/uosnotificationitem.c",
         "patchSetId": 1
@@ -30,6 +98,23 @@
       "writtenOn": "2021-10-14T10:59:27Z",
       "side": 1,
       "message": "注释行数: 21; 改动行数(修改和新增): 576; 注释率: 3.6%",
+      "revId": "a68a05672f8605ddfc6211940ae3dc32d2235cdf",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "664fd18e_5a6df058",
+        "filename": "src/module/uos-notificationitem/uosnotificationitem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-14T10:59:28Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16342091642540.3202153077102873/changeCache/src/module/uos-notificationitem/uosnotificationitem.c:648]: (warning) Identical inner \u0027if\u0027 condition is always true",
       "revId": "a68a05672f8605ddfc6211940ae3dc32d2235cdf",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
