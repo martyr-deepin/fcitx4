@@ -148,7 +148,7 @@ void* ClassicUICreate(FcitxInstance* instance)
     classicui->killAtom = XInternAtom(classicui->dpy, "WM_DELETE_WINDOW", False);
 
 
-    InitSkinMenu(classicui);
+//    InitSkinMenu(classicui);
     FcitxUIRegisterMenu(instance, &classicui->skinMenu);
     /* Main Menu Initial */
     FcitxMenuInit(&classicui->mainMenu);
@@ -463,8 +463,8 @@ static void UpdateMainMenu(FcitxUIMenu* menu)
     FcitxInstance* instance = classicui->owner;
     FcitxMenuClear(menu);
 
-    FcitxMenuAddMenuItem(menu, _("Online Help"), MENUTYPE_SIMPLE, NULL);
-    FcitxMenuAddMenuItem(menu, NULL, MENUTYPE_DIVLINE, NULL);
+//    FcitxMenuAddMenuItem(menu, _("Online Help"), MENUTYPE_SIMPLE, NULL);
+//    FcitxMenuAddMenuItem(menu, NULL, MENUTYPE_DIVLINE, NULL);
     boolean flag = false;
 
     FcitxUIStatus* status;
@@ -521,12 +521,12 @@ static void UpdateMainMenu(FcitxUIMenu* menu)
             }
         }
 
-        FcitxMenuAddMenuItem(menu, menup->name, MENUTYPE_SUBMENU, menup);
+        FcitxMenuAddMenuItem(menu, menup->name, MENUTYPE_SUBMENU, NULL);
     }
     FcitxMenuAddMenuItem(menu, NULL, MENUTYPE_DIVLINE, NULL);
     FcitxMenuAddMenuItem(menu, _("Configure"), MENUTYPE_SIMPLE, NULL);
-    FcitxMenuAddMenuItem(menu, _("Restart"), MENUTYPE_SIMPLE, NULL);
-    FcitxMenuAddMenuItem(menu, _("Exit"), MENUTYPE_SIMPLE, NULL);
+//    FcitxMenuAddMenuItem(menu, _("Restart"), MENUTYPE_SIMPLE, NULL);
+//    FcitxMenuAddMenuItem(menu, _("Exit"), MENUTYPE_SIMPLE, NULL);
 }
 
 boolean MainMenuAction(FcitxUIMenu* menu, int index)
@@ -534,18 +534,19 @@ boolean MainMenuAction(FcitxUIMenu* menu, int index)
     FcitxClassicUI* classicui = (FcitxClassicUI*) menu->priv;
     FcitxInstance* instance = classicui->owner;
     int length = utarray_len(&menu->shell);
-    if (index == 0) {
-        char* args[] = {
-            "xdg-open",
-            "http://fcitx-im.org/",
-            0
-        };
-        fcitx_utils_start_process(args);
-    } else if (index == length - 1) { /* Exit */
-        FcitxInstanceEnd(classicui->owner);
-    } else if (index == length - 2) { /* Restart */
-        FcitxInstanceRestart(instance);
-    } else if (index == length - 3) { /* Configuration */
+//    if (index == 0) {
+//        char* args[] = {
+//            "xdg-open",
+//            "http://fcitx-im.org/",
+//            0
+//        };
+//        fcitx_utils_start_process(args);
+//    } else if (index == length - 1) { /* Exit */
+//        FcitxInstanceEnd(classicui->owner);
+//    } else if (index == length - 2) { /* Restart */
+//        FcitxInstanceRestart(instance);
+//    } else
+    if (index == length - 1) { /* Configuration */
         fcitx_utils_launch_configure_tool();
     } else {
         FcitxMenuItem* item = (FcitxMenuItem*) utarray_eltptr(&menu->shell, index);
