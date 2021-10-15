@@ -166,7 +166,7 @@ static int FcitxLog_Export(lua_State *lua) {
 static int ImeRegisterCommand_Export(lua_State *lua) {
     int c = lua_gettop(lua);
     if (c < 2) {
-        FcitxLog(WARNING, "register command arugment missing");
+        FcitxLog(WARNING, "register command argument missing");
         return 0;
     }
     const char *command_name = lua_tostring(lua, 1);
