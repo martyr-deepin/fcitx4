@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec1ffab6_533a936d",
+        "filename": "src/module/uos-notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-15T05:38:44Z",
+      "side": 1,
+      "message": "注释行数: 118; 改动行数(修改和新增): 1386; 注释率: 8.5%",
+      "revId": "99a09bdb2f62fc2bfbee6b6e4e856f4d289bb4e5",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
