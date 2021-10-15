@@ -31,7 +31,7 @@ Build-Depends: cmake,
                x11proto-xinerama-dev,
                libdbus-glib-1-dev
 Standards-Version: 4.2.1
-Homepage: https://github.com/fcitx/fcitx
+Homepage: https://gitlab.com/fcitx/fcitx
 Vcs-Git: https://salsa.debian.org/input-method-team/fcitx.git
 Vcs-Browser: https://salsa.debian.org/input-method-team/fcitx
 X-Ubuntu-Use-Langpack: yes
@@ -147,7 +147,7 @@ Description: Flexible Input Method Framework - configuration support library
  .
  It offers a pleasant and modern experience, with intuitive graphical
  configuration tools and customizable skins and mapping tables. It is
- highly modularized and extensible, with GTK+ 2/3 and Qt4 IM Modules, support
+ highly modularized and extensible, with GTK+ 2/3 and Qt 4/5 IM Modules, support
  for UIs based on Fbterm, pure Xlib, GTK+, or KDE, and a developer-friendly
  API.
  .
@@ -232,8 +232,8 @@ Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Suggests: fcitx (>= ${source:Upstream-Version})
-Replaces: fcitx (<< ${source:Upstream-Version}), fcitx-libs-qt (<< 1:4.2.8.5-3)
-Breaks: fcitx (<< ${source:Upstream-Version}), fcitx-libs-qt (<< 1:4.2.8.5-3)
+Replaces: fcitx (<< ${source:Upstream-Version}), fcitx-libs-qt
+Breaks: fcitx (<< ${source:Upstream-Version}), fcitx-libs-qt
 Provides: fcitx-libs-qt
 Description: Flexible Input Method Framework - Meta package for Qt library
  Fcitx is an input method framework with extension support, which provides
@@ -242,7 +242,7 @@ Description: Flexible Input Method Framework - Meta package for Qt library
  .
  It offers a pleasant and modern experience, with intuitive graphical
  configuration tools and customizable skins and mapping tables. It is
- highly modularized and extensible, with GTK+ 2/3 and Qt4 IM Modules, support
+ highly modularized and extensible, with GTK+ 2/3 and Qt 4/5 IM Modules, support
  for UIs based on Fbterm, pure Xlib, GTK+, or KDE, and a developer-friendly
  API.
  .
@@ -344,7 +344,7 @@ Description: Flexible Input Method Framework - frontends metapackage
  This metapackage pulls in the following frontends:
   * XIM protocol client
   * GTK+ 2/3 IM Module
-  * QT 4/5 IM Module
+  * QT 4 IM Module
 
 Package: fcitx-frontend-gtk2
 Architecture: any
@@ -386,14 +386,14 @@ Description: Flexible Input Method Framework - GTK+ 3 IM Module frontend
 Package: fcitx-frontend-qt4
 Architecture: any
 Depends: fcitx-module-dbus, ${misc:Depends}, ${shlibs:Depends}
-Description: Flexible Input Method Framework - Qt4 IM Module frontend
+Description: Flexible Input Method Framework - Qt 4/5 IM Module frontend
  Fcitx is an input method framework with extension support, which provides
  an interface for entering characters of different scripts in applications
  using a variety of mapping systems.
  .
  It offers a pleasant and modern experience, with intuitive graphical
  configuration tools and customizable skins and mapping tables. It is
- highly modularized and extensible, with GTK+ 2/3 and Qt4 IM Modules, support
+ highly modularized and extensible, with GTK+ 2/3 and Qt 4/5 IM Modules, support
  for UIs based on Fbterm, pure Xlib, GTK+, or KDE, and a developer-friendly
  API.
  .
@@ -456,10 +456,10 @@ Depends: fcitx-bin,
          fcitx-modules,
          ${misc:Depends},
          ${shlibs:Depends}
-Recommends: fcitx
+Recommends: fcitx, fcitx-pinyin (>= ${source:Upstream-Version})
 Replaces: fcitx (<< ${source:Upstream-Version})
 Breaks: fcitx (<< ${source:Upstream-Version})
-Suggests: fcitx-table-all, fcitx-pinyin (>= ${source:Upstream-Version})
+Suggests: fcitx-table-all
 Description: Flexible Input Method Framework - table engine
  Fcitx is an input method framework with extension support, which provides
  an interface for entering characters of different scripts in applications
@@ -637,7 +637,7 @@ Description: Flexible Input Method Framework - Ziranma table
 
 Package: fcitx-modules
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, libpresage1v5 (>= 0.9~)
+Depends: ${misc:Depends}, ${shlibs:Depends}, libpresage1v5 (>= 0.9~), libenchant-2-2 (>= 2.2.7~)
 Recommends: fcitx,
             fcitx-module-dbus,
             fcitx-module-kimpanel,
