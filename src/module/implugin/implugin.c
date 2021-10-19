@@ -115,11 +115,6 @@ void SaveIMPluginConfig(IMPlugin *implugin) {
 }
 
 void ResetIMPluginConfig(IMPlugin *implugin) {
-    FcitxConfigFileDesc *configDesc = GetIMPluginConfig();
-    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config",
-                                             "w", NULL);
     FcitxConfigResetConfigToDefaultValue(&implugin->gconfig);
-    FcitxConfigSaveConfigFileFp(fp, &implugin->gconfig, configDesc);
-    if (fp)
-        fclose(fp);
+    FcitxConfigBindSync(&implugin->gconfig);
 }
