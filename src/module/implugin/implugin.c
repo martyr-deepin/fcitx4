@@ -43,6 +43,7 @@ struct _IMPlugin {
 static void *IMPluginCreate(FcitxInstance *instance);
 
 static void IMPluginReload(void *arg);
+static void ResetIMPluginConfig(IMPlugin *implugin);
 static boolean LoadIMPluginConfig(IMPlugin *implugin);
 static void SaveIMPluginConfig(IMPlugin *implugin);
 
@@ -74,7 +75,7 @@ void *IMPluginCreate(FcitxInstance *instance) {
         free(implugin);
         return NULL;
     }
-
+    ResetIMPluginConfig(implugin);
     return implugin;
 }
 
@@ -108,6 +109,16 @@ void SaveIMPluginConfig(IMPlugin *implugin) {
     FcitxConfigFileDesc *configDesc = GetIMPluginConfig();
     FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config",
                                              "w", NULL);
+    FcitxConfigSaveConfigFileFp(fp, &implugin->gconfig, configDesc);
+    if (fp)
+        fclose(fp);
+}
+
+void ResetIMPluginConfig(IMPlugin *implugin) {
+    FcitxConfigFileDesc *configDesc = GetIMPluginConfig();
+    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config",
+                                             "w", NULL);
+    FcitxConfigResetConfigToDefaultValue(&implugin->gconfig);
     FcitxConfigSaveConfigFileFp(fp, &implugin->gconfig, configDesc);
     if (fp)
         fclose(fp);
