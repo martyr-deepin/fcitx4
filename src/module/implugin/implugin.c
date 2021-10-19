@@ -71,6 +71,7 @@ CONFIG_BINDING_END()
 void *IMPluginCreate(FcitxInstance *instance) {
     IMPlugin *implugin = fcitx_utils_malloc0(sizeof(IMPlugin));
     implugin->owner = instance;
+    ResetIMPluginConfig(implugin);
     if (!LoadIMPluginConfig(implugin)) {
         free(implugin);
         return NULL;
@@ -115,6 +116,9 @@ void SaveIMPluginConfig(IMPlugin *implugin) {
 }
 
 void ResetIMPluginConfig(IMPlugin *implugin) {
-    FcitxConfigResetConfigToDefaultValue(&implugin->gconfig);
-    FcitxConfigBindSync(&implugin->gconfig);
+    char *dimConfigPath = NULL;
+    FILE *fp = FcitxXDGGetFileUserWithPrefix(
+        "conf", "fcitx-implugin.config", "r",
+        &dimConfigPath);
+    remove(dimConfigPath);
 }
