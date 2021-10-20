@@ -22,11 +22,7 @@
 
 #include "fcitx/candidate.h"
 
-typedef enum {
-    EP_Default = 0,
-    EP_Aspell,
-    EP_Myspell
-} EnchantProvider;
+typedef enum { EP_Default = 0, EP_Aspell, EP_Myspell } EnchantProvider;
 
 typedef struct {
     char *display;
@@ -46,11 +42,11 @@ enum {
 typedef INPUT_RETURN_VALUE (*FcitxSpellGetCandWordCb)(void *arg,
                                                       const char *commit);
 
-typedef SpellHint* FCITX_SPELL_HINT_WORDS_RETURNTYPE;
+typedef SpellHint *FCITX_SPELL_HINT_WORDS_RETURNTYPE;
 typedef unsigned long FCITX_SPELL_ADD_PERSONAL_RETURNTYPE;
 typedef unsigned long FCITX_SPELL_DICT_AVAILABLE_RETURNTYPE;
-typedef FcitxCandidateWordList* FCITX_SPELL_GET_CANDWORDS_RETURNTYPE;
-typedef const char* FCITX_SPELL_CANDWORD_GET_COMMIT_RETURNTYPE;
+typedef FcitxCandidateWordList *FCITX_SPELL_GET_CANDWORDS_RETURNTYPE;
+typedef const char *FCITX_SPELL_CANDWORD_GET_COMMIT_RETURNTYPE;
 
 #endif
 

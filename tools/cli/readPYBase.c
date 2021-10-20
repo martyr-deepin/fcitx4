@@ -18,18 +18,17 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <stdio.h>
 #include <getopt.h>
+#include <stdio.h>
 #include <string.h>
 
+#include "fcitx-config/xdg.h"
 #include "im/pinyin/py.h"
 #include "pyTools.h"
-#include "fcitx-config/xdg.h"
 
 void usage();
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     FILE *fi;
     int i, PYFACount;
     char *pybase_mb = NULL;
@@ -52,7 +51,7 @@ int main(int argc, char **argv)
     }
 
     if (pybase_mb) {
-        fi = fopen(pybase_mb , "r");
+        fi = fopen(pybase_mb, "r");
     } else {
         fi = FcitxXDGGetFileWithPrefix("pinyin", PY_BASE_FILE, "r", NULL);
     }
@@ -91,26 +90,22 @@ int main(int argc, char **argv)
     return 0;
 }
 
-void usage()
-{
-    char* pkgdatadir = fcitx_utils_get_fcitx_path("pkgdatadir");
-    printf(
-        "readPYBase - read pybase.mb file and display its contents\n"
-        "\n"
-        "  usage: readPYBase [OPTION]\n"
-        "\n"
-        "  -b <pybase.mb> full path to the file, usually\n"
-        "                 %s/pinyin/" PY_BASE_FILE "\n"
-        "                 if not specified, defaults to\n"
-        "                 %s/pinyin/" PY_BASE_FILE "\n"
-        "  -h             display this help\n"
-        "\n",
-        pkgdatadir, pkgdatadir
-    );
+void usage() {
+    char *pkgdatadir = fcitx_utils_get_fcitx_path("pkgdatadir");
+    printf("readPYBase - read pybase.mb file and display its contents\n"
+           "\n"
+           "  usage: readPYBase [OPTION]\n"
+           "\n"
+           "  -b <pybase.mb> full path to the file, usually\n"
+           "                 %s/pinyin/" PY_BASE_FILE "\n"
+           "                 if not specified, defaults to\n"
+           "                 %s/pinyin/" PY_BASE_FILE "\n"
+           "  -h             display this help\n"
+           "\n",
+           pkgdatadir, pkgdatadir);
     free(pkgdatadir);
     exit(1);
     return;
 }
-
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4;

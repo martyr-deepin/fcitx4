@@ -33,9 +33,8 @@
 #ifndef _FCITX_UTF8_H_
 #define _FCITX_UTF8_H_
 
-
-#include <stdlib.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -45,38 +44,34 @@ extern "C" {
 #define UTF8_MAX_LENGTH 6
 
 /** check utf8 character */
-#define ISUTF8_CB(c)  (((c)&0xc0) == 0x80)
+#define ISUTF8_CB(c) (((c)&0xc0) == 0x80)
 
-    static inline int
-    fcitx_utf8_type(char c)
-    {
-        if (!(c & 0x80))
-            return 1;
-        if (!(c & 0x40))
-            return 0;
-        if (!(c & 0x20))
-            return 2;
-        if (!(c & 0x10))
-            return 3;
-        if (!(c & 0x08))
-            return 4;
-        if (!(c & 0x04))
-            return 5;
-        if (!(c & 0x02))
-            return 6;
-        return -1;
-    }
+static inline int fcitx_utf8_type(char c) {
+    if (!(c & 0x80))
+        return 1;
+    if (!(c & 0x40))
+        return 0;
+    if (!(c & 0x20))
+        return 2;
+    if (!(c & 0x10))
+        return 3;
+    if (!(c & 0x08))
+        return 4;
+    if (!(c & 0x04))
+        return 5;
+    if (!(c & 0x02))
+        return 6;
+    return -1;
+}
 
-    static inline int
-    fcitx_utf8_valid_start(char c)
-    {
-        unsigned char uc = (unsigned char)c;
-        if (!(uc & 0x80))
-            return 1;
-        if (!(uc & 0x40))
-            return 0;
-        return uc < 0xfe;
-    }
+static inline int fcitx_utf8_valid_start(char c) {
+    unsigned char uc = (unsigned char)c;
+    if (!(uc & 0x80))
+        return 1;
+    if (!(uc & 0x40))
+        return 0;
+    return uc < 0xfe;
+}
 
 /**
  * Get utf8 string length
@@ -93,7 +88,7 @@ size_t fcitx_utf8_strlen(const char *s);
  * @param chr return unicode
  * @return next char pointer
  **/
-char*  fcitx_utf8_get_char(const char *in, uint32_t *chr);
+char *fcitx_utf8_get_char(const char *in, uint32_t *chr);
 
 /**
  * compare utf8 string, with utf8 string length n
@@ -104,7 +99,7 @@ char*  fcitx_utf8_get_char(const char *in, uint32_t *chr);
  * @param n length
  * @return result
  **/
-int    fcitx_utf8_strncmp(const char *s1, const char *s2, int n);
+int fcitx_utf8_strncmp(const char *s1, const char *s2, int n);
 
 /**
  * get next character length
@@ -112,7 +107,7 @@ int    fcitx_utf8_strncmp(const char *s1, const char *s2, int n);
  * @param in string
  * @return length
  **/
-int    fcitx_utf8_char_len(const char *in);
+int fcitx_utf8_char_len(const char *in);
 
 /**
  * next pointer to the nth character, n start with 0
@@ -123,7 +118,7 @@ int    fcitx_utf8_char_len(const char *in);
  * @param n index
  * @return next n character pointer
  **/
-char*  fcitx_utf8_get_nth_char(const char* s, uint32_t n);
+char *fcitx_utf8_get_nth_char(const char *s, uint32_t n);
 
 /**
  * check utf8 string is valid or not, valid is 1, invalid is 0
@@ -131,7 +126,7 @@ char*  fcitx_utf8_get_nth_char(const char* s, uint32_t n);
  * @param s string
  * @return valid or not
  **/
-int    fcitx_utf8_check_string(const char *s);
+int fcitx_utf8_check_string(const char *s);
 
 /**
  * get extened character
@@ -140,7 +135,7 @@ int    fcitx_utf8_check_string(const char *s);
  * @param max_len max length
  * @return int
  **/
-int    fcitx_utf8_get_char_extended(const char *p, int max_len);
+int fcitx_utf8_get_char_extended(const char *p, int max_len);
 
 /**
  * get validated character
@@ -149,8 +144,7 @@ int    fcitx_utf8_get_char_extended(const char *p, int max_len);
  * @param max_len max length
  * @return int
  **/
-int    fcitx_utf8_get_char_validated(const char *p, int max_len);
-
+int fcitx_utf8_get_char_validated(const char *p, int max_len);
 
 /**
  * @brief copy most byte length, but keep utf8 valid
@@ -162,7 +156,7 @@ int    fcitx_utf8_get_char_validated(const char *p, int max_len);
  *
  * @since 4.2.3
  **/
-void fcitx_utf8_strncpy(char* str, const char* s, size_t byte);
+void fcitx_utf8_strncpy(char *str, const char *s, size_t byte);
 
 /**
  * @brief count most byte length, utf8 string length
@@ -173,7 +167,7 @@ void fcitx_utf8_strncpy(char* str, const char* s, size_t byte);
  *
  * @since 4.2.4
  **/
-size_t fcitx_utf8_strnlen(const char* str, size_t byte);
+size_t fcitx_utf8_strnlen(const char *str, size_t byte);
 
 /**
  * @brief get ucs4 char length
@@ -185,7 +179,6 @@ size_t fcitx_utf8_strnlen(const char* str, size_t byte);
  **/
 int fcitx_ucs4_char_len(uint32_t c);
 
-
 /**
  * @brief convert ucs4 char to utf8
  *
@@ -195,7 +188,7 @@ int fcitx_ucs4_char_len(uint32_t c);
  *
  * @since 4.2.5
  **/
-int fcitx_ucs4_to_utf8(uint32_t c, char* output);
+int fcitx_ucs4_to_utf8(uint32_t c, char *output);
 
 /**
  * @brief get the ascii part at the end of a utf8 string
@@ -219,11 +212,13 @@ char *fcitx_utils_get_ascii_part(char *string);
 char *fcitx_utils_get_ascii_partn(char *string, size_t len);
 
 /**
- * @brief get the position of the first non-ascii character in a string (with a size limit)
+ * @brief get the position of the first non-ascii character in a string (with a
+ *size limit)
  *
  * @param string a utf8 string
  * @param len the length of the string
- * @return string pointer to the position of the first non-ascii character or the end of string
+ * @return string pointer to the position of the first non-ascii character or
+ *the end of string
  *
  * @since 4.2.6
  **/
@@ -234,7 +229,8 @@ char *fcitx_utils_get_ascii_endn(const char *string, size_t len);
  *
  * @param string a utf8 string
  * @param len the length of the string
- * @return string pointer to the position of the first non-ascii character or the end of string
+ * @return string pointer to the position of the first non-ascii character or
+ *the end of string
  *
  * @since 4.2.6
  **/
@@ -249,6 +245,5 @@ char *fcitx_utils_get_ascii_end(const char *string);
 /**
  * @}
  */
-
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

@@ -33,7 +33,7 @@
 #include "fcitx-config/fcitx-config.h"
 
 typedef struct _AUTO_ENG {
-    char            str[MAX_AUTO_TO_ENG + 1];
+    char str[MAX_AUTO_TO_ENG + 1];
 } AUTO_ENG;
 
 #endif

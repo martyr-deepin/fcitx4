@@ -60,25 +60,21 @@ typedef struct {
 #ifdef __cplusplus
 extern "C" {
 #endif
-    CONFIG_BINDING_DECLARE(FcitxSpellConfig);
-    SpellHint *SpellHintListWithSize(int count, char **displays, int sized,
-                                     char **commits, int sizec);
-    SpellHint *SpellHintListWithPrefix(int count, const char *prefix,
-                                       int prefix_len,
-                                       char **commits, int sizec);
-    static inline SpellHint*
-    SpellHintList(int count, char **displays, char **commits)
-    {
-        return SpellHintListWithSize(count, displays, sizeof(char*),
-                                     commits, sizeof(char*));
-    }
-    int SpellCalListSizeWithSize(char **list, int count, int size);
-    static inline int
-    SpellCalListSize(char **list, int count)
-    {
-        return SpellCalListSizeWithSize(list, count, sizeof(char*));
-    }
-    boolean SpellLangIsLang(const char *full_lang, const char *lang);
+CONFIG_BINDING_DECLARE(FcitxSpellConfig);
+SpellHint *SpellHintListWithSize(int count, char **displays, int sized,
+                                 char **commits, int sizec);
+SpellHint *SpellHintListWithPrefix(int count, const char *prefix,
+                                   int prefix_len, char **commits, int sizec);
+static inline SpellHint *SpellHintList(int count, char **displays,
+                                       char **commits) {
+    return SpellHintListWithSize(count, displays, sizeof(char *), commits,
+                                 sizeof(char *));
+}
+int SpellCalListSizeWithSize(char **list, int count, int size);
+static inline int SpellCalListSize(char **list, int count) {
+    return SpellCalListSizeWithSize(list, count, sizeof(char *));
+}
+boolean SpellLangIsLang(const char *full_lang, const char *lang);
 #ifdef __cplusplus
 }
 #endif

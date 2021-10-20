@@ -18,12 +18,15 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <fcitx-config/fcitx-config.h>
 #include "xkb-internal.h"
+#include <fcitx-config/fcitx-config.h>
 
 CONFIG_BINDING_BEGIN(FcitxXkbConfig);
-CONFIG_BINDING_REGISTER("X Keyboard", "OverrideSystemXKBSettings", bOverrideSystemXKBSettings);
-CONFIG_BINDING_REGISTER("X Keyboard", "UseFirstKeyboardIMAsDefaultLayout", useFirstKeyboardIMAsDefaultLayout);
+CONFIG_BINDING_REGISTER("X Keyboard", "OverrideSystemXKBSettings",
+                        bOverrideSystemXKBSettings);
+CONFIG_BINDING_REGISTER("X Keyboard", "UseFirstKeyboardIMAsDefaultLayout",
+                        useFirstKeyboardIMAsDefaultLayout);
 CONFIG_BINDING_REGISTER("X Keyboard", "XModmapCommand", xmodmapCommand);
-CONFIG_BINDING_REGISTER("X Keyboard", "CustomXModmapScript", customXModmapScript);
+CONFIG_BINDING_REGISTER("X Keyboard", "CustomXModmapScript",
+                        customXModmapScript);
 CONFIG_BINDING_END();

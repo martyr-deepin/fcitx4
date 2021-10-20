@@ -21,8 +21,8 @@
 #ifndef _FCITX_DBUSSOCKET_H
 #define _FCITX_DBUSSOCKET_H
 
-#include <sys/select.h>
 #include <dbus/dbus.h>
+#include <sys/select.h>
 
 typedef struct _FcitxDBusWatch {
     DBusWatch *watch;
@@ -31,9 +31,10 @@ typedef struct _FcitxDBusWatch {
 
 dbus_bool_t DBusAddWatch(DBusWatch *watch, void *data);
 void DBusRemoveWatch(DBusWatch *watch, void *data);
-int DBusUpdateFDSet(FcitxDBusWatch* watches, fd_set* rfds, fd_set* wfds, fd_set* efds);
-void DBusProcessEventForWatches(FcitxDBusWatch* watches, fd_set* rfds, fd_set* wfds, fd_set* efds);
-void DBusProcessEventForConnection(DBusConnection* connection);
+int DBusUpdateFDSet(FcitxDBusWatch *watches, fd_set *rfds, fd_set *wfds,
+                    fd_set *efds);
+void DBusProcessEventForWatches(FcitxDBusWatch *watches, fd_set *rfds,
+                                fd_set *wfds, fd_set *efds);
+void DBusProcessEventForConnection(DBusConnection *connection);
 
 #endif // _FCITX_DBUSSOCKET_H
-

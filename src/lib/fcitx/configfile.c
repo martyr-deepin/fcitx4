@@ -18,44 +18,56 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
+#include <errno.h>
+#include <libintl.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libintl.h>
-#include <errno.h>
 
-#include "fcitx/fcitx.h"
 #include "configfile.h"
 #include "fcitx-config/xdg.h"
 #include "fcitx-utils/log.h"
+#include "fcitx/fcitx.h"
 #include "fcitx/keys.h"
 #include "instance.h"
 
-static FcitxConfigFileDesc* GetConfigDesc();
-static void Filter2nd3rdKey(FcitxGenericConfig* config, FcitxConfigGroup* group, FcitxConfigOption* option, void* value, FcitxConfigSync sync, void* arg);
+static FcitxConfigFileDesc *GetConfigDesc();
+static void Filter2nd3rdKey(FcitxGenericConfig *config, FcitxConfigGroup *group,
+                            FcitxConfigOption *option, void *value,
+                            FcitxConfigSync sync, void *arg);
 
 CONFIG_BINDING_BEGIN(FcitxGlobalConfig)
 CONFIG_BINDING_REGISTER("Program", "DelayStart", iDelayStart)
 CONFIG_BINDING_REGISTER("Program", "ShareStateAmongWindow", shareState)
 CONFIG_BINDING_REGISTER("Program", "DefaultInputMethodState", _defaultIMState)
 CONFIG_BINDING_REGISTER("Output", "HalfPuncAfterNumber", bEngPuncAfterNumber)
-CONFIG_BINDING_REGISTER("Output", "RemindModeDisablePaging", bDisablePagingInRemind)
-CONFIG_BINDING_REGISTER("Output", "SendTextWhenSwitchEng", bSendTextWhenSwitchEng)
+CONFIG_BINDING_REGISTER("Output", "RemindModeDisablePaging",
+                        bDisablePagingInRemind)
+CONFIG_BINDING_REGISTER("Output", "SendTextWhenSwitchEng",
+                        bSendTextWhenSwitchEng)
 CONFIG_BINDING_REGISTER("Output", "CandidateWordNumber", iMaxCandWord)
 CONFIG_BINDING_REGISTER("Output", "PhraseTips", bPhraseTips)
-CONFIG_BINDING_REGISTER("Output", "DontCommitPreeditWhenUnfocus", bDontCommitPreeditWhenUnfocus)
-CONFIG_BINDING_REGISTER("Appearance", "ShowInputWindowOnlyWhenActive", bShowInputWindowOnlyWhenActive)
-CONFIG_BINDING_REGISTER("Appearance", "ShowInputWindowWhenFocusIn", bShowInputWindowWhenFocusIn)
-CONFIG_BINDING_REGISTER("Appearance", "ShowInputWindowAfterTriggering", bShowInputWindowTriggering)
+CONFIG_BINDING_REGISTER("Output", "DontCommitPreeditWhenUnfocus",
+                        bDontCommitPreeditWhenUnfocus)
+CONFIG_BINDING_REGISTER("Appearance", "ShowInputWindowOnlyWhenActive",
+                        bShowInputWindowOnlyWhenActive)
+CONFIG_BINDING_REGISTER("Appearance", "ShowInputWindowWhenFocusIn",
+                        bShowInputWindowWhenFocusIn)
+CONFIG_BINDING_REGISTER("Appearance", "ShowInputWindowAfterTriggering",
+                        bShowInputWindowTriggering)
 CONFIG_BINDING_REGISTER("Appearance", "ShowInputSpeed", bShowUserSpeed)
 CONFIG_BINDING_REGISTER("Appearance", "ShowVersion", bShowVersion)
-CONFIG_BINDING_REGISTER("Appearance", "HideInputWindowWhenOnlyPreeditString", bHideInputWindowWhenOnlyPreeditString);
-CONFIG_BINDING_REGISTER("Appearance", "HideInputWindowWhenOnlyOneCandidate", bHideInputWindowWhenOnlyOneCandidate);
+CONFIG_BINDING_REGISTER("Appearance", "HideInputWindowWhenOnlyPreeditString",
+                        bHideInputWindowWhenOnlyPreeditString);
+CONFIG_BINDING_REGISTER("Appearance", "HideInputWindowWhenOnlyOneCandidate",
+                        bHideInputWindowWhenOnlyOneCandidate);
 CONFIG_BINDING_REGISTER("Hotkey", "TriggerKey", hkTrigger)
 CONFIG_BINDING_REGISTER("Hotkey", "ActivateKey", hkActivate)
 CONFIG_BINDING_REGISTER("Hotkey", "InactivateKey", hkInactivate)
-CONFIG_BINDING_REGISTER("Hotkey", "UseExtraTriggerKeyOnlyWhenUseItToInactivate", bUseExtraTriggerKeyOnlyWhenUseItToInactivate)
+CONFIG_BINDING_REGISTER("Hotkey", "UseExtraTriggerKeyOnlyWhenUseItToInactivate",
+                        bUseExtraTriggerKeyOnlyWhenUseItToInactivate)
 CONFIG_BINDING_REGISTER("Hotkey", "IMSwitchKey", bIMSwitchKey)
-CONFIG_BINDING_REGISTER("Hotkey", "IMSwitchIncludeInactive", bIMSwitchIncludeInactive)
+CONFIG_BINDING_REGISTER("Hotkey", "IMSwitchIncludeInactive",
+                        bIMSwitchIncludeInactive)
 CONFIG_BINDING_REGISTER("Hotkey", "IMSwitchHotkey", iIMSwitchKey)
 CONFIG_BINDING_REGISTER("Hotkey", "SwitchKey", iSwitchKey)
 CONFIG_BINDING_REGISTER("Hotkey", "CustomSwitchKey", hkCustomSwitchKey)
@@ -66,7 +78,8 @@ CONFIG_BINDING_REGISTER("Hotkey", "FullWidthSwitchKey", hkFullWidthChar)
 CONFIG_BINDING_REGISTER("Hotkey", "PuncSwitchKey", hkPunc)
 CONFIG_BINDING_REGISTER("Hotkey", "PrevPageKey", hkPrevPage)
 CONFIG_BINDING_REGISTER("Hotkey", "NextPageKey", hkNextPage)
-CONFIG_BINDING_REGISTER_WITH_FILTER("Hotkey", "SecondThirdCandWordKey", str2nd3rdCand, Filter2nd3rdKey)
+CONFIG_BINDING_REGISTER_WITH_FILTER("Hotkey", "SecondThirdCandWordKey",
+                                    str2nd3rdCand, Filter2nd3rdKey)
 CONFIG_BINDING_REGISTER("Hotkey", "SaveAllKey", hkSaveAll)
 CONFIG_BINDING_REGISTER("Hotkey", "SwitchPreedit", hkSwitchEmbeddedPreedit);
 CONFIG_BINDING_REGISTER("Hotkey", "PrevWord", prevWord);
@@ -74,28 +87,33 @@ CONFIG_BINDING_REGISTER("Hotkey", "NextWord", nextWord);
 CONFIG_BINDING_REGISTER("Hotkey", "ReloadConfig", hkReloadConfig);
 CONFIG_BINDING_END()
 
-void Filter2nd3rdKey(FcitxGenericConfig* config, FcitxConfigGroup *group, FcitxConfigOption *option, void* value, FcitxConfigSync sync, void* arg)
-{
+void Filter2nd3rdKey(FcitxGenericConfig *config, FcitxConfigGroup *group,
+                     FcitxConfigOption *option, void *value,
+                     FcitxConfigSync sync, void *arg) {
     FCITX_UNUSED(group);
     FCITX_UNUSED(option);
     FCITX_UNUSED(arg);
-    FcitxGlobalConfig* fc = (FcitxGlobalConfig*) config;
-    char *pstr = *(char**) value;
+    FcitxGlobalConfig *fc = (FcitxGlobalConfig *)config;
+    char *pstr = *(char **)value;
 
     if (sync == Raw2Value) {
         if (!strcasecmp(pstr, "SHIFT")) {
-            fc->i2ndSelectKey[0].sym = fc->i2ndSelectKey[1].sym = FcitxKey_Shift_L;        //左SHIFT的扫描码
-            fc->i2ndSelectKey[0].state = FcitxKeyState_Shift ;        //左SHIFT的扫描码
-            fc->i2ndSelectKey[1].state = FcitxKeyState_None ;        //左SHIFT的扫描码
-            fc->i3rdSelectKey[0].sym = fc->i3rdSelectKey[1].sym = FcitxKey_Shift_R;        //右SHIFT的扫描码
-            fc->i3rdSelectKey[0].state = FcitxKeyState_Shift ;        //左SHIFT的扫描码
+            fc->i2ndSelectKey[0].sym = fc->i2ndSelectKey[1].sym =
+                FcitxKey_Shift_L; //左SHIFT的扫描码
+            fc->i2ndSelectKey[0].state = FcitxKeyState_Shift; //左SHIFT的扫描码
+            fc->i2ndSelectKey[1].state = FcitxKeyState_None; //左SHIFT的扫描码
+            fc->i3rdSelectKey[0].sym = fc->i3rdSelectKey[1].sym =
+                FcitxKey_Shift_R; //右SHIFT的扫描码
+            fc->i3rdSelectKey[0].state = FcitxKeyState_Shift; //左SHIFT的扫描码
             fc->i3rdSelectKey[1].state = FcitxKeyState_None;
         } else if (!strcasecmp(pstr, "CTRL")) {
-            fc->i2ndSelectKey[0].sym = fc->i2ndSelectKey[1].sym = FcitxKey_Control_L;        //左CTRL的扫描码
-            fc->i2ndSelectKey[0].state = FcitxKeyState_Ctrl ;        //左SHIFT的扫描码
-            fc->i2ndSelectKey[1].state = FcitxKeyState_None ;        //左SHIFT的扫描码
-            fc->i3rdSelectKey[0].sym = fc->i3rdSelectKey[1].sym = FcitxKey_Control_R;       //右CTRL的扫描码
-            fc->i3rdSelectKey[0].state = FcitxKeyState_Ctrl ;        //左SHIFT的扫描码
+            fc->i2ndSelectKey[0].sym = fc->i2ndSelectKey[1].sym =
+                FcitxKey_Control_L; //左CTRL的扫描码
+            fc->i2ndSelectKey[0].state = FcitxKeyState_Ctrl; //左SHIFT的扫描码
+            fc->i2ndSelectKey[1].state = FcitxKeyState_None; //左SHIFT的扫描码
+            fc->i3rdSelectKey[0].sym = fc->i3rdSelectKey[1].sym =
+                FcitxKey_Control_R; //右CTRL的扫描码
+            fc->i3rdSelectKey[0].state = FcitxKeyState_Ctrl; //左SHIFT的扫描码
             fc->i3rdSelectKey[1].state = FcitxKeyState_None;
         } else {
             if (pstr[0]) {
@@ -117,9 +135,8 @@ void Filter2nd3rdKey(FcitxGenericConfig* config, FcitxConfigGroup *group, FcitxC
 }
 
 FCITX_EXPORT_API
-boolean FcitxGlobalConfigLoad(FcitxGlobalConfig* fc)
-{
-    FcitxConfigFileDesc* configDesc = GetConfigDesc();
+boolean FcitxGlobalConfigLoad(FcitxGlobalConfig *fc) {
+    FcitxConfigFileDesc *configDesc = GetConfigDesc();
 
     if (configDesc == NULL)
         return false;
@@ -140,11 +157,10 @@ boolean FcitxGlobalConfigLoad(FcitxGlobalConfig* fc)
     FcitxConfigFile *cfile = FcitxConfigParseConfigFileFp(fp, configDesc);
 
     FcitxGlobalConfigConfigBind(fc, cfile, configDesc);
-    FcitxConfigBindSync((FcitxGenericConfig*)fc);
+    FcitxConfigBindSync((FcitxGenericConfig *)fc);
     if (fc->_defaultIMState == 0) {
         fc->defaultIMState = IS_INACTIVE;
-    }
-    else
+    } else
         fc->defaultIMState = IS_ACTIVE;
 
     if (newconfig) {
@@ -171,9 +187,8 @@ boolean FcitxGlobalConfigLoad(FcitxGlobalConfig* fc)
 CONFIG_DESC_DEFINE(GetConfigDesc, "config.desc")
 
 FCITX_EXPORT_API
-void FcitxGlobalConfigSave(FcitxGlobalConfig* fc)
-{
-    FcitxConfigFileDesc* configDesc = GetConfigDesc();
+void FcitxGlobalConfigSave(FcitxGlobalConfig *fc) {
+    FcitxConfigFileDesc *configDesc = GetConfigDesc();
     FILE *fp = FcitxXDGGetFileUserWithPrefix("", "config", "w", NULL);
     FcitxConfigSaveConfigFileFp(fp, &fc->gconfig, configDesc);
     if (fp)

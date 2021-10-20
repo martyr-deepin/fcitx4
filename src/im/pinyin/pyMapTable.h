@@ -21,13 +21,13 @@
 #define _PY_MAP_TABLE_H
 
 typedef struct _ConsonantMap {
-    char            strPY[5];
-    char            cMap;
+    char strPY[5];
+    char cMap;
 } ConsonantMap;
 
 typedef struct _SyllabaryMap {
-    char            strPY[4];
-    char            cMap;
+    char strPY[4];
+    char cMap;
 } SyllabaryMap;
 
 #endif

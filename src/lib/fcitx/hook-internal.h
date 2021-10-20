@@ -34,7 +34,9 @@ struct _FcitxInstance;
  * @param retval input return val
  * @return void
  **/
-void FcitxInstanceProcessPreInputFilter(struct _FcitxInstance* instance, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retval);
+void FcitxInstanceProcessPreInputFilter(struct _FcitxInstance *instance,
+                                        FcitxKeySym sym, unsigned int state,
+                                        INPUT_RETURN_VALUE *retval);
 
 /**
  * do the postinput phase
@@ -45,7 +47,9 @@ void FcitxInstanceProcessPreInputFilter(struct _FcitxInstance* instance, FcitxKe
  * @param retval input return val
  * @return void
  **/
-void FcitxInstanceProcessPostInputFilter(struct _FcitxInstance* instance, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retval);
+void FcitxInstanceProcessPostInputFilter(struct _FcitxInstance *instance,
+                                         FcitxKeySym sym, unsigned int state,
+                                         INPUT_RETURN_VALUE *retval);
 /**
  * do the preinput phase
  *
@@ -55,7 +59,10 @@ void FcitxInstanceProcessPostInputFilter(struct _FcitxInstance* instance, FcitxK
  * @param retval input return val
  * @return void
  **/
-void FcitxInstanceProcessPreReleaseInputFilter(struct _FcitxInstance* instance, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retval);
+void FcitxInstanceProcessPreReleaseInputFilter(struct _FcitxInstance *instance,
+                                               FcitxKeySym sym,
+                                               unsigned int state,
+                                               INPUT_RETURN_VALUE *retval);
 
 /**
  * do the postinput phase
@@ -66,7 +73,10 @@ void FcitxInstanceProcessPreReleaseInputFilter(struct _FcitxInstance* instance, 
  * @param retval input return val
  * @return void
  **/
-void FcitxInstanceProcessPostReleaseInputFilter(struct _FcitxInstance* instance, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retval);
+void FcitxInstanceProcessPostReleaseInputFilter(struct _FcitxInstance *instance,
+                                                FcitxKeySym sym,
+                                                unsigned int state,
+                                                INPUT_RETURN_VALUE *retval);
 
 /**
  * process hotkey phase
@@ -76,7 +86,9 @@ void FcitxInstanceProcessPostReleaseInputFilter(struct _FcitxInstance* instance,
  * @param state keystate
  * @return INPUT_RETURN_VALUE
  **/
-INPUT_RETURN_VALUE FcitxInstanceProcessHotkey(struct _FcitxInstance* instance, FcitxKeySym keysym, unsigned int state);
+INPUT_RETURN_VALUE FcitxInstanceProcessHotkey(struct _FcitxInstance *instance,
+                                              FcitxKeySym keysym,
+                                              unsigned int state);
 
 /**
  * process reset input
@@ -84,7 +96,7 @@ INPUT_RETURN_VALUE FcitxInstanceProcessHotkey(struct _FcitxInstance* instance, F
  * @param instance fcitx instance
  * @return void
  **/
-void FcitxInstanceProcessResetInputHook(struct _FcitxInstance* instance);
+void FcitxInstanceProcessResetInputHook(struct _FcitxInstance *instance);
 
 /**
  * process trigger off event
@@ -92,7 +104,7 @@ void FcitxInstanceProcessResetInputHook(struct _FcitxInstance* instance);
  * @param instance fcitx instance
  * @return void
  **/
-void FcitxInstanceProcessTriggerOffHook(struct _FcitxInstance* instance);
+void FcitxInstanceProcessTriggerOffHook(struct _FcitxInstance *instance);
 
 /**
  * process trigger on event
@@ -100,7 +112,7 @@ void FcitxInstanceProcessTriggerOffHook(struct _FcitxInstance* instance);
  * @param instance fcitx instance
  * @return void
  **/
-void FcitxInstanceProcessTriggerOnHook(struct _FcitxInstance* instance);
+void FcitxInstanceProcessTriggerOnHook(struct _FcitxInstance *instance);
 
 /**
  * process focus in event
@@ -108,14 +120,14 @@ void FcitxInstanceProcessTriggerOnHook(struct _FcitxInstance* instance);
  * @param instance fcitx instance
  * @return void
  **/
-void FcitxInstanceProcessInputFocusHook(struct _FcitxInstance* instance);
+void FcitxInstanceProcessInputFocusHook(struct _FcitxInstance *instance);
 /**
  * process focus out event
  *
  * @param instance fcitx instance
  * @return void
  **/
-void FcitxInstanceProcessInputUnFocusHook(struct _FcitxInstance* instance);
+void FcitxInstanceProcessInputUnFocusHook(struct _FcitxInstance *instance);
 
 /**
  * process update candidates event
@@ -123,7 +135,7 @@ void FcitxInstanceProcessInputUnFocusHook(struct _FcitxInstance* instance);
  * @param instance fcitx instance
  * @return void
  **/
-void FcitxInstanceProcessUpdateCandidates(struct _FcitxInstance* instance);
+void FcitxInstanceProcessUpdateCandidates(struct _FcitxInstance *instance);
 
 /**
  * process update im list
@@ -131,11 +143,12 @@ void FcitxInstanceProcessUpdateCandidates(struct _FcitxInstance* instance);
  * @param instance fcitx instance
  * @return void
  **/
-void FcitxInstanceProcessUpdateIMListHook(struct _FcitxInstance* instance);
+void FcitxInstanceProcessUpdateIMListHook(struct _FcitxInstance *instance);
 
-void FcitxInstanceProcessICStateChangedHook(struct _FcitxInstance* instance, struct _FcitxInputContext* ic);
+void FcitxInstanceProcessICStateChangedHook(struct _FcitxInstance *instance,
+                                            struct _FcitxInputContext *ic);
 
-void FcitxInstanceProcessIMChangedHook(struct _FcitxInstance* instance);
+void FcitxInstanceProcessIMChangedHook(struct _FcitxInstance *instance);
 
 /**
  * process ui status changed
@@ -143,6 +156,7 @@ void FcitxInstanceProcessIMChangedHook(struct _FcitxInstance* instance);
  * @param instance fcitx instance
  * @return void
  **/
-void FcitxInstanceProcessUIStatusChangedHook(struct _FcitxInstance* instance, const char* statusName);
+void FcitxInstanceProcessUIStatusChangedHook(struct _FcitxInstance *instance,
+                                             const char *statusName);
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

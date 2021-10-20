@@ -18,16 +18,15 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "fcitx/fcitx.h"
 
 #include "fcitx-config/sprintf.h"
 
 #ifndef HAVE_VASPRINTF
-int vasprintf(char **ptr, const char *format, va_list ap)
-{
+int vasprintf(char **ptr, const char *format, va_list ap) {
     int ret;
     va_list ap2;
 
@@ -53,8 +52,7 @@ int vasprintf(char **ptr, const char *format, va_list ap)
 #endif
 
 #ifndef HAVE_ASPRINTF
-int asprintf(char **ptr, const char *format, ...)
-{
+int asprintf(char **ptr, const char *format, ...) {
     va_list ap;
     int ret;
 
@@ -67,6 +65,5 @@ int asprintf(char **ptr, const char *format, ...)
 }
 
 #endif
-
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

@@ -26,14 +26,20 @@
 
 typedef struct _FcitxCairoTextContext FcitxCairoTextContext;
 
-FcitxCairoTextContext* FcitxCairoTextContextCreate(cairo_t* cr);
-void FcitxCairoTextContextFree(FcitxCairoTextContext* ctc);
-void FcitxCairoTextContextSet(FcitxCairoTextContext* ctc, const char* font, int fontSize, int dpi);
-void FcitxCairoTextContextStringSize(FcitxCairoTextContext* ctc, const char* str, int* w, int* h);
-void FcitxCairoTextContextStringSizeStrict(FcitxCairoTextContext* ctc, const char* str, int* w, int* h);
-int FcitxCairoTextContextStringWidth(FcitxCairoTextContext* ctc, const char *str);
-int FcitxCairoTextContextFontHeight(FcitxCairoTextContext* ctc);
-void FcitxCairoTextContextOutputString(FcitxCairoTextContext* ctc, const char *str, int x, int y, FcitxConfigColor* color);
+FcitxCairoTextContext *FcitxCairoTextContextCreate(cairo_t *cr);
+void FcitxCairoTextContextFree(FcitxCairoTextContext *ctc);
+void FcitxCairoTextContextSet(FcitxCairoTextContext *ctc, const char *font,
+                              int fontSize, int dpi);
+void FcitxCairoTextContextStringSize(FcitxCairoTextContext *ctc,
+                                     const char *str, int *w, int *h);
+void FcitxCairoTextContextStringSizeStrict(FcitxCairoTextContext *ctc,
+                                           const char *str, int *w, int *h);
+int FcitxCairoTextContextStringWidth(FcitxCairoTextContext *ctc,
+                                     const char *str);
+int FcitxCairoTextContextFontHeight(FcitxCairoTextContext *ctc);
+void FcitxCairoTextContextOutputString(FcitxCairoTextContext *ctc,
+                                       const char *str, int x, int y,
+                                       FcitxConfigColor *color);
 
 #endif
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

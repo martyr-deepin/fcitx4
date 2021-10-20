@@ -22,8 +22,8 @@
  * Define const keys that will be used in code
  */
 
-#include "fcitx/fcitx.h"
 #include "fcitx/keys.h"
+#include "fcitx/fcitx.h"
 
 FCITX_EXPORT_API
 FcitxHotkey FCITX_NONE_KEY[2] = {
@@ -160,7 +160,7 @@ FcitxHotkey FCITX_RCTRL_RSUPER2[2] = {
 FCITX_EXPORT_API
 FcitxHotkey FCITX_LALT_LSUPER[2] = {
     {NULL, FcitxKey_Super_L, FcitxKeyState_Alt | FcitxKeyState_Super},
-    {NULL, FcitxKey_Alt_L,   FcitxKeyState_Alt | FcitxKeyState_Super},
+    {NULL, FcitxKey_Alt_L, FcitxKeyState_Alt | FcitxKeyState_Super},
 };
 
 FCITX_EXPORT_API

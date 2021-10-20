@@ -17,29 +17,26 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include "fcitxqtconnection_p.h"
 #include "fcitx-config/xdg.h"
+#include "fcitxqtconnection_p.h"
 #include <QDBusConnection>
-#include <QDBusServiceWatcher>
-#include <QDBusReply>
 #include <QDBusConnectionInterface>
+#include <QDBusReply>
+#include <QDBusServiceWatcher>
 
-#include "module/dbus/dbusstuff.h"
 #include "fcitx-utils/utils.h"
-#include <QX11Info>
+#include "module/dbus/dbusstuff.h"
+#include <QCoreApplication>
+#include <QDir>
 #include <QFile>
 #include <QTimer>
-#include <QDir>
-#include <QCoreApplication>
+#include <QX11Info>
 #include <X11/Xlib.h>
 
-FcitxQtConnection::FcitxQtConnection(QObject* parent): QObject(parent)
-    ,d_ptr(new FcitxQtConnectionPrivate(this))
-{
-}
+FcitxQtConnection::FcitxQtConnection(QObject *parent)
+    : QObject(parent), d_ptr(new FcitxQtConnectionPrivate(this)) {}
 
-void FcitxQtConnection::startConnection()
-{
+void FcitxQtConnection::startConnection() {
     Q_D(FcitxQtConnection);
     if (!d->m_initialized) {
         d->initialize();
@@ -47,68 +44,53 @@ void FcitxQtConnection::startConnection()
     }
 }
 
-void FcitxQtConnection::endConnection()
-{
+void FcitxQtConnection::endConnection() {
     Q_D(FcitxQtConnection);
     d->cleanUp();
     d->finalize();
     d->m_connectedOnce = false;
 }
 
-bool FcitxQtConnection::autoReconnect()
-{
+bool FcitxQtConnection::autoReconnect() {
     Q_D(FcitxQtConnection);
     return d->m_autoReconnect;
 }
 
-void FcitxQtConnection::setAutoReconnect(bool a)
-{
+void FcitxQtConnection::setAutoReconnect(bool a) {
     Q_D(FcitxQtConnection);
     d->m_autoReconnect = a;
 }
 
-QDBusConnection* FcitxQtConnection::connection()
-{
+QDBusConnection *FcitxQtConnection::connection() {
     Q_D(FcitxQtConnection);
     return d->m_connection;
 }
 
-const QString& FcitxQtConnection::serviceName()
-{
+const QString &FcitxQtConnection::serviceName() {
     Q_D(FcitxQtConnection);
     return d->m_serviceName;
 }
 
-bool FcitxQtConnection::isConnected()
-{
+bool FcitxQtConnection::isConnected() {
     Q_D(FcitxQtConnection);
     return d->isConnected();
 }
 
+FcitxQtConnection::~FcitxQtConnection() {}
 
-
-FcitxQtConnection::~FcitxQtConnection()
-{
-}
-
-FcitxQtConnectionPrivate::FcitxQtConnectionPrivate(FcitxQtConnection* conn) : QObject(conn)
-    ,q_ptr(conn)
-    ,m_displayNumber(-1)
-    ,m_serviceName(QString("%1-%2").arg(FCITX_DBUS_SERVICE).arg(displayNumber()))
-    ,m_connection(0)
-    ,m_serviceWatcher(new QDBusServiceWatcher(conn))
-    ,m_watcher(new QFileSystemWatcher(this))
-    ,m_autoReconnect(true)
-    ,m_connectedOnce(false)
-    ,m_initialized(false)
-{
+FcitxQtConnectionPrivate::FcitxQtConnectionPrivate(FcitxQtConnection *conn)
+    : QObject(conn), q_ptr(conn), m_displayNumber(-1),
+      m_serviceName(
+          QString("%1-%2").arg(FCITX_DBUS_SERVICE).arg(displayNumber())),
+      m_connection(0), m_serviceWatcher(new QDBusServiceWatcher(conn)),
+      m_watcher(new QFileSystemWatcher(this)), m_autoReconnect(true),
+      m_connectedOnce(false), m_initialized(false) {
 #if QT_VERSION < QT_VERSION_CHECK(4, 8, 0)
     connect(qApp, SIGNAL(aboutToQuit()), m_watcher.data(), SLOT(deleteLater()));
 #endif
 }
 
-FcitxQtConnectionPrivate::~FcitxQtConnectionPrivate()
-{
+FcitxQtConnectionPrivate::~FcitxQtConnectionPrivate() {
     if (!m_watcher.isNull())
         delete m_watcher.data();
     if (m_connection)
@@ -130,8 +112,10 @@ void FcitxQtConnectionPrivate::initialize() {
         m_watcher.data()->addPath(info.filePath());
     }
 
-    connect(m_watcher.data(), SIGNAL(fileChanged(QString)), this, SLOT(socketFileChanged()));
-    connect(m_watcher.data(), SIGNAL(directoryChanged(QString)), this, SLOT(socketFileChanged()));
+    connect(m_watcher.data(), SIGNAL(fileChanged(QString)), this,
+            SLOT(socketFileChanged()));
+    connect(m_watcher.data(), SIGNAL(directoryChanged(QString)), this,
+            SLOT(socketFileChanged()));
     m_initialized = true;
 }
 
@@ -162,30 +146,31 @@ void FcitxQtConnectionPrivate::socketFileChanged() {
     createConnection();
 }
 
-QByteArray FcitxQtConnectionPrivate::localMachineId()
-{
+QByteArray FcitxQtConnectionPrivate::localMachineId() {
     return QDBusConnection::localMachineId();
 }
 
 int FcitxQtConnectionPrivate::displayNumber() {
     if (m_displayNumber >= 0)
         return m_displayNumber;
-    Display * dpy = QX11Info::display();
+    Display *dpy = QX11Info::display();
     int displayNumber = 0;
     if (dpy) {
-        char* display = XDisplayString(dpy);
+        char *display = XDisplayString(dpy);
         if (display) {
-            char* strDisplayNumber = NULL;
+            char *strDisplayNumber = NULL;
             display = strdup(display);
-            char* p = display;
-            for (; *p != ':' && *p != '\0'; p++);
+            char *p = display;
+            for (; *p != ':' && *p != '\0'; p++)
+                ;
 
             if (*p == ':') {
                 *p = '\0';
                 p++;
                 strDisplayNumber = p;
             }
-            for (; *p != '.' && *p != '\0'; p++);
+            for (; *p != '.' && *p != '\0'; p++)
+                ;
 
             if (*p == '.') {
                 *p = '\0';
@@ -197,8 +182,7 @@ int FcitxQtConnectionPrivate::displayNumber() {
 
             free(display);
         }
-    }
-    else
+    } else
         displayNumber = fcitx_utils_get_display_number();
 
     m_displayNumber = displayNumber;
@@ -206,16 +190,15 @@ int FcitxQtConnectionPrivate::displayNumber() {
     return displayNumber;
 }
 
-const QString& FcitxQtConnectionPrivate::socketFile()
-{
+const QString &FcitxQtConnectionPrivate::socketFile() {
     if (!m_socketFile.isEmpty())
         return m_socketFile;
 
-    char* addressFile = NULL;
+    char *addressFile = NULL;
 
     asprintf(&addressFile, "%s-%d", localMachineId().data(), displayNumber());
 
-    char* file = NULL;
+    char *file = NULL;
 
     FcitxXDGGetFileUserWithPrefix("dbus", addressFile, NULL, &file);
 
@@ -228,8 +211,7 @@ const QString& FcitxQtConnectionPrivate::socketFile()
     return m_socketFile;
 }
 
-QString FcitxQtConnectionPrivate::address()
-{
+QString FcitxQtConnectionPrivate::address() {
     QString addr;
     QByteArray addrVar = qgetenv("FCITX_DBUS_ADDRESS");
     if (!addrVar.isNull())
@@ -246,8 +228,8 @@ QString FcitxQtConnectionPrivate::address()
     file.close();
     if (sz == 0)
         return QString();
-    char* p = buffer;
-    while(*p)
+    char *p = buffer;
+    while (*p)
         p++;
     size_t addrlen = p - buffer;
     if (sz != addrlen + 2 * sizeof(pid_t) + 1)
@@ -255,12 +237,11 @@ QString FcitxQtConnectionPrivate::address()
 
     /* skip '\0' */
     p++;
-    pid_t *ppid = (pid_t*) p;
+    pid_t *ppid = (pid_t *)p;
     pid_t daemonpid = ppid[0];
     pid_t fcitxpid = ppid[1];
 
-    if (!fcitx_utils_pid_exists(daemonpid)
-        || !fcitx_utils_pid_exists(fcitxpid))
+    if (!fcitx_utils_pid_exists(daemonpid) || !fcitx_utils_pid_exists(fcitxpid))
         return QString();
 
     addr = QLatin1String(buffer);
@@ -273,27 +254,31 @@ void FcitxQtConnectionPrivate::createConnection() {
         return;
     }
 
-    m_serviceWatcher->disconnect(SIGNAL(serviceOwnerChanged(QString,QString,QString)));
+    m_serviceWatcher->disconnect(
+        SIGNAL(serviceOwnerChanged(QString, QString, QString)));
     QString addr = address();
     // qDebug() << addr;
     if (!addr.isNull()) {
-        QDBusConnection connection(QDBusConnection::connectToBus(addr, "fcitx"));
+        QDBusConnection connection(
+            QDBusConnection::connectToBus(addr, "fcitx"));
         if (connection.isConnected()) {
             // qDebug() << "create private";
             m_connection = new QDBusConnection(connection);
-        }
-        else
+        } else
             QDBusConnection::disconnectFromBus("fcitx");
     }
 
     if (!m_connection) {
-        QDBusConnection* connection = new QDBusConnection(QDBusConnection::sessionBus());
-        connect(m_serviceWatcher, SIGNAL(serviceOwnerChanged(QString,QString,QString)), this, SLOT(imChanged(QString,QString,QString)));
-        QDBusReply<bool> registered = connection->interface()->isServiceRegistered(m_serviceName);
+        QDBusConnection *connection =
+            new QDBusConnection(QDBusConnection::sessionBus());
+        connect(m_serviceWatcher,
+                SIGNAL(serviceOwnerChanged(QString, QString, QString)), this,
+                SLOT(imChanged(QString, QString, QString)));
+        QDBusReply<bool> registered =
+            connection->interface()->isServiceRegistered(m_serviceName);
         if (!registered.isValid() || !registered.value()) {
             delete connection;
-        }
-        else {
+        } else {
             m_connection = connection;
         }
     }
@@ -301,27 +286,24 @@ void FcitxQtConnectionPrivate::createConnection() {
     Q_Q(FcitxQtConnection);
     if (m_connection) {
 
-        m_connection->connect ("org.freedesktop.DBus.Local",
-                            "/org/freedesktop/DBus/Local",
-                            "org.freedesktop.DBus.Local",
-                            "Disconnected",
-                            this,
-                            SLOT (dbusDisconnected ()));
+        m_connection->connect("org.freedesktop.DBus.Local",
+                              "/org/freedesktop/DBus/Local",
+                              "org.freedesktop.DBus.Local", "Disconnected",
+                              this, SLOT(dbusDisconnected()));
         m_connectedOnce = true;
         Q_EMIT q->connected();
     }
 }
 
-
-void FcitxQtConnectionPrivate::dbusDisconnected()
-{
+void FcitxQtConnectionPrivate::dbusDisconnected() {
     cleanUp();
 
     createConnection();
 }
 
-void FcitxQtConnectionPrivate::imChanged(const QString& service, const QString& oldowner, const QString& newowner)
-{
+void FcitxQtConnectionPrivate::imChanged(const QString &service,
+                                         const QString &oldowner,
+                                         const QString &newowner) {
     if (service == m_serviceName) {
         /* old die */
         if (oldowner.length() > 0 || newowner.length() > 0)
@@ -334,8 +316,7 @@ void FcitxQtConnectionPrivate::imChanged(const QString& service, const QString& 
     }
 }
 
-void FcitxQtConnectionPrivate::cleanUp()
-{
+void FcitxQtConnectionPrivate::cleanUp() {
     Q_Q(FcitxQtConnection);
     bool doemit = false;
     QDBusConnection::disconnectFromBus("fcitx");
@@ -356,8 +337,7 @@ void FcitxQtConnectionPrivate::cleanUp()
         Q_EMIT q->disconnected();
 }
 
-bool FcitxQtConnectionPrivate::isConnected()
-{
+bool FcitxQtConnectionPrivate::isConnected() {
     return m_connection && m_connection->isConnected();
 }
 

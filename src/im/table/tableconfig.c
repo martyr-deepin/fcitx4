@@ -20,8 +20,8 @@
 
 #include "fcitx/fcitx.h"
 
-#include "tabledict.h"
 #include "table.h"
+#include "tabledict.h"
 
 CONFIG_BINDING_BEGIN(TableConfig)
 CONFIG_BINDING_REGISTER("Key", "AddPhrase", hkTableAddPhrase)
@@ -43,7 +43,8 @@ CONFIG_BINDING_REGISTER("CodeTable", "UsePY", bUsePY)
 CONFIG_BINDING_REGISTER("CodeTable", "PYKey", cPinyin)
 CONFIG_BINDING_REGISTER("CodeTable", "UseAutoSend", bUseAutoSend)
 CONFIG_BINDING_REGISTER("CodeTable", "AutoSend", iTableAutoSendToClient)
-CONFIG_BINDING_REGISTER("CodeTable", "NoneMatchAutoSend", iTableAutoSendToClientWhenNone)
+CONFIG_BINDING_REGISTER("CodeTable", "NoneMatchAutoSend",
+                        iTableAutoSendToClientWhenNone)
 CONFIG_BINDING_REGISTER("CodeTable", "SendRawPreedit", bSendRawPreedit)
 CONFIG_BINDING_REGISTER("CodeTable", "EndKey", strEndCode)
 CONFIG_BINDING_REGISTER("CodeTable", "UseMatchingKey", bUseMatchingKey)
@@ -62,21 +63,29 @@ CONFIG_BINDING_REGISTER("CodeTable", "ChooseModifier", chooseModifier)
 CONFIG_BINDING_REGISTER("CodeTable", "LangCode", langCode)
 CONFIG_BINDING_REGISTER("CodeTable", "KeyboardLayout", kbdlayout)
 CONFIG_BINDING_REGISTER("CodeTable", "UseCustomPrompt", customPrompt)
-CONFIG_BINDING_REGISTER("CodeTable", "UseAlternativePageKey", bUseAlternativePageKey)
-CONFIG_BINDING_REGISTER("CodeTable", "UseAlternativeCandidateWordNumber", bUseAlternativeCandidateWordNumber)
-CONFIG_BINDING_REGISTER("CodeTable", "CandidateWordNumber", iCandidateWordNumber)
-CONFIG_BINDING_REGISTER("CodeTable", "UseAlternativePageKey", bUseAlternativePageKey)
-CONFIG_BINDING_REGISTER("CodeTable", "AlternativePrevPage", hkAlternativePrevPage)
-CONFIG_BINDING_REGISTER("CodeTable", "AlternativeNextPage", hkAlternativeNextPage)
-CONFIG_BINDING_REGISTER("CodeTable", "FirstCandidateAsPreedit", bFirstCandidateAsPreedit)
-CONFIG_BINDING_REGISTER("CodeTable", "CommitAndPassByInvalidKey", bCommitAndPassByInvalidKey)
+CONFIG_BINDING_REGISTER("CodeTable", "UseAlternativePageKey",
+                        bUseAlternativePageKey)
+CONFIG_BINDING_REGISTER("CodeTable", "UseAlternativeCandidateWordNumber",
+                        bUseAlternativeCandidateWordNumber)
+CONFIG_BINDING_REGISTER("CodeTable", "CandidateWordNumber",
+                        iCandidateWordNumber)
+CONFIG_BINDING_REGISTER("CodeTable", "UseAlternativePageKey",
+                        bUseAlternativePageKey)
+CONFIG_BINDING_REGISTER("CodeTable", "AlternativePrevPage",
+                        hkAlternativePrevPage)
+CONFIG_BINDING_REGISTER("CodeTable", "AlternativeNextPage",
+                        hkAlternativeNextPage)
+CONFIG_BINDING_REGISTER("CodeTable", "FirstCandidateAsPreedit",
+                        bFirstCandidateAsPreedit)
+CONFIG_BINDING_REGISTER("CodeTable", "CommitAndPassByInvalidKey",
+                        bCommitAndPassByInvalidKey)
 CONFIG_BINDING_REGISTER("CodeTable", "CommitKey", hkCommitKey)
-CONFIG_BINDING_REGISTER("CodeTable", "CommitKeyCommitWhenNoMatch", bCommitKeyCommitWhenNoMatch)
+CONFIG_BINDING_REGISTER("CodeTable", "CommitKeyCommitWhenNoMatch",
+                        bCommitKeyCommitWhenNoMatch)
 CONFIG_BINDING_REGISTER("CodeTable", "IgnorePunc", bIgnorePunc)
 CONFIG_BINDING_REGISTER("CodeTable", "IgnorePuncList", ignorePuncList)
 CONFIG_BINDING_REGISTER("CodeTable", "CandidateLayout", layoutHint)
 CONFIG_BINDING_REGISTER("CodeTable", "Enabled", bEnabled)
 CONFIG_BINDING_END()
-
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

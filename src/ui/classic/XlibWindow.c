@@ -1,32 +1,25 @@
 #include "XlibWindow.h"
 #include "classicui.h"
-#include <cairo-xlib.h>
 #include <X11/extensions/shape.h>
+#include <cairo-xlib.h>
 
-void* FcitxXlibWindowCreate(FcitxClassicUI* classicui, size_t size)
-{
-    FcitxXlibWindow* window = fcitx_utils_malloc0(size);
+void *FcitxXlibWindowCreate(FcitxClassicUI *classicui, size_t size) {
+    FcitxXlibWindow *window = fcitx_utils_malloc0(size);
     window->owner = classicui;
     return window;
 }
 
-void FcitxXlibWindowInit(FcitxXlibWindow* window,
-                         uint width, uint height,
-                         int x, int y,
-                         char* name,
-                         FcitxXWindowType windowType,
-                         FcitxWindowBackground* background,
-                         long int inputMask,
+void FcitxXlibWindowInit(FcitxXlibWindow *window, uint width, uint height,
+                         int x, int y, char *name, FcitxXWindowType windowType,
+                         FcitxWindowBackground *background, long int inputMask,
                          FcitxMoveWindowFunc moveWindow,
                          FcitxCalculateContentSizeFunc calculateContentSize,
-                         FcitxPaintContentFunc paintContent
-                        )
-{
-    FcitxClassicUI* classicui = window->owner;
+                         FcitxPaintContentFunc paintContent) {
+    FcitxClassicUI *classicui = window->owner;
     int depth;
     Colormap cmap;
     int iScreen = classicui->iScreen;
-    Display* dpy = classicui->dpy;
+    Display *dpy = classicui->dpy;
     FcitxSkin *sc = &classicui->skin;
     window->wId = None;
     window->height = height;
@@ -59,54 +52,44 @@ void FcitxXlibWindowInit(FcitxXlibWindow* window,
         window->height = 1;
     }
 
-    Visual* vs = ClassicUIFindARGBVisual(classicui);
+    Visual *vs = ClassicUIFindARGBVisual(classicui);
 
     XSetWindowAttributes attrib;
-    unsigned long        attribmask;
-    FcitxX11InitWindowAttribute(classicui->owner, &vs, &cmap, &attrib, &attribmask, &depth);
+    unsigned long attribmask;
+    FcitxX11InitWindowAttribute(classicui->owner, &vs, &cmap, &attrib,
+                                &attribmask, &depth);
 
-    window->wId = XCreateWindow(dpy,
-                                RootWindow(dpy, iScreen),
-                                x, y,
-                                window->width,
-                                window->height,
-                                0,
-                                depth, InputOutput,
-                                vs, attribmask,
-                                &attrib);
+    window->wId = XCreateWindow(dpy, RootWindow(dpy, iScreen), x, y,
+                                window->width, window->height, 0, depth,
+                                InputOutput, vs, attribmask, &attrib);
 
-    window->xlibSurface = cairo_xlib_surface_create(dpy, window->wId, vs, window->width, window->height);
-    window->contentSurface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, window->width, window->height);
-    window->backgroundSurface = cairo_surface_create_similar(window->contentSurface, CAIRO_CONTENT_COLOR_ALPHA,
-                                                                    window->width, window->height);
+    window->xlibSurface = cairo_xlib_surface_create(
+        dpy, window->wId, vs, window->width, window->height);
+    window->contentSurface = cairo_image_surface_create(
+        CAIRO_FORMAT_ARGB32, window->width, window->height);
+    window->backgroundSurface = cairo_surface_create_similar(
+        window->contentSurface, CAIRO_CONTENT_COLOR_ALPHA, window->width,
+        window->height);
 
     XSelectInput(dpy, window->wId, inputMask);
 
     ClassicUISetWindowProperty(classicui, window->wId, windowType, name);
 }
 
-
-static inline
-FcitxRect RectUnion(FcitxRect rt1, FcitxRect rt2)
-{
-    FcitxRect rt = {
-        FCITX_MIN(rt1.x1,rt2.x1),
-        FCITX_MIN(rt1.y1,rt2.y1),
-        FCITX_MAX(rt1.x2,rt2.x2),
-        FCITX_MAX(rt1.y2,rt2.y2)
-    };
+static inline FcitxRect RectUnion(FcitxRect rt1, FcitxRect rt2) {
+    FcitxRect rt = {FCITX_MIN(rt1.x1, rt2.x1), FCITX_MIN(rt1.y1, rt2.y1),
+                    FCITX_MAX(rt1.x2, rt2.x2), FCITX_MAX(rt1.y2, rt2.y2)};
 
     return rt;
 }
 
-void FcitxXlibWindowPaintBackground(FcitxXlibWindow* window,
-                                    cairo_t* c,
+void FcitxXlibWindowPaintBackground(FcitxXlibWindow *window, cairo_t *c,
                                     unsigned int offX, unsigned int offY,
-                                    unsigned int contentWidth, unsigned int contentHeight,
-                                    unsigned int overlayX, unsigned int overlayY
-                                   )
-{
-    FcitxClassicUI* classicui = window->owner;
+                                    unsigned int contentWidth,
+                                    unsigned int contentHeight,
+                                    unsigned int overlayX,
+                                    unsigned int overlayY) {
+    FcitxClassicUI *classicui = window->owner;
     /* just clean the background with nothing */
     cairo_save(c);
     cairo_set_source_rgba(c, 0, 0, 0, 0);
@@ -116,32 +99,35 @@ void FcitxXlibWindowPaintBackground(FcitxXlibWindow* window,
     int backgrondWidth = contentWidth;
     int backgrondHeight = contentHeight;
     do {
-        SkinImage* back = NULL;
-        if (!window->background || (back = LoadImage(&window->owner->skin, window->background->background, false)) == NULL) {
+        SkinImage *back = NULL;
+        if (!window->background ||
+            (back = LoadImage(&window->owner->skin,
+                              window->background->background, false)) == NULL) {
             break;
         }
 
-        backgrondWidth += window->background->marginLeft + window->background->marginRight;
-        backgrondHeight += window->background->marginTop + window->background->marginBottom;
+        backgrondWidth +=
+            window->background->marginLeft + window->background->marginRight;
+        backgrondHeight +=
+            window->background->marginTop + window->background->marginBottom;
 
-        if (window->epoch != classicui->epoch || window->oldContentWidth != contentWidth || window->oldContentHeight != contentHeight) {
+        if (window->epoch != classicui->epoch ||
+            window->oldContentWidth != contentWidth ||
+            window->oldContentHeight != contentHeight) {
             window->epoch = classicui->epoch;
             window->oldContentHeight = contentHeight;
             window->oldContentWidth = contentWidth;
 
-            EnlargeCairoSurface(&window->backgroundSurface, backgrondWidth, backgrondHeight);
+            EnlargeCairoSurface(&window->backgroundSurface, backgrondWidth,
+                                backgrondHeight);
 
-            cairo_t* backgroundcr = cairo_create(window->backgroundSurface);
-            DrawResizableBackground(backgroundcr,
-                                    back->image,
-                                    backgrondWidth, backgrondHeight,
-                                    window->background->marginLeft,
-                                    window->background->marginTop,
-                                    window->background->marginRight,
-                                    window->background->marginBottom,
-                                    window->background->fillV,
-                                    window->background->fillH
-                                );
+            cairo_t *backgroundcr = cairo_create(window->backgroundSurface);
+            DrawResizableBackground(
+                backgroundcr, back->image, backgrondWidth, backgrondHeight,
+                window->background->marginLeft, window->background->marginTop,
+                window->background->marginRight,
+                window->background->marginBottom, window->background->fillV,
+                window->background->fillH);
             cairo_destroy(backgroundcr);
             cairo_surface_flush(window->backgroundSurface);
         }
@@ -157,9 +143,11 @@ void FcitxXlibWindowPaintBackground(FcitxXlibWindow* window,
 
     } while (0);
 
-    SkinImage* overlay = NULL;
+    SkinImage *overlay = NULL;
     do {
-        if (!window->background || (overlay = LoadImage(&window->owner->skin, window->background->overlay, false)) == NULL) {
+        if (!window->background ||
+            (overlay = LoadImage(&window->owner->skin,
+                                 window->background->overlay, false)) == NULL) {
             break;
         }
 
@@ -167,28 +155,29 @@ void FcitxXlibWindowPaintBackground(FcitxXlibWindow* window,
         cairo_translate(c, overlayX, overlayY);
         cairo_set_operator(c, CAIRO_OPERATOR_OVER);
         cairo_set_source_surface(c, overlay->image, 0, 0);
-        cairo_rectangle(c, 0, 0, cairo_image_surface_get_width(overlay->image), cairo_image_surface_get_height(overlay->image));
+        cairo_rectangle(c, 0, 0, cairo_image_surface_get_width(overlay->image),
+                        cairo_image_surface_get_height(overlay->image));
         cairo_clip(c);
         cairo_paint(c);
         cairo_restore(c);
     } while (0);
 
     if (classicui->hasXShape) {
-        if (overlay
-            || window->background->clickMarginLeft != 0
-            || window->background->clickMarginRight != 0
-            || window->background->clickMarginTop != 0
-            || window->background->clickMarginBottom != 0) {
+        if (overlay || window->background->clickMarginLeft != 0 ||
+            window->background->clickMarginRight != 0 ||
+            window->background->clickMarginTop != 0 ||
+            window->background->clickMarginBottom != 0) {
             XRectangle r[1];
             r[0].x = 0;
             r[0].y = 0;
-            r[0].width = backgrondWidth - window->background->clickMarginLeft - window->background->clickMarginRight;
-            r[0].height = backgrondHeight - window->background->clickMarginTop - window->background->clickMarginBottom;
+            r[0].width = backgrondWidth - window->background->clickMarginLeft -
+                         window->background->clickMarginRight;
+            r[0].height = backgrondHeight - window->background->clickMarginTop -
+                          window->background->clickMarginBottom;
             XShapeCombineRectangles(classicui->dpy, window->wId, ShapeInput,
                                     offX + window->background->clickMarginLeft,
                                     offY + window->background->clickMarginTop,
-                                    r, 1, ShapeSet, Unsorted
-                                   );
+                                    r, 1, ShapeSet, Unsorted);
         } else {
             XShapeCombineMask(classicui->dpy, window->wId, ShapeInput, 0, 0,
                               None, ShapeSet);
@@ -196,9 +185,8 @@ void FcitxXlibWindowPaintBackground(FcitxXlibWindow* window,
     }
 }
 
-void FcitxXlibWindowPaint(FcitxXlibWindow* window)
-{
-    FcitxClassicUI* classicui = window->owner;
+void FcitxXlibWindowPaint(FcitxXlibWindow *window) {
+    FcitxClassicUI *classicui = window->owner;
     FcitxSkin *sc = &classicui->skin;
     int oldWidth = window->width, oldHeight = window->height;
     unsigned int contentHeight = 0, contentWidth = 0;
@@ -206,20 +194,30 @@ void FcitxXlibWindowPaint(FcitxXlibWindow* window)
     FcitxRect rect, mergedRect;
     rect.x1 = 0;
     rect.y1 = 0;
-    rect.x2 = contentWidth + (window->background ? (window->background->marginLeft + window->background->marginRight) : 0);
-    rect.y2 = contentHeight + (window->background ? (window->background->marginTop + window->background->marginBottom) : 0);
+    rect.x2 =
+        contentWidth + (window->background ? (window->background->marginLeft +
+                                              window->background->marginRight)
+                                           : 0);
+    rect.y2 =
+        contentHeight + (window->background ? (window->background->marginTop +
+                                               window->background->marginBottom)
+                                            : 0);
     mergedRect = rect;
 
     unsigned int overlayX = 0, overlayY = 0;
     unsigned int offX = 0, offY = 0;
-    SkinImage* overlayImage = NULL;
+    SkinImage *overlayImage = NULL;
     if (window->background) {
         if (window->background->overlay[0]) {
-            overlayImage =  LoadImage(sc, window->background->overlay, false);
+            overlayImage = LoadImage(sc, window->background->overlay, false);
         }
 
         unsigned int overlayW = 0, overlayH = 0;
-    #define _POS(P, X, Y) case P: overlayX = X; overlayY = Y; break;
+#define _POS(P, X, Y)                                                          \
+    case P:                                                                    \
+        overlayX = X;                                                          \
+        overlayY = Y;                                                          \
+        break;
         switch (window->background->dock) {
             _POS(OD_TopLeft, 0, 0)
             _POS(OD_TopCenter, rect.x2 / 2, 0)
@@ -229,7 +227,7 @@ void FcitxXlibWindowPaint(FcitxXlibWindow* window)
             _POS(OD_CenterRight, rect.x2, rect.y2 / 2)
             _POS(OD_BottomLeft, 0, rect.y2)
             _POS(OD_BottomCenter, rect.x2 / 2, rect.y2)
-            _POS(OD_BottomRight, rect.x2, rect. y2)
+            _POS(OD_BottomRight, rect.x2, rect.y2)
         }
 
         overlayX += window->background->overlayOffsetX;
@@ -240,7 +238,8 @@ void FcitxXlibWindowPaint(FcitxXlibWindow* window)
             overlayH = cairo_image_surface_get_height(overlayImage->image);
         }
 
-        FcitxRect overlayRect = {overlayX, overlayY, overlayX + overlayW, overlayY + overlayH };
+        FcitxRect overlayRect = {overlayX, overlayY, overlayX + overlayW,
+                                 overlayY + overlayH};
         mergedRect = RectUnion(rect, overlayRect);
         offX = 0 - mergedRect.x1;
         offY = 0 - mergedRect.y1;
@@ -259,8 +258,9 @@ void FcitxXlibWindowPaint(FcitxXlibWindow* window)
     }
 
     EnlargeCairoSurface(&window->contentSurface, width, height);
-    cairo_t* c = cairo_create(window->contentSurface);
-    FcitxXlibWindowPaintBackground(window, c, offX, offY, contentWidth, contentHeight, overlayX, overlayY);
+    cairo_t *c = cairo_create(window->contentSurface);
+    FcitxXlibWindowPaintBackground(window, c, offX, offY, contentWidth,
+                                   contentHeight, overlayX, overlayY);
 
     if (overlayImage) {
         cairo_save(c);
@@ -270,8 +270,10 @@ void FcitxXlibWindowPaint(FcitxXlibWindow* window)
         cairo_restore(c);
     }
 
-    window->contentX = offX + (window->background ? window->background->marginLeft : 0);
-    window->contentY = offY + (window->background ? window->background->marginTop : 0);
+    window->contentX =
+        offX + (window->background ? window->background->marginLeft : 0);
+    window->contentY =
+        offY + (window->background ? window->background->marginTop : 0);
     window->contentWidth = contentWidth;
     window->contentHeight = contentHeight;
     cairo_save(c);
@@ -290,16 +292,13 @@ void FcitxXlibWindowPaint(FcitxXlibWindow* window)
 
     window->MoveWindow(window);
     if (resizeFlag) {
-        cairo_xlib_surface_set_size(window->xlibSurface,
-                                    window->width,
+        cairo_xlib_surface_set_size(window->xlibSurface, window->width,
                                     window->height);
-        XResizeWindow(window->owner->dpy,
-                      window->wId,
-                      window->width,
+        XResizeWindow(window->owner->dpy, window->wId, window->width,
                       window->height);
     }
 
-    cairo_t* xlibc = cairo_create(window->xlibSurface);
+    cairo_t *xlibc = cairo_create(window->xlibSurface);
     cairo_set_operator(xlibc, CAIRO_OPERATOR_SOURCE);
     cairo_set_source_surface(xlibc, window->contentSurface, 0, 0);
     cairo_rectangle(xlibc, 0, 0, window->width, window->height);
@@ -309,8 +308,7 @@ void FcitxXlibWindowPaint(FcitxXlibWindow* window)
     cairo_surface_flush(window->xlibSurface);
 }
 
-void FcitxXlibWindowDestroy(FcitxXlibWindow* window)
-{
+void FcitxXlibWindowDestroy(FcitxXlibWindow *window) {
     if (window->wId == None)
         return;
 

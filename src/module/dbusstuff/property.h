@@ -24,23 +24,27 @@
 #include <dbus/dbus.h>
 
 typedef struct _FcitxDBusPropertyTable {
-    char* interface;
-    char* name;
-    char* type;
-    void (*getfunc)(void* arg, DBusMessageIter* iter);
-    void (*setfunc)(void* arg, DBusMessageIter* iter);
+    char *interface;
+    char *name;
+    char *type;
+    void (*getfunc)(void *arg, DBusMessageIter *iter);
+    void (*setfunc)(void *arg, DBusMessageIter *iter);
 } FcitxDBusPropertyTable;
 
-DBusMessage* FcitxDBusPropertyGet(void* arg, const FcitxDBusPropertyTable* propertTable, DBusMessage* message);
-DBusMessage* FcitxDBusPropertySet(void* arg, const FcitxDBusPropertyTable* propertTable, DBusMessage* message);
-DBusMessage* FcitxDBusPropertyGetAll(void* arg, const FcitxDBusPropertyTable* propertTable, DBusMessage* message);
+DBusMessage *FcitxDBusPropertyGet(void *arg,
+                                  const FcitxDBusPropertyTable *propertTable,
+                                  DBusMessage *message);
+DBusMessage *FcitxDBusPropertySet(void *arg,
+                                  const FcitxDBusPropertyTable *propertTable,
+                                  DBusMessage *message);
+DBusMessage *FcitxDBusPropertyGetAll(void *arg,
+                                     const FcitxDBusPropertyTable *propertTable,
+                                     DBusMessage *message);
 
-static inline DBusMessage* FcitxDBusPropertyUnknownMethod(DBusMessage *msg)
-{
-    DBusMessage* reply = dbus_message_new_error_printf(msg,
-                                                       DBUS_ERROR_UNKNOWN_METHOD,
-                                                       "No such method with signature (%s)",
-                                                       dbus_message_get_signature(msg));
+static inline DBusMessage *FcitxDBusPropertyUnknownMethod(DBusMessage *msg) {
+    DBusMessage *reply = dbus_message_new_error_printf(
+        msg, DBUS_ERROR_UNKNOWN_METHOD, "No such method with signature (%s)",
+        dbus_message_get_signature(msg));
     return reply;
 }
 

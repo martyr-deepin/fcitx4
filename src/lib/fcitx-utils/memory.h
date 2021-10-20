@@ -18,7 +18,6 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-
 /**
  * @addtogroup FcitxUtils
  * @{
@@ -38,9 +37,9 @@
  * fcitx_memory_pool_destroy(pool);
  * @endcode
  *
- * Memory pool will alloc new memory block by 8k, and mark the page to full when there
- * is only 16 bytes left. It can achieve good performance and little memory foot print
- * when you need a lot of small allocation.
+ * Memory pool will alloc new memory block by 8k, and mark the page to full when
+ * there is only 16 bytes left. It can achieve good performance and little
+ * memory foot print when you need a lot of small allocation.
  */
 #ifndef _FCITX_MEMORY_H_
 #define _FCITX_MEMORY_H_
@@ -59,7 +58,7 @@ typedef struct _FcitxMemoryPool FcitxMemoryPool;
  *
  * @return FcitxMemoryPool*
  **/
-FcitxMemoryPool* fcitx_memory_pool_create();
+FcitxMemoryPool *fcitx_memory_pool_create();
 
 /**
  * allocate piece of memory from pool
@@ -68,15 +67,15 @@ FcitxMemoryPool* fcitx_memory_pool_create();
  * @param size size of wanted memory
  * @return void*
  **/
-void* fcitx_memory_pool_alloc(FcitxMemoryPool* pool, size_t size);
-#define fcitx_memory_pool_alloc(pool, size)             \
+void *fcitx_memory_pool_alloc(FcitxMemoryPool *pool, size_t size);
+#define fcitx_memory_pool_alloc(pool, size)                                    \
     fcitx_memory_pool_alloc_align(pool, size, 0)
 
-void *fcitx_memory_pool_alloc_align(FcitxMemoryPool* pool,
-                                    size_t size, int align);
-#define fcitx_memory_pool_alloc_align(pool, size, args...)      \
+void *fcitx_memory_pool_alloc_align(FcitxMemoryPool *pool, size_t size,
+                                    int align);
+#define fcitx_memory_pool_alloc_align(pool, size, args...)                     \
     _fcitx_memory_pool_alloc_align(pool, size, ##args, 1)
-#define _fcitx_memory_pool_alloc_align(pool, size, align, ...)  \
+#define _fcitx_memory_pool_alloc_align(pool, size, align, ...)                 \
     (fcitx_memory_pool_alloc_align)(pool, size, align)
 
 /**
@@ -85,7 +84,7 @@ void *fcitx_memory_pool_alloc_align(FcitxMemoryPool* pool,
  * @param pool memory ppol
  * @return void
  **/
-void fcitx_memory_pool_destroy(FcitxMemoryPool* pool);
+void fcitx_memory_pool_destroy(FcitxMemoryPool *pool);
 
 /**
  * free all the memory inside the pool but keep the pool itself
@@ -94,7 +93,7 @@ void fcitx_memory_pool_destroy(FcitxMemoryPool* pool);
  * @return void
  * @since 4.2.6
  **/
-void fcitx_memory_pool_clear(FcitxMemoryPool* pool);
+void fcitx_memory_pool_clear(FcitxMemoryPool *pool);
 
 #ifdef __cplusplus
 }

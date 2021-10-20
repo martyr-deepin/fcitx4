@@ -116,8 +116,7 @@ void SaveIMPluginConfig(IMPlugin *implugin) {
 
 void ResetIMPluginConfig(IMPlugin *implugin) {
     char *dimConfigPath = NULL;
-    FILE *fp = FcitxXDGGetFileUserWithPrefix(
-        "conf", "fcitx-implugin.config", "r",
-        &dimConfigPath);
+    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config",
+                                             "r", &dimConfigPath);
     remove(dimConfigPath);
 }

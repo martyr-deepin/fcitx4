@@ -20,13 +20,13 @@
  */
 
 #include "fcitx-utils/utils.h"
+#include "minIni.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/inotify.h>
 #include <unistd.h>
-#include "minIni.h"
 
 //#define LOGFILE "/tmp/fcitx-switch.log"
 
@@ -59,58 +59,46 @@ void file_comment_checkout(const char *filename) {
     close(fd);
 }
 
-int if_frist_switch()
-{
-    char logDir[BUFSIZ]={};
+int if_frist_switch() {
+    char logDir[BUFSIZ] = {};
     char *username = getlogin();
-    sprintf(logDir, "%s_%s_%s", "/tmp/fcitx", username,"switch.log");
+    sprintf(logDir, "%s_%s_%s", "/tmp/fcitx", username, "switch.log");
 
     int isFirst = access(logDir, F_OK);
-    FILE* gFp=fopen(logDir,"a");
-    if(isFirst == 0){//不是第一次启动
+    FILE *gFp = fopen(logDir, "a");
+    if (isFirst == 0) { //不是第一次启动
         fprintf(gFp, "not the first switch\n");
-    } else {//是第一次启动
+    } else { //是第一次启动
         fprintf(gFp, "the first switch\n");
     }
     fclose(gFp);
     return isFirst;
 }
 
-void switch_default()
-{
-    FILE* fp = NULL;
+void switch_default() {
+    FILE *fp = NULL;
     char *dimConfigPath = NULL;
-    fp = FcitxXDGGetFileUserWithPrefix(
-        "conf", "fcitx-defaultim.config", "r",
-        &dimConfigPath);
+    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config", "r",
+                                       &dimConfigPath);
     if (fp) {
         fclose(fp);
         file_comment_checkout(dimConfigPath);
     }
     char curDeimName[BUFSIZ];
-    memset(curDeimName, 0,
-           FCITX_ARRAY_SIZE(curDeimName));
-    ini_gets("DefaultIM", "IMNAME", "fcitx-keyboard-us",
-             curDeimName, FCITX_ARRAY_SIZE(curDeimName),
-             dimConfigPath);
+    memset(curDeimName, 0, FCITX_ARRAY_SIZE(curDeimName));
+    ini_gets("DefaultIM", "IMNAME", "fcitx-keyboard-us", curDeimName,
+             FCITX_ARRAY_SIZE(curDeimName), dimConfigPath);
     free(dimConfigPath);
 
-    char* args[] = {
-        "/usr/bin/fcitx-remote",
-        "-s",
+    char *args[] = {
+        "/usr/bin/fcitx-remote", "-s",
         curDeimName, /* parent process haven't even touched this... */
-        NULL
-    };
+        NULL};
     fcitx_utils_start_process(args);
 }
 
-void seq_switch()
-{
-    char* args[] = {
-        "/usr/bin/fcitx-remote",
-        "-w",
-        NULL
-    };
+void seq_switch() {
+    char *args[] = {"/usr/bin/fcitx-remote", "-w", NULL};
     fcitx_utils_start_process(args);
 }
 
@@ -119,10 +107,9 @@ int main(int argc, char *argv[]) {
     while ((c = getopt(argc, argv, "sd")) != -1) {
         switch (c) {
         case 's':
-            if(if_frist_switch()){
+            if (if_frist_switch()) {
                 switch_default();
-            }
-            else {
+            } else {
                 seq_switch();
             }
             break;

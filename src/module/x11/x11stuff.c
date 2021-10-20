@@ -20,10 +20,10 @@
 
 #include "config.h"
 #include "fcitx/fcitx.h"
+#include <X11/Xatom.h>
+#include <X11/extensions/Xrender.h>
 #include <limits.h>
 #include <unistd.h>
-#include <X11/extensions/Xrender.h>
-#include <X11/Xatom.h>
 
 #ifdef HAVE_XINERAMA
 #include <X11/extensions/Xinerama.h>
@@ -33,26 +33,26 @@
 #include <X11/extensions/Xfixes.h>
 #endif
 
-#include "fcitx/module.h"
 #include "fcitx-utils/log.h"
 #include "fcitx-utils/utils.h"
-#include "fcitx/instance.h"
 #include "fcitx/fcitx.h"
-#include "x11stuff-internal.h"
-#include "x11selection.h"
-#include "xerrorhandler.h"
+#include "fcitx/instance.h"
+#include "fcitx/module.h"
 #include "frontend/xim/fcitx-xim.h"
+#include "x11selection.h"
+#include "x11stuff-internal.h"
+#include "xerrorhandler.h"
 
-static void* X11Create(FcitxInstance* instance);
-static void X11SetFD(void* arg);
+static void *X11Create(FcitxInstance *instance);
+static void X11SetFD(void *arg);
 static void X11ProcessEvent(void *arg);
-static void X11Destroy(void* arg);
+static void X11Destroy(void *arg);
 static boolean X11InitComposite(FcitxX11 *x11priv);
 static void X11InitAtoms(FcitxX11 *x11priv);
-static void X11HandlerComposite(FcitxX11* x11priv, boolean enable);
-static boolean X11GetCompositeManager(FcitxX11* x11priv);
-static void X11InitScreen(FcitxX11* x11priv);
-static void X11DelayedCompositeTest(void* arg);
+static void X11HandlerComposite(FcitxX11 *x11priv, boolean enable);
+static boolean X11GetCompositeManager(FcitxX11 *x11priv);
+static void X11InitScreen(FcitxX11 *x11priv);
+static void X11DelayedCompositeTest(void *arg);
 
 static inline boolean RectIntersects(FcitxRect rt1, FcitxRect rt2);
 static inline int RectWidth(FcitxRect r);
@@ -60,23 +60,15 @@ static inline int RectHeight(FcitxRect r);
 
 DECLARE_ADDFUNCTIONS(X11)
 
-static const UT_icd handler_icd = {
-    sizeof(FcitxXEventHandler), NULL, NULL, NULL
-};
-static const UT_icd comphandler_icd = {
-    sizeof(FcitxCompositeChangedHandler), NULL, NULL, NULL
-};
+static const UT_icd handler_icd = {sizeof(FcitxXEventHandler), NULL, NULL,
+                                   NULL};
+static const UT_icd comphandler_icd = {sizeof(FcitxCompositeChangedHandler),
+                                       NULL, NULL, NULL};
 
 FCITX_DEFINE_PLUGIN(fcitx_x11, module, FcitxModule) = {
-    X11Create,
-    X11SetFD,
-    X11ProcessEvent,
-    X11Destroy,
-    NULL
-};
+    X11Create, X11SetFD, X11ProcessEvent, X11Destroy, NULL};
 
-void* X11Create(FcitxInstance* instance)
-{
+void *X11Create(FcitxInstance *instance) {
     FcitxX11 *x11priv = fcitx_utils_new(FcitxX11);
     x11priv->dpy = XOpenDisplay(NULL);
     if (x11priv->dpy == NULL)
@@ -85,9 +77,9 @@ void* X11Create(FcitxInstance* instance)
     x11priv->owner = instance;
     x11priv->iScreen = DefaultScreen(x11priv->dpy);
     x11priv->rootWindow = DefaultRootWindow(x11priv->dpy);
-    x11priv->eventWindow = XCreateWindow(x11priv->dpy, x11priv->rootWindow,
-                                         0, 0, 1, 1, 0, 0, InputOnly,
-                                         CopyFromParent, 0, NULL);
+    x11priv->eventWindow =
+        XCreateWindow(x11priv->dpy, x11priv->rootWindow, 0, 0, 1, 1, 0, 0,
+                      InputOnly, CopyFromParent, 0, NULL);
     X11InitAtoms(x11priv);
 
     utarray_init(&x11priv->handlers, &handler_icd);
@@ -97,8 +89,7 @@ void* X11Create(FcitxInstance* instance)
 
 #ifdef HAVE_XFIXES
     int ignore;
-    if (XFixesQueryExtension(x11priv->dpy, &x11priv->xfixesEventBase,
-                             &ignore))
+    if (XFixesQueryExtension(x11priv->dpy, &x11priv->xfixesEventBase, &ignore))
         x11priv->hasXfixes = true;
 #endif
     X11InitSelection(x11priv);
@@ -116,23 +107,21 @@ void* X11Create(FcitxInstance* instance)
 
     X11DelayedCompositeTest(x11priv);
 
-    FcitxInstanceAddTimeout(x11priv->owner, 5000,
-                            X11DelayedCompositeTest, x11priv);
+    FcitxInstanceAddTimeout(x11priv->owner, 5000, X11DelayedCompositeTest,
+                            x11priv);
     return x11priv;
 }
 
-void X11Destroy(void* arg)
-{
-    FcitxX11* x11priv = (FcitxX11*)arg;
+void X11Destroy(void *arg) {
+    FcitxX11 *x11priv = (FcitxX11 *)arg;
     UnsetXErrorHandler();
     if (x11priv->eventWindow) {
         XDestroyWindow(x11priv->dpy, x11priv->eventWindow);
     }
 }
 
-void X11SetFD(void* arg)
-{
-    FcitxX11* x11priv = (FcitxX11*)arg;
+void X11SetFD(void *arg) {
+    FcitxX11 *x11priv = (FcitxX11 *)arg;
     int fd = ConnectionNumber(x11priv->dpy);
     FD_SET(fd, FcitxInstanceGetReadFDSet(x11priv->owner));
 
@@ -140,32 +129,27 @@ void X11SetFD(void* arg)
         FcitxInstanceSetMaxFD(x11priv->owner, fd);
 }
 
-
-void X11DelayedCompositeTest(void* arg)
-{
-    FcitxX11* x11priv = arg;
+void X11DelayedCompositeTest(void *arg) {
+    FcitxX11 *x11priv = arg;
 
     if (X11GetCompositeManager(x11priv))
         X11HandlerComposite(x11priv, true);
 }
 
 #ifdef HAVE_XFIXES
-static boolean
-X11ProcessXFixesEvent(FcitxX11 *x11priv, XEvent *xevent)
-{
+static boolean X11ProcessXFixesEvent(FcitxX11 *x11priv, XEvent *xevent) {
     switch (xevent->type - x11priv->xfixesEventBase) {
     case XFixesSelectionNotify:
         X11ProcessXFixesSelectionNotifyEvent(
-            x11priv, (XFixesSelectionNotifyEvent*)xevent);
+            x11priv, (XFixesSelectionNotifyEvent *)xevent);
         return true;
     }
     return false;
 }
 
-static void
-X11CompManagerSelectionNotify(FcitxX11 *x11priv, Atom selection, int subtype,
-                              X11SelectionNotify *notify)
-{
+static void X11CompManagerSelectionNotify(FcitxX11 *x11priv, Atom selection,
+                                          int subtype,
+                                          X11SelectionNotify *notify) {
     FCITX_UNUSED(selection);
     FCITX_UNUSED(subtype);
     FCITX_UNUSED(notify);
@@ -173,9 +157,7 @@ X11CompManagerSelectionNotify(FcitxX11 *x11priv, Atom selection, int subtype,
 }
 #endif
 
-static void
-X11ProcessEventRealInternal(FcitxX11 *x11priv)
-{
+static void X11ProcessEventRealInternal(FcitxX11 *x11priv) {
     XEvent event;
     while (XPending(x11priv->dpy)) {
         XNextEvent(x11priv->dpy, &event);
@@ -197,7 +179,7 @@ X11ProcessEventRealInternal(FcitxX11 *x11priv)
                 break;
             case SelectionNotify:
                 X11ProcessSelectionNotifyEvent(x11priv,
-                                               (XSelectionEvent*)&event);
+                                               (XSelectionEvent *)&event);
                 break;
             default:
 #ifdef HAVE_XFIXES
@@ -208,53 +190,44 @@ X11ProcessEventRealInternal(FcitxX11 *x11priv)
                 break;
             }
 
-            FcitxXEventHandler* handler;
-            for (handler = (FcitxXEventHandler*)utarray_front(&x11priv->handlers);
-                 handler != NULL;
-                 handler = (FcitxXEventHandler*)utarray_next(&x11priv->handlers, handler))
+            FcitxXEventHandler *handler;
+            for (handler =
+                     (FcitxXEventHandler *)utarray_front(&x11priv->handlers);
+                 handler != NULL; handler = (FcitxXEventHandler *)utarray_next(
+                                      &x11priv->handlers, handler))
                 if (handler->eventHandler(handler->instance, &event))
                     break;
         }
     }
 }
 
-static void
-X11ProcessEvent(void *arg)
-{
-    FcitxX11 *x11priv = (FcitxX11*)arg;
+static void X11ProcessEvent(void *arg) {
+    FcitxX11 *x11priv = (FcitxX11 *)arg;
     X11ProcessEventRealInternal(x11priv);
     FcitxXimConsumeQueue(x11priv->owner);
 }
 
-static void
-X11AddEventHandler(FcitxX11 *x11priv, FcitxX11XEventHandler event_handler,
-                   void *data)
-{
-    FcitxXEventHandler handler = {
-        .eventHandler = event_handler,
-        .instance = data
-    };
+static void X11AddEventHandler(FcitxX11 *x11priv,
+                               FcitxX11XEventHandler event_handler,
+                               void *data) {
+    FcitxXEventHandler handler = {.eventHandler = event_handler,
+                                  .instance = data};
     utarray_push_back(&x11priv->handlers, &handler);
 }
 
-static void
-X11AddCompositeHandler(FcitxX11 *x11priv,
-                       FcitxX11CompositeHandler comp_handler, void *data)
-{
-    FcitxCompositeChangedHandler handler = {
-        .eventHandler = comp_handler,
-        .instance = data
-    };
+static void X11AddCompositeHandler(FcitxX11 *x11priv,
+                                   FcitxX11CompositeHandler comp_handler,
+                                   void *data) {
+    FcitxCompositeChangedHandler handler = {.eventHandler = comp_handler,
+                                            .instance = data};
     utarray_push_back(&x11priv->comphandlers, &handler);
 }
 
-static void
-X11RemoveEventHandler(FcitxX11 *x11priv, void *data)
-{
+static void X11RemoveEventHandler(FcitxX11 *x11priv, void *data) {
     FcitxXEventHandler *handler;
     int i;
-    for (i = 0;i < utarray_len(&x11priv->handlers);i++) {
-        handler = (FcitxXEventHandler*)utarray_eltptr(&x11priv->handlers, i);
+    for (i = 0; i < utarray_len(&x11priv->handlers); i++) {
+        handler = (FcitxXEventHandler *)utarray_eltptr(&x11priv->handlers, i);
         if (handler->instance == data) {
             utarray_remove_quick(&x11priv->handlers, i);
             return;
@@ -262,13 +235,12 @@ X11RemoveEventHandler(FcitxX11 *x11priv, void *data)
     }
 }
 
-static void
-X11RemoveCompositeHandler(FcitxX11 *x11priv, void *data)
-{
+static void X11RemoveCompositeHandler(FcitxX11 *x11priv, void *data) {
     FcitxXEventHandler *handler;
     int i;
-    for (i = 0;i < utarray_len(&x11priv->comphandlers);i++) {
-        handler = (FcitxXEventHandler*)utarray_eltptr(&x11priv->comphandlers, i);
+    for (i = 0; i < utarray_len(&x11priv->comphandlers); i++) {
+        handler =
+            (FcitxXEventHandler *)utarray_eltptr(&x11priv->comphandlers, i);
         if (handler->instance == data) {
             utarray_remove_quick(&x11priv->comphandlers, i);
             return;
@@ -276,9 +248,7 @@ X11RemoveCompositeHandler(FcitxX11 *x11priv, void *data)
     }
 }
 
-static void
-X11InitAtoms(FcitxX11 *x11priv)
-{
+static void X11InitAtoms(FcitxX11 *x11priv) {
 #define CMPMGR_PREFIX "_NET_WM_CM_S"
     char atom_name[sizeof(CMPMGR_PREFIX) + FCITX_INT64_LEN] = CMPMGR_PREFIX;
     sprintf(atom_name + strlen(CMPMGR_PREFIX), "%d", x11priv->iScreen);
@@ -295,7 +265,7 @@ X11InitAtoms(FcitxX11 *x11priv)
         "COMPOUND_TEXT",
         atom_name,
     };
-#define ATOMS_COUNT (sizeof(atom_names) / sizeof(char*))
+#define ATOMS_COUNT (sizeof(atom_names) / sizeof(char *))
     Atom atoms_return[ATOMS_COUNT];
     XInternAtoms(x11priv->dpy, atom_names, ATOMS_COUNT, False, atoms_return);
 #undef ATOMS_COUNT
@@ -312,20 +282,16 @@ X11InitAtoms(FcitxX11 *x11priv)
     x11priv->compManagerAtom = atoms_return[9];
 }
 
-static boolean
-X11InitComposite(FcitxX11* x11priv)
-{
+static boolean X11InitComposite(FcitxX11 *x11priv) {
 #ifdef HAVE_XFIXES
-    X11SelectionNotifyRegisterInternal(
-        x11priv, x11priv->compManagerAtom, x11priv,
-        X11CompManagerSelectionNotify, NULL, NULL, NULL);
+    X11SelectionNotifyRegisterInternal(x11priv, x11priv->compManagerAtom,
+                                       x11priv, X11CompManagerSelectionNotify,
+                                       NULL, NULL, NULL);
 #endif
     return X11GetCompositeManager(x11priv);
 }
 
-static Visual*
-X11FindARGBVisual(FcitxX11 *x11priv)
-{
+static Visual *X11FindARGBVisual(FcitxX11 *x11priv) {
     XVisualInfo *xvi;
     XVisualInfo temp;
     int nvi;
@@ -341,12 +307,12 @@ X11FindARGBVisual(FcitxX11 *x11priv)
     temp.screen = scr;
     temp.depth = 32;
     temp.class = TrueColor;
-    xvi = XGetVisualInfo(dpy, VisualScreenMask | VisualDepthMask |
-                         VisualClassMask, &temp, &nvi);
+    xvi = XGetVisualInfo(
+        dpy, VisualScreenMask | VisualDepthMask | VisualClassMask, &temp, &nvi);
     if (!xvi)
         return NULL;
     visual = 0;
-    for (i = 0;i < nvi;i++) {
+    for (i = 0; i < nvi; i++) {
         format = XRenderFindVisualFormat(dpy, xvi[i].visual);
         if (format->type == PictTypeDirect && format->direct.alphaMask) {
             visual = xvi[i].visual;
@@ -358,11 +324,9 @@ X11FindARGBVisual(FcitxX11 *x11priv)
     return visual;
 }
 
-static void
-X11InitWindowAttribute(FcitxX11 *x11priv, Visual **vs, Colormap *cmap,
-                       XSetWindowAttributes *attrib, unsigned long *attribmask,
-                       int *depth)
-{
+static void X11InitWindowAttribute(FcitxX11 *x11priv, Visual **vs,
+                                   Colormap *cmap, XSetWindowAttributes *attrib,
+                                   unsigned long *attribmask, int *depth) {
     Display *dpy = x11priv->dpy;
     int iScreen = x11priv->iScreen;
     attrib->bit_gravity = NorthWestGravity;
@@ -370,18 +334,18 @@ X11InitWindowAttribute(FcitxX11 *x11priv, Visual **vs, Colormap *cmap,
     attrib->save_under = True;
     if (*vs) {
         *cmap = XCreateColormap(dpy, RootWindow(dpy, iScreen), *vs, AllocNone);
-        attrib->override_redirect = True;       // False;
+        attrib->override_redirect = True; // False;
         attrib->background_pixel = 0;
         attrib->border_pixel = 0;
         attrib->colormap = *cmap;
-        *attribmask = (CWBackPixel | CWBorderPixel | CWOverrideRedirect |
-                       CWSaveUnder | CWColormap | CWBitGravity |
-                       CWBackingStore);
+        *attribmask =
+            (CWBackPixel | CWBorderPixel | CWOverrideRedirect | CWSaveUnder |
+             CWColormap | CWBitGravity | CWBackingStore);
         *depth = 32;
     } else {
         *cmap = DefaultColormap(dpy, iScreen);
         *vs = DefaultVisual(dpy, iScreen);
-        attrib->override_redirect = True;       // False;
+        attrib->override_redirect = True; // False;
         attrib->background_pixel = 0;
         attrib->border_pixel = 0;
         *attribmask = (CWBackPixel | CWBorderPixel | CWOverrideRedirect |
@@ -390,10 +354,8 @@ X11InitWindowAttribute(FcitxX11 *x11priv, Visual **vs, Colormap *cmap,
     }
 }
 
-static void
-X11SetWindowProperty(FcitxX11 *x11priv, Window window, FcitxXWindowType type,
-                     char *windowTitle)
-{
+static void X11SetWindowProperty(FcitxX11 *x11priv, Window window,
+                                 FcitxXWindowType type, char *windowTitle) {
     Atom *wintype = NULL;
     switch (type) {
     case FCITX_WINDOW_DIALOG:
@@ -413,12 +375,12 @@ X11SetWindowProperty(FcitxX11 *x11priv, Window window, FcitxXWindowType type,
         break;
     }
     if (wintype)
-        XChangeProperty(x11priv->dpy, window, x11priv->windowTypeAtom,
-                        XA_ATOM, 32, PropModeReplace, (void*)wintype, 1);
+        XChangeProperty(x11priv->dpy, window, x11priv->windowTypeAtom, XA_ATOM,
+                        32, PropModeReplace, (void *)wintype, 1);
 
     pid_t pid = getpid();
     XChangeProperty(x11priv->dpy, window, x11priv->pidAtom, XA_CARDINAL, 32,
-                    PropModeReplace, (unsigned char*)&pid, 1);
+                    PropModeReplace, (unsigned char *)&pid, 1);
 
     char res_name[] = "fcitx";
     char res_class[] = "fcitx";
@@ -428,7 +390,7 @@ X11SetWindowProperty(FcitxX11 *x11priv, Window window, FcitxXWindowType type,
     XSetClassHint(x11priv->dpy, window, &ch);
 
     if (windowTitle) {
-        XTextProperty   tp;
+        XTextProperty tp;
         memset(&tp, 0, sizeof(XTextProperty));
         Xutf8TextListToTextProperty(x11priv->dpy, &windowTitle, 1,
                                     XUTF8StringStyle, &tp);
@@ -439,9 +401,7 @@ X11SetWindowProperty(FcitxX11 *x11priv, Window window, FcitxXWindowType type,
     }
 }
 
-static void
-X11GetScreenSize(FcitxX11 *x11priv, int *width, int *height)
-{
+static void X11GetScreenSize(FcitxX11 *x11priv, int *width, int *height) {
     if (width) {
         *width = RectWidth(x11priv->rects[x11priv->defaultScreen]);
     }
@@ -450,9 +410,8 @@ X11GetScreenSize(FcitxX11 *x11priv, int *width, int *height)
     }
 }
 
-static void
-X11MouseClick(FcitxX11 *x11priv, Window window, int *x, int *y, boolean *bMoved)
-{
+static void X11MouseClick(FcitxX11 *x11priv, Window window, int *x, int *y,
+                          boolean *bMoved) {
     XEvent evtGrabbed;
     // To motion the window
     while (1) {
@@ -479,47 +438,50 @@ X11MouseClick(FcitxX11 *x11priv, Window window, int *x, int *y, boolean *bMoved)
     *y = evtGrabbed.xmotion.y_root - *y;
 }
 
-void X11HandlerComposite(FcitxX11* x11priv, boolean enable)
-{
+void X11HandlerComposite(FcitxX11 *x11priv, boolean enable) {
     if (x11priv->isComposite == enable)
         return;
 
     x11priv->isComposite = enable;
 
     if (enable) {
-        x11priv->compManager = XGetSelectionOwner(x11priv->dpy, x11priv->compManagerAtom);
+        x11priv->compManager =
+            XGetSelectionOwner(x11priv->dpy, x11priv->compManagerAtom);
 
         if (x11priv->compManager) {
             XSetWindowAttributes attrs;
             attrs.event_mask = StructureNotifyMask;
-            XChangeWindowAttributes(x11priv->dpy, x11priv->compManager, CWEventMask, &attrs);
+            XChangeWindowAttributes(x11priv->dpy, x11priv->compManager,
+                                    CWEventMask, &attrs);
         }
     } else {
         x11priv->compManager = None;
     }
 
-    FcitxCompositeChangedHandler* handler;
-    for (handler = (FcitxCompositeChangedHandler *) utarray_front(&x11priv->comphandlers);
-            handler != NULL;
-            handler = (FcitxCompositeChangedHandler *) utarray_next(&x11priv->comphandlers, handler))
+    FcitxCompositeChangedHandler *handler;
+    for (handler = (FcitxCompositeChangedHandler *)utarray_front(
+             &x11priv->comphandlers);
+         handler != NULL;
+         handler = (FcitxCompositeChangedHandler *)utarray_next(
+             &x11priv->comphandlers, handler))
         handler->eventHandler(handler->instance, enable);
 }
 
-boolean X11GetCompositeManager(FcitxX11* x11priv)
-{
-    x11priv->compManager = XGetSelectionOwner(x11priv->dpy, x11priv->compManagerAtom);
+boolean X11GetCompositeManager(FcitxX11 *x11priv) {
+    x11priv->compManager =
+        XGetSelectionOwner(x11priv->dpy, x11priv->compManagerAtom);
 
     if (x11priv->compManager) {
         XSetWindowAttributes attrs;
         attrs.event_mask = StructureNotifyMask;
-        XChangeWindowAttributes(x11priv->dpy, x11priv->compManager, CWEventMask, &attrs);
+        XChangeWindowAttributes(x11priv->dpy, x11priv->compManager, CWEventMask,
+                                &attrs);
         return true;
     } else
         return false;
 }
 
-void X11InitScreen(FcitxX11* x11priv)
-{
+void X11InitScreen(FcitxX11 *x11priv) {
     // get the screen count
     int newScreenCount = ScreenCount(x11priv->dpy);
 #ifdef HAVE_XINERAMA
@@ -530,8 +492,9 @@ void X11InitScreen(FcitxX11* x11priv)
     // using traditional multi-screen (with multiple root windows)
     if (newScreenCount == 1) {
         int unused;
-        x11priv->bUseXinerama = (XineramaQueryExtension(x11priv->dpy, &unused, &unused)
-                                  && XineramaIsActive(x11priv->dpy));
+        x11priv->bUseXinerama =
+            (XineramaQueryExtension(x11priv->dpy, &unused, &unused) &&
+             XineramaIsActive(x11priv->dpy));
     }
 
     if (x11priv->bUseXinerama) {
@@ -580,11 +543,13 @@ void X11InitScreen(FcitxX11* x11priv)
 
         x11priv->rects[j] = rect;
 
-        if (x11priv->bUseXinerama && j > 0 && RectIntersects(x11priv->rects[j - 1], x11priv->rects[j])) {
+        if (x11priv->bUseXinerama && j > 0 &&
+            RectIntersects(x11priv->rects[j - 1], x11priv->rects[j])) {
             // merge a "cloned" screen with the previous, hiding all crtcs
             // that are currently showing a sub-rect of the previous screen
-            if ((RectWidth(x11priv->rects[j])* RectHeight(x11priv->rects[j])) >
-                    (RectWidth(x11priv->rects[j - 1])*RectHeight(x11priv->rects[j - 1])))
+            if ((RectWidth(x11priv->rects[j]) * RectHeight(x11priv->rects[j])) >
+                (RectWidth(x11priv->rects[j - 1]) *
+                 RectHeight(x11priv->rects[j - 1])))
                 x11priv->rects[j - 1] = x11priv->rects[j];
             j--;
         }
@@ -601,9 +566,7 @@ void X11InitScreen(FcitxX11* x11priv)
 #endif // HAVE_XINERAMA
 }
 
-static inline
-boolean RectIntersects(FcitxRect rt1, FcitxRect rt2)
-{
+static inline boolean RectIntersects(FcitxRect rt1, FcitxRect rt2) {
     int l1 = rt1.x1;
     int r1 = rt1.x1;
     if (rt1.x2 - rt1.x1 + 1 < 0)
@@ -641,20 +604,11 @@ boolean RectIntersects(FcitxRect rt1, FcitxRect rt2)
     return true;
 }
 
-static inline
-int RectWidth(FcitxRect r)
-{
-    return r.x2 - r.x1 + 1;
-}
+static inline int RectWidth(FcitxRect r) { return r.x2 - r.x1 + 1; }
 
-static inline
-int RectHeight(FcitxRect r)
-{
-    return r.y2 - r.y1 + 1;
-}
+static inline int RectHeight(FcitxRect r) { return r.y2 - r.y1 + 1; }
 
-int PointToRect(int x, int y, FcitxRect r)
-{
+int PointToRect(int x, int y, FcitxRect r) {
     int dx = 0;
     int dy = 0;
     if (x < r.x1)
@@ -668,9 +622,8 @@ int PointToRect(int x, int y, FcitxRect r)
     return dx + dy;
 }
 
-static void
-X11ScreenGeometry(FcitxX11 *x11priv, int x, int y, FcitxRect *rect)
-{
+static void X11ScreenGeometry(FcitxX11 *x11priv, int x, int y,
+                              FcitxRect *rect) {
     int closestScreen = -1;
     int shortestDistance = INT_MAX;
     int i;
@@ -688,9 +641,7 @@ X11ScreenGeometry(FcitxX11 *x11priv, int x, int y, FcitxRect *rect)
     *rect = x11priv->rects[closestScreen];
 }
 
-static void
-X11GetDPI(FcitxX11 *x11priv, int *_i, double *_d)
-{
+static void X11GetDPI(FcitxX11 *x11priv, int *_i, double *_d) {
     if (!x11priv->dpi) {
         char *v = XGetDefault(x11priv->dpy, "Xft", "dpi");
         char *e = NULL;
@@ -707,7 +658,7 @@ X11GetDPI(FcitxX11 *x11priv, int *_i, double *_d)
             double heightmm = DisplayHeightMM(x11priv->dpy, x11priv->iScreen);
             value = ((width * 25.4) / widthmm + (height * 25.4) / heightmm) / 2;
         }
-        x11priv->dpi = (int) value;
+        x11priv->dpi = (int)value;
         if (!x11priv->dpi) {
             x11priv->dpi = 96;
             value = 96.0;

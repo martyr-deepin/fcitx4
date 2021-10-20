@@ -35,7 +35,7 @@ struct _FcitxCandidateWordList {
     boolean hasPrev;
     boolean hasNext;
     FcitxPaging paging;
-    void* overrideArg;
+    void *overrideArg;
     FcitxDestroyNotify overrideDestroyNotify;
     boolean override;
     boolean overrideHighlight;

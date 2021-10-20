@@ -27,16 +27,16 @@
 
 #include "TrayWindow.h"
 
-int TrayInitAtom(TrayWindow* win);
-int TrayFindDock(TrayWindow* tray);
-XVisualInfo* TrayGetVisual(TrayWindow* tray);
-Window TrayGetDock(TrayWindow* tray);
-void TraySendOpcode(TrayWindow* tray, long message,
-                    long data1, long data2, long data3);
+int TrayInitAtom(TrayWindow *win);
+int TrayFindDock(TrayWindow *tray);
+XVisualInfo *TrayGetVisual(TrayWindow *tray);
+Window TrayGetDock(TrayWindow *tray);
+void TraySendOpcode(TrayWindow *tray, long message, long data1, long data2,
+                    long data3);
 
-#define SYSTEM_TRAY_REQUEST_DOCK    0
-#define SYSTEM_TRAY_BEGIN_MESSAGE   1
-#define SYSTEM_TRAY_CANCEL_MESSAGE  2
+#define SYSTEM_TRAY_REQUEST_DOCK 0
+#define SYSTEM_TRAY_BEGIN_MESSAGE 1
+#define SYSTEM_TRAY_CANCEL_MESSAGE 2
 
 #define TRAY_ICON_WIDTH 22
 #define TRAY_ICON_HEIGHT 22

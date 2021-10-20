@@ -18,19 +18,18 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>
 #include <string.h>
 
+#include "fcitx-config/xdg.h"
 #include "im/pinyin/py.h"
 #include "pyTools.h"
-#include "fcitx-config/xdg.h"
 
 void usage();
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     FILE *fi;
     int i, j;
     char *pyusrphrase_mb = NULL;
@@ -60,7 +59,8 @@ int main(int argc, char **argv)
     if (pyusrphrase_mb) {
         fi = fopen(pyusrphrase_mb, "r");
     } else {
-        fi = FcitxXDGGetFileUserWithPrefix("pinyin", PY_USERPHRASE_FILE, "r" , NULL);
+        fi = FcitxXDGGetFileUserWithPrefix("pinyin", PY_USERPHRASE_FILE, "r",
+                                           NULL);
     }
 
     if (!fi) {
@@ -91,26 +91,25 @@ int main(int argc, char **argv)
     return 0;
 }
 
-void usage()
-{
-    puts(
-        "readPYMB - read data from a pinyin .mb file and display its meaning\n"
-        "\n"
-        "  usage: readPYMB [OPTION]\n"
-        "\n"
-        "  -f <mbfile> MB (MaBiao) file to be read, usually this is\n"
-        "              ~/.config/fcitx/" PY_USERPHRASE_FILE "\n"
-        "              if not specified, defaults to\n"
-        "              ~/.config/fcitx/" PY_USERPHRASE_FILE "\n"
-        "  -s          Is MB from user or from system (they have different format).\n"
-        "  -h          display this help\n"
-        "\n"
-        "  The MB file can either be a user's MB file (~/.config/fcitx/pyuserphrase.mb),\n"
-        "  or the system phrase pinyin MB file (/usr/share/fcitx/pinyin/pyphrase.mb.\n"
-    );
+void usage() {
+    puts("readPYMB - read data from a pinyin .mb file and display its meaning\n"
+         "\n"
+         "  usage: readPYMB [OPTION]\n"
+         "\n"
+         "  -f <mbfile> MB (MaBiao) file to be read, usually this is\n"
+         "              ~/.config/fcitx/" PY_USERPHRASE_FILE "\n"
+         "              if not specified, defaults to\n"
+         "              ~/.config/fcitx/" PY_USERPHRASE_FILE "\n"
+         "  -s          Is MB from user or from system (they have different "
+         "format).\n"
+         "  -h          display this help\n"
+         "\n"
+         "  The MB file can either be a user's MB file "
+         "(~/.config/fcitx/pyuserphrase.mb),\n"
+         "  or the system phrase pinyin MB file "
+         "(/usr/share/fcitx/pinyin/pyphrase.mb.\n");
     exit(1);
     return;
 }
-
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4;

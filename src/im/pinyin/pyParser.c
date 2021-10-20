@@ -21,29 +21,29 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "fcitx-utils/log.h"
 #include "fcitx/fcitx.h"
 #include "fcitx/ime.h"
-#include "fcitx-utils/log.h"
 
-#include "pyMapTable.h"
 #include "PYFA.h"
-#include "sp.h"
+#include "py.h"
+#include "pyMapTable.h"
 #include "pyParser.h"
 #include "pyconfig.h"
-#include "py.h"
+#include "sp.h"
 
 extern const ConsonantMap consonantMapTable[];
 extern const SyllabaryMap syllabaryMapTable[];
 
-static double LookupPYFreq(FcitxPinyinConfig* pyconfig, int index1, int index2);
+static double LookupPYFreq(FcitxPinyinConfig *pyconfig, int index1, int index2);
 
-int IsSyllabary(const char *strPY, boolean bMode)
-{
-    register int    i;
+int IsSyllabary(const char *strPY, boolean bMode) {
+    register int i;
 
     for (i = 0; syllabaryMapTable[i].cMap; i++) {
         if (bMode) {
-            if (!strncmp(strPY, syllabaryMapTable[i].strPY, strlen(syllabaryMapTable[i].strPY)))
+            if (!strncmp(strPY, syllabaryMapTable[i].strPY,
+                         strlen(syllabaryMapTable[i].strPY)))
                 return i;
         } else {
             if (!strcmp(strPY, syllabaryMapTable[i].strPY))
@@ -54,13 +54,13 @@ int IsSyllabary(const char *strPY, boolean bMode)
     return -1;
 }
 
-int IsConsonant(const char *strPY, boolean bMode)
-{
-    register int    i;
+int IsConsonant(const char *strPY, boolean bMode) {
+    register int i;
 
     for (i = 0; consonantMapTable[i].cMap; i++) {
         if (bMode) {
-            if (!strncmp(strPY, consonantMapTable[i].strPY, strlen(consonantMapTable[i].strPY)))
+            if (!strncmp(strPY, consonantMapTable[i].strPY,
+                         strlen(consonantMapTable[i].strPY)))
                 return i;
         } else {
             if (!strcmp(strPY, consonantMapTable[i].strPY))
@@ -71,15 +71,16 @@ int IsConsonant(const char *strPY, boolean bMode)
     return -1;
 }
 
-int FindPYFAIndex(FcitxPinyinConfig *pyconfig, const char *strPY, boolean bMode)
-{
-    int             i;
+int FindPYFAIndex(FcitxPinyinConfig *pyconfig, const char *strPY,
+                  boolean bMode) {
+    int i;
 
     for (i = 0; pyconfig->PYTable[i].strPY[0] != '\0'; i++) {
         int cmp;
 
         if (bMode)
-            cmp = strncmp(strPY, pyconfig->PYTable[i].strPY, strlen(pyconfig->PYTable[i].strPY));
+            cmp = strncmp(strPY, pyconfig->PYTable[i].strPY,
+                          strlen(pyconfig->PYTable[i].strPY));
         else
             cmp = strcmp(strPY, pyconfig->PYTable[i].strPY);
 
@@ -92,8 +93,9 @@ int FindPYFAIndex(FcitxPinyinConfig *pyconfig, const char *strPY, boolean bMode)
                     return i;
                 else
                     /* fixed pinyin is valid? */
-                    if (!pyconfig->PYTable[i + 1].pMH || *(pyconfig->PYTable[i + 1].pMH))
-                        return i;
+                    if (!pyconfig->PYTable[i + 1].pMH ||
+                        *(pyconfig->PYTable[i + 1].pMH))
+                    return i;
             }
         }
     }
@@ -101,21 +103,21 @@ int FindPYFAIndex(FcitxPinyinConfig *pyconfig, const char *strPY, boolean bMode)
     return -1;
 }
 
-void ParsePY(FcitxPinyinConfig *pyconfig, const char *strPY, ParsePYStruct * parsePY, PYPARSEINPUTMODE mode, boolean bSP)
-{
-    const char           *strP;
-    int             iIndex;
-    int             iTemp;
-    char            str_Map[3];
-    char            strTemp[7];
+void ParsePY(FcitxPinyinConfig *pyconfig, const char *strPY,
+             ParsePYStruct *parsePY, PYPARSEINPUTMODE mode, boolean bSP) {
+    const char *strP;
+    int iIndex;
+    int iTemp;
+    char str_Map[3];
+    char strTemp[7];
 
     parsePY->iMode = PARSE_SINGLEHZ;
     strP = strPY;
     parsePY->iHZCount = 0;
 
     if (bSP) {
-        char            strQP[7];
-        char            strJP[3];
+        char strQP[7];
+        char strJP[3];
 
         strJP[2] = '\0';
 
@@ -150,14 +152,15 @@ void ParsePY(FcitxPinyinConfig *pyconfig, const char *strPY, ParsePYStruct * par
             }
 
             if (*strP == PY_SEPARATOR) {
-                strcat(parsePY->strPYParsed[parsePY->iHZCount - 1], PY_SEPARATOR_S);
+                strcat(parsePY->strPYParsed[parsePY->iHZCount - 1],
+                       PY_SEPARATOR_S);
 
                 while (*strP == PY_SEPARATOR)
                     strP++;
             }
         }
     } else {
-        boolean            bSeperator = false;
+        boolean bSeperator = false;
 
         do {
             iIndex = FindPYFAIndex(pyconfig, strP, 1);
@@ -169,14 +172,16 @@ void ParsePY(FcitxPinyinConfig *pyconfig, const char *strPY, ParsePYStruct * par
 
                 /*
                  * if the end of pinyin is 'g', 'n', 'e'
-                 * there might be another possbility, for example "wanan" can be "wa nan" and "wan an"
-                 * try resolve these problem here
+                 * there might be another possbility, for example "wanan" can be
+                 * "wa nan" and "wan an" try resolve these problem here
                  */
-                if (strTemp[0] == 'g' || strTemp[0] == 'n' || strTemp[0] == 'e' || strTemp[0] == 'a') {
+                if (strTemp[0] == 'g' || strTemp[0] == 'n' ||
+                    strTemp[0] == 'e' || strTemp[0] == 'a') {
                     strncpy(strTemp, strP, lIndex - 1);
                     strTemp[lIndex - 1] = '\0';
 
-                    /* for example we have "wan", so we try to check "wa" is valid or not, with exact match */
+                    /* for example we have "wan", so we try to check "wa" is
+                     * valid or not, with exact match */
                     iTemp = FindPYFAIndex(pyconfig, strTemp, 0);
 
                     /* if "wa" is valid */
@@ -184,23 +189,32 @@ void ParsePY(FcitxPinyinConfig *pyconfig, const char *strPY, ParsePYStruct * par
                         /* also check "nan" is valid or not */
                         int firstIndex;
                         firstIndex = iTemp;
-                        iTemp = FindPYFAIndex(pyconfig, strP + strlen(pyconfig->PYTable[iTemp].strPY), 1);
+                        iTemp = FindPYFAIndex(
+                            pyconfig,
+                            strP + strlen(pyconfig->PYTable[iTemp].strPY), 1);
 
                         /* if still is valid */
                         if (iTemp != -1) {
                             /*
                              * length 1 split is what we must avoid,
-                             * for example, "nin" can be "ni n", but no separator can for "nin" if we split here
+                             * for example, "nin" can be "ni n", but no
+                             * separator can for "nin" if we split here
                              *
-                             * and "ying" can be also "yi ng", for just the same case"
+                             * and "ying" can be also "yi ng", for just the same
+                             * case"
                              */
-                            if (strlen(pyconfig->PYTable[iTemp].strPY) == 1 || !strcmp("ng", pyconfig->PYTable[iTemp].strPY))
+                            if (strlen(pyconfig->PYTable[iTemp].strPY) == 1 ||
+                                !strcmp("ng", pyconfig->PYTable[iTemp].strPY))
                                 iTemp = -1;
                         }
 
                         if (iTemp != -1) {
-                            /* check the general frequency that this shoud split or not */
-                            int index2 = FindPYFAIndex(pyconfig, strP + strlen(pyconfig->PYTable[iIndex].strPY), 1);
+                            /* check the general frequency that this shoud split
+                             * or not */
+                            int index2 = FindPYFAIndex(
+                                pyconfig,
+                                strP + strlen(pyconfig->PYTable[iIndex].strPY),
+                                1);
 
                             boolean resplit = false;
                             do {
@@ -210,24 +224,30 @@ void ParsePY(FcitxPinyinConfig *pyconfig, const char *strPY, ParsePYStruct * par
                                     break;
                                 }
 
-                                size_t length1 = strlen(pyconfig->PYTable[iIndex].strPY) + strlen(pyconfig->PYTable[index2].strPY);
-                                size_t length2 = strlen(pyconfig->PYTable[firstIndex].strPY) + strlen(pyconfig->PYTable[iTemp].strPY);
+                                size_t length1 =
+                                    strlen(pyconfig->PYTable[iIndex].strPY) +
+                                    strlen(pyconfig->PYTable[index2].strPY);
+                                size_t length2 =
+                                    strlen(
+                                        pyconfig->PYTable[firstIndex].strPY) +
+                                    strlen(pyconfig->PYTable[iTemp].strPY);
                                 if (length1 != length2) {
                                     resplit = (length1 < length2);
                                     break;
                                 }
 
-                                double freq1 = LookupPYFreq(pyconfig, iIndex, index2);
-                                double freq2 = LookupPYFreq(pyconfig, firstIndex, iTemp);
+                                double freq1 =
+                                    LookupPYFreq(pyconfig, iIndex, index2);
+                                double freq2 =
+                                    LookupPYFreq(pyconfig, firstIndex, iTemp);
 
                                 resplit = (freq1 <= freq2);
-                            } while(0);
+                            } while (0);
 
                             if (resplit) {
                                 strncpy(strTemp, strP, lIndex - 1);
                                 strTemp[lIndex - 1] = '\0';
-                            }
-                            else
+                            } else
                                 iTemp = -1;
                         }
                     }
@@ -261,14 +281,17 @@ void ParsePY(FcitxPinyinConfig *pyconfig, const char *strPY, ParsePYStruct * par
 
                     if (bSeperator) {
                         bSeperator = false;
-                        parsePY->strPYParsed[parsePY->iHZCount][0] = PY_SEPARATOR;
+                        parsePY->strPYParsed[parsePY->iHZCount][0] =
+                            PY_SEPARATOR;
                         parsePY->strPYParsed[parsePY->iHZCount][1] = '\0';
                     } else
                         parsePY->strPYParsed[parsePY->iHZCount][0] = '\0';
 
-                    strcat(parsePY->strPYParsed[parsePY->iHZCount], consonantMapTable[iIndex].strPY);
+                    strcat(parsePY->strPYParsed[parsePY->iHZCount],
+                           consonantMapTable[iIndex].strPY);
 
-                    MapPY(pyconfig, consonantMapTable[iIndex].strPY, str_Map, mode);
+                    MapPY(pyconfig, consonantMapTable[iIndex].strPY, str_Map,
+                          mode);
 
                     strcpy(parsePY->strMap[parsePY->iHZCount++], str_Map);
 
@@ -279,14 +302,17 @@ void ParsePY(FcitxPinyinConfig *pyconfig, const char *strPY, ParsePYStruct * par
                     if (-1 != iIndex) {
                         if (bSeperator) {
                             bSeperator = false;
-                            parsePY->strPYParsed[parsePY->iHZCount][0] = PY_SEPARATOR;
+                            parsePY->strPYParsed[parsePY->iHZCount][0] =
+                                PY_SEPARATOR;
                             parsePY->strPYParsed[parsePY->iHZCount][1] = '\0';
                         } else
                             parsePY->strPYParsed[parsePY->iHZCount][0] = '\0';
 
-                        strcat(parsePY->strPYParsed[parsePY->iHZCount], syllabaryMapTable[iIndex].strPY);
+                        strcat(parsePY->strPYParsed[parsePY->iHZCount],
+                               syllabaryMapTable[iIndex].strPY);
 
-                        MapPY(pyconfig, syllabaryMapTable[iIndex].strPY, str_Map, mode);
+                        MapPY(pyconfig, syllabaryMapTable[iIndex].strPY,
+                              str_Map, mode);
 
                         strcpy(parsePY->strMap[parsePY->iHZCount++], str_Map);
 
@@ -298,7 +324,8 @@ void ParsePY(FcitxPinyinConfig *pyconfig, const char *strPY, ParsePYStruct * par
                         //必定是分隔符
                         strP++;
                         bSeperator = true;
-                        parsePY->strPYParsed[parsePY->iHZCount][0] = PY_SEPARATOR;
+                        parsePY->strPYParsed[parsePY->iHZCount][0] =
+                            PY_SEPARATOR;
                         parsePY->strPYParsed[parsePY->iHZCount][1] = '\0';
                         parsePY->strMap[parsePY->iHZCount][0] = '0';
                         parsePY->strMap[parsePY->iHZCount][1] = '0';
@@ -326,17 +353,18 @@ void ParsePY(FcitxPinyinConfig *pyconfig, const char *strPY, ParsePYStruct * par
  * 将一个拼音(包括仅为声母或韵母)转换为拼音映射
  * 返回true为转换成功，否则为false(一般是因为strPY不是一个标准的拼音)
  */
-boolean MapPY(FcitxPinyinConfig* pyconfig, const char* strPYorigin, char strMap[3], PYPARSEINPUTMODE mode)
-{
-    char            str[5];
-    char            strPY[7];
-    int             iIndex;
+boolean MapPY(FcitxPinyinConfig *pyconfig, const char *strPYorigin,
+              char strMap[3], PYPARSEINPUTMODE mode) {
+    char str[5];
+    char strPY[7];
+    int iIndex;
 
     strcpy(strPY, strPYorigin);
 
-    size_t          len = strlen(strPY);
+    size_t len = strlen(strPY);
 
-    if (pyconfig->bMisstypeNGGN && len > 2 && strPY[len - 1] == 'n' && strPY[len - 2] == 'g') {
+    if (pyconfig->bMisstypeNGGN && len > 2 && strPY[len - 1] == 'n' &&
+        strPY[len - 2] == 'g') {
         strPY[len - 2] = 'n';
         strPY[len - 1] = 'g';
     }
@@ -402,9 +430,8 @@ boolean MapPY(FcitxPinyinConfig* pyconfig, const char* strPYorigin, char strMap[
  * 将一个完整的拼音映射转换为拼音，返回false表示失败，
  * 一般原因是拼音映射不正确
  */
-boolean MapToPY(char strMap[3], char *strPY)
-{
-    int             i;
+boolean MapToPY(char strMap[3], char *strPY) {
+    int i;
 
     strPY[0] = '\0';
 
@@ -446,13 +473,9 @@ boolean MapToPY(char strMap[3], char *strPY)
  * 0表示相等
  * b指示是声母还是韵母，true表示声母
  */
-int Cmp1Map(FcitxPinyinConfig* pyconfig,
-            char map1, char map2,
-            boolean is_S,
-            boolean bUseMH,
-            boolean bSP)
-{
-    int             iVal;
+int Cmp1Map(FcitxPinyinConfig *pyconfig, char map1, char map2, boolean is_S,
+            boolean bUseMH, boolean bSP) {
+    int iVal;
 
     if (map2 == '0' || map1 == '0') {
         if (map1 == ' ' || map2 == ' ' || !pyconfig->bFullPY || bSP)
@@ -472,7 +495,7 @@ int Cmp1Map(FcitxPinyinConfig* pyconfig,
         }
 
         if (iVal >= 0)
-                return 0;
+            return 0;
     }
 
     return (map1 - map2);
@@ -484,9 +507,9 @@ int Cmp1Map(FcitxPinyinConfig* pyconfig,
  * >0表示前者大
  * <0表示后者大
  */
-int Cmp2Map(FcitxPinyinConfig* pyconfig, char map1[3], char map2[3], boolean bSP)
-{
-    int             i;
+int Cmp2Map(FcitxPinyinConfig *pyconfig, char map1[3], char map2[3],
+            boolean bSP) {
+    int i;
 
     if (IsZ_C_S(map2[0]) && map2[1] == '0')
         i = Cmp1Map(pyconfig, map1[0], map2[0], true, true, bSP);
@@ -505,10 +528,9 @@ int Cmp2Map(FcitxPinyinConfig* pyconfig, char map1[3], char map2[3], boolean bSP
  * 否 返回值不为0
  * *iMatchedLength 记录了二者能够匹配的长度
  */
-int CmpMap(FcitxPinyinConfig* pyconfig, const char *strMap1,
-           const char *strMap2, int *iMatchedLength, boolean bSP)
-{
-    int             val;
+int CmpMap(FcitxPinyinConfig *pyconfig, const char *strMap1,
+           const char *strMap2, int *iMatchedLength, boolean bSP) {
+    int val;
 
     *iMatchedLength = 0;
 
@@ -517,10 +539,17 @@ int CmpMap(FcitxPinyinConfig* pyconfig, const char *strMap1,
             return (strMap1[*iMatchedLength] - strMap2[*iMatchedLength]);
         }
 
-        if (((*iMatchedLength + 1) % 2) && (IsZ_C_S(strMap2[*iMatchedLength]) && (strMap2[*iMatchedLength + 1] == '0' || !strMap2[*iMatchedLength + 1]))) {
-            val = Cmp1Map(pyconfig, strMap1[*iMatchedLength], strMap2[*iMatchedLength], (*iMatchedLength + 1) % 2, true, bSP);
+        if (((*iMatchedLength + 1) % 2) &&
+            (IsZ_C_S(strMap2[*iMatchedLength]) &&
+             (strMap2[*iMatchedLength + 1] == '0' ||
+              !strMap2[*iMatchedLength + 1]))) {
+            val = Cmp1Map(pyconfig, strMap1[*iMatchedLength],
+                          strMap2[*iMatchedLength], (*iMatchedLength + 1) % 2,
+                          true, bSP);
         } else {
-            val = Cmp1Map(pyconfig, strMap1[*iMatchedLength], strMap2[*iMatchedLength], (*iMatchedLength + 1) % 2, false, bSP);
+            val = Cmp1Map(pyconfig, strMap1[*iMatchedLength],
+                          strMap2[*iMatchedLength], (*iMatchedLength + 1) % 2,
+                          false, bSP);
         }
 
         if (val)
@@ -540,22 +569,20 @@ struct _PYMappedSplitData {
     UT_hash_handle hh;
 };
 
-void InitPYSplitData(FcitxPinyinConfig* pyconfig)
-{
+void InitPYSplitData(FcitxPinyinConfig *pyconfig) {
     size_t size = sizeof(pySplitData) / sizeof(pySplitData[0]);
     unsigned int i = 0;
-    for (i = 0;i < size;i++) {
+    for (i = 0; i < size; i++) {
         PYMappedSplitData *data = fcitx_utils_new(PYMappedSplitData);
         const char *strs[] = {pySplitData[i].py1, " ", pySplitData[i].py2};
-        fcitx_utils_cat_str_simple_with_len(data->py, MAX_PY_LENGTH * 2 + 2,
-                                            3, strs);
+        fcitx_utils_cat_str_simple_with_len(data->py, MAX_PY_LENGTH * 2 + 2, 3,
+                                            strs);
         data->freq = pySplitData[i].freq;
         HASH_ADD_STR(pyconfig->splitData, py, data);
     }
 }
 
-double LookupPYFreq(FcitxPinyinConfig* pyconfig, int index1, int index2)
-{
+double LookupPYFreq(FcitxPinyinConfig *pyconfig, int index1, int index2) {
     if (index1 < 0 || index2 < 0)
         return 0;
     fcitx_utils_local_cat_str(py, 6 * 2 + 2, pyconfig->PYTable[index1].strPY,
@@ -568,10 +595,9 @@ double LookupPYFreq(FcitxPinyinConfig* pyconfig, int index1, int index2)
     return s->freq;
 }
 
-void FreePYSplitData(FcitxPinyinConfig* pyconfig)
-{
+void FreePYSplitData(FcitxPinyinConfig *pyconfig) {
     while (pyconfig->splitData) {
-        PYMappedSplitData* data = pyconfig->splitData;
+        PYMappedSplitData *data = pyconfig->splitData;
         HASH_DEL(pyconfig->splitData, data);
         free(data);
     }

@@ -18,22 +18,22 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <string.h>
 #include <libintl.h>
+#include <string.h>
 
-#include "fcitx/fcitx.h"
-#include "fcitx-utils/log.h"
-#include "pyconfig.h"
+#include "PYFA.h"
 #include "fcitx-config/fcitx-config.h"
 #include "fcitx-config/xdg.h"
-#include "PYFA.h"
-#include <stdlib.h>
+#include "fcitx-utils/log.h"
+#include "fcitx/fcitx.h"
+#include "pyconfig.h"
 #include <errno.h>
+#include <stdlib.h>
 
-static void FilterAnAng(FcitxGenericConfig* config, FcitxConfigGroup *group,
-                        FcitxConfigOption *option, void* value,
-                        FcitxConfigSync sync, void* arg);
-static FcitxConfigFileDesc* GetPYConfigDesc();
+static void FilterAnAng(FcitxGenericConfig *config, FcitxConfigGroup *group,
+                        FcitxConfigOption *option, void *value,
+                        FcitxConfigSync sync, void *arg);
+static FcitxConfigFileDesc *GetPYConfigDesc();
 
 CONFIG_BINDING_BEGIN(FcitxPinyinConfig)
 CONFIG_BINDING_REGISTER("Pinyin", "DefaultShuangpinSchema", spscheme)
@@ -64,22 +64,23 @@ CONFIG_BINDING_REGISTER("Pinyin", "Misstype", bMisstypeNGGN)
 CONFIG_BINDING_REGISTER("Pinyin", "MisstypeVU", MHPY_C[6].bMode)
 CONFIG_BINDING_END()
 
-void FilterAnAng(FcitxGenericConfig* config, FcitxConfigGroup *group, FcitxConfigOption *option, void* value, FcitxConfigSync sync, void* arg)
-{
-    FcitxPinyinConfig* pyconfig = (FcitxPinyinConfig*) config;
+void FilterAnAng(FcitxGenericConfig *config, FcitxConfigGroup *group,
+                 FcitxConfigOption *option, void *value, FcitxConfigSync sync,
+                 void *arg) {
+    FcitxPinyinConfig *pyconfig = (FcitxPinyinConfig *)config;
     if (sync == Raw2Value) {
-        boolean *b = (boolean*)value;
+        boolean *b = (boolean *)value;
         pyconfig->MHPY_S[5].bMode = *b;
     }
 }
 
-boolean LoadPYConfig(FcitxPinyinConfig *pyconfig)
-{
-    FcitxConfigFileDesc* configDesc = GetPYConfigDesc();
+boolean LoadPYConfig(FcitxPinyinConfig *pyconfig) {
+    FcitxConfigFileDesc *configDesc = GetPYConfigDesc();
     if (configDesc == NULL)
         return false;
     FILE *fp;
-    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-pinyin.config", "r", NULL);
+    fp =
+        FcitxXDGGetFileUserWithPrefix("conf", "fcitx-pinyin.config", "r", NULL);
     if (!fp) {
         if (errno == ENOENT)
             SavePYConfig(pyconfig);
@@ -89,43 +90,50 @@ boolean LoadPYConfig(FcitxPinyinConfig *pyconfig)
 
     FcitxPinyinConfigConfigBind(pyconfig, cfile, configDesc);
 
-    FcitxConfigOption* option = FcitxConfigFileGetOption(cfile, "Pinyin", "DefaultShuangpinSchema");
+    FcitxConfigOption *option =
+        FcitxConfigFileGetOption(cfile, "Pinyin", "DefaultShuangpinSchema");
     if (option != NULL && option->rawValue && option->optionDesc) {
-        char* needfree = NULL;
+        char *needfree = NULL;
         if (strcmp(option->rawValue, "自然码") == 0) {
             needfree = option->rawValue;
-            option->rawValue = strdup(option->optionDesc->configEnum.enumDesc[SP_ZIRANMA]);
+            option->rawValue =
+                strdup(option->optionDesc->configEnum.enumDesc[SP_ZIRANMA]);
         } else if (strcmp(option->rawValue, "微软") == 0) {
             needfree = option->rawValue;
-            option->rawValue = strdup(option->optionDesc->configEnum.enumDesc[SP_MS]);
+            option->rawValue =
+                strdup(option->optionDesc->configEnum.enumDesc[SP_MS]);
         } else if (strcmp(option->rawValue, "紫光") == 0) {
             needfree = option->rawValue;
-            option->rawValue = strdup(option->optionDesc->configEnum.enumDesc[SP_ZIGUANG]);
+            option->rawValue =
+                strdup(option->optionDesc->configEnum.enumDesc[SP_ZIGUANG]);
         } else if (strcmp(option->rawValue, "拼音加加") == 0) {
             needfree = option->rawValue;
-            option->rawValue = strdup(option->optionDesc->configEnum.enumDesc[SP_PINYINJIAJIA]);
+            option->rawValue = strdup(
+                option->optionDesc->configEnum.enumDesc[SP_PINYINJIAJIA]);
         } else if (strcmp(option->rawValue, "中文之星") == 0) {
             needfree = option->rawValue;
-            option->rawValue = strdup(option->optionDesc->configEnum.enumDesc[SP_ZHONGWENZHIXING]);
+            option->rawValue = strdup(
+                option->optionDesc->configEnum.enumDesc[SP_ZHONGWENZHIXING]);
         } else if (strcmp(option->rawValue, "智能ABC") == 0) {
             needfree = option->rawValue;
-            option->rawValue = strdup(option->optionDesc->configEnum.enumDesc[SP_ABC]);
+            option->rawValue =
+                strdup(option->optionDesc->configEnum.enumDesc[SP_ABC]);
         }
         if (needfree)
             free(needfree);
     }
 
-    FcitxConfigBindSync((FcitxGenericConfig*)pyconfig);
+    FcitxConfigBindSync((FcitxGenericConfig *)pyconfig);
 
     if (fp)
         fclose(fp);
     return true;
 }
 
-void SavePYConfig(FcitxPinyinConfig* pyconfig)
-{
-    FcitxConfigFileDesc* configDesc = GetPYConfigDesc();
-    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-pinyin.config", "w", NULL);
+void SavePYConfig(FcitxPinyinConfig *pyconfig) {
+    FcitxConfigFileDesc *configDesc = GetPYConfigDesc();
+    FILE *fp =
+        FcitxXDGGetFileUserWithPrefix("conf", "fcitx-pinyin.config", "w", NULL);
     FcitxConfigSaveConfigFileFp(fp, &pyconfig->gconfig, configDesc);
     if (fp)
         fclose(fp);

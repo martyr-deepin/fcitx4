@@ -30,31 +30,24 @@
 extern "C" {
 #endif
 
-#define FCITX_GETTER_REF(type, property, name, return_type) \
-    FCITX_EXPORT_API \
-    return_type* type##Get##property(type* object) \
-    { \
-        return &object->name; \
-    }
+#define FCITX_GETTER_REF(type, property, name, return_type)                    \
+    FCITX_EXPORT_API                                                           \
+    return_type *type##Get##property(type *object) { return &object->name; }
 
-#define FCITX_GETTER_VALUE(type, property, name, return_type) \
-    FCITX_EXPORT_API \
-    return_type type##Get##property(type* object) \
-    { \
-        return object->name; \
-    }
+#define FCITX_GETTER_VALUE(type, property, name, return_type)                  \
+    FCITX_EXPORT_API                                                           \
+    return_type type##Get##property(type *object) { return object->name; }
 
-#define FCITX_SETTER(type, property, name, return_type) \
-    FCITX_EXPORT_API \
-    void type##Set##property(type* object, return_type value) \
-    { \
-        object->name = value; \
+#define FCITX_SETTER(type, property, name, return_type)                        \
+    FCITX_EXPORT_API                                                           \
+    void type##Set##property(type *object, return_type value) {                \
+        object->name = value;                                                  \
     }
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif/*_FCITX_H_*/
+#endif /*_FCITX_H_*/
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

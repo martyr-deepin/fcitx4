@@ -27,12 +27,12 @@
 #include "fcitx-config/xdg.h"
 #include "fcitx-utils/log.h"
 #include "fcitx/candidate.h"
+#include "fcitx/context.h"
 #include "fcitx/fcitx.h"
 #include "fcitx/hook.h"
 #include "fcitx/instance.h"
 #include "fcitx/keys.h"
 #include "fcitx/module.h"
-#include "fcitx/context.h"
 
 typedef struct _DefaultIM DefaultIM;
 
@@ -52,8 +52,8 @@ struct _DefaultIM {
 
 static void *DefaultIMCreate(FcitxInstance *instance);
 static boolean DefaultIMPreFilter(void *arg, FcitxKeySym sym,
-                                   unsigned int state,
-                                   INPUT_RETURN_VALUE *retval);
+                                  unsigned int state,
+                                  INPUT_RETURN_VALUE *retval);
 static void DefaultIMReset(void *arg);
 static void DefaultIMReload(void *arg);
 static INPUT_RETURN_VALUE DefaultIMSelect(void *arg);
@@ -105,7 +105,7 @@ void *DefaultIMCreate(FcitxInstance *instance) {
 }
 
 boolean DefaultIMPreFilter(void *arg, FcitxKeySym sym, unsigned int state,
-                            INPUT_RETURN_VALUE *retval) {
+                           INPUT_RETURN_VALUE *retval) {
     DefaultIM *defaultim = arg;
     if (!defaultim->triggered)
         return false;

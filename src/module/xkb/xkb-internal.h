@@ -29,30 +29,28 @@ typedef struct _FcitxXkbConfig {
     FcitxGenericConfig gconfig;
     boolean bOverrideSystemXKBSettings;
     boolean useFirstKeyboardIMAsDefaultLayout;
-    char* xmodmapCommand;
-    char* customXModmapScript;
+    char *xmodmapCommand;
+    char *customXModmapScript;
 } FcitxXkbConfig;
 
-typedef struct _FcitxXkb
-{
-    Display* dpy;
+typedef struct _FcitxXkb {
+    Display *dpy;
     UT_array *defaultLayouts;
     UT_array *defaultModels;
     UT_array *defaultOptions;
-    UT_array* defaultVariants;
-    struct _FcitxInstance* owner;
+    UT_array *defaultVariants;
+    struct _FcitxInstance *owner;
     char *closeLayout;
     char *closeVariant;
     char *defaultXmodmapPath;
-    FcitxXkbRules* rules;
+    FcitxXkbRules *rules;
     FcitxXkbConfig config;
     int xkbOpcode;
-    struct _LayoutOverride* layoutOverride;
+    struct _LayoutOverride *layoutOverride;
     unsigned long lastSerial;
     boolean waitingForRefresh;
     boolean blockOverride;
 } FcitxXkb;
-
 
 CONFIG_BINDING_DECLARE(FcitxXkbConfig);
 

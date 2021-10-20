@@ -26,21 +26,26 @@
 
 struct _FcitxXimIC;
 
-Bool XIMOpenHandler(FcitxXimFrontend* xim, IMOpenStruct * call_data);
-Bool XIMGetICValuesHandler(FcitxXimFrontend* xim, IMChangeICStruct * call_data);
-Bool XIMSetICValuesHandler(FcitxXimFrontend* xim, IMChangeICStruct * call_data);
-Bool XIMSetFocusHandler(FcitxXimFrontend* xim, IMChangeFocusStruct * call_data);
-Bool XIMUnsetFocusHandler(FcitxXimFrontend* xim, IMChangeICStruct * call_data);
-Bool XIMResetICHandler(FcitxXimFrontend* xim, IMResetICStruct * call_data);
-Bool XIMCloseHandler(FcitxXimFrontend* xim, IMOpenStruct * call_data);
-Bool XIMCreateICHandler(FcitxXimFrontend* xim, IMChangeICStruct * call_data);
-Bool XIMDestroyICHandler(FcitxXimFrontend* xim, IMChangeICStruct * call_data);
-void XIMProcessKey(FcitxXimFrontend* xim, IMForwardEventStruct * call_data);
-void XimForwardKeyInternal(FcitxXimFrontend *xim, struct _FcitxXimIC* ic, XEvent* xEvent);
-void XimPreeditCallbackStart(FcitxXimFrontend* xim, const struct _FcitxXimIC* ic);
-void XimPreeditCallbackDone(FcitxXimFrontend* xim, const struct _FcitxXimIC* ic);
-void XimPreeditCallbackDraw(FcitxXimFrontend *xim, struct _FcitxXimIC* ic, const char *preedit_string, int cursorPos);
-void SetTrackPos(FcitxXimFrontend* xim, FcitxInputContext* ic, IMChangeICStruct* call_data);
+Bool XIMOpenHandler(FcitxXimFrontend *xim, IMOpenStruct *call_data);
+Bool XIMGetICValuesHandler(FcitxXimFrontend *xim, IMChangeICStruct *call_data);
+Bool XIMSetICValuesHandler(FcitxXimFrontend *xim, IMChangeICStruct *call_data);
+Bool XIMSetFocusHandler(FcitxXimFrontend *xim, IMChangeFocusStruct *call_data);
+Bool XIMUnsetFocusHandler(FcitxXimFrontend *xim, IMChangeICStruct *call_data);
+Bool XIMResetICHandler(FcitxXimFrontend *xim, IMResetICStruct *call_data);
+Bool XIMCloseHandler(FcitxXimFrontend *xim, IMOpenStruct *call_data);
+Bool XIMCreateICHandler(FcitxXimFrontend *xim, IMChangeICStruct *call_data);
+Bool XIMDestroyICHandler(FcitxXimFrontend *xim, IMChangeICStruct *call_data);
+void XIMProcessKey(FcitxXimFrontend *xim, IMForwardEventStruct *call_data);
+void XimForwardKeyInternal(FcitxXimFrontend *xim, struct _FcitxXimIC *ic,
+                           XEvent *xEvent);
+void XimPreeditCallbackStart(FcitxXimFrontend *xim,
+                             const struct _FcitxXimIC *ic);
+void XimPreeditCallbackDone(FcitxXimFrontend *xim,
+                            const struct _FcitxXimIC *ic);
+void XimPreeditCallbackDraw(FcitxXimFrontend *xim, struct _FcitxXimIC *ic,
+                            const char *preedit_string, int cursorPos);
+void SetTrackPos(FcitxXimFrontend *xim, FcitxInputContext *ic,
+                 IMChangeICStruct *call_data);
 
 #endif
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

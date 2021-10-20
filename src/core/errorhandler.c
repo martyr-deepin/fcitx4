@@ -20,10 +20,10 @@
 
 #include "config.h"
 
+#include <libintl.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <libintl.h>
 #include <time.h>
 
 #if defined(ENABLE_BACKTRACE)
@@ -31,21 +31,21 @@
 #include <fcntl.h>
 #endif
 
-#include "fcitx/instance-internal.h"
-#include "fcitx/ime-internal.h"
-#include "fcitx/configfile.h"
-#include "fcitx/instance.h"
-#include "fcitx-utils/log.h"
-#include "fcitx-config/xdg.h"
 #include "errorhandler.h"
+#include "fcitx-config/xdg.h"
+#include "fcitx-utils/log.h"
+#include "fcitx/configfile.h"
+#include "fcitx/ime-internal.h"
+#include "fcitx/instance-internal.h"
+#include "fcitx/instance.h"
 
 #ifndef SIGUNUSED
 #define SIGUNUSED 32
 #endif
 
-extern FcitxInstance* instance;
+extern FcitxInstance *instance;
 extern int selfpipe[2];
-extern char* crashlog;
+extern char *crashlog;
 
 #define MINIMAL_BUFFER_SIZE 256
 #define BACKTRACE_SIZE 32
@@ -55,8 +55,7 @@ typedef struct _MinimalBuffer {
     int offset;
 } MinimalBuffer;
 
-void SetMyExceptionHandler(void)
-{
+void SetMyExceptionHandler(void) {
     int signo;
 
     for (signo = SIGHUP; signo < SIGUNUSED; signo++) {
@@ -76,24 +75,23 @@ void SetMyExceptionHandler(void)
     }
 
 #if defined(ENABLE_BACKTRACE)
-    void *array[BACKTRACE_SIZE] = { NULL, };
-    (void) backtrace(array, BACKTRACE_SIZE);
+    void *array[BACKTRACE_SIZE] = {
+        NULL,
+    };
+    (void)backtrace(array, BACKTRACE_SIZE);
 #endif
 }
 
-static inline void BufferReset(MinimalBuffer* buffer)
-{
-    buffer->offset = 0;
-}
+static inline void BufferReset(MinimalBuffer *buffer) { buffer->offset = 0; }
 
-static inline void
-BufferAppendUInt64(MinimalBuffer* buffer, uint64_t number, int radix)
-{
+static inline void BufferAppendUInt64(MinimalBuffer *buffer, uint64_t number,
+                                      int radix) {
     int i = 0;
     while (buffer->offset + i < MINIMAL_BUFFER_SIZE) {
         const int tmp = number % radix;
         number /= radix;
-        buffer->buffer[buffer->offset + i] = (tmp < 10 ? '0' + tmp : 'a' + tmp - 10);
+        buffer->buffer[buffer->offset + i] =
+            (tmp < 10 ? '0' + tmp : 'a' + tmp - 10);
         ++i;
         if (number == 0) {
             break;
@@ -103,8 +101,8 @@ BufferAppendUInt64(MinimalBuffer* buffer, uint64_t number, int radix)
     if (i > 1) {
         // reverse
         int j = 0;
-        char* cursor = buffer->buffer + buffer->offset;
-        for (j = 0; j < i / 2; j ++) {
+        char *cursor = buffer->buffer + buffer->offset;
+        for (j = 0; j < i / 2; j++) {
             char temp = cursor[j];
             cursor[j] = cursor[i - j - 1];
             cursor[i - j - 1] = temp;
@@ -113,28 +111,21 @@ BufferAppendUInt64(MinimalBuffer* buffer, uint64_t number, int radix)
     buffer->offset += i;
 }
 
-static inline void
-_write_string_len(int fd, const char *str, size_t len)
-{
+static inline void _write_string_len(int fd, const char *str, size_t len) {
     if (fd >= 0 && fd != STDERR_FILENO)
         write(fd, str, len);
     write(STDERR_FILENO, str, len);
 }
 
-static inline void
-_write_string(int fd, const char *str)
-{
+static inline void _write_string(int fd, const char *str) {
     _write_string_len(fd, str, strlen(str));
 }
 
-static inline void
-_write_buffer(int fd, const MinimalBuffer *buffer)
-{
+static inline void _write_buffer(int fd, const MinimalBuffer *buffer) {
     _write_string_len(fd, buffer->buffer, buffer->offset);
 }
 
-void OnException(int signo)
-{
+void OnException(int signo) {
     if (signo == SIGCHLD)
         return;
 
@@ -168,7 +159,9 @@ void OnException(int signo)
     _write_string(fd, "\n");
 
 #if defined(ENABLE_BACKTRACE)
-    void *array[BACKTRACE_SIZE] = { NULL, };
+    void *array[BACKTRACE_SIZE] = {
+        NULL,
+    };
 
     int size = backtrace(array, BACKTRACE_SIZE);
     backtrace_symbols_fd(array, size, STDERR_FILENO);
@@ -187,20 +180,18 @@ void OnException(int signo)
     case SIGFPE:
         _exit(1);
         break;
-    default:
-        {
-            if (!instance || !instance->initialized) {
-                _exit(1);
-                break;
-            }
-
-            uint8_t sig = 0;
-            if (signo < 0xff)
-                sig = (uint8_t)(signo & 0xff);
-            write(selfpipe[1], &sig, 1);
-            signal(signo, OnException);
+    default: {
+        if (!instance || !instance->initialized) {
+            _exit(1);
+            break;
         }
-        break;
+
+        uint8_t sig = 0;
+        if (signo < 0xff)
+            sig = (uint8_t)(signo & 0xff);
+        write(selfpipe[1], &sig, 1);
+        signal(signo, OnException);
+    } break;
     }
 }
 

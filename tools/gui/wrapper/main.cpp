@@ -17,12 +17,11 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <libintl.h>
 #include "fcitx-utils/utils.h"
 #include "wrapperapp.h"
+#include <libintl.h>
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
     WrapperApp app(argc, argv);
     return app.exec();
 }

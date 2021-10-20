@@ -30,14 +30,14 @@
  *
  *
  */
-#include <limits.h>
 #include <cairo.h>
-#include <string.h>
-#include <stdlib.h>
-#include <dirent.h>
-#include <sys/stat.h>
-#include <libintl.h>
 #include <ctype.h>
+#include <dirent.h>
+#include <libintl.h>
+#include <limits.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
 
 #include "fcitx/fcitx.h"
 
@@ -46,36 +46,35 @@
 #include "fcitx-utils/log.h"
 #include "fcitx-utils/utarray.h"
 
-#include "classicui.h"
-#include "skin.h"
-#include "MenuWindow.h"
 #include "InputWindow.h"
 #include "MainWindow.h"
+#include "MenuWindow.h"
 #include "TrayWindow.h"
-#include "fcitx/ui.h"
-#include "fcitx/frontend.h"
+#include "classicui.h"
 #include "fcitx-utils/utils.h"
-#include "fcitx/instance.h"
-#include "ui/cairostuff/font.h"
-#include "fcitx/hook.h"
 #include "fcitx/candidate.h"
+#include "fcitx/frontend.h"
+#include "fcitx/hook.h"
+#include "fcitx/instance.h"
+#include "fcitx/ui.h"
+#include "skin.h"
+#include "ui/cairostuff/font.h"
 
-static const UT_icd place_icd = { sizeof(SkinPlacement), NULL, NULL, NULL };
+static const UT_icd place_icd = {sizeof(SkinPlacement), NULL, NULL, NULL};
 
-static boolean SkinMenuAction(FcitxUIMenu* menu, int index);
-static void UpdateSkinMenu(FcitxUIMenu* menu);
-static void UnloadImage(FcitxSkin* skin);
-static void UnloadSingleImage(FcitxSkin* sc, const char* name);
+static boolean SkinMenuAction(FcitxUIMenu *menu, int index);
+static void UpdateSkinMenu(FcitxUIMenu *menu);
+static void UnloadImage(FcitxSkin *skin);
+static void UnloadSingleImage(FcitxSkin *sc, const char *name);
 
 CONFIG_DESC_DEFINE(GetSkinDesc, "skin.desc")
 
 /**
 @加载皮肤配置文件
 */
-int LoadSkinConfig(FcitxSkin* sc, char** skinType, boolean fallback)
-{
-    FILE    *fp;
-    boolean    isreload = False;
+int LoadSkinConfig(FcitxSkin *sc, char **skinType, boolean fallback) {
+    FILE *fp;
+    boolean isreload = False;
     int ret = 0;
     if (sc->config.configFile) {
         utarray_done(&sc->skinMainBar.skinPlacement);
@@ -100,7 +99,7 @@ reload:
 
     if (fp) {
         FcitxConfigFile *cfile;
-        FcitxConfigFileDesc* skinDesc = GetSkinDesc();
+        FcitxConfigFileDesc *skinDesc = GetSkinDesc();
         if (sc->config.configFile == NULL) {
             cfile = FcitxConfigParseConfigFileFp(fp, skinDesc);
         } else {
@@ -112,7 +111,7 @@ reload:
             fp = NULL;
         } else {
             FcitxSkinConfigBind(sc, cfile, skinDesc);
-            FcitxConfigBindSync((FcitxGenericConfig*)sc);
+            FcitxConfigBindSync((FcitxGenericConfig *)sc);
         }
     }
 
@@ -122,12 +121,15 @@ reload:
         }
 
         if (isreload) {
-            FcitxLog(FATAL, _("Cannot load default skin, is installation correct?"));
+            FcitxLog(FATAL,
+                     _("Cannot load default skin, is installation correct?"));
             perror("fopen");
-            ret = 1;    // 如果安装目录里面也没有配置文件，那就只好告诉用户，无法运行了
+            ret =
+                1; // 如果安装目录里面也没有配置文件，那就只好告诉用户，无法运行了
         } else {
             perror("fopen");
-            FcitxLog(WARNING, _("Cannot load skin %s, return to default"), *skinType);
+            FcitxLog(WARNING, _("Cannot load skin %s, return to default"),
+                     *skinType);
             if (*skinType)
                 free(*skinType);
             *skinType = strdup("default");
@@ -141,11 +143,11 @@ reload:
     sc->skinType = skinType;
 
     return ret;
-
 }
 
-SkinImage* LoadImageWithText(FcitxClassicUI* classicui, FcitxSkin* sc, const char* name, const char* text, int w, int h, boolean active)
-{
+SkinImage *LoadImageWithText(FcitxClassicUI *classicui, FcitxSkin *sc,
+                             const char *name, const char *text, int w, int h,
+                             boolean active) {
     if (!text || *text == '\0')
         return NULL;
 
@@ -159,16 +161,17 @@ SkinImage* LoadImageWithText(FcitxClassicUI* classicui, FcitxSkin* sc, const cha
     if (len == 1 && text[len] && fcitx_utf8_char_len(text + len) == 1)
         len = 2;
 
-    char* iconText = strndup(text, len);
+    char *iconText = strndup(text, len);
 
-    cairo_surface_t* newsurface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
-    cairo_t* c = cairo_create(newsurface);
+    cairo_surface_t *newsurface =
+        cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
+    cairo_t *c = cairo_create(newsurface);
 
-    int min = w > h? h: w;
+    int min = w > h ? h : w;
     min = min * 0.7;
 
     cairo_set_operator(c, CAIRO_OPERATOR_SOURCE);
-    cairo_set_source_rgba(c ,1, 1, 1, 0.0);
+    cairo_set_source_rgba(c, 1, 1, 1, 0.0);
     cairo_paint(c);
 
     FcitxConfigColor color;
@@ -182,37 +185,39 @@ SkinImage* LoadImageWithText(FcitxClassicUI* classicui, FcitxSkin* sc, const cha
     }
 
     int textw, texth;
-    FcitxCairoTextContext* ctc = FcitxCairoTextContextCreate(c);
+    FcitxCairoTextContext *ctc = FcitxCairoTextContextCreate(c);
     FcitxCairoTextContextSet(ctc, classicui->font, min, false);
     FcitxCairoTextContextStringSizeStrict(ctc, iconText, &textw, &texth);
 
-    FcitxCairoTextContextOutputString(ctc, iconText, (w - textw) * 0.5, 0, &color);
+    FcitxCairoTextContextOutputString(ctc, iconText, (w - textw) * 0.5, 0,
+                                      &color);
 
     free(iconText);
     FcitxCairoTextContextFree(ctc);
 
     cairo_destroy(c);
-    SkinImage* image = fcitx_utils_malloc0(sizeof(SkinImage));
+    SkinImage *image = fcitx_utils_malloc0(sizeof(SkinImage));
     image->name = strdup(name);
     image->image = newsurface;
     image->textIcon = true;
-    HASH_ADD_KEYPTR(hh, sc->imageTable, image->name, strlen(image->name), image);
+    HASH_ADD_KEYPTR(hh, sc->imageTable, image->name, strlen(image->name),
+                    image);
     return image;
 }
 
-SkinImage* LoadImageFromTable(SkinImage** imageTable, const char* skinType, const char* name, int flag)
-{
+SkinImage *LoadImageFromTable(SkinImage **imageTable, const char *skinType,
+                              const char *name, int flag) {
     cairo_surface_t *png = NULL;
     SkinImage *image = NULL;
     char *buf;
     fcitx_utils_alloc_cat_str(buf, "skin/", skinType);
-    const char* fallbackChainNoFallback[] = { buf };
-    const char* fallbackChainPanel[] = { buf, "skin/default" };
-    const char* fallbackChainTray[] = { "imicon" };
-    const char* fallbackChainPanelIMIcon[] = { buf, "imicon", "skin/default" };
+    const char *fallbackChainNoFallback[] = {buf};
+    const char *fallbackChainPanel[] = {buf, "skin/default"};
+    const char *fallbackChainTray[] = {"imicon"};
+    const char *fallbackChainPanelIMIcon[] = {buf, "imicon", "skin/default"};
 
     if (name[0] == '@') {
-        name ++;
+        name++;
     }
 
     HASH_FIND_STR(*imageTable, name, image);
@@ -221,36 +226,37 @@ SkinImage* LoadImageFromTable(SkinImage** imageTable, const char* skinType, cons
         return image;
     }
 
-    const char** fallbackChain;
+    const char **fallbackChain;
     int fallbackSize;
-    switch(flag) {
-        case 1:
-            fallbackChain = fallbackChainPanel;
-            fallbackSize = 2;
-            break;
-        case 2:
-            fallbackChain = fallbackChainTray;
-            fallbackSize = 1;
-            break;
-        case 3:
-            fallbackChain = fallbackChainPanelIMIcon;
-            fallbackSize = 3;
-            break;
-        case 0:
-        default:
-            /* fall through */
-            fallbackChain = fallbackChainNoFallback;
-            fallbackSize = 1;
-            break;
+    switch (flag) {
+    case 1:
+        fallbackChain = fallbackChainPanel;
+        fallbackSize = 2;
+        break;
+    case 2:
+        fallbackChain = fallbackChainTray;
+        fallbackSize = 1;
+        break;
+    case 3:
+        fallbackChain = fallbackChainPanelIMIcon;
+        fallbackSize = 3;
+        break;
+    case 0:
+    default:
+        /* fall through */
+        fallbackChain = fallbackChainNoFallback;
+        fallbackSize = 1;
+        break;
     }
 
-    if (strlen(name) > 0 && strcmp(name , "NONE") != 0) {
+    if (strlen(name) > 0 && strcmp(name, "NONE") != 0) {
         int i = 0;
-        for (i = 0; i < fallbackSize; i ++) {
-            char* filename = NULL;
-            const char* skintype = fallbackChain[i];
+        for (i = 0; i < fallbackSize; i++) {
+            char *filename = NULL;
+            const char *skintype = fallbackChain[i];
 
-            FILE* fp = FcitxXDGGetFileWithPrefix(skintype, name, "r", &filename);
+            FILE *fp =
+                FcitxXDGGetFileWithPrefix(skintype, name, "r", &filename);
             do {
                 if (!fp) {
                     break;
@@ -262,11 +268,11 @@ SkinImage* LoadImageFromTable(SkinImage** imageTable, const char* skinType, cons
                     break;
                 }
 
-                if (cairo_surface_status (png)) {
+                if (cairo_surface_status(png)) {
                     cairo_surface_destroy(png);
                     png = NULL;
                 }
-            } while(0);
+            } while (0);
 
             free(filename);
             if (png)
@@ -279,35 +285,29 @@ SkinImage* LoadImageFromTable(SkinImage** imageTable, const char* skinType, cons
         image = fcitx_utils_new(SkinImage);
         image->name = strdup(name);
         image->image = png;
-        HASH_ADD_KEYPTR(hh, *imageTable, image->name,
-                        strlen(image->name), image);
+        HASH_ADD_KEYPTR(hh, *imageTable, image->name, strlen(image->name),
+                        image);
         return image;
     }
     return NULL;
 }
 
-SkinImage* LoadImage(FcitxSkin* sc, const char* name, int flag)
-{
+SkinImage *LoadImage(FcitxSkin *sc, const char *name, int flag) {
     if (flag == 2)
-        return LoadImageFromTable(&sc->trayImageTable, *sc->skinType, name, flag);
+        return LoadImageFromTable(&sc->trayImageTable, *sc->skinType, name,
+                                  flag);
     else
         return LoadImageFromTable(&sc->imageTable, *sc->skinType, name, flag);
 }
 
-void DrawResizableBackground(cairo_t *c,
-                             cairo_surface_t *background,
-                             int width,
-                             int height,
-                             int marginLeft,
-                             int marginTop,
-                             int marginRight,
-                             int marginBottom,
-                             FillRule fillV,
-                             FillRule fillH
-                            )
-{
-    int resizeHeight = cairo_image_surface_get_height(background) - marginTop - marginBottom;
-    int resizeWidth = cairo_image_surface_get_width(background) - marginLeft - marginRight;
+void DrawResizableBackground(cairo_t *c, cairo_surface_t *background, int width,
+                             int height, int marginLeft, int marginTop,
+                             int marginRight, int marginBottom, FillRule fillV,
+                             FillRule fillH) {
+    int resizeHeight =
+        cairo_image_surface_get_height(background) - marginTop - marginBottom;
+    int resizeWidth =
+        cairo_image_surface_get_width(background) - marginLeft - marginRight;
 
     if (resizeHeight <= 0)
         resizeHeight = 1;
@@ -318,7 +318,6 @@ void DrawResizableBackground(cairo_t *c,
 
     cairo_set_operator(c, CAIRO_OPERATOR_SOURCE);
     cairo_set_source_surface(c, background, 0, 0);
-
 
     /* 九宫格
      * 7 8 9
@@ -338,12 +337,12 @@ void DrawResizableBackground(cairo_t *c,
     /* part 3 */
     cairo_save(c);
     cairo_translate(c, width - marginRight, height - marginBottom);
-    cairo_set_source_surface(c, background, -marginLeft - resizeWidth, -marginTop - resizeHeight);
+    cairo_set_source_surface(c, background, -marginLeft - resizeWidth,
+                             -marginTop - resizeHeight);
     cairo_rectangle(c, 0, 0, marginRight, marginBottom);
     cairo_clip(c);
     cairo_paint(c);
     cairo_restore(c);
-
 
     /* part 7 */
     cairo_save(c);
@@ -364,7 +363,8 @@ void DrawResizableBackground(cairo_t *c,
     /* part 2 & 8 */
     {
         if (fillH == F_COPY) {
-            int repaint_times = (width - marginLeft - marginRight) / resizeWidth;
+            int repaint_times =
+                (width - marginLeft - marginRight) / resizeWidth;
             int remain_width = (width - marginLeft - marginRight) % resizeWidth;
             int i = 0;
 
@@ -380,8 +380,10 @@ void DrawResizableBackground(cairo_t *c,
 
                 /* part 2 */
                 cairo_save(c);
-                cairo_translate(c,  marginLeft + i * resizeWidth, height - marginBottom);
-                cairo_set_source_surface(c, background,  -marginLeft, -marginTop - resizeHeight);
+                cairo_translate(c, marginLeft + i * resizeWidth,
+                                height - marginBottom);
+                cairo_set_source_surface(c, background, -marginLeft,
+                                         -marginTop - resizeHeight);
                 cairo_rectangle(c, 0, 0, resizeWidth, marginBottom);
                 cairo_clip(c);
                 cairo_paint(c);
@@ -400,8 +402,10 @@ void DrawResizableBackground(cairo_t *c,
 
                 /* part 2 */
                 cairo_save(c);
-                cairo_translate(c,  marginLeft + repaint_times * resizeWidth, height - marginBottom);
-                cairo_set_source_surface(c, background,  -marginLeft, -marginTop - resizeHeight);
+                cairo_translate(c, marginLeft + repaint_times * resizeWidth,
+                                height - marginBottom);
+                cairo_set_source_surface(c, background, -marginLeft,
+                                         -marginTop - resizeHeight);
                 cairo_rectangle(c, 0, 0, remain_width, marginBottom);
                 cairo_clip(c);
                 cairo_paint(c);
@@ -410,7 +414,10 @@ void DrawResizableBackground(cairo_t *c,
         } else {
             cairo_save(c);
             cairo_translate(c, marginLeft, 0);
-            cairo_scale(c, (double)(width - marginLeft - marginRight) / (double)resizeWidth, 1);
+            cairo_scale(c,
+                        (double)(width - marginLeft - marginRight) /
+                            (double)resizeWidth,
+                        1);
             cairo_set_source_surface(c, background, -marginLeft, 0);
             cairo_rectangle(c, 0, 0, resizeWidth, marginTop);
             cairo_clip(c);
@@ -419,8 +426,12 @@ void DrawResizableBackground(cairo_t *c,
 
             cairo_save(c);
             cairo_translate(c, marginLeft, height - marginBottom);
-            cairo_scale(c, (double)(width - marginLeft - marginRight) / (double)resizeWidth, 1);
-            cairo_set_source_surface(c, background, -marginLeft, -marginTop - resizeHeight);
+            cairo_scale(c,
+                        (double)(width - marginLeft - marginRight) /
+                            (double)resizeWidth,
+                        1);
+            cairo_set_source_surface(c, background, -marginLeft,
+                                     -marginTop - resizeHeight);
             cairo_rectangle(c, 0, 0, resizeWidth, marginBottom);
             cairo_clip(c);
             cairo_paint(c);
@@ -431,8 +442,10 @@ void DrawResizableBackground(cairo_t *c,
     /* part 4 & 6 */
     {
         if (fillV == F_COPY) {
-            int repaint_times = (height - marginTop - marginBottom) / resizeHeight;
-            int remain_height = (height - marginTop - marginBottom) % resizeHeight;
+            int repaint_times =
+                (height - marginTop - marginBottom) / resizeHeight;
+            int remain_height =
+                (height - marginTop - marginBottom) % resizeHeight;
             int i = 0;
 
             for (i = 0; i < repaint_times; i++) {
@@ -447,8 +460,10 @@ void DrawResizableBackground(cairo_t *c,
 
                 /* part 6 */
                 cairo_save(c);
-                cairo_translate(c, width - marginRight,  marginTop + i * resizeHeight);
-                cairo_set_source_surface(c, background, -marginLeft - resizeWidth,  -marginTop);
+                cairo_translate(c, width - marginRight,
+                                marginTop + i * resizeHeight);
+                cairo_set_source_surface(c, background,
+                                         -marginLeft - resizeWidth, -marginTop);
                 cairo_rectangle(c, 0, 0, marginRight, resizeHeight);
                 cairo_clip(c);
                 cairo_paint(c);
@@ -467,8 +482,10 @@ void DrawResizableBackground(cairo_t *c,
 
                 /* part 2 */
                 cairo_save(c);
-                cairo_translate(c,  width - marginRight,  marginTop + repaint_times * resizeHeight);
-                cairo_set_source_surface(c, background, -marginLeft - resizeWidth,  -marginTop);
+                cairo_translate(c, width - marginRight,
+                                marginTop + repaint_times * resizeHeight);
+                cairo_set_source_surface(c, background,
+                                         -marginLeft - resizeWidth, -marginTop);
                 cairo_rectangle(c, 0, 0, marginRight, remain_height);
                 cairo_clip(c);
                 cairo_paint(c);
@@ -477,7 +494,9 @@ void DrawResizableBackground(cairo_t *c,
         } else {
             cairo_save(c);
             cairo_translate(c, 0, marginTop);
-            cairo_scale(c, 1, (double)(height - marginTop - marginBottom) / (double)resizeHeight);
+            cairo_scale(c, 1,
+                        (double)(height - marginTop - marginBottom) /
+                            (double)resizeHeight);
             cairo_set_source_surface(c, background, 0, -marginTop);
             cairo_rectangle(c, 0, 0, marginLeft, resizeHeight);
             cairo_clip(c);
@@ -486,8 +505,11 @@ void DrawResizableBackground(cairo_t *c,
 
             cairo_save(c);
             cairo_translate(c, width - marginRight, marginTop);
-            cairo_scale(c, 1, (double)(height - marginTop - marginBottom) / (double)resizeHeight);
-            cairo_set_source_surface(c, background, -marginLeft - resizeWidth, -marginTop);
+            cairo_scale(c, 1,
+                        (double)(height - marginTop - marginBottom) /
+                            (double)resizeHeight);
+            cairo_set_source_surface(c, background, -marginLeft - resizeWidth,
+                                     -marginTop);
             cairo_rectangle(c, 0, 0, marginRight, resizeHeight);
             cairo_clip(c);
             cairo_paint(c);
@@ -506,25 +528,29 @@ void DrawResizableBackground(cairo_t *c,
             remainW = (width - marginLeft - marginRight) % resizeWidth;
         } else {
             repaintH = 1;
-            scaleX = (double)(width - marginLeft - marginRight) / (double)resizeWidth;
+            scaleX = (double)(width - marginLeft - marginRight) /
+                     (double)resizeWidth;
         }
 
         if (fillV == F_COPY) {
-            repaintV = (height - marginTop - marginBottom) / (double)resizeHeight + 1;
+            repaintV =
+                (height - marginTop - marginBottom) / (double)resizeHeight + 1;
             remainH = (height - marginTop - marginBottom) % resizeHeight;
         } else {
             repaintV = 1;
-            scaleY = (double)(height - marginTop - marginBottom) / (double)resizeHeight;
+            scaleY = (double)(height - marginTop - marginBottom) /
+                     (double)resizeHeight;
         }
 
-
         int i, j;
-        for (i = 0; i < repaintH; i ++) {
-            for (j = 0; j < repaintV; j ++) {
+        for (i = 0; i < repaintH; i++) {
+            for (j = 0; j < repaintV; j++) {
                 cairo_save(c);
-                cairo_translate(c, marginLeft + i * resizeWidth , marginTop + j * resizeHeight);
+                cairo_translate(c, marginLeft + i * resizeWidth,
+                                marginTop + j * resizeHeight);
                 cairo_scale(c, scaleX, scaleY);
-                cairo_set_source_surface(c, background, -marginLeft, -marginTop);
+                cairo_set_source_surface(c, background, -marginLeft,
+                                         -marginTop);
                 int w = resizeWidth, h = resizeHeight;
 
                 if (fillV == F_COPY && j == repaintV - 1)
@@ -543,16 +569,14 @@ void DrawResizableBackground(cairo_t *c,
     cairo_restore(c);
 }
 
-void DestroyImage(cairo_surface_t ** png)
-{
+void DestroyImage(cairo_surface_t **png) {
     if (png != NULL) {
         cairo_surface_destroy(*png);
         *png = NULL;
     }
 }
 
-void DrawImage(cairo_t *c, cairo_surface_t * png, int x, int y, MouseE mouse)
-{
+void DrawImage(cairo_t *c, cairo_surface_t *png, int x, int y, MouseE mouse) {
     if (!png)
         return;
 
@@ -564,11 +588,13 @@ void DrawImage(cairo_t *c, cairo_surface_t * png, int x, int y, MouseE mouse)
 
     } else if (mouse == PRESS) {
         cairo_set_operator(c, CAIRO_OPERATOR_OVER);
-        cairo_translate(c, x + (int)(cairo_image_surface_get_width(png) * 0.2 / 2), y + (int)(cairo_image_surface_get_height(png) * 0.2 / 2));
+        cairo_translate(
+            c, x + (int)(cairo_image_surface_get_width(png) * 0.2 / 2),
+            y + (int)(cairo_image_surface_get_height(png) * 0.2 / 2));
         cairo_scale(c, 0.8, 0.8);
         cairo_set_source_surface(c, png, 0, 0);
         cairo_paint(c);
-    } else { //if( img.mouse == RELEASE)
+    } else { // if( img.mouse == RELEASE)
         cairo_set_source_surface(c, png, x, y);
         cairo_paint(c);
     }
@@ -576,14 +602,14 @@ void DrawImage(cairo_t *c, cairo_surface_t * png, int x, int y, MouseE mouse)
     cairo_restore(c);
 }
 
-void DisplaySkin(FcitxClassicUI* classicui, char * skinname)
-{
+void DisplaySkin(FcitxClassicUI *classicui, char *skinname) {
     char *pivot = classicui->skinType;
     classicui->skinType = strdup(skinname);
     if (pivot)
         free(pivot);
 
-    if (LoadSkinConfig(&classicui->skin, &classicui->skinType, /*fallback=*/true))
+    if (LoadSkinConfig(&classicui->skin, &classicui->skinType,
+                       /*fallback=*/true))
         FcitxInstanceEnd(classicui->owner);
 
 #ifndef _ENABLE_PANGO
@@ -597,14 +623,13 @@ void DisplaySkin(FcitxClassicUI* classicui, char * skinname)
 
     SaveClassicUIConfig(classicui);
 
-    classicui->epoch ++;
+    classicui->epoch++;
 }
 
-void FreeImageTable(SkinImage* table)
-{
+void FreeImageTable(SkinImage *table) {
     SkinImage *images = table;
     while (images) {
-        SkinImage* curimage = images;
+        SkinImage *curimage = images;
         HASH_DEL(images, curimage);
         free(curimage->name);
         cairo_surface_destroy(curimage->image);
@@ -612,8 +637,7 @@ void FreeImageTable(SkinImage* table)
     }
 }
 
-void UnloadImage(FcitxSkin* skin)
-{
+void UnloadImage(FcitxSkin *skin) {
     FreeImageTable(skin->imageTable);
     skin->imageTable = NULL;
 
@@ -621,12 +645,11 @@ void UnloadImage(FcitxSkin* skin)
     skin->trayImageTable = NULL;
 }
 
-void UnloadSingleImage(FcitxSkin* sc, const char* name)
-{
+void UnloadSingleImage(FcitxSkin *sc, const char *name) {
     SkinImage *image;
     HASH_FIND_STR(sc->imageTable, name, image);
     if (image != NULL) {
-        SkinImage* curimage = image;
+        SkinImage *curimage = image;
         HASH_DEL(sc->imageTable, image);
         free(curimage->name);
         cairo_surface_destroy(curimage->image);
@@ -636,15 +659,14 @@ void UnloadSingleImage(FcitxSkin* sc, const char* name)
 
 //图片文件加载函数完成
 /*-------------------------------------------------------------------------------------------------------------*/
-//skin目录下读入skin的文件夹名
+// skin目录下读入skin的文件夹名
 
-void LoadSkinDirectory(FcitxClassicUI* classicui)
-{
-    UT_array* skinBuf = &classicui->skinBuf;
-    UT_array* skinNameBuf = &classicui->skinNameBuf;
+void LoadSkinDirectory(FcitxClassicUI *classicui) {
+    UT_array *skinBuf = &classicui->skinBuf;
+    UT_array *skinNameBuf = &classicui->skinNameBuf;
     utarray_clear(skinBuf);
     utarray_clear(skinNameBuf);
-    int i ;
+    int i;
     DIR *dir;
     struct dirent *drt;
     size_t len;
@@ -655,28 +677,30 @@ void LoadSkinDirectory(FcitxClassicUI* classicui)
             continue;
 
         while ((drt = readdir(dir)) != NULL) {
-            if (strcmp(drt->d_name , ".") == 0 ||
-                strcmp(drt->d_name, "..") == 0)
+            if (strcmp(drt->d_name, ".") == 0 || strcmp(drt->d_name, "..") == 0)
                 continue;
             char *pathBuf;
-            fcitx_utils_alloc_cat_str(pathBuf, skinPath[i], "/", drt->d_name, "/fcitx_skin.conf");
+            fcitx_utils_alloc_cat_str(pathBuf, skinPath[i], "/", drt->d_name,
+                                      "/fcitx_skin.conf");
             boolean result = fcitx_utils_isreg(pathBuf);
             free(pathBuf);
             if (result) {
                 /* check duplicate name */
                 int j = 0;
                 for (; j < skinBuf->i; j++) {
-                    char **name = (char**) utarray_eltptr(skinBuf, j);
+                    char **name = (char **)utarray_eltptr(skinBuf, j);
                     if (strcmp(*name, drt->d_name) == 0)
                         break;
                 }
                 if (j == skinBuf->i) {
                     // For reading skin name.
                     FcitxSkin tempSkin;
-                    char* skinName = strdup(drt->d_name);
+                    char *skinName = strdup(drt->d_name);
                     memset(&tempSkin, 0, sizeof(tempSkin));
-                    if (LoadSkinConfig(&tempSkin, &skinName, /*fallback=*/false) == 0) {
-                        if (fcitx_utf8_check_string(tempSkin.skinInfo.skinName)) {
+                    if (LoadSkinConfig(&tempSkin, &skinName,
+                                       /*fallback=*/false) == 0) {
+                        if (fcitx_utf8_check_string(
+                                tempSkin.skinInfo.skinName)) {
                             char *temp = drt->d_name;
                             char *tempName = tempSkin.skinInfo.skinName;
                             utarray_push_back(skinBuf, &temp);
@@ -699,13 +723,12 @@ void LoadSkinDirectory(FcitxClassicUI* classicui)
     return;
 }
 
-void InitSkinMenu(FcitxClassicUI* classicui)
-{
+void InitSkinMenu(FcitxClassicUI *classicui) {
     utarray_init(&classicui->skinBuf, fcitx_str_icd);
     utarray_init(&classicui->skinNameBuf, fcitx_str_icd);
     FcitxMenuInit(&classicui->skinMenu);
     classicui->skinMenu.candStatusBind = NULL;
-    classicui->skinMenu.name =  strdup(_("Skin"));
+    classicui->skinMenu.name = strdup(_("Skin"));
 
     classicui->skinMenu.UpdateMenu = UpdateSkinMenu;
     classicui->skinMenu.MenuAction = SkinMenuAction;
@@ -713,48 +736,42 @@ void InitSkinMenu(FcitxClassicUI* classicui)
     classicui->skinMenu.isSubMenu = false;
 }
 
-boolean SkinMenuAction(FcitxUIMenu* menu, int index)
-{
-    FcitxClassicUI* classicui = (FcitxClassicUI*) menu->priv;
-    FcitxMenuItem* shell = (FcitxMenuItem*) utarray_eltptr(&menu->shell, index);
+boolean SkinMenuAction(FcitxUIMenu *menu, int index) {
+    FcitxClassicUI *classicui = (FcitxClassicUI *)menu->priv;
+    FcitxMenuItem *shell = (FcitxMenuItem *)utarray_eltptr(&menu->shell, index);
     if (shell) {
-        char** name = (char**) utarray_eltptr(&classicui->skinBuf, index);
+        char **name = (char **)utarray_eltptr(&classicui->skinBuf, index);
         DisplaySkin(classicui, *name);
     }
     return true;
 }
 
-void UpdateSkinMenu(FcitxUIMenu* menu)
-{
-    FcitxClassicUI* classicui = (FcitxClassicUI*) menu->priv;
+void UpdateSkinMenu(FcitxUIMenu *menu) {
+    FcitxClassicUI *classicui = (FcitxClassicUI *)menu->priv;
     LoadSkinDirectory(classicui);
     FcitxMenuClear(menu);
     char **s;
     int i = 0;
 
-    for (s = (char**) utarray_front(&classicui->skinBuf);
-            s != NULL;
-            s = (char**) utarray_next(&classicui->skinBuf, s)) {
+    for (s = (char **)utarray_front(&classicui->skinBuf); s != NULL;
+         s = (char **)utarray_next(&classicui->skinBuf, s)) {
         if (strcmp(*s, classicui->skinType) == 0) {
             menu->mark = i;
         }
-        char** name = (char**) utarray_eltptr(&classicui->skinNameBuf, i);
+        char **name = (char **)utarray_eltptr(&classicui->skinNameBuf, i);
         FcitxMenuAddMenuItem(menu, *name, MENUTYPE_SIMPLE, NULL);
-        i ++;
+        i++;
     }
-
 }
 
-void ParsePlacement(UT_array* sps, char* placment)
-{
-    UT_array* array = fcitx_utils_split_string(placment, ';');
-    char** str;
+void ParsePlacement(UT_array *sps, char *placment) {
+    UT_array *array = fcitx_utils_split_string(placment, ';');
+    char **str;
     utarray_clear(sps);
-    for (str = (char**) utarray_front(array);
-            str != NULL;
-            str = (char**) utarray_next(array, str)) {
-        char* s = *str;
-        char* p = strchr(s, ':');
+    for (str = (char **)utarray_front(array); str != NULL;
+         str = (char **)utarray_next(array, str)) {
+        char *s = *str;
+        char *p = strchr(s, ':');
         if (p == NULL)
             continue;
 
@@ -770,9 +787,10 @@ void ParsePlacement(UT_array* sps, char* placment)
     utarray_free(array);
 }
 
-SkinImage* GetIMIcon(FcitxClassicUI* classicui, FcitxSkin *sc, const char* fallbackIcon, int flag, boolean fallbackToDefault)
-{
-    FcitxIM* im = FcitxInstanceGetCurrentIM(classicui->owner);
+SkinImage *GetIMIcon(FcitxClassicUI *classicui, FcitxSkin *sc,
+                     const char *fallbackIcon, int flag,
+                     boolean fallbackToDefault) {
+    FcitxIM *im = FcitxInstanceGetCurrentIM(classicui->owner);
     if (!im)
         return NULL;
     const char *path;
@@ -784,11 +802,13 @@ SkinImage* GetIMIcon(FcitxClassicUI* classicui, FcitxSkin *sc, const char* fallb
         path = tmpstr;
     }
     SkinImage *imicon = NULL;
-    if (strncmp(im->uniqueName, "fcitx-keyboard-",
-                strlen("fcitx-keyboard-")) == 0) {
-        SkinImage* activeIcon = LoadImage(sc, fallbackIcon, fallbackToDefault);
-        char temp[LANGCODE_LENGTH + 1] = { '\0', };
-        char* iconText = 0;
+    if (strncmp(im->uniqueName, "fcitx-keyboard-", strlen("fcitx-keyboard-")) ==
+        0) {
+        SkinImage *activeIcon = LoadImage(sc, fallbackIcon, fallbackToDefault);
+        char temp[LANGCODE_LENGTH + 1] = {
+            '\0',
+        };
+        char *iconText = 0;
         if (*im->langCode) {
             strncpy(temp, im->langCode, LANGCODE_LENGTH);
             iconText = temp;
@@ -799,7 +819,8 @@ SkinImage* GetIMIcon(FcitxClassicUI* classicui, FcitxSkin *sc, const char* fallb
         imicon = LoadImageWithText(
             classicui, sc, path, iconText,
             activeIcon ? cairo_image_surface_get_width(activeIcon->image) : 22,
-            activeIcon ? cairo_image_surface_get_height(activeIcon->image) : 22, true);
+            activeIcon ? cairo_image_surface_get_height(activeIcon->image) : 22,
+            true);
     }
 
     if (imicon == NULL)
@@ -808,7 +829,7 @@ SkinImage* GetIMIcon(FcitxClassicUI* classicui, FcitxSkin *sc, const char* fallb
     if (imicon == NULL) {
         imicon = LoadImage(sc, fallbackIcon, fallbackToDefault);
     } else {
-        SkinImage* activeIcon = LoadImage(sc, fallbackIcon, fallbackToDefault);
+        SkinImage *activeIcon = LoadImage(sc, fallbackIcon, fallbackToDefault);
         if (activeIcon) {
             ResizeSurface(&imicon->image,
                           cairo_image_surface_get_width(activeIcon->image),

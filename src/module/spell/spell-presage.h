@@ -25,11 +25,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    boolean SpellPresageInit(FcitxSpell *spell);
-    SpellHint *SpellPresageHintWords(FcitxSpell *spell, unsigned int len_limit);
-    boolean SpellPresageCheck(FcitxSpell *spell);
-    void SpellPresageDestroy(FcitxSpell *spell);
-    boolean SpellPresageLoadDict(FcitxSpell *spell, const char *lang);
+boolean SpellPresageInit(FcitxSpell *spell);
+SpellHint *SpellPresageHintWords(FcitxSpell *spell, unsigned int len_limit);
+boolean SpellPresageCheck(FcitxSpell *spell);
+void SpellPresageDestroy(FcitxSpell *spell);
+boolean SpellPresageLoadDict(FcitxSpell *spell, const char *lang);
 #ifdef __cplusplus
 }
 #endif

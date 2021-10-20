@@ -18,15 +18,15 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
+#include <ctype.h>
 #include <errno.h>
 #include <iconv.h>
 #include <unistd.h>
-#include <ctype.h>
 
 #include <libintl.h>
 
-#include "pinyin-enhance-spell.h"
 #include "module/spell/fcitx-spell.h"
+#include "pinyin-enhance-spell.h"
 
 #include "config.h"
 
@@ -36,21 +36,64 @@ enum {
     PY_TYPE_INVALID,
 };
 
-#define case_vowel case 'a': case 'e': case 'i': case 'o':      \
-case 'u': case 'A': case 'E': case 'I': case 'O': case 'U'
+#define case_vowel                                                             \
+    case 'a':                                                                  \
+    case 'e':                                                                  \
+    case 'i':                                                                  \
+    case 'o':                                                                  \
+    case 'u':                                                                  \
+    case 'A':                                                                  \
+    case 'E':                                                                  \
+    case 'I':                                                                  \
+    case 'O':                                                                  \
+    case 'U'
 
-#define case_consonant case 'B': case 'C': case 'D':            \
-case 'F': case 'G': case 'H': case 'J': case 'K': case 'L':     \
-case 'M': case 'N': case 'P': case 'Q': case 'R': case 'S':     \
-case 'T': case 'V': case 'W': case 'X': case 'Y': case 'Z':     \
-case 'b': case 'c': case 'd': case 'f': case 'g': case 'h':     \
-case 'j': case 'k': case 'l': case 'm': case 'n': case 'p':     \
-case 'q': case 'r': case 's': case 't': case 'v': case 'w':     \
-case 'x': case 'y': case 'z'
+#define case_consonant                                                         \
+    case 'B':                                                                  \
+    case 'C':                                                                  \
+    case 'D':                                                                  \
+    case 'F':                                                                  \
+    case 'G':                                                                  \
+    case 'H':                                                                  \
+    case 'J':                                                                  \
+    case 'K':                                                                  \
+    case 'L':                                                                  \
+    case 'M':                                                                  \
+    case 'N':                                                                  \
+    case 'P':                                                                  \
+    case 'Q':                                                                  \
+    case 'R':                                                                  \
+    case 'S':                                                                  \
+    case 'T':                                                                  \
+    case 'V':                                                                  \
+    case 'W':                                                                  \
+    case 'X':                                                                  \
+    case 'Y':                                                                  \
+    case 'Z':                                                                  \
+    case 'b':                                                                  \
+    case 'c':                                                                  \
+    case 'd':                                                                  \
+    case 'f':                                                                  \
+    case 'g':                                                                  \
+    case 'h':                                                                  \
+    case 'j':                                                                  \
+    case 'k':                                                                  \
+    case 'l':                                                                  \
+    case 'm':                                                                  \
+    case 'n':                                                                  \
+    case 'p':                                                                  \
+    case 'q':                                                                  \
+    case 'r':                                                                  \
+    case 's':                                                                  \
+    case 't':                                                                  \
+    case 'v':                                                                  \
+    case 'w':                                                                  \
+    case 'x':                                                                  \
+    case 'y':                                                                  \
+    case 'z'
 
-static inline void
-py_fix_input_string(PinyinEnhance *pyenhance, char *str, int len)
-{
+static inline void py_fix_input_string(PinyinEnhance *pyenhance, char *str,
+                                       int len) {
     FcitxIM *im = FcitxInstanceGetCurrentIM(pyenhance->owner);
     if ((!im) || strcmp(im->uniqueName, "shuangpin-libpinyin"))
         return;
@@ -72,11 +115,10 @@ FcitxPYEnhanceGetSpellCandWordCb(void *arg, const char *commit)
 }
 #endif
 
-static void
-PinyinEnhanceMergeSpellCandList(PinyinEnhance *pyenhance,
-                                FcitxCandidateWordList *candList,
-                                FcitxCandidateWordList *newList, int position)
-{
+static void PinyinEnhanceMergeSpellCandList(PinyinEnhance *pyenhance,
+                                            FcitxCandidateWordList *candList,
+                                            FcitxCandidateWordList *newList,
+                                            int position) {
     int i1;
     int n1;
     int i2;
@@ -84,12 +126,13 @@ PinyinEnhanceMergeSpellCandList(PinyinEnhance *pyenhance,
     FcitxCandidateWord *word1;
     FcitxCandidateWord *word2;
     n1 = FcitxCandidateWordGetPageSize(candList);
-    for (i1 = 0;i1 < n1 &&
-             (word1 = FcitxCandidateWordGetByTotalIndex(candList, i1));i1++) {
+    for (i1 = 0;
+         i1 < n1 && (word1 = FcitxCandidateWordGetByTotalIndex(candList, i1));
+         i1++) {
         if (!word1->strWord)
             continue;
         n2 = FcitxCandidateWordGetListSize(newList);
-        for (i2 = n2 - 1;i2 >= 0;i2--) {
+        for (i2 = n2 - 1; i2 >= 0; i2--) {
             word2 = FcitxCandidateWordGetByTotalIndex(newList, i2);
             if (!word2->strWord) {
                 FcitxCandidateWordRemoveByIndex(newList, i2);
@@ -115,10 +158,9 @@ PinyinEnhanceMergeSpellCandList(PinyinEnhance *pyenhance,
     FcitxCandidateWordFreeList(newList);
 }
 
-static boolean
-PinyinEnhanceGetSpellCandWords(PinyinEnhance *pyenhance, const char *string,
-                               int position, int len_limit)
-{
+static boolean PinyinEnhanceGetSpellCandWords(PinyinEnhance *pyenhance,
+                                              const char *string, int position,
+                                              int len_limit) {
     FcitxInstance *instance = pyenhance->owner;
     FcitxInputState *input;
     FcitxCandidateWordList *candList;
@@ -139,7 +181,7 @@ PinyinEnhanceGetSpellCandWords(PinyinEnhance *pyenhance, const char *string,
         (position < 1 && !pyenhance->config.allow_replace_first)) {
         position = 1;
     }
-    newList = FcitxSpellGetCandWords(instance, NULL, (void*)string, NULL,
+    newList = FcitxSpellGetCandWords(instance, NULL, (void *)string, NULL,
                                      len_limit, "en", "cus", NULL, pyenhance);
     if (!newList)
         return false;
@@ -154,9 +196,7 @@ PinyinEnhanceGetSpellCandWords(PinyinEnhance *pyenhance, const char *string,
     return true;
 }
 
-static int
-PinyinSpellGetWordType(const char *str, int len)
-{
+static int PinyinSpellGetWordType(const char *str, int len) {
     int i;
     if (len <= 0)
         len = strlen(str);
@@ -175,7 +215,7 @@ PinyinSpellGetWordType(const char *str, int len)
     default:
         break;
     }
-    for (i = 1;i < len;i++) {
+    for (i = 1; i < len; i++) {
         switch (str[i]) {
         case '\0':
             return PY_TYPE_SHORT;
@@ -193,9 +233,7 @@ PinyinSpellGetWordType(const char *str, int len)
     return PY_TYPE_SHORT;
 }
 
-boolean
-PinyinEnhanceSpellHint(PinyinEnhance *pyenhance, int im_type)
-{
+boolean PinyinEnhanceSpellHint(PinyinEnhance *pyenhance, int im_type) {
     FcitxInputState *input;
     char *pinyin;
     char *p;
@@ -232,9 +270,8 @@ PinyinEnhanceSpellHint(PinyinEnhance *pyenhance, int im_type)
                     words_type[words_count++] =
                         PinyinSpellGetWordType(last_start, word_len);
                 } else if (im_type == PY_IM_SHUANGPIN) {
-                    words_type[words_count++] = (word_len == 2 ?
-                                                 PY_TYPE_FULL :
-                                                 PY_TYPE_INVALID);
+                    words_type[words_count++] =
+                        (word_len == 2 ? PY_TYPE_FULL : PY_TYPE_INVALID);
                 }
             }
             last_start = last_start + word_len;
@@ -255,9 +292,8 @@ PinyinEnhanceSpellHint(PinyinEnhance *pyenhance, int im_type)
         if (im_type == PY_IM_PINYIN) {
             words_type[words_count++] = PinyinSpellGetWordType(last_start, -1);
         } else if (im_type == PY_IM_SHUANGPIN) {
-            words_type[words_count++] = (strlen(last_start) == 2 ?
-                                         PY_TYPE_FULL :
-                                         PY_TYPE_SHORT);
+            words_type[words_count++] =
+                (strlen(last_start) == 2 ? PY_TYPE_FULL : PY_TYPE_SHORT);
         }
     } else if (im_type == PY_IM_SHUANGPIN) {
         if (words_type[words_count - 1] != PY_TYPE_FULL)
@@ -284,7 +320,7 @@ PinyinEnhanceSpellHint(PinyinEnhance *pyenhance, int im_type)
         int py_full = 0;
         int py_short = 0;
         int i;
-        for (i = 0;i < words_count;i++) {
+        for (i = 0; i < words_count; i++) {
             switch (words_type[i]) {
             case PY_TYPE_FULL:
                 py_full++;
@@ -304,13 +340,13 @@ PinyinEnhanceSpellHint(PinyinEnhance *pyenhance, int im_type)
                 break;
         }
         if (py_invalid || (py_short && pyenhance->config.short_as_english)) {
-            res = PinyinEnhanceGetSpellCandWords(pyenhance, pinyin,
-                                                 eng_ness > 10 ? 0 : 1, len_limit);
+            res = PinyinEnhanceGetSpellCandWords(
+                pyenhance, pinyin, eng_ness > 10 ? 0 : 1, len_limit);
             goto out;
         }
         if (eng_ness > 10) {
-            res = PinyinEnhanceGetSpellCandWords(pyenhance, pinyin,
-                                                 1, len_limit);
+            res =
+                PinyinEnhanceGetSpellCandWords(pyenhance, pinyin, 1, len_limit);
             goto out;
         }
     }

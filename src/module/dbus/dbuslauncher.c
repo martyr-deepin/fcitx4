@@ -18,14 +18,14 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <unistd.h>
+#include "dbuslauncher.h"
+#include "fcitx-utils/utils.h"
+#include <limits.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <signal.h>
-#include <limits.h>
-#include "dbuslauncher.h"
-#include "fcitx-utils/utils.h"
+#include <unistd.h>
 
 #ifndef DBUS_LAUNCH
 #define DBUS_LAUNCH "dbus-launch"
@@ -33,17 +33,18 @@
 
 #define BUFSIZE 1024
 
-DBusDaemonProperty DBusLaunch(const char* configFile)
-{
+DBusDaemonProperty DBusLaunch(const char *configFile) {
     FILE *fp;
     if (configFile) {
         char *cmd;
-        fcitx_utils_alloc_cat_str(cmd, DBUS_LAUNCH" --binary-syntax"
-                                  " --config-file=", configFile);
+        fcitx_utils_alloc_cat_str(cmd,
+                                  DBUS_LAUNCH " --binary-syntax"
+                                              " --config-file=",
+                                  configFile);
         fp = popen(cmd, "r");
         free(cmd);
     } else {
-        fp = popen(DBUS_LAUNCH" --binary-syntax", "r");
+        fp = popen(DBUS_LAUNCH " --binary-syntax", "r");
     }
     DBusDaemonProperty result = {0, NULL};
 
@@ -55,8 +56,8 @@ DBusDaemonProperty DBusLaunch(const char* configFile)
         size_t sz = fread(buffer, sizeof(char), BUFSIZE, fp);
         if (sz == 0)
             break;
-        char* p = buffer;
-        while(*p)
+        char *p = buffer;
+        while (*p)
             p++;
         size_t addrlen = p - buffer;
         if (sz != addrlen + sizeof(pid_t) + sizeof(long) + 1)
@@ -64,10 +65,10 @@ DBusDaemonProperty DBusLaunch(const char* configFile)
 
         /* skip \0 */
         p++;
-        pid_t *pid = (pid_t*) p;
+        pid_t *pid = (pid_t *)p;
         result.pid = *pid;
         result.address = strdup(buffer);
-    } while(0);
+    } while (0);
 
     if (fp)
         pclose(fp);
@@ -75,8 +76,7 @@ DBusDaemonProperty DBusLaunch(const char* configFile)
     return result;
 }
 
-int DBusKill(DBusDaemonProperty* prop)
-{
+int DBusKill(DBusDaemonProperty *prop) {
     if (prop->pid)
         return kill(prop->pid, SIGTERM);
     else

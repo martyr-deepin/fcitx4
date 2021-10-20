@@ -24,18 +24,16 @@
 
 #include <string.h>
 
-#include <fcitx-utils/utils.h>
 #include "isocodes.h"
-
+#include <fcitx-utils/utils.h>
 
 static void IsoCodes639Handler(FcitxIsoCodes *isocodes, json_object *entry);
 static void IsoCodes3166Handler(FcitxIsoCodes *isocodes, json_object *entry);
-static void FcitxIsoCodes639EntryFree(FcitxIsoCodes639Entry* entry);
-static void FcitxIsoCodes3166EntryFree(FcitxIsoCodes3166Entry* entry);
+static void FcitxIsoCodes639EntryFree(FcitxIsoCodes639Entry *entry);
+static void FcitxIsoCodes3166EntryFree(FcitxIsoCodes3166Entry *entry);
 
-FcitxIsoCodes* FcitxXkbReadIsoCodes(const char* iso639, const char* iso3166)
-{
-    FcitxIsoCodes* isocodes = fcitx_utils_new(FcitxIsoCodes);
+FcitxIsoCodes *FcitxXkbReadIsoCodes(const char *iso639, const char *iso3166) {
+    FcitxIsoCodes *isocodes = fcitx_utils_new(FcitxIsoCodes);
 
     json_object *obj;
     do {
@@ -52,7 +50,7 @@ FcitxIsoCodes* FcitxXkbReadIsoCodes(const char* iso639, const char* iso3166)
             json_object *entry = json_object_array_get_idx(obj639, i);
             IsoCodes639Handler(isocodes, entry);
         }
-    } while(0);
+    } while (0);
     json_object_put(obj);
 
     do {
@@ -69,16 +67,15 @@ FcitxIsoCodes* FcitxXkbReadIsoCodes(const char* iso639, const char* iso3166)
             json_object *entry = json_object_array_get_idx(obj3166, i);
             IsoCodes3166Handler(isocodes, entry);
         }
-    } while(0);
+    } while (0);
     return isocodes;
 }
 
-static void IsoCodes639Handler(FcitxIsoCodes *isocodes, json_object *entry)
-{
+static void IsoCodes639Handler(FcitxIsoCodes *isocodes, json_object *entry) {
     json_object *alpha2 = json_object_object_get(entry, "alpha_2");
     json_object *alpha3 = json_object_object_get(entry, "alpha_3");
     json_object *bibliographic = json_object_object_get(entry, "bibliographic");
-    json_object *name= json_object_object_get(entry, "name");
+    json_object *name = json_object_object_get(entry, "name");
     if (!name || json_object_get_type(name) != json_type_string) {
         return;
     }
@@ -93,25 +90,31 @@ static void IsoCodes639Handler(FcitxIsoCodes *isocodes, json_object *entry)
     }
 
     // bibliographic is optional
-    if (bibliographic && json_object_get_type(bibliographic) != json_type_string) {
+    if (bibliographic &&
+        json_object_get_type(bibliographic) != json_type_string) {
         return;
     }
     if (!bibliographic) {
         bibliographic = alpha3;
     }
-    FcitxIsoCodes639Entry* e = fcitx_utils_new(FcitxIsoCodes639Entry);
-    e->name = strndup(json_object_get_string(name), json_object_get_string_len(name));
+    FcitxIsoCodes639Entry *e = fcitx_utils_new(FcitxIsoCodes639Entry);
+    e->name =
+        strndup(json_object_get_string(name), json_object_get_string_len(name));
     if (alpha2) {
-        e->iso_639_1_code = strndup(json_object_get_string(alpha2), json_object_get_string_len(alpha2));
+        e->iso_639_1_code = strndup(json_object_get_string(alpha2),
+                                    json_object_get_string_len(alpha2));
     }
-    e->iso_639_2B_code = strndup(json_object_get_string(bibliographic), json_object_get_string_len(bibliographic));
-    e->iso_639_2T_code = strndup(json_object_get_string(alpha3), json_object_get_string_len(alpha3));
-    HASH_ADD_KEYPTR(hh1, isocodes->iso6392B, e->iso_639_2B_code, strlen(e->iso_639_2B_code), e);
-    HASH_ADD_KEYPTR(hh2, isocodes->iso6392T, e->iso_639_2T_code, strlen(e->iso_639_2T_code), e);
+    e->iso_639_2B_code = strndup(json_object_get_string(bibliographic),
+                                 json_object_get_string_len(bibliographic));
+    e->iso_639_2T_code = strndup(json_object_get_string(alpha3),
+                                 json_object_get_string_len(alpha3));
+    HASH_ADD_KEYPTR(hh1, isocodes->iso6392B, e->iso_639_2B_code,
+                    strlen(e->iso_639_2B_code), e);
+    HASH_ADD_KEYPTR(hh2, isocodes->iso6392T, e->iso_639_2T_code,
+                    strlen(e->iso_639_2T_code), e);
 }
 
-void FcitxIsoCodes639EntryFree(FcitxIsoCodes639Entry* entry)
-{
+void FcitxIsoCodes639EntryFree(FcitxIsoCodes639Entry *entry) {
     fcitx_utils_free(entry->iso_639_1_code);
     fcitx_utils_free(entry->iso_639_2B_code);
     fcitx_utils_free(entry->iso_639_2T_code);
@@ -119,17 +122,15 @@ void FcitxIsoCodes639EntryFree(FcitxIsoCodes639Entry* entry)
     free(entry);
 }
 
-void FcitxIsoCodes3166EntryFree(FcitxIsoCodes3166Entry* entry)
-{
+void FcitxIsoCodes3166EntryFree(FcitxIsoCodes3166Entry *entry) {
     fcitx_utils_free(entry->alpha_2_code);
     fcitx_utils_free(entry->name);
     free(entry);
 }
 
-static void IsoCodes3166Handler(FcitxIsoCodes *isocodes, json_object *entry)
-{
+static void IsoCodes3166Handler(FcitxIsoCodes *isocodes, json_object *entry) {
     json_object *alpha2 = json_object_object_get(entry, "alpha_2");
-    json_object *name= json_object_object_get(entry, "name");
+    json_object *name = json_object_object_get(entry, "name");
     if (!name || json_object_get_type(name) != json_type_string) {
         return;
     }
@@ -137,39 +138,41 @@ static void IsoCodes3166Handler(FcitxIsoCodes *isocodes, json_object *entry)
     if (!alpha2 || json_object_get_type(alpha2) != json_type_string) {
         return;
     }
-    FcitxIsoCodes3166Entry* e = fcitx_utils_new(FcitxIsoCodes3166Entry);
-    e->name = strndup(json_object_get_string(name), json_object_get_string_len(name));
-    e->alpha_2_code = strndup(json_object_get_string(alpha2), json_object_get_string_len(alpha2));
-    HASH_ADD_KEYPTR(hh, isocodes->iso3166, e->alpha_2_code, strlen(e->alpha_2_code), e);
+    FcitxIsoCodes3166Entry *e = fcitx_utils_new(FcitxIsoCodes3166Entry);
+    e->name =
+        strndup(json_object_get_string(name), json_object_get_string_len(name));
+    e->alpha_2_code = strndup(json_object_get_string(alpha2),
+                              json_object_get_string_len(alpha2));
+    HASH_ADD_KEYPTR(hh, isocodes->iso3166, e->alpha_2_code,
+                    strlen(e->alpha_2_code), e);
 }
 
-FcitxIsoCodes639Entry* FcitxIsoCodesGetEntry(FcitxIsoCodes* isocodes, const char* lang)
-{
+FcitxIsoCodes639Entry *FcitxIsoCodesGetEntry(FcitxIsoCodes *isocodes,
+                                             const char *lang) {
     FcitxIsoCodes639Entry *entry = NULL;
-    HASH_FIND(hh1,isocodes->iso6392B,lang,strlen(lang),entry);
+    HASH_FIND(hh1, isocodes->iso6392B, lang, strlen(lang), entry);
     if (!entry) {
-        HASH_FIND(hh2,isocodes->iso6392T,lang,strlen(lang),entry);
+        HASH_FIND(hh2, isocodes->iso6392T, lang, strlen(lang), entry);
     }
     return entry;
 }
 
-void FcitxIsoCodesFree(FcitxIsoCodes* isocodes)
-{
-    FcitxIsoCodes639Entry* isocodes639 = isocodes->iso6392B;
+void FcitxIsoCodesFree(FcitxIsoCodes *isocodes) {
+    FcitxIsoCodes639Entry *isocodes639 = isocodes->iso6392B;
     while (isocodes639) {
-        FcitxIsoCodes639Entry* curisocodes639 = isocodes639;
+        FcitxIsoCodes639Entry *curisocodes639 = isocodes639;
         HASH_DELETE(hh1, isocodes639, curisocodes639);
     }
 
     isocodes639 = isocodes->iso6392T;
     while (isocodes639) {
-        FcitxIsoCodes639Entry* curisocodes639 = isocodes639;
+        FcitxIsoCodes639Entry *curisocodes639 = isocodes639;
         HASH_DELETE(hh2, isocodes639, curisocodes639);
         FcitxIsoCodes639EntryFree(curisocodes639);
     }
-    FcitxIsoCodes3166Entry* isocodes3166 = isocodes->iso3166;
+    FcitxIsoCodes3166Entry *isocodes3166 = isocodes->iso3166;
     while (isocodes3166) {
-        FcitxIsoCodes3166Entry* curisocodes3166 = isocodes3166;
+        FcitxIsoCodes3166Entry *curisocodes3166 = isocodes3166;
         HASH_DEL(isocodes3166, curisocodes3166);
         FcitxIsoCodes3166EntryFree(curisocodes3166);
     }

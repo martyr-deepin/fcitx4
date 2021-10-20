@@ -116,8 +116,8 @@ void FcitxInputContextProxy::createInputContext() {
     QFileInfo info(QCoreApplication::applicationFilePath());
     if (service == "org.freedesktop.portal.Fcitx") {
         m_portal = true;
-        m_im1proxy = new org::fcitx::Fcitx::InputMethod1(owner, "/org/freedesktop/portal/inputmethod",
-                                                         connection, this);
+        m_im1proxy = new org::fcitx::Fcitx::InputMethod1(
+            owner, "/org/freedesktop/portal/inputmethod", connection, this);
         FcitxInputContextArgumentList list;
         FcitxInputContextArgument arg;
         arg.setName("program");
@@ -187,8 +187,9 @@ void FcitxInputContextProxy::createInputContextFinished() {
                 SLOT(forwardKeyWrapper(uint, uint, int)));
         connect(m_icproxy,
                 SIGNAL(UpdateFormattedPreedit(FcitxFormattedPreeditList, int)),
-                this, SLOT(updateFormattedPreeditWrapper(
-                          FcitxFormattedPreeditList, int)));
+                this,
+                SLOT(updateFormattedPreeditWrapper(FcitxFormattedPreeditList,
+                                                   int)));
     }
 
     delete m_createInputContextWatcher;

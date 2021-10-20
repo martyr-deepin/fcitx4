@@ -18,13 +18,13 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include "fcitx/fcitx.h"
+#include "fcitx-config/xdg.h"
+#include "fcitx-utils/log.h"
 #include "fcitx/candidate.h"
+#include "fcitx/fcitx.h"
+#include "fcitx/hook.h"
 #include "fcitx/instance.h"
 #include "fcitx/module.h"
-#include "fcitx/hook.h"
-#include "fcitx-utils/log.h"
-#include "fcitx-config/xdg.h"
 
 #include "luamod.h"
 #include "luawrap.h"
@@ -33,17 +33,10 @@ static void *LuaCreate(FcitxInstance *instance);
 static void LuaReloadConfig(void *arg);
 DECLARE_ADDFUNCTIONS(Lua)
 
-FCITX_DEFINE_PLUGIN(fcitx_lua, module, FcitxModule) = {
-    LuaCreate,
-    NULL,
-    NULL,
-    NULL,
-    LuaReloadConfig
-};
+FCITX_DEFINE_PLUGIN(fcitx_lua, module, FcitxModule) = {LuaCreate, NULL, NULL,
+                                                       NULL, LuaReloadConfig};
 
-static int
-LoadLuaConfig(LuaModule *luamodule)
-{
+static int LoadLuaConfig(LuaModule *luamodule) {
     int count = 0;
     FcitxStringHashSet *sset = FcitxXDGGetFiles("lua", NULL, ".lua");
     FcitxStringHashSet *str;
@@ -73,24 +66,23 @@ LoadLuaConfig(LuaModule *luamodule)
     return count;
 }
 
-static INPUT_RETURN_VALUE
-LuaGetCandWord(void *arg, FcitxCandidateWord *candWord)
-{
+static INPUT_RETURN_VALUE LuaGetCandWord(void *arg,
+                                         FcitxCandidateWord *candWord) {
     FCITX_UNUSED(arg);
-    LuaModule *luamodule = (LuaModule*)candWord->owner;
+    LuaModule *luamodule = (LuaModule *)candWord->owner;
     FcitxInputState *input = FcitxInstanceGetInputState(GetFcitx(luamodule));
-    strncpy(FcitxInputStateGetOutputString(input),
-            candWord->strWord, MAX_USER_INPUT);
+    strncpy(FcitxInputStateGetOutputString(input), candWord->strWord,
+            MAX_USER_INPUT);
     return IRV_COMMIT_STRING;
 }
 
-static void
-LuaCallCommand(LuaModule *luamodule, const char *input,
-               FcitxCandidateWordCommitCallback callback, void *owner)
-{
+static void LuaCallCommand(LuaModule *luamodule, const char *input,
+                           FcitxCandidateWordCommitCallback callback,
+                           void *owner) {
     UT_array *result = InputCommand(luamodule, input);
     if (result) {
-        FcitxInputState *input = FcitxInstanceGetInputState(GetFcitx(luamodule));
+        FcitxInputState *input =
+            FcitxInstanceGetInputState(GetFcitx(luamodule));
         LuaResultItem *p = NULL;
         while ((p = (LuaResultItem *)utarray_next(result, p))) {
             FcitxCandidateWord candWord;
@@ -104,8 +96,7 @@ LuaCallCommand(LuaModule *luamodule, const char *input,
             candWord.priv = p->help ? strdup(p->help) : NULL;
             if (p->help || p->tip) {
                 fcitx_utils_alloc_cat_str(candWord.strExtra, " ", p->help,
-                                          p->help && p->tip ? " " : "",
-                                          p->tip);
+                                          p->help && p->tip ? " " : "", p->tip);
             } else {
                 candWord.strExtra = NULL;
             }
@@ -119,9 +110,7 @@ LuaCallCommand(LuaModule *luamodule, const char *input,
     }
 }
 
-void
-AddToCandList(LuaModule *luamodule, const char *in, const char *out)
-{
+void AddToCandList(LuaModule *luamodule, const char *in, const char *out) {
     FCITX_UNUSED(in);
     FcitxCandidateWord candWord;
     candWord.callback = LuaGetCandWord;
@@ -131,30 +120,26 @@ AddToCandList(LuaModule *luamodule, const char *in, const char *out)
     candWord.strExtra = NULL;
     candWord.strWord = strdup(out);
 
-    FcitxInputState* input = FcitxInstanceGetInputState(GetFcitx(luamodule));
-    FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
+    FcitxInputState *input = FcitxInstanceGetInputState(GetFcitx(luamodule));
+    FcitxCandidateWordList *candList = FcitxInputStateGetCandidateList(input);
     FcitxCandidateWordInsert(candList, &candWord, 0);
 }
 
-void
-LuaUpdateCandidateWordHookCallback(void *arg)
-{
+void LuaUpdateCandidateWordHookCallback(void *arg) {
     LuaModule *luamodule = (LuaModule *)arg;
-    FcitxInputState* input = FcitxInstanceGetInputState(GetFcitx(luamodule));
+    FcitxInputState *input = FcitxInstanceGetInputState(GetFcitx(luamodule));
     char *text = FcitxInputStateGetRawInputBuffer(input);
     UT_array *result = InputTrigger(luamodule, text);
     if (result) {
         LuaResultItem *p = NULL;
-        while ((p = (LuaResultItem*)utarray_next(result, p))) {
+        while ((p = (LuaResultItem *)utarray_next(result, p))) {
             AddToCandList(luamodule, text, p->result);
         }
         utarray_free(result);
     }
 }
 
-void*
-LuaCreate(FcitxInstance* instance)
-{
+void *LuaCreate(FcitxInstance *instance) {
     LuaModule *luamodule = LuaModuleAlloc(instance);
     if (luamodule == NULL) {
         FcitxLog(ERROR, "LuaModule alloc failed");
@@ -176,9 +161,8 @@ err:
     return NULL;
 }
 
-void LuaReloadConfig(void* arg)
-{
-    LuaModule* luamodule = arg;
+void LuaReloadConfig(void *arg) {
+    LuaModule *luamodule = arg;
     UnloadAllExtension(luamodule);
     LoadLuaConfig(luamodule);
 }

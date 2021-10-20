@@ -1,17 +1,17 @@
 #include "config.h"
 
+#include "dbussocket.h"
+#include "dbusstuff.h"
+#include "fcitx-utils/utils.h"
+#include "fcitx/fcitx.h"
+#include <dbus/dbus.h>
 #include <limits.h>
-#include <unistd.h>
 #include <signal.h>
 #include <stdio.h>
 #include <string.h>
-#include <dbus/dbus.h>
-#include "dbusstuff.h"
-#include "dbussocket.h"
-#include "fcitx-utils/utils.h"
-#include "fcitx/fcitx.h"
+#include <unistd.h>
 
-static char* servicename = NULL;
+static char *servicename = NULL;
 enum {
     FCITX_DIE = 0x2,
     DBUS_DIE = 0x1,
@@ -20,36 +20,32 @@ enum {
 
 int status = WATCHER_WAITING;
 
-DBusHandlerResult
-WatcherDBusFilter(DBusConnection* connection, DBusMessage* msg, void* user_data)
-{
+DBusHandlerResult WatcherDBusFilter(DBusConnection *connection,
+                                    DBusMessage *msg, void *user_data) {
     FCITX_UNUSED(connection);
     FCITX_UNUSED(user_data);
     if (dbus_message_is_signal(msg, DBUS_INTERFACE_DBUS, "NameOwnerChanged")) {
         const char *service, *oldowner, *newowner;
         DBusError error;
         dbus_error_init(&error);
-        if (dbus_message_get_args(msg, &error,
-                                  DBUS_TYPE_STRING, &service ,
-                                  DBUS_TYPE_STRING, &oldowner ,
-                                  DBUS_TYPE_STRING, &newowner ,
-                                  DBUS_TYPE_INVALID)) {
+        if (dbus_message_get_args(msg, &error, DBUS_TYPE_STRING, &service,
+                                  DBUS_TYPE_STRING, &oldowner, DBUS_TYPE_STRING,
+                                  &newowner, DBUS_TYPE_INVALID)) {
             /* old die */
             if (strcmp(service, servicename) == 0 && *oldowner)
                 status |= FCITX_DIE;
         }
         dbus_error_free(&error);
         return DBUS_HANDLER_RESULT_HANDLED;
-    }
-    else if (dbus_message_is_signal(msg, DBUS_INTERFACE_LOCAL, "Disconnected")) {
+    } else if (dbus_message_is_signal(msg, DBUS_INTERFACE_LOCAL,
+                                      "Disconnected")) {
         status |= DBUS_DIE;
         return DBUS_HANDLER_RESULT_HANDLED;
     }
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
 
-int main (int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
     if (argc != 3)
         return 1;
 
@@ -59,18 +55,20 @@ int main (int argc, char* argv[])
 
     fcitx_utils_init_as_daemon();
 
-    asprintf(&servicename, "%s-%d", FCITX_DBUS_SERVICE, fcitx_utils_get_display_number());
+    asprintf(&servicename, "%s-%d", FCITX_DBUS_SERVICE,
+             fcitx_utils_get_display_number());
 
     DBusError err;
     dbus_error_init(&err);
 
-    DBusConnection* conn = dbus_connection_open(argv[1], NULL);
+    DBusConnection *conn = dbus_connection_open(argv[1], NULL);
     if (!conn)
         goto some_error;
 
-    FcitxDBusWatch* watches = NULL;
+    FcitxDBusWatch *watches = NULL;
 
-    if (!dbus_connection_set_watch_functions(conn, DBusAddWatch, DBusRemoveWatch, NULL, &watches, NULL)) {
+    if (!dbus_connection_set_watch_functions(
+            conn, DBusAddWatch, DBusRemoveWatch, NULL, &watches, NULL)) {
         goto some_error;
     }
 
@@ -79,12 +77,12 @@ int main (int argc, char* argv[])
         goto some_error;
 
     dbus_bus_add_match(conn,
-            "type='signal',"
-            "sender='" DBUS_SERVICE_DBUS "',"
-            "interface='" DBUS_INTERFACE_DBUS "',"
-            "path='" DBUS_PATH_DBUS "',"
-            "member='NameOwnerChanged'",
-            &err);
+                       "type='signal',"
+                       "sender='" DBUS_SERVICE_DBUS "',"
+                       "interface='" DBUS_INTERFACE_DBUS "',"
+                       "path='" DBUS_PATH_DBUS "',"
+                       "member='NameOwnerChanged'",
+                       &err);
 
     if (dbus_error_is_set(&err))
         goto some_error;
@@ -115,7 +113,7 @@ int main (int argc, char* argv[])
         if (maxfd == 0)
             break;
         select(maxfd + 1, &rfds, &wfds, &efds, NULL);
-    } while(1);
+    } while (1);
 
     if (status == FCITX_DIE || status == DBUS_DIE) {
         kill(pid, SIGTERM);

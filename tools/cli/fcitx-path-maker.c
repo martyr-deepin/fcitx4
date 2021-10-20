@@ -2,8 +2,4 @@
 
 /* a simple program to generate path for fcitx */
 
-int main(int argc, char* argv[])
-{
-
-    return 0;
-}
+int main(int argc, char *argv[]) { return 0; }

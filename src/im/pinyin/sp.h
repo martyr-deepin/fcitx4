@@ -29,26 +29,26 @@ typedef enum _SP_FROM {
 } SP_FROM;
 
 typedef struct _SP_C {
-    char            strQP[5];
-    char            cJP;
+    char strQP[5];
+    char cJP;
 } SP_C;
 
 typedef struct _SP_S {
-    char            strQP[3];
-    char            cJP;
+    char strQP[3];
+    char cJP;
 } SP_S;
 
 struct _FcitxPinyinConfig;
 struct _FcitxPinyinState;
 
-void            LoadSPData(struct _FcitxPinyinState* pystate);
+void LoadSPData(struct _FcitxPinyinState *pystate);
 
-//void            QP2SP (char *strQP, char *strSP);
-void            SP2QP(struct _FcitxPinyinConfig* pyconfig, const char* strSP, char* strQP);
-int             GetSPIndexQP_C(struct _FcitxPinyinConfig* pyconfig, char *str);
-int             GetSPIndexQP_S(struct _FcitxPinyinConfig* pyconfig, char *str);
-int             GetSPIndexJP_C(struct _FcitxPinyinConfig* pyconfig, char c, int iStart);
-int             GetSPIndexJP_S(struct _FcitxPinyinConfig* pyconfig, char c);
+// void            QP2SP (char *strQP, char *strSP);
+void SP2QP(struct _FcitxPinyinConfig *pyconfig, const char *strSP, char *strQP);
+int GetSPIndexQP_C(struct _FcitxPinyinConfig *pyconfig, char *str);
+int GetSPIndexQP_S(struct _FcitxPinyinConfig *pyconfig, char *str);
+int GetSPIndexJP_C(struct _FcitxPinyinConfig *pyconfig, char c, int iStart);
+int GetSPIndexJP_S(struct _FcitxPinyinConfig *pyconfig, char c);
 
 #endif
 

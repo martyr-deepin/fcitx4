@@ -18,73 +18,72 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <stdio.h>
-#include <string.h>
 #include <dirent.h>
-#include <stdlib.h>
 #include <errno.h>
-#include <limits.h>
 #include <libintl.h>
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
-#include <X11/XKBlib.h>
-#include <X11/extensions/XKBrules.h>
-#include <X11/extensions/XKBstr.h>
-#include "fcitx/context.h"
-#include "fcitx/hook.h"
-#include "fcitx/addon.h"
-#include "fcitx/module.h"
-#include "module/x11/fcitx-x11.h"
 #include "fcitx-config/xdg.h"
 #include "fcitx-utils/log.h"
 #include "fcitx-utils/utils.h"
+#include "fcitx/addon.h"
+#include "fcitx/context.h"
+#include "fcitx/hook.h"
+#include "fcitx/module.h"
+#include "module/x11/fcitx-x11.h"
+#include <X11/XKBlib.h>
+#include <X11/Xatom.h>
+#include <X11/Xlib.h>
+#include <X11/extensions/XKBrules.h>
+#include <X11/extensions/XKBstr.h>
 
 #include "config.h"
-#include "xkb.h"
-#include "xkb-internal.h"
 #include "rules.h"
+#include "xkb-internal.h"
+#include "xkb.h"
 #ifdef _ENABLE_DBUS
 #include "module/xkbdbus/fcitx-xkbdbus.h"
 #endif
-
 
 #ifndef XKB_RULES_XML_FILE
 #define XKB_RULES_XML_FILE "/usr/share/X11/xkb/rules/evdev.xml"
 #endif
 
-#define GROUP_CHANGE_MASK (XkbGroupStateMask | XkbGroupBaseMask |       \
-                           XkbGroupLatchMask | XkbGroupLockMask)
+#define GROUP_CHANGE_MASK                                                      \
+    (XkbGroupStateMask | XkbGroupBaseMask | XkbGroupLatchMask |                \
+     XkbGroupLockMask)
 
 DECLARE_ADDFUNCTIONS(Xkb)
-static void FcitxXkbGetCurrentLayoutInternal(FcitxXkb *xkb,
-                                             char **layout, char **variant);
-static void* FcitxXkbCreate(struct _FcitxInstance* instance);
-static void FcitxXkbDestroy(void*);
-static void FcitxXkbReloadConfig(void*);
-static void FcitxXkbInitDefaultLayout (FcitxXkb* xkb);
-static Bool FcitxXkbSetRules(FcitxXkb* xkb, const char *rules_file,
+static void FcitxXkbGetCurrentLayoutInternal(FcitxXkb *xkb, char **layout,
+                                             char **variant);
+static void *FcitxXkbCreate(struct _FcitxInstance *instance);
+static void FcitxXkbDestroy(void *);
+static void FcitxXkbReloadConfig(void *);
+static void FcitxXkbInitDefaultLayout(FcitxXkb *xkb);
+static Bool FcitxXkbSetRules(FcitxXkb *xkb, const char *rules_file,
                              const char *model, const char *all_layouts,
                              const char *all_variants, const char *all_options);
-static Bool FcitxXkbUpdateProperties(FcitxXkb* xkb, const char *rules_file,
+static Bool FcitxXkbUpdateProperties(FcitxXkb *xkb, const char *rules_file,
                                      const char *model, const char *all_layouts,
                                      const char *all_variants,
                                      const char *all_options);
-static void FcitxXkbApplyCustomScript(FcitxXkb* xkb);
+static void FcitxXkbApplyCustomScript(FcitxXkb *xkb);
 
-
-static inline boolean IMIsKeyboardIM(const char* imname) {
-    return strncmp(imname, "fcitx-keyboard-",
-                   strlen("fcitx-keyboard-")) == 0;
+static inline boolean IMIsKeyboardIM(const char *imname) {
+    return strncmp(imname, "fcitx-keyboard-", strlen("fcitx-keyboard-")) == 0;
 }
 
-static void ExtractKeyboardIMLayout(const char* imname, char** layout, char** variant) {
+static void ExtractKeyboardIMLayout(const char *imname, char **layout,
+                                    char **variant) {
     if (!IMIsKeyboardIM(imname)) {
         return;
     }
 
     imname += strlen("fcitx-keyboard-");
-    char* v = strchr(imname, '-');
+    char *v = strchr(imname, '-');
     if (v) {
         *layout = strndup(imname, v - imname);
         v++;
@@ -99,53 +98,44 @@ static char* FcitxXkbGetCurrentLayout(FcitxXkb* xkb);
 static char* FcitxXkbGetCurrentModel(FcitxXkb* xkb);
 static char* FcitxXkbGetCurrentOption(FcitxXkb* xkb);
 #endif
-static boolean
-FcitxXkbSetLayoutByName(FcitxXkb *xkb,
-                        const char *layout, const char *variant, boolean toDefault);
-static void
-FcitxXkbRetrieveCloseGroup(FcitxXkb *xkb);
-static void FcitxXkbSetLayout  (FcitxXkb* xkb,
-                                const char *layouts,
-                                const char *variants,
-                                const char *options);
-static int FcitxXkbGetCurrentGroup (FcitxXkb* xkb);
-static void FcitxXkbIMKeyboardLayoutChanged(void* arg, const void* value);
-static int FcitxXkbFindLayoutIndex(FcitxXkb* xkb, const char* layout, const char* variant);
-static void FcitxXkbCurrentStateChanged(void* arg);
-static void FcitxXkbCurrentStateChangedTriggerOn(void* arg);
-static char* FcitxXkbGetRulesName(FcitxXkb* xkb);
-static char* FcitxXkbFindXkbRulesFile(FcitxXkb* xkb);
-static boolean LoadXkbConfig(FcitxXkb* xkb);
-static void SaveXkbConfig(FcitxXkb* fs);
-static boolean FcitxXkbEventHandler(void* arg, XEvent* event);
+static boolean FcitxXkbSetLayoutByName(FcitxXkb *xkb, const char *layout,
+                                       const char *variant, boolean toDefault);
+static void FcitxXkbRetrieveCloseGroup(FcitxXkb *xkb);
+static void FcitxXkbSetLayout(FcitxXkb *xkb, const char *layouts,
+                              const char *variants, const char *options);
+static int FcitxXkbGetCurrentGroup(FcitxXkb *xkb);
+static void FcitxXkbIMKeyboardLayoutChanged(void *arg, const void *value);
+static int FcitxXkbFindLayoutIndex(FcitxXkb *xkb, const char *layout,
+                                   const char *variant);
+static void FcitxXkbCurrentStateChanged(void *arg);
+static void FcitxXkbCurrentStateChangedTriggerOn(void *arg);
+static char *FcitxXkbGetRulesName(FcitxXkb *xkb);
+static char *FcitxXkbFindXkbRulesFile(FcitxXkb *xkb);
+static boolean LoadXkbConfig(FcitxXkb *xkb);
+static void SaveXkbConfig(FcitxXkb *fs);
+static boolean FcitxXkbEventHandler(void *arg, XEvent *event);
 
 CONFIG_DESC_DEFINE(GetXkbConfigDesc, "fcitx-xkb.desc")
 
 typedef struct _LayoutOverride {
-    char* im;
-    char* layout;
-    char* variant;
+    char *im;
+    char *layout;
+    char *variant;
     UT_hash_handle hh;
 } LayoutOverride;
 
 FCITX_DEFINE_PLUGIN(fcitx_xkb, module, FcitxModule) = {
-    FcitxXkbCreate,
-    NULL,
-    NULL,
-    FcitxXkbDestroy,
-    FcitxXkbReloadConfig
-};
+    FcitxXkbCreate, NULL, NULL, FcitxXkbDestroy, FcitxXkbReloadConfig};
 
-boolean FcitxXkbSupported(FcitxXkb* xkb, int* xkbOpcode)
-{
+boolean FcitxXkbSupported(FcitxXkb *xkb, int *xkbOpcode) {
     // Verify the Xlib has matching XKB extension.
 
     int major = XkbMajorVersion;
     int minor = XkbMinorVersion;
 
     if (!XkbLibraryVersion(&major, &minor)) {
-        FcitxLog(WARNING, "Xlib XKB extension %d.%d != %d %d",
-                 major, minor, XkbMajorVersion, XkbMinorVersion);
+        FcitxLog(WARNING, "Xlib XKB extension %d.%d != %d %d", major, minor,
+                 XkbMajorVersion, XkbMinorVersion);
         return false;
     }
 
@@ -154,10 +144,10 @@ boolean FcitxXkbSupported(FcitxXkb* xkb, int* xkbOpcode)
     int opcode_rtrn;
     int error_rtrn;
     int xkb_opcode;
-    if (!XkbQueryExtension(xkb->dpy, &opcode_rtrn, &xkb_opcode,
-                           &error_rtrn, &major, &minor)) {
-        FcitxLog(WARNING, "Xlib XKB extension %d.%d != %d %d",
-                 major, minor, XkbMajorVersion, XkbMinorVersion);
+    if (!XkbQueryExtension(xkb->dpy, &opcode_rtrn, &xkb_opcode, &error_rtrn,
+                           &major, &minor)) {
+        FcitxLog(WARNING, "Xlib XKB extension %d.%d != %d %d", major, minor,
+                 XkbMajorVersion, XkbMinorVersion);
         return false;
     }
 
@@ -171,7 +161,7 @@ boolean FcitxXkbSupported(FcitxXkb* xkb, int* xkbOpcode)
 static void FcitxXkbFixInconsistentLayoutVariant(FcitxXkb *xkb) {
     while (utarray_len(xkb->defaultVariants) <
            utarray_len(xkb->defaultLayouts)) {
-        const char* dummy = "";
+        const char *dummy = "";
         utarray_push_back(xkb->defaultVariants, &dummy);
     }
 
@@ -181,17 +171,14 @@ static void FcitxXkbFixInconsistentLayoutVariant(FcitxXkb *xkb) {
     }
 }
 
-static inline void
-FcitxXkbClearVarDefsRec(XkbRF_VarDefsRec *vdp)
-{
+static inline void FcitxXkbClearVarDefsRec(XkbRF_VarDefsRec *vdp) {
     fcitx_utils_free(vdp->model);
     fcitx_utils_free(vdp->layout);
     fcitx_utils_free(vdp->variant);
     fcitx_utils_free(vdp->options);
 }
 
-static char* FcitxXkbGetRulesName(FcitxXkb* xkb)
-{
+static char *FcitxXkbGetRulesName(FcitxXkb *xkb) {
     XkbRF_VarDefsRec vd;
     char *tmp = NULL;
 
@@ -203,9 +190,7 @@ static char* FcitxXkbGetRulesName(FcitxXkb* xkb)
     return NULL;
 }
 
-
-static char* FcitxXkbFindXkbRulesFile(FcitxXkb* xkb)
-{
+static char *FcitxXkbFindXkbRulesFile(FcitxXkb *xkb) {
     char *rulesFile = NULL;
     char *rulesName = FcitxXkbGetRulesName(xkb);
 
@@ -223,10 +208,7 @@ static char* FcitxXkbFindXkbRulesFile(FcitxXkb* xkb)
     return rulesFile;
 }
 
-UT_array*
-splitAndKeepEmpty(UT_array *list,
-                  const char* str, const char *delm)
-{
+UT_array *splitAndKeepEmpty(UT_array *list, const char *str, const char *delm) {
     const char *lastPos, *pos;
     lastPos = str;
     // even lastPos points to '\0" it will return something meaningful.
@@ -243,10 +225,8 @@ splitAndKeepEmpty(UT_array *list,
     return list;
 }
 
-static void
-FcitxXkbInitDefaultLayout(FcitxXkb* xkb)
-{
-    Display* dpy = xkb->dpy;
+static void FcitxXkbInitDefaultLayout(FcitxXkb *xkb) {
+    Display *dpy = xkb->dpy;
     XkbRF_VarDefsRec vd;
 
     utarray_clear(xkb->defaultLayouts);
@@ -281,11 +261,10 @@ FcitxXkbInitDefaultLayout(FcitxXkb* xkb)
     FcitxXkbClearVarDefsRec(&vd);
 }
 
-static Bool
-FcitxXkbSetRules(FcitxXkb* xkb, const char *rules_file, const char *model,
-                 const char *all_layouts, const char *all_variants,
-                 const char *all_options)
-{
+static Bool FcitxXkbSetRules(FcitxXkb *xkb, const char *rules_file,
+                             const char *model, const char *all_layouts,
+                             const char *all_variants,
+                             const char *all_options) {
     Display *dpy = xkb->dpy;
     char *prefix;
     XkbRF_RulesPtr rules = NULL;
@@ -308,7 +287,8 @@ FcitxXkbSetRules(FcitxXkb* xkb, const char *rules_file, const char *model,
     if (rules == NULL) {
         char *rulesPath = FcitxXkbFindXkbRulesFile(xkb);
         size_t rulesBaseLen = strlen(rulesPath) - strlen(".xml");
-        if (strlen(rulesPath) > strlen(".xml") && strcmp(rulesPath + rulesBaseLen, ".xml") == 0) {
+        if (strlen(rulesPath) > strlen(".xml") &&
+            strcmp(rulesPath + rulesBaseLen, ".xml") == 0) {
             rulesPath[rulesBaseLen] = '\0';
         }
         rules = XkbRF_Load(rulesPath, "C", True, True);
@@ -321,13 +301,13 @@ FcitxXkbSetRules(FcitxXkb* xkb, const char *rules_file, const char *model,
     memset(&rnames, 0, sizeof(XkbComponentNamesRec));
     rdefs.model = model ? strdup(model) : NULL;
     rdefs.layout = all_layouts ? strdup(all_layouts) : NULL;
-    rdefs.variant = all_variants && all_variants[0] ? strdup(all_variants) : NULL;
+    rdefs.variant =
+        all_variants && all_variants[0] ? strdup(all_variants) : NULL;
     rdefs.options = all_options && all_options[0] ? strdup(all_options) : NULL;
     XkbRF_GetComponents(rules, &rdefs, &rnames);
-    xkbDesc = XkbGetKeyboardByName(dpy, XkbUseCoreKbd, &rnames,
-                                   XkbGBN_AllComponentsMask,
-                                   XkbGBN_AllComponentsMask &
-                                   (~XkbGBN_GeometryMask), True);
+    xkbDesc = XkbGetKeyboardByName(
+        dpy, XkbUseCoreKbd, &rnames, XkbGBN_AllComponentsMask,
+        XkbGBN_AllComponentsMask & (~XkbGBN_GeometryMask), True);
 
     XkbRF_Free(rules, True);
     free(rnames.keymap);
@@ -339,13 +319,12 @@ FcitxXkbSetRules(FcitxXkb* xkb, const char *rules_file, const char *model,
 
     Bool result = True;
     if (!xkbDesc) {
-        FcitxLog (WARNING, "Cannot load new keyboard description.");
+        FcitxLog(WARNING, "Cannot load new keyboard description.");
         result = False;
-    }
-    else {
-        char* tempstr = strdup(rules_file);
+    } else {
+        char *tempstr = strdup(rules_file);
         XkbRF_SetNamesProp(dpy, tempstr, &rdefs);
-        free (tempstr);
+        free(tempstr);
         XkbFreeKeyboard(xkbDesc, XkbGBN_AllComponentsMask, True);
     }
     free(rdefs.model);
@@ -356,11 +335,10 @@ FcitxXkbSetRules(FcitxXkb* xkb, const char *rules_file, const char *model,
     return result;
 }
 
-static Bool
-FcitxXkbUpdateProperties(FcitxXkb* xkb, const char *rules_file,
-                         const char *model, const char *all_layouts,
-                         const char *all_variants, const char *all_options)
-{
+static Bool FcitxXkbUpdateProperties(FcitxXkb *xkb, const char *rules_file,
+                                     const char *model, const char *all_layouts,
+                                     const char *all_variants,
+                                     const char *all_options) {
     Display *dpy = xkb->dpy;
     int len;
     char *pval;
@@ -368,11 +346,11 @@ FcitxXkbUpdateProperties(FcitxXkb* xkb, const char *rules_file,
     static Atom rules_atom = None;
     Window root_window;
 
-    len = (rules_file ? strlen (rules_file) : 0);
-    len += (model ? strlen (model) : 0);
-    len += (all_layouts ? strlen (all_layouts) : 0);
-    len += (all_variants ? strlen (all_variants) : 0);
-    len += (all_options ? strlen (all_options) : 0);
+    len = (rules_file ? strlen(rules_file) : 0);
+    len += (model ? strlen(model) : 0);
+    len += (all_layouts ? strlen(all_layouts) : 0);
+    len += (all_variants ? strlen(all_variants) : 0);
+    len += (all_options ? strlen(all_options) : 0);
 
     if (len < 1) {
         return True;
@@ -380,56 +358,54 @@ FcitxXkbUpdateProperties(FcitxXkb* xkb, const char *rules_file,
     len += 5; /* trailing NULs */
 
     if (rules_atom == None)
-        rules_atom = XInternAtom (dpy, _XKB_RF_NAMES_PROP_ATOM, False);
-    root_window = XDefaultRootWindow (dpy);
-    pval = next = (char*) fcitx_utils_malloc0 (sizeof(char) *(len + 1));
+        rules_atom = XInternAtom(dpy, _XKB_RF_NAMES_PROP_ATOM, False);
+    root_window = XDefaultRootWindow(dpy);
+    pval = next = (char *)fcitx_utils_malloc0(sizeof(char) * (len + 1));
     if (!pval) {
         return True;
     }
 
     if (rules_file) {
-        strcpy (next, rules_file);
-        next += strlen (rules_file);
+        strcpy(next, rules_file);
+        next += strlen(rules_file);
     }
     *next++ = '\0';
     if (model) {
-        strcpy (next, model);
-        next += strlen (model);
+        strcpy(next, model);
+        next += strlen(model);
     }
     *next++ = '\0';
     if (all_layouts) {
-        strcpy (next, all_layouts);
-        next += strlen (all_layouts);
+        strcpy(next, all_layouts);
+        next += strlen(all_layouts);
     }
     *next++ = '\0';
     if (all_variants) {
-        strcpy (next, all_variants);
-        next += strlen (all_variants);
+        strcpy(next, all_variants);
+        next += strlen(all_variants);
     }
     *next++ = '\0';
     if (all_options) {
-        strcpy (next, all_options);
-        next += strlen (all_options);
+        strcpy(next, all_options);
+        next += strlen(all_options);
     }
     *next++ = '\0';
     if ((next - pval) == len) {
-        XChangeProperty (dpy, root_window,
-                        rules_atom, XA_STRING, 8, PropModeReplace,
-                        (unsigned char *) pval, len);
+        XChangeProperty(dpy, root_window, rules_atom, XA_STRING, 8,
+                        PropModeReplace, (unsigned char *)pval, len);
     }
 
     free(pval);
     return True;
 }
 
-static void
-FcitxXkbGetCurrentLayoutInternal(FcitxXkb *xkb, char **layout, char **variant)
-{
+static void FcitxXkbGetCurrentLayoutInternal(FcitxXkb *xkb, char **layout,
+                                             char **variant) {
     int cur_group = FcitxXkbGetCurrentGroup(xkb);
-    char* const *layoutName = fcitx_array_eltptr(xkb->defaultLayouts,
-                                                 cur_group);
-    char* const *pVariantName = fcitx_array_eltptr(xkb->defaultVariants,
-                                                   cur_group);
+    char *const *layoutName =
+        fcitx_array_eltptr(xkb->defaultLayouts, cur_group);
+    char *const *pVariantName =
+        fcitx_array_eltptr(xkb->defaultVariants, cur_group);
     if (layoutName)
         *layout = strdup(*layoutName);
     else
@@ -462,10 +438,8 @@ FcitxXkbGetCurrentOption(FcitxXkb* xkb)
 #endif
 
 /* This SHOULD be _SetLayouts_ .... */
-static void
-FcitxXkbSetLayout(FcitxXkb* xkb, const char *layouts,
-                  const char *variants, const char *options)
-{
+static void FcitxXkbSetLayout(FcitxXkb *xkb, const char *layouts,
+                              const char *variants, const char *options) {
     char *layouts_line;
     char *options_line;
     char *variants_line;
@@ -493,14 +467,12 @@ FcitxXkbSetLayout(FcitxXkb* xkb, const char *layouts,
 
     model_line = fcitx_utils_join_string_list(xkb->defaultModels, ',');
 
-    char* rulesName = FcitxXkbGetRulesName(xkb);
+    char *rulesName = FcitxXkbGetRulesName(xkb);
     if (rulesName) {
-        if (FcitxXkbSetRules(xkb,
-                             rulesName, model_line,
-                             layouts_line, variants_line, options_line)) {
-            FcitxXkbUpdateProperties(xkb,
-                                     rulesName, model_line,
-                                     layouts_line, variants_line, options_line);
+        if (FcitxXkbSetRules(xkb, rulesName, model_line, layouts_line,
+                             variants_line, options_line)) {
+            FcitxXkbUpdateProperties(xkb, rulesName, model_line, layouts_line,
+                                     variants_line, options_line);
             xkb->waitingForRefresh = true;
         }
         free(rulesName);
@@ -511,9 +483,7 @@ FcitxXkbSetLayout(FcitxXkb* xkb, const char *layouts,
     free(model_line);
 }
 
-static int
-FcitxXkbGetCurrentGroup(FcitxXkb* xkb)
-{
+static int FcitxXkbGetCurrentGroup(FcitxXkb *xkb) {
     Display *dpy = xkb->dpy;
     XkbStateRec state;
 
@@ -530,9 +500,9 @@ FcitxXkbGetCurrentGroup(FcitxXkb* xkb)
     return state.group;
 }
 
-static void FcitxXkbAddNewLayout(FcitxXkb* xkb, const char* layoutString,
-                                 const char* variantString, boolean toDefault, int index)
-{
+static void FcitxXkbAddNewLayout(FcitxXkb *xkb, const char *layoutString,
+                                 const char *variantString, boolean toDefault,
+                                 int index) {
     if (!layoutString)
         return;
 
@@ -569,9 +539,8 @@ static void FcitxXkbAddNewLayout(FcitxXkb* xkb, const char* layoutString,
     FcitxXkbSetLayout(xkb, NULL, NULL, NULL);
 }
 
-static int
-FcitxXkbFindOrAddLayout(FcitxXkb *xkb, const char *layout, const char *variant, boolean toDefault)
-{
+static int FcitxXkbFindOrAddLayout(FcitxXkb *xkb, const char *layout,
+                                   const char *variant, boolean toDefault) {
     int index;
     if (layout == NULL)
         return -1;
@@ -587,9 +556,8 @@ FcitxXkbFindOrAddLayout(FcitxXkb *xkb, const char *layout, const char *variant, 
     return FcitxXkbFindLayoutIndex(xkb, layout, variant);
 }
 
-static boolean
-FcitxXkbSetLayoutByName(FcitxXkb *xkb, const char *layout, const char *variant, boolean toDefault)
-{
+static boolean FcitxXkbSetLayoutByName(FcitxXkb *xkb, const char *layout,
+                                       const char *variant, boolean toDefault) {
     int index;
     index = FcitxXkbFindOrAddLayout(xkb, layout, variant, toDefault);
     if (index < 0) {
@@ -601,8 +569,10 @@ FcitxXkbSetLayoutByName(FcitxXkb *xkb, const char *layout, const char *variant, 
         XkbLockGroup(xkb->dpy, XkbUseCoreKbd, index);
         return false;
     }
-    FcitxAddon *addon = FcitxAddonsGetAddonByName(FcitxInstanceGetAddons(xkb->owner), "fcitx-xkbdbus");
-    if (!addon || !addon->addonInstance || !FcitxXkbDBusLockGroupByHelper(xkb->owner, index))
+    FcitxAddon *addon = FcitxAddonsGetAddonByName(
+        FcitxInstanceGetAddons(xkb->owner), "fcitx-xkbdbus");
+    if (!addon || !addon->addonInstance ||
+        !FcitxXkbDBusLockGroupByHelper(xkb->owner, index))
 #endif
     {
         XkbLockGroup(xkb->dpy, XkbUseCoreKbd, index);
@@ -610,10 +580,8 @@ FcitxXkbSetLayoutByName(FcitxXkb *xkb, const char *layout, const char *variant, 
     return true;
 }
 
-static void
-FcitxXkbRetrieveCloseGroup(FcitxXkb *xkb)
-{
-    LayoutOverride* item = NULL;
+static void FcitxXkbRetrieveCloseGroup(FcitxXkb *xkb) {
+    LayoutOverride *item = NULL;
     HASH_FIND_STR(xkb->layoutOverride, "default", item);
     if (item) {
         FcitxXkbSetLayoutByName(xkb, item->layout, item->variant, true);
@@ -624,12 +592,12 @@ FcitxXkbRetrieveCloseGroup(FcitxXkb *xkb)
             }
             char *layout = NULL, *variant = NULL;
 
-            UT_array* imes = FcitxInstanceGetIMEs(xkb->owner);
+            UT_array *imes = FcitxInstanceGetIMEs(xkb->owner);
             if (utarray_len(imes) == 0) {
                 break;
             }
 
-            FcitxIM* im = (FcitxIM*) utarray_front(imes);
+            FcitxIM *im = (FcitxIM *)utarray_front(imes);
             ExtractKeyboardIMLayout(im->uniqueName, &layout, &variant);
             if (!layout) {
                 break;
@@ -638,32 +606,30 @@ FcitxXkbRetrieveCloseGroup(FcitxXkb *xkb)
             free(layout);
             free(variant);
             return;
-        } while(0);
+        } while (0);
         FcitxXkbSetLayoutByName(xkb, xkb->closeLayout, xkb->closeVariant, true);
     }
 }
 
-static void FcitxXkbIMKeyboardLayoutChanged(void* arg, const void* value)
-{
+static void FcitxXkbIMKeyboardLayoutChanged(void *arg, const void *value) {
     /* fcitx-keyboard won't be able to set layout,
      * if fcitx-xkb doesn't change the layout for it. */
-    FcitxXkb *xkb = (FcitxXkb*) arg;
+    FcitxXkb *xkb = (FcitxXkb *)arg;
     FcitxIM *currentIM = FcitxInstanceGetCurrentIM(xkb->owner);
 
     /* active means im will be take care */
     if (FcitxInstanceGetCurrentStatev2(xkb->owner) == IS_ACTIVE) {
         char *layoutToFree = NULL, *variantToFree = NULL;
-        char* layoutString = NULL;
-        char* variantString = NULL;
-        LayoutOverride* item = NULL;
-        UT_array* s = NULL;
+        char *layoutString = NULL;
+        char *variantString = NULL;
+        LayoutOverride *item = NULL;
+        UT_array *s = NULL;
         if (currentIM)
             HASH_FIND_STR(xkb->layoutOverride, currentIM->uniqueName, item);
         if (item) {
             layoutString = item->layout;
             variantString = item->variant;
-        }
-        else {
+        } else {
 
             do {
                 if (!xkb->config.useFirstKeyboardIMAsDefaultLayout) {
@@ -673,13 +639,14 @@ static void FcitxXkbIMKeyboardLayoutChanged(void* arg, const void* value)
                     break;
                 }
 
-                UT_array* imes = FcitxInstanceGetIMEs(xkb->owner);
+                UT_array *imes = FcitxInstanceGetIMEs(xkb->owner);
                 if (utarray_len(imes) == 0) {
                     break;
                 }
 
-                FcitxIM* im = (FcitxIM*) utarray_front(imes);
-                ExtractKeyboardIMLayout(im->uniqueName, &layoutToFree, &variantToFree);
+                FcitxIM *im = (FcitxIM *)utarray_front(imes);
+                ExtractKeyboardIMLayout(im->uniqueName, &layoutToFree,
+                                        &variantToFree);
                 if (!layoutToFree) {
                     break;
                 }
@@ -687,25 +654,25 @@ static void FcitxXkbIMKeyboardLayoutChanged(void* arg, const void* value)
                 layoutString = layoutToFree;
                 variantString = variantToFree;
 
-            } while(0);
+            } while (0);
 
             if (!layoutString) {
-                const char* layoutVariantString = (const char*) value;
+                const char *layoutVariantString = (const char *)value;
                 if (layoutVariantString) {
                     s = fcitx_utils_split_string(layoutVariantString, ',');
-                    char  **pLayoutString = (char**)utarray_eltptr(s, 0);
-                    char **pVariantString = (char**)utarray_eltptr(s, 1);
-                    layoutString = (pLayoutString)? *pLayoutString: NULL;
-                    variantString = (pVariantString)? *pVariantString: NULL;
-                }
-                else {
+                    char **pLayoutString = (char **)utarray_eltptr(s, 0);
+                    char **pVariantString = (char **)utarray_eltptr(s, 1);
+                    layoutString = (pLayoutString) ? *pLayoutString : NULL;
+                    variantString = (pVariantString) ? *pVariantString : NULL;
+                } else {
                     layoutString = NULL;
                     variantString = NULL;
                 }
             }
         }
         if (layoutString) {
-            if (!FcitxXkbSetLayoutByName(xkb, layoutString, variantString, false)) {
+            if (!FcitxXkbSetLayoutByName(xkb, layoutString, variantString,
+                                         false)) {
                 FcitxXkbRetrieveCloseGroup(xkb);
             }
         }
@@ -720,17 +687,17 @@ static void FcitxXkbIMKeyboardLayoutChanged(void* arg, const void* value)
     }
 }
 
-static int FcitxXkbFindLayoutIndex(FcitxXkb* xkb, const char* layout, const char* variant)
-{
-    char** layoutName;
-    char* variantName, **pVariantName;
+static int FcitxXkbFindLayoutIndex(FcitxXkb *xkb, const char *layout,
+                                   const char *variant) {
+    char **layoutName;
+    char *variantName, **pVariantName;
     if (layout == NULL)
         return -1;
 
     unsigned int i = 0;
-    for (i = 0;i < utarray_len(xkb->defaultLayouts);i++) {
-        layoutName = (char**)utarray_eltptr(xkb->defaultLayouts, i);
-        pVariantName = (char**)utarray_eltptr(xkb->defaultVariants, i);
+    for (i = 0; i < utarray_len(xkb->defaultLayouts); i++) {
+        layoutName = (char **)utarray_eltptr(xkb->defaultLayouts, i);
+        pVariantName = (char **)utarray_eltptr(xkb->defaultVariants, i);
         variantName = pVariantName ? *pVariantName : NULL;
         if (strcmp(*layoutName, layout) == 0 &&
             fcitx_utils_strcmp_empty(variantName, variant) == 0) {
@@ -740,9 +707,7 @@ static int FcitxXkbFindLayoutIndex(FcitxXkb* xkb, const char* layout, const char
     return -1;
 }
 
-static void
-FcitxXkbSaveCloseGroup(FcitxXkb *xkb)
-{
+static void FcitxXkbSaveCloseGroup(FcitxXkb *xkb) {
     char *tmplayout;
     char *tmpvariant;
     FcitxXkbGetCurrentLayoutInternal(xkb, &tmplayout, &tmpvariant);
@@ -757,9 +722,7 @@ FcitxXkbSaveCloseGroup(FcitxXkb *xkb)
     FcitxXkbRetrieveCloseGroup(xkb);
 }
 
-static void
-FcitxXkbGetDefaultXmodmap(FcitxXkb *xkb)
-{
+static void FcitxXkbGetDefaultXmodmap(FcitxXkb *xkb) {
     static char *home = NULL;
     if (fcitx_likely(xkb->defaultXmodmapPath))
         return;
@@ -772,8 +735,7 @@ FcitxXkbGetDefaultXmodmap(FcitxXkb *xkb)
     fcitx_utils_alloc_cat_str(xkb->defaultXmodmapPath, home, "/.Xmodmap");
 }
 
-static void* FcitxXkbCreate(FcitxInstance* instance)
-{
+static void *FcitxXkbCreate(FcitxInstance *instance) {
     FcitxXkb *xkb = fcitx_utils_new(FcitxXkb);
     xkb->owner = instance;
     do {
@@ -788,7 +750,7 @@ static void* FcitxXkbCreate(FcitxInstance* instance)
             break;
         }
 
-        char* rulesPath = FcitxXkbFindXkbRulesFile(xkb);
+        char *rulesPath = FcitxXkbFindXkbRulesFile(xkb);
         xkb->rules = FcitxXkbReadRules(rulesPath);
         free(rulesPath);
 
@@ -829,11 +791,12 @@ static void* FcitxXkbCreate(FcitxInstance* instance)
     return NULL;
 }
 
-static void FcitxXkbScheduleRefresh(void* arg) {
-    FcitxXkb* xkb = (FcitxXkb*) arg;
+static void FcitxXkbScheduleRefresh(void *arg) {
+    FcitxXkb *xkb = (FcitxXkb *)arg;
     FcitxUIUpdateInputWindow(xkb->owner);
     FcitxXkbInitDefaultLayout(xkb);
-    // we shall now ignore all outside world change, apply only if we do it on our own
+    // we shall now ignore all outside world change, apply only if we do it on
+    // our own
     xkb->blockOverride = true;
     FcitxXkbCurrentStateChanged(xkb);
     if (xkb->waitingForRefresh) {
@@ -843,50 +806,48 @@ static void FcitxXkbScheduleRefresh(void* arg) {
     xkb->blockOverride = false;
 }
 
-static boolean FcitxXkbEventHandler(void* arg, XEvent* event)
-{
-    FcitxXkb* xkb = (FcitxXkb*) arg;
+static boolean FcitxXkbEventHandler(void *arg, XEvent *event) {
+    FcitxXkb *xkb = (FcitxXkb *)arg;
 
     if (event->type == xkb->xkbOpcode) {
-        XkbEvent *xkbEvent = (XkbEvent*) event;
+        XkbEvent *xkbEvent = (XkbEvent *)event;
 
         if (xkbEvent->any.xkb_type == XkbStateNotify &&
             xkbEvent->state.changed & GROUP_CHANGE_MASK) {
-            if (xkb->config.useFirstKeyboardIMAsDefaultLayout
-                && FcitxInstanceGetCurrentStatev2(xkb->owner) != IS_ACTIVE) {
+            if (xkb->config.useFirstKeyboardIMAsDefaultLayout &&
+                FcitxInstanceGetCurrentStatev2(xkb->owner) != IS_ACTIVE) {
                 FcitxXkbSaveCloseGroup(xkb);
             }
         }
 
-        if (xkbEvent->any.xkb_type == XkbNewKeyboardNotify
-            && xkbEvent->new_kbd.serial != xkb->lastSerial
-        ) {
+        if (xkbEvent->any.xkb_type == XkbNewKeyboardNotify &&
+            xkbEvent->new_kbd.serial != xkb->lastSerial) {
             xkb->lastSerial = xkbEvent->new_kbd.serial;
-            FcitxInstanceRemoveTimeoutByFunc(xkb->owner, FcitxXkbScheduleRefresh);
-            FcitxInstanceAddTimeout(xkb->owner, 10, FcitxXkbScheduleRefresh, xkb);
+            FcitxInstanceRemoveTimeoutByFunc(xkb->owner,
+                                             FcitxXkbScheduleRefresh);
+            FcitxInstanceAddTimeout(xkb->owner, 10, FcitxXkbScheduleRefresh,
+                                    xkb);
         }
         return true;
     }
     return false;
 }
 
-static void FcitxXkbCurrentStateChanged(void* arg)
-{
-    FcitxXkb* xkb = (FcitxXkb*) arg;
-    const char* layout = FcitxInstanceGetContextString(xkb->owner, CONTEXT_IM_KEYBOARD_LAYOUT);
+static void FcitxXkbCurrentStateChanged(void *arg) {
+    FcitxXkb *xkb = (FcitxXkb *)arg;
+    const char *layout =
+        FcitxInstanceGetContextString(xkb->owner, CONTEXT_IM_KEYBOARD_LAYOUT);
     FcitxXkbIMKeyboardLayoutChanged(xkb, layout);
 }
 
-static void FcitxXkbCurrentStateChangedTriggerOn(void* arg)
-{
-    FcitxXkb* xkb = (FcitxXkb*) arg;
+static void FcitxXkbCurrentStateChangedTriggerOn(void *arg) {
+    FcitxXkb *xkb = (FcitxXkb *)arg;
     FcitxXkbSaveCloseGroup(xkb);
     FcitxXkbCurrentStateChanged(arg);
 }
 
-static void FcitxXkbDestroy(void* arg)
-{
-    FcitxXkb* xkb = (FcitxXkb*) arg;
+static void FcitxXkbDestroy(void *arg) {
+    FcitxXkb *xkb = (FcitxXkb *)arg;
     if (xkb->config.bOverrideSystemXKBSettings)
         FcitxXkbSetLayout(xkb, NULL, NULL, NULL);
     FcitxXkbRetrieveCloseGroup(xkb);
@@ -904,17 +865,15 @@ static void FcitxXkbDestroy(void* arg)
     free(xkb);
 }
 
-static void FcitxXkbReloadConfig(void* arg)
-{
-    FcitxXkb* xkb = (FcitxXkb*) arg;
+static void FcitxXkbReloadConfig(void *arg) {
+    FcitxXkb *xkb = (FcitxXkb *)arg;
     LoadXkbConfig(xkb);
     FcitxXkbCurrentStateChanged(xkb);
     if (xkb->config.bOverrideSystemXKBSettings)
         FcitxXkbSetLayout(xkb, NULL, NULL, NULL);
 }
 
-static void FcitxXkbApplyCustomScript(FcitxXkb* xkb)
-{
+static void FcitxXkbApplyCustomScript(FcitxXkb *xkb) {
     FcitxXkbConfig *config = &xkb->config;
     if (!config->bOverrideSystemXKBSettings || !config->xmodmapCommand ||
         !config->xmodmapCommand[0])
@@ -931,29 +890,24 @@ static void FcitxXkbApplyCustomScript(FcitxXkb* xkb)
             xmodmap_script = xkb->defaultXmodmapPath;
         }
     } else {
-        FcitxXDGGetFileUserWithPrefix("data", config->customXModmapScript,
-                                      NULL, &to_free);
+        FcitxXDGGetFileUserWithPrefix("data", config->customXModmapScript, NULL,
+                                      &to_free);
         xmodmap_script = to_free;
     }
 
-    char* args[] = {
-        config->xmodmapCommand,
-        xmodmap_script,
-        NULL
-    };
+    char *args[] = {config->xmodmapCommand, xmodmap_script, NULL};
     fcitx_utils_start_process(args);
     fcitx_utils_free(to_free);
 }
 
-static inline void LayoutOverrideFree(LayoutOverride* item) {
+static inline void LayoutOverrideFree(LayoutOverride *item) {
     fcitx_utils_free(item->im);
     fcitx_utils_free(item->layout);
     fcitx_utils_free(item->variant);
     free(item);
 }
 
-void LoadLayoutOverride(FcitxXkb* xkb)
-{
+void LoadLayoutOverride(FcitxXkb *xkb) {
     char *buf = NULL;
     size_t len = 0;
     char *trimedbuf = NULL;
@@ -965,8 +919,8 @@ void LoadLayoutOverride(FcitxXkb* xkb)
         LayoutOverrideFree(cur);
     }
 
-    FILE *fp = FcitxXDGGetFileUserWithPrefix("data", "layout_override",
-                                             "r", NULL);
+    FILE *fp =
+        FcitxXDGGetFileUserWithPrefix("data", "layout_override", "r", NULL);
     if (!fp)
         return;
 
@@ -975,17 +929,17 @@ void LoadLayoutOverride(FcitxXkb* xkb)
             free(trimedbuf);
         trimedbuf = fcitx_utils_trim(buf);
 
-        UT_array* s = fcitx_utils_split_string(trimedbuf, ',');
-        char** pIMString = (char**)utarray_eltptr(s, 0);
-        char** pLayoutString = (char**)utarray_eltptr(s, 1);
-        char** pVariantString = (char**)utarray_eltptr(s, 2);
-        char* imString = (pIMString)? *pIMString: NULL;
-        char* layoutString = (pLayoutString)? *pLayoutString: NULL;
-        char* variantString = (pVariantString)? *pVariantString: NULL;
+        UT_array *s = fcitx_utils_split_string(trimedbuf, ',');
+        char **pIMString = (char **)utarray_eltptr(s, 0);
+        char **pLayoutString = (char **)utarray_eltptr(s, 1);
+        char **pVariantString = (char **)utarray_eltptr(s, 2);
+        char *imString = (pIMString) ? *pIMString : NULL;
+        char *layoutString = (pLayoutString) ? *pLayoutString : NULL;
+        char *variantString = (pVariantString) ? *pVariantString : NULL;
 
         if (!imString || !layoutString)
             continue;
-        LayoutOverride* override = NULL;
+        LayoutOverride *override = NULL;
         HASH_FIND_STR(xkb->layoutOverride, imString, override);
         /* if rule exists or the rule is for fcitx-keyboard, skip it */
         if (override || IMIsKeyboardIM(imString)) {
@@ -995,10 +949,10 @@ void LoadLayoutOverride(FcitxXkb* xkb)
         override = fcitx_utils_new(LayoutOverride);
         override->im = strdup(imString);
         override->layout = strdup(layoutString);
-        override->variant= variantString? strdup(variantString) : NULL;
+        override->variant = variantString ? strdup(variantString) : NULL;
 
-        HASH_ADD_KEYPTR(hh, xkb->layoutOverride,
-                        override->im, strlen(override->im), override);
+        HASH_ADD_KEYPTR(hh, xkb->layoutOverride, override->im,
+                        strlen(override->im), override);
     }
 
     if (buf)
@@ -1009,14 +963,13 @@ void LoadLayoutOverride(FcitxXkb* xkb)
     fclose(fp);
 }
 
-boolean LoadXkbConfig(FcitxXkb* xkb)
-{
+boolean LoadXkbConfig(FcitxXkb *xkb) {
     FcitxConfigFileDesc *configDesc = GetXkbConfigDesc();
     if (configDesc == NULL)
         return false;
 
-    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-xkb.config",
-                                             "r", NULL);
+    FILE *fp =
+        FcitxXDGGetFileUserWithPrefix("conf", "fcitx-xkb.config", "r", NULL);
 
     if (!fp) {
         if (errno == ENOENT) {
@@ -1035,14 +988,14 @@ boolean LoadXkbConfig(FcitxXkb* xkb)
     return true;
 }
 
-void SaveLayoutOverride(FcitxXkb* xkb)
-{
-    FILE *fp = FcitxXDGGetFileUserWithPrefix("data", "layout_override", "w", NULL);
+void SaveLayoutOverride(FcitxXkb *xkb) {
+    FILE *fp =
+        FcitxXDGGetFileUserWithPrefix("data", "layout_override", "w", NULL);
     if (!fp)
         return;
 
-    LayoutOverride* item = xkb->layoutOverride;
-    while(item) {
+    LayoutOverride *item = xkb->layoutOverride;
+    while (item) {
         if (item->variant)
             fprintf(fp, "%s,%s,%s\n", item->im, item->layout, item->variant);
         else
@@ -1053,10 +1006,10 @@ void SaveLayoutOverride(FcitxXkb* xkb)
     fclose(fp);
 }
 
-void SaveXkbConfig(FcitxXkb* xkb)
-{
+void SaveXkbConfig(FcitxXkb *xkb) {
     FcitxConfigFileDesc *configDesc = GetXkbConfigDesc();
-    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-xkb.config", "w", NULL);
+    FILE *fp =
+        FcitxXDGGetFileUserWithPrefix("conf", "fcitx-xkb.config", "w", NULL);
     FcitxConfigSaveConfigFileFp(fp, &xkb->config.gconfig, configDesc);
     if (fp)
         fclose(fp);
@@ -1064,10 +1017,8 @@ void SaveXkbConfig(FcitxXkb* xkb)
     SaveLayoutOverride(xkb);
 }
 
-static void
-FcitxXkbGetLayoutOverride(FcitxXkb *xkb, const char *imname, char **layout,
-                          char **variant)
-{
+static void FcitxXkbGetLayoutOverride(FcitxXkb *xkb, const char *imname,
+                                      char **layout, char **variant) {
     LayoutOverride *item = NULL;
     HASH_FIND_STR(xkb->layoutOverride, imname, item);
     if (item) {
@@ -1079,10 +1030,8 @@ FcitxXkbGetLayoutOverride(FcitxXkb *xkb, const char *imname, char **layout,
     }
 }
 
-static void
-FcitxXkbSetLayoutOverride(FcitxXkb *xkb, const char *imname, const char *layout,
-                          const char* variant)
-{
+static void FcitxXkbSetLayoutOverride(FcitxXkb *xkb, const char *imname,
+                                      const char *layout, const char *variant) {
     LayoutOverride *item = NULL;
     HASH_FIND_STR(xkb->layoutOverride, imname, item);
     if (item) {
@@ -1090,22 +1039,21 @@ FcitxXkbSetLayoutOverride(FcitxXkb *xkb, const char *imname, const char *layout,
         LayoutOverrideFree(item);
     }
 
-    if (layout && layout[0] != '\0' &&
-        !IMIsKeyboardIM(imname)) {
+    if (layout && layout[0] != '\0' && !IMIsKeyboardIM(imname)) {
         item = fcitx_utils_new(LayoutOverride);
         item->im = strdup(imname);
         item->layout = strdup(layout);
-        item->variant= (variant && variant[0] != '\0')? strdup(variant) : NULL;
-        HASH_ADD_KEYPTR(hh, xkb->layoutOverride, item->im,
-                        strlen(item->im), item);
+        item->variant =
+            (variant && variant[0] != '\0') ? strdup(variant) : NULL;
+        HASH_ADD_KEYPTR(hh, xkb->layoutOverride, item->im, strlen(item->im),
+                        item);
     }
     SaveLayoutOverride(xkb);
     FcitxXkbCurrentStateChanged(xkb);
 }
 
-static void
-FcitxXkbSetDefaultLayout(FcitxXkb *xkb, const char *layout, const char *variant)
-{
+static void FcitxXkbSetDefaultLayout(FcitxXkb *xkb, const char *layout,
+                                     const char *variant) {
     LayoutOverride *item = NULL;
     HASH_FIND_STR(xkb->layoutOverride, "default", item);
     if (item) {
@@ -1117,9 +1065,10 @@ FcitxXkbSetDefaultLayout(FcitxXkb *xkb, const char *layout, const char *variant)
         item = fcitx_utils_new(LayoutOverride);
         item->im = strdup("default");
         item->layout = strdup(layout);
-        item->variant= (variant && variant[0] != '\0')? strdup(variant) : NULL;
-        HASH_ADD_KEYPTR(hh, xkb->layoutOverride, item->im,
-                        strlen(item->im), item);
+        item->variant =
+            (variant && variant[0] != '\0') ? strdup(variant) : NULL;
+        HASH_ADD_KEYPTR(hh, xkb->layoutOverride, item->im, strlen(item->im),
+                        item);
     }
     SaveLayoutOverride(xkb);
     FcitxXkbCurrentStateChanged(xkb);

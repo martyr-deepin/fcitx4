@@ -29,9 +29,9 @@
 #define _FCITX_IME_INTERNAL_H_
 
 #include "fcitx-config/hotkey.h"
-#include "ime.h"
-#include "frontend.h"
 #include "fcitx-utils/utarray.h"
+#include "frontend.h"
+#include "ime.h"
 
 struct _FcitxInputContext;
 struct _FcitxInstance;
@@ -67,12 +67,13 @@ struct _FcitxInputState {
     boolean bLastIsNumber;
     boolean dummy3;
 
-    /* the ui message part, if there is something in it, then it will be shown */
-    struct _FcitxCandidateWordList* candList;
-    FcitxMessages* msgPreedit;
-    FcitxMessages* msgAuxUp;
-    FcitxMessages* msgAuxDown;
-    FcitxMessages* msgClientPreedit;
+    /* the ui message part, if there is something in it, then it will be shown
+     */
+    struct _FcitxCandidateWordList *candList;
+    FcitxMessages *msgPreedit;
+    FcitxMessages *msgAuxUp;
+    FcitxMessages *msgAuxDown;
+    FcitxMessages *msgClientPreedit;
 
     uint32_t keycode;
     uint32_t keysym;
@@ -83,27 +84,28 @@ struct _FcitxInputState {
 
 struct _FcitxIMEntry {
     FcitxGenericConfig config;
-    char* uniqueName;
-    char* name;
-    char* iconName;
+    char *uniqueName;
+    char *name;
+    char *iconName;
     int priority;
-    char* langCode;
-    char* parent;
+    char *langCode;
+    char *parent;
 };
 
 typedef struct _FcitxIMEntry FcitxIMEntry;
 
-void FcitxInstanceInitIM(struct _FcitxInstance* instance);
+void FcitxInstanceInitIM(struct _FcitxInstance *instance);
 
-void FcitxInstanceInitBuiltInHotkey(struct _FcitxInstance* instance);
+void FcitxInstanceInitBuiltInHotkey(struct _FcitxInstance *instance);
 
-void FcitxInstanceDoPhraseTips(struct _FcitxInstance* instance);
+void FcitxInstanceDoPhraseTips(struct _FcitxInstance *instance);
 
-boolean FcitxInstanceLoadAllIM(struct _FcitxInstance* instance);
+boolean FcitxInstanceLoadAllIM(struct _FcitxInstance *instance);
 
-void FcitxInstanceInitIMMenu(struct _FcitxInstance* instance);
+void FcitxInstanceInitIMMenu(struct _FcitxInstance *instance);
 
-void FcitxInstanceShowInputSpeed(struct _FcitxInstance* instance, boolean force);
+void FcitxInstanceShowInputSpeed(struct _FcitxInstance *instance,
+                                 boolean force);
 
 INPUT_RETURN_VALUE ImProcessEnter(void *arg);
 
@@ -117,23 +119,28 @@ INPUT_RETURN_VALUE ImProcessSaveAll(void *arg);
 
 INPUT_RETURN_VALUE ImSwitchEmbeddedPreedit(void *arg);
 
-boolean IMIsInIMNameList(UT_array* imList, FcitxIM* ime);
+boolean IMIsInIMNameList(UT_array *imList, FcitxIM *ime);
 
-void FcitxInstanceLoadIM(struct _FcitxInstance* instance, FcitxAddon* addon);
+void FcitxInstanceLoadIM(struct _FcitxInstance *instance, FcitxAddon *addon);
 
-void FcitxInstanceSwitchIMInternal(struct _FcitxInstance* instance, int index, boolean skipZero, boolean updateGlobal, boolean userSwitchIM);
+void FcitxInstanceSwitchIMInternal(struct _FcitxInstance *instance, int index,
+                                   boolean skipZero, boolean updateGlobal,
+                                   boolean userSwitchIM);
 
-FcitxConfigFileDesc* GetIMConfigDesc();
+FcitxConfigFileDesc *GetIMConfigDesc();
 
 int IMPriorityCmp(const void *a, const void *b);
 
-boolean FcitxInstanceUpdateCurrentIM(struct _FcitxInstance* instance, boolean force, boolean userSwitchIM);
+boolean FcitxInstanceUpdateCurrentIM(struct _FcitxInstance *instance,
+                                     boolean force, boolean userSwitchIM);
 
-void HideInputSpeed(void* arg);
+void HideInputSpeed(void *arg);
 
-boolean FcitxInstanceCheckICFromSameApplication (struct  _FcitxInstance* instance, FcitxInputContext* rec, FcitxInputContext* ic);
+boolean FcitxInstanceCheckICFromSameApplication(struct _FcitxInstance *instance,
+                                                FcitxInputContext *rec,
+                                                FcitxInputContext *ic);
 
-void FcitxInstanceReloadAddon(struct _FcitxInstance* instance);
+void FcitxInstanceReloadAddon(struct _FcitxInstance *instance);
 
 #endif
 

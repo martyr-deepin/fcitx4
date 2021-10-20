@@ -17,45 +17,42 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
-#include <stdio.h>
-#include <sys/stat.h>
-#include <limits.h>
 #include <ctype.h>
+#include <limits.h>
+#include <stdio.h>
 #include <string.h>
+#include <sys/stat.h>
 
-#include "fcitx/fcitx.h"
-#include "fcitx/context.h"
 #include "fcitx-config/xdg.h"
+#include "fcitx/context.h"
+#include "fcitx/fcitx.h"
 
 #include "py.h"
-#include "sp.h"
-#include "spdata.h"
 #include "pyMapTable.h"
 #include "pyParser.h"
 #include "pyconfig.h"
+#include "sp.h"
+#include "spdata.h"
 
 #define STR_SPCONF_NAME 0
 
 #define cstr(b) (strConstSPConf[STR_SPCONF_##b])
 #define cstrlen(b) (strlen(cstr(b)))
 
-char* strConstSPConf[] = {
-    "方案名称="
-};
+char *strConstSPConf[] = {"方案名称="};
 
-void LoadSPData(FcitxPinyinState *pystate)
-{
-    FILE           *fp;
-    char            str[100], strS[5], *pstr;
-    int             i;
-    FcitxPinyinConfig* pyconfig = &pystate->pyconfig;
-    boolean            bIsDefault = false;
-    SP_C* SPMap_C = pyconfig->SPMap_C;
-    SP_S* SPMap_S = pyconfig->SPMap_S;
-    char            nonS = 'o';
+void LoadSPData(FcitxPinyinState *pystate) {
+    FILE *fp;
+    char str[100], strS[5], *pstr;
+    int i;
+    FcitxPinyinConfig *pyconfig = &pystate->pyconfig;
+    boolean bIsDefault = false;
+    SP_C *SPMap_C = pyconfig->SPMap_C;
+    SP_S *SPMap_S = pyconfig->SPMap_S;
+    char nonS = 'o';
 
-    const SP_C* SPMap_C_source = NULL;
-    const SP_S* SPMap_S_source = NULL;
+    const SP_C *SPMap_C_source = NULL;
+    const SP_S *SPMap_S_source = NULL;
     switch (pyconfig->spscheme) {
     case SP_ZIRANMA:
         SPMap_C_source = SPMap_C_Ziranma;
@@ -93,7 +90,7 @@ void LoadSPData(FcitxPinyinState *pystate)
         while (SPMap_C[i].strQP[0]) {
             if (!SPMap_C[i].strQP[1])
                 SPMap_C[i].cJP = SPMap_C[i].strQP[0];
-            i ++ ;
+            i++;
         }
 
         fp = FcitxXDGGetFileWithPrefix("pinyin", "sp.dat", "r", NULL);
@@ -121,13 +118,11 @@ void LoadSPData(FcitxPinyinState *pystate)
                 if (*pstr == ' ' || *pstr == '\t')
                     pstr++;
 
-                if (strcmp(pstr, "自然码") != 0
-                        && strcmp(pstr, "微软") != 0
-                        && strcmp(pstr, "紫光") != 0
-                        && strcmp(pstr, "拼音加加") != 0
-                        && strcmp(pstr, "中文之星") != 0
-                        && strcmp(pstr, "智能ABC") != 0
-                        && strcmp(pstr, "小鹤") != 0) {
+                if (strcmp(pstr, "自然码") != 0 && strcmp(pstr, "微软") != 0 &&
+                    strcmp(pstr, "紫光") != 0 &&
+                    strcmp(pstr, "拼音加加") != 0 &&
+                    strcmp(pstr, "中文之星") != 0 &&
+                    strcmp(pstr, "智能ABC") != 0 && strcmp(pstr, "小鹤") != 0) {
                     bIsDefault = true;
                 }
 
@@ -167,8 +162,7 @@ void LoadSPData(FcitxPinyinState *pystate)
         }
 
         fclose(fp);
-    }
-    break;
+    } break;
     }
 
     if (SPMap_C_source && SPMap_S_source) {
@@ -203,13 +197,12 @@ void LoadSPData(FcitxPinyinState *pystate)
 /*
  * 此处只转换单个双拼，并且不检查错误
  */
-void SP2QP(FcitxPinyinConfig* pyconfig, const char *strSP, char *strQP)
-{
-    int             iIndex1 = 0, iIndex2 = 0;
-    char            strTmp[2];
-    char            str_QP[MAX_PY_LENGTH + 1];
-    SP_C* SPMap_C = pyconfig->SPMap_C;
-    SP_S* SPMap_S = pyconfig->SPMap_S;
+void SP2QP(FcitxPinyinConfig *pyconfig, const char *strSP, char *strQP) {
+    int iIndex1 = 0, iIndex2 = 0;
+    char strTmp[2];
+    char str_QP[MAX_PY_LENGTH + 1];
+    SP_C *SPMap_C = pyconfig->SPMap_C;
+    SP_S *SPMap_S = pyconfig->SPMap_S;
 
     strTmp[1] = '\0';
     const char aeiou[] = "aeiou";
@@ -231,8 +224,8 @@ void SP2QP(FcitxPinyinConfig* pyconfig, const char *strSP, char *strQP)
             break;
 
         if (strchr(aeiou, strSP[1])) {
-             if (strSP[0] == strSP[1])
-                 checkXiaoheNonS = true;
+            if (strSP[0] == strSP[1])
+                checkXiaoheNonS = true;
         } else {
             int idx = -1;
             while (1) {
@@ -245,12 +238,11 @@ void SP2QP(FcitxPinyinConfig* pyconfig, const char *strSP, char *strQP)
                 }
             }
         }
-    } while(0);
+    } while (0);
 
 recheck_sp:
     strQP[0] = '\0';
-    if (strSP[0] != pyconfig->cNonS
-        && !checkXiaoheNonS) {
+    if (strSP[0] != pyconfig->cNonS && !checkXiaoheNonS) {
         iIndex1 = GetSPIndexJP_S(pyconfig, *strSP);
 
         if (iIndex1 == -1) {
@@ -288,9 +280,8 @@ recheck_sp:
     }
 
     if (FindPYFAIndex(pyconfig, strQP, false) != -1) {
-        iIndex2 = 0;        //这只是将iIndex2置为非-1,以免后面的判断
-    }
-    else {
+        iIndex2 = 0; //这只是将iIndex2置为非-1,以免后面的判断
+    } else {
         if (checkXiaoheNonS) {
             checkXiaoheNonS = false;
             goto recheck_sp;
@@ -309,10 +300,9 @@ recheck_sp:
     }
 }
 
-int GetSPIndexQP_S(FcitxPinyinConfig* pyconfig, char *str)
-{
-    int             i;
-    SP_S* SPMap_S = pyconfig->SPMap_S;
+int GetSPIndexQP_S(FcitxPinyinConfig *pyconfig, char *str) {
+    int i;
+    SP_S *SPMap_S = pyconfig->SPMap_S;
 
     i = 0;
 
@@ -326,10 +316,9 @@ int GetSPIndexQP_S(FcitxPinyinConfig* pyconfig, char *str)
     return -1;
 }
 
-int GetSPIndexQP_C(FcitxPinyinConfig* pyconfig, char *str)
-{
-    int             i;
-    SP_C* SPMap_C = pyconfig->SPMap_C;
+int GetSPIndexQP_C(FcitxPinyinConfig *pyconfig, char *str) {
+    int i;
+    SP_C *SPMap_C = pyconfig->SPMap_C;
 
     i = 0;
 
@@ -343,10 +332,9 @@ int GetSPIndexQP_C(FcitxPinyinConfig* pyconfig, char *str)
     return -1;
 }
 
-int GetSPIndexJP_S(FcitxPinyinConfig* pyconfig, char c)
-{
-    int             i;
-    SP_S* SPMap_S = pyconfig->SPMap_S;
+int GetSPIndexJP_S(FcitxPinyinConfig *pyconfig, char c) {
+    int i;
+    SP_S *SPMap_S = pyconfig->SPMap_S;
 
     i = 0;
 
@@ -360,10 +348,9 @@ int GetSPIndexJP_S(FcitxPinyinConfig* pyconfig, char c)
     return -1;
 }
 
-int GetSPIndexJP_C(FcitxPinyinConfig* pyconfig, char c, int iStart)
-{
-    int             i;
-    SP_C* SPMap_C = pyconfig->SPMap_C;
+int GetSPIndexJP_C(FcitxPinyinConfig *pyconfig, char c, int iStart) {
+    int i;
+    SP_C *SPMap_C = pyconfig->SPMap_C;
 
     i = iStart;
 

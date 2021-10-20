@@ -32,12 +32,12 @@
 #include <X11/Xlib.h>
 #include <cairo.h>
 
-#include "fcitx/fcitx.h"
-#include "classicui.h"
 #include "XlibWindow.h"
+#include "classicui.h"
+#include "fcitx/fcitx.h"
 
 #define ROUND_SIZE 80
-#define INPUTWND_WIDTH  50
+#define INPUTWND_WIDTH 50
 #define INPUTWND_HEIGHT 40
 #define INPUT_BAR_HMIN_WIDTH ROUND_SIZE
 #define INPUT_BAR_VMIN_WIDTH 160
@@ -51,11 +51,11 @@ typedef struct _InputWindow {
     FcitxXlibWindow parent;
 
     //这两个变量是GTK+ OverTheSpot光标跟随的临时解决方案
-    int     iOffsetX;
-    int     iOffsetY;
+    int iOffsetX;
+    int iOffsetY;
 
-    FcitxMessages* msgUp;
-    FcitxMessages* msgDown;
+    FcitxMessages *msgUp;
+    FcitxMessages *msgDown;
     int cursorPos;
     boolean vertical;
 
@@ -71,9 +71,9 @@ typedef struct _InputWindow {
     uint32_t highlight;
 } InputWindow;
 
-InputWindow* InputWindowCreate(struct _FcitxClassicUI* classicui);
-void InputWindowClose(InputWindow* inputWindow);
-void InputWindowShow(InputWindow* inputWindow);
+InputWindow *InputWindowCreate(struct _FcitxClassicUI *classicui);
+void InputWindowClose(InputWindow *inputWindow);
+void InputWindowShow(InputWindow *inputWindow);
 
 #endif
 

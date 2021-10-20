@@ -20,59 +20,60 @@
 
 #include <string.h>
 
-#include <dbus/dbus.h>
 #include "property.h"
+#include <dbus/dbus.h>
 
 #ifndef DBUS_ERROR_UNKNOWN_PROPERTY
-#define DBUS_ERROR_UNKNOWN_PROPERTY           "org.freedesktop.DBus.Error.UnknownProperty"
+#define DBUS_ERROR_UNKNOWN_PROPERTY "org.freedesktop.DBus.Error.UnknownProperty"
 #endif
 
-DBusMessage* FcitxDBusPropertyGet(void* arg, const FcitxDBusPropertyTable* propertTable, DBusMessage* message)
-{
+DBusMessage *FcitxDBusPropertyGet(void *arg,
+                                  const FcitxDBusPropertyTable *propertTable,
+                                  DBusMessage *message) {
     DBusError error;
     dbus_error_init(&error);
     char *interface;
     char *property;
-    DBusMessage* reply = NULL;
-    if (dbus_message_get_args(message, &error,
-                              DBUS_TYPE_STRING, &interface,
-                              DBUS_TYPE_STRING, &property,
-                              DBUS_TYPE_INVALID)) {
+    DBusMessage *reply = NULL;
+    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &interface,
+                              DBUS_TYPE_STRING, &property, DBUS_TYPE_INVALID)) {
         int index = 0;
         while (propertTable[index].interface != NULL) {
-            if (strcmp(propertTable[index].interface, interface) == 0
-                    && strcmp(propertTable[index].name, property) == 0)
+            if (strcmp(propertTable[index].interface, interface) == 0 &&
+                strcmp(propertTable[index].name, property) == 0)
                 break;
-            index ++;
+            index++;
         }
 
         if (propertTable[index].interface) {
             DBusMessageIter args, variant;
             reply = dbus_message_new_method_return(message);
             dbus_message_iter_init_append(reply, &args);
-            dbus_message_iter_open_container(&args, DBUS_TYPE_VARIANT, propertTable[index].type, &variant);
+            dbus_message_iter_open_container(
+                &args, DBUS_TYPE_VARIANT, propertTable[index].type, &variant);
             if (propertTable[index].getfunc)
                 propertTable[index].getfunc(arg, &variant);
             dbus_message_iter_close_container(&args, &variant);
+        } else {
+            reply = dbus_message_new_error_printf(
+                message, DBUS_ERROR_UNKNOWN_PROPERTY,
+                "No such property ('%s.%s')", interface, property);
         }
-        else {
-            reply = dbus_message_new_error_printf(message, DBUS_ERROR_UNKNOWN_PROPERTY, "No such property ('%s.%s')", interface, property);
-        }
-    }
-    else {
+    } else {
         reply = FcitxDBusPropertyUnknownMethod(message);
     }
 
     return reply;
 }
 
-DBusMessage* FcitxDBusPropertySet(void* arg, const FcitxDBusPropertyTable* propertTable, DBusMessage* message)
-{
+DBusMessage *FcitxDBusPropertySet(void *arg,
+                                  const FcitxDBusPropertyTable *propertTable,
+                                  DBusMessage *message) {
     DBusError error;
     dbus_error_init(&error);
     char *interface;
     char *property;
-    DBusMessage* reply = NULL;
+    DBusMessage *reply = NULL;
 
     DBusMessageIter args, variant;
     dbus_message_iter_init(message, &args);
@@ -94,17 +95,18 @@ DBusMessage* FcitxDBusPropertySet(void* arg, const FcitxDBusPropertyTable* prope
     dbus_message_iter_recurse(&args, &variant);
     int index = 0;
     while (propertTable[index].interface != NULL) {
-        if (strcmp(propertTable[index].interface, interface) == 0
-                && strcmp(propertTable[index].name, property) == 0)
+        if (strcmp(propertTable[index].interface, interface) == 0 &&
+            strcmp(propertTable[index].name, property) == 0)
             break;
-        index ++;
+        index++;
     }
     if (propertTable[index].setfunc) {
         propertTable[index].setfunc(arg, &variant);
         reply = dbus_message_new_method_return(message);
-    }
-    else {
-        reply = dbus_message_new_error_printf(message, DBUS_ERROR_UNKNOWN_PROPERTY, "No such property ('%s.%s')", interface, property);
+    } else {
+        reply = dbus_message_new_error_printf(
+            message, DBUS_ERROR_UNKNOWN_PROPERTY, "No such property ('%s.%s')",
+            interface, property);
     }
 
 dbus_property_set_end:
@@ -114,36 +116,41 @@ dbus_property_set_end:
     return reply;
 }
 
-DBusMessage* FcitxDBusPropertyGetAll(void* arg, const FcitxDBusPropertyTable* propertTable, DBusMessage* message)
-{
+DBusMessage *FcitxDBusPropertyGetAll(void *arg,
+                                     const FcitxDBusPropertyTable *propertTable,
+                                     DBusMessage *message) {
     DBusError error;
     dbus_error_init(&error);
     char *interface;
-    DBusMessage* reply = NULL;
-    if (dbus_message_get_args(message, &error,
-                              DBUS_TYPE_STRING, &interface,
+    DBusMessage *reply = NULL;
+    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &interface,
                               DBUS_TYPE_INVALID)) {
         reply = dbus_message_new_method_return(message);
         int index = 0;
         DBusMessageIter args;
         dbus_message_iter_init_append(reply, &args);
         DBusMessageIter array, entry;
-        dbus_message_iter_open_container(&args, DBUS_TYPE_ARRAY, "{sv}", &array);
+        dbus_message_iter_open_container(&args, DBUS_TYPE_ARRAY, "{sv}",
+                                         &array);
 
         while (propertTable[index].interface != NULL) {
-            if (strcmp(propertTable[index].interface, interface) == 0 && propertTable[index].getfunc) {
+            if (strcmp(propertTable[index].interface, interface) == 0 &&
+                propertTable[index].getfunc) {
                 dbus_message_iter_open_container(&array, DBUS_TYPE_DICT_ENTRY,
                                                  NULL, &entry);
 
-                dbus_message_iter_append_basic(&entry, DBUS_TYPE_STRING, &propertTable[index].name);
+                dbus_message_iter_append_basic(&entry, DBUS_TYPE_STRING,
+                                               &propertTable[index].name);
                 DBusMessageIter variant;
-                dbus_message_iter_open_container(&entry, DBUS_TYPE_VARIANT, propertTable[index].type, &variant);
+                dbus_message_iter_open_container(&entry, DBUS_TYPE_VARIANT,
+                                                 propertTable[index].type,
+                                                 &variant);
                 propertTable[index].getfunc(arg, &variant);
                 dbus_message_iter_close_container(&entry, &variant);
 
                 dbus_message_iter_close_container(&array, &entry);
             }
-            index ++;
+            index++;
         }
         dbus_message_iter_close_container(&args, &array);
     }

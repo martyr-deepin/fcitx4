@@ -24,28 +24,29 @@
 #include "fcitx-utils/uthash.h"
 
 typedef struct _FcitxIsoCodes639Entry {
-    char* name;
-    char* iso_639_2B_code;
-    char* iso_639_2T_code;
-    char* iso_639_1_code;
+    char *name;
+    char *iso_639_2B_code;
+    char *iso_639_2T_code;
+    char *iso_639_1_code;
     UT_hash_handle hh1;
     UT_hash_handle hh2;
 } FcitxIsoCodes639Entry;
 
 typedef struct _FcitxIsoCodes3166Entry {
-    char* name;
-    char* alpha_2_code;
+    char *name;
+    char *alpha_2_code;
     UT_hash_handle hh;
 } FcitxIsoCodes3166Entry;
 
 typedef struct _FcitxIsoCodes {
-    FcitxIsoCodes639Entry* iso6392B;
-    FcitxIsoCodes639Entry* iso6392T;
-    FcitxIsoCodes3166Entry* iso3166;
+    FcitxIsoCodes639Entry *iso6392B;
+    FcitxIsoCodes639Entry *iso6392T;
+    FcitxIsoCodes3166Entry *iso3166;
 } FcitxIsoCodes;
 
-FcitxIsoCodes* FcitxXkbReadIsoCodes(const char* iso639, const char* iso3166);
-FcitxIsoCodes639Entry* FcitxIsoCodesGetEntry(FcitxIsoCodes* isocodes, const char* lang);
-void FcitxIsoCodesFree(FcitxIsoCodes* isocodes);
+FcitxIsoCodes *FcitxXkbReadIsoCodes(const char *iso639, const char *iso3166);
+FcitxIsoCodes639Entry *FcitxIsoCodesGetEntry(FcitxIsoCodes *isocodes,
+                                             const char *lang);
+void FcitxIsoCodesFree(FcitxIsoCodes *isocodes);
 
 #endif

@@ -21,7 +21,6 @@
 #ifndef _FCITX_MODULE_LUA_H_
 #define _FCITX_MODULE_LUA_H_
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -29,7 +28,6 @@ extern "C" {
 #define FCITX_LUA_NAME "fcitx-lua"
 #define FCITX_LUA_CALLCOMMAND 0
 #define FCITX_LUA_CALLCOMMAND_RETURNTYPE void
-
 
 #ifdef __cplusplus
 }

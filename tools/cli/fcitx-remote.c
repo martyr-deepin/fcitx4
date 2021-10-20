@@ -19,26 +19,25 @@
  ***************************************************************************/
 
 #ifdef FCITX_HAVE_CONFIG_H
-#  include <config.h>
+#include <config.h>
 #endif
 
+#include "fcitx-utils/utils.h"
+#include "fcitx/frontend.h"
 #include <errno.h>
+#include <fcntl.h>
+#include <limits.h>
+#include <poll.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <sys/un.h>
 #include <unistd.h>
-#include <fcntl.h>
-#include <poll.h>
-#include <limits.h>
-#include "fcitx/frontend.h"
-#include "fcitx-utils/utils.h"
 
-int create_socket(const char *name)
-{
+int create_socket(const char *name) {
     int fd;
     int r;
 
@@ -57,7 +56,7 @@ int create_socket(const char *name)
 
     strcpy(uds_addr.sun_path, name);
 
-    r = connect(fd, (struct sockaddr *) & uds_addr, sizeof(uds_addr));
+    r = connect(fd, (struct sockaddr *)&uds_addr, sizeof(uds_addr));
 
     if (r < 0) {
         return r;
@@ -66,28 +65,28 @@ int create_socket(const char *name)
     return fd;
 }
 
-void usage(FILE* fp)
-{
+void usage(FILE *fp) {
     fprintf(fp,
             "Usage: fcitx-remote [OPTION]\n"
             "\t-c\t\tinactivate input method\n"
             "\t-o\t\tactivate input method\n"
             "\t-r\t\treload fcitx config\n"
             "\t-t,-T\t\tswitch Active/Inactive\n"
-            "\t-s <imname>\tswitch to the input method uniquely identified by <imname>\n"
-            "\t[no option]\tdisplay fcitx state, %d for close, %d for inactive, %d for acitve\n"
+            "\t-s <imname>\tswitch to the input method uniquely identified by "
+            "<imname>\n"
+            "\t[no option]\tdisplay fcitx state, %d for close, %d for "
+            "inactive, %d for acitve\n"
             "\t-h\t\tdisplay this help and exit\n",
             IS_CLOSED, IS_INACTIVE, IS_ACTIVE);
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     char *socketfile = NULL;
     int socket_fd;
 
     int o = 0;
     char c;
-    char* imname = 0;
+    char *imname = 0;
 
     while ((c = getopt(argc, argv, "chortTs:")) != -1) {
         switch (c) {
@@ -124,12 +123,14 @@ int main(int argc, char *argv[])
         }
     }
 
-    asprintf(&socketfile, "/tmp/fcitx-socket-:%d", fcitx_utils_get_display_number());
+    asprintf(&socketfile, "/tmp/fcitx-socket-:%d",
+             fcitx_utils_get_display_number());
 
     socket_fd = create_socket(socketfile);
 
     if (socket_fd < 0) {
-        fprintf(stderr, "Can't open socket %s: %s\n", socketfile, strerror(errno));
+        fprintf(stderr, "Can't open socket %s: %s\n", socketfile,
+                strerror(errno));
         free(socketfile);
         return 1;
     }
@@ -141,12 +142,11 @@ int main(int argc, char *argv[])
         read(socket_fd, &buf, sizeof(buf));
         printf("%d\n", buf);
     } else if (o == 4) {
-       write(socket_fd, imname, strlen(imname));
+        write(socket_fd, imname, strlen(imname));
     }
     close(socket_fd);
 
     return 0;
-}               /* ----------  end of function main  ---------- */
-
+} /* ----------  end of function main  ---------- */
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4;
