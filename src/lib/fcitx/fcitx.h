@@ -35,7 +35,6 @@
  * user interface, and all misc stuff needed by fcitx.
  */
 
-
 /**
  * @addtogroup Fcitx
  * @{
@@ -57,7 +56,7 @@ extern "C" {
 #endif
 
 /** export the symbol */
-#define FCITX_EXPORT_API __attribute__ ((visibility("default")))
+#define FCITX_EXPORT_API __attribute__((visibility("default")))
 
 /** suppress the unused warning */
 #define FCITX_UNUSED(x) (void)(x)
@@ -65,22 +64,21 @@ extern "C" {
 /** fcitx addon ABI version, need to be used with addon */
 #define FCITX_ABI_VERSION 5
 
-#define FCITX_DEFINE_PLUGIN(name, category, type) \
-FCITX_EXPORT_API int name##_ABI_VERSION = FCITX_ABI_VERSION; \
-FCITX_EXPORT_API type name##_##category
+#define FCITX_DEFINE_PLUGIN(name, category, type)                              \
+    FCITX_EXPORT_API int name##_ABI_VERSION = FCITX_ABI_VERSION;               \
+    FCITX_EXPORT_API type name##_##category
 
 #if defined(__GNUC__) && ((__GNUC__ * 100 + __GNUC_MINOR__) >= 301)
-# define FCITX_DEPRECATED  __attribute__((deprecated))
+#define FCITX_DEPRECATED __attribute__((deprecated))
 #else /* not gcc >= 3.1 */
-# define FCITX_DEPRECATED
+#define FCITX_DEPRECATED
 #endif
-
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif/*_FCITX_H_*/
+#endif /*_FCITX_H_*/
 
 /**
  * @}

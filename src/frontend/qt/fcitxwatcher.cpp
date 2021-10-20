@@ -147,7 +147,7 @@ void FcitxWatcher::unwatch() {
     unwatchSocketFile();
     cleanUpConnection();
     m_mainPresent = false;
-    m_portalPresent =false;
+    m_portalPresent = false;
     m_watched = false;
     updateAvailability();
 }

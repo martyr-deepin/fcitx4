@@ -18,17 +18,17 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include "fcitx/fcitx.h"
 #include "config.h"
+#include "fcitx/fcitx.h"
 
-#include "fcitx/ime.h"
-#include "fcitx/instance.h"
-#include "fcitx/context.h"
-#include "fcitx/module.h"
-#include "fcitx/frontend.h"
 #include "fcitx-config/xdg.h"
 #include "fcitx-utils/log.h"
 #include "fcitx-utils/utf8.h"
+#include "fcitx/context.h"
+#include "fcitx/frontend.h"
+#include "fcitx/ime.h"
+#include "fcitx/instance.h"
+#include "fcitx/module.h"
 #include <sys/stat.h>
 #include <time.h>
 #if defined(__linux__) || defined(__GLIBC__)
@@ -45,12 +45,9 @@
  * update custom dict, if the dictionary of that language
  * cannot be found, keep the current one until the next successful loading.
  **/
-boolean
-SpellCustomLoadDict(FcitxSpell *spell, const char *lang)
-{
+boolean SpellCustomLoadDict(FcitxSpell *spell, const char *lang) {
     SpellCustomDict *custom_dict;
-    if (spell->custom_saved_lang &&
-        !strcmp(spell->custom_saved_lang, lang)) {
+    if (spell->custom_saved_lang && !strcmp(spell->custom_saved_lang, lang)) {
         free(spell->custom_saved_lang);
         spell->custom_saved_lang = NULL;
         return false;
@@ -81,10 +78,9 @@ SpellCustomLoadDict(FcitxSpell *spell, const char *lang)
 /*     return true; */
 /* } */
 
-static int
-SpellCustomGetDistance(SpellCustomDict *custom_dict, const char *word,
-                       const char *dict, int word_len)
-{
+static int SpellCustomGetDistance(SpellCustomDict *custom_dict,
+                                  const char *word, const char *dict,
+                                  int word_len) {
 #define REPLACE_WEIGHT 3
 #define INSERT_WEIGHT 3
 #define REMOVE_WEIGHT 3
@@ -124,10 +120,10 @@ SpellCustomGetDistance(SpellCustomDict *custom_dict, const char *word,
          * and dict and word are pointing to the next one.
          */
         if (!cur_word_c) {
-            return ((replace * REPLACE_WEIGHT + insert * INSERT_WEIGHT
-                     + remove * REMOVE_WEIGHT) +
-                    (cur_dict_c ?
-                     (fcitx_utf8_strlen(dict) + 1) * END_WEIGHT : 0));
+            return (
+                (replace * REPLACE_WEIGHT + insert * INSERT_WEIGHT +
+                 remove * REMOVE_WEIGHT) +
+                (cur_dict_c ? (fcitx_utf8_strlen(dict) + 1) * END_WEIGHT : 0));
         }
         word = fcitx_utf8_get_char(word, &next_word_c);
 
@@ -137,8 +133,8 @@ SpellCustomGetDistance(SpellCustomDict *custom_dict, const char *word,
                 return -1;
             remove++;
             if (diff <= maxdiff && remove <= maxremove) {
-                return (replace * REPLACE_WEIGHT + insert * INSERT_WEIGHT
-                        + remove * REMOVE_WEIGHT);
+                return (replace * REPLACE_WEIGHT + insert * INSERT_WEIGHT +
+                        remove * REMOVE_WEIGHT);
             }
             return -1;
         }
@@ -189,15 +185,11 @@ SpellCustomGetDistance(SpellCustomDict *custom_dict, const char *word,
 }
 
 // TODO add frequency
-static int
-SpellCustomCWordCompare(const void *a, const void *b)
-{
-    return (int)(((SpellCustomCWord*)a)->dist - ((SpellCustomCWord*)b)->dist);
+static int SpellCustomCWordCompare(const void *a, const void *b) {
+    return (int)(((SpellCustomCWord *)a)->dist - ((SpellCustomCWord *)b)->dist);
 }
 
-SpellHint*
-SpellCustomHintWords(FcitxSpell *spell, unsigned int len_limit)
-{
+SpellHint *SpellCustomHintWords(FcitxSpell *spell, unsigned int len_limit) {
     SpellCustomCWord clist[len_limit + 1];
     int i;
     unsigned int num = 0;
@@ -228,7 +220,7 @@ SpellCustomHintWords(FcitxSpell *spell, unsigned int len_limit)
     if (dict->word_check_func)
         word_type = dict->word_check_func(real_word);
     word_len = fcitx_utf8_strlen(real_word);
-    for (i = 0;i < dict->words_count;i++) {
+    for (i = 0; i < dict->words_count; i++) {
         int dist;
         if ((dist = SpellCustomGetDistance(
                  dict, real_word, dict->map + dict->words[i], word_len)) >= 0) {
@@ -237,7 +229,7 @@ SpellCustomHintWords(FcitxSpell *spell, unsigned int len_limit)
             clist[j].dist = dist;
             if (num < len_limit)
                 num++;
-            for (;j > 0;j--) {
+            for (; j > 0; j--) {
                 if (SpellCustomCWordCompare(clist + j - 1, clist + j) > 0) {
                     SpellCustomCWord tmp = clist[j];
                     clist[j] = clist[j - 1];
@@ -248,8 +240,8 @@ SpellCustomHintWords(FcitxSpell *spell, unsigned int len_limit)
             }
         }
     }
-    res = SpellHintListWithPrefix(num, prefix, prefix_len,
-                                  &clist->word, sizeof(SpellCustomCWord));
+    res = SpellHintListWithPrefix(num, prefix, prefix_len, &clist->word,
+                                  sizeof(SpellCustomCWord));
     if (!res)
         return NULL;
     if (dict->hint_cmplt_func)
@@ -257,17 +249,13 @@ SpellCustomHintWords(FcitxSpell *spell, unsigned int len_limit)
     return res;
 }
 
-boolean
-SpellCustomCheck(FcitxSpell *spell)
-{
+boolean SpellCustomCheck(FcitxSpell *spell) {
     if (spell->custom_dict && !spell->custom_saved_lang)
         return true;
     return false;
 }
 
-void
-SpellCustomDestroy(FcitxSpell *spell)
-{
+void SpellCustomDestroy(FcitxSpell *spell) {
     if (spell->custom_dict)
         SpellCustomFreeDict(spell, spell->custom_dict);
     if (spell->custom_saved_lang)

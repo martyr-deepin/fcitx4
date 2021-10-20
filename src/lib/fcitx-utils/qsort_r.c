@@ -20,19 +20,20 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <stdlib.h>
 #include "fcitx/fcitx.h"
-#include "utarray.h"
 #include "sort_common.h"
+#include "utarray.h"
+#include <stdlib.h>
 
 /* damn it, freebsd and linux don't have the same interface for qsort_r,
  * and old glibc don't have qsort_r, force it to use third party version.
  */
 
 FCITX_EXPORT_API
-void fcitx_qsort_r(void *base_, size_t nmemb, size_t size, int (*compar)(const void *, const void *, void *), void *thunk)
-{
-    char *base = (char *) base_;
+void fcitx_qsort_r(void *base_, size_t nmemb, size_t size,
+                   int (*compar)(const void *, const void *, void *),
+                   void *thunk) {
+    char *base = (char *)base_;
     if (nmemb < 10) { /* use O(nmemb^2) algorithm for small enough nmemb */
         insertion_sort(base, nmemb, size, compar, thunk);
     } else {
@@ -40,19 +41,22 @@ void fcitx_qsort_r(void *base_, size_t nmemb, size_t size, int (*compar)(const v
         /* pick median of first/middle/last elements as pivot */
         {
             const char *a = base, *b = base + (nmemb / 2) * size,
-                        *c = base + (nmemb - 1) * size;
-            pivot = compar(a, b, thunk) < 0
-                    ? (compar(b, c, thunk) < 0 ? nmemb / 2 :
-                       (compar(a, c, thunk) < 0 ? nmemb - 1 : 0))
-                        : (compar(a, c, thunk) < 0 ? 0 :
-                           (compar(b, c, thunk) < 0 ? nmemb - 1 : nmemb / 2));
+                       *c = base + (nmemb - 1) * size;
+            pivot =
+                compar(a, b, thunk) < 0
+                    ? (compar(b, c, thunk) < 0
+                           ? nmemb / 2
+                           : (compar(a, c, thunk) < 0 ? nmemb - 1 : 0))
+                    : (compar(a, c, thunk) < 0
+                           ? 0
+                           : (compar(b, c, thunk) < 0 ? nmemb - 1 : nmemb / 2));
         }
         /* partition array */
         swap(base + pivot * size, base + (nmemb - 1) * size, size);
         pivot = (nmemb - 1) * size;
         for (i = npart = 0; i < nmemb - 1; ++i)
             if (compar(base + i * size, base + pivot, thunk) <= 0)
-                swap(base + i * size, base + (npart++)*size, size);
+                swap(base + i * size, base + (npart++) * size, size);
         swap(base + npart * size, base + pivot, size);
         /* recursive sort of two partitions */
         fcitx_qsort_r(base, npart, size, compar, thunk);

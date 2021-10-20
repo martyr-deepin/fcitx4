@@ -53,6 +53,6 @@ void FcitxUIMoveInputWindowReal(FcitxInstance *instance);
  *
  * @see MSG_DONOT_COMMIT_WHEN_UNFOCUS
  **/
-char* FcitxUIMessagesToCStringForCommit(FcitxMessages* messages);
+char *FcitxUIMessagesToCStringForCommit(FcitxMessages *messages);
 
 #endif

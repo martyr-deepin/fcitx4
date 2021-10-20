@@ -20,22 +20,23 @@
 #ifndef FCITXCONFIGUIWRAPPERAPP_H
 #define FCITXCONFIGUIWRAPPERAPP_H
 
-#include <QApplication>
 #include "mainwindow.h"
+#include <QApplication>
 
 class FcitxQtConnection;
 class FcitxQtConfigUIFactory;
 class WrapperApp : public QApplication {
     Q_OBJECT
 public:
-    WrapperApp(int& argc, char** argv);
+    WrapperApp(int &argc, char **argv);
     virtual ~WrapperApp();
 
 private slots:
     void errorExit();
+
 private:
-    FcitxQtConfigUIFactory* m_factory;
-    MainWindow* m_mainWindow;
+    FcitxQtConfigUIFactory *m_factory;
+    MainWindow *m_mainWindow;
 };
 
 #endif // FCITXCONFIGUIWRAPPERAPP_H

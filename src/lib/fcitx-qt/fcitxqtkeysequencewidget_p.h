@@ -42,27 +42,26 @@
 #ifndef FCITXQT_KEYSEQUENCEWIDGET_P_H
 #define FCITXQT_KEYSEQUENCEWIDGET_P_H
 
-#include <QPushButton>
 #include <QHBoxLayout>
+#include <QPushButton>
 #include <QToolButton>
 
 class FcitxQtKeySequenceWidgetPrivate;
-class FcitxQtKeySequenceButton: public QPushButton
-{
+class FcitxQtKeySequenceButton : public QPushButton {
     Q_OBJECT
 
 public:
-    explicit FcitxQtKeySequenceButton(FcitxQtKeySequenceWidgetPrivate *d, QWidget *parent)
-     : QPushButton(parent),
-       d(d) {}
+    explicit FcitxQtKeySequenceButton(FcitxQtKeySequenceWidgetPrivate *d,
+                                      QWidget *parent)
+        : QPushButton(parent), d(d) {}
 
     virtual ~FcitxQtKeySequenceButton();
 
 protected:
     /**
-    * Reimplemented for internal reasons.
-    */
-    virtual bool event (QEvent *event);
+     * Reimplemented for internal reasons.
+     */
+    virtual bool event(QEvent *event);
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
 
@@ -70,4 +69,4 @@ private:
     FcitxQtKeySequenceWidgetPrivate *const d;
 };
 
-#endif //FCITXQT_KEYSEQUENCEWIDGET_P_H
+#endif // FCITXQT_KEYSEQUENCEWIDGET_P_H

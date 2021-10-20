@@ -21,38 +21,36 @@
  ***************************************************************************/
 
 #include <dbus/dbus.h>
-#include <time.h>
 #include <libintl.h>
+#include <time.h>
 
-#include "fcitx/module.h"
-#include "fcitx/instance.h"
-#include "fcitx-utils/utils.h"
-#include "fcitx-utils/uthash.h"
-#include "fcitx-utils/stringmap.h"
 #include "fcitx-utils/desktop-parse.h"
-#include "module/dbus/fcitx-dbus.h"
+#include "fcitx-utils/stringmap.h"
+#include "fcitx-utils/uthash.h"
+#include "fcitx-utils/utils.h"
+#include "fcitx/instance.h"
+#include "fcitx/module.h"
 #include "freedesktop-notify.h"
+#include "module/dbus/fcitx-dbus.h"
 
 #ifndef DBUS_TIMEOUT_USE_DEFAULT
-#  define DBUS_TIMEOUT_USE_DEFAULT (-1)
+#define DBUS_TIMEOUT_USE_DEFAULT (-1)
 #endif
 
 #define NOTIFICATIONS_SERVICE_NAME "org.freedesktop.Notifications"
 #define NOTIFICATIONS_INTERFACE_NAME "org.freedesktop.Notifications"
 #define NOTIFICATIONS_PATH "/org/freedesktop/Notifications"
-#define NOTIFICATIONS_MATCH_NAMES                       \
-    "sender='" NOTIFICATIONS_SERVICE_NAME "',"          \
-    "interface='" NOTIFICATIONS_INTERFACE_NAME "',"     \
+#define NOTIFICATIONS_MATCH_NAMES                                              \
+    "sender='" NOTIFICATIONS_SERVICE_NAME "',"                                 \
+    "interface='" NOTIFICATIONS_INTERFACE_NAME "',"                            \
     "path='" NOTIFICATIONS_PATH "'"
-#define NOTIFICATIONS_MATCH_SIGNAL              \
-    "type='signal',"                            \
-    NOTIFICATIONS_MATCH_NAMES
-#define NOTIFICATIONS_MATCH_ACTION              \
-    NOTIFICATIONS_MATCH_SIGNAL ","              \
-    "member='ActionInvoked'"
-#define NOTIFICATIONS_MATCH_CLOSED              \
-    NOTIFICATIONS_MATCH_SIGNAL ","              \
-    "member='NotificationClosed'"
+#define NOTIFICATIONS_MATCH_SIGNAL "type='signal'," NOTIFICATIONS_MATCH_NAMES
+#define NOTIFICATIONS_MATCH_ACTION                                             \
+    NOTIFICATIONS_MATCH_SIGNAL ","                                             \
+                               "member='ActionInvoked'"
+#define NOTIFICATIONS_MATCH_CLOSED                                             \
+    NOTIFICATIONS_MATCH_SIGNAL ","                                             \
+                               "member='NotificationClosed'"
 
 static void *FcitxNotifyCreate(FcitxInstance *instance);
 static void FcitxNotifyDestroy(void *arg);
@@ -60,12 +58,7 @@ static void FcitxNotifyDestroy(void *arg);
 DECLARE_ADDFUNCTIONS(FreeDesktopNotify)
 
 FCITX_DEFINE_PLUGIN(fcitx_freedesktop_notify, module, FcitxModule) = {
-    FcitxNotifyCreate,
-    NULL,
-    NULL,
-    FcitxNotifyDestroy,
-    NULL
-};
+    FcitxNotifyCreate, NULL, NULL, FcitxNotifyDestroy, NULL};
 
 typedef enum {
     NOTIFY_SENT,
@@ -111,57 +104,49 @@ struct _FcitxNotify {
 #define TIMEOUT_REAL_TIME (100)
 #define TIMEOUT_ADD_TIME (TIMEOUT_REAL_TIME + 10)
 
-static time_t
-FcitxNotifyGetTime()
-{
+static time_t FcitxNotifyGetTime() {
     struct timespec t;
     clock_gettime(CLOCK_MONOTONIC, &t);
     return t.tv_sec;
 }
 
-static FcitxNotifyItem*
-FcitxNotifyFindByGlobalId(FcitxNotify *notify, uint32_t global_id)
-{
+static FcitxNotifyItem *FcitxNotifyFindByGlobalId(FcitxNotify *notify,
+                                                  uint32_t global_id) {
     FcitxNotifyItem *res = NULL;
     if (!global_id)
         return NULL;
-    HASH_FIND(global_hh, notify->global_table, &global_id,
-              sizeof(uint32_t), res);
+    HASH_FIND(global_hh, notify->global_table, &global_id, sizeof(uint32_t),
+              res);
     return res;
 }
 
-static FcitxNotifyItem*
-FcitxNotifyFindByInternId(FcitxNotify *notify, uint32_t intern_id)
-{
+static FcitxNotifyItem *FcitxNotifyFindByInternId(FcitxNotify *notify,
+                                                  uint32_t intern_id) {
     FcitxNotifyItem *res = NULL;
     if (!intern_id)
         return NULL;
-    HASH_FIND(intern_hh, notify->intern_table, &intern_id,
-              sizeof(uint32_t), res);
+    HASH_FIND(intern_hh, notify->intern_table, &intern_id, sizeof(uint32_t),
+              res);
     return res;
 }
 
-static void
-FcitxNotifyItemRemoveInternal(FcitxNotify *notify, FcitxNotifyItem *item)
-{
+static void FcitxNotifyItemRemoveInternal(FcitxNotify *notify,
+                                          FcitxNotifyItem *item) {
     if (item->intern_id) {
         HASH_DELETE(intern_hh, notify->intern_table, item);
         item->intern_id = 0;
     }
 }
 
-static void
-FcitxNotifyItemRemoveGlobal(FcitxNotify *notify, FcitxNotifyItem *item)
-{
+static void FcitxNotifyItemRemoveGlobal(FcitxNotify *notify,
+                                        FcitxNotifyItem *item) {
     if (item->global_id) {
         HASH_DELETE(global_hh, notify->global_table, item);
         item->global_id = 0;
     }
 }
 
-static void
-FcitxNotifyItemUnref(FcitxNotifyItem *item)
-{
+static void FcitxNotifyItemUnref(FcitxNotifyItem *item) {
     if (fcitx_utils_atomic_add(&item->ref_count, -1) > 1)
         return;
     FcitxNotify *notify = item->owner;
@@ -172,9 +157,8 @@ FcitxNotifyItemUnref(FcitxNotifyItem *item)
     free(item);
 }
 
-static void
-FcitxNotifyItemAddInternal(FcitxNotify *notify, FcitxNotifyItem *item)
-{
+static void FcitxNotifyItemAddInternal(FcitxNotify *notify,
+                                       FcitxNotifyItem *item) {
     if (item->intern_id) {
         FcitxNotifyItem *old_item =
             FcitxNotifyFindByInternId(notify, item->intern_id);
@@ -183,38 +167,35 @@ FcitxNotifyItemAddInternal(FcitxNotify *notify, FcitxNotifyItem *item)
             FcitxNotifyItemRemoveInternal(notify, old_item);
             FcitxNotifyItemUnref(old_item);
         }
-        HASH_ADD(intern_hh, notify->intern_table, intern_id,
-                 sizeof(uint32_t), item);
+        HASH_ADD(intern_hh, notify->intern_table, intern_id, sizeof(uint32_t),
+                 item);
     }
 }
 
-static void
-FcitxNotifyItemAddGlobal(FcitxNotify *notify, FcitxNotifyItem *item)
-{
+static void FcitxNotifyItemAddGlobal(FcitxNotify *notify,
+                                     FcitxNotifyItem *item) {
     if (item->global_id) {
         FcitxNotifyItem *old_item =
             FcitxNotifyFindByGlobalId(notify, item->global_id);
         if (fcitx_unlikely(old_item))
             FcitxNotifyItemRemoveGlobal(notify, old_item);
-        HASH_ADD(global_hh, notify->global_table, global_id,
-                 sizeof(uint32_t), item);
+        HASH_ADD(global_hh, notify->global_table, global_id, sizeof(uint32_t),
+                 item);
     }
 }
 
-static DBusHandlerResult
-FcitxNotifyDBusFilter(DBusConnection *connection, DBusMessage *message,
-                      void *user_data)
-{
-    FcitxNotify *notify = (FcitxNotify*)user_data;
+static DBusHandlerResult FcitxNotifyDBusFilter(DBusConnection *connection,
+                                               DBusMessage *message,
+                                               void *user_data) {
+    FcitxNotify *notify = (FcitxNotify *)user_data;
     if (dbus_message_is_signal(message, "org.freedesktop.Notifications",
                                "ActionInvoked")) {
         DBusError error;
         uint32_t id = 0;
         const char *key = NULL;
         dbus_error_init(&error);
-        if (dbus_message_get_args(message, &error, DBUS_TYPE_UINT32,
-                                  &id, DBUS_TYPE_STRING, &key,
-                                  DBUS_TYPE_INVALID)) {
+        if (dbus_message_get_args(message, &error, DBUS_TYPE_UINT32, &id,
+                                  DBUS_TYPE_STRING, &key, DBUS_TYPE_INVALID)) {
             FcitxNotifyItem *item = FcitxNotifyFindByGlobalId(notify, id);
             if (item && item->callback) {
                 item->callback(item->data, item->intern_id, key);
@@ -228,8 +209,8 @@ FcitxNotifyDBusFilter(DBusConnection *connection, DBusMessage *message,
         uint32_t id = 0;
         uint32_t reason = 0;
         dbus_error_init(&error);
-        if (dbus_message_get_args(message, &error, DBUS_TYPE_UINT32,
-                                  &id, DBUS_TYPE_UINT32, &reason,
+        if (dbus_message_get_args(message, &error, DBUS_TYPE_UINT32, &id,
+                                  DBUS_TYPE_UINT32, &reason,
                                   DBUS_TYPE_INVALID)) {
             FcitxNotifyItem *item = FcitxNotifyFindByGlobalId(notify, id);
             if (fcitx_likely(item)) {
@@ -243,10 +224,8 @@ FcitxNotifyDBusFilter(DBusConnection *connection, DBusMessage *message,
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
 
-
-void FcitxNotifyGetCapabilitiesCallback(DBusPendingCall *call, void *data)
-{
-    FcitxNotify *notify = (FcitxNotify*) data;
+void FcitxNotifyGetCapabilitiesCallback(DBusPendingCall *call, void *data) {
+    FcitxNotify *notify = (FcitxNotify *)data;
 
     DBusMessage *msg = dbus_pending_call_steal_reply(call);
 
@@ -263,7 +242,7 @@ void FcitxNotifyGetCapabilitiesCallback(DBusPendingCall *call, void *data)
 
     dbus_message_iter_recurse(&args, &sub);
     while (dbus_message_iter_get_arg_type(&sub) == DBUS_TYPE_STRING) {
-        const char* capability = NULL;
+        const char *capability = NULL;
         dbus_message_iter_get_basic(&sub, &capability);
         if (strcmp(capability, "actions") == 0) {
             notify->capabilities |= NC_ACTIONS;
@@ -278,32 +257,27 @@ void FcitxNotifyGetCapabilitiesCallback(DBusPendingCall *call, void *data)
     }
 }
 
-static void
-FcitxNotifyGetCapabilities(FcitxNotify *notify)
-{
-    DBusMessage* message = dbus_message_new_method_call(NOTIFICATIONS_SERVICE_NAME, NOTIFICATIONS_PATH, NOTIFICATIONS_INTERFACE_NAME, "GetCapabilities");
+static void FcitxNotifyGetCapabilities(FcitxNotify *notify) {
+    DBusMessage *message = dbus_message_new_method_call(
+        NOTIFICATIONS_SERVICE_NAME, NOTIFICATIONS_PATH,
+        NOTIFICATIONS_INTERFACE_NAME, "GetCapabilities");
 
     DBusPendingCall *call = NULL;
-    dbus_bool_t reply =
-        dbus_connection_send_with_reply(notify->conn, message,
-                                        &call, DBUS_TIMEOUT_USE_DEFAULT);
+    dbus_bool_t reply = dbus_connection_send_with_reply(
+        notify->conn, message, &call, DBUS_TIMEOUT_USE_DEFAULT);
 
     if (reply == TRUE) {
-        dbus_pending_call_set_notify(call,
-                                     FcitxNotifyGetCapabilitiesCallback,
-                                     notify,
-                                     NULL);
+        dbus_pending_call_set_notify(call, FcitxNotifyGetCapabilitiesCallback,
+                                     notify, NULL);
         dbus_pending_call_unref(call);
     }
 }
 
-static void
-FcitxNotifyLoadDConfig(FcitxNotify *notify)
-{
+static void FcitxNotifyLoadDConfig(FcitxNotify *notify) {
     FILE *fp;
     fcitx_string_map_clear(notify->hide_notify);
-    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-notify.config",
-                                       "r", NULL);
+    fp =
+        FcitxXDGGetFileUserWithPrefix("conf", "fcitx-notify.config", "r", NULL);
     if (fp) {
         if (fcitx_desktop_file_load_fp(&notify->dconfig, fp)) {
             FcitxDesktopGroup *grp;
@@ -312,24 +286,22 @@ FcitxNotifyLoadDConfig(FcitxNotify *notify)
             FcitxDesktopEntry *ety;
             ety = fcitx_desktop_group_ensure_entry(grp, "HiddenNotify");
             if (ety->value) {
-                fcitx_string_map_from_string(notify->hide_notify,
-                                             ety->value, ';');
+                fcitx_string_map_from_string(notify->hide_notify, ety->value,
+                                             ';');
             }
         }
         fclose(fp);
     }
 }
 
-static void
-FcitxNotifySaveDConfig(FcitxNotify *notify)
-{
+static void FcitxNotifySaveDConfig(FcitxNotify *notify) {
     FILE *fp;
-    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-notify.config",
-                                       "w", NULL);
+    fp =
+        FcitxXDGGetFileUserWithPrefix("conf", "fcitx-notify.config", "w", NULL);
     if (fp) {
         FcitxDesktopGroup *grp;
-        grp = fcitx_desktop_file_ensure_group(&notify->dconfig,
-                                              "Notify/Notify");
+        grp =
+            fcitx_desktop_file_ensure_group(&notify->dconfig, "Notify/Notify");
         FcitxDesktopEntry *ety;
         ety = fcitx_desktop_group_ensure_entry(grp, "HiddenNotify");
         char *val = fcitx_string_map_to_string(notify->hide_notify, ';');
@@ -340,17 +312,16 @@ FcitxNotifySaveDConfig(FcitxNotify *notify)
     }
 }
 
-static void FcitxNotifyOwnerChanged(void* user_data, void* arg, const char* serviceName, const char* oldName, const char* newName)
-{
-    FcitxNotify *notify = (FcitxNotify*)user_data;
+static void FcitxNotifyOwnerChanged(void *user_data, void *arg,
+                                    const char *serviceName,
+                                    const char *oldName, const char *newName) {
+    FcitxNotify *notify = (FcitxNotify *)user_data;
     if (strlen(newName) > 0) {
         FcitxNotifyGetCapabilities(notify);
     }
 }
 
-static void*
-FcitxNotifyCreate(FcitxInstance *instance)
-{
+static void *FcitxNotifyCreate(FcitxInstance *instance) {
     FcitxNotify *notify = fcitx_utils_new(FcitxNotify);
     notify->owner = instance;
     notify->notify_counter = 1;
@@ -369,9 +340,8 @@ FcitxNotifyCreate(FcitxInstance *instance)
     if (fcitx_unlikely(dbus_error_is_set(&err)))
         goto filter_error;
 
-    if (fcitx_unlikely(!dbus_connection_add_filter(notify->conn,
-                                                   FcitxNotifyDBusFilter,
-                                                   notify, NULL)))
+    if (fcitx_unlikely(!dbus_connection_add_filter(
+            notify->conn, FcitxNotifyDBusFilter, notify, NULL)))
         goto filter_error;
     dbus_error_free(&err);
 
@@ -379,7 +349,8 @@ FcitxNotifyCreate(FcitxInstance *instance)
     fcitx_desktop_file_init(&notify->dconfig, NULL, NULL);
     FcitxNotifyLoadDConfig(notify);
 
-    FcitxDBusWatchName(instance, NOTIFICATIONS_SERVICE_NAME, notify, FcitxNotifyOwnerChanged, NULL, NULL);
+    FcitxDBusWatchName(instance, NOTIFICATIONS_SERVICE_NAME, notify,
+                       FcitxNotifyOwnerChanged, NULL, NULL);
     FcitxNotifyGetCapabilities(notify);
     FcitxFreeDesktopNotifyAddFunctions(instance);
 
@@ -393,22 +364,17 @@ connect_error:
     return NULL;
 }
 
-static void
-_FcitxNotifyMarkNotifyRemove(FcitxNotify *notify, FcitxNotifyItem *item)
-{
+static void _FcitxNotifyMarkNotifyRemove(FcitxNotify *notify,
+                                         FcitxNotifyItem *item) {
     item->state = NOTIFY_TO_BE_REMOVE;
 }
 
-static void
-_FcitxNotifyCloseNotification(FcitxNotify *notify, FcitxNotifyItem *item)
-{
-    DBusMessage *msg =
-        dbus_message_new_method_call(NOTIFICATIONS_SERVICE_NAME,
-                                     NOTIFICATIONS_PATH,
-                                     NOTIFICATIONS_INTERFACE_NAME,
-                                     "CloseNotification");
-    dbus_message_append_args(msg,
-                             DBUS_TYPE_UINT32, &item->global_id,
+static void _FcitxNotifyCloseNotification(FcitxNotify *notify,
+                                          FcitxNotifyItem *item) {
+    DBusMessage *msg = dbus_message_new_method_call(
+        NOTIFICATIONS_SERVICE_NAME, NOTIFICATIONS_PATH,
+        NOTIFICATIONS_INTERFACE_NAME, "CloseNotification");
+    dbus_message_append_args(msg, DBUS_TYPE_UINT32, &item->global_id,
                              DBUS_TYPE_INVALID);
     dbus_connection_send(notify->conn, msg, NULL);
     dbus_message_unref(msg);
@@ -416,9 +382,8 @@ _FcitxNotifyCloseNotification(FcitxNotify *notify, FcitxNotifyItem *item)
     FcitxNotifyItemUnref(item);
 }
 
-static void
-FcitxNotifyCloseNotification(FcitxNotify *notify, uint32_t intern_id)
-{
+static void FcitxNotifyCloseNotification(FcitxNotify *notify,
+                                         uint32_t intern_id) {
     FcitxNotifyItem *item = FcitxNotifyFindByInternId(notify, intern_id);
     if (!item)
         return;
@@ -429,10 +394,8 @@ FcitxNotifyCloseNotification(FcitxNotify *notify, uint32_t intern_id)
     }
 }
 
-static void
-FcitxNotifyCallback(DBusPendingCall *call, void *data)
-{
-    FcitxNotifyItem *item = (FcitxNotifyItem*)data;
+static void FcitxNotifyCallback(DBusPendingCall *call, void *data) {
+    FcitxNotifyItem *item = (FcitxNotifyItem *)data;
     if (item->global_id)
         return;
     FcitxNotify *notify = item->owner;
@@ -441,8 +404,8 @@ FcitxNotifyCallback(DBusPendingCall *call, void *data)
         uint32_t id;
         DBusError error;
         dbus_error_init(&error);
-        dbus_message_get_args(msg, &error, DBUS_TYPE_UINT32,
-                              &id , DBUS_TYPE_INVALID);
+        dbus_message_get_args(msg, &error, DBUS_TYPE_UINT32, &id,
+                              DBUS_TYPE_INVALID);
         dbus_message_unref(msg);
         dbus_error_free(&error);
         item->global_id = id;
@@ -455,23 +418,19 @@ FcitxNotifyCallback(DBusPendingCall *call, void *data)
 
 static void FcitxNotifyCheckTimeout(FcitxNotify *notify);
 
-static void
-FcitxNotifyTimeoutCb(void *data)
-{
-    FcitxNotify *notify = (FcitxNotify*)data;
+static void FcitxNotifyTimeoutCb(void *data) {
+    FcitxNotify *notify = (FcitxNotify *)data;
     notify->timeout_added = false;
     FcitxNotifyCheckTimeout(notify);
 }
 
-static void
-FcitxNotifyCheckTimeout(FcitxNotify *notify)
-{
+static void FcitxNotifyCheckTimeout(FcitxNotify *notify) {
     time_t cur = FcitxNotifyGetTime();
     FcitxNotifyItem *item;
     FcitxNotifyItem *next;
     boolean left = false;
     time_t earliest = 0;
-    for (item = notify->intern_table;item;item = next) {
+    for (item = notify->intern_table; item; item = next) {
         next = item->intern_hh.next;
         if ((int64_t)(cur - item->time) > TIMEOUT_REAL_TIME) {
             /**
@@ -498,20 +457,15 @@ FcitxNotifyCheckTimeout(FcitxNotify *notify)
                             FcitxNotifyTimeoutCb, notify);
 }
 
-static uint32_t
-FcitxNotifySendNotification(FcitxNotify *notify, const char *appName,
-                            uint32_t replaceId, const char *appIcon,
-                            const char *summary, const char *body,
-                            const FcitxFreedesktopNotifyAction *actions,
-                            int32_t timeout,
-                            FcitxFreedesktopNotifyActionCallback callback,
-                            void *userData, FcitxDestroyNotify freeFunc)
-{
-    DBusMessage *msg =
-        dbus_message_new_method_call(NOTIFICATIONS_SERVICE_NAME,
-                                     NOTIFICATIONS_PATH,
-                                     NOTIFICATIONS_INTERFACE_NAME,
-                                     "Notify");
+static uint32_t FcitxNotifySendNotification(
+    FcitxNotify *notify, const char *appName, uint32_t replaceId,
+    const char *appIcon, const char *summary, const char *body,
+    const FcitxFreedesktopNotifyAction *actions, int32_t timeout,
+    FcitxFreedesktopNotifyActionCallback callback, void *userData,
+    FcitxDestroyNotify freeFunc) {
+    DBusMessage *msg = dbus_message_new_method_call(
+        NOTIFICATIONS_SERVICE_NAME, NOTIFICATIONS_PATH,
+        NOTIFICATIONS_INTERFACE_NAME, "Notify");
     if (!appName)
         appName = "fcitx";
     FcitxNotifyItem *replace_item =
@@ -529,13 +483,10 @@ FcitxNotifySendNotification(FcitxNotify *notify, const char *appName,
     }
     if (!appIcon)
         appIcon = "fcitx";
-    dbus_message_append_args(msg,
-                             DBUS_TYPE_STRING, &appName,
-                             DBUS_TYPE_UINT32, &replaceId,
-                             DBUS_TYPE_STRING, &appIcon,
-                             DBUS_TYPE_STRING, &summary,
-                             DBUS_TYPE_STRING, &body,
-                             DBUS_TYPE_INVALID);
+    dbus_message_append_args(msg, DBUS_TYPE_STRING, &appName, DBUS_TYPE_UINT32,
+                             &replaceId, DBUS_TYPE_STRING, &appIcon,
+                             DBUS_TYPE_STRING, &summary, DBUS_TYPE_STRING,
+                             &body, DBUS_TYPE_INVALID);
 
     // append arguments onto signal
     DBusMessageIter args;
@@ -544,7 +495,7 @@ FcitxNotifySendNotification(FcitxNotify *notify, const char *appName,
     DBusMessageIter sub;
     dbus_message_iter_open_container(&args, DBUS_TYPE_ARRAY, "s", &sub);
     if (actions) {
-        for (;actions->id && actions->name;actions++) {
+        for (; actions->id && actions->name; actions++) {
             dbus_message_iter_append_basic(&sub, DBUS_TYPE_STRING,
                                            &actions->id);
             dbus_message_iter_append_basic(&sub, DBUS_TYPE_STRING,
@@ -559,9 +510,8 @@ FcitxNotifySendNotification(FcitxNotify *notify, const char *appName,
 
     dbus_message_iter_append_basic(&args, DBUS_TYPE_INT32, &timeout);
     DBusPendingCall *call = NULL;
-    dbus_bool_t reply =
-        dbus_connection_send_with_reply(notify->conn, msg, &call,
-                                        TIMEOUT_REAL_TIME * 1000 / 2);
+    dbus_bool_t reply = dbus_connection_send_with_reply(
+        notify->conn, msg, &call, TIMEOUT_REAL_TIME * 1000 / 2);
     dbus_message_unref(msg);
 
     if (!reply)
@@ -569,7 +519,7 @@ FcitxNotifySendNotification(FcitxNotify *notify, const char *appName,
 
     uint32_t intern_id;
     while (fcitx_unlikely((intern_id = fcitx_utils_atomic_add(
-                               (int32_t*)&notify->notify_counter, 1)) == 0)) {
+                               (int32_t *)&notify->notify_counter, 1)) == 0)) {
     }
     FcitxNotifyItem *item = fcitx_utils_new(FcitxNotifyItem);
     item->intern_id = intern_id;
@@ -594,22 +544,19 @@ typedef struct {
     char tip_id[0];
 } FcitxNotifyShowTipData;
 
-static void
-FcitxNotifyShowTipCallback(void *arg, uint32_t id, const char *action)
-{
+static void FcitxNotifyShowTipCallback(void *arg, uint32_t id,
+                                       const char *action) {
     FcitxNotifyShowTipData *data = arg;
     FCITX_UNUSED(id);
     if (!strcmp(action, "dont-show")) {
-        fcitx_string_map_set(data->notify->hide_notify,
-                             data->tip_id, true);
+        fcitx_string_map_set(data->notify->hide_notify, data->tip_id, true);
     }
 }
 
-static void
-FcitxNotifyShowTip(FcitxNotify *notify, const char *appName,
-                   const char *appIcon, int32_t timeout, const char *tip_id,
-                   const char *summary, const char *body)
-{
+static void FcitxNotifyShowTip(FcitxNotify *notify, const char *appName,
+                               const char *appIcon, int32_t timeout,
+                               const char *tip_id, const char *summary,
+                               const char *body) {
     if (fcitx_unlikely(!tip_id) ||
         fcitx_string_map_get(notify->hide_notify, tip_id, false))
         return;
@@ -618,62 +565,52 @@ FcitxNotifyShowTip(FcitxNotify *notify, const char *appName,
         {
             .id = "dont-show",
             .name = _("Do not show again"),
-        }, {
-            NULL, NULL
-        }
-    };
+        },
+        {NULL, NULL}};
     FcitxNotifyShowTipData *data =
         fcitx_utils_new_with_str(FcitxNotifyShowTipData, tip_id);
     data->notify = notify;
-    notify->last_tip_id =
-        FcitxNotifySendNotification(notify, appName, notify->last_tip_id,
-                                    appIcon, summary, body, notify->capabilities & NC_ACTIONS ? actions : NULL, timeout,
-                                    FcitxNotifyShowTipCallback, data, free);
+    notify->last_tip_id = FcitxNotifySendNotification(
+        notify, appName, notify->last_tip_id, appIcon, summary, body,
+        notify->capabilities & NC_ACTIONS ? actions : NULL, timeout,
+        FcitxNotifyShowTipCallback, data, free);
 }
 
-static void
-FcitxNotifyShowTipFmtV(FcitxNotify *notify, const char *appName,
-                       const char *appIcon, int32_t timeout,
-                       const char *tip_id, const char *summary,
-                       const char *body_fmt, va_list *ap)
-{
+static void FcitxNotifyShowTipFmtV(FcitxNotify *notify, const char *appName,
+                                   const char *appIcon, int32_t timeout,
+                                   const char *tip_id, const char *summary,
+                                   const char *body_fmt, va_list *ap) {
     char *body = NULL;
     vasprintf(&body, body_fmt, *ap);
-    FcitxNotifyShowTip(notify, appName, appIcon,
-                       timeout, tip_id, summary, body);
+    FcitxNotifyShowTip(notify, appName, appIcon, timeout, tip_id, summary,
+                       body);
     fcitx_utils_free(body);
 }
 
-static void
-FcitxNotifyShowTipFmt(FcitxNotify *notify, const char *appName,
-                      const char *appIcon, int32_t timeout,
-                      const char *tip_id, const char *summary,
-                      const char *body_fmt, ...)
-{
+static void FcitxNotifyShowTipFmt(FcitxNotify *notify, const char *appName,
+                                  const char *appIcon, int32_t timeout,
+                                  const char *tip_id, const char *summary,
+                                  const char *body_fmt, ...) {
     va_list ap;
     va_start(ap, body_fmt);
-    FcitxNotifyShowTipFmtV(notify, appName, appIcon, timeout, tip_id, summary, body_fmt,
-                           &ap);
+    FcitxNotifyShowTipFmtV(notify, appName, appIcon, timeout, tip_id, summary,
+                           body_fmt, &ap);
     va_end(ap);
 }
 
-static void
-FcitxNotifyShowAddonTip(FcitxNotify *notify, const char *addon_id,
-                        const char *addon_icon, const char *summary, const char *body)
-{
+static void FcitxNotifyShowAddonTip(FcitxNotify *notify, const char *addon_id,
+                                    const char *addon_icon, const char *summary,
+                                    const char *body) {
     if (!addon_id) {
         return;
     }
 
-    FcitxNotifyShowTipFmt(notify, "fcitx", addon_icon, -1,
-                          addon_id, summary ? summary : "",
-                          "%s", body ? body : "");
+    FcitxNotifyShowTipFmt(notify, "fcitx", addon_icon, -1, addon_id,
+                          summary ? summary : "", "%s", body ? body : "");
 }
 
-static void
-FcitxNotifyDestroy(void *arg)
-{
-    FcitxNotify *notify = (FcitxNotify*)arg;
+static void FcitxNotifyDestroy(void *arg) {
+    FcitxNotify *notify = (FcitxNotify *)arg;
 
     FcitxNotifySaveDConfig(notify);
     dbus_connection_remove_filter(notify->conn, FcitxNotifyDBusFilter, notify);

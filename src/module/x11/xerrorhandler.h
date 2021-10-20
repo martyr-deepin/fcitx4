@@ -23,7 +23,7 @@
 
 #include "x11stuff-internal.h"
 
-void InitXErrorHandler(FcitxX11* x11priv);
+void InitXErrorHandler(FcitxX11 *x11priv);
 void UnsetXErrorHandler();
 
 #endif

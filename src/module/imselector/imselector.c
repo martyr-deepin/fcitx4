@@ -17,21 +17,21 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
-#include <stdio.h>
-#include <limits.h>
-#include <ctype.h>
-#include <libintl.h>
-#include <errno.h>
 #include "fcitx/instance.h"
+#include <ctype.h>
+#include <errno.h>
+#include <libintl.h>
+#include <limits.h>
+#include <stdio.h>
 
-#include "fcitx/fcitx.h"
-#include "fcitx/module.h"
-#include "fcitx/hook.h"
-#include "fcitx/candidate.h"
-#include "fcitx/keys.h"
-#include <fcitx/context.h>
 #include "fcitx-config/xdg.h"
 #include "fcitx-utils/log.h"
+#include "fcitx/candidate.h"
+#include "fcitx/fcitx.h"
+#include "fcitx/hook.h"
+#include "fcitx/keys.h"
+#include "fcitx/module.h"
+#include <fcitx/context.h>
 
 #define SELECTOR_COUNT 9
 
@@ -40,7 +40,7 @@ typedef struct _IMSelector IMSelector;
 typedef struct _SelectorHandle {
     int idx;
     boolean global;
-    IMSelector* imselector;
+    IMSelector *imselector;
 } SelectorHandle;
 
 struct _IMSelector {
@@ -52,31 +52,25 @@ struct _IMSelector {
     SelectorHandle handle[2][SELECTOR_COUNT];
     boolean triggered;
     boolean global;
-    FcitxInstance* owner;
+    FcitxInstance *owner;
 };
 
-static void* IMSelectorCreate(FcitxInstance* instance);
-static boolean IMSelectorPreFilter(void* arg, FcitxKeySym sym,
+static void *IMSelectorCreate(FcitxInstance *instance);
+static boolean IMSelectorPreFilter(void *arg, FcitxKeySym sym,
                                    unsigned int state,
-                                   INPUT_RETURN_VALUE *retval
-                                   );
-static  void IMSelectorReset(void* arg);
-static  void IMSelectorReload(void* arg);
-static INPUT_RETURN_VALUE IMSelectorLocalTrigger(void* arg);
-static INPUT_RETURN_VALUE IMSelectorGlobalTrigger(void* arg);
-static INPUT_RETURN_VALUE IMSelectorClearLocal(void* arg);
-static INPUT_RETURN_VALUE IMSelectorSelect(void* arg);
-static boolean LoadIMSelectorConfig(IMSelector* imselector);
-static void SaveIMSelectorConfig(IMSelector* imselector);
-static void IMSelectorGetCands(IMSelector* imselector);
+                                   INPUT_RETURN_VALUE *retval);
+static void IMSelectorReset(void *arg);
+static void IMSelectorReload(void *arg);
+static INPUT_RETURN_VALUE IMSelectorLocalTrigger(void *arg);
+static INPUT_RETURN_VALUE IMSelectorGlobalTrigger(void *arg);
+static INPUT_RETURN_VALUE IMSelectorClearLocal(void *arg);
+static INPUT_RETURN_VALUE IMSelectorSelect(void *arg);
+static boolean LoadIMSelectorConfig(IMSelector *imselector);
+static void SaveIMSelectorConfig(IMSelector *imselector);
+static void IMSelectorGetCands(IMSelector *imselector);
 
 FCITX_DEFINE_PLUGIN(fcitx_imselector, module, FcitxModule) = {
-    IMSelectorCreate,
-    NULL,
-    NULL,
-    NULL,
-    IMSelectorReload
-};
+    IMSelectorCreate, NULL, NULL, NULL, IMSelectorReload};
 
 CONFIG_BINDING_BEGIN(IMSelector)
 CONFIG_BINDING_REGISTER("IMSelector", "LocalInputMethodSelectKey", localKey)
@@ -102,9 +96,8 @@ CONFIG_BINDING_REGISTER("LocalSelector", "IM8", selectorKey[0][7])
 CONFIG_BINDING_REGISTER("LocalSelector", "IM9", selectorKey[0][8])
 CONFIG_BINDING_END()
 
-void* IMSelectorCreate(FcitxInstance* instance)
-{
-    IMSelector* imselector = fcitx_utils_malloc0(sizeof(IMSelector));
+void *IMSelectorCreate(FcitxInstance *instance) {
+    IMSelector *imselector = fcitx_utils_malloc0(sizeof(IMSelector));
     imselector->owner = instance;
     if (!LoadIMSelectorConfig(imselector)) {
         free(imselector);
@@ -137,17 +130,17 @@ void* IMSelectorCreate(FcitxInstance* instance)
     FcitxInstanceRegisterHotkeyFilter(instance, hkhk);
 
     /* this key is ignore the very first input method which is for inactive */
-#define _ADD_HANDLE(X, ISGLOBAL) \
-    do { \
-        SelectorHandle* handle = &imselector->handle[ISGLOBAL][X - 1]; \
-        handle->global = ISGLOBAL; \
-        handle->idx = X; \
-        handle->imselector = imselector; \
-        hkhk.arg = handle; \
-        hkhk.hotkeyhandle = IMSelectorSelect; \
-        hkhk.hotkey = imselector->selectorKey[ISGLOBAL][X - 1]; \
-        FcitxInstanceRegisterHotkeyFilter(instance, hkhk); \
-    } while(0);
+#define _ADD_HANDLE(X, ISGLOBAL)                                               \
+    do {                                                                       \
+        SelectorHandle *handle = &imselector->handle[ISGLOBAL][X - 1];         \
+        handle->global = ISGLOBAL;                                             \
+        handle->idx = X;                                                       \
+        handle->imselector = imselector;                                       \
+        hkhk.arg = handle;                                                     \
+        hkhk.hotkeyhandle = IMSelectorSelect;                                  \
+        hkhk.hotkey = imselector->selectorKey[ISGLOBAL][X - 1];                \
+        FcitxInstanceRegisterHotkeyFilter(instance, hkhk);                     \
+    } while (0);
 
     _ADD_HANDLE(1, false);
     _ADD_HANDLE(2, false);
@@ -175,17 +168,16 @@ void* IMSelectorCreate(FcitxInstance* instance)
     return imselector;
 }
 
-boolean IMSelectorPreFilter(void* arg, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retval)
-{
-    IMSelector* imselector = arg;
-    FcitxInstance* instance = imselector->owner;
+boolean IMSelectorPreFilter(void *arg, FcitxKeySym sym, unsigned int state,
+                            INPUT_RETURN_VALUE *retval) {
+    IMSelector *imselector = arg;
+    FcitxInstance *instance = imselector->owner;
     FcitxInputState *input = FcitxInstanceGetInputState(instance);
-    FcitxGlobalConfig* fc = FcitxInstanceGetGlobalConfig(instance);
+    FcitxGlobalConfig *fc = FcitxInstanceGetGlobalConfig(instance);
     if (!imselector->triggered)
         return false;
-    FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
-    if (FcitxHotkeyIsHotKey(sym, state,
-                            FcitxConfigPrevPageKey(instance, fc))) {
+    FcitxCandidateWordList *candList = FcitxInputStateGetCandidateList(input);
+    if (FcitxHotkeyIsHotKey(sym, state, FcitxConfigPrevPageKey(instance, fc))) {
         FcitxCandidateWordGoPrevPage(candList);
         *retval = IRV_DISPLAY_MESSAGE;
     } else if (FcitxHotkeyIsHotKey(sym, state,
@@ -207,63 +199,62 @@ boolean IMSelectorPreFilter(void* arg, FcitxKeySym sym, unsigned int state, INPU
     return true;
 }
 
-INPUT_RETURN_VALUE IMSelectorGlobalTrigger(void* arg)
-{
-    IMSelector* imselector = arg;
+INPUT_RETURN_VALUE IMSelectorGlobalTrigger(void *arg) {
+    IMSelector *imselector = arg;
     imselector->triggered = true;
     imselector->global = true;
     IMSelectorGetCands(imselector);
     return IRV_DISPLAY_MESSAGE;
 }
 
-INPUT_RETURN_VALUE IMSelectorLocalTrigger(void* arg)
-{
-    IMSelector* imselector = arg;
+INPUT_RETURN_VALUE IMSelectorLocalTrigger(void *arg) {
+    IMSelector *imselector = arg;
     imselector->triggered = true;
     imselector->global = false;
     IMSelectorGetCands(imselector);
     return IRV_DISPLAY_MESSAGE;
 }
 
-INPUT_RETURN_VALUE IMSelectorClearLocal(void* arg)
-{
-    IMSelector* imselector = arg;
-    FcitxInstance* instance = imselector->owner;
-    FcitxInstanceSetLocalIMName(instance, FcitxInstanceGetCurrentIC(instance), NULL);
+INPUT_RETURN_VALUE IMSelectorClearLocal(void *arg) {
+    IMSelector *imselector = arg;
+    FcitxInstance *instance = imselector->owner;
+    FcitxInstanceSetLocalIMName(instance, FcitxInstanceGetCurrentIC(instance),
+                                NULL);
     return IRV_CLEAN;
 }
 
-INPUT_RETURN_VALUE IMSelectorSelect(void* arg)
-{
-    SelectorHandle* handle = arg;
-    IMSelector* imselector = handle->imselector;
-    FcitxInstance* instance = imselector->owner;
-    FcitxIM* im = FcitxInstanceGetIMByIndex(instance, handle->idx);
+INPUT_RETURN_VALUE IMSelectorSelect(void *arg) {
+    SelectorHandle *handle = arg;
+    IMSelector *imselector = handle->imselector;
+    FcitxInstance *instance = imselector->owner;
+    FcitxIM *im = FcitxInstanceGetIMByIndex(instance, handle->idx);
     if (!im)
         return IRV_TO_PROCESS;
     if (handle->global) {
         FcitxInstanceSwitchIMByIndex(instance, handle->idx);
-    }
-    else {
-        FcitxInstanceSetLocalIMName(instance, FcitxInstanceGetCurrentIC(instance), im->uniqueName);
+    } else {
+        FcitxInstanceSetLocalIMName(
+            instance, FcitxInstanceGetCurrentIC(instance), im->uniqueName);
 
         if (FcitxInstanceGetCurrentState(instance) != IS_ACTIVE)
-            FcitxInstanceEnableIM(instance, FcitxInstanceGetCurrentIC(instance), false);
+            FcitxInstanceEnableIM(instance, FcitxInstanceGetCurrentIC(instance),
+                                  false);
     }
     return IRV_CLEAN;
 }
 
-INPUT_RETURN_VALUE IMSelectorGetCand(void* arg, FcitxCandidateWord* candWord)
-{
-    IMSelector* imselector = arg;
-    FcitxInstance* instance = imselector->owner;
+INPUT_RETURN_VALUE IMSelectorGetCand(void *arg, FcitxCandidateWord *candWord) {
+    IMSelector *imselector = arg;
+    FcitxInstance *instance = imselector->owner;
 
     if (!candWord->priv) {
-        FcitxInstanceSetLocalIMName(instance, FcitxInstanceGetCurrentIC(instance), NULL);
+        FcitxInstanceSetLocalIMName(instance,
+                                    FcitxInstanceGetCurrentIC(instance), NULL);
         return IRV_CLEAN;
     }
 
-    int index = FcitxInstanceGetIMIndexByName(imselector->owner, (char*) candWord->priv);
+    int index = FcitxInstanceGetIMIndexByName(imselector->owner,
+                                              (char *)candWord->priv);
 
     if (index == 0)
         FcitxInstanceCloseIM(instance, FcitxInstanceGetCurrentIC(instance));
@@ -271,45 +262,49 @@ INPUT_RETURN_VALUE IMSelectorGetCand(void* arg, FcitxCandidateWord* candWord)
         if (imselector->global)
             FcitxInstanceSwitchIMByIndex(instance, index);
         else
-            FcitxInstanceSetLocalIMName(instance, FcitxInstanceGetCurrentIC(instance), (char*) candWord->priv);
+            FcitxInstanceSetLocalIMName(instance,
+                                        FcitxInstanceGetCurrentIC(instance),
+                                        (char *)candWord->priv);
 
         if (FcitxInstanceGetCurrentState(instance) != IS_ACTIVE)
-            FcitxInstanceEnableIM(instance, FcitxInstanceGetCurrentIC(instance), false);
+            FcitxInstanceEnableIM(instance, FcitxInstanceGetCurrentIC(instance),
+                                  false);
     }
     return IRV_CLEAN;
 }
 
-void IMSelectorGetCands(IMSelector* imselector)
-{
-    FcitxInstance* instance = imselector->owner;
+void IMSelectorGetCands(IMSelector *imselector) {
+    FcitxInstance *instance = imselector->owner;
     FcitxInputState *input = FcitxInstanceGetInputState(instance);
-    UT_array* imes = FcitxInstanceGetIMEs(instance);
+    UT_array *imes = FcitxInstanceGetIMEs(instance);
     FcitxInstanceSendCloseEvent(instance, CET_SwitchIM);
     FcitxInstanceCleanInputWindow(instance);
 
-    FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
+    FcitxCandidateWordList *candList = FcitxInputStateGetCandidateList(input);
     FcitxCandidateWordSetPageSize(candList, 10);
     FcitxCandidateWordSetChoose(candList, DIGIT_STR_CHOOSE);
     FcitxInputStateSetShowCursor(input, false);
     FcitxCandidateWordSetOverrideDefaultHighlight(candList, false);
     FcitxCandidateWordSetLayoutHint(candList, CLH_Vertical);
 
-    FcitxIM* im = FcitxInstanceGetCurrentIM(instance);
-    FcitxInputContext* ic = FcitxInstanceGetCurrentIC(instance);
-    FcitxInputContext2* ic2 = (FcitxInputContext2*) ic;
+    FcitxIM *im = FcitxInstanceGetCurrentIM(instance);
+    FcitxInputContext *ic = FcitxInstanceGetCurrentIC(instance);
+    FcitxInputContext2 *ic2 = (FcitxInputContext2 *)ic;
     if (!ic)
         return;
 
     FcitxMessages *aux_up = FcitxInputStateGetAuxUp(input);
-    FcitxMessagesAddMessageStringsAtLast(aux_up, MSG_TIPS, imselector->global ?
-                                         _("Select global input method: ") :
-                                         _("Select local input method: "));
+    FcitxMessagesAddMessageStringsAtLast(
+        aux_up, MSG_TIPS,
+        imselector->global ? _("Select global input method: ")
+                           : _("Select local input method: "));
     if (ic2->imname) {
         int idx = FcitxInstanceGetIMIndexByName(instance, ic2->imname);
         FcitxIM *im = fcitx_array_eltptr(imes, idx);
         if (im) {
-            FcitxMessagesAddMessageStringsAtLast(aux_up, MSG_TIPS,
-                _("Current local input method is "), im->strName);
+            FcitxMessagesAddMessageStringsAtLast(
+                aux_up, MSG_TIPS, _("Current local input method is "),
+                im->strName);
         }
     } else {
         FcitxMessagesAddMessageStringsAtLast(aux_up, MSG_TIPS,
@@ -324,8 +319,7 @@ void IMSelectorGetCands(IMSelector* imselector)
         if (ic2->imname && strcmp(ic2->imname, pim->uniqueName) == 0) {
             candWord.priv = NULL;
             candWord.strWord = strdup(_("Clear local input method"));
-        }
-        else {
+        } else {
             candWord.priv = strdup(pim->uniqueName);
             candWord.strWord = strdup(pim->strName);
         }
@@ -340,29 +334,26 @@ void IMSelectorGetCands(IMSelector* imselector)
     }
 }
 
-void IMSelectorReset(void* arg)
-{
-    IMSelector* imselector = arg;
+void IMSelectorReset(void *arg) {
+    IMSelector *imselector = arg;
     imselector->triggered = false;
 }
 
-
-void IMSelectorReload(void* arg)
-{
-    IMSelector* imselector = arg;
+void IMSelectorReload(void *arg) {
+    IMSelector *imselector = arg;
     LoadIMSelectorConfig(imselector);
 }
 
 CONFIG_DESC_DEFINE(GetIMSelectorConfig, "fcitx-imselector.desc")
 
-boolean LoadIMSelectorConfig(IMSelector* imselector)
-{
-    FcitxConfigFileDesc* configDesc = GetIMSelectorConfig();
+boolean LoadIMSelectorConfig(IMSelector *imselector) {
+    FcitxConfigFileDesc *configDesc = GetIMSelectorConfig();
     if (configDesc == NULL)
         return false;
 
     FILE *fp;
-    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-imselector.config", "r", NULL);
+    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-imselector.config", "r",
+                                       NULL);
     if (!fp) {
         if (errno == ENOENT)
             SaveIMSelectorConfig(imselector);
@@ -371,7 +362,7 @@ boolean LoadIMSelectorConfig(IMSelector* imselector)
     FcitxConfigFile *cfile = FcitxConfigParseConfigFileFp(fp, configDesc);
 
     IMSelectorConfigBind(imselector, cfile, configDesc);
-    FcitxConfigBindSync((FcitxGenericConfig*)imselector);
+    FcitxConfigBindSync((FcitxGenericConfig *)imselector);
 
     if (fp)
         fclose(fp);
@@ -379,10 +370,10 @@ boolean LoadIMSelectorConfig(IMSelector* imselector)
     return true;
 }
 
-void SaveIMSelectorConfig(IMSelector* imselector)
-{
-    FcitxConfigFileDesc* configDesc = GetIMSelectorConfig();
-    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-imselector.config", "w", NULL);
+void SaveIMSelectorConfig(IMSelector *imselector) {
+    FcitxConfigFileDesc *configDesc = GetIMSelectorConfig();
+    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-imselector.config",
+                                             "w", NULL);
     FcitxConfigSaveConfigFileFp(fp, &imselector->gconfig, configDesc);
     if (fp)
         fclose(fp);

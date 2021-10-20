@@ -21,18 +21,18 @@
 #ifndef _PINYIN_ENHANCE_INTERNAL_H
 #define _PINYIN_ENHANCE_INTERNAL_H
 
-#include <fcitx/fcitx.h>
-#include <fcitx/module.h>
-#include <fcitx/instance.h>
-#include <fcitx/hook.h>
-#include <fcitx-utils/log.h>
-#include <fcitx-utils/utils.h>
-#include <fcitx-utils/memory.h>
-#include <fcitx/candidate.h>
 #include <fcitx-config/xdg.h>
+#include <fcitx-utils/log.h>
+#include <fcitx-utils/memory.h>
+#include <fcitx-utils/utils.h>
+#include <fcitx/candidate.h>
+#include <fcitx/fcitx.h>
+#include <fcitx/hook.h>
+#include <fcitx/instance.h>
+#include <fcitx/module.h>
 
-#include "pinyin-enhance.h"
 #include "pinyin-enhance-map.h"
+#include "pinyin-enhance.h"
 
 #include "config.h"
 
@@ -45,26 +45,21 @@ typedef struct {
 #define PY_ENHANCE_BUFF_PAGE (8 * 1024)
 #define PY_ENHANCE_BUFF_ALIGH (sizeof(int) >= 4 ? sizeof(int) : 4)
 
-static inline void
-_py_enhance_buff_resize(PyEnhanceBuff *buff, uint32_t len)
-{
+static inline void _py_enhance_buff_resize(PyEnhanceBuff *buff, uint32_t len) {
     len = fcitx_utils_align_to(len, PY_ENHANCE_BUFF_PAGE);
     buff->data = realloc(buff->data, len);
     buff->alloc = len;
 }
 
-static inline void
-py_enhance_buff_reserve(PyEnhanceBuff *buff, uint32_t len)
-{
+static inline void py_enhance_buff_reserve(PyEnhanceBuff *buff, uint32_t len) {
     len += buff->len;
     if (len <= buff->alloc)
         return;
     _py_enhance_buff_resize(buff, len);
 }
 
-static inline uint32_t
-py_enhance_buff_alloc(PyEnhanceBuff *buff, uint32_t len)
-{
+static inline uint32_t py_enhance_buff_alloc(PyEnhanceBuff *buff,
+                                             uint32_t len) {
     uint32_t res = fcitx_utils_align_to(buff->len, PY_ENHANCE_BUFF_ALIGH);
     buff->len = res + len;
     if (fcitx_unlikely(buff->len > buff->alloc)) {
@@ -73,9 +68,8 @@ py_enhance_buff_alloc(PyEnhanceBuff *buff, uint32_t len)
     return res;
 }
 
-static inline uint32_t
-py_enhance_buff_alloc_noalign(PyEnhanceBuff *buff, uint32_t len)
-{
+static inline uint32_t py_enhance_buff_alloc_noalign(PyEnhanceBuff *buff,
+                                                     uint32_t len) {
     uint32_t res = buff->len;
     buff->len = res + len;
     if (fcitx_unlikely(buff->len > buff->alloc)) {
@@ -84,15 +78,11 @@ py_enhance_buff_alloc_noalign(PyEnhanceBuff *buff, uint32_t len)
     return res;
 }
 
-static inline void
-py_enhance_buff_shrink(PyEnhanceBuff *buff)
-{
+static inline void py_enhance_buff_shrink(PyEnhanceBuff *buff) {
     _py_enhance_buff_resize(buff, buff->len);
 }
 
-static inline void
-py_enhance_buff_free(PyEnhanceBuff *buff)
-{
+static inline void py_enhance_buff_free(PyEnhanceBuff *buff) {
     fcitx_utils_free(buff->data);
 }
 
@@ -104,7 +94,8 @@ typedef struct {
 /**
  * s must be a string literal.
  **/
-#define PY_STR_LEN(s) {.str = s, .len = sizeof(s) - 1}
+#define PY_STR_LEN(s)                                                          \
+    { .str = s, .len = sizeof(s) - 1 }
 
 typedef struct {
     uint32_t table[5 + 5 * 5 + 5 * 5 * 5];

@@ -38,281 +38,298 @@
 extern "C" {
 #endif
 
-    /**
-     * key filter function
-     **/
-    typedef boolean(*FcitxKeyFilter)(void* arg, FcitxKeySym sym,
-                                     unsigned int state,
-                                     INPUT_RETURN_VALUE *retval
-                                    );
+/**
+ * key filter function
+ **/
+typedef boolean (*FcitxKeyFilter)(void *arg, FcitxKeySym sym,
+                                  unsigned int state,
+                                  INPUT_RETURN_VALUE *retval);
 
-    /**
-     * string filter function
-     **/
+/**
+ * string filter function
+ **/
 
-    typedef char* (*FcitxStringFilter)(void* arg, const char* in);
+typedef char *(*FcitxStringFilter)(void *arg, const char *in);
 
-    /**
-     * ime event hook function
-     **/
-    typedef void (*FcitxIMEventHookFunc)(void* arg);
+/**
+ * ime event hook function
+ **/
+typedef void (*FcitxIMEventHookFunc)(void *arg);
 
-    /**
-     * ic event hook function
-     **/
-    typedef void (*FcitxICEventHookFunc)(void* arg, struct _FcitxInputContext* ic);
+/**
+ * ic event hook function
+ **/
+typedef void (*FcitxICEventHookFunc)(void *arg, struct _FcitxInputContext *ic);
 
-    /**
-     * ui status changed hook function
-     **/
-    typedef void (*FcitxUIStatusHookFunc)(void* arg, const char* statusName);
+/**
+ * ui status changed hook function
+ **/
+typedef void (*FcitxUIStatusHookFunc)(void *arg, const char *statusName);
 
+/**
+ * Hotkey process struct
+ **/
+typedef struct _FcitxHotkeyHook {
     /**
-     * Hotkey process struct
+     * Pointer to fcitx hotkeys, fcitx hotkey is length 2 array.
      **/
-    typedef struct _FcitxHotkeyHook {
-        /**
-         * Pointer to fcitx hotkeys, fcitx hotkey is length 2 array.
-         **/
-        FcitxHotkey* hotkey;
-        /**
-         * Function to be called while hotkey is pressed.
-         *
-         * @return INPUT_RETURN_VALUE*
-         **/
-        INPUT_RETURN_VALUE(*hotkeyhandle)(void*);
-        /**
-         * Argument
-         **/
-        void* arg;
-    } FcitxHotkeyHook;
+    FcitxHotkey *hotkey;
+    /**
+     * Function to be called while hotkey is pressed.
+     *
+     * @return INPUT_RETURN_VALUE*
+     **/
+    INPUT_RETURN_VALUE (*hotkeyhandle)(void *);
+    /**
+     * Argument
+     **/
+    void *arg;
+} FcitxHotkeyHook;
 
+/**
+ * Key filter hook
+ **/
+typedef struct _FcitxKeyFilterHook {
     /**
-     * Key filter hook
+     * Key filter function
      **/
-    typedef struct _FcitxKeyFilterHook {
-        /**
-         * Key filter function
-         **/
-        FcitxKeyFilter func;
-        /**
-         * extra argument for filter function
-         **/
-        void *arg;
-    } FcitxKeyFilterHook;
+    FcitxKeyFilter func;
+    /**
+     * extra argument for filter function
+     **/
+    void *arg;
+} FcitxKeyFilterHook;
 
+/**
+ * Hook for string filter, this hook can change the output string.
+ **/
+typedef struct _FcitxStringFilterHook {
     /**
-     * Hook for string filter, this hook can change the output string.
+     * Filter function
      **/
-    typedef struct _FcitxStringFilterHook {
-        /**
-         * Filter function
-         **/
-        FcitxStringFilter func;
-        /**
-         * Extra argument for the filter function.
-         **/
-        void *arg;
-    } FcitxStringFilterHook;
+    FcitxStringFilter func;
+    /**
+     * Extra argument for the filter function.
+     **/
+    void *arg;
+} FcitxStringFilterHook;
 
-    /**
-     * IME Event hook for Reset, Trigger On/Off, Focus/Unfocus
-     **/
-    typedef struct _FcitxIMEventHook {
-        FcitxIMEventHookFunc func; /**< callback function */
-        void *arg; /**< argument for callback */
-    } FcitxIMEventHook;
+/**
+ * IME Event hook for Reset, Trigger On/Off, Focus/Unfocus
+ **/
+typedef struct _FcitxIMEventHook {
+    FcitxIMEventHookFunc func; /**< callback function */
+    void *arg;                 /**< argument for callback */
+} FcitxIMEventHook;
 
-    /**
-     * IC Event hook
-     **/
-    typedef struct _FcitxICEventHook {
-        FcitxICEventHookFunc func; /**< callback function */
-        void *arg; /**< argument for callback */
-    } FcitxICEventHook;
+/**
+ * IC Event hook
+ **/
+typedef struct _FcitxICEventHook {
+    FcitxICEventHookFunc func; /**< callback function */
+    void *arg;                 /**< argument for callback */
+} FcitxICEventHook;
 
-    /**
-     * UI Event hook
-     **/
-    typedef struct _FcitxUIStatusHook {
-        FcitxUIStatusHookFunc func; /**< callback function */
-        void *arg; /**< argument for callback */
-    } FcitxUIStatusHook;
+/**
+ * UI Event hook
+ **/
+typedef struct _FcitxUIStatusHook {
+    FcitxUIStatusHookFunc func; /**< callback function */
+    void *arg;                  /**< argument for callback */
+} FcitxUIStatusHook;
 
-    /**
-     * register pre input filter
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterPreInputFilter(struct _FcitxInstance* instance, FcitxKeyFilterHook hook) ;
-    /**
-     * register post input filter
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterPostInputFilter(struct _FcitxInstance* instance, FcitxKeyFilterHook hook);
-    /**
-     * register pre release input filter
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     *
-     * @since 4.2.8
-     **/
-    void FcitxInstanceRegisterPreReleaseInputFilter(struct _FcitxInstance* instance, FcitxKeyFilterHook hook) ;
-    /**
-     * register post release input filter
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     *
-     * @since 4.2.8
-     **/
-    void FcitxInstanceRegisterPostReleaseInputFilter(struct _FcitxInstance* instance, FcitxKeyFilterHook hook);
-    /**
-     * register ouput string filter
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterOutputFilter(struct _FcitxInstance* instance, FcitxStringFilterHook hook);
-    /**
-     * register hotkey
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterHotkeyFilter(struct _FcitxInstance* instance, FcitxHotkeyHook hook);
-    /**
-     * register reset input hook
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterResetInputHook(struct _FcitxInstance* instance, FcitxIMEventHook hook);
-    /**
-     * register trigger on hook
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterTriggerOnHook(struct _FcitxInstance* instance, FcitxIMEventHook hook);
-    /**
-     * register trigger off hook
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterTriggerOffHook(struct _FcitxInstance* instance, FcitxIMEventHook hook);
-    /**
-     * register focus in hook
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterInputFocusHook(struct _FcitxInstance* instance, FcitxIMEventHook hook);
-    /**
-     * register focus out hook
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterInputUnFocusHook(struct _FcitxInstance* instance, FcitxIMEventHook hook);
-    /**
-     * register im changed hook
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterIMChangedHook(struct _FcitxInstance* instance, FcitxIMEventHook hook);
+/**
+ * register pre input filter
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterPreInputFilter(struct _FcitxInstance *instance,
+                                         FcitxKeyFilterHook hook);
+/**
+ * register post input filter
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterPostInputFilter(struct _FcitxInstance *instance,
+                                          FcitxKeyFilterHook hook);
+/**
+ * register pre release input filter
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ *
+ * @since 4.2.8
+ **/
+void FcitxInstanceRegisterPreReleaseInputFilter(struct _FcitxInstance *instance,
+                                                FcitxKeyFilterHook hook);
+/**
+ * register post release input filter
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ *
+ * @since 4.2.8
+ **/
+void FcitxInstanceRegisterPostReleaseInputFilter(
+    struct _FcitxInstance *instance, FcitxKeyFilterHook hook);
+/**
+ * register ouput string filter
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterOutputFilter(struct _FcitxInstance *instance,
+                                       FcitxStringFilterHook hook);
+/**
+ * register hotkey
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterHotkeyFilter(struct _FcitxInstance *instance,
+                                       FcitxHotkeyHook hook);
+/**
+ * register reset input hook
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterResetInputHook(struct _FcitxInstance *instance,
+                                         FcitxIMEventHook hook);
+/**
+ * register trigger on hook
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterTriggerOnHook(struct _FcitxInstance *instance,
+                                        FcitxIMEventHook hook);
+/**
+ * register trigger off hook
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterTriggerOffHook(struct _FcitxInstance *instance,
+                                         FcitxIMEventHook hook);
+/**
+ * register focus in hook
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterInputFocusHook(struct _FcitxInstance *instance,
+                                         FcitxIMEventHook hook);
+/**
+ * register focus out hook
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterInputUnFocusHook(struct _FcitxInstance *instance,
+                                           FcitxIMEventHook hook);
+/**
+ * register im changed hook
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterIMChangedHook(struct _FcitxInstance *instance,
+                                        FcitxIMEventHook hook);
 
-    /**
-     * register update candidate word hook
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterUpdateCandidateWordHook(struct _FcitxInstance* instance, FcitxIMEventHook hook);
+/**
+ * register update candidate word hook
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterUpdateCandidateWordHook(
+    struct _FcitxInstance *instance, FcitxIMEventHook hook);
 
-    /**
-     * register update input method list hook
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     **/
-    void FcitxInstanceRegisterUpdateIMListHook(struct _FcitxInstance* instance, FcitxIMEventHook hook);
+/**
+ * register update input method list hook
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ **/
+void FcitxInstanceRegisterUpdateIMListHook(struct _FcitxInstance *instance,
+                                           FcitxIMEventHook hook);
 
-    /**
-     * process output filter, return string is malloced
-     *
-     * @param instance fcitx instance
-     * @param in input string
-     * @return char*
-     **/
-    char* FcitxInstanceProcessOutputFilter(struct _FcitxInstance* instance, const char *in);
+/**
+ * process output filter, return string is malloced
+ *
+ * @param instance fcitx instance
+ * @param in input string
+ * @return char*
+ **/
+char *FcitxInstanceProcessOutputFilter(struct _FcitxInstance *instance,
+                                       const char *in);
 
-    /**
-     * process output filter, return string is malloced
-     *
-     * @param instance fcitx instance
-     * @param in input string
-     * @return char*
-     **/
-    char* FcitxInstanceProcessCommitFilter(struct _FcitxInstance* instance, const char *in);
+/**
+ * process output filter, return string is malloced
+ *
+ * @param instance fcitx instance
+ * @param in input string
+ * @return char*
+ **/
+char *FcitxInstanceProcessCommitFilter(struct _FcitxInstance *instance,
+                                       const char *in);
 
-    /**
-     * register ouput string filter
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     *
-     * @since 4.2.0
-     **/
-    void FcitxInstanceRegisterCommitFilter(struct _FcitxInstance* instance, FcitxStringFilterHook hook);
+/**
+ * register ouput string filter
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ *
+ * @since 4.2.0
+ **/
+void FcitxInstanceRegisterCommitFilter(struct _FcitxInstance *instance,
+                                       FcitxStringFilterHook hook);
 
-    /**
-     * register a hook for watching when ic status changed
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     *
-     * @since 4.2.6
-     **/
-    void FcitxInstanceRegisterICStateChangedHook(struct _FcitxInstance* instance, FcitxICEventHook hook);
+/**
+ * register a hook for watching when ic status changed
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ *
+ * @since 4.2.6
+ **/
+void FcitxInstanceRegisterICStateChangedHook(struct _FcitxInstance *instance,
+                                             FcitxICEventHook hook);
 
-    /**
-     * register a hook for watching when ui status changed
-     *
-     * @param instance fcitx instance
-     * @param hook new hook
-     * @return void
-     *
-     * @since TBD
-     **/
-    void FcitxInstanceRegisterUIStatusChangedHook(struct _FcitxInstance* instance, FcitxUIStatusHook hook);
+/**
+ * register a hook for watching when ui status changed
+ *
+ * @param instance fcitx instance
+ * @param hook new hook
+ * @return void
+ *
+ * @since TBD
+ **/
+void FcitxInstanceRegisterUIStatusChangedHook(struct _FcitxInstance *instance,
+                                              FcitxUIStatusHook hook);
 
-    boolean FcitxDummyReleaseInputHook(void* arg, FcitxKeySym sym,
-                                        unsigned int state,
-                                        INPUT_RETURN_VALUE *retval);
-
+boolean FcitxDummyReleaseInputHook(void *arg, FcitxKeySym sym,
+                                   unsigned int state,
+                                   INPUT_RETURN_VALUE *retval);
 
 #ifdef __cplusplus
 }

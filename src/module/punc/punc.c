@@ -18,98 +18,94 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <stdio.h>
-#include <limits.h>
-#include <string.h>
-#include <stdlib.h>
 #include <libintl.h>
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include "punc.h"
-#include "fcitx/module.h"
-#include "fcitx/fcitx.h"
-#include "fcitx/hook.h"
-#include "fcitx/ime.h"
-#include "fcitx/keys.h"
-#include "fcitx/frontend.h"
-#include "fcitx/instance.h"
-#include "fcitx/candidate.h"
-#include "fcitx/context.h"
 #include "fcitx-config/xdg.h"
+#include "fcitx-utils/bitset.h"
 #include "fcitx-utils/log.h"
 #include "fcitx-utils/utils.h"
-#include "fcitx-utils/bitset.h"
+#include "fcitx/candidate.h"
+#include "fcitx/context.h"
+#include "fcitx/fcitx.h"
+#include "fcitx/frontend.h"
+#include "fcitx/hook.h"
+#include "fcitx/ime.h"
+#include "fcitx/instance.h"
+#include "fcitx/keys.h"
+#include "fcitx/module.h"
 #include "module/freedesktop-notify/fcitx-freedesktop-notify.h"
+#include "punc.h"
 
 /**
  * @file punc.c
  * Trans full width punc for Fcitx
  */
 
-#define PUNC_DICT_FILENAME  "punc.mb"
-#define MAX_PUNC_NO     2
-#define MAX_PUNC_LENGTH     2
+#define PUNC_DICT_FILENAME "punc.mb"
+#define MAX_PUNC_NO 2
+#define MAX_PUNC_LENGTH 2
 
 struct _FcitxPuncState;
 typedef struct _WidePunc {
     char ASCII;
     char strWidePunc[MAX_PUNC_NO][MAX_PUNC_LENGTH * UTF8_MAX_LENGTH + 1];
-    unsigned iCount: 2;
+    unsigned iCount : 2;
 } WidePunc;
 
 typedef struct _PuncWhich {
-    FcitxBitSet* bitset;
-    WidePunc* lastPunc;
+    FcitxBitSet *bitset;
+    WidePunc *lastPunc;
 } PuncWhich;
 
 typedef struct _FcitxPunc {
-    char* langCode;
-    WidePunc* curPunc;
+    char *langCode;
+    WidePunc *curPunc;
 
     UT_hash_handle hh;
 } FcitxPunc;
 
-static boolean LoadPuncDict(struct _FcitxPuncState* puncState);
-static FcitxPunc* LoadPuncFile(const char* filename);
-static char *GetPunc(struct _FcitxPuncState* puncState, int iKey);
-static void FreePunc(struct _FcitxPuncState* puncState);
-static void* PuncCreate(FcitxInstance* instance);
-static boolean PuncPreFilter(void* arg, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retVal);
-static boolean ProcessPunc(void* arg, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retVal);
+static boolean LoadPuncDict(struct _FcitxPuncState *puncState);
+static FcitxPunc *LoadPuncFile(const char *filename);
+static char *GetPunc(struct _FcitxPuncState *puncState, int iKey);
+static void FreePunc(struct _FcitxPuncState *puncState);
+static void *PuncCreate(FcitxInstance *instance);
+static boolean PuncPreFilter(void *arg, FcitxKeySym sym, unsigned int state,
+                             INPUT_RETURN_VALUE *retVal);
+static boolean ProcessPunc(void *arg, FcitxKeySym sym, unsigned int state,
+                           INPUT_RETURN_VALUE *retVal);
 static void TogglePuncState(void *arg);
 static boolean GetPuncState(void *arg);
 static void ReloadPunc(void *arg);
 static INPUT_RETURN_VALUE TogglePuncStateWithHotkey(void *arg);
 static void ResetPunc(void *arg);
-static void ResetPuncWhichStatus(void* arg);
+static void ResetPuncWhichStatus(void *arg);
 static boolean IsHotKeyPunc(FcitxKeySym sym, unsigned int state);
-static void PuncLanguageChanged(void* arg, const void* value);
+static void PuncLanguageChanged(void *arg, const void *value);
 
-static void* PuncWhichAlloc(void* arg);
-static void* PuncWhichCopy(void* arg, void* data, void* src);
-static void PuncWhichFree(void* arg, void* data);
+static void *PuncWhichAlloc(void *arg);
+static void *PuncWhichCopy(void *arg, void *data, void *src);
+static void PuncWhichFree(void *arg, void *data);
 
 DECLARE_ADDFUNCTIONS(Punc)
 
 typedef struct _FcitxPuncState {
     char cLastIsAutoConvert;
     boolean bLastIsNumber;
-    FcitxInstance* owner;
-    FcitxPunc* puncSet;
-    WidePunc* curPunc;
+    FcitxInstance *owner;
+    FcitxPunc *puncSet;
+    WidePunc *curPunc;
     int slot;
 } FcitxPuncState;
 
-FCITX_DEFINE_PLUGIN(fcitx_punc, module, FcitxModule) = {
-    PuncCreate,
-    NULL,
-    NULL,
-    NULL,
-    ReloadPunc
-};
+FCITX_DEFINE_PLUGIN(fcitx_punc, module, FcitxModule) = {PuncCreate, NULL, NULL,
+                                                        NULL, ReloadPunc};
 
-void* PuncCreate(FcitxInstance* instance)
-{
-    FcitxPuncState* puncState = fcitx_utils_malloc0(sizeof(FcitxPuncState));
+void *PuncCreate(FcitxInstance *instance) {
+    FcitxPuncState *puncState = fcitx_utils_malloc0(sizeof(FcitxPuncState));
     puncState->owner = instance;
     LoadPuncDict(puncState);
     FcitxKeyFilterHook hk;
@@ -143,25 +139,24 @@ void* PuncCreate(FcitxInstance* instance)
     FcitxInstanceWatchContext(instance, CONTEXT_IM_LANGUAGE,
                               PuncLanguageChanged, puncState);
 
-    FcitxProfile* profile = FcitxInstanceGetProfile(instance);
-    FcitxUIRegisterStatus(instance, puncState, "punc",
-                          profile->bUseWidePunc ? _("Full width punct") :
-                          _("Latin punct"),
-                          _("Toggle Full Width Punctuation"), TogglePuncState,
-                          GetPuncState);
+    FcitxProfile *profile = FcitxInstanceGetProfile(instance);
+    FcitxUIRegisterStatus(
+        instance, puncState, "punc",
+        profile->bUseWidePunc ? _("Full width punct") : _("Latin punct"),
+        _("Toggle Full Width Punctuation"), TogglePuncState, GetPuncState);
 
-    puncState->slot = FcitxInstanceAllocDataForIC(instance, PuncWhichAlloc,
-                                                  PuncWhichCopy, PuncWhichFree,
-                                                  puncState);
+    puncState->slot = FcitxInstanceAllocDataForIC(
+        instance, PuncWhichAlloc, PuncWhichCopy, PuncWhichFree, puncState);
 
-    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_DISABLE_PUNC, FCT_Boolean, FCF_ResetOnInputMethodChange);
+    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_DISABLE_PUNC,
+                                          FCT_Boolean,
+                                          FCF_ResetOnInputMethodChange);
 
     FcitxPuncAddFunctions(instance);
     return puncState;
 }
 
-void* PuncWhichAlloc(void *arg)
-{
+void *PuncWhichAlloc(void *arg) {
     FcitxPunc *puncState = arg;
     PuncWhich *which = fcitx_utils_new(PuncWhich);
     which->lastPunc = puncState->curPunc;
@@ -169,8 +164,7 @@ void* PuncWhichAlloc(void *arg)
     return which;
 }
 
-void* PuncWhichCopy(void* arg, void* data, void* src)
-{
+void *PuncWhichCopy(void *arg, void *data, void *src) {
     FCITX_UNUSED(arg);
     PuncWhich *which = data;
     PuncWhich *whichsrc = src;
@@ -179,19 +173,17 @@ void* PuncWhichCopy(void* arg, void* data, void* src)
     return data;
 }
 
-void PuncWhichFree(void* arg, void* data)
-{
+void PuncWhichFree(void *arg, void *data) {
     FCITX_UNUSED(arg);
     PuncWhich *which = data;
     free(which->bitset);
     free(data);
 }
 
-void PuncLanguageChanged(void* arg, const void* value)
-{
-    FcitxPuncState* puncState = (FcitxPuncState*) arg;
-    const char* lang = (const char*) value;
-    FcitxPunc* punc = NULL;
+void PuncLanguageChanged(void *arg, const void *value) {
+    FcitxPuncState *puncState = (FcitxPuncState *)arg;
+    const char *lang = (const char *)value;
+    FcitxPunc *punc = NULL;
     if (lang) {
         HASH_FIND_STR(puncState->puncSet, lang, punc);
         if (punc)
@@ -201,12 +193,12 @@ void PuncLanguageChanged(void* arg, const void* value)
     } else
         puncState->curPunc = NULL;
 
-    FcitxUISetStatusVisable (puncState->owner, "punc",  puncState->curPunc != NULL) ;
+    FcitxUISetStatusVisable(puncState->owner, "punc",
+                            puncState->curPunc != NULL);
 }
 
-static void
-PuncGetPunc2(FcitxPuncState *puncState, int key, char **p1, char **p2)
-{
+static void PuncGetPunc2(FcitxPuncState *puncState, int key, char **p1,
+                         char **p2) {
     int iIndex = 0;
     WidePunc *curPunc = puncState->curPunc;
 
@@ -225,35 +217,33 @@ PuncGetPunc2(FcitxPuncState *puncState, int key, char **p1, char **p2)
     }
 }
 
-void ResetPunc(void* arg)
-{
-    FcitxPuncState* puncState = (FcitxPuncState*) arg;
+void ResetPunc(void *arg) {
+    FcitxPuncState *puncState = (FcitxPuncState *)arg;
     puncState->bLastIsNumber = false;
     puncState->cLastIsAutoConvert = '\0';
 }
 
-void ResetPuncWhichStatus(void* arg)
-{
-    FcitxPuncState* puncState = (FcitxPuncState*) arg;
-    WidePunc       *curPunc = puncState->curPunc;
+void ResetPuncWhichStatus(void *arg) {
+    FcitxPuncState *puncState = (FcitxPuncState *)arg;
+    WidePunc *curPunc = puncState->curPunc;
 
     if (!curPunc)
         return;
 
-    FcitxInputContext* ic = FcitxInstanceGetCurrentIC(puncState->owner);
+    FcitxInputContext *ic = FcitxInstanceGetCurrentIC(puncState->owner);
     if (!ic)
         return;
-    PuncWhich* puncWhich = FcitxInstanceGetICData(puncState->owner, ic, puncState->slot);
+    PuncWhich *puncWhich =
+        FcitxInstanceGetICData(puncState->owner, ic, puncState->slot);
     fcitx_bitset_clear(puncWhich->bitset);
 }
 
-boolean PuncPreFilter(void* arg, FcitxKeySym sym, unsigned int state,
-                      INPUT_RETURN_VALUE* retVal)
-{
+boolean PuncPreFilter(void *arg, FcitxKeySym sym, unsigned int state,
+                      INPUT_RETURN_VALUE *retVal) {
     FCITX_UNUSED(retVal);
-    FcitxPuncState *puncState = (FcitxPuncState*)arg;
-    boolean disablePunc = FcitxInstanceGetContextBoolean(
-        puncState->owner, CONTEXT_DISABLE_PUNC);
+    FcitxPuncState *puncState = (FcitxPuncState *)arg;
+    boolean disablePunc =
+        FcitxInstanceGetContextBoolean(puncState->owner, CONTEXT_DISABLE_PUNC);
     if (disablePunc)
         return false;
 
@@ -263,21 +253,21 @@ boolean PuncPreFilter(void* arg, FcitxKeySym sym, unsigned int state,
     return false;
 }
 
-boolean ProcessPunc(void* arg, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retVal)
-{
-    FcitxPuncState* puncState = (FcitxPuncState*) arg;
-    FcitxInstance* instance = puncState->owner;
-    FcitxInputState* input = FcitxInstanceGetInputState(puncState->owner);
-    FcitxProfile* profile = FcitxInstanceGetProfile(instance);
-    FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(instance);
+boolean ProcessPunc(void *arg, FcitxKeySym sym, unsigned int state,
+                    INPUT_RETURN_VALUE *retVal) {
+    FcitxPuncState *puncState = (FcitxPuncState *)arg;
+    FcitxInstance *instance = puncState->owner;
+    FcitxInputState *input = FcitxInstanceGetInputState(puncState->owner);
+    FcitxProfile *profile = FcitxInstanceGetProfile(instance);
+    FcitxGlobalConfig *config = FcitxInstanceGetGlobalConfig(instance);
 
     char *pPunc = NULL;
 
     if (*retVal != IRV_TO_PROCESS)
         return false;
 
-    boolean disablePunc = FcitxInstanceGetContextBoolean(
-        puncState->owner, CONTEXT_DISABLE_PUNC);
+    boolean disablePunc =
+        FcitxInstanceGetContextBoolean(puncState->owner, CONTEXT_DISABLE_PUNC);
     if (disablePunc)
         return false;
 
@@ -301,10 +291,10 @@ boolean ProcessPunc(void* arg, FcitxKeySym sym, unsigned int state, INPUT_RETURN
     FcitxKeySym origsym = sym;
     sym = FcitxHotkeyPadToMain(sym);
     if (profile->bUseWidePunc) {
-        if (puncState->bLastIsNumber && config->bEngPuncAfterNumber
-            && (FcitxHotkeyIsHotKey(origsym, state, FCITX_PERIOD)
-                || FcitxHotkeyIsHotKey(origsym, state, FCITX_SEMICOLON)
-                || FcitxHotkeyIsHotKey(origsym, state, FCITX_COMMA))) {
+        if (puncState->bLastIsNumber && config->bEngPuncAfterNumber &&
+            (FcitxHotkeyIsHotKey(origsym, state, FCITX_PERIOD) ||
+             FcitxHotkeyIsHotKey(origsym, state, FCITX_SEMICOLON) ||
+             FcitxHotkeyIsHotKey(origsym, state, FCITX_COMMA))) {
             puncState->cLastIsAutoConvert = origsym;
             puncState->bLastIsNumber = false;
             *retVal = IRV_DONOT_PROCESS;
@@ -321,7 +311,8 @@ boolean ProcessPunc(void* arg, FcitxKeySym sym, unsigned int state, INPUT_RETURN
         FcitxInputStateGetOutputString(input)[0] = '\0';
         INPUT_RETURN_VALUE ret = IRV_TO_PROCESS;
         if (!FcitxInputStateGetIsInRemind(input))
-            ret = FcitxCandidateWordChooseByTotalIndex(FcitxInputStateGetCandidateList(input), 0);
+            ret = FcitxCandidateWordChooseByTotalIndex(
+                FcitxInputStateGetCandidateList(input), 0);
 
         /* if there is nothing to commit */
         if (ret == IRV_TO_PROCESS) {
@@ -336,7 +327,7 @@ boolean ProcessPunc(void* arg, FcitxKeySym sym, unsigned int state, INPUT_RETURN
             if (pPunc)
                 strcat(FcitxInputStateGetOutputString(input), pPunc);
             else {
-                char buf[2] = { sym, 0 };
+                char buf[2] = {sym, 0};
                 strcat(FcitxInputStateGetOutputString(input), buf);
             }
 
@@ -349,14 +340,18 @@ boolean ProcessPunc(void* arg, FcitxKeySym sym, unsigned int state, INPUT_RETURN
     }
 
     if (profile->bUseWidePunc) {
-        if (FcitxHotkeyIsHotKey(sym, state, FCITX_BACKSPACE)
-            && puncState->cLastIsAutoConvert) {
+        if (FcitxHotkeyIsHotKey(sym, state, FCITX_BACKSPACE) &&
+            puncState->cLastIsAutoConvert) {
             char *pPunc;
 
-            FcitxInstanceForwardKey(puncState->owner, FcitxInstanceGetCurrentIC(instance), FCITX_PRESS_KEY, sym, state);
+            FcitxInstanceForwardKey(puncState->owner,
+                                    FcitxInstanceGetCurrentIC(instance),
+                                    FCITX_PRESS_KEY, sym, state);
             pPunc = GetPunc(puncState, puncState->cLastIsAutoConvert);
             if (pPunc)
-                FcitxInstanceCommitString(puncState->owner, FcitxInstanceGetCurrentIC(instance), pPunc);
+                FcitxInstanceCommitString(puncState->owner,
+                                          FcitxInstanceGetCurrentIC(instance),
+                                          pPunc);
 
             puncState->cLastIsAutoConvert = 0;
             *retVal = IRV_DO_NOTHING;
@@ -378,15 +373,16 @@ boolean ProcessPunc(void* arg, FcitxKeySym sym, unsigned int state, INPUT_RETURN
  * @note 文件中数据的格式为： 对应的英文符号 中文标点 <中文标点>
  * 加载标点词典。标点词典定义了一组标点转换，如输入‘.’就直接转换成‘。’
  */
-boolean LoadPuncDict(FcitxPuncState* puncState)
-{
-    FcitxStringHashSet* puncfiles = FcitxXDGGetFiles("data", PUNC_DICT_FILENAME "." , NULL);
+boolean LoadPuncDict(FcitxPuncState *puncState) {
+    FcitxStringHashSet *puncfiles =
+        FcitxXDGGetFiles("data", PUNC_DICT_FILENAME ".", NULL);
     FcitxStringHashSet *curpuncfile = puncfiles;
-    FcitxPunc* punc;
+    FcitxPunc *punc;
     while (curpuncfile) {
         punc = LoadPuncFile(curpuncfile->name);
         if (punc)
-            HASH_ADD_KEYPTR(hh, puncState->puncSet, punc->langCode, strlen(punc->langCode), punc);
+            HASH_ADD_KEYPTR(hh, puncState->puncSet, punc->langCode,
+                            strlen(punc->langCode), punc);
         curpuncfile = curpuncfile->hh.next;
     }
 
@@ -394,13 +390,12 @@ boolean LoadPuncDict(FcitxPuncState* puncState)
     return true;
 }
 
-FcitxPunc* LoadPuncFile(const char* filename)
-{
-    FILE           *fpDict;             // 词典文件指针
-    int             iRecordNo;
-    char            strText[4 + MAX_PUNC_LENGTH * UTF8_MAX_LENGTH];
-    char           *pstr;               // 临时指针
-    int             i;
+FcitxPunc *LoadPuncFile(const char *filename) {
+    FILE *fpDict; // 词典文件指针
+    int iRecordNo;
+    char strText[4 + MAX_PUNC_LENGTH * UTF8_MAX_LENGTH];
+    char *pstr; // 临时指针
+    int i;
     fpDict = FcitxXDGGetFileWithPrefix("data", filename, "r", NULL);
 
     if (strlen(filename) < strlen(PUNC_DICT_FILENAME))
@@ -417,7 +412,8 @@ FcitxPunc* LoadPuncFile(const char* filename)
      * 没有一个空行就是浪费sizeof (WidePunc)字节内存*/
     iRecordNo = fcitx_utils_calculate_record_number(fpDict);
     // 申请空间，用来存放这些数据。这儿没有检查是否申请到内存，严格说有小隐患
-    WidePunc* punc = (WidePunc *) fcitx_utils_malloc0(sizeof(WidePunc) * (iRecordNo + 1));
+    WidePunc *punc =
+        (WidePunc *)fcitx_utils_malloc0(sizeof(WidePunc) * (iRecordNo + 1));
 
     iRecordNo = 0;
 
@@ -436,21 +432,24 @@ FcitxPunc* LoadPuncFile(const char* filename)
 
         // 如果找到，进行出入。当是空行时，肯定找不到。所以，也就略过了空行的处理
         if (i) {
-            strText[i + 1] = '\0';              // 在字符串的最后加个封口
-            pstr = strText;                     // 将pstr指向第一个非空字符
+            strText[i + 1] = '\0'; // 在字符串的最后加个封口
+            pstr = strText;        // 将pstr指向第一个非空字符
             while (*pstr == ' ')
                 pstr++;
-            punc[iRecordNo].ASCII = *pstr++; // 这个就是中文符号所对应的ASCII码值
-            while (*pstr == ' ')                // 然后，将pstr指向下一个非空字符
+            punc[iRecordNo].ASCII =
+                *pstr++; // 这个就是中文符号所对应的ASCII码值
+            while (*pstr == ' ') // 然后，将pstr指向下一个非空字符
                 pstr++;
 
-            punc[iRecordNo].iCount = 0;      // 该符号有几个转化，比如英文"就可以转换成“和”
+            punc[iRecordNo].iCount =
+                0; // 该符号有几个转化，比如英文"就可以转换成“和”
             // 依次将该ASCII码所对应的符号放入到结构中
             while (*pstr) {
                 i = 0;
                 // 因为中文符号都是多字节（这里读取并不像其他地方是固定两个，所以没有问题）的，所以，要一直往后读，知道空格或者字符串的末尾
                 while (*pstr != ' ' && *pstr) {
-                    punc[iRecordNo].strWidePunc[punc[iRecordNo].iCount][i] = *pstr;
+                    punc[iRecordNo].strWidePunc[punc[iRecordNo].iCount][i] =
+                        *pstr;
                     i++;
                     pstr++;
                 }
@@ -469,10 +468,10 @@ FcitxPunc* LoadPuncFile(const char* filename)
     punc[iRecordNo].ASCII = '\0';
     fclose(fpDict);
 
-    FcitxPunc* p = fcitx_utils_malloc0(sizeof(FcitxPunc));
+    FcitxPunc *p = fcitx_utils_malloc0(sizeof(FcitxPunc));
     p->langCode = "";
 
-    const char* langcode = filename + strlen(PUNC_DICT_FILENAME);
+    const char *langcode = filename + strlen(PUNC_DICT_FILENAME);
     if (*langcode == '\0')
         p->langCode = strdup("C");
     else
@@ -483,10 +482,9 @@ FcitxPunc* LoadPuncFile(const char* filename)
     return p;
 }
 
-void FreePunc(FcitxPuncState* puncState)
-{
+void FreePunc(FcitxPuncState *puncState) {
     puncState->curPunc = NULL;
-    FcitxPunc* cur;
+    FcitxPunc *cur;
     while (puncState->puncSet) {
         cur = puncState->puncSet;
         HASH_DEL(puncState->puncSet, cur);
@@ -496,12 +494,12 @@ void FreePunc(FcitxPuncState* puncState)
     }
 }
 
-static inline int GetPuncWhich(FcitxPuncState* puncState, WidePunc* punc)
-{
-    FcitxInputContext* ic = FcitxInstanceGetCurrentIC(puncState->owner);
+static inline int GetPuncWhich(FcitxPuncState *puncState, WidePunc *punc) {
+    FcitxInputContext *ic = FcitxInstanceGetCurrentIC(puncState->owner);
     if (!ic)
         return 0;
-    PuncWhich* puncWhich = FcitxInstanceGetICData(puncState->owner, ic, puncState->slot);
+    PuncWhich *puncWhich =
+        FcitxInstanceGetICData(puncState->owner, ic, puncState->slot);
     if (puncWhich->lastPunc != puncState->curPunc) {
         fcitx_bitset_clear(puncWhich->bitset);
         puncWhich->lastPunc = puncState->curPunc;
@@ -512,13 +510,13 @@ static inline int GetPuncWhich(FcitxPuncState* puncState, WidePunc* punc)
     return result;
 }
 
-static inline void SetPuncWhich(FcitxPuncState* puncState, WidePunc* punc)
-{
-    FcitxInputContext* ic = FcitxInstanceGetCurrentIC(puncState->owner);
+static inline void SetPuncWhich(FcitxPuncState *puncState, WidePunc *punc) {
+    FcitxInputContext *ic = FcitxInstanceGetCurrentIC(puncState->owner);
     if (!ic)
         return;
-    PuncWhich* puncWhich = FcitxInstanceGetICData(puncState->owner, ic, puncState->slot);
-    FcitxBitSet* bitset = puncWhich->bitset;
+    PuncWhich *puncWhich =
+        FcitxInstanceGetICData(puncState->owner, ic, puncState->slot);
+    FcitxBitSet *bitset = puncWhich->bitset;
     if (punc->iCount == 1)
         fcitx_bitset_unset(bitset, punc->ASCII);
     else {
@@ -533,9 +531,7 @@ static inline void SetPuncWhich(FcitxPuncState* puncState, WidePunc* punc)
  * 根据字符得到相应的标点符号
  * 如果该字符不在标点符号集中，则返回NULL
  */
-static char*
-GetPunc(FcitxPuncState *puncState, int iKey)
-{
+static char *GetPunc(FcitxPuncState *puncState, int iKey) {
     int iIndex = 0;
     char *pPunc;
     WidePunc *curPunc = puncState->curPunc;
@@ -545,8 +541,8 @@ GetPunc(FcitxPuncState *puncState, int iKey)
 
     while (curPunc[iIndex].ASCII) {
         if (curPunc[iIndex].ASCII == iKey) {
-            pPunc = curPunc[iIndex].strWidePunc[GetPuncWhich(puncState,
-                                                             &curPunc[iIndex])];
+            pPunc = curPunc[iIndex]
+                        .strWidePunc[GetPuncWhich(puncState, &curPunc[iIndex])];
             SetPuncWhich(puncState, &curPunc[iIndex]);
             return pPunc;
         }
@@ -556,65 +552,61 @@ GetPunc(FcitxPuncState *puncState, int iKey)
     return NULL;
 }
 
-void TogglePuncState(void* arg)
-{
-    FcitxPuncState* puncState = (FcitxPuncState*)arg;
-    FcitxInstance* instance = puncState->owner;
-    FcitxProfile* profile = FcitxInstanceGetProfile(instance);
+void TogglePuncState(void *arg) {
+    FcitxPuncState *puncState = (FcitxPuncState *)arg;
+    FcitxInstance *instance = puncState->owner;
+    FcitxProfile *profile = FcitxInstanceGetProfile(instance);
     profile->bUseWidePunc = !profile->bUseWidePunc;
 
     FcitxUISetStatusString(puncState->owner, "punc",
-                           profile->bUseWidePunc ? _("Full width punct") :
-                           _("Latin punct"),
+                           profile->bUseWidePunc ? _("Full width punct")
+                                                 : _("Latin punct"),
                            _("Toggle Full Width Punctuation"));
     FcitxProfileSave(profile);
 }
 
-INPUT_RETURN_VALUE TogglePuncStateWithHotkey(void* arg)
-{
-    FcitxPuncState *puncState = (FcitxPuncState*)arg;
+INPUT_RETURN_VALUE TogglePuncStateWithHotkey(void *arg) {
+    FcitxPuncState *puncState = (FcitxPuncState *)arg;
     FcitxInstance *instance = puncState->owner;
     FcitxProfile *profile = FcitxInstanceGetProfile(instance);
 
     FcitxUIStatus *status = FcitxUIGetStatusByName(instance, "punc");
-    if (status->visible){
+    if (status->visible) {
         FcitxUIUpdateStatus(instance, "punc");
         FcitxFreeDesktopNotifyShowAddonTip(
             instance, "fcitx-punc-toggle",
             profile->bUseWidePunc ? "fcitx-punc-active" : "fcitx-punc-inactive",
             _("Punctuation Support"),
-            profile->bUseWidePunc ? _("Full width punctuations are used.") :
-                                    _("Latin punctuations are used."));
+            profile->bUseWidePunc ? _("Full width punctuations are used.")
+                                  : _("Latin punctuations are used."));
         return IRV_DO_NOTHING;
     } else {
         return IRV_TO_PROCESS;
     }
 }
 
-boolean GetPuncState(void* arg)
-{
-    FcitxPuncState* puncState = (FcitxPuncState*) arg;
-    FcitxInstance* instance = puncState->owner;
-    FcitxProfile* profile = FcitxInstanceGetProfile(instance);
+boolean GetPuncState(void *arg) {
+    FcitxPuncState *puncState = (FcitxPuncState *)arg;
+    FcitxInstance *instance = puncState->owner;
+    FcitxProfile *profile = FcitxInstanceGetProfile(instance);
     return profile->bUseWidePunc;
 }
 
-void ReloadPunc(void* arg)
-{
-    FcitxPuncState* puncState = (FcitxPuncState*) arg;
+void ReloadPunc(void *arg) {
+    FcitxPuncState *puncState = (FcitxPuncState *)arg;
     FreePunc(puncState);
     LoadPuncDict(puncState);
 
-    PuncLanguageChanged(puncState, FcitxInstanceGetContextString(puncState->owner, CONTEXT_IM_LANGUAGE));
+    PuncLanguageChanged(puncState, FcitxInstanceGetContextString(
+                                       puncState->owner, CONTEXT_IM_LANGUAGE));
 }
 
-boolean IsHotKeyPunc(FcitxKeySym sym, unsigned int state)
-{
-    if (FcitxHotkeyIsHotKeySimple(sym, state)
-        && !FcitxHotkeyIsHotKeyDigit(sym, state)
-        && !FcitxHotkeyIsHotKeyLAZ(sym, state)
-        && !FcitxHotkeyIsHotKeyUAZ(sym, state)
-        && !FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE))
+boolean IsHotKeyPunc(FcitxKeySym sym, unsigned int state) {
+    if (FcitxHotkeyIsHotKeySimple(sym, state) &&
+        !FcitxHotkeyIsHotKeyDigit(sym, state) &&
+        !FcitxHotkeyIsHotKeyLAZ(sym, state) &&
+        !FcitxHotkeyIsHotKeyUAZ(sym, state) &&
+        !FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE))
         return true;
 
     return false;

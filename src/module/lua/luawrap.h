@@ -24,7 +24,7 @@
 #include <lua.h>
 
 #if LUA_VERSION_NUM < 502
-# define luaL_len lua_objlen
+#define luaL_len lua_objlen
 #endif
 
 typedef struct _LuaResultItem {
@@ -37,12 +37,12 @@ typedef struct _LuaModule LuaModule;
 typedef struct _LuaExtension LuaExtension;
 
 // alloc/free luamodule
-LuaModule * LuaModuleAlloc(struct _FcitxInstance *fcitx);
+LuaModule *LuaModuleAlloc(struct _FcitxInstance *fcitx);
 void LuaModuleFree(LuaModule *luamodule);
 FcitxInstance *GetFcitx(LuaModule *luamodule);
 
 // Load lua extension, name is filename of lua source file
-LuaExtension * LoadExtension(LuaModule *luamodule, const char *name);
+LuaExtension *LoadExtension(LuaModule *luamodule, const char *name);
 
 // Unload extension by name
 void UnloadExtensionByName(LuaModule *luamodule, const char *name);
@@ -50,7 +50,7 @@ void UnloadAllExtension(LuaModule *luamodule);
 
 // call lua trigger, input is user input
 // callback is called when valid candidate generated
-UT_array * InputTrigger(LuaModule *luamodule, const char *input);
-UT_array * InputCommand(LuaModule *module, const char *input);
+UT_array *InputTrigger(LuaModule *luamodule, const char *input);
+UT_array *InputCommand(LuaModule *module, const char *input);
 
 #endif

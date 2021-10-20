@@ -22,9 +22,9 @@
 #define X11STUFF_INTERNAL_H
 
 #include "config.h"
+#include "fcitx-utils/handler-table.h"
 #include "fcitx/fcitx.h"
 #include "x11stuff.h"
-#include "fcitx-utils/handler-table.h"
 
 typedef struct {
     FcitxX11XEventHandler eventHandler;
@@ -40,7 +40,7 @@ typedef struct {
     Display *dpy;
     UT_array handlers;
     UT_array comphandlers;
-    FcitxInstance* owner;
+    FcitxInstance *owner;
     Window compManager;
     Window rootWindow;
     Window eventWindow;
@@ -56,7 +56,7 @@ typedef struct {
     Atom stringAtom;
     Atom compTextAtom;
     boolean bUseXinerama;
-    FcitxRect* rects;
+    FcitxRect *rects;
     int screenCount;
     int defaultScreen;
     double dpif;
@@ -73,11 +73,12 @@ typedef struct {
 typedef struct _X11SelectionNotify X11SelectionNotify;
 typedef struct _X11ConvertSelection X11ConvertSelection;
 
-typedef void (*X11SelectionNotifyInternalCallback)(
-    FcitxX11 *x11priv, Atom selection, int subtype, X11SelectionNotify *notify);
+typedef void (*X11SelectionNotifyInternalCallback)(FcitxX11 *x11priv,
+                                                   Atom selection, int subtype,
+                                                   X11SelectionNotify *notify);
 typedef boolean (*X11ConvertSelectionInternalCallback)(
-    FcitxX11 *x11priv, Atom selection, Atom target, int format,
-    size_t nitems, const void *buff, X11ConvertSelection *convert);
+    FcitxX11 *x11priv, Atom selection, Atom target, int format, size_t nitems,
+    const void *buff, X11ConvertSelection *convert);
 
 struct _X11SelectionNotify {
     void *owner;

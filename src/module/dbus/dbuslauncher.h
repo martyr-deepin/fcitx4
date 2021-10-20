@@ -23,13 +23,12 @@
 
 #include <unistd.h>
 
-typedef struct _DBusDaemonProperty
-{
+typedef struct _DBusDaemonProperty {
     pid_t pid;
-    char* address;
+    char *address;
 } DBusDaemonProperty;
 
-DBusDaemonProperty DBusLaunch(const char* configFile);
-int DBusKill(DBusDaemonProperty* prop);
+DBusDaemonProperty DBusLaunch(const char *configFile);
+int DBusKill(DBusDaemonProperty *prop);
 
 #endif

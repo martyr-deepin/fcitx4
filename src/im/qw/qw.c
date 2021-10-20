@@ -22,82 +22,65 @@
  */
 #include "config.h"
 
-#include <string.h>
 #include <iconv.h>
 #include <libintl.h>
+#include <string.h>
 
-#include "fcitx/fcitx.h"
 #include "fcitx-utils/utils.h"
+#include "fcitx/fcitx.h"
 #include "fcitx/keys.h"
 
-#include "fcitx/ui.h"
-#include "fcitx/configfile.h"
-#include "fcitx/instance.h"
 #include "fcitx/candidate.h"
+#include "fcitx/configfile.h"
 #include "fcitx/context.h"
+#include "fcitx/instance.h"
+#include "fcitx/ui.h"
 
 typedef struct _FcitxQWState {
-    char     strQWHZ[3];
-    char     strQWHZUTF8[UTF8_MAX_LENGTH + 1];
+    char strQWHZ[3];
+    char strQWHZUTF8[UTF8_MAX_LENGTH + 1];
     FcitxInstance *owner;
 } FcitxQWState;
 
-static void* QWCreate(struct _FcitxInstance* instance);
-INPUT_RETURN_VALUE DoQWInput(void* arg, FcitxKeySym sym, unsigned int state);
+static void *QWCreate(struct _FcitxInstance *instance);
+INPUT_RETURN_VALUE DoQWInput(void *arg, FcitxKeySym sym, unsigned int state);
 INPUT_RETURN_VALUE QWGetCandWords(void *arg);
-INPUT_RETURN_VALUE QWGetCandWord(void *arg, FcitxCandidateWord* candWord);
-char           *GetQuWei(FcitxQWState* qwstate, int iQu, int iWei);
+INPUT_RETURN_VALUE QWGetCandWord(void *arg, FcitxCandidateWord *candWord);
+char *GetQuWei(FcitxQWState *qwstate, int iQu, int iWei);
 boolean QWInit(void *arg);
 
-FCITX_DEFINE_PLUGIN(fcitx_qw, ime, FcitxIMClass) = {
-    QWCreate,
-    NULL
-};
+FCITX_DEFINE_PLUGIN(fcitx_qw, ime, FcitxIMClass) = {QWCreate, NULL};
 
-void* QWCreate(struct _FcitxInstance* instance)
-{
-    FcitxQWState* qwstate = fcitx_utils_malloc0(sizeof(FcitxQWState));
-    FcitxInstanceRegisterIM(
-        instance,
-        qwstate,
-        "quwei",
-        _("Quwei"),
-        "quwei",
-        QWInit,
-        NULL,
-        DoQWInput,
-        QWGetCandWords,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        100 /* make quwei place at last */,
-        "zh_CN"
-    );
+void *QWCreate(struct _FcitxInstance *instance) {
+    FcitxQWState *qwstate = fcitx_utils_malloc0(sizeof(FcitxQWState));
+    FcitxInstanceRegisterIM(instance, qwstate, "quwei", _("Quwei"), "quwei",
+                            QWInit, NULL, DoQWInput, QWGetCandWords, NULL, NULL,
+                            NULL, NULL, 100 /* make quwei place at last */,
+                            "zh_CN");
     qwstate->owner = instance;
     return qwstate;
 }
 
-boolean QWInit(void *arg)
-{
-    FcitxQWState* qwstate = (FcitxQWState*) arg;
+boolean QWInit(void *arg) {
+    FcitxQWState *qwstate = (FcitxQWState *)arg;
     FcitxInstanceSetContext(qwstate->owner, CONTEXT_IM_KEYBOARD_LAYOUT, "us");
     return true;
 }
 
-INPUT_RETURN_VALUE DoQWInput(void* arg, FcitxKeySym sym, unsigned int state)
-{
-    FcitxQWState* qwstate = (FcitxQWState*) arg;
-    FcitxInputState* input = FcitxInstanceGetInputState(qwstate->owner);
-    char* strCodeInput = FcitxInputStateGetRawInputBuffer(input);
+INPUT_RETURN_VALUE DoQWInput(void *arg, FcitxKeySym sym, unsigned int state) {
+    FcitxQWState *qwstate = (FcitxQWState *)arg;
+    FcitxInputState *input = FcitxInstanceGetInputState(qwstate->owner);
+    char *strCodeInput = FcitxInputStateGetRawInputBuffer(input);
     INPUT_RETURN_VALUE retVal;
 
     retVal = IRV_TO_PROCESS;
     if (FcitxHotkeyIsHotKeyDigit(sym, state)) {
         if (FcitxInputStateGetRawInputBufferSize(input) != 4) {
             strCodeInput[FcitxInputStateGetRawInputBufferSize(input)] = sym;
-            strCodeInput[FcitxInputStateGetRawInputBufferSize(input) + 1] = '\0';
-            FcitxInputStateSetRawInputBufferSize(input, FcitxInputStateGetRawInputBufferSize(input) + 1);
+            strCodeInput[FcitxInputStateGetRawInputBufferSize(input) + 1] =
+                '\0';
+            FcitxInputStateSetRawInputBufferSize(
+                input, FcitxInputStateGetRawInputBufferSize(input) + 1);
             if (FcitxInputStateGetRawInputBufferSize(input) == 4) {
                 retVal = IRV_TO_PROCESS;
             } else
@@ -106,7 +89,8 @@ INPUT_RETURN_VALUE DoQWInput(void* arg, FcitxKeySym sym, unsigned int state)
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_BACKSPACE)) {
         if (!FcitxInputStateGetRawInputBufferSize(input))
             return IRV_DONOT_PROCESS_CLEAN;
-        FcitxInputStateSetRawInputBufferSize(input, FcitxInputStateGetRawInputBufferSize(input) - 1);
+        FcitxInputStateSetRawInputBufferSize(
+            input, FcitxInputStateGetRawInputBufferSize(input) - 1);
         strCodeInput[FcitxInputStateGetRawInputBufferSize(input)] = '\0';
 
         if (!FcitxInputStateGetRawInputBufferSize(input))
@@ -120,27 +104,24 @@ INPUT_RETURN_VALUE DoQWInput(void* arg, FcitxKeySym sym, unsigned int state)
         if (FcitxInputStateGetRawInputBufferSize(input) != 3)
             return IRV_DO_NOTHING;
 
-        retVal = FcitxCandidateWordChooseByIndex(FcitxInputStateGetCandidateList(input), 0);
+        retVal = FcitxCandidateWordChooseByIndex(
+            FcitxInputStateGetCandidateList(input), 0);
     } else
         return IRV_TO_PROCESS;
-
 
     return retVal;
 }
 
-INPUT_RETURN_VALUE QWGetCandWord(void *arg, FcitxCandidateWord* candWord)
-{
-    FcitxQWState* qwstate = (FcitxQWState*) arg;
-    FcitxInputState* input = FcitxInstanceGetInputState(qwstate->owner);
+INPUT_RETURN_VALUE QWGetCandWord(void *arg, FcitxCandidateWord *candWord) {
+    FcitxQWState *qwstate = (FcitxQWState *)arg;
+    FcitxInputState *input = FcitxInstanceGetInputState(qwstate->owner);
 
-    strcpy(FcitxInputStateGetOutputString(input),
-           candWord->strWord);
+    strcpy(FcitxInputStateGetOutputString(input), candWord->strWord);
     return IRV_COMMIT_STRING;
 }
 
-INPUT_RETURN_VALUE QWGetCandWords(void *arg)
-{
-    FcitxQWState* qwstate = (FcitxQWState*)arg;
+INPUT_RETURN_VALUE QWGetCandWords(void *arg) {
+    FcitxQWState *qwstate = (FcitxQWState *)arg;
     FcitxInputState *input = FcitxInstanceGetInputState(qwstate->owner);
     int iQu, iWei, i;
 
@@ -172,8 +153,7 @@ INPUT_RETURN_VALUE QWGetCandWords(void *arg)
     return IRV_DISPLAY_CANDWORDS;
 }
 
-char *GetQuWei(FcitxQWState* qwstate, int iQu, int iWei)
-{
+char *GetQuWei(FcitxQWState *qwstate, int iQu, int iWei) {
     IconvStr inbuf;
     char *outbuf;
 
@@ -181,12 +161,12 @@ char *GetQuWei(FcitxQWState* qwstate, int iQu, int iWei)
 
     iconv_t convGBK = iconv_open("utf-8", "gb18030");
 
-    if (iQu >= 95) {      /* Process extend Qu 95 and 96 */
+    if (iQu >= 95) { /* Process extend Qu 95 and 96 */
         qwstate->strQWHZ[0] = iQu - 95 + 0xA8;
         qwstate->strQWHZ[1] = iWei + 0x40;
 
         /* skip 0xa87f and 0xa97f */
-        if ((unsigned char) qwstate->strQWHZ[1] >= 0x7f)
+        if ((unsigned char)qwstate->strQWHZ[1] >= 0x7f)
             qwstate->strQWHZ[1]++;
     } else {
         qwstate->strQWHZ[0] = iQu + 0xa0;

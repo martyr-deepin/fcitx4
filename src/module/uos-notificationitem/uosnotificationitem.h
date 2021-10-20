@@ -23,6 +23,7 @@
 
 #include <fcitx-utils/utils.h>
 
-typedef void (*FcitxNotificationItemAvailableCallback)(void* arg, boolean enable);
+typedef void (*FcitxNotificationItemAvailableCallback)(void *arg,
+                                                       boolean enable);
 
 #endif // _FCITX_MODULE_UOSNOTIFICATIONITEM_H

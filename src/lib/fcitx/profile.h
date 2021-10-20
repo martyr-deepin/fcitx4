@@ -31,70 +31,71 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    struct _FcitxInstance;
+struct _FcitxInstance;
 
-    /**
-     * @file profile.h
-     *
-     * define and function for ~/.config/fcitx/profile
-     */
+/**
+ * @file profile.h
+ *
+ * define and function for ~/.config/fcitx/profile
+ */
 
+/**
+ * struct for ~/.config/fcitx/profile
+ **/
+typedef struct _FcitxProfile {
     /**
-     * struct for ~/.config/fcitx/profile
+     * derives from FcitxGenericConfig
      **/
-    typedef struct _FcitxProfile {
-        /**
-         * derives from FcitxGenericConfig
-         **/
-        FcitxGenericConfig gconfig;
-        /**
-         * use remind mode
-         **/
-        boolean bUseRemind;
-
-        /**
-         * current im index
-         **/
-        char* imName;
-
-        /**
-         * use full width punc
-         **/
-        boolean bUseWidePunc;
-
-        /**
-         * use full width char
-         **/
-        boolean bUseFullWidthChar;
-
-        /**
-         * show preedit string in client or not
-         **/
-        boolean bUsePreedit;
-
-        /**
-         * enabled im list
-         **/
-        char* imList;
-
-    } FcitxProfile;
+    FcitxGenericConfig gconfig;
+    /**
+     * use remind mode
+     **/
+    boolean bUseRemind;
 
     /**
-     * load profile
-     *
-     * @param profile profile
-     * @param instance instance
-     *
-     * @return boolean loading successful
+     * current im index
      **/
-    boolean FcitxProfileLoad(FcitxProfile* profile, struct _FcitxInstance* instance);
+    char *imName;
+
     /**
-     * save profile
-     *
-     * @param profile profile instance
-     * @return void
+     * use full width punc
      **/
-    void FcitxProfileSave(FcitxProfile* profile);
+    boolean bUseWidePunc;
+
+    /**
+     * use full width char
+     **/
+    boolean bUseFullWidthChar;
+
+    /**
+     * show preedit string in client or not
+     **/
+    boolean bUsePreedit;
+
+    /**
+     * enabled im list
+     **/
+    char *imList;
+
+} FcitxProfile;
+
+/**
+ * load profile
+ *
+ * @param profile profile
+ * @param instance instance
+ *
+ * @return boolean loading successful
+ **/
+boolean FcitxProfileLoad(FcitxProfile *profile,
+                         struct _FcitxInstance *instance);
+/**
+ * save profile
+ *
+ * @param profile profile instance
+ * @return void
+ **/
+void FcitxProfileSave(FcitxProfile *profile);
 
 #ifdef __cplusplus
 }

@@ -1,18 +1,16 @@
 #include <assert.h>
 #include <fcitx/fcitx.h>
 
+#include "PYFA.h"
 #include "pyParser.h"
 #include "pyconfig.h"
-#include "PYFA.h"
 
-
-void PrintParsedPY(ParsePYStruct *parse, const char *expect)
-{
+void PrintParsedPY(ParsePYStruct *parse, const char *expect) {
     FCITX_UNUSED(expect);
     /* only test, so don't care too much about size */
     int i;
-    char* buf = fcitx_utils_malloc0(1024);
-    for (i = 0; i < parse->iHZCount; i ++) {
+    char *buf = fcitx_utils_malloc0(1024);
+    for (i = 0; i < parse->iHZCount; i++) {
         if (i != 0)
             strcat(buf, " ");
         strcat(buf, parse->strPYParsed[i]);
@@ -22,8 +20,7 @@ void PrintParsedPY(ParsePYStruct *parse, const char *expect)
     free(buf);
 }
 
-int main()
-{
+int main() {
     FcitxPinyinConfig pyconfig;
     ParsePYStruct parse;
     memset(&pyconfig, 0, sizeof(pyconfig));

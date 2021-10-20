@@ -18,37 +18,34 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <X11/Xlib.h>
-#include "fcitx/instance.h"
+#include "xerrorhandler.h"
 #include "fcitx-config/xdg.h"
 #include "fcitx/ime.h"
+#include "fcitx/instance.h"
+#include <X11/Xlib.h>
 #include <setjmp.h>
-#include "xerrorhandler.h"
 
-static XErrorHandler   oldXErrorHandler;
+static XErrorHandler oldXErrorHandler;
 static XIOErrorHandler oldXIOErrorHandler;
-static FcitxX11* x11handle;
+static FcitxX11 *x11handle;
 
-static int FcitxXErrorHandler(Display * dpy, XErrorEvent * event);
+static int FcitxXErrorHandler(Display *dpy, XErrorEvent *event);
 static int FcitxXIOErrorHandler(Display *d);
 
-void InitXErrorHandler(FcitxX11* x11priv)
-{
+void InitXErrorHandler(FcitxX11 *x11priv) {
     x11handle = x11priv;
     oldXErrorHandler = XSetErrorHandler(FcitxXErrorHandler);
     oldXIOErrorHandler = XSetIOErrorHandler(FcitxXIOErrorHandler);
 }
 
-void UnsetXErrorHandler()
-{
+void UnsetXErrorHandler() {
     x11handle = NULL;
     /* we don't set back to old handler, to avoid any x error  */
 }
 
 extern jmp_buf FcitxRecover;
 
-int FcitxXIOErrorHandler(Display *d)
-{
+int FcitxXIOErrorHandler(Display *d) {
     FCITX_UNUSED(d);
     if (!x11handle)
         return 0;
@@ -65,18 +62,17 @@ int FcitxXIOErrorHandler(Display *d)
     return 0;
 }
 
-int FcitxXErrorHandler(Display * dpy, XErrorEvent * event)
-{
+int FcitxXErrorHandler(Display *dpy, XErrorEvent *event) {
     if (!x11handle)
         return 0;
 
     if (FcitxInstanceGetIsDestroying(x11handle->owner))
         return 0;
 
-    char    str[256];
-    FILE* fp = NULL;
+    char str[256];
+    FILE *fp = NULL;
 
-    fp = FcitxXDGGetFileUserWithPrefix("log", "crash.log", "w" , NULL);
+    fp = FcitxXDGGetFileUserWithPrefix("log", "crash.log", "w", NULL);
     if (fp) {
         XGetErrorText(dpy, event->error_code, str, 255);
         fprintf(fp, "fcitx: %s\n", str);

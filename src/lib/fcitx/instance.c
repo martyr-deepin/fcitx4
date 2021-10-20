@@ -20,38 +20,37 @@
 
 #include "config.h"
 
-#include <unistd.h>
-#include <time.h>
-#include <limits.h>
-#include <libintl.h>
-#include <pthread.h>
-#include <semaphore.h>
-#include <getopt.h>
-#include <sys/time.h>
-#include <signal.h>
 #include <fcntl.h>
+#include <getopt.h>
+#include <libintl.h>
+#include <limits.h>
+#include <pthread.h>
 #include <regex.h>
+#include <semaphore.h>
+#include <signal.h>
+#include <sys/time.h>
+#include <time.h>
+#include <unistd.h>
 
-#include "instance.h"
-#include "fcitx-utils/log.h"
-#include "ime-internal.h"
-#include "ui.h"
-#include "addon.h"
-#include "module.h"
-#include "frontend.h"
-#include "fcitx-utils/utils.h"
-#include "candidate.h"
-#include "ui-internal.h"
-#include "fcitx-internal.h"
-#include "instance-internal.h"
-#include "module-internal.h"
 #include "addon-internal.h"
+#include "addon.h"
+#include "candidate.h"
+#include "fcitx-internal.h"
+#include "fcitx-utils/log.h"
+#include "fcitx-utils/utils.h"
+#include "frontend.h"
+#include "ime-internal.h"
+#include "instance-internal.h"
+#include "instance.h"
+#include "module-internal.h"
+#include "module.h"
 #include "setjmp.h"
+#include "ui-internal.h"
+#include "ui.h"
 
-#define CHECK_ENV(env, value, icase) (!getenv(env) \
-                                      || (icase ? \
-                                              (0 != strcmp(getenv(env), (value))) \
-                                              : (0 != strcasecmp(getenv(env), (value)))))
+#define CHECK_ENV(env, value, icase)                                           \
+    (!getenv(env) || (icase ? (0 != strcmp(getenv(env), (value)))              \
+                            : (0 != strcasecmp(getenv(env), (value)))))
 
 FCITX_GETTER_REF(FcitxInstance, Addons, addons, UT_array)
 FCITX_GETTER_REF(FcitxInstance, UIMenus, uimenus, UT_array)
@@ -62,75 +61,67 @@ FCITX_GETTER_REF(FcitxInstance, AvailIMEs, availimes, UT_array)
 FCITX_GETTER_REF(FcitxInstance, ReadFDSet, rfds, fd_set)
 FCITX_GETTER_REF(FcitxInstance, WriteFDSet, wfds, fd_set)
 FCITX_GETTER_REF(FcitxInstance, ExceptFDSet, efds, fd_set)
-FCITX_GETTER_VALUE(FcitxInstance, CurrentUI, ui, FcitxAddon*)
+FCITX_GETTER_VALUE(FcitxInstance, CurrentUI, ui, FcitxAddon *)
 FCITX_GETTER_VALUE(FcitxInstance, MaxFD, maxfd, int)
 FCITX_SETTER(FcitxInstance, MaxFD, maxfd, int)
-FCITX_GETTER_VALUE(FcitxInstance, GlobalConfig, config, FcitxGlobalConfig*)
-FCITX_GETTER_VALUE(FcitxInstance, Profile, profile, FcitxProfile*)
-FCITX_GETTER_VALUE(FcitxInstance, InputState, input, FcitxInputState*)
+FCITX_GETTER_VALUE(FcitxInstance, GlobalConfig, config, FcitxGlobalConfig *)
+FCITX_GETTER_VALUE(FcitxInstance, Profile, profile, FcitxProfile *)
+FCITX_GETTER_VALUE(FcitxInstance, InputState, input, FcitxInputState *)
 FCITX_GETTER_VALUE(FcitxInstance, IsDestroying, destroy, boolean)
 
-static const UT_icd stat_icd = {
-    sizeof(FcitxUIStatus), NULL, NULL, NULL
-};
-static const UT_icd compstat_icd = {
-    sizeof(FcitxUIComplexStatus), NULL, NULL, NULL
-};
-static const UT_icd timeout_icd = {
-    sizeof(TimeoutItem), NULL, NULL, NULL
-};
-static const UT_icd icdata_icd = {
-    sizeof(FcitxICDataInfo), NULL, NULL, NULL
-};
-static void FcitxInitThread(FcitxInstance* inst);
-static void ToggleRemindState(void* arg);
-static boolean GetRemindEnabled(void* arg);
-static boolean ProcessOption(FcitxInstance* instance, int argc, char* argv[]);
+static const UT_icd stat_icd = {sizeof(FcitxUIStatus), NULL, NULL, NULL};
+static const UT_icd compstat_icd = {sizeof(FcitxUIComplexStatus), NULL, NULL,
+                                    NULL};
+static const UT_icd timeout_icd = {sizeof(TimeoutItem), NULL, NULL, NULL};
+static const UT_icd icdata_icd = {sizeof(FcitxICDataInfo), NULL, NULL, NULL};
+static void FcitxInitThread(FcitxInstance *inst);
+static void ToggleRemindState(void *arg);
+static boolean GetRemindEnabled(void *arg);
+static boolean ProcessOption(FcitxInstance *instance, int argc, char *argv[]);
 static void Usage();
 static void Version();
-static void* RunInstance(void* arg);
-static void FcitxInstanceInitBuiltContext(FcitxInstance* instance);
-static void FcitxInstanceShowRemindStatusChanged(void* arg, const void* value);
-static void FcitxInstanceRealEnd(FcitxInstance* instance);
-static void FcitxInstanceInitNoPreeditApps(FcitxInstance* instance);
+static void *RunInstance(void *arg);
+static void FcitxInstanceInitBuiltContext(FcitxInstance *instance);
+static void FcitxInstanceShowRemindStatusChanged(void *arg, const void *value);
+static void FcitxInstanceRealEnd(FcitxInstance *instance);
+static void FcitxInstanceInitNoPreeditApps(FcitxInstance *instance);
 
 /**
  * 显示命令行参数
  */
-void Usage()
-{
-    printf("Usage: fcitx [OPTION]\n"
-           "\t-r, --replace\t\ttry replace existing fcitx, need module support.\n"
-           "\t-d\t\t\trun as daemon(default)\n"
-           "\t-D\t\t\tdon't run as daemon\n"
-           "\t-s[sleep time]\t\toverride delay start time in config file, 0 for immediate start\n"
-           "\t-v, --version\t\tdisplay the version information and exit\n"
-           "\t-u, --ui\t\tspecify the user interface to use\n"
-           "\t--enable\t\tspecify a comma separated list for addon that will override the enable option\n"
-           "\t--disable\t\tspecify a comma separated list for addon that will explicitly disabled,\n"
-           "\t\t\t\t\tpriority is lower than --enable, can use all for disable all module\n"
-           "\t--debug\t\t\tshow more debug log\n"
-           "\t-h, --help\t\tdisplay this help and exit\n");
+void Usage() {
+    printf(
+        "Usage: fcitx [OPTION]\n"
+        "\t-r, --replace\t\ttry replace existing fcitx, need module support.\n"
+        "\t-d\t\t\trun as daemon(default)\n"
+        "\t-D\t\t\tdon't run as daemon\n"
+        "\t-s[sleep time]\t\toverride delay start time in config file, 0 for "
+        "immediate start\n"
+        "\t-v, --version\t\tdisplay the version information and exit\n"
+        "\t-u, --ui\t\tspecify the user interface to use\n"
+        "\t--enable\t\tspecify a comma separated list for addon that will "
+        "override the enable option\n"
+        "\t--disable\t\tspecify a comma separated list for addon that will "
+        "explicitly disabled,\n"
+        "\t\t\t\t\tpriority is lower than --enable, can use all for disable "
+        "all module\n"
+        "\t--debug\t\t\tshow more debug log\n"
+        "\t-h, --help\t\tdisplay this help and exit\n");
 }
 
 /**
  * 显示版本
  */
-void Version()
-{
-    printf("fcitx version: %s\n", VERSION);
-}
+void Version() { printf("fcitx version: %s\n", VERSION); }
 
 FCITX_EXPORT_API
-FcitxInstance* FcitxInstanceCreate(sem_t *sem, int argc, char* argv[])
-{
+FcitxInstance *FcitxInstanceCreate(sem_t *sem, int argc, char *argv[]) {
     return FcitxInstanceCreateWithFD(sem, argc, argv, -1);
 }
 
 FCITX_EXPORT_API
-boolean FcitxInstanceRun(int argc, char* argv[], int fd)
-{
-    FcitxInstance* instance = fcitx_utils_new(FcitxInstance);
+boolean FcitxInstanceRun(int argc, char *argv[], int fd) {
+    FcitxInstance *instance = fcitx_utils_new(FcitxInstance);
 
     do {
         if (!ProcessOption(instance, argc, argv))
@@ -139,22 +130,22 @@ boolean FcitxInstanceRun(int argc, char* argv[], int fd)
         instance->fd = fd;
 
         RunInstance(instance);
-    } while(0);
+    } while (0);
     boolean result = instance->loadingFatalError;
-    if(result)
+    if (result)
         free(instance);
 
     return result;
 }
 
 FCITX_EXPORT_API
-FcitxInstance* FcitxInstanceCreatePause(sem_t *sem, int argc, char* argv[], int fd)
-{
+FcitxInstance *FcitxInstanceCreatePause(sem_t *sem, int argc, char *argv[],
+                                        int fd) {
     if (!sem) {
         return NULL;
     }
 
-    FcitxInstance* instance = fcitx_utils_new(FcitxInstance);
+    FcitxInstance *instance = fcitx_utils_new(FcitxInstance);
 
     if (!ProcessOption(instance, argc, argv))
         goto create_error_exit_1;
@@ -188,8 +179,7 @@ create_error_exit_1:
 }
 
 FCITX_EXPORT_API
-void FcitxInstanceStart(FcitxInstance* instance)
-{
+void FcitxInstanceStart(FcitxInstance *instance) {
     if (!instance->loadingFatalError) {
         instance->initialized = true;
 
@@ -198,32 +188,28 @@ void FcitxInstanceStart(FcitxInstance* instance)
     }
 }
 
-
 FCITX_EXPORT_API
-FcitxInstance* FcitxInstanceCreateWithFD(sem_t *sem, int argc, char* argv[], int fd)
-{
-    FcitxInstance* instance = FcitxInstanceCreatePause(sem, argc, argv, fd);
+FcitxInstance *FcitxInstanceCreateWithFD(sem_t *sem, int argc, char *argv[],
+                                         int fd) {
+    FcitxInstance *instance = FcitxInstanceCreatePause(sem, argc, argv, fd);
 
     if (instance) {
         FcitxInstanceStart(instance);
     }
 
     return instance;
-
 }
 
 FCITX_EXPORT_API
-void FcitxInstanceSetRecheckEvent(FcitxInstance* instance)
-{
+void FcitxInstanceSetRecheckEvent(FcitxInstance *instance) {
     instance->eventflag |= FEF_EVENT_CHECK;
 }
 
 FCITX_EXPORT_API
 jmp_buf FcitxRecover;
 
-void* RunInstance(void* arg)
-{
-    FcitxInstance* instance = (FcitxInstance*) arg;
+void *RunInstance(void *arg) {
+    FcitxInstance *instance = (FcitxInstance *)arg;
     FcitxAddonsInit(&instance->addons);
     FcitxInstanceInitIM(instance);
     FcitxInstanceInitNoPreeditApps(instance);
@@ -248,7 +234,8 @@ void* RunInstance(void* arg)
     if (!FcitxGlobalConfigLoad(instance->config))
         goto error_exit;
 
-    FcitxCandidateWordSetPageSize(instance->input->candList, instance->config->iMaxCandWord);
+    FcitxCandidateWordSetPageSize(instance->input->candList,
+                                  instance->config->iMaxCandWord);
 
     int overrideDelay = instance->overrideDelay;
 
@@ -284,14 +271,16 @@ void* RunInstance(void* arg)
 
     FcitxInstanceInitIMMenu(instance);
     FcitxUIRegisterMenu(instance, &instance->imMenu);
-    FcitxUIRegisterStatus(instance, instance, "remind",
-                           instance->profile->bUseRemind ? _("Use remind") :  _("No remind"),
-                          _("Toggle Remind"), ToggleRemindState, GetRemindEnabled);
-    FcitxUISetStatusVisable(instance, "remind",  false);
+    FcitxUIRegisterStatus(
+        instance, instance, "remind",
+        instance->profile->bUseRemind ? _("Use remind") : _("No remind"),
+        _("Toggle Remind"), ToggleRemindState, GetRemindEnabled);
+    FcitxUISetStatusVisable(instance, "remind", false);
 
     FcitxUILoad(instance);
 
-    instance->iIMIndex = FcitxInstanceGetIMIndexByName(instance, instance->profile->imName);
+    instance->iIMIndex =
+        FcitxInstanceGetIMIndexByName(instance, instance->profile->imName);
     if (instance->iIMIndex < 0) {
         instance->iIMIndex = 0;
     }
@@ -312,11 +301,12 @@ void* RunInstance(void* arg)
 
     uint64_t curtime = 0;
     while (1) {
-        FcitxAddon** pmodule;
+        FcitxAddon **pmodule;
         uint8_t signo = 0;
         if (instance->fd >= 0) {
             while (read(instance->fd, &signo, sizeof(char)) > 0) {
-                if (signo == SIGINT || signo == SIGTERM || signo == SIGQUIT || signo == SIGXCPU)
+                if (signo == SIGINT || signo == SIGTERM || signo == SIGQUIT ||
+                    signo == SIGXCPU)
                     FcitxInstanceEnd(instance);
                 else if (signo == SIGHUP)
                     FcitxInstanceRestart(instance);
@@ -326,24 +316,26 @@ void* RunInstance(void* arg)
         }
         do {
             instance->eventflag &= (~FEF_PROCESS_EVENT_MASK);
-            for (pmodule = (FcitxAddon**) utarray_front(&instance->eventmodules);
-                  pmodule != NULL;
-                  pmodule = (FcitxAddon**) utarray_next(&instance->eventmodules, pmodule)) {
-                FcitxModule* module = (*pmodule)->module;
+            for (pmodule =
+                     (FcitxAddon **)utarray_front(&instance->eventmodules);
+                 pmodule != NULL; pmodule = (FcitxAddon **)utarray_next(
+                                      &instance->eventmodules, pmodule)) {
+                FcitxModule *module = (*pmodule)->module;
                 module->ProcessEvent((*pmodule)->addonInstance);
             }
             struct timeval current_time;
             gettimeofday(&current_time, NULL);
-            curtime = (current_time.tv_sec * 1000LL) + (current_time.tv_usec / 1000LL);
+            curtime = (current_time.tv_sec * 1000LL) +
+                      (current_time.tv_usec / 1000LL);
 
             unsigned int idx = 0;
-            while(idx < utarray_len(&instance->timeout))
-            {
-                TimeoutItem* ti = (TimeoutItem*) utarray_eltptr(&instance->timeout, idx);
+            while (idx < utarray_len(&instance->timeout)) {
+                TimeoutItem *ti =
+                    (TimeoutItem *)utarray_eltptr(&instance->timeout, idx);
                 uint64_t id = ti->idx;
                 if (ti->time + ti->milli <= curtime) {
                     ti->callback(ti->arg);
-                    ti = (TimeoutItem*) utarray_eltptr(&instance->timeout, idx);
+                    ti = (TimeoutItem *)utarray_eltptr(&instance->timeout, idx);
                     /* faster remove */
                     if (ti && ti->idx == id)
                         utarray_remove_quick(&instance->timeout, idx);
@@ -351,8 +343,7 @@ void* RunInstance(void* arg)
                         FcitxInstanceRemoveTimeoutById(instance, id);
                         idx = 0;
                     }
-                }
-                else {
+                } else {
                     idx++;
                 }
             }
@@ -371,7 +362,7 @@ void* RunInstance(void* arg)
             FcitxInstanceRealEnd(instance);
             break;
         }
-        
+
         if (instance->eventflag & FEF_RELOAD_ADDON) {
             instance->eventflag &= ~(FEF_RELOAD_ADDON);
             FcitxInstanceReloadAddon(instance);
@@ -386,21 +377,21 @@ void* RunInstance(void* arg)
             instance->maxfd = instance->fd;
             FD_SET(instance->fd, &instance->rfds);
         }
-        for (pmodule = (FcitxAddon**) utarray_front(&instance->eventmodules);
-              pmodule != NULL;
-              pmodule = (FcitxAddon**) utarray_next(&instance->eventmodules, pmodule)) {
-            FcitxModule* module = (*pmodule)->module;
+        for (pmodule = (FcitxAddon **)utarray_front(&instance->eventmodules);
+             pmodule != NULL; pmodule = (FcitxAddon **)utarray_next(
+                                  &instance->eventmodules, pmodule)) {
+            FcitxModule *module = (*pmodule)->module;
             module->SetFD((*pmodule)->addonInstance);
         }
         if (instance->maxfd == 0)
             break;
         struct timeval tval;
-        struct timeval* ptval = NULL;
+        struct timeval *ptval = NULL;
         if (utarray_len(&instance->timeout) != 0) {
             unsigned long int min_time = LONG_MAX;
-            TimeoutItem* ti;
-            for (ti = (TimeoutItem*)utarray_front(&instance->timeout);ti;
-                 ti = (TimeoutItem*)utarray_next(&instance->timeout, ti)) {
+            TimeoutItem *ti;
+            for (ti = (TimeoutItem *)utarray_front(&instance->timeout); ti;
+                 ti = (TimeoutItem *)utarray_next(&instance->timeout, ti)) {
                 if (ti->time + ti->milli - curtime < min_time) {
                     min_time = ti->time + ti->milli - curtime;
                 }
@@ -427,14 +418,10 @@ error_exit:
 }
 
 FCITX_EXPORT_API
-void FcitxInstanceRestart(FcitxInstance *instance)
-{
-    instance->restart = true;
-}
+void FcitxInstanceRestart(FcitxInstance *instance) { instance->restart = true; }
 
 FCITX_EXPORT_API
-void FcitxInstanceEnd(FcitxInstance* instance)
-{
+void FcitxInstanceEnd(FcitxInstance *instance) {
     /* avoid duplicate destroy */
     if (instance->destroy)
         return;
@@ -456,8 +443,7 @@ void FcitxInstanceEnd(FcitxInstance* instance)
 }
 
 FCITX_EXPORT_API
-void FcitxInstanceEndWithKill(FcitxInstance* instance)
-{
+void FcitxInstanceEndWithKill(FcitxInstance *instance) {
     /* avoid duplicate destroy */
     if (instance->destroy)
         return;
@@ -480,7 +466,7 @@ void FcitxInstanceEndWithKill(FcitxInstance* instance)
 }
 
 FCITX_EXPORT_API
-void FcitxInstanceRealEnd(FcitxInstance* instance) {
+void FcitxInstanceRealEnd(FcitxInstance *instance) {
 
     FcitxProfileSave(instance->profile);
     FcitxInstanceSaveAllIM(instance);
@@ -496,50 +482,48 @@ void FcitxInstanceRealEnd(FcitxInstance* instance) {
     instance->uinormal = NULL;
 
     /* handle exit */
-    FcitxAddon** pimclass;
-    FcitxAddon** pfrontend;
-    FcitxFrontend* frontend;
-    FcitxInputContext* rec = NULL;
+    FcitxAddon **pimclass;
+    FcitxAddon **pfrontend;
+    FcitxFrontend *frontend;
+    FcitxInputContext *rec = NULL;
 
-    for (pimclass = (FcitxAddon**)utarray_front(&instance->imeclasses);
-         pimclass != NULL;
-         pimclass = (FcitxAddon**)utarray_next(&instance->imeclasses, pimclass)
-        ) {
+    for (pimclass = (FcitxAddon **)utarray_front(&instance->imeclasses);
+         pimclass != NULL; pimclass = (FcitxAddon **)utarray_next(
+                               &instance->imeclasses, pimclass)) {
         if ((*pimclass)->imclass->Destroy)
             (*pimclass)->imclass->Destroy((*pimclass)->addonInstance);
     }
 
     for (rec = instance->ic_list; rec != NULL; rec = rec->next) {
-        pfrontend = (FcitxAddon**)utarray_eltptr(&instance->frontends,
-                                                 (unsigned int)rec->frontendid);
+        pfrontend = (FcitxAddon **)utarray_eltptr(
+            &instance->frontends, (unsigned int)rec->frontendid);
         frontend = (*pfrontend)->frontend;
         frontend->CloseIM((*pfrontend)->addonInstance, rec);
     }
 
     for (rec = instance->ic_list; rec != NULL; rec = rec->next) {
-        pfrontend = (FcitxAddon**)utarray_eltptr(&instance->frontends,
-                                                 (unsigned int)rec->frontendid);
+        pfrontend = (FcitxAddon **)utarray_eltptr(
+            &instance->frontends, (unsigned int)rec->frontendid);
         frontend = (*pfrontend)->frontend;
         frontend->DestroyIC((*pfrontend)->addonInstance, rec);
     }
 
-    for (pfrontend = (FcitxAddon**)utarray_front(&instance->frontends);
-         pfrontend != NULL;
-         pfrontend = (FcitxAddon**)utarray_next(&instance->frontends, pfrontend)
-        ) {
+    for (pfrontend = (FcitxAddon **)utarray_front(&instance->frontends);
+         pfrontend != NULL; pfrontend = (FcitxAddon **)utarray_next(
+                                &instance->frontends, pfrontend)) {
         if (pfrontend == NULL)
             continue;
-        FcitxFrontend* frontend = (*pfrontend)->frontend;
+        FcitxFrontend *frontend = (*pfrontend)->frontend;
         frontend->Destroy((*pfrontend)->addonInstance);
     }
 
-    FcitxAddon** pmodule;
-    for (pmodule = (FcitxAddon**) utarray_back(&instance->modules);
+    FcitxAddon **pmodule;
+    for (pmodule = (FcitxAddon **)utarray_back(&instance->modules);
          pmodule != NULL;
-         pmodule = (FcitxAddon**) utarray_prev(&instance->modules, pmodule)) {
+         pmodule = (FcitxAddon **)utarray_prev(&instance->modules, pmodule)) {
         if (pmodule == NULL)
             return;
-        FcitxModule* module = (*pmodule)->module;
+        FcitxModule *module = (*pmodule)->module;
         if (module->Destroy)
             module->Destroy((*pmodule)->addonInstance);
     }
@@ -549,8 +533,7 @@ void FcitxInstanceRealEnd(FcitxInstance* instance) {
     }
 }
 
-void FcitxInitThread(FcitxInstance* inst)
-{
+void FcitxInitThread(FcitxInstance *inst) {
     int rc;
     rc = pthread_mutex_init(&inst->fcitxMutex, NULL);
     if (rc != 0)
@@ -558,56 +541,47 @@ void FcitxInitThread(FcitxInstance* inst)
 }
 
 FCITX_EXPORT_API
-int FcitxInstanceLock(FcitxInstance* inst)
-{
+int FcitxInstanceLock(FcitxInstance *inst) {
     if (inst->bMutexInited)
         return pthread_mutex_lock(&inst->fcitxMutex);
     return 0;
 }
 
 FCITX_EXPORT_API
-int FcitxInstanceUnlock(FcitxInstance* inst)
-{
+int FcitxInstanceUnlock(FcitxInstance *inst) {
     if (inst->bMutexInited)
         return pthread_mutex_unlock(&inst->fcitxMutex);
     return 0;
 }
 
-void ToggleRemindState(void* arg)
-{
-    FcitxInstance* instance = (FcitxInstance*) arg;
+void ToggleRemindState(void *arg) {
+    FcitxInstance *instance = (FcitxInstance *)arg;
     instance->profile->bUseRemind = !instance->profile->bUseRemind;
     FcitxUISetStatusString(instance, "remind",
-                           instance->profile->bUseRemind ? _("Use remind") :  _("No remind"),
-                          _("Toggle Remind"));
+                           instance->profile->bUseRemind ? _("Use remind")
+                                                         : _("No remind"),
+                           _("Toggle Remind"));
     FcitxProfileSave(instance->profile);
 }
 
-boolean GetRemindEnabled(void* arg)
-{
-    FcitxInstance* instance = (FcitxInstance*) arg;
+boolean GetRemindEnabled(void *arg) {
+    FcitxInstance *instance = (FcitxInstance *)arg;
     return instance->profile->bUseRemind;
 }
 
-boolean ProcessOption(FcitxInstance* instance, int argc, char* argv[])
-{
-    struct option longOptions[] = {
-        {"ui", 1, 0, 0},
-        {"replace", 0, 0, 0},
-        {"enable", 1, 0, 0},
-        {"disable", 1, 0, 0},
-        {"version", 0, 0, 0},
-        {"debug", 0, 0, 0},
-        {"help", 0, 0, 0},
-        {NULL, 0, 0, 0}
-    };
+boolean ProcessOption(FcitxInstance *instance, int argc, char *argv[]) {
+    struct option longOptions[] = {{"ui", 1, 0, 0},      {"replace", 0, 0, 0},
+                                   {"enable", 1, 0, 0},  {"disable", 1, 0, 0},
+                                   {"version", 0, 0, 0}, {"debug", 0, 0, 0},
+                                   {"help", 0, 0, 0},    {NULL, 0, 0, 0}};
 
     int optionIndex = 0;
     int c;
-    char* uiname = NULL;
+    char *uiname = NULL;
     boolean runasdaemon = true;
-    int             overrideDelay = -1;
-    while ((c = getopt_long(argc, argv, "ru:dDs:hv", longOptions, &optionIndex)) != EOF) {
+    int overrideDelay = -1;
+    while ((c = getopt_long(argc, argv, "ru:dDs:hv", longOptions,
+                            &optionIndex)) != EOF) {
         switch (c) {
         case 0: {
             switch (optionIndex) {
@@ -617,20 +591,16 @@ boolean ProcessOption(FcitxInstance* instance, int argc, char* argv[])
             case 1:
                 instance->tryReplace = true;
                 break;
-            case 2:
-                {
-                    if (instance->enableList)
-                        fcitx_utils_free_string_list(instance->enableList);
-                    instance->enableList = fcitx_utils_split_string(optarg, ',');
-                }
-                break;
-            case 3:
-                {
-                    if (instance->disableList)
-                        fcitx_utils_free_string_list(instance->disableList);
-                    instance->disableList = fcitx_utils_split_string(optarg, ',');
-                }
-                break;
+            case 2: {
+                if (instance->enableList)
+                    fcitx_utils_free_string_list(instance->enableList);
+                instance->enableList = fcitx_utils_split_string(optarg, ',');
+            } break;
+            case 3: {
+                if (instance->disableList)
+                    fcitx_utils_free_string_list(instance->disableList);
+                instance->disableList = fcitx_utils_split_string(optarg, ',');
+            } break;
             case 4:
                 instance->quietQuit = true;
                 Version();
@@ -644,8 +614,7 @@ boolean ProcessOption(FcitxInstance* instance, int argc, char* argv[])
                 Usage();
                 return false;
             }
-        }
-        break;
+        } break;
         case 'r':
             instance->tryReplace = true;
             break;
@@ -691,20 +660,18 @@ boolean ProcessOption(FcitxInstance* instance, int argc, char* argv[])
 }
 
 FCITX_EXPORT_API
-FcitxInputContext* FcitxInstanceGetCurrentIC(FcitxInstance* instance)
-{
+FcitxInputContext *FcitxInstanceGetCurrentIC(FcitxInstance *instance) {
     return instance->CurrentIC;
 }
 
 FCITX_EXPORT_API
-FcitxInputContext* FcitxInstanceGetLastIC(FcitxInstance*instance)
-{
+FcitxInputContext *FcitxInstanceGetLastIC(FcitxInstance *instance) {
     return instance->lastIC;
 }
 
 FCITX_EXPORT_API
-boolean FcitxInstanceSetCurrentIC(FcitxInstance* instance, FcitxInputContext* ic)
-{
+boolean FcitxInstanceSetCurrentIC(FcitxInstance *instance,
+                                  FcitxInputContext *ic) {
     FcitxContextState prevstate = FcitxInstanceGetCurrentState(instance);
     boolean changed = (instance->CurrentIC != ic);
 
@@ -716,7 +683,8 @@ boolean FcitxInstanceSetCurrentIC(FcitxInstance* instance, FcitxInputContext* ic
 
     FcitxContextState nextstate = FcitxInstanceGetCurrentState(instance);
 
-    if (!((prevstate == IS_CLOSED && nextstate == IS_CLOSED) || (prevstate != IS_CLOSED && nextstate != IS_CLOSED))) {
+    if (!((prevstate == IS_CLOSED && nextstate == IS_CLOSED) ||
+          (prevstate != IS_CLOSED && nextstate != IS_CLOSED))) {
         if (prevstate == IS_CLOSED)
             instance->timeStart = time(NULL);
         else
@@ -726,54 +694,59 @@ boolean FcitxInstanceSetCurrentIC(FcitxInstance* instance, FcitxInputContext* ic
     return changed;
 }
 
-void FcitxInstanceSetLastIC(FcitxInstance* instance, FcitxInputContext* ic)
-{
+void FcitxInstanceSetLastIC(FcitxInstance *instance, FcitxInputContext *ic) {
     instance->lastIC = ic;
 
     free(instance->delayedIM);
     instance->delayedIM = NULL;
 }
 
-void FcitxInstanceSetDelayedIM(FcitxInstance* instance, const char* delayedIM)
-{
+void FcitxInstanceSetDelayedIM(FcitxInstance *instance, const char *delayedIM) {
     fcitx_utils_string_swap(&instance->delayedIM, delayedIM);
 }
 
+void FcitxInstanceInitBuiltContext(FcitxInstance *instance) {
+    FcitxInstanceRegisterWatchableContext(
+        instance, CONTEXT_ALTERNATIVE_PREVPAGE_KEY, FCT_Hotkey,
+        FCF_ResetOnInputMethodChange);
+    FcitxInstanceRegisterWatchableContext(
+        instance, CONTEXT_ALTERNATIVE_NEXTPAGE_KEY, FCT_Hotkey,
+        FCF_ResetOnInputMethodChange);
+    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_IM_KEYBOARD_LAYOUT,
+                                          FCT_String,
+                                          FCF_ResetOnInputMethodChange);
+    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_IM_LANGUAGE,
+                                          FCT_String, FCF_None);
+    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_SHOW_REMIND_STATUS,
+                                          FCT_Boolean,
+                                          FCF_ResetOnInputMethodChange);
+    FcitxInstanceRegisterWatchableContext(
+        instance, CONTEXT_DISABLE_AUTO_FIRST_CANDIDATE_HIGHTLIGHT, FCT_Boolean,
+        FCF_ResetOnInputMethodChange);
 
-void FcitxInstanceInitBuiltContext(FcitxInstance* instance)
-{
-    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_ALTERNATIVE_PREVPAGE_KEY, FCT_Hotkey, FCF_ResetOnInputMethodChange);
-    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_ALTERNATIVE_NEXTPAGE_KEY, FCT_Hotkey, FCF_ResetOnInputMethodChange);
-    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_IM_KEYBOARD_LAYOUT, FCT_String, FCF_ResetOnInputMethodChange);
-    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_IM_LANGUAGE, FCT_String, FCF_None);
-    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_SHOW_REMIND_STATUS, FCT_Boolean, FCF_ResetOnInputMethodChange);
-    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_DISABLE_AUTO_FIRST_CANDIDATE_HIGHTLIGHT, FCT_Boolean, FCF_ResetOnInputMethodChange);
-
-    FcitxInstanceWatchContext(instance, CONTEXT_SHOW_REMIND_STATUS, FcitxInstanceShowRemindStatusChanged, instance);
+    FcitxInstanceWatchContext(instance, CONTEXT_SHOW_REMIND_STATUS,
+                              FcitxInstanceShowRemindStatusChanged, instance);
 }
 
-void FcitxInstanceShowRemindStatusChanged(void* arg, const void* value)
-{
-    const boolean* b = value;
-    FcitxInstance* instance = arg;
-    FcitxUISetStatusVisable(instance, "remind",  *b);
+void FcitxInstanceShowRemindStatusChanged(void *arg, const void *value) {
+    const boolean *b = value;
+    FcitxInstance *instance = arg;
+    FcitxUISetStatusVisable(instance, "remind", *b);
 }
 
 FCITX_EXPORT_API
-boolean FcitxInstanceIsTryReplace(FcitxInstance* instance)
-{
+boolean FcitxInstanceIsTryReplace(FcitxInstance *instance) {
     return instance->tryReplace;
 }
 
 FCITX_EXPORT_API
-void FcitxInstanceResetTryReplace(FcitxInstance* instance)
-{
+void FcitxInstanceResetTryReplace(FcitxInstance *instance) {
     instance->tryReplace = false;
 }
 
 FCITX_EXPORT_API
-uint64_t FcitxInstanceAddTimeout(FcitxInstance* instance, long int milli, FcitxTimeoutCallback callback , void* arg)
-{
+uint64_t FcitxInstanceAddTimeout(FcitxInstance *instance, long int milli,
+                                 FcitxTimeoutCallback callback, void *arg) {
     if (milli < 0)
         return 0;
 
@@ -781,18 +754,19 @@ uint64_t FcitxInstanceAddTimeout(FcitxInstance* instance, long int milli, FcitxT
     gettimeofday(&current_time, NULL);
     TimeoutItem item;
     item.arg = arg;
-    item.callback =callback;
+    item.callback = callback;
     item.milli = milli;
     item.idx = ++instance->timeoutIdx;
-    item.time = (current_time.tv_sec * 1000LL) + (current_time.tv_usec / 1000LL);
+    item.time =
+        (current_time.tv_sec * 1000LL) + (current_time.tv_usec / 1000LL);
     utarray_push_back(&instance->timeout, &item);
 
     return item.idx;
 }
 
 FCITX_EXPORT_API
-boolean FcitxInstanceCheckTimeoutByFunc(FcitxInstance* instance, FcitxTimeoutCallback callback)
-{
+boolean FcitxInstanceCheckTimeoutByFunc(FcitxInstance *instance,
+                                        FcitxTimeoutCallback callback) {
     utarray_foreach(ti, &instance->timeout, TimeoutItem) {
         if (ti->callback == callback)
             return true;
@@ -801,8 +775,7 @@ boolean FcitxInstanceCheckTimeoutByFunc(FcitxInstance* instance, FcitxTimeoutCal
 }
 
 FCITX_EXPORT_API
-boolean FcitxInstanceCheckTimeoutById(FcitxInstance *instance, uint64_t id)
-{
+boolean FcitxInstanceCheckTimeoutById(FcitxInstance *instance, uint64_t id) {
     utarray_foreach(ti, &instance->timeout, TimeoutItem) {
         if (ti->idx == id)
             return true;
@@ -810,10 +783,8 @@ boolean FcitxInstanceCheckTimeoutById(FcitxInstance *instance, uint64_t id)
     return false;
 }
 
-FCITX_EXPORT_API boolean
-FcitxInstanceRemoveTimeoutByFunc(FcitxInstance* instance,
-                                 FcitxTimeoutCallback callback)
-{
+FCITX_EXPORT_API boolean FcitxInstanceRemoveTimeoutByFunc(
+    FcitxInstance *instance, FcitxTimeoutCallback callback) {
     utarray_foreach(ti, &instance->timeout, TimeoutItem) {
         if (ti->callback == callback) {
             unsigned int idx = utarray_eltidx(&instance->timeout, ti);
@@ -825,8 +796,7 @@ FcitxInstanceRemoveTimeoutByFunc(FcitxInstance* instance,
 }
 
 FCITX_EXPORT_API
-boolean FcitxInstanceRemoveTimeoutById(FcitxInstance* instance, uint64_t id)
-{
+boolean FcitxInstanceRemoveTimeoutById(FcitxInstance *instance, uint64_t id) {
     if (id == 0)
         return false;
     utarray_foreach(ti, &instance->timeout, TimeoutItem) {
@@ -840,16 +810,16 @@ boolean FcitxInstanceRemoveTimeoutById(FcitxInstance* instance, uint64_t id)
 }
 
 FCITX_EXPORT_API
-int FcitxInstanceWaitForEnd(FcitxInstance* instance) {
+int FcitxInstanceWaitForEnd(FcitxInstance *instance) {
     return pthread_join(instance->pid, NULL);
 }
 
-static void FcitxInstanceInitNoPreeditApps(FcitxInstance* instance) {
-    UT_array* no_preedit_app_list = NULL;
-    const char* default_no_preedit_apps = NO_PREEDIT_APPS;
-    const char* no_preedit_apps;
-    UT_array* app_pat_list;
-    regex_t* re = NULL;
+static void FcitxInstanceInitNoPreeditApps(FcitxInstance *instance) {
+    UT_array *no_preedit_app_list = NULL;
+    const char *default_no_preedit_apps = NO_PREEDIT_APPS;
+    const char *no_preedit_apps;
+    UT_array *app_pat_list;
+    regex_t *re = NULL;
 
     no_preedit_apps = getenv("FCITX_NO_PREEDIT_APPS");
     if (no_preedit_apps == NULL)
@@ -857,7 +827,7 @@ static void FcitxInstanceInitNoPreeditApps(FcitxInstance* instance) {
     app_pat_list = fcitx_utils_split_string(no_preedit_apps, ',');
 
     utarray_new(no_preedit_app_list, fcitx_ptr_icd);
-    utarray_foreach(pat, app_pat_list, char*) {
+    utarray_foreach(pat, app_pat_list, char *) {
         if (re == NULL)
             re = malloc(sizeof(regex_t));
         if (regcomp(re, *pat, REG_EXTENDED | REG_ICASE | REG_NOSUB))

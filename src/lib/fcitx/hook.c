@@ -19,19 +19,18 @@
  ***************************************************************************/
 
 #include "fcitx/hook.h"
-#include "fcitx-utils/log.h"
-#include "ime.h"
 #include "fcitx-config/hotkey.h"
-#include "instance.h"
-#include "fcitx/hook-internal.h"
+#include "fcitx-utils/log.h"
 #include "fcitx-utils/utils.h"
+#include "fcitx/hook-internal.h"
+#include "ime.h"
 #include "instance-internal.h"
+#include "instance.h"
 
 /**
  * @file hook.c
  * A list for a stack of processing
  **/
-
 
 /**
  * hook stack
@@ -48,31 +47,28 @@ typedef struct _HookStack {
     /**
      * stack next
      **/
-    struct _HookStack* next;
+    struct _HookStack *next;
 } HookStack;
 
 /**
  * internal macro to define a hook
  */
-#define DEFINE_HOOK(name, type, field) \
-    static HookStack* Get##name(FcitxInstance* instance); \
-    HookStack* Get##name(FcitxInstance* instance) \
-    { \
-        if (instance->hook##name == NULL) \
-        { \
-            instance->hook##name = fcitx_utils_malloc0(sizeof(HookStack)); \
-        } \
-        return instance->hook##name; \
-    } \
-    FCITX_EXPORT_API \
-    void FcitxInstanceRegister##name(FcitxInstance* instance, type value) \
-    { \
-        HookStack* head = Get##name(instance); \
-        while(head->next != NULL) \
-            head = head->next; \
-        head->next = fcitx_utils_malloc0(sizeof(HookStack)); \
-        head = head->next; \
-        head->field = value; \
+#define DEFINE_HOOK(name, type, field)                                         \
+    static HookStack *Get##name(FcitxInstance *instance);                      \
+    HookStack *Get##name(FcitxInstance *instance) {                            \
+        if (instance->hook##name == NULL) {                                    \
+            instance->hook##name = fcitx_utils_malloc0(sizeof(HookStack));     \
+        }                                                                      \
+        return instance->hook##name;                                           \
+    }                                                                          \
+    FCITX_EXPORT_API                                                           \
+    void FcitxInstanceRegister##name(FcitxInstance *instance, type value) {    \
+        HookStack *head = Get##name(instance);                                 \
+        while (head->next != NULL)                                             \
+            head = head->next;                                                 \
+        head->next = fcitx_utils_malloc0(sizeof(HookStack));                   \
+        head = head->next;                                                     \
+        head->field = value;                                                   \
     }
 
 DEFINE_HOOK(PreInputFilter, FcitxKeyFilterHook, keyfilter)
@@ -93,9 +89,10 @@ DEFINE_HOOK(UpdateIMListHook, FcitxIMEventHook, eventhook);
 DEFINE_HOOK(ICStateChangedHook, FcitxICEventHook, ichook);
 DEFINE_HOOK(UIStatusChangedHook, FcitxUIStatusHook, uistatushook);
 
-void FcitxInstanceProcessPreInputFilter(FcitxInstance* instance, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retval)
-{
-    HookStack* stack = GetPreInputFilter(instance);
+void FcitxInstanceProcessPreInputFilter(FcitxInstance *instance,
+                                        FcitxKeySym sym, unsigned int state,
+                                        INPUT_RETURN_VALUE *retval) {
+    HookStack *stack = GetPreInputFilter(instance);
     stack = stack->next;
     *retval = IRV_TO_PROCESS;
     while (stack) {
@@ -105,9 +102,10 @@ void FcitxInstanceProcessPreInputFilter(FcitxInstance* instance, FcitxKeySym sym
     }
 }
 
-void FcitxInstanceProcessPostInputFilter(FcitxInstance* instance, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retval)
-{
-    HookStack* stack = GetPostInputFilter(instance);
+void FcitxInstanceProcessPostInputFilter(FcitxInstance *instance,
+                                         FcitxKeySym sym, unsigned int state,
+                                         INPUT_RETURN_VALUE *retval) {
+    HookStack *stack = GetPostInputFilter(instance);
     stack = stack->next;
     while (stack) {
         if (stack->keyfilter.func(stack->keyfilter.arg, sym, state, retval))
@@ -116,9 +114,11 @@ void FcitxInstanceProcessPostInputFilter(FcitxInstance* instance, FcitxKeySym sy
     }
 }
 
-void FcitxInstanceProcessPreReleaseInputFilter(FcitxInstance* instance, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retval)
-{
-    HookStack* stack = GetPreReleaseInputFilter(instance);
+void FcitxInstanceProcessPreReleaseInputFilter(FcitxInstance *instance,
+                                               FcitxKeySym sym,
+                                               unsigned int state,
+                                               INPUT_RETURN_VALUE *retval) {
+    HookStack *stack = GetPreReleaseInputFilter(instance);
     stack = stack->next;
     *retval = IRV_TO_PROCESS;
     while (stack) {
@@ -128,9 +128,11 @@ void FcitxInstanceProcessPreReleaseInputFilter(FcitxInstance* instance, FcitxKey
     }
 }
 
-void FcitxInstanceProcessPostReleaseInputFilter(FcitxInstance* instance, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retval)
-{
-    HookStack* stack = GetPostReleaseInputFilter(instance);
+void FcitxInstanceProcessPostReleaseInputFilter(FcitxInstance *instance,
+                                                FcitxKeySym sym,
+                                                unsigned int state,
+                                                INPUT_RETURN_VALUE *retval) {
+    HookStack *stack = GetPostReleaseInputFilter(instance);
     stack = stack->next;
     while (stack) {
         if (stack->keyfilter.func(stack->keyfilter.arg, sym, state, retval))
@@ -139,9 +141,8 @@ void FcitxInstanceProcessPostReleaseInputFilter(FcitxInstance* instance, FcitxKe
     }
 }
 
-void FcitxInstanceProcessUpdateCandidates(FcitxInstance* instance)
-{
-    HookStack* stack = GetUpdateCandidateWordHook(instance);
+void FcitxInstanceProcessUpdateCandidates(FcitxInstance *instance) {
+    HookStack *stack = GetUpdateCandidateWordHook(instance);
     stack = stack->next;
     while (stack) {
         stack->eventhook.func(stack->eventhook.arg);
@@ -150,12 +151,12 @@ void FcitxInstanceProcessUpdateCandidates(FcitxInstance* instance)
 }
 
 FCITX_EXPORT_API
-char* FcitxInstanceProcessOutputFilter(FcitxInstance* instance, const char *in)
-{
-    HookStack* stack = GetOutputFilter(instance);
+char *FcitxInstanceProcessOutputFilter(FcitxInstance *instance,
+                                       const char *in) {
+    HookStack *stack = GetOutputFilter(instance);
     stack = stack->next;
     char *out = NULL;
-    char* newout = NULL;
+    char *newout = NULL;
     while (stack) {
         newout = stack->stringfilter.func(stack->stringfilter.arg, in);
         if (newout) {
@@ -171,12 +172,12 @@ char* FcitxInstanceProcessOutputFilter(FcitxInstance* instance, const char *in)
 }
 
 FCITX_EXPORT_API
-char* FcitxInstanceProcessCommitFilter(FcitxInstance* instance, const char *in)
-{
-    HookStack* stack = GetCommitFilter(instance);
+char *FcitxInstanceProcessCommitFilter(FcitxInstance *instance,
+                                       const char *in) {
+    HookStack *stack = GetCommitFilter(instance);
     stack = stack->next;
     char *out = NULL;
-    char* newout = NULL;
+    char *newout = NULL;
     while (stack) {
         newout = stack->stringfilter.func(stack->stringfilter.arg, in);
         if (newout) {
@@ -192,9 +193,8 @@ char* FcitxInstanceProcessCommitFilter(FcitxInstance* instance, const char *in)
     return out;
 }
 
-void FcitxInstanceProcessResetInputHook(FcitxInstance* instance)
-{
-    HookStack* stack = GetResetInputHook(instance);
+void FcitxInstanceProcessResetInputHook(FcitxInstance *instance) {
+    HookStack *stack = GetResetInputHook(instance);
     stack = stack->next;
     while (stack) {
         stack->eventhook.func(stack->eventhook.arg);
@@ -202,46 +202,32 @@ void FcitxInstanceProcessResetInputHook(FcitxInstance* instance)
     }
 }
 
-void FcitxInstanceProcessTriggerOffHook(FcitxInstance* instance)
-{
-    HookStack* stack = GetTriggerOffHook(instance);
+void FcitxInstanceProcessTriggerOffHook(FcitxInstance *instance) {
+    HookStack *stack = GetTriggerOffHook(instance);
     stack = stack->next;
     while (stack) {
         stack->eventhook.func(stack->eventhook.arg);
         stack = stack->next;
     }
 }
-void FcitxInstanceProcessTriggerOnHook(FcitxInstance* instance)
-{
-    HookStack* stack = GetTriggerOnHook(instance);
+void FcitxInstanceProcessTriggerOnHook(FcitxInstance *instance) {
+    HookStack *stack = GetTriggerOnHook(instance);
     stack = stack->next;
     while (stack) {
         stack->eventhook.func(stack->eventhook.arg);
         stack = stack->next;
     }
 }
-void FcitxInstanceProcessInputFocusHook(FcitxInstance* instance)
-{
-    HookStack* stack = GetInputFocusHook(instance);
+void FcitxInstanceProcessInputFocusHook(FcitxInstance *instance) {
+    HookStack *stack = GetInputFocusHook(instance);
     stack = stack->next;
     while (stack) {
         stack->eventhook.func(stack->eventhook.arg);
         stack = stack->next;
     }
 }
-void FcitxInstanceProcessInputUnFocusHook(FcitxInstance* instance)
-{
-    HookStack* stack = GetInputUnFocusHook(instance);
-    stack = stack->next;
-    while (stack) {
-        stack->eventhook.func(stack->eventhook.arg);
-        stack = stack->next;
-    }
-}
-
-void FcitxInstanceProcessIMChangedHook(FcitxInstance* instance)
-{
-    HookStack* stack = GetIMChangedHook(instance);
+void FcitxInstanceProcessInputUnFocusHook(FcitxInstance *instance) {
+    HookStack *stack = GetInputUnFocusHook(instance);
     stack = stack->next;
     while (stack) {
         stack->eventhook.func(stack->eventhook.arg);
@@ -249,9 +235,8 @@ void FcitxInstanceProcessIMChangedHook(FcitxInstance* instance)
     }
 }
 
-void FcitxInstanceProcessUpdateIMListHook(FcitxInstance* instance)
-{
-    HookStack* stack = GetUpdateIMListHook(instance);
+void FcitxInstanceProcessIMChangedHook(FcitxInstance *instance) {
+    HookStack *stack = GetIMChangedHook(instance);
     stack = stack->next;
     while (stack) {
         stack->eventhook.func(stack->eventhook.arg);
@@ -259,9 +244,18 @@ void FcitxInstanceProcessUpdateIMListHook(FcitxInstance* instance)
     }
 }
 
-void FcitxInstanceProcessICStateChangedHook(FcitxInstance* instance, FcitxInputContext* ic)
-{
-    HookStack* stack = GetICStateChangedHook(instance);
+void FcitxInstanceProcessUpdateIMListHook(FcitxInstance *instance) {
+    HookStack *stack = GetUpdateIMListHook(instance);
+    stack = stack->next;
+    while (stack) {
+        stack->eventhook.func(stack->eventhook.arg);
+        stack = stack->next;
+    }
+}
+
+void FcitxInstanceProcessICStateChangedHook(FcitxInstance *instance,
+                                            FcitxInputContext *ic) {
+    HookStack *stack = GetICStateChangedHook(instance);
     stack = stack->next;
     while (stack) {
         stack->ichook.func(stack->ichook.arg, ic);
@@ -269,26 +263,21 @@ void FcitxInstanceProcessICStateChangedHook(FcitxInstance* instance, FcitxInputC
     }
 }
 
-INPUT_RETURN_VALUE FcitxInstanceProcessHotkey(FcitxInstance* instance, FcitxKeySym keysym, unsigned int state)
-{
-    HookStack* stack = GetHotkeyFilter(instance);
+INPUT_RETURN_VALUE FcitxInstanceProcessHotkey(FcitxInstance *instance,
+                                              FcitxKeySym keysym,
+                                              unsigned int state) {
+    HookStack *stack = GetHotkeyFilter(instance);
     stack = stack->next;
     INPUT_RETURN_VALUE out = IRV_TO_PROCESS;
     while (stack) {
         /* a little bit hack here, but safer */
         FcitxHotkey tempKey[2];
-        FcitxHotkeyGetKey(
-            stack->hotkey.hotkey[0].sym,
-            stack->hotkey.hotkey[0].state,
-            &tempKey[0].sym,
-            &tempKey[0].state
-        );
-        FcitxHotkeyGetKey(
-            stack->hotkey.hotkey[1].sym,
-            stack->hotkey.hotkey[1].state,
-            &tempKey[1].sym,
-            &tempKey[1].state
-        );
+        FcitxHotkeyGetKey(stack->hotkey.hotkey[0].sym,
+                          stack->hotkey.hotkey[0].state, &tempKey[0].sym,
+                          &tempKey[0].state);
+        FcitxHotkeyGetKey(stack->hotkey.hotkey[1].sym,
+                          stack->hotkey.hotkey[1].state, &tempKey[1].sym,
+                          &tempKey[1].state);
         if (FcitxHotkeyIsHotKey(keysym, state, tempKey)) {
             out = stack->hotkey.hotkeyhandle(stack->hotkey.arg);
             break;
@@ -298,9 +287,9 @@ INPUT_RETURN_VALUE FcitxInstanceProcessHotkey(FcitxInstance* instance, FcitxKeyS
     return out;
 }
 
-void FcitxInstanceProcessUIStatusChangedHook(FcitxInstance* instance, const char* statusName)
-{
-    HookStack* stack = GetUIStatusChangedHook(instance);
+void FcitxInstanceProcessUIStatusChangedHook(FcitxInstance *instance,
+                                             const char *statusName) {
+    HookStack *stack = GetUIStatusChangedHook(instance);
     stack = stack->next;
     while (stack) {
         stack->uistatushook.func(stack->uistatushook.arg, statusName);
@@ -309,15 +298,15 @@ void FcitxInstanceProcessUIStatusChangedHook(FcitxInstance* instance, const char
 }
 
 FCITX_EXPORT_API
-boolean FcitxDummyReleaseInputHook(void* arg, FcitxKeySym sym, unsigned int state, INPUT_RETURN_VALUE* retval)
-{
-    boolean* flag = arg;
+boolean FcitxDummyReleaseInputHook(void *arg, FcitxKeySym sym,
+                                   unsigned int state,
+                                   INPUT_RETURN_VALUE *retval) {
+    boolean *flag = arg;
     if (!(*flag))
         return false;
     if (*retval == IRV_TO_PROCESS)
         *retval = IRV_DO_NOTHING;
     return true;
 }
-
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

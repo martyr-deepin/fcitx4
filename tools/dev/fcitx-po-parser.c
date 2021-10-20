@@ -18,28 +18,26 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <stdarg.h>
-#include <unistd.h>
-#include <string.h>
-#include <fcitx/fcitx.h>
-#include <fcitx-utils/utils.h>
+#include "config.h"
 #include <fcitx-utils/log.h>
 #include <fcitx-utils/utarray.h>
-#include "config.h"
+#include <fcitx-utils/utils.h>
+#include <fcitx/fcitx.h>
+#include <fcntl.h>
+#include <stdarg.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 #ifndef _FCITX_DISABLE_GETTEXT
 
 #include <gettext-po.h>
 
-static void
-_xerror_handler(int severity, po_message_t message, const char *filename,
-                size_t lineno, size_t column, int multiline_p,
-                const char *message_text)
-{
+static void _xerror_handler(int severity, po_message_t message,
+                            const char *filename, size_t lineno, size_t column,
+                            int multiline_p, const char *message_text) {
     FCITX_UNUSED(message);
     FCITX_UNUSED(filename);
     FCITX_UNUSED(lineno);
@@ -51,13 +49,13 @@ _xerror_handler(int severity, po_message_t message, const char *filename,
     }
 }
 
-static void
-_xerror2_handler(int severity, po_message_t message1, const char *filename1,
-                 size_t lineno1, size_t column1, int multiline_p1,
-                 const char *message_text1, po_message_t message2,
-                 const char *filename2, size_t lineno2, size_t column2,
-                 int multiline_p2, const char *message_text2)
-{
+static void _xerror2_handler(int severity, po_message_t message1,
+                             const char *filename1, size_t lineno1,
+                             size_t column1, int multiline_p1,
+                             const char *message_text1, po_message_t message2,
+                             const char *filename2, size_t lineno2,
+                             size_t column2, int multiline_p2,
+                             const char *message_text2) {
     FCITX_UNUSED(message1);
     FCITX_UNUSED(filename1);
     FCITX_UNUSED(lineno1);
@@ -74,27 +72,21 @@ _xerror2_handler(int severity, po_message_t message1, const char *filename1,
         exit(1);
     }
 }
-static const struct po_xerror_handler handler = {
-    .xerror = _xerror_handler,
-    .xerror2 = _xerror2_handler
-};
+static const struct po_xerror_handler handler = {.xerror = _xerror_handler,
+                                                 .xerror2 = _xerror2_handler};
 
 #endif
 
-static inline void
-encode_char(char *out, char c)
-{
-    unsigned char *uout = (unsigned char*)out;
+static inline void encode_char(char *out, char c) {
+    unsigned char *uout = (unsigned char *)out;
     unsigned char uc = (unsigned char)c;
     uout[0] = 'a' + (uc & 0x0f);
     uout[1] = 'a' + (uc >> 4);
 }
 
-static void
-encode_string(const char *in, char *out, size_t l)
-{
+static void encode_string(const char *in, char *out, size_t l) {
     size_t i;
-    for (i = 0;i < l;i++) {
+    for (i = 0; i < l; i++) {
         encode_char(out + i * 2, in[i]);
     }
     out[l * 2] = '\0';
@@ -102,9 +94,7 @@ encode_string(const char *in, char *out, size_t l)
 
 #ifndef _FCITX_DISABLE_GETTEXT
 
-static int
-lang_to_prefix(const char *lang, char **out)
-{
+static int lang_to_prefix(const char *lang, char **out) {
     int lang_len = strlen(lang);
     char *res = malloc(lang_len * 2 + 4);
     *out = res;
@@ -114,9 +104,7 @@ lang_to_prefix(const char *lang, char **out)
     return len + 3;
 }
 
-static void
-parse_po(const char *lang, const char *fname)
-{
+static void parse_po(const char *lang, const char *fname) {
     po_file_t po_file = po_file_read(fname, &handler);
     po_message_iterator_t msg_iter = po_message_iterator(po_file, NULL);
     po_message_t msg;
@@ -152,9 +140,7 @@ parse_po(const char *lang, const char *fname)
     po_file_free(po_file);
 }
 
-static void
-fix_header(const char *header, const char *fname)
-{
+static void fix_header(const char *header, const char *fname) {
     po_file_t po_file = po_file_read(fname, &handler);
     po_message_iterator_t msg_iter = po_message_iterator(po_file, NULL);
     po_message_t msg;
@@ -174,25 +160,19 @@ fix_header(const char *header, const char *fname)
 
 #else
 
-static void
-parse_po(const char *lang, const char *fname)
-{
+static void parse_po(const char *lang, const char *fname) {
     FCITX_UNUSED(lang);
     FCITX_UNUSED(fname);
 }
 
-static void
-fix_header(const char *header, const char *fname)
-{
+static void fix_header(const char *header, const char *fname) {
     FCITX_UNUSED(header);
     FCITX_UNUSED(fname);
 }
 
 #endif
 
-static void
-encode_stdin()
-{
+static void encode_stdin() {
 #define ENCODE_BUF_SIZE (1024)
     char in_buff[ENCODE_BUF_SIZE];
     char out_buff[ENCODE_BUF_SIZE * 2];
@@ -203,17 +183,11 @@ encode_stdin()
     }
 }
 
-static inline int
-check_char(char c)
-{
-    return c >= 'a' && c < 'a' + 0x10;
-}
+static inline int check_char(char c) { return c >= 'a' && c < 'a' + 0x10; }
 
-static inline size_t
-check_buff(char *buff, size_t len)
-{
+static inline size_t check_buff(char *buff, size_t len) {
     size_t i;
-    for (i = 0;i < len;i++) {
+    for (i = 0; i < len; i++) {
         if (check_char(buff[i]))
             continue;
         len--;
@@ -225,15 +199,11 @@ check_buff(char *buff, size_t len)
     return len;
 }
 
-static inline char
-hex_to_char(const char c[2])
-{
+static inline char hex_to_char(const char c[2]) {
     return (c[0] - 'a') + ((c[1] - 'a') << 4);
 }
 
-static inline void
-decode_stdin()
-{
+static inline void decode_stdin() {
 #define DECODE_BUF_SIZE (1024)
     char out_buff[DECODE_BUF_SIZE];
     char in_buff[DECODE_BUF_SIZE * 2];
@@ -244,7 +214,7 @@ decode_stdin()
     while ((len = fread(in_buff + left, 1, DECODE_BUF_SIZE * 2, stdin))) {
         len = check_buff(in_buff, len + left);
         count = len / 2;
-        for (i = 0;i < count;i++) {
+        for (i = 0; i < count; i++) {
             out_buff[i] = hex_to_char(in_buff + i * 2);
         }
         fwrite(out_buff, count, 1, stdout);
@@ -254,15 +224,11 @@ decode_stdin()
     }
 }
 
-static inline const char*
-std_filename(const char *fname)
-{
+static inline const char *std_filename(const char *fname) {
     return (fname && *fname) ? fname : "-";
 }
 
-int
-main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     if (argc <= 1)
         return 1;
     const char *action = argv[1];

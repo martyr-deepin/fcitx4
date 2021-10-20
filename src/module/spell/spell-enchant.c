@@ -18,53 +18,52 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include "fcitx/fcitx.h"
 #include "config.h"
+#include "fcitx/fcitx.h"
 
-#include "fcitx/ime.h"
-#include "fcitx/instance.h"
-#include "fcitx/context.h"
-#include "fcitx/module.h"
-#include "fcitx/frontend.h"
 #include "fcitx-config/xdg.h"
 #include "fcitx-utils/log.h"
-#include <sys/stat.h>
+#include "fcitx/context.h"
+#include "fcitx/frontend.h"
+#include "fcitx/ime.h"
+#include "fcitx/instance.h"
+#include "fcitx/module.h"
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <time.h>
 
-#include "spell-internal.h"
 #include "spell-enchant.h"
+#include "spell-internal.h"
 #include <dlfcn.h>
 
 static void *_enchant_handle = NULL;
 static void *(*_enchant_broker_init)() = NULL;
-static char **(*_enchant_dict_suggest)(void *dict, const char *str,
-                                       ssize_t len, size_t *out_n) = NULL;
+static char **(*_enchant_dict_suggest)(void *dict, const char *str, ssize_t len,
+                                       size_t *out_n) = NULL;
 static void (*_enchant_dict_free_string_list)(void *dict,
                                               char **str_list) = NULL;
 static void (*_enchant_broker_free_dict)(void *broker, void *dict) = NULL;
 static void (*_enchant_broker_free)(void *broker) = NULL;
 static void *(*_enchant_broker_request_dict)(void *broker,
                                              const char *const tag) = NULL;
-static void (*_enchant_broker_set_ordering)(void *broker,
-                                            const char *const tag,
+static void (*_enchant_broker_set_ordering)(void *broker, const char *const tag,
                                             const char *const ordering) = NULL;
 static void (*_enchant_dict_add)(void *dict, const char *const word,
-                                             ssize_t len) = NULL;
+                                 ssize_t len) = NULL;
 
-static boolean
-SpellEnchantLoadLib()
-{
+static boolean SpellEnchantLoadLib() {
     if (_enchant_handle)
         return true;
-    _enchant_handle = dlopen(ENCHANT_LIBRARY_FILENAME, RTLD_NOW | RTLD_NODELETE | RTLD_GLOBAL);
+    _enchant_handle = dlopen(ENCHANT_LIBRARY_FILENAME,
+                             RTLD_NOW | RTLD_NODELETE | RTLD_GLOBAL);
     if (!_enchant_handle)
         goto fail;
-#define ENCHANT_LOAD_SYMBOL(sym) do {            \
-        _##sym = dlsym(_enchant_handle, #sym);\
-            if (!_##sym)                         \
-                goto fail;                       \
-    } while(0)
+#define ENCHANT_LOAD_SYMBOL(sym)                                               \
+    do {                                                                       \
+        _##sym = dlsym(_enchant_handle, #sym);                                 \
+        if (!_##sym)                                                           \
+            goto fail;                                                         \
+    } while (0)
     ENCHANT_LOAD_SYMBOL(enchant_broker_init);
     ENCHANT_LOAD_SYMBOL(enchant_dict_suggest);
     ENCHANT_LOAD_SYMBOL(enchant_dict_free_string_list);
@@ -82,9 +81,7 @@ fail:
     return false;
 }
 
-boolean
-SpellEnchantInit(FcitxSpell *spell)
-{
+boolean SpellEnchantInit(FcitxSpell *spell) {
     if (spell->broker)
         return true;
     if (!SpellEnchantLoadLib())
@@ -98,9 +95,7 @@ SpellEnchantInit(FcitxSpell *spell)
     return true;
 }
 
-SpellHint*
-SpellEnchantHintWords(FcitxSpell *spell, unsigned int len_limit)
-{
+SpellHint *SpellEnchantHintWords(FcitxSpell *spell, unsigned int len_limit) {
     SpellHint *res = NULL;
     if (!SpellEnchantInit(spell))
         return NULL;
@@ -120,9 +115,7 @@ SpellEnchantHintWords(FcitxSpell *spell, unsigned int len_limit)
     return res;
 }
 
-boolean
-SpellEnchantCheck(FcitxSpell *spell)
-{
+boolean SpellEnchantCheck(FcitxSpell *spell) {
     if (!SpellEnchantInit(spell))
         return false;
     if (spell->enchant_dict && !spell->enchant_saved_lang)
@@ -130,9 +123,7 @@ SpellEnchantCheck(FcitxSpell *spell)
     return false;
 }
 
-void
-SpellEnchantDestroy(FcitxSpell *spell)
-{
+void SpellEnchantDestroy(FcitxSpell *spell) {
     if (spell->broker) {
         if (spell->enchant_dict)
             _enchant_broker_free_dict(spell->broker, spell->enchant_dict);
@@ -144,16 +135,13 @@ SpellEnchantDestroy(FcitxSpell *spell)
     /*     fcitx_utils_free_string_list(spell->enchantLanguages); */
 }
 
-boolean
-SpellEnchantLoadDict(FcitxSpell *spell, const char *lang)
-{
+boolean SpellEnchantLoadDict(FcitxSpell *spell, const char *lang) {
     void *enchant_dict;
     if (!SpellEnchantInit(spell))
         return false;
     if (!spell->broker)
         return false;
-    if (spell->enchant_saved_lang &&
-        !strcmp(spell->enchant_saved_lang, lang)) {
+    if (spell->enchant_saved_lang && !strcmp(spell->enchant_saved_lang, lang)) {
         free(spell->enchant_saved_lang);
         spell->enchant_saved_lang = NULL;
         return true;
@@ -177,9 +165,7 @@ SpellEnchantLoadDict(FcitxSpell *spell, const char *lang)
     return false;
 }
 
-void
-SpellEnchantApplyConfig(FcitxSpell *spell)
-{
+void SpellEnchantApplyConfig(FcitxSpell *spell) {
     if (!SpellEnchantInit(spell))
         return;
     if (!spell->broker) {
@@ -208,30 +194,27 @@ SpellEnchantApplyConfig(FcitxSpell *spell)
     switch (spell->config.enchant_provider) {
     case EP_Aspell:
         _enchant_broker_set_ordering(spell->broker, "*",
-                                    "aspell,myspell,ispell");
+                                     "aspell,myspell,ispell");
         break;
     case EP_Myspell:
         _enchant_broker_set_ordering(spell->broker, "*",
-                                    "myspell,aspell,ispell");
+                                     "myspell,aspell,ispell");
         break;
     default:
         break;
     }
     spell->cur_enchant_provider = spell->config.enchant_provider;
     if (!spell->enchant_dict && spell->dictLang && spell->dictLang[0]) {
-        spell->enchant_dict = _enchant_broker_request_dict(spell->broker,
-                                                           spell->dictLang);
+        spell->enchant_dict =
+            _enchant_broker_request_dict(spell->broker, spell->dictLang);
     }
 }
 
-void
-SpellEnchantAddPersonal(FcitxSpell *spell, const char *new_word)
-{
+void SpellEnchantAddPersonal(FcitxSpell *spell, const char *new_word) {
     if (!SpellEnchantInit(spell))
         return;
     if (spell->enchant_dict && !spell->enchant_saved_lang) {
-        _enchant_dict_add(spell->enchant_dict, new_word,
-                                      strlen(new_word));
+        _enchant_dict_add(spell->enchant_dict, new_word, strlen(new_word));
         return;
     }
 }

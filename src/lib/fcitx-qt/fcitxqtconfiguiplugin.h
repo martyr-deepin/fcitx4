@@ -21,8 +21,8 @@
 #define FCITXQTCONFIGPLUGIN_H
 
 #include "fcitxqt_export.h"
-#include <QString>
 #include <QObject>
+#include <QString>
 #include <QStringList>
 
 class FcitxQtConfigUIWidget;
@@ -30,8 +30,7 @@ class FcitxQtConfigUIWidget;
 /**
  * interface for qt config ui
  */
-struct FCITX_QT_EXPORT_API FcitxQtConfigUIFactoryInterface
-{
+struct FCITX_QT_EXPORT_API FcitxQtConfigUIFactoryInterface {
     /**
      *  return the name for plugin
      */
@@ -44,7 +43,7 @@ struct FCITX_QT_EXPORT_API FcitxQtConfigUIFactoryInterface
      *
      * @return plugin name
      */
-    virtual FcitxQtConfigUIWidget *create( const QString &key ) = 0;
+    virtual FcitxQtConfigUIWidget *create(const QString &key) = 0;
 
     /**
      * return a list that this plugin will handle, need to be consist with
@@ -55,28 +54,30 @@ struct FCITX_QT_EXPORT_API FcitxQtConfigUIFactoryInterface
     virtual QStringList files() = 0;
 
     /**
-     * return gettext domain, due to some reason, fcitx doesn't use qt's i18n feature
-     * but gettext
+     * return gettext domain, due to some reason, fcitx doesn't use qt's i18n
+     * feature but gettext
      *
      * @return domain of gettext
      */
     virtual QString domain() = 0;
-
 };
 
-#define FcitxQtConfigUIFactoryInterface_iid "org.fcitx.Fcitx.FcitxQtConfigUIFactoryInterface"
-Q_DECLARE_INTERFACE(FcitxQtConfigUIFactoryInterface, FcitxQtConfigUIFactoryInterface_iid)
+#define FcitxQtConfigUIFactoryInterface_iid                                    \
+    "org.fcitx.Fcitx.FcitxQtConfigUIFactoryInterface"
+Q_DECLARE_INTERFACE(FcitxQtConfigUIFactoryInterface,
+                    FcitxQtConfigUIFactoryInterface_iid)
 
 /**
  * base class for qt config ui
  */
-class FCITX_QT_EXPORT_API FcitxQtConfigUIPlugin : public QObject, public FcitxQtConfigUIFactoryInterface {
+class FCITX_QT_EXPORT_API FcitxQtConfigUIPlugin
+    : public QObject,
+      public FcitxQtConfigUIFactoryInterface {
     Q_OBJECT
     Q_INTERFACES(FcitxQtConfigUIFactoryInterface)
 public:
-    explicit FcitxQtConfigUIPlugin(QObject* parent = 0);
+    explicit FcitxQtConfigUIPlugin(QObject *parent = 0);
     virtual ~FcitxQtConfigUIPlugin();
 };
-
 
 #endif // FCITXCONFIGPLUGIN_H

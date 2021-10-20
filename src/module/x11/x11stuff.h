@@ -25,22 +25,22 @@
 #include <X11/Xlib.h>
 #endif
 
-#include <stdint.h>
-#include <fcitx-utils/utarray.h>
 #include <fcitx-config/fcitx-config.h>
-#include <fcitx/instance.h>
+#include <fcitx-utils/utarray.h>
 #include <fcitx/addon.h>
+#include <fcitx/instance.h>
 #include <fcitx/module.h>
+#include <stdint.h>
 
 #define FCITX_X11_NAME "fcitx-x11"
 #define FCITX_X11_GETDISPLAY 0
-#define FCITX_X11_GETDISPLAY_RETURNTYPE Display*
+#define FCITX_X11_GETDISPLAY_RETURNTYPE Display *
 #define FCITX_X11_ADDXEVENTHANDLER 1
 #define FCITX_X11_ADDXEVENTHANDLER_RETURNTYPE void
 #define FCITX_X11_REMOVEXEVENTHANDLER 2
 #define FCITX_X11_REMOVEXEVENTHANDLER_RETURNTYPE void
 #define FCITX_X11_FINDARGBVISUAL 3
-#define FCITX_X11_FINDARGBVISUAL_RETURNTYPE Visual*
+#define FCITX_X11_FINDARGBVISUAL_RETURNTYPE Visual *
 #define FCITX_X11_INITWINDOWATTR 4
 #define FCITX_X11_INITWINDOWATTR_RETURNTYPE void
 #define FCITX_X11_SETWINDOWPROP 5
@@ -77,9 +77,10 @@ typedef enum _FcitxXWindowType {
 
 typedef void (*X11SelectionNotifyCallback)(void *owner, const char *selection,
                                            int subtype, void *data);
-typedef void (*X11ConvertSelectionCallback)(
-    void *owner, const char *sel_str, const char *tgt_str, int format,
-    size_t nitems, const void *buff, void *data);
+typedef void (*X11ConvertSelectionCallback)(void *owner, const char *sel_str,
+                                            const char *tgt_str, int format,
+                                            size_t nitems, const void *buff,
+                                            void *data);
 
 #endif
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

@@ -45,9 +45,9 @@
 #ifndef __FCITX_UTILS_OBJPOOL_H
 #define __FCITX_UTILS_OBJPOOL_H
 
+#include <fcitx-utils/utils.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <fcitx-utils/utils.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,102 +58,97 @@ extern "C" {
 #define FCITX_OBJECT_POOL_ALLOCED_ID (-2)
 #define FCITX_OBJ_POOL_INIT_SIZE (4)
 
-    typedef struct _FcitxObjPool FcitxObjPool;
+typedef struct _FcitxObjPool FcitxObjPool;
 
-    /**
-     * Object pool
-     * @since 4.2.7
-     **/
-    struct _FcitxObjPool {
-        void *array;
-        size_t alloc;
-        size_t ele_size;
-        int next_free;
-    };
+/**
+ * Object pool
+ * @since 4.2.7
+ **/
+struct _FcitxObjPool {
+    void *array;
+    size_t alloc;
+    size_t ele_size;
+    int next_free;
+};
 
-    /**
-     * init a pool
-     *
-     * @param pool pool to be initialized
-     * @param size size of object
-     * @return void
-     *
-     * @since 4.2.7
-     */
-    void fcitx_obj_pool_init(FcitxObjPool *pool, size_t size);
-    void fcitx_obj_pool_init_with_prealloc(FcitxObjPool *pool, size_t size,
-                                           size_t prealloc);
-#define fcitx_obj_pool_init(p, s)                                       \
+/**
+ * init a pool
+ *
+ * @param pool pool to be initialized
+ * @param size size of object
+ * @return void
+ *
+ * @since 4.2.7
+ */
+void fcitx_obj_pool_init(FcitxObjPool *pool, size_t size);
+void fcitx_obj_pool_init_with_prealloc(FcitxObjPool *pool, size_t size,
+                                       size_t prealloc);
+#define fcitx_obj_pool_init(p, s)                                              \
     fcitx_obj_pool_init_with_prealloc(p, s, FCITX_OBJ_POOL_INIT_SIZE)
 
-    /**
-     * create an object pool, with same object size
-     *
-     * @param size size of object
-     * @return newly created pool
-     * @since 4.2.7
-     **/
-    FcitxObjPool *fcitx_obj_pool_new(size_t size);
-    FcitxObjPool *fcitx_obj_pool_new_with_prealloc(size_t size, size_t prealloc);
-#define fcitx_obj_pool_new(s)                                           \
+/**
+ * create an object pool, with same object size
+ *
+ * @param size size of object
+ * @return newly created pool
+ * @since 4.2.7
+ **/
+FcitxObjPool *fcitx_obj_pool_new(size_t size);
+FcitxObjPool *fcitx_obj_pool_new_with_prealloc(size_t size, size_t prealloc);
+#define fcitx_obj_pool_new(s)                                                  \
     fcitx_obj_pool_new_with_prealloc(s, FCITX_OBJ_POOL_INIT_SIZE)
 
-   /**
-     * allocate an id from pool
-     *
-     * @param pool pool
-     * @return void
-     * @since 4.2.7
-     **/
-    int fcitx_obj_pool_alloc_id(FcitxObjPool *pool);
+/**
+ * allocate an id from pool
+ *
+ * @param pool pool
+ * @return void
+ * @since 4.2.7
+ **/
+int fcitx_obj_pool_alloc_id(FcitxObjPool *pool);
 
-   /**
-     * free an id from pool, never use a free'd id, since it will be reused.
-     *
-     * @param pool pool
-     * @return free succeeded or failed
-     * @since 4.2.7
-     **/
-    boolean fcitx_obj_pool_free_id(FcitxObjPool *pool, int i);
+/**
+ * free an id from pool, never use a free'd id, since it will be reused.
+ *
+ * @param pool pool
+ * @return free succeeded or failed
+ * @since 4.2.7
+ **/
+boolean fcitx_obj_pool_free_id(FcitxObjPool *pool, int i);
 
+static inline size_t fcitx_obj_pool_offset(FcitxObjPool *pool, int i) {
+    return i * pool->ele_size;
+}
 
-    static inline size_t
-    fcitx_obj_pool_offset(FcitxObjPool *pool, int i)
-    {
-        return i * pool->ele_size;
-    }
+/**
+ * this function need to be used everything before you need to access the data,
+ * unless you didn't alloc id from the pool
+ *
+ * @param pool pool
+ * @return void
+ * @since 4.2.7
+ **/
+static inline void *fcitx_obj_pool_get(FcitxObjPool *pool, int i) {
+    return pool->array + fcitx_obj_pool_offset(pool, i) + sizeof(int);
+}
 
-    /**
-     * this function need to be used everything before you need to access the data,
-     * unless you didn't alloc id from the pool
-     *
-     * @param pool pool
-     * @return void
-     * @since 4.2.7
-     **/
-    static inline void*
-    fcitx_obj_pool_get(FcitxObjPool *pool, int i)
-    {
-        return pool->array + fcitx_obj_pool_offset(pool, i) + sizeof(int);
-    }
+/**
+ * free an inited-pool
+ *
+ * @param pool pool
+ * @return void
+ * @since 4.2.7
+ **/
+void fcitx_obj_pool_done(FcitxObjPool *pool);
 
-    /**
-     * free an inited-pool
-     *
-     * @param pool pool
-     * @return void
-     * @since 4.2.7
-     **/
-    void fcitx_obj_pool_done(FcitxObjPool *pool);
-
-    /**
-     * free an object pool
-     *
-     * @param pool pool
-     * @return void
-     * @since 4.2.7
-     **/
-    void fcitx_obj_pool_free(FcitxObjPool *pool);
+/**
+ * free an object pool
+ *
+ * @param pool pool
+ * @return void
+ * @since 4.2.7
+ **/
+void fcitx_obj_pool_free(FcitxObjPool *pool);
 
 #ifdef __cplusplus
 }

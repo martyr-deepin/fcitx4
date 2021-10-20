@@ -27,14 +27,14 @@
 extern "C" {
 #endif
 
-    boolean PinyinEnhanceCharFromPhrasePost(PinyinEnhance *pyenhance,
-                                            FcitxKeySym sym, unsigned int state,
-                                            INPUT_RETURN_VALUE *retval);
-    boolean PinyinEnhanceCharFromPhrasePre(PinyinEnhance *pyenhance,
-                                           FcitxKeySym sym, unsigned int state,
-                                           INPUT_RETURN_VALUE *retval);
-    void PinyinEnhanceCharFromPhraseCandidate(PinyinEnhance *pyenhance);
-    void PinyinEnhanceCharFromPhraseReset(PinyinEnhance *pyenhance);
+boolean PinyinEnhanceCharFromPhrasePost(PinyinEnhance *pyenhance,
+                                        FcitxKeySym sym, unsigned int state,
+                                        INPUT_RETURN_VALUE *retval);
+boolean PinyinEnhanceCharFromPhrasePre(PinyinEnhance *pyenhance,
+                                       FcitxKeySym sym, unsigned int state,
+                                       INPUT_RETURN_VALUE *retval);
+void PinyinEnhanceCharFromPhraseCandidate(PinyinEnhance *pyenhance);
+void PinyinEnhanceCharFromPhraseReset(PinyinEnhance *pyenhance);
 
 #ifdef __cplusplus
 }

@@ -24,23 +24,23 @@
 #include <stdlib.h>
 
 /* swap size bytes between a_ and b_ */
-static inline void swap(void *a_, void *b_, size_t size)
-{
-    if (a_ == b_) return;
+static inline void swap(void *a_, void *b_, size_t size) {
+    if (a_ == b_)
+        return;
     {
         size_t i, nlong = size / sizeof(long);
-        long *a = (long *) a_, *b = (long *) b_;
+        long *a = (long *)a_, *b = (long *)b_;
         for (i = 0; i < nlong; ++i) {
             long c = a[i];
             a[i] = b[i];
             b[i] = c;
         }
-        a_ = (void*)(a + nlong);
-        b_ = (void*)(b + nlong);
+        a_ = (void *)(a + nlong);
+        b_ = (void *)(b + nlong);
     }
     {
         size_t i;
-        char *a = (char *) a_, *b = (char *) b_;
+        char *a = (char *)a_, *b = (char *)b_;
         size = size % sizeof(long);
         for (i = 0; i < size; ++i) {
             char c = a[i];
@@ -50,12 +50,13 @@ static inline void swap(void *a_, void *b_, size_t size)
     }
 }
 
-static inline void insertion_sort(void *base_, size_t nmemb, size_t size, int (*compar)(const void *, const void *, void *), void *thunk)
-{
-    char *base = (char *) base_;
+static inline void
+insertion_sort(void *base_, size_t nmemb, size_t size,
+               int (*compar)(const void *, const void *, void *), void *thunk) {
+    char *base = (char *)base_;
     size_t i, j;
     for (i = 0; i < nmemb; ++i) {
-        for (j = i ; j-- > 0;) {
+        for (j = i; j-- > 0;) {
             if (compar(base + j * size, base + (j + 1) * size, thunk) <= 0) {
                 break;
             }

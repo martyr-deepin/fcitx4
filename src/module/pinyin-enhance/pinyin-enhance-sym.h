@@ -27,10 +27,10 @@
 extern "C" {
 #endif
 
-    boolean PinyinEnhanceSymInit(PinyinEnhance *pyenhance);
-    boolean PinyinEnhanceSymCandWords(PinyinEnhance *pyenhance, int im_type);
-    void PinyinEnhanceSymDestroy(PinyinEnhance *pyenhance);
-    void PinyinEnhanceSymReloadDict(PinyinEnhance *pyenhance);
+boolean PinyinEnhanceSymInit(PinyinEnhance *pyenhance);
+boolean PinyinEnhanceSymCandWords(PinyinEnhance *pyenhance, int im_type);
+void PinyinEnhanceSymDestroy(PinyinEnhance *pyenhance);
+void PinyinEnhanceSymReloadDict(PinyinEnhance *pyenhance);
 #ifdef __cplusplus
 }
 #endif

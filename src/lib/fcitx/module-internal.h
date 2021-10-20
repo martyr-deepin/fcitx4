@@ -22,6 +22,6 @@
 #define _FCITX_MODULE_INTERNAL_H_
 #include "fcitx-utils/utarray.h"
 
-void InitFcitxModules(UT_array* modules);
+void InitFcitxModules(UT_array *modules);
 
 #endif

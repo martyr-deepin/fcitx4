@@ -18,81 +18,48 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include "fcitx/fcitx.h"
 #include "pyMapTable.h"
+#include "fcitx/fcitx.h"
 
-const ConsonantMap    consonantMapTable[] = {
-    {"a", 'A'}
-    ,
-    {"ai", 'B'}
-    ,
-    {"an", 'C'}
-    ,
-    {"ang", 'D'}
-    ,
-    {"ao", 'E'}
-    ,
+const ConsonantMap consonantMapTable[] = {
+    {"a", 'A'},
+    {"ai", 'B'},
+    {"an", 'C'},
+    {"ang", 'D'},
+    {"ao", 'E'},
 
-    {"e", 'F'}
-    ,
-    {"ei", 'G'}
-    ,
-    {"en", 'H'}
-    ,
-    {"eng", 'I'}
-    ,
+    {"e", 'F'},
+    {"ei", 'G'},
+    {"en", 'H'},
+    {"eng", 'I'},
 
-    {"i", 'J'}
-    ,
-    {"ia", 'K'}
-    ,
-    {"ian", 'L'}
-    ,
-    {"iang", 'M'}
-    ,
-    {"iao", 'N'}
-    ,
-    {"ie", 'O'}
-    ,
-    {"in", 'P'}
-    ,
-    {"ing", 'Q'}
-    ,
-    {"iong", 'R'}
-    ,
-    {"iu", 'S'}
-    ,
+    {"i", 'J'},
+    {"ia", 'K'},
+    {"ian", 'L'},
+    {"iang", 'M'},
+    {"iao", 'N'},
+    {"ie", 'O'},
+    {"in", 'P'},
+    {"ing", 'Q'},
+    {"iong", 'R'},
+    {"iu", 'S'},
 
-    {"o", 'T'}
-    ,
-    {"ong", 'U'}
-    ,
-    {"ou", 'V'}
-    ,
+    {"o", 'T'},
+    {"ong", 'U'},
+    {"ou", 'V'},
 
-    {"u", 'W'}
-    ,
-    {"ua", 'X'}
-    ,
-    {"uai", 'Y'}
-    ,
-    {"uan", 'Z'}
-    ,
-    {"uang", 'a'}
-    ,
-    {"ue", 'b'}
-    ,
-    {"ui", 'c'}
-    ,
-    {"un", 'd'}
-    ,
-    {"uo", 'e'}
-    ,
+    {"u", 'W'},
+    {"ua", 'X'},
+    {"uai", 'Y'},
+    {"uan", 'Z'},
+    {"uang", 'a'},
+    {"ue", 'b'},
+    {"ui", 'c'},
+    {"un", 'd'},
+    {"uo", 'e'},
 
-    {"v", 'f'}
-    ,
-    {"ve", 'g'}
-    ,
+    {"v", 'f'},
+    {"ve", 'g'},
     /*  {"ve",'A'},
         {"v", 'B'},
 
@@ -132,14 +99,13 @@ const ConsonantMap    consonantMapTable[] = {
         {"ai", 'f'},
         {"a", 'g'},
       */
-    {"\0", '\0'}
-    ,
+    {"\0", '\0'},
 };
 
 /*
  * 声母
  */
-const SyllabaryMap    syllabaryMapTable[] = {
+const SyllabaryMap syllabaryMapTable[] = {
     /*{"b", 'A'},
        {"c", 'B'},
        {"ch", 'C'},
@@ -164,78 +130,14 @@ const SyllabaryMap    syllabaryMapTable[] = {
        {"z", 'V'},
        {"zh", 'W'}, */
 
-    {"zh", 'A'}
-    ,
-    {"z", 'B'}
-    ,
-    {"y", 'C'}
-    ,
-    {"x", 'D'}
-    ,
-    {"w", 'E'}
-    ,
-    {"t", 'F'}
-    ,
-    {"sh", 'G'}
-    ,
-    {"s", 'H'}
-    ,
-    {"r", 'I'}
-    ,
-    {"q", 'J'}
-    ,
-    {"p", 'K'}
-    ,
-    {"ou", 'L'}
-    ,
-    {"o", 'M'}
-    ,
-    {"ng", 'N'}
-    ,
-    {"n", 'O'}
-    ,
-    {"m", 'P'}
-    ,
-    {"l", 'Q'}
-    ,
-    {"k", 'R'}
-    ,
-    {"j", 'S'}
-    ,
-    {"h", 'T'}
-    ,
-    {"g", 'U'}
-    ,
-    {"f", 'V'}
-    ,
-    {"er", 'W'}
-    ,
-    {"en", 'X'}
-    ,
-    {"ei", 'Y'}
-    ,
-    {"e", 'Z'}
-    ,
-    {"d", 'a'}
-    ,
-    {"ch", 'b'}
-    ,
-    {"c", 'c'}
-    ,
-    {"b", 'd'}
-    ,
-    {"ao", 'e'}
-    ,
-    {"ang", 'f'}
-    ,
-    {"an", 'g'}
-    ,
-    {"ai", 'h'}
-    ,
-    {"a", 'i'}
-    ,
+    {"zh", 'A'}, {"z", 'B'},   {"y", 'C'},  {"x", 'D'},  {"w", 'E'},
+    {"t", 'F'},  {"sh", 'G'},  {"s", 'H'},  {"r", 'I'},  {"q", 'J'},
+    {"p", 'K'},  {"ou", 'L'},  {"o", 'M'},  {"ng", 'N'}, {"n", 'O'},
+    {"m", 'P'},  {"l", 'Q'},   {"k", 'R'},  {"j", 'S'},  {"h", 'T'},
+    {"g", 'U'},  {"f", 'V'},   {"er", 'W'}, {"en", 'X'}, {"ei", 'Y'},
+    {"e", 'Z'},  {"d", 'a'},   {"ch", 'b'}, {"c", 'c'},  {"b", 'd'},
+    {"ao", 'e'}, {"ang", 'f'}, {"an", 'g'}, {"ai", 'h'}, {"a", 'i'},
 
-    {"\0", '\0'}
-};
+    {"\0", '\0'}};
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

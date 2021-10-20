@@ -28,12 +28,12 @@
 class FCITX_QT_EXPORT_API FcitxQtConfigUIWidget : public QWidget {
     Q_OBJECT
 public:
-    explicit FcitxQtConfigUIWidget(QWidget* parent = 0);
+    explicit FcitxQtConfigUIWidget(QWidget *parent = 0);
 
     /**
-     * load the configuration, usually, this is being called upon a "reset" button clicked
-     * the outer gui will not call it for you for the first time, your initialization might
-     * want to call it by yourself.
+     * load the configuration, usually, this is being called upon a "reset"
+     *button clicked the outer gui will not call it for you for the first time,
+     *your initialization might want to call it by yourself.
      *
      * @return void
      **/

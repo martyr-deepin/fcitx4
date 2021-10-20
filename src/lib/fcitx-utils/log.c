@@ -19,17 +19,17 @@
  ***************************************************************************/
 
 #include <iconv.h>
+#include <libgen.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
-#include <wchar.h>
-#include <libgen.h>
 #include <time.h>
+#include <wchar.h>
 
 #include "config.h"
 #include "fcitx/fcitx.h"
-#include "utf8.h"
 #include "log.h"
+#include "utf8.h"
 #include "utils.h"
 
 static iconv_t iconvW = NULL;
@@ -45,49 +45,43 @@ static FcitxLogLevel errorLevel = FCITX_DEBUG;
 static const int RealLevelIndex[] = {0, 2, 3, 4, 1, 6};
 
 #define LOGFILE "/tmp/fcitx-log.log"
-static FILE* gFp = NULL;
+static FILE *gFp = NULL;
 
 /**
  * @brief gettime
  * @return 当前时间字符串
  * 获取当前时间
  */
-char *gettime()
-{
+char *gettime() {
     static char timestr[40];
     time_t t;
     struct tm *nowtime;
     time(&t);
     nowtime = localtime(&t);
-    strftime(timestr,sizeof(timestr),"%Y-%m-%d %H:%M:%S",nowtime);
+    strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S", nowtime);
     return timestr;
 }
 
 FCITX_EXPORT_API
 void FcitxLogSetLevel(FcitxLogLevel e) {
-    if ((int) e < 0)
+    if ((int)e < 0)
         e = 0;
     else if (e > FCITX_NONE)
         e = FCITX_NONE;
     errorLevel = e;
 }
 
-FcitxLogLevel FcitxLogGetLevel()
-{
-    return errorLevel;
-}
+FcitxLogLevel FcitxLogGetLevel() { return errorLevel; }
 
-
-FCITX_EXPORT_API void
-FcitxLogFuncV(FcitxLogLevel e, const char* filename, const int line,
-              const char* fmt, va_list ap)
-{
+FCITX_EXPORT_API void FcitxLogFuncV(FcitxLogLevel e, const char *filename,
+                                    const int line, const char *fmt,
+                                    va_list ap) {
     if (!init) {
         init = 1;
         is_utf8 = fcitx_utils_current_locale_is_utf8();
     }
 
-    if ((int) e < 0) {
+    if ((int)e < 0) {
         e = 0;
     } else if (e >= FCITX_NONE) {
         e = FCITX_INFO;
@@ -139,7 +133,7 @@ FcitxLogFuncV(FcitxLogLevel e, const char* filename, const int line,
     if (iconvW == NULL)
         iconvW = iconv_open("WCHAR_T", "utf-8");
 
-    if (iconvW == (iconv_t) - 1) {
+    if (iconvW == (iconv_t)-1) {
         fprintf(stderr, "%s\n", buffer);
         fprintf(gFp, "%s\n", buffer);
     } else {
@@ -149,7 +143,7 @@ FcitxLogFuncV(FcitxLogLevel e, const char* filename, const int line,
         wmessage = (wchar_t *)fcitx_utils_malloc0((len + 10) * sizeof(wchar_t));
 
         IconvStr inp = buffer;
-        char *outp = (char*) wmessage;
+        char *outp = (char *)wmessage;
 
         iconv(iconvW, &inp, &len, &outp, &wlen);
 
@@ -160,23 +154,21 @@ FcitxLogFuncV(FcitxLogLevel e, const char* filename, const int line,
     free(buffer);
 }
 
-FCITX_EXPORT_API void
-FcitxLogFunc(FcitxLogLevel e, const char* filename, const int line,
-             const char* fmt, ...)
-{
+FCITX_EXPORT_API void FcitxLogFunc(FcitxLogLevel e, const char *filename,
+                                   const int line, const char *fmt, ...) {
     char *username = getlogin();
     char default_name[32] = {0};
 
     int log_path_len = 0;
     if (username) {
-        log_path_len = strlen(username)+strlen(LOGFILE)+2;
+        log_path_len = strlen(username) + strlen(LOGFILE) + 2;
     } else {
-        //if getlogin() failed, call getuid(). getuid() is always successful
+        // if getlogin() failed, call getuid(). getuid() is always successful
         uid_t uid = getuid();
         sprintf(default_name, "user_id_%u", uid);
         username = default_name;
 
-        log_path_len = strlen(username)+strlen(LOGFILE)+2;
+        log_path_len = strlen(username) + strlen(LOGFILE) + 2;
     }
 
     char *log_path = fcitx_utils_malloc0(log_path_len);
@@ -186,7 +178,7 @@ FcitxLogFunc(FcitxLogLevel e, const char* filename, const int line,
 
     memset(log_path, 0, log_path_len);
     sprintf(log_path, "%s_%s", LOGFILE, username);
-    gFp=fopen(log_path,"a");
+    gFp = fopen(log_path, "a");
     if (NULL == gFp) {
         free(log_path);
         log_path = NULL;

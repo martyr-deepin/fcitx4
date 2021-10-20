@@ -20,15 +20,20 @@
 
 #ifndef _FCITX_ADDON_INTERNAL_H_
 #define _FCITX_ADDON_INTERNAL_H_
-#include "fcitx-config/fcitx-config.h"
 #include "addon.h"
+#include "fcitx-config/fcitx-config.h"
 #include "instance.h"
 
-boolean FcitxCheckABIVersion(void* handle, const char* addonName);
-void* FcitxGetSymbol(void* handle, const char* addonName, const char* symbolName);
-FcitxAddon* FcitxAddonsLoadInternal(UT_array* addons, boolean reloadIM);
-void FcitxInstanceResolveAddonDependencyInternal(FcitxInstance* instance, FcitxAddon* startAddon);
-void FcitxInstanceFillAddonOwner(FcitxInstance* instance, FcitxAddon* addonHead);
-FcitxAddon* FcitxAddonsGetAddonByNameInternal(UT_array* addons, const char* name, boolean checkDisabled);
+boolean FcitxCheckABIVersion(void *handle, const char *addonName);
+void *FcitxGetSymbol(void *handle, const char *addonName,
+                     const char *symbolName);
+FcitxAddon *FcitxAddonsLoadInternal(UT_array *addons, boolean reloadIM);
+void FcitxInstanceResolveAddonDependencyInternal(FcitxInstance *instance,
+                                                 FcitxAddon *startAddon);
+void FcitxInstanceFillAddonOwner(FcitxInstance *instance,
+                                 FcitxAddon *addonHead);
+FcitxAddon *FcitxAddonsGetAddonByNameInternal(UT_array *addons,
+                                              const char *name,
+                                              boolean checkDisabled);
 
 #endif

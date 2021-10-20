@@ -25,11 +25,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    // boolean SpellCustomInit(FcitxSpell *spell);
-    SpellHint *SpellCustomHintWords(FcitxSpell *spell, unsigned int len_limit);
-    boolean SpellCustomCheck(FcitxSpell *spell);
-    void SpellCustomDestroy(FcitxSpell *spell);
-    boolean SpellCustomLoadDict(FcitxSpell *spell, const char *lang);
+// boolean SpellCustomInit(FcitxSpell *spell);
+SpellHint *SpellCustomHintWords(FcitxSpell *spell, unsigned int len_limit);
+boolean SpellCustomCheck(FcitxSpell *spell);
+void SpellCustomDestroy(FcitxSpell *spell);
+boolean SpellCustomLoadDict(FcitxSpell *spell, const char *lang);
 #ifdef __cplusplus
 }
 #endif

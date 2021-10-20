@@ -17,15 +17,15 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
-#include <stdio.h>
+#include "config.h"
 #include <iconv.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <stdlib.h>
-#include "config.h"
 
-#include "fcitx-utils/utils.h"
 #include "fcitx-utils/utarray.h"
+#include "fcitx-utils/utils.h"
 
 #define HEADER_SIZE 12
 #define BUFLEN 0x1000
@@ -38,37 +38,36 @@
 
 #define PINYIN_SIZE 4
 
-char header_str[HEADER_SIZE] = { '\x40', '\x15', '\0', '\0', '\x44', '\x43', '\x53' , '\x01' , '\x01', '\0', '\0', '\0'};
-char pinyin_str[PINYIN_SIZE] = { '\x9d', '\x01', '\0', '\0' };
+char header_str[HEADER_SIZE] = {'\x40', '\x15', '\0',   '\0', '\x44', '\x43',
+                                '\x53', '\x01', '\x01', '\0', '\0',   '\0'};
+char pinyin_str[PINYIN_SIZE] = {'\x9d', '\x01', '\0', '\0'};
 iconv_t conv;
 
 typedef struct _ScelPinyin {
     char pinyin[10];
 } ScelPinyin;
 
-UT_icd py_icd = { sizeof(ScelPinyin), NULL, NULL, NULL};
+UT_icd py_icd = {sizeof(ScelPinyin), NULL, NULL, NULL};
 static void usage();
 
-void usage()
-{
-    puts(
-        "scel2org - Convert .scel file to .org file (SEE NOTES BELOW)\n"
-        "\n"
-        "  usage: scel2org [OPTION] [scel file]\n"
-        "\n"
-        "  -a            use alternative order, output hanzi first, then pinyin\n"
-        "  -o <file.org> specify the output file, if not specified, the output will\n"
-        "                be stdout.\n"
-        "  -h            display this help.\n"
-        "\n"
-        "NOTES:\n"
-        "   Always check the produced output for errors.\n"
-    );
+void usage() {
+    puts("scel2org - Convert .scel file to .org file (SEE NOTES BELOW)\n"
+         "\n"
+         "  usage: scel2org [OPTION] [scel file]\n"
+         "\n"
+         "  -a            use alternative order, output hanzi first, then "
+         "pinyin\n"
+         "  -o <file.org> specify the output file, if not specified, the "
+         "output will\n"
+         "                be stdout.\n"
+         "  -h            display this help.\n"
+         "\n"
+         "NOTES:\n"
+         "   Always check the produced output for errors.\n");
     exit(1);
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     FILE *fout = stdout;
     char c;
 
@@ -120,7 +119,7 @@ int main(int argc, char **argv)
     }
 
     conv = iconv_open("utf-8", "unicode");
-    if (conv == (iconv_t) -1) {
+    if (conv == (iconv_t)-1) {
         fprintf(stderr, "iconv error.\n");
         return 1;
     }
@@ -160,7 +159,7 @@ int main(int argc, char **argv)
     UT_array pys;
     utarray_init(&pys, &py_icd);
 
-    for (; ;) {
+    for (;;) {
         int16_t index;
         int16_t count;
         fread(&index, 1, sizeof(int16_t), fp);
@@ -194,13 +193,13 @@ int main(int argc, char **argv)
         fread(&count, 1, sizeof(int16_t), fp);
 
         wordcount = count / 2;
-        int16_t* pyindex = malloc(sizeof(int16_t) * wordcount);
+        int16_t *pyindex = malloc(sizeof(int16_t) * wordcount);
 
         fread(pyindex, wordcount, sizeof(int16_t), fp);
 
         int s;
 
-        for (s = 0; s < symcount ; s++) {
+        for (s = 0; s < symcount; s++) {
 
             memset(buf, 0, sizeof(buf));
 
@@ -217,14 +216,14 @@ int main(int argc, char **argv)
                 fprintf(fout, "%s ", bufout);
             }
 
-            ScelPinyin *py = (ScelPinyin*)utarray_eltptr(
-                &pys, (unsigned int)pyindex[0]);
-            fprintf(fout, "%s",  py->pinyin);
+            ScelPinyin *py =
+                (ScelPinyin *)utarray_eltptr(&pys, (unsigned int)pyindex[0]);
+            fprintf(fout, "%s", py->pinyin);
             int i;
 
-            for (i = 1 ; i < wordcount ; i ++) {
-                py = (ScelPinyin*)utarray_eltptr(&pys,
-                                                 (unsigned int)pyindex[i]);
+            for (i = 1; i < wordcount; i++) {
+                py = (ScelPinyin *)utarray_eltptr(&pys,
+                                                  (unsigned int)pyindex[i]);
                 fprintf(fout, "\'%s", py->pinyin);
             }
 

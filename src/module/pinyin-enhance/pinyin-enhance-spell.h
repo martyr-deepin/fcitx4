@@ -27,7 +27,7 @@
 extern "C" {
 #endif
 
-    boolean PinyinEnhanceSpellHint(PinyinEnhance *pyenhance, int im_type);
+boolean PinyinEnhanceSpellHint(PinyinEnhance *pyenhance, int im_type);
 
 #ifdef __cplusplus
 }
