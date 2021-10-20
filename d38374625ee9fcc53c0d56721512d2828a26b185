@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3da58ca1_a9e3792e",
+        "filename": "src/core/errorhandler.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-20T10:13:29Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 38; 注释率: 0.0%",
+      "revId": "d38374625ee9fcc53c0d56721512d2828a26b185",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25606c01_7cd1a3fd",
+        "filename": "src/core/errorhandler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-20T10:13:29Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 2; 注释率: 0.0%",
+      "revId": "d38374625ee9fcc53c0d56721512d2828a26b185",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42b8a449_c824117c",
+        "filename": "src/core/fcitx.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-20T10:13:29Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 16; 注释率: 0.0%",
+      "revId": "d38374625ee9fcc53c0d56721512d2828a26b185",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "718359b1_bb0b2464",
+        "filename": "src/frontend/ipc/ipc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-20T10:13:29Z",
+      "side": 1,
+      "message": "注释行数: 40; 改动行数(修改和新增): 559; 注释率: 7.2%",
+      "revId": "d38374625ee9fcc53c0d56721512d2828a26b185",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b68ae04d_5a11f0a0",
+        "filename": "src/frontend/ipcportal/ipcportal.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-20T10:13:29Z",
+      "side": 1,
+      "message": "注释行数: 19; 改动行数(修改和新增): 312; 注释率: 6.1%",
+      "revId": "d38374625ee9fcc53c0d56721512d2828a26b185",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32a81792_1d49442d",
+        "filename": "src/frontend/qt/fcitxinputcontextproxy.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-20T10:13:29Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 5; 注释率: 0.0%",
+      "revId": "d38374625ee9fcc53c0d56721512d2828a26b185",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92f03180_7e5ed35c",
+        "filename": "src/frontend/qt/fcitxwatcher.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-20T10:13:29Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 1; 注释率: 0.0%",
+      "revId": "d38374625ee9fcc53c0d56721512d2828a26b185",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "717771cb_52423ec9",
+        "filename": "src/frontend/qt/qfcitxinputcontext.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-20T10:13:29Z",
+      "side": 1,
+      "message": "注释行数: 5949; 改动行数(修改和新增): 36801; 注释率: 16.2%",
+      "revId": "d38374625ee9fcc53c0d56721512d2828a26b185",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
