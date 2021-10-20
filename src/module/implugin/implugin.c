@@ -76,7 +76,6 @@ void *IMPluginCreate(FcitxInstance *instance) {
         free(implugin);
         return NULL;
     }
-    ResetIMPluginConfig(implugin);
     return implugin;
 }
 
