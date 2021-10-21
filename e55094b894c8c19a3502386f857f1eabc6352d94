@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d411309c_5d116721",
+        "filename": "src/module/implugin/implugin-service.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-10-21T05:35:19Z",
+      "side": 1,
+      "message": "改动行数(修改和新增): 0; 删除代码行数: 40; 注释率: 不计算",
+      "revId": "e55094b894c8c19a3502386f857f1eabc6352d94",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
