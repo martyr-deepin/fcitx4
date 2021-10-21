@@ -62,7 +62,6 @@ char *event_str[EVENT_NUM] = {"IN_ACCESS",
                               "IN_DELETE",     //文件删除
                               "IN_DELETE_SELF",   "IN_MOVE_SELF"};
 
-char *gDimConfigPath = NULL;
 char *gImPluginConfigPath = NULL;
 FILE *gFp = NULL;
 
@@ -323,16 +322,6 @@ int set_layout_for_im(char *imname) {
  */
 void get_config_path() {
     FILE *fp = NULL;
-    if (NULL == gDimConfigPath) {
-        //获取默认输入法配置文件路径
-        fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-defaultim.config",
-                                           "r", &gDimConfigPath);
-        if (fp) {
-            fclose(fp);
-            file_comment_modify(gDimConfigPath);
-        }
-    }
-
     if (!gImPluginConfigPath) {
         //获取输入法插件配置文件路径
         fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-implugin.config", "r",
@@ -359,10 +348,6 @@ void display_inotify_event(struct inotify_event *i) {
             strcmp(imName, "baidupinyin") != 0 &&
             strcmp(imName, "chineseime") != 0 &&
             strcmp(imName, "shuangpin") != 0) {
-
-            if (NULL != gDimConfigPath) {
-                ini_puts("DefaultIM", "IMNAME", imName, gDimConfigPath);
-            }
 
             sleep(3);
             fcitx_utils_launch_restart();
@@ -449,33 +434,6 @@ void display_inotify_event(struct inotify_event *i) {
 
             sleep(3);
             fcitx_utils_launch_restart();
-
-            if (NULL != gDimConfigPath) {
-                char curDeimName[BUFSIZ];
-                memset(curDeimName, 0, FCITX_ARRAY_SIZE(curDeimName));
-                ini_gets("DefaultIM", "IMNAME", "fcitx-keyboard-us",
-                         curDeimName, FCITX_ARRAY_SIZE(curDeimName),
-                         gDimConfigPath);
-
-                char *pCurDeimName = malloc((strlen(curDeimName) + 1));
-                memset(pCurDeimName, 0, (strlen(curDeimName) + 1));
-                strncpy(pCurDeimName, curDeimName, (strlen(curDeimName) + 1));
-
-                if (strcmp(pCurDeimName, imName) == 0) {
-                    char secName[256] = {0};
-                    get_curindex_inputmethod(2, &secName);
-                    if (strcmp(secName, "") == 0) {
-                        memset(secName, 0, 256);
-                        sprintf(secName, "fcitx-keyboard-us");
-                    }
-                    ini_puts("DefaultIM", "IMNAME", secName, gDimConfigPath);
-
-                }
-                if (NULL != pCurDeimName) {
-                    safe_free(pCurDeimName);
-                    pCurDeimName = NULL;
-                }
-            }
             fprintf(gFp, "%s: remove imname = %s; \n", gettime(), imName);
             if (NULL != imName) {
                 safe_free(imName);
@@ -559,10 +517,7 @@ int main(int argc, char *argv[]) {
     }
     fclose(gFp);
     gFp = NULL;
-    if (NULL != gDimConfigPath) {
-        safe_free(gDimConfigPath);
-        gDimConfigPath = NULL;
-    }
+
     if (NULL != gImPluginConfigPath) {
         safe_free(gImPluginConfigPath);
         gImPluginConfigPath = NULL;

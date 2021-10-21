@@ -1,6 +1,0 @@
-usr/lib/*/fcitx/fcitx-defaultim.so
-usr/share/fcitx/addon/fcitx-defaultim.conf
-usr/share/fcitx/configdesc/fcitx-defaultim.desc
-usr/bin/fcitx-switch-default
-usr/share/man/man1/fcitx-switch-default.1
-

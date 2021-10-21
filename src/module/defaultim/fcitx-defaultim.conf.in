@@ -1,9 +1,0 @@
-[Addon]
-Name=fcitx-defaultim
-_GeneralName=Default Input Method
-_Comment=The Shortcut Starts Default Input Method And Set The Default Input Method 
-Category=Module
-Enabled=False
-Library=fcitx-defaultim.so
-Type=SharedLibrary
-Priority=40
