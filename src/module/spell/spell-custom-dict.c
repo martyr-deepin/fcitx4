@@ -42,22 +42,67 @@
 #include "spell-custom.h"
 #include "spell-custom-dict.h"
 
-#define case_a_z case 'a': case 'b': case 'c': case 'd': case 'e':      \
-case 'f': case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':   \
-case 'm': case 'n': case 'o': case 'p': case 'q': case 'r': case 's':   \
-case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z'
 
-#define case_A_Z case 'A': case 'B': case 'C': case 'D': case 'E':      \
-case 'F': case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':   \
-case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R': case 'S':   \
-case 'T': case 'U': case 'V': case 'W': case 'X': case 'Y': case 'Z'
+#define case_a_z                                                               \
+    case 'a':                                                                  \
+    case 'b':                                                                  \
+    case 'c':                                                                  \
+    case 'd':                                                                  \
+    case 'e':                                                                  \
+    case 'f':                                                                  \
+    case 'g':                                                                  \
+    case 'h':                                                                  \
+    case 'i':                                                                  \
+    case 'j':                                                                  \
+    case 'k':                                                                  \
+    case 'l':                                                                  \
+    case 'm':                                                                  \
+    case 'n':                                                                  \
+    case 'o':                                                                  \
+    case 'p':                                                                  \
+    case 'q':                                                                  \
+    case 'r':                                                                  \
+    case 's':                                                                  \
+    case 't':                                                                  \
+    case 'u':                                                                  \
+    case 'v':                                                                  \
+    case 'w':                                                                  \
+    case 'x':                                                                  \
+    case 'y':                                                                  \
+    case 'z'
+
+#define case_A_Z                                                               \
+    case 'A':                                                                  \
+    case 'B':                                                                  \
+    case 'C':                                                                  \
+    case 'D':                                                                  \
+    case 'E':                                                                  \
+    case 'F':                                                                  \
+    case 'G':                                                                  \
+    case 'H':                                                                  \
+    case 'I':                                                                  \
+    case 'J':                                                                  \
+    case 'K':                                                                  \
+    case 'L':                                                                  \
+    case 'M':                                                                  \
+    case 'N':                                                                  \
+    case 'O':                                                                  \
+    case 'P':                                                                  \
+    case 'Q':                                                                  \
+    case 'R':                                                                  \
+    case 'S':                                                                  \
+    case 'T':                                                                  \
+    case 'U':                                                                  \
+    case 'V':                                                                  \
+    case 'W':                                                                  \
+    case 'X':                                                                  \
+    case 'Y':                                                                  \
+    case 'Z'
 
 #define DICT_BIN_MAGIC "FSCD0000"
 
-static inline uint32_t
-load_le32(const void* p)
-{
-    return le32toh(*(uint32_t*)p);
+static inline uint32_t load_le32(const void *p) {
+    return le32toh(*(uint32_t *)p);
 }
 
 #if 0
@@ -68,9 +113,7 @@ load_le16(const void* p)
 }
 #endif
 
-static boolean
-SpellCustomEnglishCompare(unsigned int c1, unsigned int c2)
-{
+static boolean SpellCustomEnglishCompare(unsigned int c1, unsigned int c2) {
     switch (c1) {
     case_A_Z:
         c1 += 'a' - 'A';
@@ -92,9 +135,7 @@ SpellCustomEnglishCompare(unsigned int c1, unsigned int c2)
     return c1 == c2;
 }
 
-static boolean
-SpellCustomEnglishIsFirstCapital(const char *str)
-{
+static boolean SpellCustomEnglishIsFirstCapital(const char *str) {
     if (!str || !*str)
         return false;
     switch (*str) {
@@ -114,9 +155,7 @@ SpellCustomEnglishIsFirstCapital(const char *str)
     return true;
 }
 
-static boolean
-SpellCustomEnglishIsAllCapital(const char *str)
-{
+static boolean SpellCustomEnglishIsAllCapital(const char *str) {
     if (!str || !*str)
         return false;
     do {
@@ -136,9 +175,7 @@ enum {
     CUSTOM_ALL_CAPITAL,
 };
 
-static int
-SpellCustomEnglishCheck(const char *str)
-{
+static int SpellCustomEnglishCheck(const char *str) {
     if (SpellCustomEnglishIsFirstCapital(str))
         return CUSTOM_FIRST_CAPITAL;
     if (SpellCustomEnglishIsAllCapital(str))
@@ -146,9 +183,7 @@ SpellCustomEnglishCheck(const char *str)
     return CUSTOM_DEFAULT;
 }
 
-static void
-SpellCustomEnglishUpperString(char *str)
-{
+static void SpellCustomEnglishUpperString(char *str) {
     if (!str || !*str)
         return;
     do {
@@ -162,16 +197,14 @@ SpellCustomEnglishUpperString(char *str)
     } while (*(++str));
 }
 
-static void
-SpellCustomEnglishComplete(SpellHint *hint, int type)
-{
+static void SpellCustomEnglishComplete(SpellHint *hint, int type) {
     switch (type) {
     case CUSTOM_ALL_CAPITAL:
-        for (;hint->display;hint++)
+        for (; hint->display; hint++)
             SpellCustomEnglishUpperString(hint->display);
         break;
     case CUSTOM_FIRST_CAPITAL:
-        for (;hint->display;hint++) {
+        for (; hint->display; hint++) {
             switch (*hint->display) {
             case_a_z:
                 *hint->display += 'A' - 'a';
@@ -188,9 +221,7 @@ SpellCustomEnglishComplete(SpellHint *hint, int type)
 /**
  * Open the dict file, return -1 if failed.
  **/
-static int
-SpellCustomGetSysDictFile(FcitxSpell *spell, const char *lang)
-{
+static int SpellCustomGetSysDictFile(FcitxSpell *spell, const char *lang) {
     FCITX_UNUSED(spell);
     int fd;
     char *path;
@@ -203,9 +234,8 @@ SpellCustomGetSysDictFile(FcitxSpell *spell, const char *lang)
     return fd;
 }
 
-static size_t
-SpellCustomMapDict(FcitxSpell *spell, SpellCustomDict *dict, const char *lang)
-{
+static size_t SpellCustomMapDict(FcitxSpell *spell, SpellCustomDict *dict,
+                                 const char *lang) {
     int fd;
     struct stat stat_buf;
     size_t flen = 0;
@@ -239,9 +269,8 @@ out:
     return flen;
 }
 
-static boolean
-SpellCustomInitDict(FcitxSpell *spell, SpellCustomDict *dict, const char *lang)
-{
+static boolean SpellCustomInitDict(FcitxSpell *spell, SpellCustomDict *dict,
+                                   const char *lang) {
     unsigned int i;
     int j;
     size_t map_len;
@@ -270,7 +299,7 @@ SpellCustomInitDict(FcitxSpell *spell, SpellCustomDict *dict, const char *lang)
         return false;
 
     /* save words offset's. */
-    for (i = sizeof(uint32_t), j = 0;i < map_len && j < lcount;i += 1) {
+    for (i = sizeof(uint32_t), j = 0; i < map_len && j < lcount; i += 1) {
         i += sizeof(uint16_t);
         int l = strlen(dict->map + i);
         if (!l)
@@ -282,9 +311,7 @@ SpellCustomInitDict(FcitxSpell *spell, SpellCustomDict *dict, const char *lang)
     return true;
 }
 
-SpellCustomDict*
-SpellCustomNewDict(FcitxSpell *spell, const char *lang)
-{
+SpellCustomDict *SpellCustomNewDict(FcitxSpell *spell, const char *lang) {
     SpellCustomDict *dict = fcitx_utils_new(SpellCustomDict);
     if (!SpellCustomInitDict(spell, dict, lang)) {
         SpellCustomFreeDict(spell, dict);
@@ -293,9 +320,7 @@ SpellCustomNewDict(FcitxSpell *spell, const char *lang)
     return dict;
 }
 
-void
-SpellCustomFreeDict(FcitxSpell *spell, SpellCustomDict *dict)
-{
+void SpellCustomFreeDict(FcitxSpell *spell, SpellCustomDict *dict) {
     FCITX_UNUSED(spell);
     fcitx_utils_free(dict->map);
     fcitx_utils_free(dict->words);
