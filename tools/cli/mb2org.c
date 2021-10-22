@@ -18,19 +18,19 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <getopt.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include "im/pinyin/pyParser.h"
-#include "im/pinyin/pyMapTable.h"
+#include "fcitx-config/xdg.h"
 #include "im/pinyin/PYFA.h"
+#include "im/pinyin/py.h"
+#include "im/pinyin/pyMapTable.h"
+#include "im/pinyin/pyParser.h"
+#include "im/pinyin/pyconfig.h"
 #include "im/pinyin/sp.h"
 #include "pyTools.h"
-#include "fcitx-config/xdg.h"
-#include "im/pinyin/pyconfig.h"
-#include "im/pinyin/py.h"
 
 FcitxPinyinConfig pyconfig;
 
@@ -38,10 +38,9 @@ FcitxPinyinConfig pyconfig;
 boolean bSingleHZMode;
 
 void usage();
-char *HZToPY(struct _HZMap *, char []);
+char *HZToPY(struct _HZMap *, char[]);
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     FILE *fi, *fi2;
     int i, j, k;
     char *pyusrphrase_mb = NULL, *pybase_mb = NULL, *HZPY, tMap[3], tPY[10];
@@ -75,9 +74,10 @@ int main(int argc, char **argv)
     }
 
     if (pyusrphrase_mb) {
-        fi = fopen(pyusrphrase_mb , "r");
+        fi = fopen(pyusrphrase_mb, "r");
     } else {
-        fi = FcitxXDGGetFileUserWithPrefix("pinyin", PY_USERPHRASE_FILE, "r", NULL);
+        fi = FcitxXDGGetFileUserWithPrefix("pinyin", PY_USERPHRASE_FILE, "r",
+                                           NULL);
     }
 
     if (!fi) {
@@ -86,7 +86,7 @@ int main(int argc, char **argv)
     }
 
     if (pybase_mb) {
-        fi2 = fopen(pybase_mb , "r");
+        fi2 = fopen(pybase_mb, "r");
     } else {
         fi2 = FcitxXDGGetFileWithPrefix("pinyin", PY_BASE_FILE, "r", NULL);
     }
@@ -95,7 +95,6 @@ int main(int argc, char **argv)
         fprintf(stderr, "Can't open base file\n");
         exit(1);
     }
-
 
     LoadPYMB(fi, &PYMB, isUser);
     LoadPYBase(fi2, &HZMap);
@@ -130,8 +129,7 @@ int main(int argc, char **argv)
   If no match is found, "*" is returned.
 */
 
-char *HZToPY(struct _HZMap *pHZMap1, char* HZ)
-{
+char *HZToPY(struct _HZMap *pHZMap1, char *HZ) {
     int i;
     char Map[3], tPY[10];
 
@@ -149,36 +147,37 @@ char *HZToPY(struct _HZMap *pHZMap1, char* HZ)
     return strdup(tPY);
 }
 
-void usage()
-{
-    char* pkgdatadir = fcitx_utils_get_fcitx_path("pkgdatadir");
+void usage() {
+    char *pkgdatadir = fcitx_utils_get_fcitx_path("pkgdatadir");
     printf(
         "mb2org - Convert .mb file to .org file (SEE NOTES BELOW)\n"
         "\n"
         "  usage: mb2org [OPTION]\n"
         "\n"
-        "  -f <pyusrphrase.mb> this is the .mb file to be decoded, usually this is\n"
+        "  -f <pyusrphrase.mb> this is the .mb file to be decoded, usually "
+        "this is\n"
         "                      ~/.fcitx/" PY_USERPHRASE_FILE "\n"
         "                      if not specified, defaults to\n"
         "                      ~/.fcitx/" PY_USERPHRASE_FILE "\n"
-        "  -b <pybase.mb>      this is the pybase.mb file used to determine the\n"
+        "  -b <pybase.mb>      this is the pybase.mb file used to determine "
+        "the\n"
         "                      of the first character in HZ. Usually, this is\n"
         "                      %s/pinyin/" PY_BASE_FILE "\n"
         "                      if not specified, defaults to\n"
         "                      %s/pinyin/" PY_BASE_FILE "\n"
-        "  -s                  Is MB from user or from system (they have different format).\n"
+        "  -s                  Is MB from user or from system (they have "
+        "different format).\n"
         "  -h                  display this help\n"
         "\n"
         "NOTES:\n"
-        "1. If no match is found for a particular HZ, then the pinyin for that HZ\n"
+        "1. If no match is found for a particular HZ, then the pinyin for that "
+        "HZ\n"
         "   will be `*'.\n"
         "2. Always check the produced output for errors.\n",
-        pkgdatadir, pkgdatadir
-    );
+        pkgdatadir, pkgdatadir);
     free(pkgdatadir);
     exit(1);
     return;
 }
-
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4;

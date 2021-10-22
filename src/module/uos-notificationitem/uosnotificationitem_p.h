@@ -20,9 +20,9 @@
 #ifndef UOSNOTIFICATIONITEM_P_H
 #define UOSNOTIFICATIONITEM_P_H
 
-#include <dbus/dbus.h>
 #include "fcitx/instance.h"
 #include "uosnotificationitem.h"
+#include <dbus/dbus.h>
 
 typedef struct _MenuIdSet {
     int id;
@@ -30,13 +30,13 @@ typedef struct _MenuIdSet {
 } MenuIdSet;
 
 typedef struct _FcitxNotificationItem {
-    FcitxInstance* owner;
-    DBusConnection* conn;
+    FcitxInstance *owner;
+    DBusConnection *conn;
     FcitxNotificationItemAvailableCallback callback;
-    void* data;
+    void *data;
     boolean available;
     int index;
-    char* serviceName;
+    char *serviceName;
     uint32_t revision;
     int pendingActionId;
     boolean isUnity;
@@ -44,14 +44,15 @@ typedef struct _FcitxNotificationItem {
     MenuIdSet *ids;
 } FcitxNotificationItem;
 
-boolean FcitxDBusMenuCreate(FcitxNotificationItem* uosnotificationitem);
+boolean FcitxDBusMenuCreate(FcitxNotificationItem *uosnotificationitem);
 
-MenuIdSet* MenuIdSetAdd(MenuIdSet *ids, int id);
+MenuIdSet *MenuIdSetAdd(MenuIdSet *ids, int id);
 boolean MenuIdSetContains(MenuIdSet *ids, int id);
-MenuIdSet* MenuIdSetClear(MenuIdSet* ids);
+MenuIdSet *MenuIdSetClear(MenuIdSet *ids);
 
-static inline boolean CheckAddPrefix( const char** name) {
-    boolean result = !((*name)[0] == '\0' || (*name)[0] == '/' || (*name)[0] == '@');
+static inline boolean CheckAddPrefix(const char **name) {
+    boolean result =
+        !((*name)[0] == '\0' || (*name)[0] == '/' || (*name)[0] == '@');
     if ((*name)[0] == '@') {
         (*name) += 1;
     }

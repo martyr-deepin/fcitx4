@@ -21,10 +21,10 @@
 #ifndef _PINYIN_ENHANCE_STROKE_H
 #define _PINYIN_ENHANCE_STROKE_H
 
-#include <stdint.h>
+#include "fcitx-utils/utf8.h"
 #include "pinyin-enhance-internal.h"
 #include "pinyin-enhance-map.h"
-#include "fcitx-utils/utf8.h"
+#include <stdint.h>
 
 typedef struct {
     char word[UTF8_MAX_LENGTH + 1];
@@ -37,31 +37,27 @@ typedef struct {
     uint32_t next;
 } PyEnhanceStrokeWord;
 
-static inline PyEnhanceStrokeWord*
-_py_enhance_stroke_id_to_word(const PyEnhanceStrokeTree *tree, uint32_t id)
-{
-    return (PyEnhanceStrokeWord*)(tree->words.data + id);
+static inline PyEnhanceStrokeWord *
+_py_enhance_stroke_id_to_word(const PyEnhanceStrokeTree *tree, uint32_t id) {
+    return (PyEnhanceStrokeWord *)(tree->words.data + id);
 }
 
-static inline PyEnhanceStrokeWord*
-py_enhance_stroke_id_to_word(const PyEnhanceStrokeTree *tree, uint32_t id)
-{
+static inline PyEnhanceStrokeWord *
+py_enhance_stroke_id_to_word(const PyEnhanceStrokeTree *tree, uint32_t id) {
     if (id % 4 != 0)
         return NULL;
     return _py_enhance_stroke_id_to_word(tree, id);
 }
 
-static inline PyEnhanceStrokeWord*
+static inline PyEnhanceStrokeWord *
 py_enhance_stroke_word_next(const PyEnhanceStrokeTree *tree,
-                            const PyEnhanceStrokeWord *w)
-{
+                            const PyEnhanceStrokeWord *w) {
     return py_enhance_stroke_id_to_word(tree, w->next);
 }
 
 static inline void
 py_enhance_stroke_word_tonext(const PyEnhanceStrokeTree *tree,
-                              const PyEnhanceStrokeWord **w)
-{
+                              const PyEnhanceStrokeWord **w) {
     *w = py_enhance_stroke_word_next(tree, *w);
 }
 
@@ -70,9 +66,9 @@ int py_enhance_stroke_get_match_keys(PinyinEnhance *pyenhance,
                                      const char *key_s, int key_l,
                                      PyEnhanceStrokeWord **word_buff,
                                      int buff_len);
-uint8_t *py_enhance_stroke_find_stroke(
-    PinyinEnhance *pyenhance, const char *str,
-    uint8_t *stroke, unsigned int *len);
+uint8_t *py_enhance_stroke_find_stroke(PinyinEnhance *pyenhance,
+                                       const char *str, uint8_t *stroke,
+                                       unsigned int *len);
 char *py_enhance_stroke_get_str(const uint8_t *stroke, unsigned int s_l,
                                 char *str, unsigned int *len);
 

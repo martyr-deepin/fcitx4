@@ -18,11 +18,11 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <cairo.h>
-#include "fcitx/fcitx.h"
-#include "fcitx-utils/utf8.h"
-#include "fcitx-config/fcitx-config.h"
 #include "cairostuff.h"
+#include "fcitx-config/fcitx-config.h"
+#include "fcitx-utils/utf8.h"
+#include "fcitx/fcitx.h"
+#include <cairo.h>
 
 #ifdef _ENABLE_PANGO
 #include <pango/pangocairo.h>
@@ -30,20 +30,19 @@
 
 struct _FcitxCairoTextContext {
     boolean ownSurface;
-    cairo_surface_t* surface;
-    cairo_t* cr;
+    cairo_surface_t *surface;
+    cairo_t *cr;
 #ifdef _ENABLE_PANGO
-    PangoContext* pangoContext;
-    PangoLayout* pangoLayout;
-    PangoFontDescription* fontDesc;
+    PangoContext *pangoContext;
+    PangoLayout *pangoLayout;
+    PangoFontDescription *fontDesc;
 #endif
 };
 
-
 #ifdef _ENABLE_PANGO
-static PangoFontDescription* GetPangoFontDescription(const char* font, int size, int dpi)
-{
-    PangoFontDescription* desc;
+static PangoFontDescription *GetPangoFontDescription(const char *font, int size,
+                                                     int dpi) {
+    PangoFontDescription *desc;
     desc = pango_font_description_from_string(font);
     if (dpi)
         pango_font_description_set_size(desc, size * PANGO_SCALE);
@@ -53,9 +52,8 @@ static PangoFontDescription* GetPangoFontDescription(const char* font, int size,
 }
 #endif
 
-FcitxCairoTextContext* FcitxCairoTextContextCreate(cairo_t* cr)
-{
-    FcitxCairoTextContext* ctc = fcitx_utils_new(FcitxCairoTextContext);
+FcitxCairoTextContext *FcitxCairoTextContextCreate(cairo_t *cr) {
+    FcitxCairoTextContext *ctc = fcitx_utils_new(FcitxCairoTextContext);
 
     if (cr) {
         ctc->cr = cr;
@@ -73,8 +71,7 @@ FcitxCairoTextContext* FcitxCairoTextContextCreate(cairo_t* cr)
     return ctc;
 }
 
-void FcitxCairoTextContextFree(FcitxCairoTextContext* ctc)
-{
+void FcitxCairoTextContextFree(FcitxCairoTextContext *ctc) {
 #ifdef _ENABLE_PANGO
     g_object_unref(ctc->pangoLayout);
     g_object_unref(ctc->pangoContext);
@@ -91,10 +88,11 @@ void FcitxCairoTextContextFree(FcitxCairoTextContext* ctc)
     free(ctc);
 }
 
-void FcitxCairoTextContextSet(FcitxCairoTextContext* ctc, const char* font, int fontSize, int dpi)
-{
+void FcitxCairoTextContextSet(FcitxCairoTextContext *ctc, const char *font,
+                              int fontSize, int dpi) {
 #ifdef _ENABLE_PANGO
-    PangoFontDescription* fontDesc = GetPangoFontDescription(font, fontSize, dpi);
+    PangoFontDescription *fontDesc =
+        GetPangoFontDescription(font, fontSize, dpi);
     pango_cairo_context_set_resolution(ctc->pangoContext, dpi);
     pango_layout_set_font_description(ctc->pangoLayout, fontDesc);
     if (ctc->fontDesc) {
@@ -102,23 +100,26 @@ void FcitxCairoTextContextSet(FcitxCairoTextContext* ctc, const char* font, int 
         ctc->fontDesc = fontDesc;
     }
 #else
-    cairo_select_font_face(ctc->cr, font,
-                            CAIRO_FONT_SLANT_NORMAL,
-                            CAIRO_FONT_WEIGHT_NORMAL);
+    cairo_select_font_face(ctc->cr, font, CAIRO_FONT_SLANT_NORMAL,
+                           CAIRO_FONT_WEIGHT_NORMAL);
     cairo_set_font_size(ctc->cr, fontSize);
 #endif
 }
 
-void FcitxCairoTextContextStringSize(FcitxCairoTextContext* ctc, const char* str, int* w, int* h)
-{
+void FcitxCairoTextContextStringSize(FcitxCairoTextContext *ctc,
+                                     const char *str, int *w, int *h) {
     if (!str || str[0] == 0) {
-        if (w) *w = 0;
-        if (h) *h = 0;
+        if (w)
+            *w = 0;
+        if (h)
+            *h = 0;
         return;
     }
     if (!fcitx_utf8_check_string(str)) {
-        if (w) *w = 0;
-        if (h) *h = 0;
+        if (w)
+            *w = 0;
+        if (h)
+            *h = 0;
 
         return;
     }
@@ -138,16 +139,20 @@ void FcitxCairoTextContextStringSize(FcitxCairoTextContext* ctc, const char* str
 #endif
 }
 
-void FcitxCairoTextContextStringSizeStrict(FcitxCairoTextContext* ctc, const char* str, int* w, int* h)
-{
+void FcitxCairoTextContextStringSizeStrict(FcitxCairoTextContext *ctc,
+                                           const char *str, int *w, int *h) {
     if (!str || str[0] == 0) {
-        if (w) *w = 0;
-        if (h) *h = 0;
+        if (w)
+            *w = 0;
+        if (h)
+            *h = 0;
         return;
     }
     if (!fcitx_utf8_check_string(str)) {
-        if (w) *w = 0;
-        if (h) *h = 0;
+        if (w)
+            *w = 0;
+        if (h)
+            *h = 0;
 
         return;
     }
@@ -170,26 +175,24 @@ void FcitxCairoTextContextStringSizeStrict(FcitxCairoTextContext* ctc, const cha
 #endif
 }
 
-
-int FcitxCairoTextContextStringWidth(FcitxCairoTextContext* ctc, const char *str)
-{
+int FcitxCairoTextContextStringWidth(FcitxCairoTextContext *ctc,
+                                     const char *str) {
     if (!str || str[0] == 0)
         return 0;
-    int             width = 0;
+    int width = 0;
     FcitxCairoTextContextStringSize(ctc, str, &width, NULL);
     return width;
 }
 
-int FcitxCairoTextContextFontHeight(FcitxCairoTextContext* ctc)
-{
-    int             height = 0;
+int FcitxCairoTextContextFontHeight(FcitxCairoTextContext *ctc) {
+    int height = 0;
     FcitxCairoTextContextStringSize(ctc, "Ayg中", NULL, &height);
     return height;
 }
 
-void
-FcitxCairoTextContextOutputString(FcitxCairoTextContext* ctc, const char* str, int x, int y, FcitxConfigColor* color)
-{
+void FcitxCairoTextContextOutputString(FcitxCairoTextContext *ctc,
+                                       const char *str, int x, int y,
+                                       FcitxConfigColor *color) {
     if (!str || str[0] == 0)
         return;
     if (!fcitx_utf8_check_string(str))
@@ -204,7 +207,7 @@ FcitxCairoTextContextOutputString(FcitxCairoTextContext* ctc, const char* str, i
     cairo_move_to(ctc->cr, x, y);
     pango_cairo_show_layout(ctc->cr, ctc->pangoLayout);
 #else
-    int             height = FcitxCairoTextContextFontHeight(ctc);
+    int height = FcitxCairoTextContextFontHeight(ctc);
     cairo_move_to(ctc->cr, x, y + height);
     cairo_show_text(ctc->cr, str);
 #endif

@@ -1,10 +1,9 @@
-#include "fcitx-utils/utils.h"
 #include "dbussocket.h"
+#include "fcitx-utils/utils.h"
 
-dbus_bool_t DBusAddWatch(DBusWatch *watch, void *data)
-{
+dbus_bool_t DBusAddWatch(DBusWatch *watch, void *data) {
     FcitxDBusWatch *w;
-    FcitxDBusWatch **watches = (FcitxDBusWatch**) data;
+    FcitxDBusWatch **watches = (FcitxDBusWatch **)data;
 
     for (w = *watches; w; w = w->next) {
         if (w->watch == watch) {
@@ -21,14 +20,13 @@ dbus_bool_t DBusAddWatch(DBusWatch *watch, void *data)
     return TRUE;
 }
 
-void DBusRemoveWatch(DBusWatch *watch, void *data)
-{
+void DBusRemoveWatch(DBusWatch *watch, void *data) {
     FcitxDBusWatch *w;
     FcitxDBusWatch *next, *prev;
-    FcitxDBusWatch **watches = (FcitxDBusWatch**)data;
+    FcitxDBusWatch **watches = (FcitxDBusWatch **)data;
 
     prev = NULL;
-    for (w = *watches;w;w = next) {
+    for (w = *watches; w; w = next) {
         next = w->next;
         if (w->watch == watch) {
             free(w);
@@ -43,10 +41,10 @@ void DBusRemoveWatch(DBusWatch *watch, void *data)
     }
 }
 
-int DBusUpdateFDSet(FcitxDBusWatch* watches, fd_set* rfds, fd_set* wfds, fd_set* efds)
-{
+int DBusUpdateFDSet(FcitxDBusWatch *watches, fd_set *rfds, fd_set *wfds,
+                    fd_set *efds) {
     int maxfd = 0;
-    FcitxDBusWatch* w;
+    FcitxDBusWatch *w;
     for (w = watches; w; w = w->next)
         if (w->watch && dbus_watch_get_enabled(w->watch)) {
             unsigned int flags = dbus_watch_get_flags(w->watch);
@@ -67,8 +65,8 @@ int DBusUpdateFDSet(FcitxDBusWatch* watches, fd_set* rfds, fd_set* wfds, fd_set*
     return maxfd;
 }
 
-void DBusProcessEventForWatches(FcitxDBusWatch* watches, fd_set* rfds, fd_set* wfds, fd_set* efds)
-{
+void DBusProcessEventForWatches(FcitxDBusWatch *watches, fd_set *rfds,
+                                fd_set *wfds, fd_set *efds) {
     FcitxDBusWatch *w;
 
     for (w = watches; w; w = w->next) {
@@ -91,11 +89,12 @@ void DBusProcessEventForWatches(FcitxDBusWatch* watches, fd_set* rfds, fd_set* w
     }
 }
 
-void DBusProcessEventForConnection(DBusConnection* connection)
-{
+void DBusProcessEventForConnection(DBusConnection *connection) {
     if (connection) {
         dbus_connection_ref(connection);
-        while (dbus_connection_dispatch(connection) == DBUS_DISPATCH_DATA_REMAINS);
+        while (dbus_connection_dispatch(connection) ==
+               DBUS_DISPATCH_DATA_REMAINS)
+            ;
         dbus_connection_unref(connection);
     }
 }

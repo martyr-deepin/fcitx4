@@ -20,17 +20,17 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
+#include <ctype.h>
 #include <errno.h>
 #include <iconv.h>
 #include <unistd.h>
-#include <ctype.h>
 
-#include <libintl.h>
-#include "pinyin-enhance-internal.h"
-#include "pinyin-enhance-spell.h"
 #include "pinyin-enhance-cfp.h"
-#include "pinyin-enhance-sym.h"
+#include "pinyin-enhance-internal.h"
 #include "pinyin-enhance-py.h"
+#include "pinyin-enhance-spell.h"
+#include "pinyin-enhance-sym.h"
+#include <libintl.h>
 
 static void *PinyinEnhanceCreate(FcitxInstance *instance);
 static void PinyinEnhanceDestroy(void *arg);
@@ -64,19 +64,16 @@ CONFIG_BINDING_END()
 CONFIG_DEFINE_LOAD_AND_SAVE(PinyinEnhance, PinyinEnhanceConfig,
                             "fcitx-pinyin-enhance")
 
-FCITX_DEFINE_PLUGIN(fcitx_pinyin_enhance, module, FcitxModule) = {
-    .Create = PinyinEnhanceCreate,
-    .Destroy = PinyinEnhanceDestroy,
-    .SetFD = NULL,
-    .ProcessEvent = NULL,
-    .ReloadConfig = PinyinEnhanceReloadConfig
-};
+FCITX_DEFINE_PLUGIN(fcitx_pinyin_enhance, module,
+                    FcitxModule) = {.Create = PinyinEnhanceCreate,
+                                    .Destroy = PinyinEnhanceDestroy,
+                                    .SetFD = NULL,
+                                    .ProcessEvent = NULL,
+                                    .ReloadConfig = PinyinEnhanceReloadConfig};
 
 DEFINE_GET_AND_INVOKE_FUNC(SunPinyin, GetFullPinyin, 0)
 
-static int
-check_im_type(PinyinEnhance *pyenhance)
-{
+static int check_im_type(PinyinEnhance *pyenhance) {
     FcitxIM *im = FcitxInstanceGetCurrentIM(pyenhance->owner);
     if (!im)
         return PY_IM_INVALID;
@@ -98,9 +95,7 @@ check_im_type(PinyinEnhance *pyenhance)
     return PY_IM_INVALID;
 }
 
-static void*
-PinyinEnhanceCreate(FcitxInstance *instance)
-{
+static void *PinyinEnhanceCreate(FcitxInstance *instance) {
     PinyinEnhance *pyenhance = fcitx_utils_new(PinyinEnhance);
     pyenhance->owner = instance;
 
@@ -119,10 +114,8 @@ PinyinEnhanceCreate(FcitxInstance *instance)
     event_hook.func = PinyinEnhanceResetHook;
     FcitxInstanceRegisterResetInputHook(instance, event_hook);
 
-    FcitxKeyFilterHook key_hook = {
-        .arg = pyenhance,
-        .func = PinyinEnhancePostInput
-    };
+    FcitxKeyFilterHook key_hook = {.arg = pyenhance,
+                                   .func = PinyinEnhancePostInput};
     FcitxInstanceRegisterPostInputFilter(pyenhance->owner, key_hook);
     key_hook.func = PinyinEnhancePreInput;
     FcitxInstanceRegisterPreInputFilter(pyenhance->owner, key_hook);
@@ -131,11 +124,10 @@ PinyinEnhanceCreate(FcitxInstance *instance)
     return pyenhance;
 }
 
-static boolean
-PinyinEnhancePreInput(void *arg, FcitxKeySym sym, unsigned int state,
-                      INPUT_RETURN_VALUE *retval)
-{
-    PinyinEnhance *pyenhance = (PinyinEnhance*)arg;
+static boolean PinyinEnhancePreInput(void *arg, FcitxKeySym sym,
+                                     unsigned int state,
+                                     INPUT_RETURN_VALUE *retval) {
+    PinyinEnhance *pyenhance = (PinyinEnhance *)arg;
     if (!check_im_type(pyenhance))
         return false;
     if (PinyinEnhanceCharFromPhrasePre(pyenhance, sym, state, retval))
@@ -143,11 +135,10 @@ PinyinEnhancePreInput(void *arg, FcitxKeySym sym, unsigned int state,
     return false;
 }
 
-static boolean
-PinyinEnhancePostInput(void *arg, FcitxKeySym sym, unsigned int state,
-                       INPUT_RETURN_VALUE *retval)
-{
-    PinyinEnhance *pyenhance = (PinyinEnhance*)arg;
+static boolean PinyinEnhancePostInput(void *arg, FcitxKeySym sym,
+                                      unsigned int state,
+                                      INPUT_RETURN_VALUE *retval) {
+    PinyinEnhance *pyenhance = (PinyinEnhance *)arg;
     if (!check_im_type(pyenhance))
         return false;
     if (PinyinEnhanceCharFromPhrasePost(pyenhance, sym, state, retval))
@@ -155,10 +146,8 @@ PinyinEnhancePostInput(void *arg, FcitxKeySym sym, unsigned int state,
     return false;
 }
 
-static void
-PinyinEnhanceAddCandidateWord(void *arg)
-{
-    PinyinEnhance *pyenhance = (PinyinEnhance*)arg;
+static void PinyinEnhanceAddCandidateWord(void *arg) {
+    PinyinEnhance *pyenhance = (PinyinEnhance *)arg;
     int im_type;
     /* reset cfp */
     PinyinEnhanceCharFromPhraseCandidate(pyenhance);
@@ -180,26 +169,20 @@ PinyinEnhanceAddCandidateWord(void *arg)
     return;
 }
 
-static void
-PinyinEnhanceDestroy(void *arg)
-{
-    PinyinEnhance *pyenhance = (PinyinEnhance*)arg;
+static void PinyinEnhanceDestroy(void *arg) {
+    PinyinEnhance *pyenhance = (PinyinEnhance *)arg;
     PinyinEnhanceSymDestroy(pyenhance);
     py_enhance_buff_free(&pyenhance->stroke_tree.keys);
     py_enhance_buff_free(&pyenhance->stroke_tree.words);
 }
 
-static void
-PinyinEnhanceReloadConfig(void *arg)
-{
-    PinyinEnhance *pyenhance = (PinyinEnhance*)arg;
+static void PinyinEnhanceReloadConfig(void *arg) {
+    PinyinEnhance *pyenhance = (PinyinEnhance *)arg;
     PinyinEnhanceLoadConfig(&pyenhance->config);
     PinyinEnhanceSymReloadDict(pyenhance);
 }
 
-char*
-PinyinEnhanceGetSelected(PinyinEnhance *pyenhance)
-{
+char *PinyinEnhanceGetSelected(PinyinEnhance *pyenhance) {
     FcitxInputState *input;
     char *string;
     input = FcitxInstanceGetInputState(pyenhance->owner);
@@ -214,10 +197,8 @@ PinyinEnhanceGetSelected(PinyinEnhance *pyenhance)
     return string;
 }
 
-static void
-PinyinEnhanceResetHook(void *arg)
-{
-    PinyinEnhance *pyenhance = (PinyinEnhance*)arg;
+static void PinyinEnhanceResetHook(void *arg) {
+    PinyinEnhance *pyenhance = (PinyinEnhance *)arg;
     PinyinEnhanceCharFromPhraseReset(pyenhance);
 }
 

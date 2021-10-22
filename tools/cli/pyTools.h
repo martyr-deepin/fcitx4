@@ -38,7 +38,7 @@ struct _PYMB {
         char *Phrase;
         int Index;
         int Hit;
-    } *UserPhrase;
+    } * UserPhrase;
 };
 
 struct _HZMap {
@@ -52,6 +52,5 @@ int LoadPYBase(FILE *, struct _HZMap **);
 void LoadPYMB(FILE *fi, struct _PYMB **pPYMB, int isUser);
 
 #endif /* _PY_TOOLS_H */
-
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4;

@@ -21,9 +21,9 @@
 #ifndef _FCITX_CONTEXT_INTERNAL_H_
 #define _FCITX_CONTEXT_INTERNAL_H_
 
-#include "instance.h"
 #include "context.h"
+#include "instance.h"
 
-void FcitxInstanceResetContext(FcitxInstance* instance, FcitxContextFlag flag);
+void FcitxInstanceResetContext(FcitxInstance *instance, FcitxContextFlag flag);
 
 #endif

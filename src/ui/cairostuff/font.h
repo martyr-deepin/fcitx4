@@ -25,7 +25,7 @@
 
 #include "fcitx/fcitx.h"
 
-void GetValidFont(const char* strUserLocale, char **font);
+void GetValidFont(const char *strUserLocale, char **font);
 
 #endif
 

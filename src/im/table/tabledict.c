@@ -1,41 +1,39 @@
 #include "config.h"
 
-#include <stdio.h>
-#include <limits.h>
-#include <libintl.h>
-#include <unistd.h>
-#include "fcitx/fcitx.h"
-#include "fcitx-utils/log.h"
 #include "fcitx-config/xdg.h"
+#include "fcitx-utils/log.h"
 #include "fcitx-utils/utf8.h"
+#include "fcitx/fcitx.h"
 #include "tabledict.h"
+#include <libintl.h>
+#include <limits.h>
+#include <stdio.h>
+#include <unistd.h>
 
 #define TABLE_TEMP_FILE "table_XXXXXX"
 const int iInternalVersion = INTERNAL_VERSION;
 
-void UpdateTableMetaData(TableMetaData* tableMetaData)
-{
+void UpdateTableMetaData(TableMetaData *tableMetaData) {
     if (!tableMetaData->tableDict)
         return;
-    TableDict* tableDict = tableMetaData->tableDict;
+    TableDict *tableDict = tableMetaData->tableDict;
     if (tableMetaData->iTableAutoSendToClient == -1)
         tableMetaData->iTableAutoSendToClient = tableDict->iCodeLength;
     if (tableMetaData->iTableAutoSendToClientWhenNone == -1)
         tableMetaData->iTableAutoSendToClientWhenNone = tableDict->iCodeLength;
 }
 
-boolean LoadTableDict(TableMetaData* tableMetaData)
-{
-    char            strCode[MAX_CODE_LENGTH + 1];
-    char           *strHZ = 0;
-    FILE           *fpDict;
-    RECORD         *recTemp;
-    unsigned int    i = 0;
-    uint32_t        iTemp, iTempCount;
-    char            cChar = 0, cTemp;
-    int8_t          iVersion = 1;
-    int             iRecordIndex;
-    TableDict      *tableDict;
+boolean LoadTableDict(TableMetaData *tableMetaData) {
+    char strCode[MAX_CODE_LENGTH + 1];
+    char *strHZ = 0;
+    FILE *fpDict;
+    RECORD *recTemp;
+    unsigned int i = 0;
+    uint32_t iTemp, iTempCount;
+    char cChar = 0, cTemp;
+    int8_t iVersion = 1;
+    int iRecordIndex;
+    TableDict *tableDict;
 
     //读入码表
     FcitxLog(DEBUG, _("Loading Table Dict"));
@@ -48,7 +46,8 @@ boolean LoadTableDict(TableMetaData* tableMetaData)
              * kcm saves a absolute path here but it is then interpreted as
              * a relative path?
              **/
-            fpDict = FcitxXDGGetFileWithPrefix("table", tableMetaData->strPath, "r", NULL);
+            fpDict = FcitxXDGGetFileWithPrefix("table", tableMetaData->strPath,
+                                               "r", NULL);
         } else {
             char *tablepath;
             char *path = fcitx_utils_get_fcitx_path("pkgdatadir");
@@ -64,7 +63,11 @@ boolean LoadTableDict(TableMetaData* tableMetaData)
 
         tableDict = tableMetaData->tableDict;
         tableDict->pool = fcitx_memory_pool_create();
-#define CHECK_LOAD_TABLE_ERROR(SIZE) if (size < (SIZE)) { error = true; goto table_load_error; }
+#define CHECK_LOAD_TABLE_ERROR(SIZE)                                           \
+    if (size < (SIZE)) {                                                       \
+        error = true;                                                          \
+        goto table_load_error;                                                 \
+    }
 
         //先读取码表的信息
         //判断版本信息
@@ -80,14 +83,16 @@ boolean LoadTableDict(TableMetaData* tableMetaData)
             CHECK_LOAD_TABLE_ERROR(1);
         }
 
-        tableDict->strInputCode = (char*)realloc(tableDict->strInputCode, sizeof(char) * (iTemp + 1));
+        tableDict->strInputCode = (char *)realloc(tableDict->strInputCode,
+                                                  sizeof(char) * (iTemp + 1));
         size = fread(tableDict->strInputCode, sizeof(char), iTemp + 1, fpDict);
         CHECK_LOAD_TABLE_ERROR(iTemp + 1);
         /*
          * 建立索引，加26是为了为拼音编码预留空间
          */
         size_t tmp_len = strlen(tableDict->strInputCode) + 26;
-        tableDict->recordIndex = (RECORD_INDEX*)fcitx_memory_pool_alloc(tableDict->pool, tmp_len * sizeof(RECORD_INDEX));
+        tableDict->recordIndex = (RECORD_INDEX *)fcitx_memory_pool_alloc(
+            tableDict->pool, tmp_len * sizeof(RECORD_INDEX));
         for (iTemp = 0; iTemp < tmp_len; iTemp++) {
             tableDict->recordIndex[iTemp].cCode = 0;
             tableDict->recordIndex[iTemp].record = NULL;
@@ -99,55 +104,67 @@ boolean LoadTableDict(TableMetaData* tableMetaData)
         UpdateTableMetaData(tableMetaData);
 
         if (!iVersion) {
-            size = fread(&(tableDict->iPYCodeLength), sizeof(uint8_t), 1, fpDict);
+            size =
+                fread(&(tableDict->iPYCodeLength), sizeof(uint8_t), 1, fpDict);
             CHECK_LOAD_TABLE_ERROR(1);
-        }
-        else
+        } else
             tableDict->iPYCodeLength = tableDict->iCodeLength;
 
         size = fcitx_utils_read_uint32(fpDict, &iTemp);
         CHECK_LOAD_TABLE_ERROR(1);
-        tableDict->strIgnoreChars = (char*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(char) * (iTemp + 1));
-        size = fread(tableDict->strIgnoreChars, sizeof(char), iTemp + 1, fpDict);
+        tableDict->strIgnoreChars = (char *)fcitx_memory_pool_alloc(
+            tableDict->pool, sizeof(char) * (iTemp + 1));
+        size =
+            fread(tableDict->strIgnoreChars, sizeof(char), iTemp + 1, fpDict);
         CHECK_LOAD_TABLE_ERROR(iTemp + 1);
 
         size = fread(&(tableDict->bRule), sizeof(unsigned char), 1, fpDict);
         CHECK_LOAD_TABLE_ERROR(1);
 
         if (tableDict->bRule) { //表示有组词规则
-            tableDict->rule = (RULE*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(RULE) * (tableDict->iCodeLength - 1));
+            tableDict->rule = (RULE *)fcitx_memory_pool_alloc(
+                tableDict->pool, sizeof(RULE) * (tableDict->iCodeLength - 1));
             for (i = 0; i < tableDict->iCodeLength - 1; i++) {
-                size = fread(&(tableDict->rule[i].iFlag), sizeof(unsigned char), 1, fpDict);
+                size = fread(&(tableDict->rule[i].iFlag), sizeof(unsigned char),
+                             1, fpDict);
                 CHECK_LOAD_TABLE_ERROR(1);
-                size = fread(&(tableDict->rule[i].iWords), sizeof(unsigned char), 1, fpDict);
+                size = fread(&(tableDict->rule[i].iWords),
+                             sizeof(unsigned char), 1, fpDict);
                 CHECK_LOAD_TABLE_ERROR(1);
-                tableDict->rule[i].rule = (RULE_RULE*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(RULE_RULE) * tableDict->iCodeLength);
+                tableDict->rule[i].rule = (RULE_RULE *)fcitx_memory_pool_alloc(
+                    tableDict->pool,
+                    sizeof(RULE_RULE) * tableDict->iCodeLength);
                 for (iTemp = 0; iTemp < tableDict->iCodeLength; iTemp++) {
-                    size = fread(&(tableDict->rule[i].rule[iTemp].iFlag), sizeof(unsigned char), 1, fpDict);
+                    size = fread(&(tableDict->rule[i].rule[iTemp].iFlag),
+                                 sizeof(unsigned char), 1, fpDict);
                     CHECK_LOAD_TABLE_ERROR(1);
-                    size = fread(&(tableDict->rule[i].rule[iTemp].iWhich), sizeof(unsigned char), 1, fpDict);
+                    size = fread(&(tableDict->rule[i].rule[iTemp].iWhich),
+                                 sizeof(unsigned char), 1, fpDict);
                     CHECK_LOAD_TABLE_ERROR(1);
-                    size = fread(&(tableDict->rule[i].rule[iTemp].iIndex), sizeof(unsigned char), 1, fpDict);
+                    size = fread(&(tableDict->rule[i].rule[iTemp].iIndex),
+                                 sizeof(unsigned char), 1, fpDict);
                     CHECK_LOAD_TABLE_ERROR(1);
                 }
             }
         }
 
-        tableDict->recordHead = (RECORD*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(RECORD));
+        tableDict->recordHead =
+            (RECORD *)fcitx_memory_pool_alloc(tableDict->pool, sizeof(RECORD));
         tableDict->currentRecord = tableDict->recordHead;
 
         size = fcitx_utils_read_uint32(fpDict, &tableDict->iRecordCount);
         CHECK_LOAD_TABLE_ERROR(1);
 
         for (i = 0; i < SINGLE_HZ_COUNT; i++) {
-            tableDict->tableSingleHZ[i] = (RECORD*)NULL;
-            tableDict->tableSingleHZCons[i] = (RECORD*)NULL;
+            tableDict->tableSingleHZ[i] = (RECORD *)NULL;
+            tableDict->tableSingleHZCons[i] = (RECORD *)NULL;
         }
 
         iRecordIndex = 0;
         size_t bufSize = 0;
         for (i = 0; i < tableDict->iRecordCount; i++) {
-            size = fread(strCode, sizeof(int8_t), tableDict->iPYCodeLength + 1, fpDict);
+            size = fread(strCode, sizeof(int8_t), tableDict->iPYCodeLength + 1,
+                         fpDict);
             CHECK_LOAD_TABLE_ERROR(tableDict->iPYCodeLength + 1);
             size = fcitx_utils_read_uint32(fpDict, &iTemp);
             CHECK_LOAD_TABLE_ERROR(1);
@@ -164,11 +181,15 @@ boolean LoadTableDict(TableMetaData* tableMetaData)
             }
             size = fread(strHZ, sizeof(int8_t), iTemp, fpDict);
             CHECK_LOAD_TABLE_ERROR(iTemp);
-            recTemp = (RECORD*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(RECORD));
-            recTemp->strCode = (char*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(char) * (tableDict->iPYCodeLength + 1));
-            memset(recTemp->strCode, 0, sizeof(char) * (tableDict->iPYCodeLength + 1));
+            recTemp = (RECORD *)fcitx_memory_pool_alloc(tableDict->pool,
+                                                        sizeof(RECORD));
+            recTemp->strCode = (char *)fcitx_memory_pool_alloc(
+                tableDict->pool, sizeof(char) * (tableDict->iPYCodeLength + 1));
+            memset(recTemp->strCode, 0,
+                   sizeof(char) * (tableDict->iPYCodeLength + 1));
             strcpy(recTemp->strCode, strCode);
-            recTemp->strHZ = (char*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(char) * iTemp);
+            recTemp->strHZ = (char *)fcitx_memory_pool_alloc(
+                tableDict->pool, sizeof(char) * iTemp);
             strcpy(recTemp->strHZ, strHZ);
 
             if (!iVersion) {
@@ -193,9 +214,9 @@ boolean LoadTableDict(TableMetaData* tableMetaData)
             }
             /******************************************************************/
             /** 为单字生成一个表   */
-            if (fcitx_utf8_strlen(recTemp->strHZ) == 1 && !IsIgnoreChar(tableDict, strCode[0]))
-            {
-                RECORD** tableSingleHZ = NULL;
+            if (fcitx_utf8_strlen(recTemp->strHZ) == 1 &&
+                !IsIgnoreChar(tableDict, strCode[0])) {
+                RECORD **tableSingleHZ = NULL;
                 if (recTemp->type == RECORDTYPE_NORMAL)
                     tableSingleHZ = tableDict->tableSingleHZ;
                 else if (recTemp->type == RECORDTYPE_CONSTRUCT)
@@ -205,7 +226,9 @@ boolean LoadTableDict(TableMetaData* tableMetaData)
                     iTemp = CalHZIndex(recTemp->strHZ);
                     if (iTemp < SINGLE_HZ_COUNT) {
                         if (tableSingleHZ[iTemp]) {
-                            if (strlen(strCode) > strlen(tableDict->tableSingleHZ[iTemp]->strCode))
+                            if (strlen(strCode) >
+                                strlen(
+                                    tableDict->tableSingleHZ[iTemp]->strCode))
                                 tableSingleHZ[iTemp] = recTemp;
                         } else
                             tableSingleHZ[iTemp] = recTemp;
@@ -216,8 +239,9 @@ boolean LoadTableDict(TableMetaData* tableMetaData)
             if (recTemp->type == RECORDTYPE_PINYIN)
                 tableDict->bHasPinyin = true;
 
-            if (recTemp->type == RECORDTYPE_PROMPT && strlen(recTemp->strCode) == 1)
-                tableDict->promptCode[(uint8_t) recTemp->strCode[0]] = recTemp;
+            if (recTemp->type == RECORDTYPE_PROMPT &&
+                strlen(recTemp->strCode) == 1)
+                tableDict->promptCode[(uint8_t)recTemp->strCode[0]] = recTemp;
 
             tableDict->currentRecord->next = recTemp;
             recTemp->prev = tableDict->currentRecord;
@@ -231,7 +255,7 @@ boolean LoadTableDict(TableMetaData* tableMetaData)
         tableDict->currentRecord->next = tableDict->recordHead;
         tableDict->recordHead->prev = tableDict->currentRecord;
 
-table_load_error:
+    table_load_error:
         fclose(fpDict);
         if (error) {
             fcitx_memory_pool_destroy(tableDict->pool);
@@ -240,7 +264,7 @@ table_load_error:
         } else {
             break;
         }
-    } while(reload < 2);
+    } while (reload < 2);
 
     if (!tableDict->pool)
         return false;
@@ -248,13 +272,15 @@ table_load_error:
     FcitxLog(DEBUG, _("Load Table Dict OK"));
 
     //读取相应的特殊符号表
-    fpDict = FcitxXDGGetFileWithPrefix("table", tableMetaData->strSymbolFile, "r", NULL);
+    fpDict = FcitxXDGGetFileWithPrefix("table", tableMetaData->strSymbolFile,
+                                       "r", NULL);
 
     if (fpDict) {
         tableDict->iFH = fcitx_utils_calculate_record_number(fpDict);
-        tableDict->fh = (FH*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(FH) * tableDict->iFH);
+        tableDict->fh = (FH *)fcitx_memory_pool_alloc(
+            tableDict->pool, sizeof(FH) * tableDict->iFH);
 
-        char* strBuf = NULL;
+        char *strBuf = NULL;
         size_t bufLen = 0;
         for (i = 0; i < tableDict->iFH; i++) {
             if (getline(&strBuf, &bufLen, fpDict) == -1)
@@ -274,12 +300,14 @@ table_load_error:
         fclose(fpDict);
     }
 
-    tableDict->strNewPhraseCode = (char*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(char) * (tableDict->iCodeLength + 1));
+    tableDict->strNewPhraseCode = (char *)fcitx_memory_pool_alloc(
+        tableDict->pool, sizeof(char) * (tableDict->iCodeLength + 1));
     tableDict->strNewPhraseCode[tableDict->iCodeLength] = '\0';
 
     tableDict->iAutoPhrase = 0;
     if (tableMetaData->bAutoPhrase) {
-        tableDict->autoPhrase = (AUTOPHRASE*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(AUTOPHRASE) * AUTO_PHRASE_COUNT);
+        tableDict->autoPhrase = (AUTOPHRASE *)fcitx_memory_pool_alloc(
+            tableDict->pool, sizeof(AUTOPHRASE) * AUTO_PHRASE_COUNT);
 
         //读取上次保存的自动词组信息
         FcitxLog(DEBUG, _("Loading Autophrase."));
@@ -291,19 +319,32 @@ table_load_error:
         free(temppath);
         i = 0;
         if (fpDict) {
-            size_t size = fcitx_utils_read_int32(fpDict, &tableDict->iAutoPhrase);
+            size_t size =
+                fcitx_utils_read_int32(fpDict, &tableDict->iAutoPhrase);
             if (size == 1) {
                 for (; i < tableDict->iAutoPhrase; i++) {
-                    tableDict->autoPhrase[i].strCode = (char*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(char) * (tableDict->iCodeLength + 1));
-                    tableDict->autoPhrase[i].strHZ = (char*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(char) * (PHRASE_MAX_LENGTH * UTF8_MAX_LENGTH + 1));
-                    size = fread(tableDict->autoPhrase[i].strCode, tableDict->iCodeLength + 1, 1, fpDict);
+                    tableDict->autoPhrase[i].strCode =
+                        (char *)fcitx_memory_pool_alloc(
+                            tableDict->pool,
+                            sizeof(char) * (tableDict->iCodeLength + 1));
+                    tableDict->autoPhrase[i].strHZ =
+                        (char *)fcitx_memory_pool_alloc(
+                            tableDict->pool,
+                            sizeof(char) *
+                                (PHRASE_MAX_LENGTH * UTF8_MAX_LENGTH + 1));
+                    size = fread(tableDict->autoPhrase[i].strCode,
+                                 tableDict->iCodeLength + 1, 1, fpDict);
                     if (size != 1) {
                         tableDict->iAutoPhrase = i;
                         break;
                     }
-                    size = fread(tableDict->autoPhrase[i].strHZ, PHRASE_MAX_LENGTH * UTF8_MAX_LENGTH + 1, 1, fpDict);
-                    tableDict->autoPhrase[i].strHZ[PHRASE_MAX_LENGTH * UTF8_MAX_LENGTH] = 0;
-                    if (size != 1 || !fcitx_utf8_check_string(tableDict->autoPhrase[i].strHZ)) {
+                    size = fread(tableDict->autoPhrase[i].strHZ,
+                                 PHRASE_MAX_LENGTH * UTF8_MAX_LENGTH + 1, 1,
+                                 fpDict);
+                    tableDict->autoPhrase[i]
+                        .strHZ[PHRASE_MAX_LENGTH * UTF8_MAX_LENGTH] = 0;
+                    if (size != 1 || !fcitx_utf8_check_string(
+                                         tableDict->autoPhrase[i].strHZ)) {
                         tableDict->iAutoPhrase = i;
                         break;
                     }
@@ -315,17 +356,22 @@ table_load_error:
 
                     tableDict->autoPhrase[i].iSelected = iTempCount;
                     if (i == AUTO_PHRASE_COUNT - 1)
-                        tableDict->autoPhrase[i].next = &tableDict->autoPhrase[0];
+                        tableDict->autoPhrase[i].next =
+                            &tableDict->autoPhrase[0];
                     else
-                        tableDict->autoPhrase[i].next = &tableDict->autoPhrase[i + 1];
+                        tableDict->autoPhrase[i].next =
+                            &tableDict->autoPhrase[i + 1];
                 }
             }
             fclose(fpDict);
         }
 
         for (; i < AUTO_PHRASE_COUNT; i++) {
-            tableDict->autoPhrase[i].strCode = (char*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(char) * (tableDict->iCodeLength + 1));
-            tableDict->autoPhrase[i].strHZ = (char*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(char) * (PHRASE_MAX_LENGTH * UTF8_MAX_LENGTH + 1));
+            tableDict->autoPhrase[i].strCode = (char *)fcitx_memory_pool_alloc(
+                tableDict->pool, sizeof(char) * (tableDict->iCodeLength + 1));
+            tableDict->autoPhrase[i].strHZ = (char *)fcitx_memory_pool_alloc(
+                tableDict->pool,
+                sizeof(char) * (PHRASE_MAX_LENGTH * UTF8_MAX_LENGTH + 1));
             tableDict->autoPhrase[i].iSelected = 0;
             if (i == AUTO_PHRASE_COUNT - 1)
                 tableDict->autoPhrase[i].next = &tableDict->autoPhrase[0];
@@ -340,21 +386,20 @@ table_load_error:
 
         FcitxLog(DEBUG, _("Load Autophrase OK"));
     } else
-        tableDict->autoPhrase = (AUTOPHRASE *) NULL;
+        tableDict->autoPhrase = (AUTOPHRASE *)NULL;
 
     return true;
 }
 
-void SaveTableDict(TableMetaData *tableMetaData)
-{
-    RECORD         *recTemp;
-    char           *tempfile;
-    FILE           *fpDict;
-    uint32_t    iTemp;
-    unsigned int    i;
-    int             fd;
-    int8_t          cTemp;
-    TableDict      *tableDict = tableMetaData->tableDict;
+void SaveTableDict(TableMetaData *tableMetaData) {
+    RECORD *recTemp;
+    char *tempfile;
+    FILE *fpDict;
+    uint32_t iTemp;
+    unsigned int i;
+    int fd;
+    int8_t cTemp;
+    TableDict *tableDict = tableMetaData->tableDict;
 
     if (!tableDict->iTableChanged)
         return;
@@ -376,7 +421,11 @@ void SaveTableDict(TableMetaData *tableMetaData)
 
     boolean error = false;
     size_t size;
-#define CHECK_WRITE_TABLE_ERROR(SIZE) if (size < (SIZE)) { error = true; goto table_write_error; }
+#define CHECK_WRITE_TABLE_ERROR(SIZE)                                          \
+    if (size < (SIZE)) {                                                       \
+        error = true;                                                          \
+        goto table_write_error;                                                \
+    }
 
     // write version number
     size = fcitx_utils_write_uint32(fpDict, 0);
@@ -405,16 +454,21 @@ void SaveTableDict(TableMetaData *tableMetaData)
     CHECK_WRITE_TABLE_ERROR(1);
     if (tableDict->bRule) { // table contains rule
         for (i = 0; i < tableDict->iCodeLength - 1; i++) {
-            size = fwrite(&(tableDict->rule[i].iFlag), sizeof(unsigned char), 1, fpDict);
+            size = fwrite(&(tableDict->rule[i].iFlag), sizeof(unsigned char), 1,
+                          fpDict);
             CHECK_WRITE_TABLE_ERROR(1);
-            size = fwrite(&(tableDict->rule[i].iWords), sizeof(unsigned char), 1, fpDict);
+            size = fwrite(&(tableDict->rule[i].iWords), sizeof(unsigned char),
+                          1, fpDict);
             CHECK_WRITE_TABLE_ERROR(1);
             for (iTemp = 0; iTemp < tableDict->iCodeLength; iTemp++) {
-                size = fwrite(&(tableDict->rule[i].rule[iTemp].iFlag), sizeof(unsigned char), 1, fpDict);
+                size = fwrite(&(tableDict->rule[i].rule[iTemp].iFlag),
+                              sizeof(unsigned char), 1, fpDict);
                 CHECK_WRITE_TABLE_ERROR(1);
-                size = fwrite(&(tableDict->rule[i].rule[iTemp].iWhich), sizeof(unsigned char), 1, fpDict);
+                size = fwrite(&(tableDict->rule[i].rule[iTemp].iWhich),
+                              sizeof(unsigned char), 1, fpDict);
                 CHECK_WRITE_TABLE_ERROR(1);
-                size = fwrite(&(tableDict->rule[i].rule[iTemp].iIndex), sizeof(unsigned char), 1, fpDict);
+                size = fwrite(&(tableDict->rule[i].rule[iTemp].iIndex),
+                              sizeof(unsigned char), 1, fpDict);
                 CHECK_WRITE_TABLE_ERROR(1);
             }
         }
@@ -424,7 +478,8 @@ void SaveTableDict(TableMetaData *tableMetaData)
     CHECK_WRITE_TABLE_ERROR(1);
     recTemp = tableDict->recordHead->next;
     while (recTemp != tableDict->recordHead) {
-        size = fwrite(recTemp->strCode, sizeof(char), tableDict->iPYCodeLength + 1, fpDict);
+        size = fwrite(recTemp->strCode, sizeof(char),
+                      tableDict->iPYCodeLength + 1, fpDict);
         CHECK_WRITE_TABLE_ERROR(tableDict->iPYCodeLength + 1);
 
         iTemp = strlen(recTemp->strHZ) + 1;
@@ -449,10 +504,10 @@ table_write_error:
         error = true;
     }
 
-
     if (!error) {
-        char* pstr;
-        FcitxXDGGetFileUserWithPrefix("table", tableMetaData->strPath, NULL, &pstr);
+        char *pstr;
+        FcitxXDGGetFileUserWithPrefix("table", tableMetaData->strPath, NULL,
+                                      &pstr);
         if (access(pstr, 0))
             unlink(pstr);
         rename(tempfile, pstr);
@@ -471,7 +526,8 @@ table_write_error:
         // Save auto phrase
         // make ~/.config/fcitx/table/ dir
         FcitxXDGGetFileUserWithPrefix("table", "", "w", NULL);
-        FcitxXDGGetFileUserWithPrefix("table", TABLE_TEMP_FILE, NULL, &tempfile);
+        FcitxXDGGetFileUserWithPrefix("table", TABLE_TEMP_FILE, NULL,
+                                      &tempfile);
         fd = mkstemp(tempfile);
         fpDict = NULL;
 
@@ -481,18 +537,26 @@ table_write_error:
 
         boolean autophraseError = false;
         if (fpDict) {
-#define CHECK_WRITE_AUTOPHRASE_ERROR(SIZE) if (size < (SIZE)) { autophraseError = true; goto autophrase_write_error; }
+#define CHECK_WRITE_AUTOPHRASE_ERROR(SIZE)                                     \
+    if (size < (SIZE)) {                                                       \
+        autophraseError = true;                                                \
+        goto autophrase_write_error;                                           \
+    }
             size = fcitx_utils_write_uint32(fpDict, tableDict->iAutoPhrase);
             CHECK_WRITE_AUTOPHRASE_ERROR(1);
             for (i = 0; i < tableDict->iAutoPhrase; i++) {
-                size = fwrite(tableDict->autoPhrase[i].strCode, tableDict->iCodeLength + 1, 1, fpDict);
+                size = fwrite(tableDict->autoPhrase[i].strCode,
+                              tableDict->iCodeLength + 1, 1, fpDict);
                 CHECK_WRITE_AUTOPHRASE_ERROR(1);
-                size = fwrite(tableDict->autoPhrase[i].strHZ, PHRASE_MAX_LENGTH * UTF8_MAX_LENGTH + 1, 1, fpDict);
+                size =
+                    fwrite(tableDict->autoPhrase[i].strHZ,
+                           PHRASE_MAX_LENGTH * UTF8_MAX_LENGTH + 1, 1, fpDict);
                 CHECK_WRITE_AUTOPHRASE_ERROR(1);
-                size = fcitx_utils_write_int32(fpDict, tableDict->autoPhrase[i].iSelected);
+                size = fcitx_utils_write_int32(
+                    fpDict, tableDict->autoPhrase[i].iSelected);
                 CHECK_WRITE_AUTOPHRASE_ERROR(1);
             }
-autophrase_write_error:
+        autophrase_write_error:
             if (fclose(fpDict) == EOF) {
                 error = true;
             }
@@ -503,7 +567,7 @@ autophrase_write_error:
             fcitx_utils_alloc_cat_str(strPath, tableMetaData->uniqueName,
                                       "_LastAutoPhrase.tmp");
 
-            char* pstr = NULL;
+            char *pstr = NULL;
             FcitxXDGGetFileUserWithPrefix("table", strPath, NULL, &pstr);
             free(strPath);
             if (access(pstr, F_OK))
@@ -518,9 +582,8 @@ autophrase_write_error:
     }
 }
 
-void FreeTableDict(TableMetaData* tableMetaData)
-{
-    TableDict      *tableDict = tableMetaData->tableDict;
+void FreeTableDict(TableMetaData *tableMetaData) {
+    TableDict *tableDict = tableMetaData->tableDict;
 
     if (!tableDict->recordHead)
         return;
@@ -536,11 +599,10 @@ void FreeTableDict(TableMetaData* tableMetaData)
 /*
  *根据字串判断词库中是否有某个字/词，注意该函数会忽略拼音词组
  */
-RECORD         *TableFindPhrase(const TableDict* tableDict, const char *strHZ)
-{
-    RECORD         *recTemp;
-    char            strTemp[UTF8_MAX_LENGTH + 1];
-    int             i;
+RECORD *TableFindPhrase(const TableDict *tableDict, const char *strHZ) {
+    RECORD *recTemp;
+    char strTemp[UTF8_MAX_LENGTH + 1];
+    int i;
 
     //首先，先查找第一个汉字的编码
     strncpy(strTemp, strHZ, fcitx_utf8_char_len(strHZ));
@@ -548,7 +610,7 @@ RECORD         *TableFindPhrase(const TableDict* tableDict, const char *strHZ)
 
     recTemp = tableDict->tableSingleHZ[CalHZIndex(strTemp)];
     if (!recTemp)
-        return (RECORD *) NULL;
+        return (RECORD *)NULL;
 
     //然后根据该编码找到检索的起始点
     i = 0;
@@ -567,23 +629,25 @@ RECORD         *TableFindPhrase(const TableDict* tableDict, const char *strHZ)
         recTemp = recTemp->next;
     }
 
-    return (RECORD *) NULL;
+    return (RECORD *)NULL;
 }
 
-void TableCreateAutoPhrase(TableMetaData* tableMetaData, char iCount)
-{
-    char            *strHZ;
-    short           i, j, k;
-    TableDict      *tableDict = tableMetaData->tableDict;
+void TableCreateAutoPhrase(TableMetaData *tableMetaData, char iCount) {
+    char *strHZ;
+    short i, j, k;
+    TableDict *tableDict = tableMetaData->tableDict;
 
     if (!tableDict->autoPhrase)
         return;
 
-    strHZ = (char*)fcitx_utils_malloc0((tableMetaData->iAutoPhraseLength * UTF8_MAX_LENGTH + 1) * sizeof(char));
+    strHZ = (char *)fcitx_utils_malloc0(
+        (tableMetaData->iAutoPhraseLength * UTF8_MAX_LENGTH + 1) *
+        sizeof(char));
     /*
      * 为了提高效率，此处只重新生成新录入字构成的词组
      */
-    j = tableDict->iHZLastInputCount - tableMetaData->iAutoPhraseLength - iCount;
+    j = tableDict->iHZLastInputCount - tableMetaData->iAutoPhraseLength -
+        iCount;
     if (j < 0)
         j = 0;
 
@@ -607,12 +671,15 @@ void TableCreateAutoPhrase(TableMetaData* tableMetaData, char iCount)
 
             TableCreatePhraseCode(tableDict, strHZ);
             if (tableDict->iAutoPhrase != AUTO_PHRASE_COUNT) {
-                strcpy(tableDict->autoPhrase[tableDict->iAutoPhrase].strCode, tableDict->strNewPhraseCode);
-                strcpy(tableDict->autoPhrase[tableDict->iAutoPhrase].strHZ, strHZ);
+                strcpy(tableDict->autoPhrase[tableDict->iAutoPhrase].strCode,
+                       tableDict->strNewPhraseCode);
+                strcpy(tableDict->autoPhrase[tableDict->iAutoPhrase].strHZ,
+                       strHZ);
                 tableDict->autoPhrase[tableDict->iAutoPhrase].iSelected = 0;
                 tableDict->iAutoPhrase++;
             } else {
-                strcpy(tableDict->insertPoint->strCode, tableDict->strNewPhraseCode);
+                strcpy(tableDict->insertPoint->strCode,
+                       tableDict->strNewPhraseCode);
                 strcpy(tableDict->insertPoint->strHZ, strHZ);
                 tableDict->insertPoint->iSelected = 0;
                 tableDict->insertPoint = tableDict->insertPoint->next;
@@ -622,19 +689,19 @@ void TableCreateAutoPhrase(TableMetaData* tableMetaData, char iCount)
         _next:
             continue;
         }
-
     }
 
     free(strHZ);
 }
 
-boolean TableCreatePhraseCode(TableDict* tableDict, char *strHZ)
-{
-    unsigned char   i;
-    unsigned char   i1, i2;
-    size_t          iLen;
-    char            strTemp[UTF8_MAX_LENGTH + 1] = {'\0', };
-    RECORD         *recTemp;
+boolean TableCreatePhraseCode(TableDict *tableDict, char *strHZ) {
+    unsigned char i;
+    unsigned char i1, i2;
+    size_t iLen;
+    char strTemp[UTF8_MAX_LENGTH + 1] = {
+        '\0',
+    };
+    RECORD *recTemp;
     boolean bCanntFindCode = false;
 
     iLen = fcitx_utf8_strlen(strHZ);
@@ -657,13 +724,15 @@ boolean TableCreatePhraseCode(TableDict* tableDict, char *strHZ)
     int codeIdx = 0;
     for (i1 = 0; i1 < tableDict->iCodeLength; i1++) {
         int clen;
-        char* ps;
+        char *ps;
         if (tableDict->rule[i].rule[i1].iFlag) {
-            ps = fcitx_utf8_get_nth_char(strHZ, tableDict->rule[i].rule[i1].iWhich - 1);
+            ps = fcitx_utf8_get_nth_char(
+                strHZ, tableDict->rule[i].rule[i1].iWhich - 1);
             clen = fcitx_utf8_char_len(ps);
             strncpy(strTemp, ps, clen);
         } else {
-            ps = fcitx_utf8_get_nth_char(strHZ, iLen - tableDict->rule[i].rule[i1].iWhich);
+            ps = fcitx_utf8_get_nth_char(
+                strHZ, iLen - tableDict->rule[i].rule[i1].iWhich);
             clen = fcitx_utf8_char_len(ps);
             strncpy(strTemp, ps, clen);
         }
@@ -675,17 +744,16 @@ boolean TableCreatePhraseCode(TableDict* tableDict, char *strHZ)
                 recTemp = tableDict->tableSingleHZCons[hzIndex];
             else
                 recTemp = tableDict->tableSingleHZ[hzIndex];
-        }
-        else {
+        } else {
             bCanntFindCode = true;
             break;
         }
 
         if (strlen(recTemp->strCode) >= tableDict->rule[i].rule[i1].iIndex) {
-            tableDict->strNewPhraseCode[codeIdx] = recTemp->strCode[tableDict->rule[i].rule[i1].iIndex - 1];
+            tableDict->strNewPhraseCode[codeIdx] =
+                recTemp->strCode[tableDict->rule[i].rule[i1].iIndex - 1];
             codeIdx++;
         }
-
     }
 
     return bCanntFindCode;
@@ -694,10 +762,10 @@ boolean TableCreatePhraseCode(TableDict* tableDict, char *strHZ)
 /*
  *判断某个词组是不是已经在词库中,有返回NULL，无返回插入点
  */
-RECORD         *TableHasPhrase(const TableDict* tableDict, const char *strCode, const char *strHZ)
-{
-    RECORD         *recTemp;
-    int             i;
+RECORD *TableHasPhrase(const TableDict *tableDict, const char *strCode,
+                       const char *strHZ) {
+    RECORD *recTemp;
+    int i;
 
     i = 0;
     while (strCode[0] != tableDict->recordIndex[i].cCode)
@@ -709,7 +777,7 @@ RECORD         *TableHasPhrase(const TableDict* tableDict, const char *strCode, 
             if (strcmp(recTemp->strCode, strCode) > 0)
                 break;
             else if (!strcmp(recTemp->strCode, strCode)) {
-                if (!strcmp(recTemp->strHZ, strHZ))     //该词组已经在词库中
+                if (!strcmp(recTemp->strHZ, strHZ)) //该词组已经在词库中
                     return NULL;
             }
         }
@@ -719,20 +787,23 @@ RECORD         *TableHasPhrase(const TableDict* tableDict, const char *strCode, 
     return recTemp;
 }
 
-void TableInsertPhrase(TableDict* tableDict, const char *strCode, const char *strHZ)
-{
-    RECORD         *insertPoint, *dictNew;
+void TableInsertPhrase(TableDict *tableDict, const char *strCode,
+                       const char *strHZ) {
+    RECORD *insertPoint, *dictNew;
 
     insertPoint = TableHasPhrase(tableDict, strCode, strHZ);
 
     if (!insertPoint)
         return;
 
-    dictNew = (RECORD*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(RECORD));
-    dictNew->strCode = (char*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(char) * (tableDict->iCodeLength + 1));
+    dictNew =
+        (RECORD *)fcitx_memory_pool_alloc(tableDict->pool, sizeof(RECORD));
+    dictNew->strCode = (char *)fcitx_memory_pool_alloc(
+        tableDict->pool, sizeof(char) * (tableDict->iCodeLength + 1));
     dictNew->type = RECORDTYPE_NORMAL;
     strcpy(dictNew->strCode, strCode);
-    dictNew->strHZ = (char*)fcitx_memory_pool_alloc(tableDict->pool, sizeof(char) * (strlen(strHZ) + 1));
+    dictNew->strHZ = (char *)fcitx_memory_pool_alloc(
+        tableDict->pool, sizeof(char) * (strlen(strHZ) + 1));
     strcpy(dictNew->strHZ, strHZ);
     dictNew->iHit = 0;
     dictNew->iIndex = tableDict->iTableIndex;
@@ -749,17 +820,15 @@ void TableInsertPhrase(TableDict* tableDict, const char *strCode, const char *st
 /*
  * 根据字串删除词组
  */
-void TableDelPhraseByHZ(TableDict* tableDict, const char *strHZ)
-{
-    RECORD         *recTemp;
+void TableDelPhraseByHZ(TableDict *tableDict, const char *strHZ) {
+    RECORD *recTemp;
 
     recTemp = TableFindPhrase(tableDict, strHZ);
     if (recTemp)
         TableDelPhrase(tableDict, recTemp);
 }
 
-void TableDelPhrase(TableDict* tableDict, RECORD * record)
-{
+void TableDelPhrase(TableDict *tableDict, RECORD *record) {
     record->prev->next = record->next;
     record->next->prev = record->prev;
 
@@ -773,8 +842,7 @@ void TableDelPhrase(TableDict* tableDict, RECORD * record)
     tableDict->iTableChanged++;
 }
 
-void TableUpdateHitFrequency(TableMetaData* tableMetaData, RECORD * record)
-{
+void TableUpdateHitFrequency(TableMetaData *tableMetaData, RECORD *record) {
     if (tableMetaData->tableOrder != AD_NO) {
         tableMetaData->tableDict->iTableChanged++;
         record->iHit++;
@@ -782,36 +850,39 @@ void TableUpdateHitFrequency(TableMetaData* tableMetaData, RECORD * record)
     }
 }
 
-int TableCompareCode(const TableMetaData* tableMetaData, const char *strUser, const char *strDict, boolean exactMatch)
-{
-    int             i;
+int TableCompareCode(const TableMetaData *tableMetaData, const char *strUser,
+                     const char *strDict, boolean exactMatch) {
+    int i;
 
     size_t tmp_len = strlen(strUser);
     for (i = 0; i < tmp_len; i++) {
         if (!strDict[i])
             return strUser[i];
-        if (strUser[i] != tableMetaData->cMatchingKey || !tableMetaData->bUseMatchingKey) {
+        if (strUser[i] != tableMetaData->cMatchingKey ||
+            !tableMetaData->bUseMatchingKey) {
             if (strUser[i] != strDict[i])
                 return (strUser[i] - strDict[i]);
         }
     }
     if (exactMatch) {
         if (strlen(strUser) != strlen(strDict))
-            return -999;    //随意的一个值
+            return -999; //随意的一个值
     }
 
     return 0;
 }
 
-int TableFindFirstMatchCode(TableMetaData* tableMetaData, const char* strCodeInput, boolean exactMatch, boolean cacheCurrentRecord)
-{
-    int             i = 0;
-    TableDict      *tableDict = tableMetaData->tableDict;
+int TableFindFirstMatchCode(TableMetaData *tableMetaData,
+                            const char *strCodeInput, boolean exactMatch,
+                            boolean cacheCurrentRecord) {
+    int i = 0;
+    TableDict *tableDict = tableMetaData->tableDict;
 
     if (!tableDict->recordHead)
         return -1;
 
-    if (tableMetaData->bUseMatchingKey && (strCodeInput[0] == tableMetaData->cMatchingKey))
+    if (tableMetaData->bUseMatchingKey &&
+        (strCodeInput[0] == tableMetaData->cMatchingKey))
         i = 0;
     else {
         while (strCodeInput[0] != tableDict->recordIndex[i].cCode) {
@@ -820,8 +891,8 @@ int TableFindFirstMatchCode(TableMetaData* tableMetaData, const char* strCodeInp
             i++;
         }
     }
-    RECORD* record = NULL;
-    RECORD** pRecord = &record;
+    RECORD *record = NULL;
+    RECORD **pRecord = &record;
     if (cacheCurrentRecord)
         pRecord = &tableDict->currentRecord;
 
@@ -830,19 +901,19 @@ int TableFindFirstMatchCode(TableMetaData* tableMetaData, const char* strCodeInp
         return -1;
 
     while (*pRecord != tableDict->recordHead) {
-        if (!TableCompareCode(tableMetaData, strCodeInput, (*pRecord)->strCode, exactMatch)) {
+        if (!TableCompareCode(tableMetaData, strCodeInput, (*pRecord)->strCode,
+                              exactMatch)) {
             return i;
         }
         (*pRecord) = (*pRecord)->next;
         i++;
     }
 
-    return -1;          //Not found
+    return -1; // Not found
 }
 
-boolean IsInputKey(const TableDict* tableDict, int iKey)
-{
-    char           *p;
+boolean IsInputKey(const TableDict *tableDict, int iKey) {
+    char *p;
 
     p = tableDict->strInputCode;
     if (!p)
@@ -862,9 +933,8 @@ boolean IsInputKey(const TableDict* tableDict, int iKey)
     return false;
 }
 
-boolean IsEndKey(const TableMetaData* tableMetaData, char cChar)
-{
-    char           *p;
+boolean IsEndKey(const TableMetaData *tableMetaData, char cChar) {
+    char *p;
 
     p = tableMetaData->strEndCode;
     if (!p)
@@ -879,9 +949,8 @@ boolean IsEndKey(const TableMetaData* tableMetaData, char cChar)
     return false;
 }
 
-boolean IsIgnoreChar(const TableDict* tableDict, char cChar)
-{
-    char           *p;
+boolean IsIgnoreChar(const TableDict *tableDict, char cChar) {
+    char *p;
 
     p = tableDict->strIgnoreChars;
     while (*p) {
@@ -895,16 +964,14 @@ boolean IsIgnoreChar(const TableDict* tableDict, char cChar)
 
 #include "utf8_in_gb18030.h"
 
-static int cmpi(const void * a, const void *b)
-{
-    return (*((int*)a)) - (*((int*)b));
+static int cmpi(const void *a, const void *b) {
+    return (*((int *)a)) - (*((int *)b));
 }
 
-unsigned int CalHZIndex(char *strHZ)
-{
+unsigned int CalHZIndex(char *strHZ) {
     unsigned int iutf = 0;
     int l = fcitx_utf8_char_len(strHZ);
-    unsigned char* utf = (unsigned char*) strHZ;
+    unsigned char *utf = (unsigned char *)strHZ;
     unsigned int *res;
     int idx;
 
@@ -931,8 +998,8 @@ unsigned int CalHZIndex(char *strHZ)
     return idx;
 }
 
-boolean HasMatchingKey(const TableMetaData* tableMetaData, const char* strCodeInput)
-{
+boolean HasMatchingKey(const TableMetaData *tableMetaData,
+                       const char *strCodeInput) {
     const char *str;
 
     str = strCodeInput;

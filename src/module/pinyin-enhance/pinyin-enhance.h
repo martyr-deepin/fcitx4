@@ -27,11 +27,10 @@
 extern "C" {
 #endif
 
-    static inline const int8_t*
-    pinyin_enhance_pylist_get(const int8_t *count, int index)
-    {
-        return count + index * 3 + 1;
-    }
+static inline const int8_t *pinyin_enhance_pylist_get(const int8_t *count,
+                                                      int index) {
+    return count + index * 3 + 1;
+}
 
 #ifdef __cplusplus
 }

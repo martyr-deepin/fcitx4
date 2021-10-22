@@ -5,9 +5,8 @@
 
 #include "dbussocket.h"
 
-int main()
-{
-    FcitxDBusWatch* watches = NULL;
+int main() {
+    FcitxDBusWatch *watches = NULL;
     DBusAddWatch((void *)0x1, &watches);
     DBusRemoveWatch((void *)0x1, &watches);
 

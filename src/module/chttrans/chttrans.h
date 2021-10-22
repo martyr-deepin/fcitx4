@@ -21,17 +21,15 @@
 #ifndef _FCITX_MODULE_CHTTRANS_H_
 #define _FCITX_MODULE_CHTTRANS_H_
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #define FCITX_CHTTRANS_NAME "fcitx-chttrans"
 #define FCITX_CHTTRANS_S2T 0
-#define FCITX_CHTTRANS_S2T_RETURNTYPE char*
+#define FCITX_CHTTRANS_S2T_RETURNTYPE char *
 #define FCITX_CHTTRANS_T2S 1
-#define FCITX_CHTTRANS_T2S_RETURNTYPE char*
-
+#define FCITX_CHTTRANS_T2S_RETURNTYPE char *
 
 #ifdef __cplusplus
 }

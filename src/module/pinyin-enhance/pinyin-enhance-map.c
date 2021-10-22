@@ -18,26 +18,24 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
+#include <ctype.h>
 #include <errno.h>
 #include <iconv.h>
 #include <unistd.h>
-#include <ctype.h>
 
 #include <libintl.h>
 
-#include "fcitx-utils/utils.h"
-#include "fcitx-utils/memory.h"
-#include "pinyin-enhance-map.h"
 #include "config.h"
+#include "fcitx-utils/memory.h"
+#include "fcitx-utils/utils.h"
+#include "pinyin-enhance-map.h"
 
 #undef uthash_malloc
 #undef uthash_free
 
-void
-PinyinEnhanceMapAdd(PyEnhanceMap **map, FcitxMemoryPool *pool,
-                    const char *key, unsigned int key_l,
-                    const char *word, unsigned int word_l)
-{
+void PinyinEnhanceMapAdd(PyEnhanceMap **map, FcitxMemoryPool *pool,
+                         const char *key, unsigned int key_l, const char *word,
+                         unsigned int word_l) {
     PyEnhanceMapWord *py_word;
     PyEnhanceMap *py_map;
 #define uthash_malloc(sz) fcitx_memory_pool_alloc_align(pool, sz)
@@ -60,9 +58,8 @@ PinyinEnhanceMapAdd(PyEnhanceMap **map, FcitxMemoryPool *pool,
 #undef uthash_free
 }
 
-PyEnhanceMapWord*
-PinyinEnhanceMapGet(PyEnhanceMap *map, const char *key, unsigned int key_l)
-{
+PyEnhanceMapWord *PinyinEnhanceMapGet(PyEnhanceMap *map, const char *key,
+                                      unsigned int key_l) {
     PyEnhanceMap *py_map;
     HASH_FIND(hh, map, key, key_l, py_map);
     if (py_map) {
@@ -71,9 +68,7 @@ PinyinEnhanceMapGet(PyEnhanceMap *map, const char *key, unsigned int key_l)
     return NULL;
 }
 
-void
-PinyinEnhanceMapLoad(PyEnhanceMap **map, FcitxMemoryPool *pool, FILE *fp)
-{
+void PinyinEnhanceMapLoad(PyEnhanceMap **map, FcitxMemoryPool *pool, FILE *fp) {
     char *buff = NULL;
     char *key;
     char *word;

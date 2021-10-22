@@ -29,13 +29,16 @@ extern "C" {
 
 #define FCITX_DBUS_NAME "fcitx-dbus"
 #define FCITX_DBUS_GETCONNECTION 0
-#define FCITX_DBUS_GETCONNECTION_RETURNTYPE DBusConnection*
+#define FCITX_DBUS_GETCONNECTION_RETURNTYPE DBusConnection *
 #define FCITX_DBUS_GETPRIVCONNECTION 1
-#define FCITX_DBUS_GETPRIVCONNECTION_RETURNTYPE DBusConnection*
+#define FCITX_DBUS_GETPRIVCONNECTION_RETURNTYPE DBusConnection *
 
 #define FCITX_DBUS_SERVICE "org.fcitx.Fcitx"
 
-typedef void (*FcitxDBusWatchNameCallback)(void* owner, void* arg, const char* serviceName, const char* oldName, const char* newName);
+typedef void (*FcitxDBusWatchNameCallback)(void *owner, void *arg,
+                                           const char *serviceName,
+                                           const char *oldName,
+                                           const char *newName);
 
 #ifdef __cplusplus
 }

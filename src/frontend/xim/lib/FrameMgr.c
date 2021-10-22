@@ -26,37 +26,31 @@ SOFTWARE.
 
 ******************************************************************/
 
+#include "FrameMgr.h"
 #include <X11/Xlibint.h>
 #include <stdlib.h>
-#include "FrameMgr.h"
 
 /* Convenient macro */
 
-#define _UNIT(n)   ((int)(n) & 0xFF)
+#define _UNIT(n) ((int)(n)&0xFF)
 #define _NUMBER(n) (((int)(n) >> 8) & 0xFF)
 
 /* For byte swapping */
 
-#define Swap16(p, n) ((p)->byte_swap ?       \
-                      (((n) << 8 & 0xFF00) | \
-                       ((n) >> 8 & 0xFF)     \
-                      ) : n)
-#define Swap32(p, n) ((p)->byte_swap ?            \
-                      (((n) << 24 & 0xFF000000) | \
-                       ((n) <<  8 & 0xFF0000) |   \
-                       ((n) >>  8 & 0xFF00) |     \
-                       ((n) >> 24 & 0xFF)         \
-                      ) : n)
-#define Swap64(p, n) ((p)->byte_swap ?            \
-                      (((n) << 56 & 0xFF00000000000000) | \
-                       ((n) << 40 & 0xFF000000000000) |   \
-                       ((n) << 24 & 0xFF0000000000) |     \
-                       ((n) <<  8 & 0xFF00000000) |       \
-                       ((n) >>  8 & 0xFF000000) |         \
-                       ((n) >> 24 & 0xFF0000) |           \
-                       ((n) >> 40 & 0xFF00) |             \
-                       ((n) >> 56 & 0xFF)                 \
-                      ) : n)
+#define Swap16(p, n)                                                           \
+    ((p)->byte_swap ? (((n) << 8 & 0xFF00) | ((n) >> 8 & 0xFF)) : n)
+#define Swap32(p, n)                                                           \
+    ((p)->byte_swap ? (((n) << 24 & 0xFF000000) | ((n) << 8 & 0xFF0000) |      \
+                       ((n) >> 8 & 0xFF00) | ((n) >> 24 & 0xFF))               \
+                    : n)
+#define Swap64(p, n)                                                           \
+    ((p)->byte_swap                                                            \
+         ? (((n) << 56 & 0xFF00000000000000) |                                 \
+            ((n) << 40 & 0xFF000000000000) | ((n) << 24 & 0xFF0000000000) |    \
+            ((n) << 8 & 0xFF00000000) | ((n) >> 8 & 0xFF000000) |              \
+            ((n) >> 24 & 0xFF0000) | ((n) >> 40 & 0xFF00) |                    \
+            ((n) >> 56 & 0xFF))                                                \
+         : n)
 
 /* Type definition */
 
@@ -65,9 +59,9 @@ typedef struct _Iter *Iter;
 typedef struct _FrameInst *FrameInst;
 
 typedef union {
-    int num;        /* For BARRAY */
-    FrameInst fi;   /* For POINTER */
-    Iter iter;      /* For ITER */
+    int num;      /* For BARRAY */
+    FrameInst fi; /* For POINTER */
+    Iter iter;    /* For ITER */
 } ExtraDataRec, *ExtraData;
 
 typedef struct _Chain {
@@ -90,7 +84,7 @@ typedef struct _FrameIter {
     Bool counting;
     unsigned int counter;
     int end;
-    struct _FrameIter* next;
+    struct _FrameIter *next;
 } FrameIterRec, *FrameIter;
 
 typedef struct _FrameInst {
@@ -123,7 +117,7 @@ typedef struct _FrameMgr {
 } FrameMgrRec;
 
 typedef union {
-    int num;           /* For BARRAY and PAD */
+    int num; /* For BARRAY and PAD */
     struct {
         /* For COUNTER_* */
         Iter iter;
@@ -154,14 +148,14 @@ static FmStatus IterSetSize(Iter it, int num);
 static FmStatus IterSetIterCount(Iter it, int num);
 static int IterGetTotalSize(Iter it);
 static void IterReset(Iter it);
-static Bool IterIsLoopEnd(Iter it, Bool* myself);
-static void IterSetStartWatch(Iter it, IterStartWatchProc proc, void* client_data);
-static void _IterStartWatch(Iter it, void* client_data);
+static Bool IterIsLoopEnd(Iter it, Bool *myself);
+static void IterSetStartWatch(Iter it, IterStartWatchProc proc,
+                              void *client_data);
+static void _IterStartWatch(Iter it, void *client_data);
 
 static ExtraData ChainMgrGetExtraData(ChainMgr cm, int frame_no);
-static ExtraData ChainMgrSetData(ChainMgr cm, int frame_no,
-                                 ExtraDataRec data);
-static Bool ChainIterGetNext(ChainIter ci, int* frame_no, ExtraData d);
+static ExtraData ChainMgrSetData(ChainMgr cm, int frame_no, ExtraDataRec data);
+static Bool ChainIterGetNext(ChainIter ci, int *frame_no, ExtraData d);
 static int _FrameInstIncrement(XimFrame frame, int count);
 static int _FrameInstDecrement(XimFrame frame, int count);
 static int _FrameInstGetItemSize(FrameInst fi, int cur_no);
@@ -171,48 +165,44 @@ static FrameIter _FrameMgrAppendIter(FrameMgr fm, Iter it, int end);
 static FrameIter _FrameIterCounterIncr(FrameIter fitr, int i);
 static void _FrameMgrRemoveIter(FrameMgr fm, FrameIter it);
 static Bool _FrameMgrIsIterLoopEnd(FrameMgr fm);
-static Bool _FrameMgrProcessPadding(FrameMgr fm, FmStatus* status);
+static Bool _FrameMgrProcessPadding(FrameMgr fm, FmStatus *status);
 
-#define IterGetIterCount(it) ((it)->allow_expansion ? \
-                              NO_VALUE : (it)->max_count)
+#define IterGetIterCount(it)                                                   \
+    ((it)->allow_expansion ? NO_VALUE : (it)->max_count)
 
 #define IterFixIteration(it) ((it)->allow_expansion = False)
 
 #define IterSetStarter(it) ((it)->start_counter = True)
 
 #define ChainMgrInit(cm) (cm)->top = (cm)->tail = NULL
-#define ChainMgrFree(cm)                \
-    {                                       \
-        Chain tmp;                          \
-        Chain cur = (cm)->top;              \
-        \
-        while (cur)                         \
-        {                                   \
-            tmp = cur->next;                \
-            Xfree (cur);                    \
-            cur = tmp;                      \
-        }                                   \
+#define ChainMgrFree(cm)                                                       \
+    {                                                                          \
+        Chain tmp;                                                             \
+        Chain cur = (cm)->top;                                                 \
+                                                                               \
+        while (cur) {                                                          \
+            tmp = cur->next;                                                   \
+            Xfree(cur);                                                        \
+            cur = tmp;                                                         \
+        }                                                                      \
     }
 
-#define ChainIterInit(ci, cm)           \
-    {                                       \
-        (ci)->cur = (cm)->top;              \
-    }
+#define ChainIterInit(ci, cm)                                                  \
+    { (ci)->cur = (cm)->top; }
 
 /* ChainIterFree has nothing to do. */
 #define ChainIterFree(ci)
 
 #define FrameInstIsEnd(fi) ((fi)->_template[(fi)->cur_no].type == EOL)
 
-FrameMgr FrameMgrInit(XimFrame frame, char* area, Bool byte_swap)
-{
+FrameMgr FrameMgrInit(XimFrame frame, char *area, Bool byte_swap) {
     FrameMgr fm;
 
-    fm = (FrameMgr) Xmalloc(sizeof(FrameMgrRec));
+    fm = (FrameMgr)Xmalloc(sizeof(FrameMgrRec));
 
     fm->frame = frame;
     fm->fi = FrameInstInit(frame);
-    fm->area = (char *) area;
+    fm->area = (char *)area;
     fm->idx = 0;
     fm->byte_swap = byte_swap;
     fm->total_size = NO_VALUE;
@@ -221,39 +211,33 @@ FrameMgr FrameMgrInit(XimFrame frame, char* area, Bool byte_swap)
     return fm;
 }
 
-void FrameMgrInitWithData(FrameMgr fm,
-                          XimFrame frame,
-                          void * area,
-                          Bool byte_swap)
-{
+void FrameMgrInitWithData(FrameMgr fm, XimFrame frame, void *area,
+                          Bool byte_swap) {
     fm->frame = frame;
     fm->fi = FrameInstInit(frame);
-    fm->area = (char *) area;
+    fm->area = (char *)area;
     fm->idx = 0;
     fm->byte_swap = byte_swap;
     fm->total_size = NO_VALUE;
 }
 
-void FrameMgrFree(FrameMgr fm)
-{
+void FrameMgrFree(FrameMgr fm) {
     FrameInstFree(fm->fi);
     Xfree(fm);
 }
 
-FmStatus FrameMgrSetBuffer(FrameMgr fm, void* area)
-{
+FmStatus FrameMgrSetBuffer(FrameMgr fm, void *area) {
     if (fm->area)
         return FmBufExist;
-    fm->area = (char *) area;
+    fm->area = (char *)area;
     return FmSuccess;
 }
 
-FmStatus _FrameMgrPutToken(FrameMgr fm, void *data, int data_size)
-{
+FmStatus _FrameMgrPutToken(FrameMgr fm, void *data, int data_size) {
     XimFrameType type;
     XimFrameTypeInfoRec info;
 
-    if (fm->total_size != NO_VALUE  &&  fm->idx >= fm->total_size)
+    if (fm->total_size != NO_VALUE && fm->idx >= fm->total_size)
         return FmNoMoreData;
     /*endif*/
 
@@ -263,14 +247,14 @@ FmStatus _FrameMgrPutToken(FrameMgr fm, void *data, int data_size)
         unsigned long input_length;
 
         if (info.counter.is_byte_len) {
-            if ((input_length = IterGetTotalSize(info.counter.iter))
-                    == NO_VALUE) {
+            if ((input_length = IterGetTotalSize(info.counter.iter)) ==
+                NO_VALUE) {
                 return FmCannotCalc;
             }
             /*endif*/
         } else {
-            if ((input_length = IterGetIterCount(info.counter.iter))
-                    == NO_VALUE) {
+            if ((input_length = IterGetIterCount(info.counter.iter)) ==
+                NO_VALUE) {
                 return FmCannotCalc;
             }
             /*endif*/
@@ -310,16 +294,16 @@ FmStatus _FrameMgrPutToken(FrameMgr fm, void *data, int data_size)
     switch (type) {
     case BIT8:
         if (data_size == sizeof(unsigned char)) {
-            unsigned long num = *(unsigned char *) data;
+            unsigned long num = *(unsigned char *)data;
             *(CARD8 *)(fm->area + fm->idx) = num;
         } else if (data_size == sizeof(unsigned short)) {
-            unsigned long num = *(unsigned short *) data;
+            unsigned long num = *(unsigned short *)data;
             *(CARD8 *)(fm->area + fm->idx) = num;
         } else if (data_size == sizeof(unsigned int)) {
-            unsigned long num = *(unsigned int *) data;
+            unsigned long num = *(unsigned int *)data;
             *(CARD8 *)(fm->area + fm->idx) = num;
         } else if (data_size == sizeof(unsigned long)) {
-            unsigned long num = *(unsigned long *) data;
+            unsigned long num = *(unsigned long *)data;
             *(CARD8 *)(fm->area + fm->idx) = num;
         } else {
             ; /* Should never be reached */
@@ -330,16 +314,16 @@ FmStatus _FrameMgrPutToken(FrameMgr fm, void *data, int data_size)
 
     case BIT16:
         if (data_size == sizeof(unsigned char)) {
-            unsigned long num = *(unsigned char *) data;
-            *(CARD16*)(fm->area + fm->idx) = Swap16(fm, num);
+            unsigned long num = *(unsigned char *)data;
+            *(CARD16 *)(fm->area + fm->idx) = Swap16(fm, num);
         } else if (data_size == sizeof(unsigned short)) {
-            unsigned long num = *(unsigned short *) data;
+            unsigned long num = *(unsigned short *)data;
             *(CARD16 *)(fm->area + fm->idx) = Swap16(fm, num);
         } else if (data_size == sizeof(unsigned int)) {
-            unsigned long num = *(unsigned int *) data;
+            unsigned long num = *(unsigned int *)data;
             *(CARD16 *)(fm->area + fm->idx) = Swap16(fm, num);
         } else if (data_size == sizeof(unsigned long)) {
-            unsigned long num = *(unsigned long *) data;
+            unsigned long num = *(unsigned long *)data;
             *(CARD16 *)(fm->area + fm->idx) = Swap16(fm, num);
         } else {
             ; /* Should never reached */
@@ -350,16 +334,16 @@ FmStatus _FrameMgrPutToken(FrameMgr fm, void *data, int data_size)
 
     case BIT32:
         if (data_size == sizeof(unsigned char)) {
-            unsigned long num = *(unsigned char *) data;
+            unsigned long num = *(unsigned char *)data;
             *(CARD32 *)(fm->area + fm->idx) = Swap32(fm, num);
         } else if (data_size == sizeof(unsigned short)) {
-            unsigned long num = *(unsigned short *) data;
+            unsigned long num = *(unsigned short *)data;
             *(CARD32 *)(fm->area + fm->idx) = Swap32(fm, num);
         } else if (data_size == sizeof(unsigned int)) {
-            unsigned long num = *(unsigned int *) data;
+            unsigned long num = *(unsigned int *)data;
             *(CARD32 *)(fm->area + fm->idx) = Swap32(fm, num);
         } else if (data_size == sizeof(unsigned long)) {
-            unsigned long num = *(unsigned long *) data;
+            unsigned long num = *(unsigned long *)data;
             *(CARD32 *)(fm->area + fm->idx) = Swap32(fm, num);
         } else {
             ; /* Should never reached */
@@ -371,16 +355,16 @@ FmStatus _FrameMgrPutToken(FrameMgr fm, void *data, int data_size)
 #if defined(_NEED64BIT)
     case BIT64:
         if (data_size == sizeof(unsigned char)) {
-            unsigned long num = *(unsigned char *) data;
+            unsigned long num = *(unsigned char *)data;
             *(CARD64 *)(fm->area + fm->idx) = Swap64(fm, num);
         } else if (data_size == sizeof(unsigned short)) {
-            unsigned long num = *(unsigned short *) data;
+            unsigned long num = *(unsigned short *)data;
             *(CARD64 *)(fm->area + fm->idx) = Swap64(fm, num);
         } else if (data_size == sizeof(unsigned int)) {
-            unsigned long num = *(unsigned int *) data;
+            unsigned long num = *(unsigned int *)data;
             *(CARD64 *)(fm->area + fm->idx) = Swap64(fm, num);
         } else if (data_size == sizeof(unsigned long)) {
-            unsigned long num = *(unsigned long *) data;
+            unsigned long num = *(unsigned long *)data;
             *(CARD64 *)(fm->area + fm->idx) = Swap64(fm, num);
         } else {
             ; /* Should never reached */
@@ -395,7 +379,7 @@ FmStatus _FrameMgrPutToken(FrameMgr fm, void *data, int data_size)
             return FmInvalidCall;
         /*endif*/
         if (info.num > 0) {
-            memcpy(fm->area + fm->idx, *(char **) data, info.num);
+            memcpy(fm->area + fm->idx, *(char **)data, info.num);
             fm->idx += info.num;
         }
         /*endif*/
@@ -417,16 +401,15 @@ FmStatus _FrameMgrPutToken(FrameMgr fm, void *data, int data_size)
         break;
     }
     /*endswitch*/
-    return (FmStatus) NULL;  /* Should never be reached */
+    return (FmStatus)NULL; /* Should never be reached */
 }
 
-FmStatus _FrameMgrGetToken(FrameMgr fm , void* data, int data_size)
-{
+FmStatus _FrameMgrGetToken(FrameMgr fm, void *data, int data_size) {
     XimFrameType type;
-    static XimFrameTypeInfoRec info;  /* memory */
+    static XimFrameTypeInfoRec info; /* memory */
     FrameIter fitr;
 
-    if (fm->total_size != NO_VALUE  &&  fm->idx >= fm->total_size)
+    if (fm->total_size != NO_VALUE && fm->idx >= fm->total_size)
         return FmNoMoreData;
     /*endif*/
 
@@ -462,9 +445,8 @@ FmStatus _FrameMgrGetToken(FrameMgr fm , void* data, int data_size)
 
         if ((client_data = _FrameMgrAppendIter(fm, info.counter.iter, end))) {
             IterSetStarter(info.counter.iter);
-            IterSetStartWatch(info.counter.iter,
-                              _IterStartWatch,
-                              (void *) client_data);
+            IterSetStartWatch(info.counter.iter, _IterStartWatch,
+                              (void *)client_data);
         }
         /*endif*/
     }
@@ -474,65 +456,63 @@ FmStatus _FrameMgrGetToken(FrameMgr fm , void* data, int data_size)
     switch (type) {
     case BIT8:
         if (data_size == sizeof(unsigned char)) {
-            *(unsigned char*) data = *(CARD8 *)(fm->area + fm->idx);
+            *(unsigned char *)data = *(CARD8 *)(fm->area + fm->idx);
         } else if (data_size == sizeof(unsigned short)) {
-            *(unsigned short *) data = *(CARD8 *)(fm->area + fm->idx);
+            *(unsigned short *)data = *(CARD8 *)(fm->area + fm->idx);
         } else if (data_size == sizeof(unsigned int)) {
-            *(unsigned int *) data = *(CARD8 *)(fm->area + fm->idx);
+            *(unsigned int *)data = *(CARD8 *)(fm->area + fm->idx);
         } else if (data_size == sizeof(unsigned long)) {
-            *(unsigned long *) data = *(CARD8 *)(fm->area + fm->idx);
+            *(unsigned long *)data = *(CARD8 *)(fm->area + fm->idx);
         } else {
             ; /* Should never reached */
         }
         /*endif*/
         fm->idx++;
-        if ((fitr = _FrameIterCounterIncr(fm->iters, 1/*BIT8*/)))
+        if ((fitr = _FrameIterCounterIncr(fm->iters, 1 /*BIT8*/)))
             _FrameMgrRemoveIter(fm, fitr);
         /*endif*/
         return FmSuccess;
 
     case BIT16:
         if (data_size == sizeof(unsigned char)) {
-            *(unsigned char *) data =
+            *(unsigned char *)data =
                 Swap16(fm, *(CARD16 *)(fm->area + fm->idx));
         } else if (data_size == sizeof(unsigned short)) {
-            *(unsigned short *) data =
+            *(unsigned short *)data =
                 Swap16(fm, *(CARD16 *)(fm->area + fm->idx));
         } else if (data_size == sizeof(unsigned int)) {
-            *(unsigned int *) data =
-                Swap16(fm, *(CARD16 *)(fm->area + fm->idx));
+            *(unsigned int *)data = Swap16(fm, *(CARD16 *)(fm->area + fm->idx));
         } else if (data_size == sizeof(unsigned long)) {
-            *(unsigned long *) data =
+            *(unsigned long *)data =
                 Swap16(fm, *(CARD16 *)(fm->area + fm->idx));
         } else {
             ; /* Should never reached */
         }
         /*endif*/
         fm->idx += 2;
-        if ((fitr = _FrameIterCounterIncr(fm->iters, 2/*BIT16*/)))
+        if ((fitr = _FrameIterCounterIncr(fm->iters, 2 /*BIT16*/)))
             _FrameMgrRemoveIter(fm, fitr);
         /*endif*/
         return FmSuccess;
 
     case BIT32:
         if (data_size == sizeof(unsigned char)) {
-            *(unsigned char *) data =
+            *(unsigned char *)data =
                 Swap32(fm, *(CARD32 *)(fm->area + fm->idx));
         } else if (data_size == sizeof(unsigned short)) {
-            *(unsigned short *) data =
+            *(unsigned short *)data =
                 Swap32(fm, *(CARD32 *)(fm->area + fm->idx));
         } else if (data_size == sizeof(unsigned int)) {
-            *(unsigned int *) data =
-                Swap32(fm, *(CARD32 *)(fm->area + fm->idx));
+            *(unsigned int *)data = Swap32(fm, *(CARD32 *)(fm->area + fm->idx));
         } else if (data_size == sizeof(unsigned long)) {
-            *(unsigned long *) data =
+            *(unsigned long *)data =
                 Swap32(fm, *(CARD32 *)(fm->area + fm->idx));
         } else {
             ; /* Should never reached */
         }
         /*endif*/
         fm->idx += 4;
-        if ((fitr = _FrameIterCounterIncr(fm->iters, 4/*BIT32*/)))
+        if ((fitr = _FrameIterCounterIncr(fm->iters, 4 /*BIT32*/)))
             _FrameMgrRemoveIter(fm, fitr);
         /*endif*/
         return FmSuccess;
@@ -540,23 +520,22 @@ FmStatus _FrameMgrGetToken(FrameMgr fm , void* data, int data_size)
 #if defined(_NEED64BIT)
     case BIT64:
         if (data_size == sizeof(unsigned char)) {
-            *(unsigned char *) data =
+            *(unsigned char *)data =
                 Swap64(fm, *(CARD64 *)(fm->area + fm->idx));
         } else if (data_size == sizeof(unsigned short)) {
-            *(unsigned short *) data =
+            *(unsigned short *)data =
                 Swap64(fm, *(CARD64 *)(fm->area + fm->idx));
         } else if (data_size == sizeof(unsigned int)) {
-            *(unsigned int *) data =
-                Swap64(fm, *(CARD64 *)(fm->area + fm->idx));
+            *(unsigned int *)data = Swap64(fm, *(CARD64 *)(fm->area + fm->idx));
         } else if (data_size == sizeof(unsigned long)) {
-            *(unsigned long *) data =
+            *(unsigned long *)data =
                 Swap64(fm, *(CARD64 *)(fm->area + fm->idx));
         } else {
             ; /* Should never reached */
         }
         /*endif*/
         fm->idx += 8;
-        if ((fitr = _FrameIterCounterIncr(fm->iters, 8/*BIT64*/)))
+        if ((fitr = _FrameIterCounterIncr(fm->iters, 8 /*BIT64*/)))
             _FrameMgrRemoveIter(fm, fitr);
         /*endif*/
         return FmSuccess;
@@ -567,14 +546,14 @@ FmStatus _FrameMgrGetToken(FrameMgr fm , void* data, int data_size)
             return FmInvalidCall;
         /*endif*/
         if (info.num > 0) {
-            *(char **) data = fm->area + fm->idx;
+            *(char **)data = fm->area + fm->idx;
 
             fm->idx += info.num;
             if ((fitr = _FrameIterCounterIncr(fm->iters, info.num)))
                 _FrameMgrRemoveIter(fm, fitr);
             /*endif*/
         } else {
-            *(char **) data = NULL;
+            *(char **)data = NULL;
         }
         /*endif*/
         return FmSuccess;
@@ -590,7 +569,7 @@ FmStatus _FrameMgrGetToken(FrameMgr fm , void* data, int data_size)
         return _FrameMgrGetToken(fm, data, data_size);
 
     case ITER:
-        return FmInvalidCall;   /* if comes here, it's a bug! */
+        return FmInvalidCall; /* if comes here, it's a bug! */
 
     case EOL:
         return FmEOD;
@@ -598,38 +577,31 @@ FmStatus _FrameMgrGetToken(FrameMgr fm , void* data, int data_size)
         break;
     }
     /*endswitch*/
-    return (FmStatus) NULL;  /* Should never be reached */
+    return (FmStatus)NULL; /* Should never be reached */
 }
 
-FmStatus FrameMgrSetSize(FrameMgr fm, int barray_size)
-{
+FmStatus FrameMgrSetSize(FrameMgr fm, int barray_size) {
     if (FrameInstSetSize(fm->fi, barray_size) == FmSuccess)
         return FmSuccess;
     /*endif*/
     return FmNoMoreData;
 }
 
-FmStatus FrameMgrSetIterCount(FrameMgr fm, int count)
-{
+FmStatus FrameMgrSetIterCount(FrameMgr fm, int count) {
     if (FrameInstSetIterCount(fm->fi, count) == FmSuccess)
         return FmSuccess;
     /*endif*/
     return FmNoMoreData;
 }
 
-FmStatus FrameMgrSetTotalSize(FrameMgr fm, int total_size)
-{
+FmStatus FrameMgrSetTotalSize(FrameMgr fm, int total_size) {
     fm->total_size = total_size;
     return FmSuccess;
 }
 
-int FrameMgrGetTotalSize(FrameMgr fm)
-{
-    return FrameInstGetTotalSize(fm->fi);
-}
+int FrameMgrGetTotalSize(FrameMgr fm) { return FrameInstGetTotalSize(fm->fi); }
 
-int FrameMgrGetSize(FrameMgr fm)
-{
+int FrameMgrGetSize(FrameMgr fm) {
     register int ret_size;
 
     ret_size = FrameInstGetSize(fm->fi);
@@ -639,16 +611,15 @@ int FrameMgrGetSize(FrameMgr fm)
     return ret_size;
 }
 
-FmStatus FrameMgrSkipToken(FrameMgr fm, int skip_count)
-{
+FmStatus FrameMgrSkipToken(FrameMgr fm, int skip_count) {
     XimFrameType type;
     XimFrameTypeInfoRec info;
     register int i;
 
-    if (fm->total_size != NO_VALUE  &&  fm->idx >= fm->total_size)
+    if (fm->total_size != NO_VALUE && fm->idx >= fm->total_size)
         return FmNoMoreData;
     /*endif*/
-    for (i = 0;  i < skip_count;  i++) {
+    for (i = 0; i < skip_count; i++) {
         type = FrameInstGetNextType(fm->fi, &info);
         type &= ~COUNTER_MASK;
 
@@ -697,33 +668,28 @@ FmStatus FrameMgrSkipToken(FrameMgr fm, int skip_count)
     return FmSuccess;
 }
 
-void FrameMgrReset(FrameMgr fm)
-{
+void FrameMgrReset(FrameMgr fm) {
     fm->idx = 0;
     FrameInstReset(fm->fi);
 }
 
-Bool FrameMgrIsIterLoopEnd(FrameMgr fm, FmStatus* status)
-{
+Bool FrameMgrIsIterLoopEnd(FrameMgr fm, FmStatus *status) {
     do {
         if (_FrameMgrIsIterLoopEnd(fm))
-            return  True;
+            return True;
         /*endif*/
     } while (_FrameMgrProcessPadding(fm, status));
 
     return False;
 }
 
-
 /* Internal routines */
 
-static Bool _FrameMgrIsIterLoopEnd(FrameMgr fm)
-{
+static Bool _FrameMgrIsIterLoopEnd(FrameMgr fm) {
     return FrameInstIsIterLoopEnd(fm->fi);
 }
 
-static Bool _FrameMgrProcessPadding(FrameMgr fm, FmStatus* status)
-{
+static Bool _FrameMgrProcessPadding(FrameMgr fm, FmStatus *status) {
     XimFrameTypeInfoRec info;
     XimFrameType next_type = FrameInstPeekNextType(fm->fi, &info);
     FrameIter fitr;
@@ -747,11 +713,10 @@ static Bool _FrameMgrProcessPadding(FrameMgr fm, FmStatus* status)
     return False;
 }
 
-static FrameInst FrameInstInit(XimFrame frame)
-{
+static FrameInst FrameInstInit(XimFrame frame) {
     FrameInst fi;
 
-    fi = (FrameInst) Xmalloc(sizeof(FrameInstRec));
+    fi = (FrameInst)Xmalloc(sizeof(FrameInstRec));
 
     fi->_template = frame;
     fi->cur_no = 0;
@@ -759,8 +724,7 @@ static FrameInst FrameInstInit(XimFrame frame)
     return fi;
 }
 
-static void FrameInstFree(FrameInst fi)
-{
+static void FrameInstFree(FrameInst fi) {
     ChainIterRec ci;
     int frame_no;
     ExtraDataRec d;
@@ -787,8 +751,7 @@ static void FrameInstFree(FrameInst fi)
     Xfree(fi);
 }
 
-static XimFrameType FrameInstGetNextType(FrameInst fi, XimFrameTypeInfo info)
-{
+static XimFrameType FrameInstGetNextType(FrameInst fi, XimFrameTypeInfo info) {
     XimFrameType ret_type;
 
     ret_type = fi->_template[fi->cur_no].type;
@@ -810,8 +773,9 @@ static XimFrameType FrameInstGetNextType(FrameInst fi, XimFrameTypeInfo info)
             register int offset, iter_idx;
 
             info->counter.is_byte_len =
-                (((long) fi->_template[fi->cur_no].data & 0xFF)) == FmCounterByte;
-            offset = ((long) fi->_template[fi->cur_no].data) >> 8;
+                (((long)fi->_template[fi->cur_no].data & 0xFF)) ==
+                FmCounterByte;
+            offset = ((long)fi->_template[fi->cur_no].data) >> 8;
             iter_idx = fi->cur_no + offset;
             if (fi->_template[iter_idx].type == ITER) {
                 ExtraData d;
@@ -853,8 +817,8 @@ static XimFrameType FrameInstGetNextType(FrameInst fi, XimFrameTypeInfo info)
             register int size;
             register int i;
 
-            unit = _UNIT((long) fi->_template[fi->cur_no].data);
-            number = _NUMBER((long) fi->_template[fi->cur_no].data);
+            unit = _UNIT((long)fi->_template[fi->cur_no].data);
+            number = _NUMBER((long)fi->_template[fi->cur_no].data);
 
             i = fi->cur_no;
             size = 0;
@@ -875,7 +839,6 @@ static XimFrameType FrameInstGetNextType(FrameInst fi, XimFrameTypeInfo info)
         ExtraDataRec dr;
         XimFrameType sub_type;
 
-
         if ((d = ChainMgrGetExtraData(&fi->cm, fi->cur_no)) == NULL) {
             dr.iter = IterInit(&fi->_template[fi->cur_no + 1], NO_VALUE);
             d = ChainMgrSetData(&fi->cm, fi->cur_no, dr);
@@ -889,8 +852,7 @@ static XimFrameType FrameInstGetNextType(FrameInst fi, XimFrameTypeInfo info)
             ret_type = sub_type;
         }
         /*endif*/
-    }
-    break;
+    } break;
 
     case POINTER: {
         ExtraData d;
@@ -910,8 +872,7 @@ static XimFrameType FrameInstGetNextType(FrameInst fi, XimFrameTypeInfo info)
             ret_type = sub_type;
         }
         /*endif*/
-    }
-    break;
+    } break;
     default:
         break;
     }
@@ -919,8 +880,7 @@ static XimFrameType FrameInstGetNextType(FrameInst fi, XimFrameTypeInfo info)
     return ret_type;
 }
 
-static XimFrameType FrameInstPeekNextType(FrameInst fi, XimFrameTypeInfo info)
-{
+static XimFrameType FrameInstPeekNextType(FrameInst fi, XimFrameTypeInfo info) {
     XimFrameType ret_type;
 
     ret_type = fi->_template[fi->cur_no].type;
@@ -942,7 +902,8 @@ static XimFrameType FrameInstPeekNextType(FrameInst fi, XimFrameTypeInfo info)
             register int iter_idx;
 
             info->counter.is_byte_len =
-                (((long) fi->_template[fi->cur_no].data) & 0xFF) == FmCounterByte;
+                (((long)fi->_template[fi->cur_no].data) & 0xFF) ==
+                FmCounterByte;
             offset = ((long)fi->_template[fi->cur_no].data) >> 8;
             iter_idx = fi->cur_no + offset;
             if (fi->_template[iter_idx].type == ITER) {
@@ -983,8 +944,8 @@ static XimFrameType FrameInstPeekNextType(FrameInst fi, XimFrameTypeInfo info)
             register int size;
             register int i;
 
-            unit = _UNIT((long) fi->_template[fi->cur_no].data);
-            number = _NUMBER((long) fi->_template[fi->cur_no].data);
+            unit = _UNIT((long)fi->_template[fi->cur_no].data);
+            number = _NUMBER((long)fi->_template[fi->cur_no].data);
 
             i = fi->cur_no;
             size = 0;
@@ -1015,8 +976,7 @@ static XimFrameType FrameInstPeekNextType(FrameInst fi, XimFrameTypeInfo info)
         else
             ret_type = sub_type;
         /*endif*/
-    }
-    break;
+    } break;
 
     case POINTER: {
         ExtraData d;
@@ -1033,18 +993,16 @@ static XimFrameType FrameInstPeekNextType(FrameInst fi, XimFrameTypeInfo info)
             ret_type = FrameInstPeekNextType(fi, info);
         else
             ret_type = sub_type;
-        /*endif*/
-        default:
-            break;
-        }
+    /*endif*/
+    default:
         break;
+    } break;
     }
     /*endswitch*/
     return ret_type;
 }
 
-static Bool FrameInstIsIterLoopEnd(FrameInst fi)
-{
+static Bool FrameInstIsIterLoopEnd(FrameInst fi) {
     Bool ret = False;
 
     if (fi->_template[fi->cur_no].type == ITER) {
@@ -1053,7 +1011,7 @@ static Bool FrameInstIsIterLoopEnd(FrameInst fi)
 
         if (d) {
             ret = IterIsLoopEnd(d->iter, &yourself);
-            if (ret  &&  yourself)
+            if (ret && yourself)
                 fi->cur_no = _FrameInstIncrement(fi->_template, fi->cur_no);
             /*endif*/
         }
@@ -1063,19 +1021,17 @@ static Bool FrameInstIsIterLoopEnd(FrameInst fi)
     return (ret);
 }
 
-static FrameIter _FrameMgrAppendIter(FrameMgr fm, Iter it, int end)
-{
+static FrameIter _FrameMgrAppendIter(FrameMgr fm, Iter it, int end) {
     FrameIter p = fm->iters;
 
-    while (p  &&  p->next)
+    while (p && p->next)
         p = p->next;
     /*endwhile*/
 
     if (!p) {
-        fm->iters =
-            p = (FrameIter) Xmalloc(sizeof(FrameIterRec));
+        fm->iters = p = (FrameIter)Xmalloc(sizeof(FrameIterRec));
     } else {
-        p->next = (FrameIter) Xmalloc(sizeof(FrameIterRec));
+        p->next = (FrameIter)Xmalloc(sizeof(FrameIterRec));
         p = p->next;
     }
     /*endif*/
@@ -1090,8 +1046,7 @@ static FrameIter _FrameMgrAppendIter(FrameMgr fm, Iter it, int end)
     return (p);
 }
 
-static void _FrameMgrRemoveIter(FrameMgr fm, FrameIter it)
-{
+static void _FrameMgrRemoveIter(FrameMgr fm, FrameIter it) {
     FrameIter prev;
     FrameIter p;
 
@@ -1114,8 +1069,7 @@ static void _FrameMgrRemoveIter(FrameMgr fm, FrameIter it)
     /*endwhile*/
 }
 
-static FrameIter _FrameIterCounterIncr(FrameIter fitr, int i)
-{
+static FrameIter _FrameIterCounterIncr(FrameIter fitr, int i) {
     FrameIter p = fitr;
 
     while (p) {
@@ -1134,14 +1088,12 @@ static FrameIter _FrameIterCounterIncr(FrameIter fitr, int i)
     return (NULL);
 }
 
-static void _IterStartWatch(Iter it, void *client_data)
-{
-    FrameIter p = (FrameIter) client_data;
+static void _IterStartWatch(Iter it, void *client_data) {
+    FrameIter p = (FrameIter)client_data;
     p->counting = True;
 }
 
-static FmStatus FrameInstSetSize(FrameInst fi, int num)
-{
+static FmStatus FrameInstSetSize(FrameInst fi, int num) {
     ExtraData d;
     ExtraDataRec dr;
     XimFrameType type;
@@ -1193,8 +1145,7 @@ static FmStatus FrameInstSetSize(FrameInst fi, int num)
     return FmNoMoreData;
 }
 
-static int FrameInstGetSize(FrameInst fi)
-{
+static int FrameInstGetSize(FrameInst fi) {
     XimFrameType type;
     register int i;
     ExtraData d;
@@ -1243,8 +1194,7 @@ static int FrameInstGetSize(FrameInst fi)
     return NO_VALID_FIELD;
 }
 
-static FmStatus FrameInstSetIterCount(FrameInst fi, int num)
-{
+static FmStatus FrameInstSetIterCount(FrameInst fi, int num) {
     ExtraData d;
     ExtraDataRec dr;
     register int i;
@@ -1286,8 +1236,7 @@ static FmStatus FrameInstSetIterCount(FrameInst fi, int num)
     return FmNoMoreData;
 }
 
-static int FrameInstGetTotalSize(FrameInst fi)
-{
+static int FrameInstGetTotalSize(FrameInst fi) {
     register int size;
     register int i;
 
@@ -1302,8 +1251,7 @@ static int FrameInstGetTotalSize(FrameInst fi)
     return size;
 }
 
-static void FrameInstReset(FrameInst fi)
-{
+static void FrameInstReset(FrameInst fi) {
     ChainIterRec ci;
     int frame_no;
     ExtraDataRec d;
@@ -1330,14 +1278,13 @@ static void FrameInstReset(FrameInst fi)
     fi->cur_no = 0;
 }
 
-static Iter IterInit(XimFrame frame, int count)
-{
+static Iter IterInit(XimFrame frame, int count) {
     Iter it;
     register XimFrameType type;
 
-    it = (Iter) Xmalloc(sizeof(IterRec));
+    it = (Iter)Xmalloc(sizeof(IterRec));
     it->_template = frame;
-    it->max_count = (count == NO_VALUE)  ?  0  :  count;
+    it->max_count = (count == NO_VALUE) ? 0 : count;
     it->allow_expansion = (count == NO_VALUE);
     it->cur_no = 0;
     it->start_watch_proc = NULL;
@@ -1374,8 +1321,7 @@ static Iter IterInit(XimFrame frame, int count)
     return it;
 }
 
-static void IterFree(Iter it)
-{
+static void IterFree(Iter it) {
     switch (it->_template->type) {
     case BARRAY:
         ChainMgrFree(&it->cm);
@@ -1392,8 +1338,7 @@ static void IterFree(Iter it)
         /*endwhile*/
         ChainIterFree(&ci);
         ChainMgrFree(&it->cm);
-    }
-    break;
+    } break;
 
     case POINTER: {
         ChainIterRec ci;
@@ -1406,8 +1351,7 @@ static void IterFree(Iter it)
         /*endwhile*/
         ChainIterFree(&ci);
         ChainMgrFree(&it->cm);
-    }
-    break;
+    } break;
 
     default:
         break;
@@ -1416,12 +1360,11 @@ static void IterFree(Iter it)
     Xfree(it);
 }
 
-static Bool IterIsLoopEnd(Iter it, Bool *myself)
-{
+static Bool IterIsLoopEnd(Iter it, Bool *myself) {
     Bool ret = False;
     *myself = False;
 
-    if (!it->allow_expansion  && (it->cur_no == it->max_count)) {
+    if (!it->allow_expansion && (it->cur_no == it->max_count)) {
         *myself = True;
         return True;
     }
@@ -1435,7 +1378,7 @@ static Bool IterIsLoopEnd(Iter it, Bool *myself)
             } else {
                 if (FrameInstIsEnd(d->fi)) {
                     it->cur_no++;
-                    if (!it->allow_expansion  &&  it->cur_no == it->max_count) {
+                    if (!it->allow_expansion && it->cur_no == it->max_count) {
                         *myself = True;
                         ret = True;
                     }
@@ -1462,8 +1405,7 @@ static Bool IterIsLoopEnd(Iter it, Bool *myself)
     return ret;
 }
 
-static XimFrameType IterGetNextType(Iter it, XimFrameTypeInfo info)
-{
+static XimFrameType IterGetNextType(Iter it, XimFrameTypeInfo info) {
     XimFrameType type = it->_template->type;
 
     if (it->start_counter) {
@@ -1543,17 +1485,16 @@ static XimFrameType IterGetNextType(Iter it, XimFrameTypeInfo info)
     }
 
     default:
-        return (XimFrameType) NULL;
+        return (XimFrameType)NULL;
     }
     /*endswitch*/
-    return (XimFrameType) NULL;  /* This should never occur */
+    return (XimFrameType)NULL; /* This should never occur */
 }
 
-static XimFrameType IterPeekNextType(Iter it, XimFrameTypeInfo info)
-{
+static XimFrameType IterPeekNextType(Iter it, XimFrameTypeInfo info) {
     XimFrameType type = it->_template->type;
 
-    if (!it->allow_expansion  &&  it->cur_no >= it->max_count)
+    if (!it->allow_expansion && it->cur_no >= it->max_count)
         return (EOL);
     /*endif*/
 
@@ -1618,15 +1559,14 @@ static XimFrameType IterPeekNextType(Iter it, XimFrameTypeInfo info)
     }
     /*endswitch*/
     /* Reaching here is a bug! */
-    return (XimFrameType) NULL;
+    return (XimFrameType)NULL;
 }
 
-static FmStatus IterSetSize(Iter it, int num)
-{
+static FmStatus IterSetSize(Iter it, int num) {
     XimFrameType type;
     register int i;
 
-    if (!it->allow_expansion  &&  it->max_count == 0)
+    if (!it->allow_expansion && it->max_count == 0)
         return FmNoMoreData;
     /*endif*/
 
@@ -1636,7 +1576,7 @@ static FmStatus IterSetSize(Iter it, int num)
         ExtraData d;
         ExtraDataRec dr;
 
-        for (i = 0;  i < it->max_count;  i++) {
+        for (i = 0; i < it->max_count; i++) {
             if ((d = ChainMgrGetExtraData(&it->cm, i)) == NULL) {
                 dr.num = NO_VALUE;
                 d = ChainMgrSetData(&it->cm, i, dr);
@@ -1660,13 +1600,13 @@ static FmStatus IterSetSize(Iter it, int num)
         }
         /*endif*/
     }
-    return FmNoMoreData;
+        return FmNoMoreData;
 
     case ITER: {
         ExtraData d;
         ExtraDataRec dr;
 
-        for (i = 0;  i < it->max_count;  i++) {
+        for (i = 0; i < it->max_count; i++) {
             if ((d = ChainMgrGetExtraData(&it->cm, i)) == NULL) {
                 dr.iter = IterInit(it->_template + 1, NO_VALUE);
                 d = ChainMgrSetData(&it->cm, i, dr);
@@ -1690,13 +1630,13 @@ static FmStatus IterSetSize(Iter it, int num)
         }
         /*endif*/
     }
-    return FmNoMoreData;
+        return FmNoMoreData;
 
     case POINTER: {
         ExtraData d;
         ExtraDataRec dr;
 
-        for (i = 0;  i < it->max_count;  i++) {
+        for (i = 0; i < it->max_count; i++) {
             if ((d = ChainMgrGetExtraData(&it->cm, i)) == NULL) {
                 dr.fi = FrameInstInit(it->_template[1].data);
                 d = ChainMgrSetData(&it->cm, i, dr);
@@ -1720,7 +1660,7 @@ static FmStatus IterSetSize(Iter it, int num)
         }
         /*endif*/
     }
-    return FmNoMoreData;
+        return FmNoMoreData;
 
     default:
         break;
@@ -1729,8 +1669,7 @@ static FmStatus IterSetSize(Iter it, int num)
     return FmNoMoreData;
 }
 
-static int IterGetSize(Iter it)
-{
+static int IterGetSize(Iter it) {
     register int i;
     ExtraData d;
     ExtraDataRec dr;
@@ -1764,7 +1703,7 @@ static int IterGetSize(Iter it)
         return NO_VALID_FIELD;
 
     case POINTER:
-        for (i = it->cur_no;  i < it->max_count;  i++) {
+        for (i = it->cur_no; i < it->max_count; i++) {
             int ret_size;
 
             if ((d = ChainMgrGetExtraData(&it->cm, i)) == NULL) {
@@ -1787,8 +1726,7 @@ static int IterGetSize(Iter it)
     return NO_VALID_FIELD;
 }
 
-static FmStatus IterSetIterCount(Iter it, int num)
-{
+static FmStatus IterSetIterCount(Iter it, int num) {
     register int i;
 
     if (it->allow_expansion) {
@@ -1804,7 +1742,7 @@ static FmStatus IterSetIterCount(Iter it, int num)
 
     switch (it->_template->type) {
     case ITER:
-        for (i = 0;  i < it->max_count;  i++) {
+        for (i = 0; i < it->max_count; i++) {
             ExtraData d;
             ExtraDataRec dr;
 
@@ -1832,7 +1770,7 @@ static FmStatus IterSetIterCount(Iter it, int num)
         break;
 
     case POINTER:
-        for (i = 0;  i < it->max_count;  i++) {
+        for (i = 0; i < it->max_count; i++) {
             ExtraData d;
             ExtraDataRec dr;
 
@@ -1867,8 +1805,7 @@ static FmStatus IterSetIterCount(Iter it, int num)
     return FmNoMoreData;
 }
 
-static int IterGetTotalSize(Iter it)
-{
+static int IterGetTotalSize(Iter it) {
     register int size, i;
     XimFrameType type;
 
@@ -1900,15 +1837,15 @@ static int IterGetTotalSize(Iter it)
         break;
 
     case BARRAY:
-        for (i = 0;  i < it->max_count;  i++) {
+        for (i = 0; i < it->max_count; i++) {
             register int num;
             ExtraData d;
 
             if ((d = ChainMgrGetExtraData(&it->cm, i)) == NULL)
-                return  NO_VALUE;
+                return NO_VALUE;
             /*endif*/
             if ((num = d->num) == NO_VALUE)
-                return  NO_VALUE;
+                return NO_VALUE;
             /*endif*/
             size += num;
         }
@@ -1916,15 +1853,15 @@ static int IterGetTotalSize(Iter it)
         break;
 
     case ITER:
-        for (i = 0;  i < it->max_count;  i++) {
+        for (i = 0; i < it->max_count; i++) {
             register int num;
             ExtraData d;
 
             if ((d = ChainMgrGetExtraData(&it->cm, i)) == NULL)
-                return  NO_VALUE;
+                return NO_VALUE;
             /*endif*/
             if ((num = IterGetTotalSize(d->iter)) == NO_VALUE)
-                return  NO_VALUE;
+                return NO_VALUE;
             /*endif*/
             size += num;
         }
@@ -1932,7 +1869,7 @@ static int IterGetTotalSize(Iter it)
         break;
 
     case POINTER:
-        for (i = 0;  i < it->max_count;  i++) {
+        for (i = 0; i < it->max_count; i++) {
             register int num;
             ExtraData d;
             ExtraDataRec dr;
@@ -1954,11 +1891,10 @@ static int IterGetTotalSize(Iter it)
         break;
     }
     /*endswitch*/
-    return  size;
+    return size;
 }
 
-static void IterReset(Iter it)
-{
+static void IterReset(Iter it) {
     ChainIterRec ci;
     int count;
     ExtraDataRec d;
@@ -1987,19 +1923,14 @@ static void IterReset(Iter it)
     it->cur_no = 0;
 }
 
-static void IterSetStartWatch(Iter it,
-                              IterStartWatchProc proc,
-                              void *client_data)
-{
+static void IterSetStartWatch(Iter it, IterStartWatchProc proc,
+                              void *client_data) {
     it->start_watch_proc = proc;
     it->client_data = client_data;
 }
 
-static ExtraData ChainMgrSetData(ChainMgr cm,
-                                 int frame_no,
-                                 ExtraDataRec data)
-{
-    Chain cur = (Chain) Xmalloc(sizeof(ChainRec));
+static ExtraData ChainMgrSetData(ChainMgr cm, int frame_no, ExtraDataRec data) {
+    Chain cur = (Chain)Xmalloc(sizeof(ChainRec));
 
     cur->frame_no = frame_no;
     cur->d = data;
@@ -2015,8 +1946,7 @@ static ExtraData ChainMgrSetData(ChainMgr cm,
     return &cur->d;
 }
 
-static ExtraData ChainMgrGetExtraData(ChainMgr cm, int frame_no)
-{
+static ExtraData ChainMgrGetExtraData(ChainMgr cm, int frame_no) {
     Chain cur;
 
     cur = cm->top;
@@ -2031,8 +1961,7 @@ static ExtraData ChainMgrGetExtraData(ChainMgr cm, int frame_no)
     return NULL;
 }
 
-static Bool ChainIterGetNext(ChainIter ci, int *frame_no, ExtraData d)
-{
+static Bool ChainIterGetNext(ChainIter ci, int *frame_no, ExtraData d) {
     if (ci->cur == NULL)
         return False;
     /*endif*/
@@ -2045,8 +1974,7 @@ static Bool ChainIterGetNext(ChainIter ci, int *frame_no, ExtraData d)
     return True;
 }
 
-static int _FrameInstIncrement(XimFrame frame, int count)
-{
+static int _FrameInstIncrement(XimFrame frame, int count) {
     XimFrameType type;
 
     type = frame[count].type;
@@ -2070,20 +1998,19 @@ static int _FrameInstIncrement(XimFrame frame, int count)
         break;
     }
     /*endswitch*/
-    return - 1;    /* Error */
+    return -1; /* Error */
 }
 
-static int _FrameInstDecrement(XimFrame frame, int count)
-{
+static int _FrameInstDecrement(XimFrame frame, int count) {
     register int i;
     XimFrameType type;
 
     if (count == 0)
-        return - 1;    /* cannot decrement */
+        return -1; /* cannot decrement */
     /*endif*/
 
     if (count == 1)
-        return 0;     /* BOGUS - It should check the contents of data */
+        return 0; /* BOGUS - It should check the contents of data */
     /*endif*/
 
     type = frame[count - 2].type;
@@ -2114,11 +2041,10 @@ static int _FrameInstDecrement(XimFrame frame, int count)
         break;
     }
     /*enswitch*/
-    return - 1;    /* Error */
+    return -1; /* Error */
 }
 
-static int _FrameInstGetItemSize(FrameInst fi, int cur_no)
-{
+static int _FrameInstGetItemSize(FrameInst fi, int cur_no) {
     XimFrameType type;
 
     type = fi->_template[cur_no].type;
@@ -2155,8 +2081,8 @@ static int _FrameInstGetItemSize(FrameInst fi, int cur_no)
         register int size;
         register int i;
 
-        unit = _UNIT((long) fi->_template[cur_no].data);
-        number = _NUMBER((long) fi->_template[cur_no].data);
+        unit = _UNIT((long)fi->_template[cur_no].data);
+        number = _NUMBER((long)fi->_template[cur_no].data);
 
         i = cur_no;
         size = 0;

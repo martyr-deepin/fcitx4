@@ -26,11 +26,7 @@
 
 struct MHPY;
 
-typedef enum _ADJUSTORDER {
-    AD_NO = 0,
-    AD_FAST = 1,
-    AD_FREQ = 2
-} ADJUSTORDER;
+typedef enum _ADJUSTORDER { AD_NO = 0, AD_FAST = 1, AD_FREQ = 2 } ADJUSTORDER;
 
 typedef enum _SHUANGPINSCHEME {
     SP_ZIRANMA,
@@ -60,7 +56,7 @@ typedef struct _FcitxPinyinConfig {
     FcitxHotkey hkPYAddFreq[2];
     FcitxHotkey hkPYDelFreq[2];
     FcitxHotkey hkPYDelUserPhr[2];
-    char* strPYGetWordFromPhrase;
+    char *strPYGetWordFromPhrase;
     struct _MHPY *MHPY_C;
     struct _MHPY *MHPY_S;
     boolean bMisstypeNGGN;
@@ -69,7 +65,7 @@ typedef struct _FcitxPinyinConfig {
     SP_C SPMap_C[31];
     SP_S SPMap_S[4];
 
-    PYMappedSplitData* splitData;
+    PYMappedSplitData *splitData;
 } FcitxPinyinConfig;
 
 CONFIG_BINDING_DECLARE(FcitxPinyinConfig);

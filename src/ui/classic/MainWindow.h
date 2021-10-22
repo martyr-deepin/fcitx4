@@ -29,11 +29,11 @@
 
 #ifndef _MAIN_WINDOW_H
 #define _MAIN_WINDOW_H
+#include "XlibWindow.h"
+#include "classicui.h"
+#include "fcitx-config/fcitx-config.h"
 #include <X11/Xlib.h>
 #include <cairo.h>
-#include "fcitx-config/fcitx-config.h"
-#include "classicui.h"
-#include "XlibWindow.h"
 
 struct _FcitxSkin;
 struct _FcitxClassicUI;
@@ -52,10 +52,11 @@ typedef struct _MainWindow {
     gboolean isScreenLocked;
 } MainWindow;
 
-MainWindow* MainWindowCreate(FcitxClassicUI* classicui);
+MainWindow *MainWindowCreate(FcitxClassicUI *classicui);
 void MainWindowClose(MainWindow *mainWindow);
-void MainWindowShow(MainWindow* mainWindow);
-boolean MainWindowSetMouseStatus(MainWindow *mainWindow, MouseE* mouseE, MouseE value, MouseE other);
+void MainWindowShow(MainWindow *mainWindow);
+boolean MainWindowSetMouseStatus(MainWindow *mainWindow, MouseE *mouseE,
+                                 MouseE value, MouseE other);
 
 #endif
 

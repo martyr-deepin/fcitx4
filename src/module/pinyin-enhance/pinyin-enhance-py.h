@@ -21,8 +21,8 @@
 #ifndef _PINYIN_ENHANCE_PY_H
 #define _PINYIN_ENHANCE_PY_H
 
-#include <stdint.h>
 #include "pinyin-enhance-internal.h"
+#include <stdint.h>
 
 char *py_enhance_py_to_str(char *buff, const int8_t *py, int *len);
 const int8_t *py_enhance_py_find_py(PinyinEnhance *pyenhance, const char *str);

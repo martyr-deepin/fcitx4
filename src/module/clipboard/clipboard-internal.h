@@ -21,10 +21,10 @@
 #define _FCITX_MODULE_CLIPBOARD_INTERNAL_H
 
 #include "config.h"
-#include "fcitx/instance.h"
 #include "fcitx-config/fcitx-config.h"
-#include <stdint.h>
+#include "fcitx/instance.h"
 #include <fcitx/module.h>
+#include <stdint.h>
 
 #include "clipboard.h"
 
@@ -62,17 +62,17 @@ typedef struct {
     ClipboardSelectionStr primary;
     uint32_t clp_hist_len;
     ClipboardSelectionStr clp_hist_lst[CLIPBOARD_MAX_LEN];
-// #ifdef ENABLE_X11
+    // #ifdef ENABLE_X11
     FcitxAddon *x11;
     unsigned int x11_primary_notify_id;
     unsigned int x11_clipboard_notify_id;
-// #endif
+    // #endif
 } FcitxClipboard;
 
-void ClipboardSetPrimary(FcitxClipboard *clipboard,
-                         uint32_t len, const char *str);
-void ClipboardPushClipboard(FcitxClipboard *clipboard,
-                            uint32_t len, const char *str);
+void ClipboardSetPrimary(FcitxClipboard *clipboard, uint32_t len,
+                         const char *str);
+void ClipboardPushClipboard(FcitxClipboard *clipboard, uint32_t len,
+                            const char *str);
 CONFIG_BINDING_DECLARE(FcitxClipboardConfig);
 
 #endif

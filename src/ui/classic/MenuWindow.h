@@ -22,12 +22,12 @@
 #ifndef _MENUWINDOW_H_
 #define _MENUWINDOW_H_
 
+#include "XlibWindow.h"
+#include "classicui.h"
+#include "fcitx-config/fcitx-config.h"
+#include "fcitx-utils/utarray.h"
 #include <X11/Xlib.h>
 #include <cairo.h>
-#include "fcitx-utils/utarray.h"
-#include "fcitx-config/fcitx-config.h"
-#include "classicui.h"
-#include "XlibWindow.h"
 
 struct _FcitxClassicUI;
 struct _FcitxUIMenu;
@@ -47,18 +47,18 @@ typedef struct _XlibMenu {
     int fontheight;
 
     MenuAnchor anchor;
-    struct _XlibMenu* anchorMenu;
+    struct _XlibMenu *anchorMenu;
     int offseth;
     boolean visible;
     int trayY;
     int trayX;
 } XlibMenu;
 
-XlibMenu* MainMenuWindowCreate(struct _FcitxClassicUI *classicui);
-XlibMenu* XlibMenuCreate(struct _FcitxClassicUI* classicui);
-void XlibMenuShow(XlibMenu * menu);
+XlibMenu *MainMenuWindowCreate(struct _FcitxClassicUI *classicui);
+XlibMenu *XlibMenuCreate(struct _FcitxClassicUI *classicui);
+void XlibMenuShow(XlibMenu *menu);
 void CalMenuWindowPosition(XlibMenu *menu, int x, int y, int dodgeHeight);
-void XlibMenuDestroy(XlibMenu* menu);
+void XlibMenuDestroy(XlibMenu *menu);
 
 #endif
 

@@ -18,40 +18,40 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include <unistd.h>
 #include <dbus/dbus.h>
+#include <unistd.h>
 
-#include "fcitx/fcitx.h"
-#include "fcitx/module.h"
-#include "fcitx-utils/utarray.h"
-#include "fcitx/instance.h"
 #include "fcitx-utils/log.h"
+#include "fcitx-utils/utarray.h"
 #include "fcitx-utils/utils.h"
+#include "fcitx/fcitx.h"
+#include "fcitx/instance.h"
+#include "fcitx/module.h"
 
-#include "frontend/ipc/ipc.h"
-#include "dbusstuff.h"
 #include "dbuslauncher.h"
 #include "dbussocket.h"
+#include "dbusstuff.h"
+#include "frontend/ipc/ipc.h"
 #include <fcitx-utils/handler-table.h>
 
 typedef struct _FcitxDBus {
     DBusConnection *conn;
     DBusConnection *privconn;
-    FcitxInstance* owner;
-    FcitxDBusWatch* watches;
+    FcitxInstance *owner;
+    FcitxDBusWatch *watches;
     DBusDaemonProperty daemon;
-    char* serviceName;
-    FcitxHandlerTable* handler;
+    char *serviceName;
+    FcitxHandlerTable *handler;
     UT_array extraconns;
 } FcitxDBus;
 
 #define RETRY_INTERVAL 2
 #define MAX_RETRY_TIMES 20
 
-static void* DBusCreate(FcitxInstance* instance);
-static void DBusSetFD(void* arg);
-static void DBusProcessEvent(void* arg);
-static void DBusDestroy(void* arg);
+static void *DBusCreate(FcitxInstance *instance);
+static void DBusSetFD(void *arg);
+static void DBusProcessEvent(void *arg);
+static void DBusDestroy(void *arg);
 DECLARE_ADDFUNCTIONS(DBus)
 
 typedef struct _FcitxDBusWatchNameNotify {
@@ -61,9 +61,7 @@ typedef struct _FcitxDBusWatchNameNotify {
     FcitxDBusWatchNameCallback func;
 } FcitxDBusWatchNameNotify;
 
-static void
-FcitxDBusWatchNameNotifyFreeFunc(void *obj)
-{
+static void FcitxDBusWatchNameNotifyFreeFunc(void *obj) {
     FcitxDBusWatchNameNotify *notify = obj;
     if (notify->destroy) {
         notify->destroy(notify->data);
@@ -71,16 +69,10 @@ FcitxDBusWatchNameNotifyFreeFunc(void *obj)
 }
 
 FCITX_DEFINE_PLUGIN(fcitx_dbus, module, FcitxModule) = {
-    DBusCreate,
-    DBusSetFD,
-    DBusProcessEvent,
-    DBusDestroy,
-    NULL
-};
+    DBusCreate, DBusSetFD, DBusProcessEvent, DBusDestroy, NULL};
 
-DBusHandlerResult
-DBusModuleFilter(DBusConnection* connection, DBusMessage* msg, void* user_data)
-{
+DBusHandlerResult DBusModuleFilter(DBusConnection *connection, DBusMessage *msg,
+                                   void *user_data) {
     FCITX_UNUSED(connection);
 
 #if 0
@@ -88,42 +80,44 @@ DBusModuleFilter(DBusConnection* connection, DBusMessage* msg, void* user_data)
         dbus_message_get_type(msg) == DBUS_MESSAGE_TYPE_SIGNAL)
         FcitxLog(INFO, "%s %s %s", dbus_message_get_interface(msg), dbus_message_get_member(msg), dbus_message_get_path(msg));
 #endif
-    FcitxDBus* dbusmodule = (FcitxDBus*) user_data;
+    FcitxDBus *dbusmodule = (FcitxDBus *)user_data;
     if (dbus_message_is_signal(msg, DBUS_INTERFACE_LOCAL, "Disconnected")) {
         FcitxInstanceEnd(dbusmodule->owner);
         return DBUS_HANDLER_RESULT_HANDLED;
-    } else if (dbus_message_is_signal(msg, DBUS_INTERFACE_DBUS, "NameOwnerChanged")) {
-        const char* service, *oldowner, *newowner;
+    } else if (dbus_message_is_signal(msg, DBUS_INTERFACE_DBUS,
+                                      "NameOwnerChanged")) {
+        const char *service, *oldowner, *newowner;
         do {
-            if (!dbus_message_get_args(msg, NULL,
-                                       DBUS_TYPE_STRING, &service ,
-                                       DBUS_TYPE_STRING, &oldowner ,
-                                       DBUS_TYPE_STRING, &newowner ,
+            if (!dbus_message_get_args(msg, NULL, DBUS_TYPE_STRING, &service,
+                                       DBUS_TYPE_STRING, &oldowner,
+                                       DBUS_TYPE_STRING, &newowner,
                                        DBUS_TYPE_INVALID)) {
                 break;
             }
 
             FcitxDBusWatchNameNotify *notify;
-            notify = fcitx_handler_table_first_strkey(dbusmodule->handler, service);
+            notify =
+                fcitx_handler_table_first_strkey(dbusmodule->handler, service);
             if (!notify) {
                 return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
             }
-            for (; notify; notify = fcitx_handler_table_next(dbusmodule->handler, notify)) {
-                notify->func(notify->owner, notify->data, service, oldowner, newowner);
+            for (; notify; notify = fcitx_handler_table_next(
+                               dbusmodule->handler, notify)) {
+                notify->func(notify->owner, notify->data, service, oldowner,
+                             newowner);
             }
             return DBUS_HANDLER_RESULT_HANDLED;
-        } while(0);
+        } while (0);
     }
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
 
-void DBusAddMatch(void* data, const void* key, size_t len, void* owner)
-{
-    FcitxDBus* dbusmodule = (FcitxDBus*) owner;
-    char* name = malloc(len + 1);
+void DBusAddMatch(void *data, const void *key, size_t len, void *owner) {
+    FcitxDBus *dbusmodule = (FcitxDBus *)owner;
+    char *name = malloc(len + 1);
     memcpy(name, key, len);
     name[len] = '\0';
-    char* rule = NULL;
+    char *rule = NULL;
     asprintf(&rule,
              "type='signal',"
              "sender='" DBUS_SERVICE_DBUS "',"
@@ -138,14 +132,12 @@ void DBusAddMatch(void* data, const void* key, size_t len, void* owner)
     free(rule);
 }
 
-
-void DBusRemoveMatch(void* data, const void* key, size_t len, void* owner)
-{
-    FcitxDBus* dbusmodule = (FcitxDBus*) owner;
-    char* name = malloc(len + 1);
+void DBusRemoveMatch(void *data, const void *key, size_t len, void *owner) {
+    FcitxDBus *dbusmodule = (FcitxDBus *)owner;
+    char *name = malloc(len + 1);
     memcpy(name, key, len);
     name[len] = '\0';
-    char* rule = NULL;
+    char *rule = NULL;
     asprintf(&rule,
              "type='signal',"
              "sender='" DBUS_SERVICE_DBUS "',"
@@ -160,9 +152,8 @@ void DBusRemoveMatch(void* data, const void* key, size_t len, void* owner)
     free(rule);
 }
 
-void* DBusCreate(FcitxInstance* instance)
-{
-    FcitxDBus *dbusmodule = (FcitxDBus*) fcitx_utils_malloc0(sizeof(FcitxDBus));
+void *DBusCreate(FcitxInstance *instance) {
+    FcitxDBus *dbusmodule = (FcitxDBus *)fcitx_utils_malloc0(sizeof(FcitxDBus));
     dbusmodule->owner = instance;
     utarray_init(&dbusmodule->extraconns, fcitx_ptr_icd);
 
@@ -179,15 +170,16 @@ void* DBusCreate(FcitxInstance* instance)
     dbus_error_init(&err);
 
     int retry = 0;
-    DBusConnection* conn = NULL;
-    char* servicename = NULL;
+    DBusConnection *conn = NULL;
+    char *servicename = NULL;
     asprintf(&servicename, "%s-%d", FCITX_DBUS_SERVICE,
              fcitx_utils_get_display_number());
 
     /* do session dbus initialize */
     do {
         if (!getenv("DISPLAY") && !getenv("DBUS_SESSION_BUS_ADDRESS")) {
-            FcitxLog(WARNING, "Without DISPLAY or DBUS_SESSION_BUS_ADDRESS session bus will not work");
+            FcitxLog(WARNING, "Without DISPLAY or DBUS_SESSION_BUS_ADDRESS "
+                              "session bus will not work");
             break;
         }
         /* try to get session dbus */
@@ -200,7 +192,7 @@ void* DBusCreate(FcitxInstance* instance)
             }
 
             if (NULL == conn && retry < MAX_RETRY_TIMES) {
-                retry ++;
+                retry++;
                 sleep(RETRY_INTERVAL * retry);
             } else {
                 break;
@@ -211,7 +203,8 @@ void* DBusCreate(FcitxInstance* instance)
             break;
         }
 
-        if (!dbus_connection_add_filter(conn, DBusModuleFilter, dbusmodule, NULL))
+        if (!dbus_connection_add_filter(conn, DBusModuleFilter, dbusmodule,
+                                        NULL))
             break;
 
         if (!dbus_connection_set_watch_functions(conn, DBusAddWatch,
@@ -225,7 +218,8 @@ void* DBusCreate(FcitxInstance* instance)
             break;
         }
 
-        /* from here we know dbus connection is successful, now we need to register the service */
+        /* from here we know dbus connection is successful, now we need to
+         * register the service */
         dbus_connection_set_exit_on_disconnect(conn, FALSE);
         dbusmodule->conn = conn;
 
@@ -238,8 +232,7 @@ void* DBusCreate(FcitxInstance* instance)
 
             // request a name on the bus
             int ret = dbus_bus_request_name(conn, servicename,
-                                            DBUS_NAME_FLAG_DO_NOT_QUEUE,
-                                            &err);
+                                            DBUS_NAME_FLAG_DO_NOT_QUEUE, &err);
             if (dbus_error_is_set(&err)) {
                 FcitxLog(WARNING, "Name Error (%s)", err.message);
                 goto dbus_init_failed;
@@ -248,7 +241,7 @@ void* DBusCreate(FcitxInstance* instance)
                 FcitxLog(WARNING, "DBus Service Already Exists");
 
                 if (replaceCountdown > 0) {
-                    replaceCountdown --;
+                    replaceCountdown--;
                     fcitx_utils_launch_tool("fcitx-remote", "-e");
 
                     /* sleep for a while and retry */
@@ -266,23 +259,27 @@ void* DBusCreate(FcitxInstance* instance)
                 FcitxInstanceEnd(instance);
                 return NULL;
             } else {
-                dbus_bus_request_name(conn, FCITX_DBUS_SERVICE, DBUS_NAME_FLAG_DO_NOT_QUEUE, NULL);
+                dbus_bus_request_name(conn, FCITX_DBUS_SERVICE,
+                                      DBUS_NAME_FLAG_DO_NOT_QUEUE, NULL);
             }
         } while (request_retry);
 
         dbus_connection_flush(dbusmodule->conn);
-    } while(0);
+    } while (0);
 
-    DBusConnection* privconn = NULL;
+    DBusConnection *privconn = NULL;
     do {
-        int noPrivateDBus = fcitx_utils_get_boolean_env("FCITX_NO_PRIVATE_DBUS", false);
+        int noPrivateDBus =
+            fcitx_utils_get_boolean_env("FCITX_NO_PRIVATE_DBUS", false);
         if (noPrivateDBus)
             break;
 
-        char* file = NULL;
-        FILE* dbusfp = FcitxXDGGetFileWithPrefix("dbus", "daemon.conf", "r", &file);
+        char *file = NULL;
+        FILE *dbusfp =
+            FcitxXDGGetFileWithPrefix("dbus", "daemon.conf", "r", &file);
 
-        // even we don't have daemon.conf here, we can still use the default one.
+        // even we don't have daemon.conf here, we can still use the default
+        // one.
         if (dbusfp) {
             fclose(dbusfp);
         }
@@ -303,26 +300,30 @@ void* DBusCreate(FcitxInstance* instance)
         dbus_bus_register(privconn, &err);
 
         if (dbus_error_is_set(&err)) {
-            FcitxLog(ERROR, "Private dbus bus register error (%s)", err.message);
+            FcitxLog(ERROR, "Private dbus bus register error (%s)",
+                     err.message);
             break;
         }
 
-        dbus_bus_request_name(privconn, FCITX_DBUS_SERVICE, DBUS_NAME_FLAG_DO_NOT_QUEUE, NULL);
+        dbus_bus_request_name(privconn, FCITX_DBUS_SERVICE,
+                              DBUS_NAME_FLAG_DO_NOT_QUEUE, NULL);
 
         int ret = dbus_bus_request_name(privconn, servicename,
-                                        DBUS_NAME_FLAG_DO_NOT_QUEUE,
-                                        &err);
+                                        DBUS_NAME_FLAG_DO_NOT_QUEUE, &err);
 
         if (dbus_error_is_set(&err)) {
             FcitxLog(WARNING, "Private Name Error (%s)", err.message);
             break;
         }
         if (DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER != ret) {
-            FcitxLog(ERROR, "Private DBus Service Already Exists, fcitx being hacked?");
+            FcitxLog(
+                ERROR,
+                "Private DBus Service Already Exists, fcitx being hacked?");
             break;
         }
 
-        if (!dbus_connection_add_filter(privconn, DBusModuleFilter, dbusmodule, NULL))
+        if (!dbus_connection_add_filter(privconn, DBusModuleFilter, dbusmodule,
+                                        NULL))
             break;
 
         if (!dbus_connection_set_watch_functions(privconn, DBusAddWatch,
@@ -332,13 +333,14 @@ void* DBusCreate(FcitxInstance* instance)
             break;
         }
 
-        char* addressFile = NULL;
-        char* localMachineId = dbus_get_local_machine_id();
+        char *addressFile = NULL;
+        char *localMachineId = dbus_get_local_machine_id();
         asprintf(&addressFile, "%s-%d", localMachineId,
                  fcitx_utils_get_display_number());
         dbus_free(localMachineId);
 
-        FILE* fp = FcitxXDGGetFileUserWithPrefix("dbus", addressFile, "w", NULL);
+        FILE *fp =
+            FcitxXDGGetFileUserWithPrefix("dbus", addressFile, "w", NULL);
         free(addressFile);
         if (!fp)
             break;
@@ -352,20 +354,16 @@ void* DBusCreate(FcitxInstance* instance)
 
         dbusmodule->privconn = privconn;
 
-        char* command = fcitx_utils_get_fcitx_path_with_filename("bindir", "fcitx-dbus-watcher");
-        char* pidstring = NULL;
+        char *command = fcitx_utils_get_fcitx_path_with_filename(
+            "bindir", "fcitx-dbus-watcher");
+        char *pidstring = NULL;
         asprintf(&pidstring, "%d", dbusmodule->daemon.pid);
-        char* args[] = {
-            command,
-            dbusmodule->daemon.address,
-            pidstring,
-            NULL
-        };
+        char *args[] = {command, dbusmodule->daemon.address, pidstring, NULL};
         fcitx_utils_start_process(args);
         free(command);
         free(pidstring);
 
-    } while(0);
+    } while (0);
 
     if (!dbusmodule->privconn) {
         if (privconn) {
@@ -379,7 +377,9 @@ void* DBusCreate(FcitxInstance* instance)
     vtable.owner = dbusmodule;
     vtable.init = DBusAddMatch;
     vtable.free = DBusRemoveMatch;
-    dbusmodule->handler = fcitx_handler_table_new_with_keydata(sizeof(FcitxDBusWatchNameNotify), FcitxDBusWatchNameNotifyFreeFunc, &vtable);
+    dbusmodule->handler = fcitx_handler_table_new_with_keydata(
+        sizeof(FcitxDBusWatchNameNotify), FcitxDBusWatchNameNotifyFreeFunc,
+        &vtable);
 
     FcitxDBusAddFunctions(instance);
     dbus_error_free(&err);
@@ -397,8 +397,8 @@ dbus_init_failed:
     return NULL;
 }
 
-void DBusDestroy(void* arg) {
-    FcitxDBus* dbusmodule = (FcitxDBus*)arg;
+void DBusDestroy(void *arg) {
+    FcitxDBus *dbusmodule = (FcitxDBus *)arg;
 
     fcitx_handler_table_free(dbusmodule->handler);
 
@@ -407,7 +407,8 @@ void DBusDestroy(void* arg) {
         dbus_connection_unref(dbusmodule->conn);
     }
     if (dbusmodule->privconn) {
-        dbus_bus_release_name(dbusmodule->privconn, dbusmodule->serviceName, NULL);
+        dbus_bus_release_name(dbusmodule->privconn, dbusmodule->serviceName,
+                              NULL);
         dbus_connection_unref(dbusmodule->privconn);
     }
     DBusKill(&dbusmodule->daemon);
@@ -418,13 +419,12 @@ void DBusDestroy(void* arg) {
     free(dbusmodule);
 }
 
-void DBusSetFD(void* arg)
-{
-    FcitxDBus* dbusmodule = (FcitxDBus*) arg;
-    FcitxInstance* instance = dbusmodule->owner;
-    fd_set *rfds =  FcitxInstanceGetReadFDSet(instance);
-    fd_set *wfds =  FcitxInstanceGetWriteFDSet(instance);
-    fd_set *efds =  FcitxInstanceGetExceptFDSet(instance);
+void DBusSetFD(void *arg) {
+    FcitxDBus *dbusmodule = (FcitxDBus *)arg;
+    FcitxInstance *instance = dbusmodule->owner;
+    fd_set *rfds = FcitxInstanceGetReadFDSet(instance);
+    fd_set *wfds = FcitxInstanceGetWriteFDSet(instance);
+    fd_set *efds = FcitxInstanceGetExceptFDSet(instance);
 
     int maxfd = DBusUpdateFDSet(dbusmodule->watches, rfds, wfds, efds);
 
@@ -433,14 +433,12 @@ void DBusSetFD(void* arg)
     }
 }
 
-
-void DBusProcessEvent(void* arg)
-{
-    FcitxDBus* dbusmodule = (FcitxDBus*) arg;
-    FcitxInstance* instance = dbusmodule->owner;
-    fd_set *rfds =  FcitxInstanceGetReadFDSet(instance);
-    fd_set *wfds =  FcitxInstanceGetWriteFDSet(instance);
-    fd_set *efds =  FcitxInstanceGetExceptFDSet(instance);
+void DBusProcessEvent(void *arg) {
+    FcitxDBus *dbusmodule = (FcitxDBus *)arg;
+    FcitxInstance *instance = dbusmodule->owner;
+    fd_set *rfds = FcitxInstanceGetReadFDSet(instance);
+    fd_set *wfds = FcitxInstanceGetWriteFDSet(instance);
+    fd_set *efds = FcitxInstanceGetExceptFDSet(instance);
 
     DBusProcessEventForWatches(dbusmodule->watches, rfds, wfds, efds);
     DBusProcessEventForConnection(dbusmodule->conn);
@@ -450,14 +448,10 @@ void DBusProcessEvent(void* arg)
     }
 }
 
-boolean DBusWatchName(void* arg,
-                      const char* name,
-                      void *owner,
-                      FcitxDBusWatchNameCallback func,
-                      void *data,
-                      FcitxDestroyNotify destroy)
-{
-    FcitxDBus* dbusmodule = (FcitxDBus*) arg;
+boolean DBusWatchName(void *arg, const char *name, void *owner,
+                      FcitxDBusWatchNameCallback func, void *data,
+                      FcitxDestroyNotify destroy) {
+    FcitxDBus *dbusmodule = (FcitxDBus *)arg;
 
     if (!dbusmodule->conn) {
         return 0;
@@ -468,22 +462,22 @@ boolean DBusWatchName(void* arg,
     notify.destroy = destroy;
     notify.owner = owner;
     notify.func = func;
-    return fcitx_handler_table_append_strkey(dbusmodule->handler, name, &notify);
+    return fcitx_handler_table_append_strkey(dbusmodule->handler, name,
+                                             &notify);
 }
 
-void DBusUnwatchName(void* arg, int id)
-{
-    FcitxDBus* dbusmodule = (FcitxDBus*) arg;
+void DBusUnwatchName(void *arg, int id) {
+    FcitxDBus *dbusmodule = (FcitxDBus *)arg;
 
     fcitx_handler_table_remove_by_id_full(dbusmodule->handler, id);
 }
 
 boolean DBusAttachConnection(void *arg, DBusConnection *conn) {
-    FcitxDBus* dbusmodule = (FcitxDBus*) arg;
+    FcitxDBus *dbusmodule = (FcitxDBus *)arg;
     dbus_connection_ref(conn);
     if (!dbus_connection_set_watch_functions(conn, DBusAddWatch,
-                                                DBusRemoveWatch, NULL,
-                                                &dbusmodule->watches, NULL)) {
+                                             DBusRemoveWatch, NULL,
+                                             &dbusmodule->watches, NULL)) {
         FcitxLog(WARNING, "Add Watch Function Error");
         dbus_connection_unref(conn);
         return false;
@@ -494,10 +488,12 @@ boolean DBusAttachConnection(void *arg, DBusConnection *conn) {
 
 void DBusDeattachConnection(void *arg, DBusConnection *conn) {
 
-    FcitxDBus* dbusmodule = (FcitxDBus*) arg;
+    FcitxDBus *dbusmodule = (FcitxDBus *)arg;
     utarray_foreach(connection, &dbusmodule->extraconns, DBusConnection *) {
         if (*connection == conn) {
-            utarray_remove_quick(&dbusmodule->extraconns, utarray_eltidx(&dbusmodule->extraconns, connection));
+            utarray_remove_quick(
+                &dbusmodule->extraconns,
+                utarray_eltidx(&dbusmodule->extraconns, connection));
             dbus_connection_unref(conn);
             break;
         }

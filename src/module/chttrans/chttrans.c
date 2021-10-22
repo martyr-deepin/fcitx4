@@ -18,25 +18,25 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include "fcitx/fcitx.h"
 #include "config.h"
+#include "fcitx/fcitx.h"
 
-#include <libintl.h>
 #include <errno.h>
+#include <libintl.h>
 
-#include "fcitx/module.h"
-#include "fcitx-utils/utf8.h"
-#include "fcitx-utils/uthash.h"
-#include "fcitx-config/xdg.h"
-#include "fcitx/hook.h"
-#include "fcitx/ui.h"
-#include "fcitx-utils/log.h"
-#include "fcitx/instance.h"
-#include "fcitx/context.h"
-#include "fcitx-utils/utils.h"
-#include "fcitx-utils/stringmap.h"
 #include "chttrans.h"
 #include "chttrans_p.h"
+#include "fcitx-config/xdg.h"
+#include "fcitx-utils/log.h"
+#include "fcitx-utils/stringmap.h"
+#include "fcitx-utils/utf8.h"
+#include "fcitx-utils/uthash.h"
+#include "fcitx-utils/utils.h"
+#include "fcitx/context.h"
+#include "fcitx/hook.h"
+#include "fcitx/instance.h"
+#include "fcitx/module.h"
+#include "fcitx/ui.h"
 #ifdef ENABLE_OPENCC
 #include "chttrans-opencc.h"
 #endif
@@ -44,26 +44,26 @@
 
 #define TABLE_GBKS2T "gbks2t.tab"
 
-static void* ChttransCreate(FcitxInstance* instance);
-static char* ChttransOutputFilter(void* arg, const char* strin);
-static void ChttransIMChanged(void* arg);
-static void ReloadChttrans(void* arg);
-static char *ConvertGBKSimple2Tradition(FcitxChttrans* transState,
-                                        const char* strHZ);
-static char *ConvertGBKTradition2Simple(FcitxChttrans* transState,
+static void *ChttransCreate(FcitxInstance *instance);
+static char *ChttransOutputFilter(void *arg, const char *strin);
+static void ChttransIMChanged(void *arg);
+static void ReloadChttrans(void *arg);
+static char *ConvertGBKSimple2Tradition(FcitxChttrans *transState,
                                         const char *strHZ);
-static boolean GetChttransEnabled(void* arg);
-static void ChttransLanguageChanged(void* arg, const void* value);
-static void DisableChttransStateChanged(void* arg, const void* value);
-boolean LoadChttransConfig(FcitxChttrans* transState);
-static FcitxConfigFileDesc* GetChttransConfigDesc();
-static void SaveChttransConfig(FcitxChttrans* transState);
-static INPUT_RETURN_VALUE HotkeyToggleChttransState(void*);
-static void ToggleChttransState(void*);
+static char *ConvertGBKTradition2Simple(FcitxChttrans *transState,
+                                        const char *strHZ);
+static boolean GetChttransEnabled(void *arg);
+static void ChttransLanguageChanged(void *arg, const void *value);
+static void DisableChttransStateChanged(void *arg, const void *value);
+boolean LoadChttransConfig(FcitxChttrans *transState);
+static FcitxConfigFileDesc *GetChttransConfigDesc();
+static void SaveChttransConfig(FcitxChttrans *transState);
+static INPUT_RETURN_VALUE HotkeyToggleChttransState(void *);
+static void ToggleChttransState(void *);
 static void ChttransEnabledForIMFilter(FcitxGenericConfig *config,
                                        FcitxConfigGroup *group,
-                                       FcitxConfigOption *option, void* value,
-                                       FcitxConfigSync sync, void* arg);
+                                       FcitxConfigOption *option, void *value,
+                                       FcitxConfigSync sync, void *arg);
 
 DECLARE_ADDFUNCTIONS(Chttrans)
 
@@ -75,18 +75,11 @@ CONFIG_BINDING_REGISTER_WITH_FILTER("TraditionalChinese", "EnabledForIM",
 CONFIG_BINDING_END()
 
 FCITX_DEFINE_PLUGIN(fcitx_chttrans, module, FcitxModule) = {
-    ChttransCreate,
-    NULL,
-    NULL,
-    NULL,
-    ReloadChttrans
-};
+    ChttransCreate, NULL, NULL, NULL, ReloadChttrans};
 
-static boolean
-ChttransEnabled(FcitxChttrans *chttrans)
-{
+static boolean ChttransEnabled(FcitxChttrans *chttrans) {
     boolean result = false;
-    FcitxIM* im = FcitxInstanceGetCurrentIM(chttrans->owner);
+    FcitxIM *im = FcitxInstanceGetCurrentIM(chttrans->owner);
     if (im) {
         boolean defaultValue = false;
         if (strcmp(im->langCode, "zh_TW") == 0 ||
@@ -100,16 +93,15 @@ ChttransEnabled(FcitxChttrans *chttrans)
     return result;
 }
 
-static void
-ChttransEnabledForIMFilter(FcitxGenericConfig *config, FcitxConfigGroup *group,
-                           FcitxConfigOption *option, void *value,
-                           FcitxConfigSync sync, void *arg)
-{
+static void ChttransEnabledForIMFilter(FcitxGenericConfig *config,
+                                       FcitxConfigGroup *group,
+                                       FcitxConfigOption *option, void *value,
+                                       FcitxConfigSync sync, void *arg) {
     FCITX_UNUSED(group);
     FCITX_UNUSED(option);
     FCITX_UNUSED(arg);
-    FcitxChttrans *chttrans = (FcitxChttrans*)config;
-    char **enableForIM = (char**)value;
+    FcitxChttrans *chttrans = (FcitxChttrans *)config;
+    char **enableForIM = (char **)value;
     if (sync == Value2Raw) {
         fcitx_utils_free(*enableForIM);
         *enableForIM = fcitx_string_map_to_string(chttrans->enableIM, ',');
@@ -120,8 +112,7 @@ ChttransEnabledForIMFilter(FcitxGenericConfig *config, FcitxConfigGroup *group,
     }
 }
 
-void *ChttransCreate(FcitxInstance* instance)
-{
+void *ChttransCreate(FcitxInstance *instance) {
     FcitxChttrans *transState = fcitx_utils_new(FcitxChttrans);
     transState->owner = instance;
     transState->enableIM = fcitx_string_map_new(NULL, '\0');
@@ -149,78 +140,80 @@ void *ChttransCreate(FcitxInstance* instance)
     FcitxInstanceRegisterCommitFilter(instance, shk);
     FcitxInstanceRegisterIMChangedHook(instance, imhk);
     FcitxUIRegisterStatus(instance, transState, "chttrans",
-                          ChttransEnabled(transState) ? _("Switch to Simplified Chinese") :
-                          _("Switch to Traditional Chinese"),
+                          ChttransEnabled(transState)
+                              ? _("Switch to Simplified Chinese")
+                              : _("Switch to Traditional Chinese"),
                           _("Toggle Simp/Trad Chinese Conversion"),
-                          ToggleChttransState,
-                          GetChttransEnabled);
+                          ToggleChttransState, GetChttransEnabled);
 
     FcitxInstanceWatchContext(instance, CONTEXT_IM_LANGUAGE,
                               ChttransLanguageChanged, transState);
-    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_DISABLE_CHTTRANS, FCT_Boolean, FCF_ResetOnInputMethodChange);
-    FcitxInstanceWatchContext(instance, CONTEXT_DISABLE_CHTTRANS, DisableChttransStateChanged, transState);
+    FcitxInstanceRegisterWatchableContext(instance, CONTEXT_DISABLE_CHTTRANS,
+                                          FCT_Boolean,
+                                          FCF_ResetOnInputMethodChange);
+    FcitxInstanceWatchContext(instance, CONTEXT_DISABLE_CHTTRANS,
+                              DisableChttransStateChanged, transState);
     FcitxChttransAddFunctions(instance);
     return transState;
 }
 
-INPUT_RETURN_VALUE HotkeyToggleChttransState(void* arg)
-{
-    FcitxChttrans *transState = (FcitxChttrans*)arg;
+INPUT_RETURN_VALUE HotkeyToggleChttransState(void *arg) {
+    FcitxChttrans *transState = (FcitxChttrans *)arg;
     FcitxInstance *instance = transState->owner;
 
-    boolean disableChtteans = FcitxInstanceGetContextBoolean(instance, CONTEXT_DISABLE_CHTTRANS);
+    boolean disableChtteans =
+        FcitxInstanceGetContextBoolean(instance, CONTEXT_DISABLE_CHTTRANS);
     FcitxUIStatus *status = FcitxUIGetStatusByName(instance, "chttrans");
-    if (status->visible&&!disableChtteans){
+    if (status->visible && !disableChtteans) {
         FcitxUIUpdateStatus(instance, "chttrans");
         boolean enabled = ChttransEnabled(transState);
         FcitxFreeDesktopNotifyShowAddonTip(
             instance, "fcitx-chttrans-toggle",
-            enabled ? "fcitx-chttrans-active" :
-                      "fcitx-chttrans-inactive",
+            enabled ? "fcitx-chttrans-active" : "fcitx-chttrans-inactive",
             _("Simplified Chinese To Traditional Chinese"),
-            enabled ? _("Traditional Chinese is enabled.") :
-                      _("Simplified Chinese is enabled."));
+            enabled ? _("Traditional Chinese is enabled.")
+                    : _("Simplified Chinese is enabled."));
         return IRV_DO_NOTHING;
     } else {
         return IRV_TO_PROCESS;
     }
 }
 
-void ToggleChttransState(void* arg)
-{
-    FcitxChttrans *transState = (FcitxChttrans*)arg;
+void ToggleChttransState(void *arg) {
+    FcitxChttrans *transState = (FcitxChttrans *)arg;
     FcitxInstance *instance = transState->owner;
-    FcitxIM* im = FcitxInstanceGetIM(transState->owner, FcitxInstanceGetLastIC(transState->owner));
+    FcitxIM *im = FcitxInstanceGetIM(transState->owner,
+                                     FcitxInstanceGetLastIC(transState->owner));
     if (!im)
         return;
 
-    boolean disableChtteans = FcitxInstanceGetContextBoolean(instance, CONTEXT_DISABLE_CHTTRANS);
+    boolean disableChtteans =
+        FcitxInstanceGetContextBoolean(instance, CONTEXT_DISABLE_CHTTRANS);
     if (disableChtteans)
         return;
     boolean enabled = !ChttransEnabled(transState);
 
     fcitx_string_map_set(transState->enableIM, im->uniqueName, enabled);
     FcitxUISetStatusString(instance, "chttrans",
-                           enabled ? _("Switch to Simplified Chinese") :
-                           _("Switch to Traditional Chinese"),
-                          _("Toggle Simp/Trad Chinese Conversion"));
+                           enabled ? _("Switch to Simplified Chinese")
+                                   : _("Switch to Traditional Chinese"),
+                           _("Toggle Simp/Trad Chinese Conversion"));
     FcitxUIUpdateInputWindow(instance);
     SaveChttransConfig(transState);
 }
 
-boolean GetChttransEnabled(void* arg)
-{
-    FcitxChttrans* transState = (FcitxChttrans*) arg;
+boolean GetChttransEnabled(void *arg) {
+    FcitxChttrans *transState = (FcitxChttrans *)arg;
     return ChttransEnabled(transState);
 }
 
-char* ChttransOutputFilter(void* arg, const char *strin)
-{
-    FcitxChttrans* transState = (FcitxChttrans*) arg;
-    FcitxIM* im = FcitxInstanceGetCurrentIM(transState->owner);
+char *ChttransOutputFilter(void *arg, const char *strin) {
+    FcitxChttrans *transState = (FcitxChttrans *)arg;
+    FcitxIM *im = FcitxInstanceGetCurrentIM(transState->owner);
 
     /* don't trans for CONTEXT_DISABLE_CHTTRANS" */
-    boolean disableChtteans = FcitxInstanceGetContextBoolean(transState->owner, CONTEXT_DISABLE_CHTTRANS);
+    boolean disableChtteans = FcitxInstanceGetContextBoolean(
+        transState->owner, CONTEXT_DISABLE_CHTTRANS);
     if (disableChtteans)
         return NULL;
 
@@ -245,17 +238,16 @@ char* ChttransOutputFilter(void* arg, const char *strin)
     return NULL;
 }
 
-void ChttransIMChanged(void* arg)
-{
-    FcitxChttrans* transState = (FcitxChttrans*) arg;
-    FcitxIM* im = FcitxInstanceGetCurrentIM(transState->owner);
+void ChttransIMChanged(void *arg) {
+    FcitxChttrans *transState = (FcitxChttrans *)arg;
+    FcitxIM *im = FcitxInstanceGetCurrentIM(transState->owner);
     if (!im)
         return;
     boolean enabled = ChttransEnabled(transState);
     FcitxUISetStatusString(transState->owner, "chttrans",
-                           enabled ? _("Switch to Simplified Chinese") :
-                           _("Switch to Traditional Chinese"),
-                          _("Toggle Simp/Trad Chinese Conversion"));
+                           enabled ? _("Switch to Simplified Chinese")
+                                   : _("Switch to Traditional Chinese"),
+                           _("Toggle Simp/Trad Chinese Conversion"));
 }
 
 /**
@@ -265,8 +257,7 @@ void ChttransIMChanged(void* arg)
  * WARNING： 该函数返回新分配内存字符串，请调用者
  * 注意释放。
  */
-char *ConvertGBKSimple2Tradition(FcitxChttrans* transState, const char *strHZ)
-{
+char *ConvertGBKSimple2Tradition(FcitxChttrans *transState, const char *strHZ) {
     if (strHZ == NULL)
         return NULL;
 
@@ -282,27 +273,27 @@ char *ConvertGBKSimple2Tradition(FcitxChttrans* transState, const char *strHZ)
                 }
             }
 
-            char * res = OpenCCConvert(transState->ods2t, strHZ, (size_t) - 1);
+            char *res = OpenCCConvert(transState->ods2t, strHZ, (size_t)-1);
 
-            if (!res || res == (char *) - 1) {
+            if (!res || res == (char *)-1) {
                 return NULL;
             }
 
             return res;
-        } while(0);
+        } while (0);
 #endif
     case ENGINE_NATIVE: {
-        FILE           *fp;
-        char           *ret;
-        int             i, len, ret_len;
-        const char     *ps;
+        FILE *fp;
+        char *ret;
+        int i, len, ret_len;
+        const char *ps;
 
         if (!transState->s2t_table) {
             char *strBuf = NULL;
             size_t bufLen = 0;
             fp = FcitxXDGGetFileWithPrefix("data", TABLE_GBKS2T, "r", NULL);
             if (!fp) {
-                ret = (char *) malloc(sizeof(char) * (strlen(strHZ) + 1));
+                ret = (char *)malloc(sizeof(char) * (strlen(strHZ) + 1));
                 strcpy(ret, strHZ);
                 return ret;
             }
@@ -318,7 +309,7 @@ char *ConvertGBKSimple2Tradition(FcitxChttrans* transState, const char *strHZ)
                     continue;
                 }
 
-                s2t = (simple2trad_t*) malloc(sizeof(simple2trad_t));
+                s2t = (simple2trad_t *)malloc(sizeof(simple2trad_t));
                 s2t->wc = wc;
                 s2t->len = fcitx_utf8_char_len(ps);
                 strncpy(s2t->str, ps, s2t->len);
@@ -340,7 +331,7 @@ char *ConvertGBKSimple2Tradition(FcitxChttrans* transState, const char *strHZ)
             simple2trad_t *s2t = NULL;
             int chr_len = fcitx_utf8_char_len(ps);
             char *nps;
-            nps = fcitx_utf8_get_char(ps , &wc);
+            nps = fcitx_utf8_get_char(ps, &wc);
             HASH_FIND_INT(transState->s2t_table, &wc, s2t);
 
             if (s2t) {
@@ -352,7 +343,6 @@ char *ConvertGBKSimple2Tradition(FcitxChttrans* transState, const char *strHZ)
             }
 
             ps = nps;
-
         }
         ret[ret_len] = '\0';
 
@@ -369,8 +359,7 @@ char *ConvertGBKSimple2Tradition(FcitxChttrans* transState, const char *strHZ)
  * WARNING： 该函数返回新分配内存字符串，请调用者
  * 注意释放。
  */
-char *ConvertGBKTradition2Simple(FcitxChttrans* transState, const char *strHZ)
-{
+char *ConvertGBKTradition2Simple(FcitxChttrans *transState, const char *strHZ) {
     if (strHZ == NULL)
         return NULL;
 
@@ -385,27 +374,27 @@ char *ConvertGBKTradition2Simple(FcitxChttrans* transState, const char *strHZ)
                 }
             }
 
-            char * res = OpenCCConvert(transState->odt2s, strHZ, (size_t) - 1);
+            char *res = OpenCCConvert(transState->odt2s, strHZ, (size_t)-1);
 
-            if (!res || res == (char *) - 1) {
+            if (!res || res == (char *)-1) {
                 return NULL;
             }
 
             return res;
-        } while(0);
+        } while (0);
 #endif
     case ENGINE_NATIVE: {
-        FILE           *fp;
-        char           *ret;
-        int             i, len, ret_len;
-        const char     *ps;
+        FILE *fp;
+        char *ret;
+        int i, len, ret_len;
+        const char *ps;
 
         if (!transState->t2s_table) {
             char *strBuf = NULL;
             size_t bufLen = 0;
             fp = FcitxXDGGetFileWithPrefix("data", TABLE_GBKS2T, "r", NULL);
             if (!fp) {
-                ret = (char *) malloc(sizeof(char) * (strlen(strHZ) + 1));
+                ret = (char *)malloc(sizeof(char) * (strlen(strHZ) + 1));
                 strcpy(ret, strHZ);
                 return ret;
             }
@@ -419,7 +408,7 @@ char *ConvertGBKTradition2Simple(FcitxChttrans* transState, const char *strHZ)
                 if (t2s) {
                     continue;
                 }
-                t2s = (simple2trad_t*) malloc(sizeof(simple2trad_t));
+                t2s = (simple2trad_t *)malloc(sizeof(simple2trad_t));
 
                 fcitx_utf8_get_char(ps, &wc);
                 t2s->wc = wc;
@@ -443,7 +432,7 @@ char *ConvertGBKTradition2Simple(FcitxChttrans* transState, const char *strHZ)
             simple2trad_t *t2s = NULL;
             int chr_len = fcitx_utf8_char_len(ps);
             char *nps;
-            nps = fcitx_utf8_get_char(ps , &wc);
+            nps = fcitx_utf8_get_char(ps, &wc);
             HASH_FIND_INT(transState->t2s_table, &wc, t2s);
 
             if (t2s) {
@@ -455,7 +444,6 @@ char *ConvertGBKTradition2Simple(FcitxChttrans* transState, const char *strHZ)
             }
 
             ps = nps;
-
         }
         ret[ret_len] = '\0';
 
@@ -465,15 +453,14 @@ char *ConvertGBKTradition2Simple(FcitxChttrans* transState, const char *strHZ)
     return NULL;
 }
 
-boolean LoadChttransConfig(FcitxChttrans* transState)
-{
-    FcitxConfigFileDesc* configDesc = GetChttransConfigDesc();
+boolean LoadChttransConfig(FcitxChttrans *transState) {
+    FcitxConfigFileDesc *configDesc = GetChttransConfigDesc();
     if (configDesc == NULL)
         return false;
 
     FILE *fp;
-    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-chttrans.config",
-                                       "r", NULL);
+    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-chttrans.config", "r",
+                                       NULL);
     if (!fp) {
         if (errno == ENOENT)
             SaveChttransConfig(transState);
@@ -482,7 +469,7 @@ boolean LoadChttransConfig(FcitxChttrans* transState)
     FcitxConfigFile *cfile = FcitxConfigParseConfigFileFp(fp, configDesc);
 
     FcitxChttransConfigBind(transState, cfile, configDesc);
-    FcitxConfigBindSync((FcitxGenericConfig*)transState);
+    FcitxConfigBindSync((FcitxGenericConfig *)transState);
 
     if (fp)
         fclose(fp);
@@ -492,9 +479,8 @@ boolean LoadChttransConfig(FcitxChttrans* transState)
 
 CONFIG_DESC_DEFINE(GetChttransConfigDesc, "fcitx-chttrans.desc")
 
-void SaveChttransConfig(FcitxChttrans* transState)
-{
-    FcitxConfigFileDesc* configDesc = GetChttransConfigDesc();
+void SaveChttransConfig(FcitxChttrans *transState) {
+    FcitxConfigFileDesc *configDesc = GetChttransConfigDesc();
     FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-chttrans.config",
                                              "w", NULL);
     FcitxConfigSaveConfigFileFp(fp, &transState->gconfig, configDesc);
@@ -503,16 +489,14 @@ void SaveChttransConfig(FcitxChttrans* transState)
     }
 }
 
-void ReloadChttrans(void* arg)
-{
-    FcitxChttrans* transState = (FcitxChttrans*) arg;
+void ReloadChttrans(void *arg) {
+    FcitxChttrans *transState = (FcitxChttrans *)arg;
     LoadChttransConfig(transState);
 }
 
-void ChttransLanguageChanged(void* arg, const void* value)
-{
-    FcitxChttrans* transState = (FcitxChttrans*) arg;
-    const char* lang = (const char*) value;
+void ChttransLanguageChanged(void *arg, const void *value) {
+    FcitxChttrans *transState = (FcitxChttrans *)arg;
+    const char *lang = (const char *)value;
     boolean visible = false;
     if (lang && strncmp(lang, "zh", 2) == 0 && lang[2])
         visible = true;
@@ -520,10 +504,9 @@ void ChttransLanguageChanged(void* arg, const void* value)
     FcitxUISetStatusVisable(transState->owner, "chttrans", visible);
 }
 
-void DisableChttransStateChanged(void* arg, const void* value)
-{
-    FcitxChttrans* transState = (FcitxChttrans*) arg;
-    const boolean* b = value;
+void DisableChttransStateChanged(void *arg, const void *value) {
+    FcitxChttrans *transState = (FcitxChttrans *)arg;
+    const boolean *b = value;
     FcitxUISetStatusVisable(transState->owner, "chttrans", !(*b));
 }
 

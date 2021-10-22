@@ -101,7 +101,7 @@ int inotify_watch_dir(char *dirPath, int fd) {
     int wd = 0;
     DIR *dp = NULL;
     char pdirHome[DATA_W] = {0};
-    char pdir[DATA_W]= {0};
+    char pdir[DATA_W] = {0};
     strcpy(pdirHome, dirPath);
     struct dirent *dirp;
     if (fd < 0) {
@@ -281,7 +281,6 @@ int set_layout_for_im(char *imname) {
     memset(var3, 0, 30);
     strcat(var3, "");
 
-
     dbus_error_init(&err);
 
     connection = dbus_bus_get(DBUS_BUS_SESSION, &err);
@@ -298,11 +297,8 @@ int set_layout_for_im(char *imname) {
         return -1;
     }
 
-    dbus_message_append_args(msg,
-                             DBUS_TYPE_STRING, &imname,
-                             DBUS_TYPE_STRING, &var2,
-                             DBUS_TYPE_STRING, &var3,
-                             DBUS_TYPE_INVALID);
+    dbus_message_append_args(msg, DBUS_TYPE_STRING, &imname, DBUS_TYPE_STRING,
+                             &var2, DBUS_TYPE_STRING, &var3, DBUS_TYPE_INVALID);
 
     if (!dbus_connection_send_with_reply(connection, msg, &pending, -1)) {
         return -1;
@@ -415,11 +411,11 @@ void display_inotify_event(struct inotify_event *i) {
                 safe_free(imName);
                 imName = NULL;
             }
-        }
-        else if ((strcmp(dir.path[i->wd], "/usr/share/fcitx/inputmethod") == 0 ||
-             strcmp(dir.path[i->wd], "/usr/share/fcitx/table") == 0) &&
-            str_find_target(".conf", i->name, &imName) == 1 &&
-            strcmp(imName, "chineseime") == 0){
+        } else if ((strcmp(dir.path[i->wd], "/usr/share/fcitx/inputmethod") ==
+                        0 ||
+                    strcmp(dir.path[i->wd], "/usr/share/fcitx/table") == 0) &&
+                   str_find_target(".conf", i->name, &imName) == 1 &&
+                   strcmp(imName, "chineseime") == 0) {
             sleep(3);
             fcitx_utils_launch_restart();
             sleep(3);
@@ -431,10 +427,9 @@ void display_inotify_event(struct inotify_event *i) {
         if ((strcmp(dir.path[i->wd], "/usr/share/fcitx/inputmethod") == 0 ||
              strcmp(dir.path[i->wd], "/usr/share/fcitx/table") == 0) &&
             str_find_target(".conf", i->name, &imName) == 1) {
-
             sleep(3);
             fcitx_utils_launch_restart();
-            fprintf(gFp, "%s: remove imname = %s; \n", gettime(), imName);
+            sleep(3);
             if (NULL != imName) {
                 safe_free(imName);
                 imName = NULL;

@@ -23,10 +23,10 @@
 
 #include "config.h"
 
-#include <fcitx/ime.h>
-#include <fcitx-utils/utarray.h>
-#include <fcitx-config/fcitx-config.h>
 #include "module/xkb/fcitx-xkb.h"
+#include <fcitx-config/fcitx-config.h>
+#include <fcitx-utils/utarray.h>
+#include <fcitx/ime.h>
 
 #define FCITX_KEYBOARD_MAX_BUFFER 20
 #define FCITX_MAX_COMPOSE_LEN 7
@@ -51,10 +51,10 @@ typedef struct _FcitxKeyboardConfig {
 } FcitxKeyboardConfig;
 
 typedef struct _FcitxKeyboard {
-    struct _FcitxInstance* owner;
+    struct _FcitxInstance *owner;
     char dictLang[6];
     FcitxKeyboardConfig config;
-    FcitxXkbRules* rules;
+    FcitxXkbRules *rules;
     char *initialLayout;
     char *initialVariant;
     char buffer[2][FCITX_KEYBOARD_MAX_BUFFER + UTF8_MAX_LENGTH + 1];
@@ -64,9 +64,9 @@ typedef struct _FcitxKeyboard {
     int dataSlot;
     int enUSRegistered;
     boolean cursor_moved;
-    struct xkb_context* xkbContext;
-    struct xkb_compose_table* xkbComposeTable;
-    struct xkb_compose_state* xkbComposeState;
+    struct xkb_context *xkbContext;
+    struct xkb_compose_table *xkbComposeTable;
+    struct xkb_compose_state *xkbComposeState;
 } FcitxKeyboard;
 
 typedef struct _FcitxKeyboardLayout {

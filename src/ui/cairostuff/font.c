@@ -23,24 +23,24 @@
 #ifndef _ENABLE_PANGO
 
 #include <fontconfig/fontconfig.h>
+#include <libintl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libintl.h>
 
-#include "fcitx/fcitx.h"
-#include "fcitx-utils/utils.h"
 #include "fcitx-utils/log.h"
+#include "fcitx-utils/utils.h"
+#include "fcitx/fcitx.h"
 
 /**
  * Get Usable Font
  *
  * @param strUserLocale font language
- * @param font input as a malloc-ed font name, out put as new malloc-ed font name.
+ * @param font input as a malloc-ed font name, out put as new malloc-ed font
+ *name.
  * @return void
  **/
-void GetValidFont(const char* strUserLocale, char **font)
-{
+void GetValidFont(const char *strUserLocale, char **font) {
 
     if (!FcInit()) {
         FcitxLog(ERROR, _("Error: Load fontconfig failed"));
@@ -54,26 +54,27 @@ void GetValidFont(const char* strUserLocale, char **font)
         strcpy(locale, "zh");
     locale[2] = '\0';
 
-    boolean      found = false;
-    while(true) {
-        FcFontSet   *fs = NULL;
-        FcPattern   *pat = NULL;
+    boolean found = false;
+    while (true) {
+        FcFontSet *fs = NULL;
+        FcPattern *pat = NULL;
         FcObjectSet *os = NULL;
 
         do {
             if (strcmp(*font, "") == 0) {
-                fcitx_utils_local_cat_str(strpat, strlen(":lang=") + sizeof(locale),
-                                        ":lang=", locale);
-                pat = FcNameParse((FcChar8*)strpat);
+                fcitx_utils_local_cat_str(strpat,
+                                          strlen(":lang=") + sizeof(locale),
+                                          ":lang=", locale);
+                pat = FcNameParse((FcChar8 *)strpat);
             } else {
-                pat = FcNameParse((FcChar8*)(*font));
+                pat = FcNameParse((FcChar8 *)(*font));
             }
 
             if (!pat) {
                 break;
             }
 
-            os = FcObjectSetBuild(FC_FAMILY, FC_STYLE, (char*)0);
+            os = FcObjectSetBuild(FC_FAMILY, FC_STYLE, (char *)0);
             if (!os) {
                 break;
             }
@@ -83,14 +84,15 @@ void GetValidFont(const char* strUserLocale, char **font)
                 break;
             }
 
-            FcChar8* family;
-            if (FcPatternGetString(fs->fonts[0], FC_FAMILY, 0, &family) != FcResultMatch) {
+            FcChar8 *family;
+            if (FcPatternGetString(fs->fonts[0], FC_FAMILY, 0, &family) !=
+                FcResultMatch) {
                 break;
             }
 
             found = true;
             free(*font);
-            *font = strdup((const char*) family);
+            *font = strdup((const char *)family);
         } while (0);
 
         if (fs) {

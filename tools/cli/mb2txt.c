@@ -20,12 +20,12 @@
 #ifdef FCITX_HAVE_CONFIG_H
 #include <config.h>
 #endif
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <getopt.h>
-#include <ctype.h>
 #include "im/table/tabledict.h"
+#include <ctype.h>
+#include <getopt.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #ifdef HAVE_STDLIB_H
 #include <stdlib.h>
@@ -49,7 +49,7 @@ enum {
     TEMPL_CONSTRUCTPHRASE2,
 };
 
-const char* templateOld[] = {
+const char *templateOld[] = {
     ";fcitx 版本 0x%02x 码表文件\n",
     ";fcitx 版本 0x02 码表文件\n",
     "键码=%s\n",
@@ -64,7 +64,7 @@ const char* templateOld[] = {
     "提示=\n",
     "构词=\n",
 };
-const char* templateNew[] = {
+const char *templateNew[] = {
     ";fcitx Version 0x%02x Table file\n",
     ";fcitx Version 0x02 Table file\n",
     "KeyCode=%s\n",
@@ -80,11 +80,11 @@ const char* templateNew[] = {
     "ConstructPhrase=\n",
 };
 
-char guessValidChar(char prefer, const char* invalid) {
+char guessValidChar(char prefer, const char *invalid) {
     if (!strchr(invalid, prefer))
         return prefer;
     unsigned char c = 0;
-    for (c = 0; c <= 127; c ++) {
+    for (c = 0; c <= 127; c++) {
         if (ispunct(c) || isalnum(c)) {
             if (!strchr(invalid, c))
                 break;
@@ -96,27 +96,25 @@ char guessValidChar(char prefer, const char* invalid) {
         return c;
 }
 
-void usage()
-{
+void usage() {
     printf("Usage: mb2txt [-o] <Source File>\n");
     printf("\t-o\t\tOld format table file\n\n");
     exit(1);
 }
 
-int main(int argc, char *argv[])
-{
-    char            strCode[100];
-    char            strHZ[UTF8_MAX_LENGTH * 31];
-    FILE           *fpDict;
-    unsigned int    i = 0;
-    uint32_t        iTemp;
-    uint32_t        j;
-    unsigned char   iLen;
-    unsigned char   iRule;
-    unsigned char   iPYLen;
-    char            iVersion = 0;
-    boolean         old = false;
-    const char**          templ = NULL;
+int main(int argc, char *argv[]) {
+    char strCode[100];
+    char strHZ[UTF8_MAX_LENGTH * 31];
+    FILE *fpDict;
+    unsigned int i = 0;
+    uint32_t iTemp;
+    uint32_t j;
+    unsigned char iLen;
+    unsigned char iRule;
+    unsigned char iPYLen;
+    char iVersion = 0;
+    boolean old = false;
+    const char **templ = NULL;
 
     int c;
     while ((c = getopt(argc, argv, "oh")) != -1) {
@@ -172,7 +170,7 @@ int main(int argc, char *argv[])
             printf(templ[TEMPL_PYLEN], iPYLen);
         }
     }
-    char* temp = malloc(strlen(strCode) * sizeof(char) + 3);
+    char *temp = malloc(strlen(strCode) * sizeof(char) + 3);
     strcpy(temp, strCode);
     char pyStr[] = {cPinyin, '\0'};
     strcat(temp, pyStr);
@@ -183,14 +181,12 @@ int main(int argc, char *argv[])
     free(temp);
     if (cPrompt == 0) {
         printf("%s", templ[TEMPL_PROMPT2]);
-    }
-    else {
+    } else {
         printf(templ[TEMPL_PROMPT], cPrompt);
     }
     if (cPhrase == 0) {
         printf("%s", templ[TEMPL_CONSTRUCTPHRASE2]);
-    }
-    else {
+    } else {
         printf(templ[TEMPL_CONSTRUCTPHRASE], cPhrase);
     }
 
@@ -250,18 +246,17 @@ int main(int argc, char *argv[])
                 printf("%c%s %s\n", cPinyin, strCode, strHZ);
             else if (iRule == RECORDTYPE_CONSTRUCT) {
                 if (cPhrase == 0) {
-                    fprintf(stderr, "Could not find a valid char for construct phrase\n");
+                    fprintf(
+                        stderr,
+                        "Could not find a valid char for construct phrase\n");
                     exit(1);
-                }
-                else
+                } else
                     printf("%c%s %s\n", cPhrase, strCode, strHZ);
-            }
-            else if (iRule == RECORDTYPE_PROMPT)
+            } else if (iRule == RECORDTYPE_PROMPT)
                 if (cPrompt == 0) {
                     fprintf(stderr, "Could not find a valid char for prompt\n");
                     exit(1);
-                }
-                else
+                } else
                     printf("%c%s %s\n", cPrompt, strCode, strHZ);
             else
                 printf("%s %s\n", strCode, strHZ);

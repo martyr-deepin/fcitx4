@@ -19,12 +19,12 @@
  ***************************************************************************/
 
 #include "fcitx-utils/log.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #if defined(__linux__) || defined(__GLIBC__)
 #include <endian.h>
@@ -36,9 +36,7 @@
 #define DICT_BIN_MAGIC "FSCD0000"
 const char null_byte = '\0';
 
-static int
-compile_dict(int ifd, int ofd)
-{
+static int compile_dict(int ifd, int ofd) {
     struct stat istat_buf;
     uint32_t wcount = 0;
     char *p;
@@ -73,10 +71,7 @@ compile_dict(int ifd, int ofd)
     return 0;
 }
 
-
-int
-main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     int ifd;
     int ofd;
     const char *action = argv[1];

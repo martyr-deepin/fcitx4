@@ -20,7 +20,6 @@
 #ifndef _FCITX_MODULE_QUICKPHRASE_H
 #define _FCITX_MODULE_QUICKPHRASE_H
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -28,7 +27,6 @@ extern "C" {
 #define FCITX_QUICKPHRASE_NAME "fcitx-quickphrase"
 #define FCITX_QUICKPHRASE_LAUNCHQUICKPHRASE 0
 #define FCITX_QUICKPHRASE_LAUNCHQUICKPHRASE_RETURNTYPE intptr_t
-
 
 #ifdef __cplusplus
 }

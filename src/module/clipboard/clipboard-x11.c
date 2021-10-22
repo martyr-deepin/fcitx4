@@ -18,17 +18,16 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#include "fcitx/fcitx.h"
-#include "config.h"
 #include "clipboard-internal.h"
+#include "config.h"
+#include "fcitx/fcitx.h"
 #include "fcitx/module.h"
 #include "module/x11/fcitx-x11.h"
 
-static void
-_X11ClipboardPrimaryConvertCb(
-    void *owner, const char *sel_str, const char *tgt_str, int format,
-    size_t nitems, const void *buff, void *data)
-{
+static void _X11ClipboardPrimaryConvertCb(void *owner, const char *sel_str,
+                                          const char *tgt_str, int format,
+                                          size_t nitems, const void *buff,
+                                          void *data) {
     FCITX_UNUSED(sel_str);
     FCITX_UNUSED(tgt_str);
     FCITX_UNUSED(data);
@@ -38,24 +37,20 @@ _X11ClipboardPrimaryConvertCb(
     ClipboardSetPrimary(clipboard, nitems, buff);
 }
 
-static void
-_X11ClipboardPrimaryNotifyCb(void *owner, const char *sel_str,
-                             int subtype, void *data)
-{
+static void _X11ClipboardPrimaryNotifyCb(void *owner, const char *sel_str,
+                                         int subtype, void *data) {
     FCITX_UNUSED(sel_str);
     FCITX_UNUSED(subtype);
     FCITX_UNUSED(data);
     FcitxClipboard *clipboard = owner;
-    FcitxX11RequestConvertSelect(clipboard->owner, "PRIMARY", NULL,
-                                 clipboard, _X11ClipboardPrimaryConvertCb,
-                                 NULL, NULL);
+    FcitxX11RequestConvertSelect(clipboard->owner, "PRIMARY", NULL, clipboard,
+                                 _X11ClipboardPrimaryConvertCb, NULL, NULL);
 }
 
-static void
-_X11ClipboardClipboardConvertCb(
-    void *owner, const char *sel_str, const char *tgt_str, int format,
-    size_t nitems, const void *buff, void *data)
-{
+static void _X11ClipboardClipboardConvertCb(void *owner, const char *sel_str,
+                                            const char *tgt_str, int format,
+                                            size_t nitems, const void *buff,
+                                            void *data) {
     FCITX_UNUSED(sel_str);
     FCITX_UNUSED(tgt_str);
     FCITX_UNUSED(data);
@@ -65,36 +60,29 @@ _X11ClipboardClipboardConvertCb(
     ClipboardPushClipboard(clipboard, nitems, buff);
 }
 
-static void
-_X11ClipboardClipboardNotifyCb(void *owner, const char *sel_str,
-                               int subtype, void *data)
-{
+static void _X11ClipboardClipboardNotifyCb(void *owner, const char *sel_str,
+                                           int subtype, void *data) {
     FCITX_UNUSED(sel_str);
     FCITX_UNUSED(subtype);
     FCITX_UNUSED(data);
     FcitxClipboard *clipboard = owner;
-    FcitxX11RequestConvertSelect(clipboard->owner, "CLIPBOARD", NULL,
-                                 clipboard, _X11ClipboardClipboardConvertCb,
-                                 NULL, NULL);
+    FcitxX11RequestConvertSelect(clipboard->owner, "CLIPBOARD", NULL, clipboard,
+                                 _X11ClipboardClipboardConvertCb, NULL, NULL);
 }
 
-void
-ClipboardInitX11(FcitxClipboard *clipboard)
-{
+void ClipboardInitX11(FcitxClipboard *clipboard) {
     FcitxInstance *instance = clipboard->owner;
     clipboard->x11 = FcitxX11GetAddon(instance);
     if (!clipboard->x11)
         return;
-    clipboard->x11_primary_notify_id = FcitxX11RegSelectNotify(
-        instance, "PRIMARY", clipboard,
-        _X11ClipboardPrimaryNotifyCb, NULL, NULL);
-    clipboard->x11_clipboard_notify_id = FcitxX11RegSelectNotify(
-        instance, "CLIPBOARD", clipboard,
-        _X11ClipboardClipboardNotifyCb, NULL, NULL);
-    FcitxX11RequestConvertSelect(clipboard->owner, "PRIMARY", NULL,
-                                 clipboard, _X11ClipboardPrimaryConvertCb,
-                                 NULL, NULL);
-    FcitxX11RequestConvertSelect(clipboard->owner, "CLIPBOARD", NULL,
-                                 clipboard, _X11ClipboardClipboardConvertCb,
-                                 NULL, NULL);
+    clipboard->x11_primary_notify_id =
+        FcitxX11RegSelectNotify(instance, "PRIMARY", clipboard,
+                                _X11ClipboardPrimaryNotifyCb, NULL, NULL);
+    clipboard->x11_clipboard_notify_id =
+        FcitxX11RegSelectNotify(instance, "CLIPBOARD", clipboard,
+                                _X11ClipboardClipboardNotifyCb, NULL, NULL);
+    FcitxX11RequestConvertSelect(clipboard->owner, "PRIMARY", NULL, clipboard,
+                                 _X11ClipboardPrimaryConvertCb, NULL, NULL);
+    FcitxX11RequestConvertSelect(clipboard->owner, "CLIPBOARD", NULL, clipboard,
+                                 _X11ClipboardClipboardConvertCb, NULL, NULL);
 }

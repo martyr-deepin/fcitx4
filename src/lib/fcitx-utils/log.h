@@ -26,7 +26,8 @@
 /**
  * @file log.h
  *
- * Fcitx provides a simply log function in order to record usually message for developers.
+ * Fcitx provides a simply log function in order to record usually message for
+ * developers.
  *
  * A common use case for log function will like this:
  *
@@ -34,82 +35,84 @@
  * FcitxLog(INFO, "Log for %s", str);
  * @endcode
  *
- * FcitxLog uses printf style argument, please make sure you don't use format string with some
- * unsafe string, for example, contains percent symbol.
+ * FcitxLog uses printf style argument, please make sure you don't use format
+ * string with some unsafe string, for example, contains percent symbol.
  *
  */
 #ifndef _FCITX_LOG_H_
 #define _FCITX_LOG_H_
 
-#include <stddef.h>
 #include <stdarg.h>
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-    /**
-     * @brief ErrorLevel, DEBUG will not be printed if -DENABLE_DEBUG=On is not specified while compiling
-     **/
-    typedef enum _FcitxLogLevel
-    {
-        FCITX_DEBUG = 0,
-        FCITX_ERROR = 1,
-        FCITX_INFO = 2,
-        FCITX_FATAL = 3,
-        FCITX_WARNING = 4,
-        FCITX_NONE = 5
-    } FcitxLogLevel, ErrorLevel;
+/**
+ * @brief ErrorLevel, DEBUG will not be printed if -DENABLE_DEBUG=On is not
+ *specified while compiling
+ **/
+typedef enum _FcitxLogLevel {
+    FCITX_DEBUG = 0,
+    FCITX_ERROR = 1,
+    FCITX_INFO = 2,
+    FCITX_FATAL = 3,
+    FCITX_WARNING = 4,
+    FCITX_NONE = 5
+} FcitxLogLevel,
+    ErrorLevel;
 
 /**
- * a convenient macro for log, it will automatically printed current file and code line number.
+ * a convenient macro for log, it will automatically printed current file and
+ * code line number.
  */
 #define FcitxLog(e, fmt...) FcitxLogFunc(FCITX_##e, __FILE__, __LINE__, fmt)
 
-    /**
-     * print a log string to stderr, should use FcitxLog instead of this function
-     *
-     * @param level log level
-     * @param filename current filename
-     * @param line line number
-     * @param fmt printf fmt
-     * @param  ...
-     * @return void
-     **/
-    void FcitxLogFunc(FcitxLogLevel level, const char* filename,
-                      const int line, const char* fmt, ...);
+/**
+ * print a log string to stderr, should use FcitxLog instead of this function
+ *
+ * @param level log level
+ * @param filename current filename
+ * @param line line number
+ * @param fmt printf fmt
+ * @param  ...
+ * @return void
+ **/
+void FcitxLogFunc(FcitxLogLevel level, const char *filename, const int line,
+                  const char *fmt, ...);
 
-    /**
-     * print a log string to stderr, may used to hook into other log system.
-     *
-     * @param level log level
-     * @param filename current filename
-     * @param line line number
-     * @param fmt printf fmt
-     * @param ap va_list
-     * @return void
-     *
-     * @since 4.2.7
-     **/
-    void FcitxLogFuncV(FcitxLogLevel e, const char* filename, const int line,
-                       const char* fmt, va_list ap);
+/**
+ * print a log string to stderr, may used to hook into other log system.
+ *
+ * @param level log level
+ * @param filename current filename
+ * @param line line number
+ * @param fmt printf fmt
+ * @param ap va_list
+ * @return void
+ *
+ * @since 4.2.7
+ **/
+void FcitxLogFuncV(FcitxLogLevel e, const char *filename, const int line,
+                   const char *fmt, va_list ap);
 
-    /**
-     * set log level
-     *
-     * @param e log level
-     * @return void
-     *
-     * @since 4.2.7
-     **/
-    void FcitxLogSetLevel(FcitxLogLevel e);
+/**
+ * set log level
+ *
+ * @param e log level
+ * @return void
+ *
+ * @since 4.2.7
+ **/
+void FcitxLogSetLevel(FcitxLogLevel e);
 
-    /**
-     * get log level
-     *
-     * @return FcitxLogLevel
-     **/
-    FcitxLogLevel FcitxLogGetLevel();
+/**
+ * get log level
+ *
+ * @return FcitxLogLevel
+ **/
+FcitxLogLevel FcitxLogGetLevel();
 
 #ifdef __cplusplus
 }

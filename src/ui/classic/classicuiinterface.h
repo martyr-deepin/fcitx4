@@ -21,16 +21,16 @@
 #ifndef CLASSICUIINTERFACE_H
 #define CLASSICUIINTERFACE_H
 
-#include <cairo.h>
 #include "fcitx-config/fcitx-config.h"
+#include <cairo.h>
 
 #define FCITX_CLASSIC_UI_NAME "fcitx-classic-ui"
 #define FCITX_CLASSIC_UI_LOADIMAGE 0
-#define FCITX_CLASSIC_UI_LOADIMAGE_RETURNTYPE cairo_surface_t*
+#define FCITX_CLASSIC_UI_LOADIMAGE_RETURNTYPE cairo_surface_t *
 #define FCITX_CLASSIC_UI_GETKEYBOARDFONTCOLOR 1
 #define FCITX_CLASSIC_UI_GETKEYBOARDFONTCOLOR_RETURNTYPE FcitxConfigColor *
 #define FCITX_CLASSIC_UI_GETFONT 2
-#define FCITX_CLASSIC_UI_GETFONT_RETURNTYPE char**
+#define FCITX_CLASSIC_UI_GETFONT_RETURNTYPE char **
 
 #endif
 // kate: indent-mode cstyle; space-indent on; indent-width 0;

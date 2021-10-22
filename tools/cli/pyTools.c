@@ -18,16 +18,15 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdint.h>
 
 #include "fcitx-utils/utils.h"
 #include "pyTools.h"
 
-void LoadPYMB(FILE *fi, struct _PYMB **pPYMB, int isUser)
-{
+void LoadPYMB(FILE *fi, struct _PYMB **pPYMB, int isUser) {
 
     struct _PYMB *PYMB;
     int i, j, r, n, t;
@@ -56,9 +55,9 @@ void LoadPYMB(FILE *fi, struct _PYMB **pPYMB, int isUser)
         for (i = 0; i < t; ++i) {
             int iLen;
             fcitx_utils_read_int32(fi, &iLen);
-            fseek(fi , sizeof(char) * iLen, SEEK_CUR);
+            fseek(fi, sizeof(char) * iLen, SEEK_CUR);
             fcitx_utils_read_int32(fi, &iLen);
-            fseek(fi , sizeof(char) * iLen, SEEK_CUR);
+            fseek(fi, sizeof(char) * iLen, SEEK_CUR);
             fcitx_utils_read_int32(fi, &iLen);
 
             if (isUser)
@@ -81,9 +80,10 @@ void LoadPYMB(FILE *fi, struct _PYMB **pPYMB, int isUser)
         PYMB[i].HZ[clen] = '\0';
 
         fcitx_utils_read_int32(fi, &(PYMB[i].UserPhraseCount));
-        PYMB[i].UserPhrase = malloc(sizeof(*(PYMB[i].UserPhrase)) * PYMB[i].UserPhraseCount);
+        PYMB[i].UserPhrase =
+            malloc(sizeof(*(PYMB[i].UserPhrase)) * PYMB[i].UserPhraseCount);
 
-#define PU(i,j) (PYMB[(i)].UserPhrase[(j)])
+#define PU(i, j) (PYMB[(i)].UserPhrase[(j)])
 
         for (j = 0; j < PYMB[i].UserPhraseCount; ++j) {
             fcitx_utils_read_int32(fi, &(PU(i, j).Length));
@@ -114,8 +114,7 @@ void LoadPYMB(FILE *fi, struct _PYMB **pPYMB, int isUser)
     return;
 }
 
-int LoadPYBase(FILE *fi, struct _HZMap **pHZMap)
-{
+int LoadPYBase(FILE *fi, struct _HZMap **pHZMap) {
     int32_t i, j, r, PYFACount;
 
     struct _HZMap *HZMap;

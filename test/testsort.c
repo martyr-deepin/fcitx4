@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <assert.h>
-#include <time.h>
-#include <stdlib.h>
 #include "fcitx-utils/utarray.h"
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 typedef struct {
     int a;
@@ -10,72 +10,36 @@ typedef struct {
 } SortItem;
 
 SortItem array[] = {
-    {3, 4},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
+    {3, 4}, {2, 4}, {2, 3}, {2, 4}, {2, 3}, {2, 4}, {2, 3},
+    {2, 4}, {2, 3}, {2, 4}, {2, 3}, {2, 4}, {2, 3}, {2, 4},
+    {2, 3}, {2, 4}, {2, 3}, {2, 4}, {2, 3},
 };
 
 SortItem msort_array[] = {
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {2, 4},
-    {2, 3},
-    {3, 4},
+    {2, 4}, {2, 3}, {2, 4}, {2, 3}, {2, 4}, {2, 3}, {2, 4},
+    {2, 3}, {2, 4}, {2, 3}, {2, 4}, {2, 3}, {2, 4}, {2, 3},
+    {2, 4}, {2, 3}, {2, 4}, {2, 3}, {3, 4},
 };
 
-
-int cmp(const void* a, const void* b, void* thunk)
-{
-    return ((SortItem*)a)->a - ((SortItem*)b)->a;
+int cmp(const void *a, const void *b, void *thunk) {
+    return ((SortItem *)a)->a - ((SortItem *)b)->a;
 }
 
-int intcmp(const void* a, const void* b, void* thunk)
-{
+int intcmp(const void *a, const void *b, void *thunk) {
     if (thunk) {
-        return (*((int*)b)) - (*((int*)a));
+        return (*((int *)b)) - (*((int *)a));
     }
-    return (*((int*)a)) - (*((int*)b));
+    return (*((int *)a)) - (*((int *)b));
 }
 
 #define _AS(ARRAY) (sizeof(ARRAY) / sizeof(ARRAY[0]))
 
-int main()
-{
+int main() {
     /* stable test */
     fcitx_msort_r(array, _AS(array), sizeof(array[0]), cmp, NULL);
 
     int i = 0;
-    for (i = 0; i < _AS(array); i ++) {
+    for (i = 0; i < _AS(array); i++) {
         assert(array[i].a == msort_array[i].a);
         assert(array[i].b == msort_array[i].b);
     }
@@ -85,19 +49,21 @@ int main()
     {
         /* qsort_test */
         int qsort_intarray[1024];
-        for (i = 0; i <_AS(qsort_intarray); i ++) {
+        for (i = 0; i < _AS(qsort_intarray); i++) {
             qsort_intarray[i] = rand();
         }
-        fcitx_qsort_r(qsort_intarray, _AS(qsort_intarray), sizeof(qsort_intarray[0]), intcmp, NULL);
+        fcitx_qsort_r(qsort_intarray, _AS(qsort_intarray),
+                      sizeof(qsort_intarray[0]), intcmp, NULL);
 
-        for (i = 0; i < _AS(qsort_intarray) - 1; i ++) {
+        for (i = 0; i < _AS(qsort_intarray) - 1; i++) {
             assert(qsort_intarray[i] <= qsort_intarray[i + 1]);
         }
 
         /* msort_test */
-        fcitx_msort_r(qsort_intarray, _AS(qsort_intarray), sizeof(qsort_intarray[0]), intcmp, (void*) 0x1);
+        fcitx_msort_r(qsort_intarray, _AS(qsort_intarray),
+                      sizeof(qsort_intarray[0]), intcmp, (void *)0x1);
 
-        for (i = 0; i < _AS(qsort_intarray) - 1; i ++) {
+        for (i = 0; i < _AS(qsort_intarray) - 1; i++) {
             assert(qsort_intarray[i] >= qsort_intarray[i + 1]);
         }
     }
@@ -105,19 +71,21 @@ int main()
     {
         /* qsort_test */
         int qsort_intarray[6];
-        for (i = 0; i <_AS(qsort_intarray); i ++) {
+        for (i = 0; i < _AS(qsort_intarray); i++) {
             qsort_intarray[i] = rand();
         }
-        fcitx_qsort_r(qsort_intarray, _AS(qsort_intarray), sizeof(qsort_intarray[0]), intcmp, (void*) 0x1);
+        fcitx_qsort_r(qsort_intarray, _AS(qsort_intarray),
+                      sizeof(qsort_intarray[0]), intcmp, (void *)0x1);
 
-        for (i = 0; i < _AS(qsort_intarray) - 1; i ++) {
+        for (i = 0; i < _AS(qsort_intarray) - 1; i++) {
             assert(qsort_intarray[i] >= qsort_intarray[i + 1]);
         }
 
         /* msort_test */
-        fcitx_msort_r(qsort_intarray, _AS(qsort_intarray), sizeof(qsort_intarray[0]), intcmp, NULL);
+        fcitx_msort_r(qsort_intarray, _AS(qsort_intarray),
+                      sizeof(qsort_intarray[0]), intcmp, NULL);
 
-        for (i = 0; i < _AS(qsort_intarray) - 1; i ++) {
+        for (i = 0; i < _AS(qsort_intarray) - 1; i++) {
             assert(qsort_intarray[i] <= qsort_intarray[i + 1]);
         }
     }

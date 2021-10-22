@@ -19,40 +19,35 @@
 
 #include <libintl.h>
 
+#include "charselectdata.h"
+#include "fcitx-config/xdg.h"
+#include "fcitx/candidate.h"
+#include "fcitx/context.h"
+#include "fcitx/hook.h"
 #include "fcitx/instance.h"
 #include "fcitx/module.h"
-#include "fcitx/hook.h"
-#include "fcitx/context.h"
-#include "fcitx/candidate.h"
 #include <fcitx/keys.h>
-#include "fcitx-config/xdg.h"
-#include "charselectdata.h"
 
 typedef struct _UnicodeModule {
     FcitxGenericConfig gconfig;
     FcitxHotkey key[2];
     boolean enable;
-    CharSelectData* charselectdata;
+    CharSelectData *charselectdata;
     char buffer[MAX_USER_INPUT * UTF8_MAX_LENGTH + 1];
-    FcitxInstance* owner;
+    FcitxInstance *owner;
     boolean loaded;
 } UnicodeModule;
 
-static void* UnicodeCreate(FcitxInstance* instance);
-boolean UnicodePreFilter(void* arg, FcitxKeySym sym, unsigned int state,
-                             INPUT_RETURN_VALUE *r);
-void UnicodeReloadConfig(void* arg);
-void UnicodeReset(void* arg);
-INPUT_RETURN_VALUE UnicodeHotkey(void* arg);
-INPUT_RETURN_VALUE UnicodeGetCandWords(UnicodeModule* uni);
+static void *UnicodeCreate(FcitxInstance *instance);
+boolean UnicodePreFilter(void *arg, FcitxKeySym sym, unsigned int state,
+                         INPUT_RETURN_VALUE *r);
+void UnicodeReloadConfig(void *arg);
+void UnicodeReset(void *arg);
+INPUT_RETURN_VALUE UnicodeHotkey(void *arg);
+INPUT_RETURN_VALUE UnicodeGetCandWords(UnicodeModule *uni);
 
 FCITX_DEFINE_PLUGIN(fcitx_unicode, module, FcitxModule) = {
-    UnicodeCreate,
-    NULL,
-    NULL,
-    NULL,
-    UnicodeReloadConfig
-};
+    UnicodeCreate, NULL, NULL, NULL, UnicodeReloadConfig};
 
 CONFIG_BINDING_BEGIN(UnicodeModule)
 CONFIG_BINDING_REGISTER("Unicode", "Key", key)
@@ -60,9 +55,8 @@ CONFIG_BINDING_END()
 
 CONFIG_DEFINE_LOAD_AND_SAVE(Unicode, UnicodeModule, "fcitx-unicode")
 
-void* UnicodeCreate(FcitxInstance* instance)
-{
-    UnicodeModule* uni = fcitx_utils_new(UnicodeModule);
+void *UnicodeCreate(FcitxInstance *instance) {
+    UnicodeModule *uni = fcitx_utils_new(UnicodeModule);
     uni->owner = instance;
     if (!UnicodeLoadConfig(uni)) {
         free(uni);
@@ -92,9 +86,8 @@ void* UnicodeCreate(FcitxInstance* instance)
     return uni;
 }
 
-boolean UnicodePreFilter(void* arg, FcitxKeySym sym, unsigned int state,
-                         INPUT_RETURN_VALUE *r)
-{
+boolean UnicodePreFilter(void *arg, FcitxKeySym sym, unsigned int state,
+                         INPUT_RETURN_VALUE *r) {
     INPUT_RETURN_VALUE retVal = IRV_TO_PROCESS;
     do {
         UnicodeModule *uni = arg;
@@ -178,7 +171,8 @@ boolean UnicodePreFilter(void* arg, FcitxKeySym sym, unsigned int state,
         }
 
         FcitxKeySym keymain = FcitxHotkeyPadToMain(sym);
-        if (retVal == IRV_TO_PROCESS && FcitxHotkeyIsHotKeySimple(keymain, state)) {
+        if (retVal == IRV_TO_PROCESS &&
+            FcitxHotkeyIsHotKeySimple(keymain, state)) {
             char buf[2];
             buf[0] = keymain;
             buf[1] = '\0';
@@ -186,7 +180,7 @@ boolean UnicodePreFilter(void* arg, FcitxKeySym sym, unsigned int state,
                 strcat(uni->buffer, buf);
             retVal = UnicodeGetCandWords(uni);
         }
-    } while(0);
+    } while (0);
 
     if (retVal == IRV_TO_PROCESS) {
         retVal = IRV_DO_NOTHING;
@@ -195,16 +189,14 @@ boolean UnicodePreFilter(void* arg, FcitxKeySym sym, unsigned int state,
     return true;
 }
 
-INPUT_RETURN_VALUE UnicodeGetCandWord(void* arg, FcitxCandidateWord* candWord)
-{
-    UnicodeModule* uni = arg;
+INPUT_RETURN_VALUE UnicodeGetCandWord(void *arg, FcitxCandidateWord *candWord) {
+    UnicodeModule *uni = arg;
     FcitxInputState *input = FcitxInstanceGetInputState(uni->owner);
     strcpy(FcitxInputStateGetOutputString(input), candWord->strWord);
     return IRV_COMMIT_STRING;
 }
 
-INPUT_RETURN_VALUE UnicodeGetCandWords(UnicodeModule* uni)
-{
+INPUT_RETURN_VALUE UnicodeGetCandWords(UnicodeModule *uni) {
     FcitxInputState *input = FcitxInstanceGetInputState(uni->owner);
     FcitxInstanceCleanInputWindow(uni->owner);
     FcitxMessagesAddMessageStringsAtLast(FcitxInputStateGetPreedit(input),
@@ -212,12 +204,12 @@ INPUT_RETURN_VALUE UnicodeGetCandWords(UnicodeModule* uni)
     FcitxInputStateSetShowCursor(input, true);
     FcitxInputStateSetCursorPos(input, strlen(uni->buffer));
 
-    FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
+    FcitxCandidateWordList *candList = FcitxInputStateGetCandidateList(input);
     FcitxCandidateWordSetLayoutHint(candList, CLH_Vertical);
 
-    UT_array* result = CharSelectDataFind(uni->charselectdata, uni->buffer);
+    UT_array *result = CharSelectDataFind(uni->charselectdata, uni->buffer);
     utarray_foreach(c, result, uint32_t) {
-        char* s = fcitx_utils_malloc0(sizeof(char) * (UTF8_MAX_LENGTH + 1));
+        char *s = fcitx_utils_malloc0(sizeof(char) * (UTF8_MAX_LENGTH + 1));
         fcitx_ucs4_to_utf8(*c, s);
         FcitxCandidateWord candWord;
         candWord.callback = UnicodeGetCandWord;
@@ -226,7 +218,7 @@ INPUT_RETURN_VALUE UnicodeGetCandWords(UnicodeModule* uni)
         candWord.extraType = MSG_OTHER;
         candWord.wordType = MSG_CODE;
         candWord.strWord = s;
-        char* name = CharSelectDataName(uni->charselectdata, *c);
+        char *name = CharSelectDataName(uni->charselectdata, *c);
         fcitx_utils_alloc_cat_str(candWord.strExtra, " ", name);
         free(name);
         FcitxCandidateWordAppend(candList, &candWord);
@@ -239,22 +231,19 @@ INPUT_RETURN_VALUE UnicodeGetCandWords(UnicodeModule* uni)
     return IRV_FLAG_UPDATE_INPUT_WINDOW;
 }
 
-void UnicodeReloadConfig(void* arg)
-{
-    UnicodeModule* uni = arg;
+void UnicodeReloadConfig(void *arg) {
+    UnicodeModule *uni = arg;
     UnicodeLoadConfig(uni);
 }
 
-void UnicodeReset(void* arg)
-{
-    UnicodeModule* uni = arg;
+void UnicodeReset(void *arg) {
+    UnicodeModule *uni = arg;
     uni->enable = false;
     uni->buffer[0] = '\0';
 }
 
-INPUT_RETURN_VALUE UnicodeHotkey(void* arg)
-{
-    UnicodeModule* uni = arg;
+INPUT_RETURN_VALUE UnicodeHotkey(void *arg) {
+    UnicodeModule *uni = arg;
 
     if (!uni->loaded) {
         uni->charselectdata = CharSelectDataCreate();

@@ -20,10 +20,10 @@
 #ifndef _PY_PARSER_H
 #define _PY_PARSER_H
 
-#include <stdint.h>
-#include "fcitx/fcitx.h"
 #include "fcitx-config/fcitx-config.h"
+#include "fcitx/fcitx.h"
 #include "pydef.h"
+#include <stdint.h>
 
 #define PY_SEPARATOR '\''
 #define PY_SEPARATOR_S "'"
@@ -38,29 +38,34 @@ typedef enum _PY_PARSE_INPUT_MODE {
 typedef enum _PYPARSEINPUTMODE {
     PY_PARSE_INPUT_USER = '0',
     PY_PARSE_INPUT_SYSTEM = ' '
-} PYPARSEINPUTMODE;     //这个值不能随意修改
+} PYPARSEINPUTMODE; //这个值不能随意修改
 
 typedef struct _ParsePYStruct {
-    char            strPYParsed[MAX_WORDS_USER_INPUT + 3][MAX_PY_LENGTH + 2];
-    char            strMap[MAX_WORDS_USER_INPUT + 3][3];
-    int8_t          iHZCount;
-    char            iMode;
+    char strPYParsed[MAX_WORDS_USER_INPUT + 3][MAX_PY_LENGTH + 2];
+    char strMap[MAX_WORDS_USER_INPUT + 3][3];
+    int8_t iHZCount;
+    char iMode;
 } ParsePYStruct;
 
 struct _FcitxPinyinConfig;
 
-int             IsSyllabary(const char *strPY, boolean bMode);
-int             IsConsonant(const char *strPY, boolean bMode);
-int             FindPYFAIndex(struct _FcitxPinyinConfig* pyconfig, const char *strPY, boolean bMode);
-void            ParsePY(struct _FcitxPinyinConfig* pyconfig, const char* strPY, ParsePYStruct* parsePY, PYPARSEINPUTMODE mode, boolean bSP);
-boolean         MapPY(struct _FcitxPinyinConfig* pyconfig, const char* strPYorigin, char strMap[3], PYPARSEINPUTMODE mode);
-boolean         MapToPY(char strMap[3], char *strPY);
-int             CmpMap(struct _FcitxPinyinConfig* pyconfig, const char* strMap1,
-                       const char* strMap2, int* iMatchedLength, boolean bSP);
-int             Cmp1Map(struct _FcitxPinyinConfig* pyconfig, char map1, char map2, boolean is_S, boolean bUseMH, boolean bSP);
-int             Cmp2Map(struct _FcitxPinyinConfig* pyconfig, char map1[3], char map2[3], boolean bSP);
-void            InitPYSplitData(struct _FcitxPinyinConfig* pyconfig);
-void            FreePYSplitData(struct _FcitxPinyinConfig* pyconfig);
+int IsSyllabary(const char *strPY, boolean bMode);
+int IsConsonant(const char *strPY, boolean bMode);
+int FindPYFAIndex(struct _FcitxPinyinConfig *pyconfig, const char *strPY,
+                  boolean bMode);
+void ParsePY(struct _FcitxPinyinConfig *pyconfig, const char *strPY,
+             ParsePYStruct *parsePY, PYPARSEINPUTMODE mode, boolean bSP);
+boolean MapPY(struct _FcitxPinyinConfig *pyconfig, const char *strPYorigin,
+              char strMap[3], PYPARSEINPUTMODE mode);
+boolean MapToPY(char strMap[3], char *strPY);
+int CmpMap(struct _FcitxPinyinConfig *pyconfig, const char *strMap1,
+           const char *strMap2, int *iMatchedLength, boolean bSP);
+int Cmp1Map(struct _FcitxPinyinConfig *pyconfig, char map1, char map2,
+            boolean is_S, boolean bUseMH, boolean bSP);
+int Cmp2Map(struct _FcitxPinyinConfig *pyconfig, char map1[3], char map2[3],
+            boolean bSP);
+void InitPYSplitData(struct _FcitxPinyinConfig *pyconfig);
+void FreePYSplitData(struct _FcitxPinyinConfig *pyconfig);
 
 #endif
 

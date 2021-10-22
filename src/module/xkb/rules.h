@@ -23,9 +23,9 @@
 
 #include "xkb.h"
 
-FcitxXkbRules* FcitxXkbReadRules(const char* file);
-void FcitxXkbRulesFree(FcitxXkbRules* rules);
-char* FcitxXkbRulesToReadableString(FcitxXkbRules* rules);
-boolean StringEndsWith(const char* str, const char* suffix);
+FcitxXkbRules *FcitxXkbReadRules(const char *file);
+void FcitxXkbRulesFree(FcitxXkbRules *rules);
+char *FcitxXkbRulesToReadableString(FcitxXkbRules *rules);
+boolean StringEndsWith(const char *str, const char *suffix);
 
 #endif

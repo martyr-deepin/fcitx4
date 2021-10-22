@@ -25,16 +25,16 @@
 #ifndef _TRAY_WINDOW_H
 #define _TRAY_WINDOW_H
 
-#include <X11/Xlib.h>
-#include <string.h>
-#include <cairo.h>
-#include <cairo-xlib.h>
-#include <X11/Xutil.h>
 #include "fcitx-config/fcitx-config.h"
 #include <X11/Xdefs.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <cairo-xlib.h>
+#include <cairo.h>
+#include <string.h>
 
 #define INACTIVE_ICON 0
-#define ACTIVE_ICON   1
+#define ACTIVE_ICON 1
 struct _FcitxClassicUI;
 
 typedef struct _TrayWindow {
@@ -46,15 +46,15 @@ typedef struct _TrayWindow {
     cairo_surface_t *cs_x;
     cairo_surface_t *cs;
     int size;
-    struct _FcitxClassicUI* owner;
+    struct _FcitxClassicUI *owner;
     Window dockWindow;
 } TrayWindow;
 
-TrayWindow* TrayWindowCreate(struct _FcitxClassicUI *classicui);
-void TrayWindowDraw(TrayWindow* trayWindow);
-void TrayWindowRedraw(TrayWindow* trayWindow);
+TrayWindow *TrayWindowCreate(struct _FcitxClassicUI *classicui);
+void TrayWindowDraw(TrayWindow *trayWindow);
+void TrayWindowRedraw(TrayWindow *trayWindow);
 /* these two function can be called more than once */
-void TrayWindowRelease(TrayWindow* trayWindow);
+void TrayWindowRelease(TrayWindow *trayWindow);
 void TrayWindowInit(TrayWindow *trayWindow);
 #endif
 

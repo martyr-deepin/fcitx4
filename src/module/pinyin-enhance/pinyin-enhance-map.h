@@ -29,10 +29,8 @@ typedef struct _PyEnhanceMapWord PyEnhanceMapWord;
 struct _PyEnhanceMapWord {
     PyEnhanceMapWord *next;
 };
-static inline void*
-py_enhance_map_word(const PyEnhanceMapWord *word)
-{
-    return ((void*)(intptr_t)word) + sizeof(PyEnhanceMapWord);
+static inline void *py_enhance_map_word(const PyEnhanceMapWord *word) {
+    return ((void *)(intptr_t)word) + sizeof(PyEnhanceMapWord);
 }
 
 typedef struct _PyEnhanceMap PyEnhanceMap;
@@ -41,25 +39,20 @@ struct _PyEnhanceMap {
     UT_hash_handle hh;
 };
 
-static inline PyEnhanceMap*
-py_enhance_map_next(PyEnhanceMap *map)
-{
-    return (PyEnhanceMap*)map->hh.next;
+static inline PyEnhanceMap *py_enhance_map_next(PyEnhanceMap *map) {
+    return (PyEnhanceMap *)map->hh.next;
 }
 
-static inline void*
-py_enhance_map_key(PyEnhanceMap *map)
-{
-    return (void*)map + sizeof(PyEnhanceMap);
+static inline void *py_enhance_map_key(PyEnhanceMap *map) {
+    return (void *)map + sizeof(PyEnhanceMap);
 }
 void PinyinEnhanceMapAdd(PyEnhanceMap **map, FcitxMemoryPool *pool,
-                         const char *key, unsigned int key_l,
-                         const char *word, unsigned int word_l);
-PyEnhanceMapWord *PinyinEnhanceMapGet(PyEnhanceMap *map,
-                                      const char *key, unsigned int key_l);
-static inline void
-PinyinEnhanceMapClear(PyEnhanceMap **map, FcitxMemoryPool *pool)
-{
+                         const char *key, unsigned int key_l, const char *word,
+                         unsigned int word_l);
+PyEnhanceMapWord *PinyinEnhanceMapGet(PyEnhanceMap *map, const char *key,
+                                      unsigned int key_l);
+static inline void PinyinEnhanceMapClear(PyEnhanceMap **map,
+                                         FcitxMemoryPool *pool) {
     *map = NULL;
     if (fcitx_likely(pool)) {
         fcitx_memory_pool_clear(pool);

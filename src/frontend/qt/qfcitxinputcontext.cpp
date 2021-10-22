@@ -93,7 +93,6 @@ static bool get_boolean_env(const char *name, bool defval) {
     return true;
 }
 
-
 typedef QInputMethodEvent::Attribute QAttribute;
 
 QFcitxInputContext::QFcitxInputContext()
