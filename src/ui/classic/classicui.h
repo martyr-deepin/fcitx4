@@ -54,13 +54,13 @@ typedef enum _HIDE_MAINWINDOW {
  **/
 typedef struct _FcitxClassicUI {
     FcitxGenericConfig gconfig;
-    Display* dpy;
+    Display *dpy;
     int iScreen;
     Atom protocolAtom;
     Atom killAtom;
-    struct _InputWindow* inputWindow;
-    struct _MainWindow* mainWindow;
-    struct _TrayWindow* trayWindow;
+    struct _InputWindow *inputWindow;
+    struct _MainWindow *mainWindow;
+    struct _TrayWindow *trayWindow;
     FcitxUIMenu skinMenu;
 
     FcitxSkin skin;
@@ -69,19 +69,19 @@ typedef struct _FcitxClassicUI {
     struct _FcitxInstance *owner;
 
     int fontSize;
-    char* font;
-    char* menuFont;
-    char* strUserLocale;
+    char *font;
+    char *menuFont;
+    char *strUserLocale;
     boolean bUseTrayIcon;
     boolean bUseTrayIcon_;
     HIDE_MAINWINDOW hideMainWindow;
     boolean bVerticalList;
-    char* skinType;
+    char *skinType;
     int iMainWindowOffsetX;
     int iMainWindowOffsetY;
 
     UT_array status;
-    struct _XlibMenu* mainMenuWindow;
+    struct _XlibMenu *mainMenuWindow;
     FcitxUIMenu mainMenu;
     boolean isSuspend;
     boolean isfallback;
@@ -94,25 +94,28 @@ typedef struct _FcitxClassicUI {
     unsigned int epoch;
     uint64_t waitDelayed;
 
-    DBusConnection* conn;
+    DBusConnection *conn;
 } FcitxClassicUI;
 
-FcitxRect GetScreenGeometry(FcitxClassicUI* classicui, int x, int y);
-Visual * ClassicUIFindARGBVisual(FcitxClassicUI* classicui);
-boolean ClassicUIMouseClick(FcitxClassicUI* classicui, Window window, int *x, int *y);
-boolean IsInRspArea(int x0, int y0, struct _FcitxClassicUIStatus* status);
-void ClassicUISetWindowProperty(FcitxClassicUI* classicui, Window window, FcitxXWindowType type, char *windowTitle);
+FcitxRect GetScreenGeometry(FcitxClassicUI *classicui, int x, int y);
+Visual *ClassicUIFindARGBVisual(FcitxClassicUI *classicui);
+boolean ClassicUIMouseClick(FcitxClassicUI *classicui, Window window, int *x,
+                            int *y);
+boolean IsInRspArea(int x0, int y0, struct _FcitxClassicUIStatus *status);
+void ClassicUISetWindowProperty(FcitxClassicUI *classicui, Window window,
+                                FcitxXWindowType type, char *windowTitle);
 void ActivateWindow(Display *dpy, int iScreen, Window window);
-boolean LoadClassicUIConfig(FcitxClassicUI* classicui);
-void SaveClassicUIConfig(FcitxClassicUI* classicui);
-boolean WindowIsVisable(Display* dpy, Window window);
-boolean EnlargeCairoSurface(cairo_surface_t** sur, int w, int h);
-void ResizeSurface(cairo_surface_t** surface, int w, int h);
+boolean LoadClassicUIConfig(FcitxClassicUI *classicui);
+void SaveClassicUIConfig(FcitxClassicUI *classicui);
+boolean WindowIsVisable(Display *dpy, Window window);
+boolean EnlargeCairoSurface(cairo_surface_t **sur, int w, int h);
+void ResizeSurface(cairo_surface_t **surface, int w, int h);
 
-#define FCITX_MIN(a,b) ((a) < (b)?(a) : (b))
-#define FCITX_MAX(a,b) ((a) > (b)?(a) : (b))
+#define FCITX_MIN(a, b) ((a) < (b) ? (a) : (b))
+#define FCITX_MAX(a, b) ((a) > (b) ? (a) : (b))
 
-#define GetPrivateStatus(status) ((FcitxClassicUIStatus*)(status)->uipriv[classicui->isfallback])
+#define GetPrivateStatus(status)                                               \
+    ((FcitxClassicUIStatus *)(status)->uipriv[classicui->isfallback])
 
 CONFIG_BINDING_DECLARE(FcitxClassicUI);
 #endif
