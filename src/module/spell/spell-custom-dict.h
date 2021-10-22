@@ -31,8 +31,8 @@ typedef struct {
     int words_count;
     const char *delim;
     boolean (*word_comp_func)(unsigned int, unsigned int);
-    int (*word_check_func)(const char*);
-    void (*hint_cmplt_func)(SpellHint*, int);
+    int (*word_check_func)(const char *);
+    void (*hint_cmplt_func)(SpellHint *, int);
 } SpellCustomDict;
 
 SpellCustomDict *SpellCustomNewDict(FcitxSpell *spell, const char *lang);

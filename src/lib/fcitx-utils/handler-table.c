@@ -59,8 +59,8 @@ FCITX_EXPORT_API FcitxHandlerTable *fcitx_handler_table_new_with_keydata(
 }
 
 FCITX_EXPORT_API
-    FcitxHandlerTable *(fcitx_handler_table_new)(size_t obj_size,
-                                                 FcitxDestroyNotify free_func) {
+FcitxHandlerTable *(fcitx_handler_table_new)(size_t obj_size,
+                                             FcitxDestroyNotify free_func) {
     return fcitx_handler_table_new_with_keydata(obj_size, free_func, NULL);
 }
 

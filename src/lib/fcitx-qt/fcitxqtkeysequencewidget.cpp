@@ -368,8 +368,8 @@ void FcitxQtKeySequenceButton::keyPressEvent(QKeyEvent *e) {
         e->modifiers() & (Qt::SHIFT | Qt::CTRL | Qt::ALT | Qt::META);
 
     // don't have the return or space key appear as first key of the sequence
-    // when they were pressed to start editing - catch and them and imitate their
-    // effect
+    // when they were pressed to start editing - catch and them and imitate
+    // their effect
     if (!d->isRecording &&
         ((keyQt == Qt::Key_Return || keyQt == Qt::Key_Space))) {
         d->startRecording();

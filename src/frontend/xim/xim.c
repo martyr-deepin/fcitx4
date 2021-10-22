@@ -44,80 +44,74 @@
 #include "fcitx-config/xdg.h"
 #include "fcitx/hook.h"
 
-static void* XimCreate(FcitxInstance* instance, int frontendid);
-static boolean XimDestroy(void* arg);
-static void XimEnableIM(void* arg, FcitxInputContext* ic);
-static void XimCloseIM(void* arg, FcitxInputContext* ic);
-static void XimCommitString(void* arg, FcitxInputContext* ic, const char* str);
-static void XimForwardKey(void* arg, FcitxInputContext* ic, FcitxKeyEventType event, FcitxKeySym sym, unsigned int state);
-static void XimSetWindowOffset(void* arg, FcitxInputContext* ic, int x, int y);
-static void XimGetWindowRect(void* arg, FcitxInputContext* ic, int* x, int* y, int* w, int* h);
-static void XimUpdatePreedit(void* arg, FcitxInputContext* ic);
+static void *XimCreate(FcitxInstance *instance, int frontendid);
+static boolean XimDestroy(void *arg);
+static void XimEnableIM(void *arg, FcitxInputContext *ic);
+static void XimCloseIM(void *arg, FcitxInputContext *ic);
+static void XimCommitString(void *arg, FcitxInputContext *ic, const char *str);
+static void XimForwardKey(void *arg, FcitxInputContext *ic,
+                          FcitxKeyEventType event, FcitxKeySym sym,
+                          unsigned int state);
+static void XimSetWindowOffset(void *arg, FcitxInputContext *ic, int x, int y);
+static void XimGetWindowRect(void *arg, FcitxInputContext *ic, int *x, int *y,
+                             int *w, int *h);
+static void XimUpdatePreedit(void *arg, FcitxInputContext *ic);
 // static pid_t XimGetPid(void* arg, FcitxInputContext* ic);
 // static pid_t XimFindApplicationPid(FcitxXimFrontend* xim, Window w);
 
-static Bool XimProtocolHandler(XIMS _ims, IMProtocol * call_data);
+static Bool XimProtocolHandler(XIMS _ims, IMProtocol *call_data);
 DECLARE_ADDFUNCTIONS(Xim)
 
 static XIMStyle OverTheSpot_Styles[] = {
-    XIMPreeditPosition | XIMStatusArea, //OverTheSpot
-    XIMPreeditPosition | XIMStatusNothing,      //OverTheSpot
-    XIMPreeditPosition | XIMStatusNone, //OverTheSpot
-    XIMPreeditNothing | XIMStatusNothing,       //Root
-    XIMPreeditNothing | XIMStatusNone,  //Root
+    XIMPreeditPosition | XIMStatusArea,    // OverTheSpot
+    XIMPreeditPosition | XIMStatusNothing, // OverTheSpot
+    XIMPreeditPosition | XIMStatusNone,    // OverTheSpot
+    XIMPreeditNothing | XIMStatusNothing,  // Root
+    XIMPreeditNothing | XIMStatusNone,     // Root
     /*
     XIMPreeditArea | XIMStatusArea,         //OffTheSpot
     XIMPreeditArea | XIMStatusNothing,      //OffTheSpot
     XIMPreeditArea | XIMStatusNone,         //OffTheSpot */
-    0
-};
+    0};
 
-static XIMStyle OnTheSpot_Styles [] = {
-    XIMPreeditPosition | XIMStatusNothing,
-    XIMPreeditCallbacks | XIMStatusNothing,
-    XIMPreeditNothing | XIMStatusNothing,
-    XIMPreeditPosition | XIMStatusCallbacks,
-    XIMPreeditCallbacks | XIMStatusCallbacks,
-    XIMPreeditNothing | XIMStatusCallbacks,
-    0
-};
+static XIMStyle OnTheSpot_Styles[] = {XIMPreeditPosition | XIMStatusNothing,
+                                      XIMPreeditCallbacks | XIMStatusNothing,
+                                      XIMPreeditNothing | XIMStatusNothing,
+                                      XIMPreeditPosition | XIMStatusCallbacks,
+                                      XIMPreeditCallbacks | XIMStatusCallbacks,
+                                      XIMPreeditNothing | XIMStatusCallbacks,
+                                      0};
 
-FCITX_DEFINE_PLUGIN(fcitx_xim, frontend, FcitxFrontend) = {
-    XimCreate,
-    XimDestroy,
-    XimCreateIC,
-    XimCheckIC,
-    XimDestroyIC,
-    XimEnableIM,
-    XimCloseIM,
-    XimCommitString,
-    XimForwardKey,
-    XimSetWindowOffset,
-    XimGetWindowRect,
-    XimUpdatePreedit,
-    NULL,
-    NULL,
-    XimCheckICFromSameApplication,
-    NULL,
-    NULL,
-    NULL
-};
+FCITX_DEFINE_PLUGIN(fcitx_xim, frontend,
+                    FcitxFrontend) = {XimCreate,
+                                      XimDestroy,
+                                      XimCreateIC,
+                                      XimCheckIC,
+                                      XimDestroyIC,
+                                      XimEnableIM,
+                                      XimCloseIM,
+                                      XimCommitString,
+                                      XimForwardKey,
+                                      XimSetWindowOffset,
+                                      XimGetWindowRect,
+                                      XimUpdatePreedit,
+                                      NULL,
+                                      NULL,
+                                      XimCheckICFromSameApplication,
+                                      NULL,
+                                      NULL,
+                                      NULL};
 
 FcitxXimFrontend *ximfrontend;
 
 CONFIG_DESC_DEFINE(GetXimConfigDesc, "fcitx-xim.desc")
 
 /* Supported Chinese Encodings */
-static XIMEncoding zhEncodings[] = {
-    "COMPOUND_TEXT",
-    NULL
-};
+static XIMEncoding zhEncodings[] = {"COMPOUND_TEXT", NULL};
 
 static char strLocale[LOCALES_BUFSIZE + 1] = LOCALES_STRING;
 
-static void*
-XimCreate(FcitxInstance* instance, int frontendid)
-{
+static void *XimCreate(FcitxInstance *instance, int frontendid) {
     if (ximfrontend != NULL)
         return NULL;
     FcitxXimFrontend *xim = fcitx_utils_new(FcitxXimFrontend);
@@ -139,9 +133,9 @@ XimCreate(FcitxInstance* instance, int frontendid)
     xim->iScreen = DefaultScreen(xim->display);
     xim->owner = instance;
     xim->frontendid = frontendid;
-    xim->xim_window = XCreateWindow(xim->display, DefaultRootWindow(xim->display),
-                                    0, 0, 1, 1, 0, 0, InputOnly,
-                                    CopyFromParent, 0, NULL);
+    xim->xim_window =
+        XCreateWindow(xim->display, DefaultRootWindow(xim->display), 0, 0, 1, 1,
+                      0, 0, InputOnly, CopyFromParent, 0, NULL);
     if (!xim->xim_window) {
         FcitxLog(FATAL, _("Can't Create imWindow"));
         free(xim);
@@ -167,15 +161,15 @@ XimCreate(FcitxInstance* instance, int frontendid)
     if (GetXimConfigDesc() == NULL)
         xim->bUseOnTheSpotStyle = false;
     else {
-        FcitxConfigFileDesc* configDesc = GetXimConfigDesc();
+        FcitxConfigFileDesc *configDesc = GetXimConfigDesc();
 
         FILE *fp;
-        fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-xim.config", "r", NULL);
+        fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-xim.config", "r",
+                                           NULL);
         if (!fp) {
             if (errno == ENOENT) {
-                FILE *fp2 = FcitxXDGGetFileUserWithPrefix("conf",
-                                                          "fcitx-xim.config",
-                                                          "w", NULL);
+                FILE *fp2 = FcitxXDGGetFileUserWithPrefix(
+                    "conf", "fcitx-xim.config", "w", NULL);
                 FcitxConfigSaveConfigFileFp(fp2, &xim->gconfig, configDesc);
                 if (fp2) {
                     fclose(fp2);
@@ -186,7 +180,7 @@ XimCreate(FcitxInstance* instance, int frontendid)
         FcitxConfigFile *cfile = FcitxConfigParseConfigFileFp(fp, configDesc);
 
         FcitxXimFrontendConfigBind(xim, cfile, configDesc);
-        FcitxConfigBindSync((FcitxGenericConfig*)xim);
+        FcitxConfigBindSync((FcitxGenericConfig *)xim);
 
         if (fp) {
             fclose(fp);
@@ -204,10 +198,9 @@ XimCreate(FcitxInstance* instance, int frontendid)
         input_styles.supported_styles = OverTheSpot_Styles;
     }
 
-    XIMEncodings encodings = {
-        .count_encodings = sizeof(zhEncodings) / sizeof(XIMEncoding) - 1,
-        .supported_encodings = zhEncodings
-    };
+    XIMEncodings encodings = {.count_encodings =
+                                  sizeof(zhEncodings) / sizeof(XIMEncoding) - 1,
+                              .supported_encodings = zhEncodings};
 
     p = getenv("LC_CTYPE");
     if (!p) {
@@ -223,21 +216,18 @@ XimCreate(FcitxInstance* instance, int frontendid)
         }
     }
 
-    xim->ims = IMOpenIM(xim->display,
-                        IMModifiers, "Xi18n",
-                        IMServerWindow, xim->xim_window,
-                        IMServerName, imname,
-                        IMLocale, strLocale,
-                        IMServerTransport, "X/",
-                        IMInputStyles, &input_styles,
-                        IMEncodingList, &encodings,
+    xim->ims = IMOpenIM(xim->display, IMModifiers, "Xi18n", IMServerWindow,
+                        xim->xim_window, IMServerName, imname, IMLocale,
+                        strLocale, IMServerTransport, "X/", IMInputStyles,
+                        &input_styles, IMEncodingList, &encodings,
                         IMProtocolHandler, XimProtocolHandler,
-                        IMFilterEventMask, KeyPressMask | KeyReleaseMask,
-                        NULL);
+                        IMFilterEventMask, KeyPressMask | KeyReleaseMask, NULL);
 
-    if (xim->ims == (XIMS) NULL) {
-        FcitxLog(ERROR, _("Start XIM error. Another XIM daemon named %s "
-                          "is running?"), imname);
+    if (xim->ims == (XIMS)NULL) {
+        FcitxLog(ERROR,
+                 _("Start XIM error. Another XIM daemon named %s "
+                   "is running?"),
+                 imname);
         XimDestroy(xim);
         FcitxInstanceEnd(instance);
         return NULL;
@@ -246,82 +236,97 @@ XimCreate(FcitxInstance* instance, int frontendid)
     return xim;
 }
 
-Bool XimProtocolHandler(XIMS _ims, IMProtocol * call_data)
-{
+Bool XimProtocolHandler(XIMS _ims, IMProtocol *call_data) {
     FCITX_UNUSED(_ims);
     switch (call_data->major_code) {
     case XIM_OPEN:
-        FcitxLog(DEBUG, "XIM_OPEN:\t\ticid=%d\tconnect_id=%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id);
+        FcitxLog(DEBUG, "XIM_OPEN:\t\ticid=%d\tconnect_id=%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id);
         break;
     case XIM_CLOSE:
-        FcitxLog(DEBUG, "XIM_CLOSE:\t\ticid=%d\tconnect_id=%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id);
+        FcitxLog(DEBUG, "XIM_CLOSE:\t\ticid=%d\tconnect_id=%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id);
         break;
     case XIM_CREATE_IC:
-        FcitxLog(DEBUG, "XIM_CREATE_IC:\t\ticid=%d\tconnect_id=%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id);
+        FcitxLog(DEBUG, "XIM_CREATE_IC:\t\ticid=%d\tconnect_id=%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id);
         break;
     case XIM_DESTROY_IC:
-        FcitxLog(DEBUG, "XIM_DESTROY_IC:\t\ticid=%d\tconnect_id=%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id);
+        FcitxLog(DEBUG, "XIM_DESTROY_IC:\t\ticid=%d\tconnect_id=%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id);
         break;
     case XIM_SET_IC_VALUES:
-        FcitxLog(DEBUG, "XIM_SET_IC_VALUES:\t\ticid=%d\tconnect_id=%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id);
+        FcitxLog(DEBUG, "XIM_SET_IC_VALUES:\t\ticid=%d\tconnect_id=%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id);
         break;
     case XIM_GET_IC_VALUES:
-        FcitxLog(DEBUG, "XIM_GET_IC_VALUES:\ticid=%d\tconnect_id=%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id);
+        FcitxLog(DEBUG, "XIM_GET_IC_VALUES:\ticid=%d\tconnect_id=%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id);
         break;
     case XIM_FORWARD_EVENT:
-        FcitxLog(DEBUG, "XIM_FORWARD_EVENT:\ticid=%d\tconnect_id=%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id);
+        FcitxLog(DEBUG, "XIM_FORWARD_EVENT:\ticid=%d\tconnect_id=%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id);
         break;
     case XIM_SET_IC_FOCUS:
-        FcitxLog(DEBUG, "XIM_SET_IC_FOCUS:\ticid=%d\tconnect_id=%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id);
+        FcitxLog(DEBUG, "XIM_SET_IC_FOCUS:\ticid=%d\tconnect_id=%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id);
         break;
     case XIM_UNSET_IC_FOCUS:
-        FcitxLog(DEBUG, "XIM_UNSET_IC_FOCUS:\ticid=%d\tconnect_id=%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id);
+        FcitxLog(DEBUG, "XIM_UNSET_IC_FOCUS:\ticid=%d\tconnect_id=%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id);
         break;
     case XIM_RESET_IC:
-        FcitxLog(DEBUG, "XIM_RESET_IC:\t\ticid=%d\tconnect_id=%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id);
+        FcitxLog(DEBUG, "XIM_RESET_IC:\t\ticid=%d\tconnect_id=%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id);
         break;
     case XIM_TRIGGER_NOTIFY:
-        FcitxLog(DEBUG, "XIM_TRIGGER_NOTIFY:\t\ticid=%d\tconnect_id=%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id);
+        FcitxLog(DEBUG, "XIM_TRIGGER_NOTIFY:\t\ticid=%d\tconnect_id=%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id);
         break;
     default:
-        FcitxLog(DEBUG, "XIM_DEFAULT:\t\ticid=%d\tconnect_id=%d\t%d", ((IMForwardEventStruct *) call_data)->icid,
-                 ((IMForwardEventStruct *) call_data)->connect_id, call_data->major_code);
+        FcitxLog(DEBUG, "XIM_DEFAULT:\t\ticid=%d\tconnect_id=%d\t%d",
+                 ((IMForwardEventStruct *)call_data)->icid,
+                 ((IMForwardEventStruct *)call_data)->connect_id,
+                 call_data->major_code);
         break;
     }
 
     switch (call_data->major_code) {
     case XIM_OPEN:
-        return XIMOpenHandler(ximfrontend, (IMOpenStruct *) call_data);
+        return XIMOpenHandler(ximfrontend, (IMOpenStruct *)call_data);
     case XIM_CLOSE:
-        return XIMCloseHandler(ximfrontend, (IMOpenStruct *) call_data);
+        return XIMCloseHandler(ximfrontend, (IMOpenStruct *)call_data);
     case XIM_CREATE_IC:
-        return XIMCreateICHandler(ximfrontend, (IMChangeICStruct *) call_data);
+        return XIMCreateICHandler(ximfrontend, (IMChangeICStruct *)call_data);
     case XIM_DESTROY_IC:
-        return XIMDestroyICHandler(ximfrontend, (IMChangeICStruct *) call_data);
+        return XIMDestroyICHandler(ximfrontend, (IMChangeICStruct *)call_data);
     case XIM_SET_IC_VALUES:
-        return XIMSetICValuesHandler(ximfrontend, (IMChangeICStruct *) call_data);
+        return XIMSetICValuesHandler(ximfrontend,
+                                     (IMChangeICStruct *)call_data);
     case XIM_GET_IC_VALUES:
-        return XIMGetICValuesHandler(ximfrontend, (IMChangeICStruct *) call_data);
+        return XIMGetICValuesHandler(ximfrontend,
+                                     (IMChangeICStruct *)call_data);
     case XIM_FORWARD_EVENT:
-        XIMProcessKey(ximfrontend, (IMForwardEventStruct *) call_data);
+        XIMProcessKey(ximfrontend, (IMForwardEventStruct *)call_data);
         return True;
     case XIM_SET_IC_FOCUS:
-        return XIMSetFocusHandler(ximfrontend, (IMChangeFocusStruct *) call_data);
+        return XIMSetFocusHandler(ximfrontend,
+                                  (IMChangeFocusStruct *)call_data);
     case XIM_UNSET_IC_FOCUS:
-        return XIMUnsetFocusHandler(ximfrontend, (IMChangeICStruct *) call_data);
+        return XIMUnsetFocusHandler(ximfrontend, (IMChangeICStruct *)call_data);
     case XIM_RESET_IC:
-        return XIMResetICHandler(ximfrontend, (IMResetICStruct *) call_data);
+        return XIMResetICHandler(ximfrontend, (IMResetICStruct *)call_data);
     case XIM_PREEDIT_START_REPLY:
         return 0;
     case XIM_PREEDIT_CARET_REPLY:
@@ -333,9 +338,8 @@ Bool XimProtocolHandler(XIMS _ims, IMProtocol * call_data)
     }
 }
 
-boolean XimDestroy(void* arg)
-{
-    FcitxXimFrontend* xim = (FcitxXimFrontend*) arg;
+boolean XimDestroy(void *arg) {
+    FcitxXimFrontend *xim = (FcitxXimFrontend *)arg;
 
     FcitxConfigFree(&xim->gconfig);
 
@@ -357,51 +361,48 @@ boolean XimDestroy(void* arg)
     return true;
 }
 
-void XimEnableIM(void* arg, FcitxInputContext* ic)
-{
-    FcitxXimFrontend* xim = (FcitxXimFrontend*) arg;
-    FcitxXimIC* ximic = (FcitxXimIC*) ic->privateic;
-    IMChangeFocusStruct* call_data = fcitx_utils_new(IMChangeFocusStruct);
+void XimEnableIM(void *arg, FcitxInputContext *ic) {
+    FcitxXimFrontend *xim = (FcitxXimFrontend *)arg;
+    FcitxXimIC *ximic = (FcitxXimIC *)ic->privateic;
+    IMChangeFocusStruct *call_data = fcitx_utils_new(IMChangeFocusStruct);
     call_data->connect_id = ximic->connect_id;
     call_data->icid = ximic->id;
-    XimPendingCall(xim, XCT_PREEDIT_START, (XPointer) call_data);
+    XimPendingCall(xim, XCT_PREEDIT_START, (XPointer)call_data);
 }
 
-void XimCloseIM(void* arg, FcitxInputContext* ic)
-{
-    FcitxXimFrontend* xim = (FcitxXimFrontend*) arg;
-    IMChangeFocusStruct* call_data = fcitx_utils_new(IMChangeFocusStruct);
-    FcitxXimIC* ximic = (FcitxXimIC*) ic->privateic;
+void XimCloseIM(void *arg, FcitxInputContext *ic) {
+    FcitxXimFrontend *xim = (FcitxXimFrontend *)arg;
+    IMChangeFocusStruct *call_data = fcitx_utils_new(IMChangeFocusStruct);
+    FcitxXimIC *ximic = (FcitxXimIC *)ic->privateic;
     call_data->connect_id = ximic->connect_id;
     call_data->icid = ximic->id;
-    XimPendingCall(xim, XCT_PREEDIT_END, (XPointer) call_data);
+    XimPendingCall(xim, XCT_PREEDIT_END, (XPointer)call_data);
 }
 
-void XimCommitString(void* arg, FcitxInputContext* ic, const char* str)
-{
-    FcitxXimFrontend* xim = (FcitxXimFrontend*) arg;
+void XimCommitString(void *arg, FcitxInputContext *ic, const char *str) {
+    FcitxXimFrontend *xim = (FcitxXimFrontend *)arg;
     XTextProperty tp;
-    FcitxXimIC* ximic = (FcitxXimIC*) ic->privateic;
+    FcitxXimIC *ximic = (FcitxXimIC *)ic->privateic;
 
     /* avoid Seg fault */
     if (!ic)
         return;
 
-
-    Xutf8TextListToTextProperty(xim->display, (char **) &str, 1, XCompoundTextStyle, &tp);
-    IMCommitStruct* cms = fcitx_utils_new(IMCommitStruct);
+    Xutf8TextListToTextProperty(xim->display, (char **)&str, 1,
+                                XCompoundTextStyle, &tp);
+    IMCommitStruct *cms = fcitx_utils_new(IMCommitStruct);
 
     cms->major_code = XIM_COMMIT;
     cms->icid = ximic->id;
     cms->connect_id = ximic->connect_id;
     cms->flag = XimLookupChars;
-    cms->commit_string = (char *) tp.value;
-    XimPendingCall(xim, XCT_COMMIT, (XPointer) cms);
+    cms->commit_string = (char *)tp.value;
+    XimPendingCall(xim, XCT_COMMIT, (XPointer)cms);
 }
 
-void XimForwardKey(void *arg, FcitxInputContext* ic, FcitxKeyEventType event, FcitxKeySym sym, unsigned int state)
-{
-    FcitxXimFrontend* xim = (FcitxXimFrontend*) arg;
+void XimForwardKey(void *arg, FcitxInputContext *ic, FcitxKeyEventType event,
+                   FcitxKeySym sym, unsigned int state) {
+    FcitxXimFrontend *xim = (FcitxXimFrontend *)arg;
     Window win;
     if (!(win = GetXimIC(ic)->focus_win))
         win = GetXimIC(ic)->client_win;
@@ -422,16 +423,15 @@ void XimForwardKey(void *arg, FcitxInputContext* ic, FcitxKeyEventType event, Fc
     XimForwardKeyInternal(xim, GetXimIC(ic), &xEvent);
 }
 
-void XimSetWindowOffset(void* arg, FcitxInputContext* ic, int x, int y)
-{
+void XimSetWindowOffset(void *arg, FcitxInputContext *ic, int x, int y) {
     FCITX_UNUSED(arg);
 
     ic->offset_x = x;
     ic->offset_y = y;
 }
 
-void XimGetWindowRect(void* arg, FcitxInputContext* ic, int* x, int* y, int* w, int* h)
-{
+void XimGetWindowRect(void *arg, FcitxInputContext *ic, int *x, int *y, int *w,
+                      int *h) {
     FCITX_UNUSED(arg);
     *x = ic->offset_x;
     *y = ic->offset_y;
@@ -439,12 +439,12 @@ void XimGetWindowRect(void* arg, FcitxInputContext* ic, int* x, int* y, int* w, 
     *h = 0;
 }
 
-void XimUpdatePreedit(void* arg, FcitxInputContext* ic)
-{
-    FcitxXimFrontend* xim = (FcitxXimFrontend*) arg;
-    FcitxInputState* input = FcitxInstanceGetInputState(xim->owner);
-    char* strPreedit = FcitxUIMessagesToCString(FcitxInputStateGetClientPreedit(input));
-    char* str = FcitxInstanceProcessOutputFilter(xim->owner, strPreedit);
+void XimUpdatePreedit(void *arg, FcitxInputContext *ic) {
+    FcitxXimFrontend *xim = (FcitxXimFrontend *)arg;
+    FcitxInputState *input = FcitxInstanceGetInputState(xim->owner);
+    char *strPreedit =
+        FcitxUIMessagesToCString(FcitxInputStateGetClientPreedit(input));
+    char *str = FcitxInstanceProcessOutputFilter(xim->owner, strPreedit);
     if (str) {
         free(strPreedit);
         strPreedit = str;
@@ -461,7 +461,8 @@ void XimUpdatePreedit(void* arg, FcitxInputContext* ic)
         GetXimIC(ic)->bPreeditStarted = true;
     }
     if (strlen(strPreedit) != 0) {
-        XimPreeditCallbackDraw(xim, GetXimIC(ic), strPreedit, FcitxInputStateGetClientCursorPos(input));
+        XimPreeditCallbackDraw(xim, GetXimIC(ic), strPreedit,
+                               FcitxInputStateGetClientCursorPos(input));
     }
 
     free(strPreedit);
