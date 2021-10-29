@@ -103,8 +103,6 @@ boolean FcitxInstanceLoadAllIM(struct _FcitxInstance* instance);
 
 void FcitxInstanceInitIMMenu(struct _FcitxInstance* instance);
 
-void FcitxInstanceInitIMMenu2(struct _FcitxInstance* instance);
-
 void FcitxInstanceShowInputSpeed(struct _FcitxInstance* instance, boolean force);
 
 INPUT_RETURN_VALUE ImProcessEnter(void *arg);

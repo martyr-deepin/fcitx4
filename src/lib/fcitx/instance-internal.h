@@ -168,12 +168,7 @@ struct _FcitxInstance {
 
     FcitxInputContext* lastIC;
     char* delayedIM;
-} ;
-
-typedef struct _FcitxInstance2 {
-    struct _FcitxInstance instance;
-    size_t index;
-} FcitxInstance2;
+};
 
 void FcitxInstanceSetLastIC(FcitxInstance* instance, FcitxInputContext* ic);
 void FcitxInstanceSetDelayedIM(FcitxInstance* instance, const char* im);
