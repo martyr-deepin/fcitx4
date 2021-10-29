@@ -1724,6 +1724,38 @@ void FcitxInstanceInitIMMenu(FcitxInstance* instance)
     instance->imMenu.isSubMenu = false;
 }
 
+void ToggleIMMenuAction(void* arg)
+{
+    FcitxInstance2* instance2 = (FcitxInstance2*) arg;
+    FcitxIM* im = FcitxInstanceGetIMByIndex(&instance2->instance, instance2->index);
+    // this contains delay support, so we don't use switch im by index here.
+    if (im) {
+        FcitxInstanceSwitchIMByName(&instance2->instance, im->uniqueName);
+    }
+}
+
+boolean GetIMMenuEnabled(void* arg)
+{
+    FcitxInstance* instance = (FcitxInstance*) arg;
+    return instance->profile->bUseRemind;
+}
+
+void FcitxInstanceInitIMMenu2(FcitxInstance* instance)
+{
+    FcitxInstance2* instance2 = (FcitxInstance2*) instance;
+    FcitxIM* ime;
+    UT_array* imes = FcitxInstanceGetIMEs(&instance2->instance);
+    int index = 0;
+    for (ime = (FcitxIM*) utarray_front(imes);
+            ime != NULL;
+            ime = (FcitxIM*) utarray_next(imes, ime),index++) {
+        char* name = ime->strName;
+        instance2->index = index;
+        FcitxUIRegisterStatus(instance, instance2, name,
+                              name , name, ToggleIMMenuAction, GetIMMenuEnabled);
+    }
+}
+
 boolean IMMenuAction(FcitxUIMenu *menu, int index)
 {
     FcitxInstance* instance = (FcitxInstance*) menu->priv;
