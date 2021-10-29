@@ -149,7 +149,7 @@ void* ClassicUICreate(FcitxInstance* instance)
 
 
     InitSkinMenu(classicui);
-    FcitxUIRegisterMenu(instance, &classicui->skinMenu);
+//    FcitxUIRegisterMenu(instance, &classicui->skinMenu);
     /* Main Menu Initial */
     FcitxMenuInit(&classicui->mainMenu);
     classicui->mainMenu.UpdateMenu = UpdateMainMenu;

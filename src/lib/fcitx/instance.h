@@ -35,7 +35,6 @@
 #include <fcitx/profile.h>
 #include <fcitx/addon.h>
 #include <fcitx/ime.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif

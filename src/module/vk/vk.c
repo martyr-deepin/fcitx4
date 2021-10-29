@@ -157,7 +157,7 @@ void *VKCreate(FcitxInstance* instance)
     hotkey.arg = vkstate;
     FcitxInstanceRegisterHotkeyFilter(instance, hotkey);
 
-    FcitxUIRegisterStatus(instance, vkstate, "vk", _("Toggle Virtual Keyboard"), _("Virtual Keyboard State"),  ToggleVKState, GetVKState);
+//    FcitxUIRegisterStatus(instance, vkstate, "vk", _("Toggle Virtual Keyboard"), _("Virtual Keyboard State"),  ToggleVKState, GetVKState);
 
     LoadVKMapFile(vkstate);
 
@@ -189,7 +189,7 @@ void *VKCreate(FcitxInstance* instance)
     vkstate->vkmenu.priv = vkstate;
     vkstate->vkmenu.isSubMenu = false;
 
-    FcitxUIRegisterMenu(instance, &vkstate->vkmenu);
+//    FcitxUIRegisterMenu(instance, &vkstate->vkmenu);
 
     /* 锁屏状态下不显示虚拟键盘 by UT000591 for BugID 44159 */
     vkstate->conn = FcitxDBusGetConnection(instance);
