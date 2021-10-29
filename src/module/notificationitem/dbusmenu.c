@@ -258,10 +258,47 @@ void FcitxDBusMenuDoEvent(void *arg) {
         return;
 
     if (menu == 0) {
+<<<<<<< HEAD
         UT_array *imes = FcitxInstanceGetIMEs(instance);
         int32_t count = utarray_len(imes);
         if (count + 2 == index) {
             fcitx_utils_launch_configure_tool();
+=======
+        if (index <= 8 && index > 0) {
+            switch(index) {
+                case 1:
+                    {
+                        char* args[] = {
+                            "xdg-open",
+                            "https://fcitx-im.org/",
+                            0
+                        };
+                        fcitx_utils_start_process(args);
+                    }
+                    break;
+                case 4:
+                    {
+                        FcitxIM* im = FcitxInstanceGetCurrentIM(instance);
+                        if (im && im->owner) {
+                            fcitx_utils_launch_configure_tool_for_addon(im->uniqueName);
+                        }
+                        else {
+                            fcitx_utils_launch_configure_tool();
+                        }
+                    }
+                    break;
+               case 5:
+                    fcitx_utils_launch_configure_tool();
+                   break;
+                case 6:
+                    FcitxInstanceRestart(instance);
+                    break;
+                case 7:
+                    fcitx_utils_kill_fcitx_config_gtk3();
+                    FcitxInstanceEnd(instance);
+                    break;
+            }
+>>>>>>> 1fa6b81... feat: use new notificationitem
         } else {
             int index = STATUS_INDEX(id);
             const char *name = NULL;
@@ -373,6 +410,7 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
         FcitxDBusMenuAppendProperty(&sub, properties, "children-display",
                                     DBUS_TYPE_STRING, &value);
     }
+<<<<<<< HEAD
     UT_array *imes = FcitxInstanceGetIMEs(instance);
     int32_t count = utarray_len(imes);
     const char *value;
@@ -396,6 +434,46 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
             FcitxDBusMenuAppendProperty(&sub, properties, "icon-name",
                                         DBUS_TYPE_STRING, &value);
 
+=======
+    if (menu == 0) {
+        if (index <= 8 && index > 0) {
+            const char* value;
+            switch(index) {
+                case 1:
+                    value = _("Online Help");
+                    FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
+                    value = "help-contents";
+                    FcitxDBusMenuAppendProperty(&sub, properties, "icon-name", DBUS_TYPE_STRING, &value);
+                    break;
+                case 2:
+                case 3:
+                case 8:
+                    value = "separator";
+                    FcitxDBusMenuAppendProperty(&sub, properties, "type", DBUS_TYPE_STRING, &value);
+                    break;
+               case 5:
+                   value = _("Configure");
+                   FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
+                   /* this icon sucks on KDE, why configure doesn't have "configure" */
+#if 0
+                   value = "preferences-system";
+                   FcitxDBusMenuAppendProperty(&sub, properties, "icon-name", DBUS_TYPE_STRING, &value);
+#endif
+                   break;
+                case 6:
+                    value = _("Restart");
+                    FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
+                    value = "view-refresh";
+                    FcitxDBusMenuAppendProperty(&sub, properties, "icon-name", DBUS_TYPE_STRING, &value);
+                    break;
+                case 7:
+                    value = _("Exit");
+                    FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
+                    value = "application-exit";
+                    FcitxDBusMenuAppendProperty(&sub, properties, "icon-name", DBUS_TYPE_STRING, &value);
+                    break;
+            }
+>>>>>>> 1fa6b81... feat: use new notificationitem
         } else {
             int index = STATUS_INDEX(id);
             const char *name = NULL;
@@ -527,6 +605,11 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
         /* we ONLY support submenu in top level menu */
         if (menu == 0) {
             if (index == 0) {
+<<<<<<< HEAD
+=======
+                FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,1), depth - 1, properties, &array);
+                FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,2), depth - 1, properties, &array);
+>>>>>>> 1fa6b81... feat: use new notificationitem
                 boolean flag = false;
 
                 /* copied from classicui.c */
@@ -579,6 +662,11 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                     }
                 }
 
+<<<<<<< HEAD
+=======
+                if (flag)
+                    FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,8), depth - 1, properties, &array);
+>>>>>>> 1fa6b81... feat: use new notificationitem
                 if (utarray_len(uimenus) > 0) {
                     FcitxUIMenu **menupp;
                     int i = 1;
@@ -621,10 +709,16 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                         notificationitem, ACTION_ID(0, count + 1), depth - 1,
                         properties, &array);
                 }
+<<<<<<< HEAD
 
                 FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                 ACTION_ID(0, count + 2),
                                                 depth - 1, properties, &array);
+=======
+                FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,5), depth - 1, properties, &array);
+                FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,6), depth - 1, properties, &array);
+                FcitxDBusMenuFillLayooutItemWrap(notificationitem, ACTION_ID(0,7), depth - 1, properties, &array);
+>>>>>>> 1fa6b81... feat: use new notificationitem
             }
         } else {
             if (index == 0) {
