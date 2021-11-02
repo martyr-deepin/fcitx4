@@ -377,13 +377,11 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
     int32_t count = utarray_len(imes);
     const char *value;
     if (menu == 2) {
-        if (menu == 2) {
-            if (index <= count) {
-                FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index - 1);
-                value = (ime)->strName;
-                FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                            DBUS_TYPE_STRING, &value);
-            }
+        if (index <= count) {
+            FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index - 1);
+            value = (ime)->strName;
+            FcitxDBusMenuAppendProperty(&sub, properties, "label",
+                                        DBUS_TYPE_STRING, &value);
         }
     } else if (menu == 0) {
         if (index == count + 1) {
@@ -525,22 +523,6 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
         /* we ONLY support submenu in top level menu */
         if (menu == 0) {
             if (index == 0) {
-
-                FcitxUIMenu **menupp =
-                                (FcitxUIMenu **)utarray_eltptr(uimenus, 2),
-                            *menup;
-                if (menupp) {
-                    menup = *menupp;
-                    menup->UpdateMenu(menup);
-
-                    unsigned int i = 0;
-                    for (i = 1; i < count + 1; i++) {
-                        FcitxDBusMenuFillLayoutItemWrap(
-                            notificationitem, ACTION_ID(2, i), depth - 1,
-                            properties, &array);
-                    }
-                }
-
                 boolean flag = false;
 
                 /* copied from classicui.c */
@@ -576,6 +558,21 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                     FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                     STATUS_ID(1, i), depth - 1,
                                                     properties, &array);
+                }
+
+                FcitxUIMenu **menupp =
+                                (FcitxUIMenu **)utarray_eltptr(uimenus, 2),
+                            *menup;
+                if (menupp) {
+                    menup = *menupp;
+                    menup->UpdateMenu(menup);
+
+                    unsigned int i = 0;
+                    for (i = 1; i < count + 1; i++) {
+                        FcitxDBusMenuFillLayoutItemWrap(
+                            notificationitem, ACTION_ID(2, i), depth - 1,
+                            properties, &array);
+                    }
                 }
 
                 if (utarray_len(uimenus) > 0) {
