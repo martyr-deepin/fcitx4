@@ -256,6 +256,7 @@ void FcitxDBusMenuDoEvent(void *arg) {
     int32_t index = ACTION_INDEX(id);
     if (index <= 0)
         return;
+
     if (menu == 0) {
         UT_array *imes = FcitxInstanceGetIMEs(instance);
         int32_t count = utarray_len(imes);
@@ -372,20 +373,19 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
         FcitxDBusMenuAppendProperty(&sub, properties, "children-display",
                                     DBUS_TYPE_STRING, &value);
     }
-
     UT_array *imes = FcitxInstanceGetIMEs(instance);
     int32_t count = utarray_len(imes);
     const char *value;
     if (menu == 2) {
-        if (index <= count) {
-            FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index - 1);
-            value = (ime)->strName;
-            FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                        DBUS_TYPE_STRING, &value);
+        if (menu == 2) {
+            if (index <= count) {
+                FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index - 1);
+                value = (ime)->strName;
+                FcitxDBusMenuAppendProperty(&sub, properties, "label",
+                                            DBUS_TYPE_STRING, &value);
+            }
         }
-    }
-
-    if (menu == 0) {
+    } else if (menu == 0) {
         if (index == count + 1) {
             value = "separator";
             FcitxDBusMenuAppendProperty(&sub, properties, "type",
@@ -542,6 +542,7 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                 }
 
                 boolean flag = false;
+
                 /* copied from classicui.c */
                 FcitxUIStatus *status;
                 UT_array *uistats = FcitxInstanceGetUIStats(instance);
@@ -577,62 +578,42 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                                     properties, &array);
                 }
 
-                if (flag)
-                    //                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
-                    //                    ACTION_ID(0,8), depth - 1, properties,
-                    //                    &array);
-                    if (utarray_len(uimenus) > 0 && menu == 0) {
-                        FcitxUIMenu **menupp;
-                        int i = 1;
-                        for (menupp = (FcitxUIMenu **)utarray_front(uimenus);
-                             menupp != NULL;
-                             menupp = (FcitxUIMenu **)utarray_next(uimenus,
-                                                                   menupp)) {
-                            do {
-                                if (!menupp) {
+                if (utarray_len(uimenus) > 0) {
+                    FcitxUIMenu **menupp;
+                    int i = 1;
+                    for (menupp = (FcitxUIMenu **)utarray_front(uimenus);
+                         menupp != NULL; menupp = (FcitxUIMenu **)utarray_next(
+                                             uimenus, menupp)) {
+                        do {
+                            if (!menupp) {
+                                break;
+                            }
+                            FcitxUIMenu *menup = *menupp;
+                            if (strcmp(menup->name, strdup(_("Skin"))) == 0 ||
+                                strcmp(menup->name,
+                                       strdup(_("Virtual Keyboard"))) == 0 ||
+                                strcmp(menup->name,
+                                       strdup(_("Input Method"))) == 0) {
+                                break;
+                            }
+                            if (!menup->visible) {
+                                break;
+                            }
+                            if (menup->candStatusBind) {
+                                FcitxUIComplexStatus *compStatus =
+                                    FcitxUIGetComplexStatusByName(
+                                        instance, menup->candStatusBind);
+                                if (compStatus && !compStatus->visible) {
                                     break;
                                 }
-                                FcitxUIMenu *menup = *menupp;
-                                if (strcmp(menup->name, strdup(_("Skin"))) ==
-                                        0 ||
-                                    strcmp(menup->name,
-                                           strdup(_("Virtual Keyboard"))) ==
-                                        0 ||
-                                    strcmp(menup->name,
-                                           strdup(_("Input Method"))) == 0) {
-                                    break;
-                                }
-
-                                if (menu == 2) {
-                                    break;
-                                }
-                                if (!menup->visible) {
-                                    break;
-                                }
-                                if (menup->candStatusBind) {
-                                    FcitxUIComplexStatus *compStatus =
-                                        FcitxUIGetComplexStatusByName(
-                                            instance, menup->candStatusBind);
-                                    if (compStatus && !compStatus->visible) {
-                                        break;
-                                    }
-                                }
-                                if (strcmp(menup->name, strdup(_("Skin"))) ==
-                                        0 ||
-                                    strcmp(menup->name,
-                                           strdup(_("Virtual Keyboard"))) ==
-                                        0 ||
-                                    strcmp(menup->name,
-                                           strdup(_("Input Method"))) == 0) {
-                                    break;
-                                }
-                                FcitxDBusMenuFillLayoutItemWrap(
-                                    notificationitem, ACTION_ID(i, 0),
-                                    depth - 1, properties, &array);
-                            } while (0);
-                            i++;
-                        }
+                            }
+                            FcitxDBusMenuFillLayoutItemWrap(
+                                notificationitem, ACTION_ID(i, 0), depth - 1,
+                                properties, &array);
+                        } while (0);
+                        i++;
                     }
+                }
                 FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                 ACTION_ID(0, count + 2),
                                                 depth - 1, properties, &array);
@@ -645,6 +626,7 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                 if (menupp) {
                     menup = *menupp;
                     menup->UpdateMenu(menup);
+
                     unsigned int i = 0;
                     unsigned int len = utarray_len(&menup->shell);
                     for (i = 0; i < len; i++) {
