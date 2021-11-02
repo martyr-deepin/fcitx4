@@ -1338,7 +1338,7 @@ msgstr "Opcode 送出時發生 X error %i"
 #: src/ui/kimpanel/kimpanel.c:398 data/fcitx-autostart.desktop.in:2
 #: data/fcitx.desktop.in:2
 msgid "Fcitx"
-msgstr "Fcitx"
+msgstr "輸入法"
 
 #: src/ui/kimpanel/kimpanel.c:782
 msgid "Toggle Input Method"
