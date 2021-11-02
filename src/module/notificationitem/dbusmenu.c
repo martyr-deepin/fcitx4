@@ -335,19 +335,19 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem* notificationitem, int32_t 
         FcitxDBusMenuAppendProperty(&sub, properties, "children-display", DBUS_TYPE_STRING, &value);
     }
 
-        UT_array* imes = FcitxInstanceGetIMEs(instance);
-        int32_t count = utarray_len(imes);
+    UT_array* imes = FcitxInstanceGetIMEs(instance);
+    int32_t count = utarray_len(imes);
+    const char* value;
+    if (menu == 2) {
+        if (index <= count) {
+            FcitxIM *ime = (FcitxIM*)utarray_eltptr(imes, index-1);
+            value = (ime)->strName;
+          FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
+        }
+    }
 
     if (menu == 0) {
-        const char* value;
-        int i = 0;
-        FcitxIM* ime;
-        for (ime = (FcitxIM*) utarray_front(imes);
-                ime != NULL;
-                ime = (FcitxIM*) utarray_next(imes, ime), i++) {
-            value = ime->strName;
-            FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING, &value);
-        }
+
         if(index == count+1)
         {
             value = "separator";
@@ -464,8 +464,20 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem* notificationitem, int32_
         UT_array* imes = FcitxInstanceGetIMEs(instance);
         int32_t count = utarray_len(imes);
         /* we ONLY support submenu in top level menu */
-        if (menu == 0) {
+      if (menu == 0) {
             if (index == 0) {
+
+                FcitxUIMenu** menupp = (FcitxUIMenu**) utarray_eltptr(uimenus, 2), *menup;
+                if (menupp) {
+                    menup = *menupp;
+                    menup->UpdateMenu(menup);
+
+                    unsigned int i = 0;
+                    for (i = 1; i < count + 1; i++) {
+                            FcitxDBusMenuFillLayoutItemWrap(notificationitem, ACTION_ID(2, i), depth - 1, properties, &array);
+                    }
+                }
+
 
                 boolean flag = false;
 
@@ -499,8 +511,8 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem* notificationitem, int32_
                 }
 
                 if (flag)
-                    FcitxDBusMenuFillLayoutItemWrap(notificationitem, ACTION_ID(0,8), depth - 1, properties, &array);
-                if (utarray_len(uimenus) > 0) {
+//                    FcitxDBusMenuFillLayoutItemWrap(notificationitem, ACTION_ID(0,8), depth - 1, properties, &array);
+                if (utarray_len(uimenus) > 0 && menu == 0) {
                     FcitxUIMenu **menupp;
                     int i = 1;
                     for (menupp = (FcitxUIMenu **) utarray_front(uimenus);
@@ -512,8 +524,13 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem* notificationitem, int32_
                             }
                             FcitxUIMenu* menup = *menupp;
                             if(strcmp(menup->name,strdup(_("Skin")))== 0
-                                    || strcmp(menup->name,strdup(_("Virtual Keyboard")))== 0)
+                                    || strcmp(menup->name,strdup(_("Virtual Keyboard")))== 0
+                                    || strcmp(menup->name,strdup(_("Input Method")))== 0)
                             {
+                                break;
+                            }
+
+                            if(menu == 2){
                                 break;
                             }
                             if (!menup->visible) {
@@ -524,6 +541,12 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem* notificationitem, int32_
                                 if (compStatus && !compStatus->visible) {
                                     break;
                                 }
+                            }
+                            if(strcmp(menup->name,strdup(_("Skin")))== 0
+                                    || strcmp(menup->name,strdup(_("Virtual Keyboard")))== 0
+                                    || strcmp(menup->name,strdup(_("Input Method")))== 0)
+                            {
+                                break;
                             }
                             FcitxDBusMenuFillLayoutItemWrap(notificationitem, ACTION_ID(i,0), depth - 1, properties, &array);
                         }
@@ -539,7 +562,6 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem* notificationitem, int32_
                 if (menupp) {
                     menup = *menupp;
                     menup->UpdateMenu(menup);
-
                     unsigned int i = 0;
                     unsigned int len = utarray_len(&menup->shell);
                     for (i = 0; i < len; i++) {
