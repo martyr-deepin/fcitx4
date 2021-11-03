@@ -392,6 +392,10 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
             value = _("Configure");
             FcitxDBusMenuAppendProperty(&sub, properties, "label",
                                         DBUS_TYPE_STRING, &value);
+            value = "preferences-system";
+            FcitxDBusMenuAppendProperty(&sub, properties, "icon-name",
+                                        DBUS_TYPE_STRING, &value);
+
         } else {
             int index = STATUS_INDEX(id);
             const char *name = NULL;
@@ -610,7 +614,14 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                         } while (0);
                         i++;
                     }
+                    flag = true;
                 }
+                if (flag) {
+                    FcitxDBusMenuFillLayoutItemWrap(
+                        notificationitem, ACTION_ID(0, count + 1), depth - 1,
+                        properties, &array);
+                }
+
                 FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                 ACTION_ID(0, count + 2),
                                                 depth - 1, properties, &array);
