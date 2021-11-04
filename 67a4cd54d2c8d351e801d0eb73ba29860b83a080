@@ -19,6 +19,125 @@
     },
     {
       "key": {
+        "uuid": "e549317d_54440c23",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-04T09:36:46Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16360186032050.9847819685590207/changeCache/src/lib/fcitx-config/fcitx-config.c:654]: (warning, inconclusive) Either the condition \u0027len\u003e40\u0027 is redundant or the array \u0027buf[40]\u0027 is accessed at index 40, which is out of bounds",
+      "revId": "67a4cd54d2c8d351e801d0eb73ba29860b83a080",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7302d77f_f11332b9",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-04T09:36:46Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16360186032050.9847819685590207/changeCache/src/lib/fcitx-config/fcitx-config.c:654]: (warning, inconclusive) Either the condition \u0027len\u003esizeof(buf)\u0027 is redundant or the array \u0027buf[40]\u0027 is accessed at index 40, which is out of bounds",
+      "revId": "67a4cd54d2c8d351e801d0eb73ba29860b83a080",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb2d7d21_2ef755c1",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-04T09:36:46Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027curGroup\u0027 can be reduced",
+      "revId": "67a4cd54d2c8d351e801d0eb73ba29860b83a080",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33ecaf0e_08a9e473",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-04T09:36:46Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027curGroup\u0027 can be reduced",
+      "revId": "67a4cd54d2c8d351e801d0eb73ba29860b83a080",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dfb570a_4911f8d1",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-04T09:36:46Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027curOption\u0027 can be reduced",
+      "revId": "67a4cd54d2c8d351e801d0eb73ba29860b83a080",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e961b01_d050da9b",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-04T09:36:46Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027curOption\u0027 can be reduced",
+      "revId": "67a4cd54d2c8d351e801d0eb73ba29860b83a080",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dce69781_9c06e9cf",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-04T09:36:46Z",
+      "side": 1,
+      "message": "(warning) Possible null pointer dereference: optio",
+      "revId": "67a4cd54d2c8d351e801d0eb73ba29860b83a080",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fc73287d_5bb642e9",
         "filename": "src/lib/fcitx-config/fcitx-config.h",
         "patchSetId": 1
