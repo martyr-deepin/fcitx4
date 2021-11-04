@@ -291,6 +291,11 @@ FcitxConfigFileDesc *FcitxConfigParseConfigFileDescFp(FILE *fp)
         else
             codesc2->longDesc = strdup("");
 
+        HASH_FIND_STR(options, "ShownInDeepin", option);
+        if (option)
+            codesc->shownInDeepin = strdup(option->rawValue);
+        else
+            codesc->shownInDeepin = strdup("");
 
         /* Processing Type */
         HASH_FIND_STR(options, "Type", option);
