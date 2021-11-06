@@ -68,6 +68,30 @@ int             iAllCount;
 
 static void Usage();
 
+void PyStructClear(_PyStruct *head)
+{
+    if(NULL == head){
+        return;
+    }
+
+    _PyStruct *bak = head;
+    _PyStruct *p = head->next;
+    while(p != head){
+        head->next = p->next;
+        free(p);
+        p = head->next;
+    }
+
+    head->prev = head;
+
+    if(bak != NULL){
+        free(bak);
+        bak = NULL;
+    }
+
+    return;
+}
+
 boolean LoadPY(void)
 {
     FILE           *fp;
@@ -390,6 +414,7 @@ void CreatePYBase(void)
 
     fclose(fp1);
     fclose(fps);
+    PyStructClear(head);
 }
 
 int main(int argc, char *argv[])
