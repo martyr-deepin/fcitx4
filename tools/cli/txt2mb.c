@@ -91,6 +91,49 @@ boolean IsValidCode(char cChar)
     return false;
 }
 
+void FreeRule(RULE *rrule,int length)
+{
+    int iTemp;
+    if(rrule){
+        for (iTemp = 0;iTemp <(length - 1);iTemp++) {
+            free(rrule[iTemp].rule);
+        }
+    free(rrule);
+    rrule = NULL;
+    }
+}
+
+void RECORDClear(RECORD *head)
+{
+    if(NULL == head){
+        return;
+    }
+
+    RECORD *bak = head;
+    RECORD *p = head->next;
+    while(p != head){
+        head->next = p->next;
+        if(p->strCode != NULL)
+        {
+            free(p->strCode);
+        }
+        if(p->strHZ != NULL)
+        {
+            free(p->strHZ);
+        }
+        free(p);
+        p = head->next;
+    }
+
+    head->prev = head;
+
+    if(bak != NULL){
+        free(bak);
+        bak = NULL;
+    }
+
+    return;
+}
 int main(int argc, char *argv[])
 {
     FILE           *fpDict, *fpNew;
@@ -101,7 +144,7 @@ int main(int argc, char *argv[])
     char           *pstr = 0;
     char            strTemp[10];
     unsigned char   bRule;
-    RULE           *rule = NULL;
+    RULE           *rrule = NULL;
     unsigned int    l;
 
     unsigned char   iCodeLength = 0;
@@ -200,6 +243,7 @@ int main(int argc, char *argv[])
 
     if (iCodeLength <= 0 || !strInputCode[0]) {
         printf("Source File Format Error!\n");
+        RECORDClear(head);
         exit(1);
     }
 
@@ -207,7 +251,7 @@ int main(int argc, char *argv[])
         /*
          * 组词规则数应该比键码长度小1
          */
-        rule = (RULE *) malloc(sizeof(RULE) * (iCodeLength - 1));
+        rrule = (RULE *) malloc(sizeof(RULE) * (iCodeLength - 1));
 
         for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
             l++;
@@ -215,7 +259,7 @@ int main(int argc, char *argv[])
             if (getline(&buf, &len, fpDict) == -1)
                 break;
 
-            rule[iTemp].rule = (RULE_RULE *) malloc(sizeof(RULE_RULE) * iCodeLength);
+            rrule[iTemp].rule = (RULE_RULE *) malloc(sizeof(RULE_RULE) * iCodeLength);
 
             i = strlen(buf) - 1;
 
@@ -238,18 +282,19 @@ int main(int argc, char *argv[])
             case 'e':
 
             case 'E':
-                rule[iTemp].iFlag = 0;
+                rrule[iTemp].iFlag = 0;
                 break;
 
             case 'a':
 
             case 'A':
-                rule[iTemp].iFlag = 1;
+                rrule[iTemp].iFlag = 1;
                 break;
 
             default:
                 printf("2   Phrase rules are not suitable!\n");
                 printf("\t\t%s\n", buf);
+                RECORDClear(head);
                 exit(1);
             }
 
@@ -263,13 +308,14 @@ int main(int argc, char *argv[])
             if (!(*p)) {
                 printf("3   Phrase rules are not suitable!\n");
                 printf("\t\t%s\n", buf);
+                RECORDClear(head);
                 exit(1);
             }
 
             strncpy(strTemp, pstr, p - pstr);
 
             strTemp[p - pstr] = '\0';
-            rule[iTemp].iWords = atoi(strTemp);
+            rrule[iTemp].iWords = atoi(strTemp);
 
             p++;
 
@@ -282,25 +328,26 @@ int main(int argc, char *argv[])
                 case 'p':
 
                 case 'P':
-                    rule[iTemp].rule[i].iFlag = 1;
+                    rrule[iTemp].rule[i].iFlag = 1;
                     break;
 
                 case 'n':
 
                 case 'N':
-                    rule[iTemp].rule[i].iFlag = 0;
+                    rrule[iTemp].rule[i].iFlag = 0;
                     break;
 
                 default:
                     printf("4   Phrase rules are not suitable!\n");
                     printf("\t\t%s\n", buf);
+                    RECORDClear(head);
                     exit(1);
                 }
 
                 p++;
 
-                rule[iTemp].rule[i].iWhich = *p++ - '0';
-                rule[iTemp].rule[i].iIndex = *p++ - '0';
+                rrule[iTemp].rule[i].iWhich = *p++ - '0';
+                rrule[iTemp].rule[i].iIndex = *p++ - '0';
 
                 while (*p == ' ')
                     p++;
@@ -309,6 +356,7 @@ int main(int argc, char *argv[])
                     if (*p != '+') {
                         printf("5   Phrase rules are not suitable!\n");
                         printf("\t\t%s  %d\n", buf, iCodeLength);
+                        RECORDClear(head);
                         exit(1);
                     }
 
@@ -318,14 +366,8 @@ int main(int argc, char *argv[])
         }
 
         if (iTemp != iCodeLength - 1) {
-            printf("6  Phrase rules are not suitable!\n");
-            if (rule) {
-                for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
-                    free(rule[iTemp].rule);
-                }
-                free(rule);
-                rule = NULL;
-            }
+            FreeRule(rrule, iCodeLength);
+            RECORDClear(head);
             exit(1);
         }
 
@@ -358,13 +400,8 @@ int main(int argc, char *argv[])
 
     if (!CHECK_OPTION(pstr, STR_DATA)) {
         printf("Source File Format Error!\n");
-        if (rule) {
-            for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
-                free(rule[iTemp].rule);
-            }
-            free(rule);
-            rule = NULL;
-        }
+        FreeRule(rrule, iCodeLength);
+        RECORDClear(head);
         exit(1);
     }
 
@@ -391,13 +428,8 @@ int main(int argc, char *argv[])
         if (!IsValidCode(buf1[0])) {
             printf("Invalid Format: Line-%d  %s %s\n", l, buf1, strHZ);
 
-            if (rule) {
-                for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
-                    free(rule[iTemp].rule);
-                }
-                free(rule);
-                rule = NULL;
-            }
+            FreeRule(rrule, iCodeLength);
+            RECORDClear(head);
             exit(1);
         }
 
@@ -510,13 +542,8 @@ int main(int argc, char *argv[])
 
     if (!fpNew) {
         printf("\nCannot create target file!\n\n");
-        if (rule) {
-            for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
-                free(rule[iTemp].rule);
-            }
-            free(rule);
-            rule = NULL;
-        }
+        FreeRule(rrule, iCodeLength);
+        RECORDClear(head);
         exit(3);
     }
 
@@ -539,13 +566,13 @@ int main(int argc, char *argv[])
 
     if (bRule) {
         for (i = 0; i < iCodeLength - 1; i++) {
-            fwrite(&(rule[i].iFlag), sizeof(unsigned char), 1, fpNew);
-            fwrite(&(rule[i].iWords), sizeof(unsigned char), 1, fpNew);
+            fwrite(&(rrule[i].iFlag), sizeof(unsigned char), 1, fpNew);
+            fwrite(&(rrule[i].iWords), sizeof(unsigned char), 1, fpNew);
 
             for (iTemp = 0; iTemp < iCodeLength; iTemp++) {
-                fwrite(&(rule[i].rule[iTemp].iFlag), sizeof(unsigned char), 1, fpNew);
-                fwrite(&(rule[i].rule[iTemp].iWhich), sizeof(unsigned char), 1, fpNew);
-                fwrite(&(rule[i].rule[iTemp].iIndex), sizeof(unsigned char), 1, fpNew);
+                fwrite(&(rrule[i].rule[iTemp].iFlag), sizeof(unsigned char), 1, fpNew);
+                fwrite(&(rrule[i].rule[iTemp].iWhich), sizeof(unsigned char), 1, fpNew);
+                fwrite(&(rrule[i].rule[iTemp].iIndex), sizeof(unsigned char), 1, fpNew);
             }
         }
     }
@@ -566,14 +593,8 @@ int main(int argc, char *argv[])
     }
 
     fclose(fpNew);
-
-    if (rule) {
-        for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
-            free(rule[iTemp].rule);
-        }
-        free(rule);
-        rule = NULL;
-    }
+    FreeRule(rrule, iCodeLength);
+    RECORDClear(head);
     return 0;
 }
 
