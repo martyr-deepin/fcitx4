@@ -319,6 +319,13 @@ int main(int argc, char *argv[])
 
         if (iTemp != iCodeLength - 1) {
             printf("6  Phrase rules are not suitable!\n");
+            if (rule) {
+                for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
+                    free(rule[iTemp].rule);
+                }
+                free(rule);
+                rule = NULL;
+            }
             exit(1);
         }
 
@@ -351,6 +358,13 @@ int main(int argc, char *argv[])
 
     if (!CHECK_OPTION(pstr, STR_DATA)) {
         printf("Source File Format Error!\n");
+        if (rule) {
+            for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
+                free(rule[iTemp].rule);
+            }
+            free(rule);
+            rule = NULL;
+        }
         exit(1);
     }
 
@@ -377,6 +391,13 @@ int main(int argc, char *argv[])
         if (!IsValidCode(buf1[0])) {
             printf("Invalid Format: Line-%d  %s %s\n", l, buf1, strHZ);
 
+            if (rule) {
+                for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
+                    free(rule[iTemp].rule);
+                }
+                free(rule);
+                rule = NULL;
+            }
             exit(1);
         }
 
@@ -489,6 +510,13 @@ int main(int argc, char *argv[])
 
     if (!fpNew) {
         printf("\nCannot create target file!\n\n");
+        if (rule) {
+            for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
+                free(rule[iTemp].rule);
+            }
+            free(rule);
+            rule = NULL;
+        }
         exit(3);
     }
 
@@ -539,6 +567,13 @@ int main(int argc, char *argv[])
 
     fclose(fpNew);
 
+    if (rule) {
+        for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
+            free(rule[iTemp].rule);
+        }
+        free(rule);
+        rule = NULL;
+    }
     return 0;
 }
 
