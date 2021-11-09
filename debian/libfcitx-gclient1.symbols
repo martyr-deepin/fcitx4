@@ -1,4 +1,3 @@
-libfcitx-gclient.so.1 libfcitx-gclient1 #MINVER#
  fcitx_client_close_ic@Base 4.2.9.29
  fcitx_client_enable_ic@Base 4.2.9.29
  fcitx_client_focus_in@Base 4.2.9.29
