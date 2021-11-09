@@ -310,6 +310,7 @@ fi
 %{_datadir}/cmake/%{name}/
 %{_docdir}/%{name}/*
 %dir %{_datadir}/gir-1.0
+%{_datadir}/gir-1.0/Fcitx-1.0.gir
 
 %files table-chinese
 %license COPYING

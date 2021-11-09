@@ -72,8 +72,8 @@ endif()
 
 target_link_libraries(testdbuslaunch fcitx-utils)
 
-#add_test(NAME testconfig
-#         COMMAND testconfig ${CMAKE_CURRENT_SOURCE_DIR}/test.desc ${CMAKE_CURRENT_SOURCE_DIR}/test.conf ${CMAKE_CURRENT_BINARY_DIR}/test.conf)
+add_test(NAME testconfig
+         COMMAND testconfig ${CMAKE_CURRENT_SOURCE_DIR}/test.desc ${CMAKE_CURRENT_SOURCE_DIR}/test.conf ${CMAKE_CURRENT_BINARY_DIR}/test.conf)
 
 add_test(NAME testmessage
          COMMAND testmessage)
@@ -81,8 +81,8 @@ add_test(NAME testmessage
 add_test(NAME testbacktrace
          COMMAND testbacktrace)
 
-#add_test(NAME testpinyin
-#         COMMAND testpinyin)
+add_test(NAME testpinyin
+         COMMAND testpinyin)
 
 add_test(NAME teststring
          COMMAND teststring)
@@ -111,8 +111,8 @@ add_test(NAME testxdg
 add_test(NAME testunicode
          COMMAND testunicode ${PROJECT_SOURCE_DIR}/src/module/unicode/charselectdata)
 
-#add_test(NAME testdbuslaunch
-#         COMMAND testdbuslaunch)
+add_test(NAME testdbuslaunch
+         COMMAND testdbuslaunch)
 
 add_test(NAME testhotkey
          COMMAND testhotkey)

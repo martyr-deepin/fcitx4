@@ -6,3 +6,4 @@ usr/share/cmake/fcitx/fcitx-*.sh
 usr/share/cmake/fcitx/getdescpo
 usr/share/doc/fcitx/API.txt
 usr/share/doc/fcitx/Develop_Readme
+usr/share/gir-1.0/Fcitx-1.0.gir
