@@ -112,6 +112,7 @@ Section: oldlibs
 Depends: libfcitx-config4 (>= ${source:Version}),
          libfcitx-core0 (>= ${source:Version}),
          libfcitx-utils0 (>= ${source:Version}),
+         libfcitx-gclient1 (>= ${source:Version}),
          libfcitx-qt0 (>= ${source:Version}),
          ${misc:Depends}
 Suggests: fcitx (>= ${source:Upstream-Version})
@@ -255,6 +256,7 @@ Depends: fcitx-bin (>= ${source:Version}),
          gir1.2-fcitx-1.0 (= ${binary:Version}),
          libfcitx-config4 (= ${binary:Version}),
          libfcitx-core0 (= ${binary:Version}),
+         libfcitx-gclient1 (= ${binary:Version}),
          libfcitx-qt0 (= ${binary:Version}),
          libfcitx-utils0 (= ${binary:Version}),
          ${misc:Depends}
