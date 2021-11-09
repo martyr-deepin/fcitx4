@@ -32,7 +32,7 @@ override_dh_auto_configure: gen_control
 	    -DENABLE_STATIC=OFF \
 	    -DENABLE_TEST=ON \
 	    -DENABLE_SNOOPER=ON \
-	    -DENABLE_GIR=OFF \
+	    -DENABLE_GIR=ON \
 	    -DENABLE_ENCHANT=ON \
 	    -DENABLE_PRESAGE=ON \
 	    -DENABLE_BACKTRACE=ON \
