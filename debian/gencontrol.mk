@@ -39,6 +39,6 @@ gen_control:
 	sed 's/@QT4_LIBDIR@/$(QT4_LIBDIR)/g' \
 	    debian/fcitx-frontend-qt4.install.in > \
 	    debian/fcitx-frontend-qt4.install
-	sed 's/@GIR_LIBDIR@/$(GIR_LIBDIR)/g' \
-	    debian/gir1.2-fcitx-1.0.install.in > \
-	    debian/gir1.2-fcitx-1.0.install
+#	sed 's/@GIR_LIBDIR@/$(GIR_LIBDIR)/g' \
+#	    debian/gir1.2-fcitx-1.0.install.in > \
+#	    debian/gir1.2-fcitx-1.0.install
