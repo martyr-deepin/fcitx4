@@ -35,6 +35,12 @@ cmake ..  -DCMAKE_INSTALL_PREFIX=/usr
 sudo make install
 ```
 
+### Build deb package
+```
+sed -i 's/fcitx (/fcitx (1:/g' ./debian/changelog
+sudo dpkg-buildpackage -b
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
