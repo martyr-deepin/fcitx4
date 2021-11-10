@@ -90,8 +90,8 @@ add_test(NAME teststring
 add_test(NAME testarray
          COMMAND testarray)
 
-add_test(NAME testhash
-         COMMAND testhash)
+#add_test(NAME testhash
+#         COMMAND testhash)
 
 add_test(NAME testobjpool
          COMMAND testobjpool)
