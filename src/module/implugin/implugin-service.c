@@ -40,6 +40,7 @@
 #define IS_FILE 8
 #define IS_DIR 4
 #define DATA_W 200
+#define DEEPIN_FCITX_GSETTINGS "/usr/share/glib-2.0/schemas"
 
 #define safe_free(EXP)                                                         \
     if ((EXP) != NULL) {                                                       \
@@ -453,6 +454,8 @@ int main(int argc, char *argv[]) {
     dir.path = (char **)malloc(65534);
     char *watchpath = fcitx_utils_get_fcitx_path("pkgdatadir");
     id_add(watchpath);
+    id_add(DEEPIN_FCITX_GSETTINGS);
+
     int fd = inotify_init();
 
     inotify_watch_dir(watchpath, fd);
@@ -480,26 +483,34 @@ int main(int argc, char *argv[]) {
                         fprintf(gFp, "%s: %s/%s --- %s\n", gettime(),
                                 dir.path[event->wd], event->name, event_str[i]);
                         display_inotify_event(event);
-
-                        if ((strcmp(event_str[i], "IN_CREATE") == 0) ||
-                            (strcmp(event_str[i], "IN_MOVED_TO") == 0)) {
-                            memset(path, 0, sizeof path);
-                            strncat(path, dir.path[event->wd], BUFSIZ);
-                            strncat(path, "/", 1);
-                            strncat(path, event->name, BUFSIZ);
-                            stat(path, &res);
-                            if (S_ISDIR(res.st_mode)) {
-                                id_add(path);
-                                inotify_add_watch(
-                                    fd, path,
-                                    IN_CREATE | IN_ATTRIB | IN_DELETE |
-                                        IN_MOVED_FROM | IN_MOVED_TO);
-                                fprintf(gFp, "%s: %s/%s --- %s %d %d\n",
-                                        gettime(), dir.path[event->wd],
-                                        event->name, event_str[i], event->wd,
-                                        fd);
+                        if(strcmp(dir.path[event->wd],DEEPIN_FCITX_GSETTINGS) == 0){
+                            fprintf(gFp, "%s: %s/%s --- %s\n", gettime(),
+                                    dir.path[event->wd], event->name, event_str[i]);
+                            printf("%s: %s/%s --- %s\n", gettime(),
+                                    dir.path[event->wd], event->name, event_str[i]);
+                        }
+                        else {
+                            if ((strcmp(event_str[i], "IN_CREATE") == 0) ||
+                                (strcmp(event_str[i], "IN_MOVED_TO") == 0)) {
+                                memset(path, 0, sizeof path);
+                                strncat(path, dir.path[event->wd], BUFSIZ);
+                                strncat(path, "/", 1);
+                                strncat(path, event->name, BUFSIZ);
+                                stat(path, &res);
+                                if (S_ISDIR(res.st_mode)) {
+                                    id_add(path);
+                                    inotify_add_watch(
+                                        fd, path,
+                                        IN_CREATE | IN_ATTRIB | IN_DELETE |
+                                            IN_MOVED_FROM | IN_MOVED_TO);
+                                    fprintf(gFp, "%s: %s/%s --- %s %d %d\n",
+                                            gettime(), dir.path[event->wd],
+                                            event->name, event_str[i], event->wd,
+                                            fd);
+                                }
                             }
                         }
+
                     }
                     fflush(gFp);
                 }
