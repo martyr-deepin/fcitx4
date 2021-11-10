@@ -40,7 +40,7 @@ option(ENABLE_LUA "Enable Lua support" ON)
 option(ENABLE_STATIC "Build Static Library" OFF)
 option(ENABLE_TEST "Test build" ON)
 option(ENABLE_SNOOPER "Enable Key Snooper for gtk app" ON)
-option(ENABLE_GIR "Enable GObject Introspection" ON)
+option(ENABLE_GIR "Enable GObject Introspection" OFF)
 option(ENABLE_ENCHANT "Enable enchant for word predication" ON)
 option(ENABLE_PRESAGE "Enable presage for word predication" ON)
 option(FORCE_ENCHANT
