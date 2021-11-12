@@ -8,3 +8,4 @@ Library=fcitx-uosnotificationitem.so
 Type=SharedLibrary
 Priority=70
 Dependency=fcitx-dbus
+Advance=True
