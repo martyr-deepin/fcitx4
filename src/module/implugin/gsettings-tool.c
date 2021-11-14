@@ -847,10 +847,10 @@ fcitxconfig_value_changed (GSettings   *settings,
     }
   }
 
-//  fcitx_utils_launch_tool("fcitx-remote", "-r");
+  fcitx_utils_launch_tool("fcitx-remote", "-r");
 
-  char *commod[] = {"/home/uos/Desktop/fcitx/build/src/module/dbus/fcitx-remote", "-r"};
-  fcitx_utils_start_process(commod);
+//  char *commod[] = {"/home/uos/Desktop/fcitx/build/src/module/dbus/fcitx-remote", "-r"};
+//  fcitx_utils_start_process(commod);
 
   g_variant_unref (value);
   g_free (printed);
