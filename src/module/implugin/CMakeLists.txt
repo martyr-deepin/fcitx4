@@ -1,4 +1,3 @@
-
 set(FCITX_IMPLUGIN_SOURCES
   implugin.c)
 
@@ -14,6 +13,9 @@ set(FCITX_IMPLUGIN_SERVICE_SOURCES
 
 set(FCITX_GSETTINGTOOL_SOURCES
   gsettings-tool.c
+  minGlue.h
+  minIni.h
+  minIni.c
   )
 
 include(FindPkgConfig)
@@ -31,5 +33,5 @@ target_link_libraries(fcitx-implugin-service fcitx-config fcitx-utils dbus-1 dbu
 install(TARGETS fcitx-implugin-service DESTINATION "${bindir}")
 
 add_executable(fcitx-gsettingtool ${FCITX_GSETTINGTOOL_SOURCES})
-target_link_libraries(fcitx-gsettingtool dbus-1 dbus-glib-1 glib-2.0 ${GIO2_LIBRARIES})
+target_link_libraries(fcitx-gsettingtool fcitx-config fcitx-utils dbus-1 dbus-glib-1 glib-2.0 ${GIO2_LIBRARIES})
 install(TARGETS fcitx-gsettingtool DESTINATION "${bindir}")
