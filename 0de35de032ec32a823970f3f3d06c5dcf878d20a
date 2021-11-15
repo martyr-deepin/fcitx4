@@ -36,6 +36,74 @@
     },
     {
       "key": {
+        "uuid": "1185c29d_3f35bad2",
+        "filename": "src/lib/fcitx/ime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-15T09:33:34Z",
+      "side": 1,
+      "message": "(style) struct member \u0027Anonymous0::hk1\u0027 is never used",
+      "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d26ff047_e999f870",
+        "filename": "src/lib/fcitx/ime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-15T09:33:34Z",
+      "side": 1,
+      "message": "(style) struct member \u0027Anonymous0::hk2\u0027 is never used",
+      "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3729e86_2d3243e5",
+        "filename": "src/lib/fcitx/ime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-15T09:33:34Z",
+      "side": 1,
+      "message": "(style) Condition \u0027index\u003e\u003d0\u0027 is always tru",
+      "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d8a1025_f98ac294",
+        "filename": "src/lib/fcitx/ime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2017,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-15T09:33:34Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027cur\u0027 can be reduced",
+      "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5af560f4_7ab666dc",
         "filename": "src/lib/fcitx/instance-internal.h",
         "patchSetId": 1
@@ -64,6 +132,57 @@
       "writtenOn": "2021-11-15T09:33:31Z",
       "side": 1,
       "message": "注释行数: 2; 改动行数(修改和新增): 3; 注释率: 66.7%",
+      "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fad68b9_51ef4d73",
+        "filename": "src/lib/fcitx/instance.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-15T09:33:34Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16369688091580.5746919432752707/changeCache/src/lib/fcitx/instance.c:533]: (style) Local variable frontend shadows outer variabl",
+      "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f30a69b0_dd8b25fb",
+        "filename": "src/lib/fcitx/instance.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-15T09:33:34Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16369688091580.5746919432752707/changeCache/src/lib/fcitx/instance.c:531]: (warning) Opposite inner \u0027if\u0027 condition leads to a dead code block",
+      "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53616c72_d457344f",
+        "filename": "src/lib/fcitx/instance.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-15T09:33:34Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16369688091580.5746919432752707/changeCache/src/lib/fcitx/instance.c:541]: (warning) Opposite inner \u0027if\u0027 condition leads to a dead code block",
       "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
@@ -104,6 +223,40 @@
     },
     {
       "key": {
+        "uuid": "1fad30eb_bb03cfe2",
+        "filename": "src/module/vk/vk.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-15T09:33:34Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027iIndex\u0027 can be reduced",
+      "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5489245_cbc14cf9",
+        "filename": "src/module/vk/vk.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-15T09:33:34Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027pstr\u0027 can be reduced",
+      "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c225864d_ae0739d1",
         "filename": "src/ui/classic/classicui.c",
         "patchSetId": 1
@@ -115,6 +268,23 @@
       "writtenOn": "2021-11-15T09:33:31Z",
       "side": 1,
       "message": "注释行数: 1; 改动行数(修改和新增): 1; 注释率: 100.0%",
+      "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e526432_0ce57caf",
+        "filename": "src/ui/classic/classicui.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-15T09:33:34Z",
+      "side": 1,
+      "message": "(error) Memory pointed to by \u0027name\u0027 is freed twice",
       "revId": "0de35de032ec32a823970f3f3d06c5dcf878d20a",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
