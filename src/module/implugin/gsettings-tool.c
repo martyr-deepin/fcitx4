@@ -830,22 +830,36 @@ fcitxconfig_value_changed (GSettings   *settings,
         ini_puts("Hotkey/TriggerKey","DefaultValue", "CTRL_SPACE", global_desc_fp);
     }
   } else if (strcmp(key, "shortcut-switch-im") == 0) {
-    get_file_path();
-
-    if(strcmp(printed,"\'Disabled\'")==0)
-    {
-        if(global_conf_fp != NULL){
-            ini_puts("Hotkey","IMSwitchHotkey", "", global_conf_fp);
-        }
-        ini_puts("Hotkey/IMSwitchHotkey","DefaultValue", "", global_desc_fp);
+      get_file_path();
+      if(strcmp(printed,"\'Disabled\'")==0)
+      {
+          if(global_conf_fp != NULL){
+              ini_puts("Hotkey","IMSwitchHotkey", "", global_conf_fp);
+          }
+          ini_puts("Hotkey/IMSwitchHotkey","DefaultValue", "", global_desc_fp);
+      }
+      else if (strcmp(printed,"\'Enabled\'")==0) {
+          if(global_conf_fp != NULL){
+              ini_puts("Hotkey","IMSwitchHotkey", "", global_conf_fp);
+          }
+          ini_puts("Hotkey/IMSwitchHotkey","DefaultValue", "CTRL_SHIFT", global_desc_fp);
+      }
+    } else if (strcmp(key, "shortcut-function") == 0) {
+      get_file_path();
+      if(strcmp(printed,"\'true\'")==0)
+      {
+          if(global_conf_fp != NULL){
+              ini_puts("Hotkey","IMSwitchHotkey", "", global_conf_fp);
+          }
+          ini_puts("Hotkey/IMSwitchHotkey","DefaultValue", "CTRL_SHIFT", global_desc_fp);
+      }
+      else if (strcmp(printed,"\'false\'")==0) {
+          if(global_conf_fp != NULL){
+              ini_puts("Hotkey","IMSwitchHotkey", "", global_conf_fp);
+          }
+          ini_puts("Hotkey/IMSwitchHotkey","DefaultValue", "", global_desc_fp);
+      }
     }
-    else if (strcmp(printed,"\'Enabled\'")==0) {
-        if(global_conf_fp != NULL){
-            ini_puts("Hotkey","IMSwitchHotkey", "", global_conf_fp);
-        }
-        ini_puts("Hotkey/IMSwitchHotkey","DefaultValue", "CTRL_SHIFT", global_desc_fp);
-    }
-  }
 
   fcitx_utils_launch_tool("fcitx-remote", "-r");
 
