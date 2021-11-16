@@ -96,7 +96,7 @@ Advance=True
 [Hotkey/VKSwitchKey]
 Type=Hotkey
 DefaultValue=CTRL_ALT_B
-Description=Trigger symbol keyboard
+Description=Trigger Symbol Keyboard
 Advance=True
 ShownInDeepin=True
 
@@ -110,7 +110,7 @@ ShownInDeepin=True
 [Hotkey/FullWidthSwitchKey]
 Type=Hotkey
 DefaultValue=
-Description=Trigger fullwidth character
+Description=Trigger Fullwidth Character
 Advance=True
 ShownInDeepin=True
 
@@ -124,13 +124,13 @@ ShownInDeepin=True
 [Hotkey/PrevPageKey]
 Type=Hotkey
 DefaultValue=- UP
-Description=Prev page
+Description=Prev Page
 ShownInDeepin=True
 
 [Hotkey/NextPageKey]
 Type=Hotkey
 DefaultValue== DOWN
-Description=Next page
+Description=Next Page
 ShownInDeepin=True
 
 [Hotkey/SecondThirdCandWordKey]
