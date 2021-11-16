@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0462019d_6b504652",
+        "filename": "src/module/vk/vk.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-16T10:22:24Z",
+      "side": 1,
+      "message": "注释行数: 2; 改动行数(修改和新增): 2; 注释率: 100.0%",
+      "revId": "6231d25de5898296427479c8d2c6f797365a9b02",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dee58ea4_1bb36ee2",
+        "filename": "src/ui/classic/classicui.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-16T10:22:24Z",
+      "side": 1,
+      "message": "注释行数: 1; 改动行数(修改和新增): 1; 注释率: 100.0%",
+      "revId": "6231d25de5898296427479c8d2c6f797365a9b02",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
