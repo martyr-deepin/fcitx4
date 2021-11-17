@@ -9,6 +9,7 @@ Type=Boolean
 DefaultValue=True
 Description=Use extra trigger key only after using it to inactivate
 Advance=True
+ShownInDeepin=True
 
 [Hotkey/SwitchKey]
 Type=Enum
@@ -34,8 +35,7 @@ Enum17=Super+Right Ctrl
 Enum18=Disabled
 Enum19=Custom
 DefaultValue=Disabled
-Description=Extra key for switching to the first input method
-ShownInDeepin=True
+Description=Extra key for trigger input method
 
 [Hotkey/CustomSwitchKey]
 Type=Hotkey
@@ -138,6 +138,7 @@ Type=String
 DefaultValue=
 Description=Choose Second and Third Candidate Word
 Advance=True
+ShownInDeepin=True
 
 [Hotkey/SaveAllKey]
 Type=Hotkey
