@@ -1214,7 +1214,8 @@ msgid "Latin punct"
 msgstr "དབྱིན་ཡིག་ཚེག་རྟགས།"
 
 #: src/module/punc/punc.c:150 src/module/punc/punc.c:569
-msgid "Toggle Full Width Punctuation"
+#: data/config.desc:114
+msgid "Switch Fullwidth Punctuation"
 msgstr "ཟུར་ཧྲིལ་ཚེག་རྟགས་ལ་བརྗེ་བ།"
 
 #: src/module/punc/punc.c:410
@@ -1710,7 +1711,7 @@ msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་Kimpan
 #: data/addon.desc:24 data/addon.desc:29 data/addon.desc:33 data/addon.desc:40
 #: data/addon.desc:45 data/addon.desc:50 data/addon.desc:55 data/addon.desc:64
 #: data/addon.desc:69 data/addon.desc:74 data/addon.desc:79
-msgid "Addon"
+msgid "Add-ons"
 msgstr "ཟུར་སྣོན་སྒྲིག་ལྷུ།"
 
 #: data/addon.desc:3 data/inputmethod.desc:7
@@ -1907,7 +1908,7 @@ msgid "Custom"
 msgstr "རང་སྒྲུབ།"
 
 #: data/config.desc:37
-msgid "Extra key for trigger input method"
+msgid "Extra Key for Switching to the First Input Method"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་སྐུལ་སློང་མྱུར་མཐེབ།"
 
 #: data/config.desc:42
@@ -1923,11 +1924,11 @@ msgid "Inactivate Input Method"
 msgstr "ནང་འཇུག་བྱེད་ཐབས་སྐུལ་སློང་བྱེད་པ་འདོར་བ།"
 
 #: data/config.desc:63
-msgid "Enable Hotkey to scroll Between Input Method"
+msgid "Enable Shortcuts to Scroll Between Input Methods"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་དབར་གྱི་བརྗེ་སྒྱུར་འགོ་སློང་།"
 
 #: data/config.desc:68
-msgid "Include Inactivate when scrolling between Input Method"
+msgid "Include Inactive When Scrolling Between Input Methods"
 msgstr ""
 "ནང་འཇུག་བྱེད་སྟངས་དབར་བརྗེ་སྒྱུར་བྱེད་དུས་འགོ་བསླངས་མེད་པའི་རྣམ་པ་ཚུད་པ།"
 
@@ -1960,23 +1961,19 @@ msgid "Interval of Two Key Input"
 msgstr "ནང་འཇུག་བར་སྟོང་།"
 
 #: data/config.desc:96
-msgid "Switching Virtual Keyboard"
+msgid "Switch Symbol Keyboard"
 msgstr "རྟོག་བཟོའི་མཐེབ་གཞོང་བརྗེ་བ།"
 
 #: data/config.desc:102
-msgid "Switching Remind Mode"
+msgid "Switch Remind Mode"
 msgstr "གཅིག་བརྟེན་གཅིག་དྲན་གྱི་དཔེ་རྣམ་ལ་བརྗེ་བ།"
 
 #: data/config.desc:108
-msgid "Switching Full Width Character Mode"
+msgid "Switch Fullwidth Character"
 msgstr "ཟུར་ཧྲིལ་ལ་བརྗེ་བ།"
 
-#: data/config.desc:114
-msgid "Switch Full Width Punc Mode"
-msgstr "ཟུར་ཧྲིལ་ཚེག་རྟགས་ལ་བརྗེ་བ།"
-
 #: data/config.desc:120
-msgid "Prev Page"
+msgid "Previous Page"
 msgstr "ཤོག་ལྷེ་གོང་མ།"
 
 #: data/config.desc:125
@@ -1992,7 +1989,7 @@ msgid "Saving All Config and Input History"
 msgstr "སྡེབ་སྒྲིག་དང་ནང་འཇུག་གི་ལོ་རྒྱུས་ཉར་ཚགས།"
 
 #: data/config.desc:142
-msgid "Switch Embedded Preedit"
+msgid "Switch Embedded Preedit String"
 msgstr "རྩོམ་སྒྲིག་བྱེད་གྲབས་ཡོད་པའི་ཡིག་རྟགས་ཕྲེང་བརྗེ་བ།"
 
 #: data/config.desc:148
@@ -2034,7 +2031,7 @@ msgid "All"
 msgstr "ཆ་ཚང་།"
 
 #: data/config.desc:171
-msgid "PerProgram"
+msgid "Per program"
 msgstr "བྱ་རིམ་ལྟར།"
 
 #: data/config.desc:172
@@ -2059,7 +2056,7 @@ msgid "Output"
 msgstr "ཕྱིར་འདྲེན།"
 
 #: data/config.desc:186
-msgid "Type half width Punc After a Number"
+msgid "Type Halfwidth Punctuation After a Number"
 msgstr "ཨང་ཀིའི་རྗེས་ཟུར་ཕྱེད་མཚོན་རྟགས་འཇོག་པ།"
 
 #: data/config.desc:192
@@ -2067,7 +2064,7 @@ msgid "Disable Paging in Remind Mode"
 msgstr "གཅིག་བརྟེན་གཅིག་དྲན་དཔེ་རྣམ་གྱིས་ཤོག་ངོས་ཨ་སློག་བྱེད་མི་ཆོག"
 
 #: data/config.desc:198
-msgid "Commit when toggle state"
+msgid "Commit When Toggle State"
 msgstr "བརྗེ་སྐབས་སྐྱེལ་བ།"
 
 #: data/config.desc:199
@@ -2084,7 +2081,7 @@ msgid "Give the tips of Phrase"
 msgstr "ཚིག་མཛོད་ཀྱི་ཚིག་གྲུབ་དྲན་སྐུལ།"
 
 #: data/config.desc:217
-msgid "Do not commit preedit text when unfocus a window"
+msgid "Do Not Commit Preedit Text When a Window Loses Focus"
 msgstr "སྒེའུ་ཁུལ་ལ་མདོ་ཚེག་མེད་སྐབས་རྩོམ་སྒྲིག་བྱེད་གྲབས་ཀྱི་ཡིག་ཆ་མི་སྐྱེལ།"
 
 #: data/config.desc:220 data/config.desc:226 data/config.desc:232
@@ -2103,7 +2100,7 @@ msgstr ""
 "ནང་འཇུག་མདོ་ཚེག་རག་པ་མ་ཟད་ནང་འཇུག་བྱེད་སྟངས་འགྱུར་སྐབས་དྲན་སྐུལ་བྱེད་པ།"
 
 #: data/config.desc:235
-msgid "Input Method Hint will be only shown when state is active"
+msgid "Show Input Method Hint Only When the State is Active"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་དྲན་སྐུལ་དེ་སྐུལ་སློང་བྱས་ཡོད་སྐབས་མངོན་པ།"
 
 #: data/config.desc:241
@@ -2115,12 +2112,12 @@ msgid "Show Version"
 msgstr "མངོན་སྟོན་པར་གཞི།"
 
 #: data/config.desc:253
-msgid "Do not show input window if there is only preedit string"
+msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr ""
 "རྩོམ་སྒྲིག་བྱེད་གྲབས་ཀྱི་ཡིག་རྟགས་ཕྲེང་ཁོ་ན་ཡོད་དུས་ནང་འཇུག་སྒེའུ་ཁུང་མི་མངོན།"
 
 #: data/config.desc:259
-msgid "Do not show input window if there is only one candidate and preedit"
+msgid "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr ""
 "གདམ་བྱའི་ཚིག་གཅིག་དང་རྩོམ་སྒྲིག་བྱེད་གྲབས་ཀྱི་ཡིག་རྟགས་ཕྲེང་ཁོ་ན་ཡོད་དུས་ནང་འཇུག་སྒེའུ་ཁུང་མི་མངོན།"
 

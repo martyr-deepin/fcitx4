@@ -191,7 +191,7 @@ msgstr "Tilføj nuværende inputbuffer til brugermappe"
 #: data/addon.desc:24 data/addon.desc:29 data/addon.desc:33 data/addon.desc:40
 #: data/addon.desc:45 data/addon.desc:50 data/addon.desc:55 data/addon.desc:64
 #: data/addon.desc:69 data/addon.desc:74 data/addon.desc:79
-msgid "Addon"
+msgid "Add-ons"
 msgstr "Tilføjelse"
 
 #: src/lib/fcitx/addon.c:138
@@ -701,7 +701,7 @@ msgid "Commit string when there is no match"
 msgstr "Udfør streng når der ikke er nogen match"
 
 #: data/config.desc:198
-msgid "Commit when toggle state"
+msgid "Commit When Toggle State"
 msgstr "Udfør når der skiftes tilstand"
 
 #: src/im/keyboard/fcitx-keyboard.desc:4
@@ -896,7 +896,7 @@ msgid "Disabled"
 msgstr "Deaktiveret"
 
 #: data/config.desc:217
-msgid "Do not commit preedit text when unfocus a window"
+msgid "Do Not Commit Preedit Text When a Window Loses Focus"
 msgstr "Udfør ikke preedit-tekst når et vindue mister fokus"
 
 #: src/module/freedesktop-notify/freedesktop-notify.c:620
@@ -908,11 +908,11 @@ msgid "Do not show in GUI"
 msgstr "Vis ikke i grafisk brugerflade"
 
 #: data/config.desc:259
-msgid "Do not show input window if there is only one candidate and preedit"
+msgid "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr "Vis ikke inputvindue hvis der kun er en kandidat og preedit"
 
 #: data/config.desc:253
-msgid "Do not show input window if there is only preedit string"
+msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr "Vis ikke inputvindue hvis der kun er preedit-streng"
 
 #: src/module/autoeng/fcitx-autoeng.desc:12
@@ -957,7 +957,7 @@ msgid "Enable"
 msgstr "Aktivér"
 
 #: data/config.desc:63
-msgid "Enable Hotkey to scroll Between Input Method"
+msgid "Enable Shortcuts to Scroll Between Input Methods"
 msgstr "Aktivér hottast til at rulle mellem inputmetoder"
 
 #: data/addon.desc:27
@@ -1068,7 +1068,7 @@ msgid "Exit"
 msgstr "Afslut"
 
 #: data/config.desc:37
-msgid "Extra key for trigger input method"
+msgid "Extra Key for Switching to the First Input Method"
 msgstr "Ekstra tast til at udløse inputmetode"
 
 #: data/script/fcitx-diagnose.sh:1394
@@ -1543,7 +1543,7 @@ msgid "Inactive Text Icon Color"
 msgstr "Farve for inaktiv tekst på ikon"
 
 #: data/config.desc:68
-msgid "Include Inactivate when scrolling between Input Method"
+msgid "Include Inactive When Scrolling Between Input Methods"
 msgstr "Inkluder deaktivér når der rulles mellem inputmetode"
 
 #: src/module/clipboard/fcitx-clipboard.desc:31
@@ -1581,7 +1581,7 @@ msgid "Input Method Disabled"
 msgstr "Inputmetode deaktiveret"
 
 #: data/config.desc:235
-msgid "Input Method Hint will be only shown when state is active"
+msgid "Show Input Method Hint Only When the State is Active"
 msgstr "Inputmetodetip vil kun blive vist når tilstand er aktiv"
 
 #: data/script/fcitx-diagnose.sh:666
@@ -2072,7 +2072,7 @@ msgid "Parent"
 msgstr "Forælder"
 
 #: data/config.desc:171
-msgid "PerProgram"
+msgid "Per program"
 msgstr "Per program"
 
 #: src/im/table/table.c:1395
@@ -2188,7 +2188,7 @@ msgid "Press number to make word in frequent list"
 msgstr "Tryk på tal for at få ord i populærliste"
 
 #: data/config.desc:120
-msgid "Prev Page"
+msgid "Previous Page"
 msgstr "Forrige side"
 
 #: src/ui/classic/skin.desc:269 src/ui/classic/skin.desc:277
@@ -2684,11 +2684,12 @@ msgid "Super+Right Ctrl"
 msgstr "Super+Højre Ctrl"
 
 #: data/config.desc:142
-msgid "Switch Embedded Preedit"
+msgid "Switch Embedded Preedit String"
 msgstr "Skift indlejret Preedit"
 
 #: data/config.desc:114
-msgid "Switch Full Width Punc Mode"
+#: src/module/punc/punc.c:150 src/module/punc/punc.c:569
+msgid "Switch Fullwidth Punctuation"
 msgstr "Skift tilstand for tegnsætning med fuld bredde"
 
 #: src/module/imselector/fcitx-imselector.desc:54
@@ -2737,15 +2738,15 @@ msgid "Switch to the Third Input Method"
 msgstr "Skift til den tredje inputmetode"
 
 #: data/config.desc:108
-msgid "Switching Full Width Character Mode"
+msgid "Switch Fullwidth Character"
 msgstr "Skifter tilstand for tegn med fuld bredde"
 
 #: data/config.desc:102
-msgid "Switching Remind Mode"
+msgid "Switch Remind Mode"
 msgstr "Skifter påmindelsestilstand"
 
 #: data/config.desc:96
-msgid "Switching Virtual Keyboard"
+msgid "Switch Symbol Keyboard"
 msgstr "Skifter virtuelt tastatur"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:9
@@ -2823,10 +2824,6 @@ msgstr ""
 "Tjek ${link1}, for at se flere programspecifikke problemer som du kan have "
 "når du bruger xim. Se ${link2}, for andre generelle problemer med at bruge "
 "XIM, inklusiv programfrysninger."
-
-#: src/module/punc/punc.c:150 src/module/punc/punc.c:569
-msgid "Toggle Full Width Punctuation"
-msgstr "Tegnsætning i fuld bredde til/fra"
 
 #: src/module/fullwidthchar/fullwidthchar.c:115
 #: src/module/fullwidthchar/fullwidthchar.c:192
@@ -2915,7 +2912,7 @@ msgid "Type"
 msgstr "Type"
 
 #: data/config.desc:186
-msgid "Type half width Punc After a Number"
+msgid "Type Halfwidth Punctuation After a Number"
 msgstr "Skriv tegnsætning med halv bredde efter et tal"
 
 #: data/addon.desc:21

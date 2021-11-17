@@ -1159,8 +1159,9 @@ msgstr "全形標點符號"
 msgid "Latin punct"
 msgstr "英文標點符號"
 
+#: data/config.desc:114
 #: src/module/punc/punc.c:150 src/module/punc/punc.c:569
-msgid "Toggle Full Width Punctuation"
+msgid "Switch Fullwidth Punctuation"
 msgstr "切換全形標點符號"
 
 #: src/module/punc/punc.c:410
@@ -1651,7 +1652,7 @@ msgstr "Fcitx 的 Kimpanel 支援"
 #: data/addon.desc:24 data/addon.desc:29 data/addon.desc:33 data/addon.desc:40
 #: data/addon.desc:45 data/addon.desc:50 data/addon.desc:55 data/addon.desc:64
 #: data/addon.desc:69 data/addon.desc:74 data/addon.desc:79
-msgid "Addon"
+msgid "Add-ons"
 msgstr "附加元件"
 
 #: data/addon.desc:3 data/inputmethod.desc:7
@@ -1848,7 +1849,7 @@ msgid "Custom"
 msgstr "自訂"
 
 #: data/config.desc:37
-msgid "Extra key for trigger input method"
+msgid "Extra Key for Switching to the First Input Method"
 msgstr "額外的啟用輸入法快捷鍵"
 
 #: data/config.desc:42
@@ -1864,11 +1865,11 @@ msgid "Inactivate Input Method"
 msgstr "不啟用輸入法"
 
 #: data/config.desc:63
-msgid "Enable Hotkey to scroll Between Input Method"
+msgid "Enable Shortcuts to Scroll Between Input Methods"
 msgstr "啟用輸入法間切換"
 
 #: data/config.desc:68
-msgid "Include Inactivate when scrolling between Input Method"
+msgid "Include Inactive When Scrolling Between Input Methods"
 msgstr "輸入法間切換時包含未啟用狀態"
 
 #: data/config.desc:74
@@ -1900,23 +1901,19 @@ msgid "Interval of Two Key Input"
 msgstr "輸入間隔"
 
 #: data/config.desc:96
-msgid "Switching Virtual Keyboard"
+msgid "Switch Symbol Keyboard"
 msgstr "切換虛擬鍵盤"
 
 #: data/config.desc:102
-msgid "Switching Remind Mode"
+msgid "Switch Remind Mode"
 msgstr "切換聯想模式"
 
 #: data/config.desc:108
-msgid "Switching Full Width Character Mode"
+msgid "Switch Fullwidth Character"
 msgstr "切換全形字元模式"
 
-#: data/config.desc:114
-msgid "Switch Full Width Punc Mode"
-msgstr "切換全形標點符號"
-
 #: data/config.desc:120
-msgid "Prev Page"
+msgid "Previous Page"
 msgstr "上一頁"
 
 #: data/config.desc:125
@@ -1932,7 +1929,7 @@ msgid "Saving All Config and Input History"
 msgstr "保存所有設定及輸入歷史"
 
 #: data/config.desc:142
-msgid "Switch Embedded Preedit"
+msgid "Switch Embedded Preedit String"
 msgstr "切換嵌入預編輯字串"
 
 #: data/config.desc:148
@@ -1972,7 +1969,7 @@ msgid "All"
 msgstr "所有"
 
 #: data/config.desc:171
-msgid "PerProgram"
+msgid "Per program"
 msgstr "按程式"
 
 #: data/config.desc:172
@@ -1997,7 +1994,7 @@ msgid "Output"
 msgstr "輸出"
 
 #: data/config.desc:186
-msgid "Type half width Punc After a Number"
+msgid "Type Halfwidth Punctuation After a Number"
 msgstr "數字後跟半形標點符號"
 
 #: data/config.desc:192
@@ -2005,7 +2002,7 @@ msgid "Disable Paging in Remind Mode"
 msgstr "聯想模式停用翻頁"
 
 #: data/config.desc:198
-msgid "Commit when toggle state"
+msgid "Commit When Toggle State"
 msgstr "切換狀態時提交"
 
 #: data/config.desc:199
@@ -2021,7 +2018,7 @@ msgid "Give the tips of Phrase"
 msgstr "提示詞庫中字詞"
 
 #: data/config.desc:217
-msgid "Do not commit preedit text when unfocus a window"
+msgid "Do Not Commit Preedit Text When a Window Loses Focus"
 msgstr "未聚焦視窗時，不要提交預編輯文字"
 
 #: data/config.desc:220 data/config.desc:226 data/config.desc:232
@@ -2039,7 +2036,7 @@ msgid "Show Input Method Hint After Input method changed and Focus in"
 msgstr "獲得輸入焦點並且輸入法變化時顯示輸入法提示"
 
 #: data/config.desc:235
-msgid "Input Method Hint will be only shown when state is active"
+msgid "Show Input Method Hint Only When the State is Active"
 msgstr "輸入法提示只在啟用狀態顯示"
 
 #: data/config.desc:241
@@ -2051,11 +2048,11 @@ msgid "Show Version"
 msgstr "顯示版本"
 
 #: data/config.desc:253
-msgid "Do not show input window if there is only preedit string"
+msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr "只有預編輯字串時不顯示輸入視窗"
 
 #: data/config.desc:259
-msgid "Do not show input window if there is only one candidate and preedit"
+msgid "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr "只有一個候選詞和預編輯字串時不顯示輸入視窗"
 
 #: data/inputmethod.desc:3

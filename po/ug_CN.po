@@ -1224,8 +1224,9 @@ msgstr "ئىككى بايتلىق تىنىش بەلگىسى"
 msgid "Latin punct"
 msgstr "ئېنگلىزچە تىنىش بەلگىسى"
 
+#: data/config.desc:114
 #: src/module/punc/punc.c:150 src/module/punc/punc.c:569
-msgid "Toggle Full Width Punctuation"
+msgid "Switch Fullwidth Punctuation"
 msgstr "ئىككى بايتلىق تىنىش بەلگىسىگە ئالماشتۇرۇش"
 
 #: src/module/punc/punc.c:410
@@ -1730,7 +1731,7 @@ msgstr "كىرگۈزگۈچنىڭ Kimpanel ياردىمى"
 #: data/addon.desc:24 data/addon.desc:29 data/addon.desc:33 data/addon.desc:40
 #: data/addon.desc:45 data/addon.desc:50 data/addon.desc:55 data/addon.desc:64
 #: data/addon.desc:69 data/addon.desc:74 data/addon.desc:79
-msgid "Addon"
+msgid "Add-ons"
 msgstr "قوشۇمچە زاپچاس"
 
 #: data/addon.desc:3 data/inputmethod.desc:7
@@ -1929,7 +1930,7 @@ msgid "Custom"
 msgstr "بەلگىلەش"
 
 #: data/config.desc:37
-msgid "Extra key for trigger input method"
+msgid "Extra Key for Switching to the First Input Method"
 msgstr "ئاكتىپلانغان باشقا تېزلەتمە كۇنۇپكىلار"
 
 #: data/config.desc:42
@@ -1945,11 +1946,11 @@ msgid "Inactivate Input Method"
 msgstr "ئاكتىپلاشنى بىكار قىلىش"
 
 #: data/config.desc:63
-msgid "Enable Hotkey to scroll Between Input Method"
+msgid "Enable Shortcuts to Scroll Between Input Methods"
 msgstr "ئالماشتۇرۇشنى قوزغىتىش"
 
 #: data/config.desc:68
-msgid "Include Inactivate when scrolling between Input Method"
+msgid "Include Inactive When Scrolling Between Input Methods"
 msgstr "كىرگۈزگۈچ ئالماشتۇرغاندا ئاكتىپلانمىغان ھالىتىنىمۇ ئۆز ئىچىگە ئالىدۇ"
 
 #: data/config.desc:74
@@ -1981,23 +1982,19 @@ msgid "Interval of Two Key Input"
 msgstr "كىرگۈزۈش ئارىلىقى"
 
 #: data/config.desc:96
-msgid "Switching Virtual Keyboard"
+msgid "Switch Symbol Keyboard"
 msgstr "مەۋھۇم كۇنۇپكىنى ئالماشتۇرۇش"
 
 #: data/config.desc:102
-msgid "Switching Remind Mode"
+msgid "Switch Remind Mode"
 msgstr "بىرلەشتۈرۈپ ئويلاش ھالىتىنى ئالماشتۇرۇش"
 
 #: data/config.desc:108
-msgid "Switching Full Width Character Mode"
+msgid "Switch Fullwidth Character"
 msgstr "ئىككى بايتلىققا ئالماشتۇرۇش"
 
-#: data/config.desc:114
-msgid "Switch Full Width Punc Mode"
-msgstr "ئىككى بايتلىق تىنىش بەلگىسىگە ئالماشتۇرۇش"
-
 #: data/config.desc:120
-msgid "Prev Page"
+msgid "Previous Page"
 msgstr "ئالدىنقى بەت"
 
 #: data/config.desc:125
@@ -2013,7 +2010,7 @@ msgid "Saving All Config and Input History"
 msgstr "سەپلىمىنى ۋە كىرگۈزۈش تارىخىنى ساقلاش"
 
 #: data/config.desc:142
-msgid "Switch Embedded Preedit"
+msgid "Switch Embedded Preedit String"
 msgstr " ئالدىن تەھرىرلەنگەن ھەرپ-بەلگە تىزىقىنى ئالماشتۇرۇش "
 
 #: data/config.desc:148
@@ -2057,7 +2054,7 @@ msgid "All"
 msgstr "بارلىق"
 
 #: data/config.desc:171
-msgid "PerProgram"
+msgid "Per program"
 msgstr "پىروگرامما بويىچە"
 
 #: data/config.desc:172
@@ -2082,7 +2079,7 @@ msgid "Output"
 msgstr "چىقىرىش"
 
 #: data/config.desc:186
-msgid "Type half width Punc After a Number"
+msgid "Type Halfwidth Punctuation After a Number"
 msgstr "ساندىن كېيىن بىر بايتلىق بەلگە چىقسۇن"
 
 #: data/config.desc:192
@@ -2090,7 +2087,7 @@ msgid "Disable Paging in Remind Mode"
 msgstr "بىرلەشتۈرۈپ ئويلاش ھالىتىدە بەت ئالماشتۇرغىلى بولمايدۇ"
 
 #: data/config.desc:198
-msgid "Commit when toggle state"
+msgid "Commit When Toggle State"
 msgstr "ھالىتىنى ئالماشتۇرغاندا تاپشۇرۇش"
 
 #: data/config.desc:199
@@ -2108,7 +2105,7 @@ msgid "Give the tips of Phrase"
 msgstr "سۆز ئامبىرىدىكى سۆز بىرىكمىسىنى ئەسكەرتسۇن"
 
 #: data/config.desc:217
-msgid "Do not commit preedit text when unfocus a window"
+msgid "Do Not Commit Preedit Text When a Window Loses Focus"
 msgstr ""
 "كۆزنەك فوكۇس نۇقتىسىنى يوقاتقاندا ئالدىن تەھرىرلەنگەن تېكىستنى تاپشۇرمىسۇن"
 
@@ -2129,7 +2126,7 @@ msgstr ""
 "كىرگۈزگۈچتە كۆرسىتىلگەن ئەسكەرتىشنى كۆرسىتش."
 
 #: data/config.desc:235
-msgid "Input Method Hint will be only shown when state is active"
+msgid "Show Input Method Hint Only When the State is Active"
 msgstr "كىرگۈزگۈچتىكى ئەسكەرتمە پەقەت ئاكتىپلانغان ھالەتتىلا كۆرۈنىدۇ"
 
 #: data/config.desc:241
@@ -2141,12 +2138,12 @@ msgid "Show Version"
 msgstr "كۆرسىتىش نەشرى"
 
 #: data/config.desc:253
-msgid "Do not show input window if there is only preedit string"
+msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr ""
 "ئالدىن تەھرىرلەنگەن ھەرپ-بەلگە تىزىقى بولغاندىلا كىرگۈزۈش كۆزنىكى كۆرۈنمىسۇن"
 
 #: data/config.desc:259
-msgid "Do not show input window if there is only one candidate and preedit"
+msgid "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr ""
 "بىر نامزات ۋە ئالدىن تەھرىرلەنگەن ھەرپ-بەلگە تىزىقى بولغاندىلا كىرگۈزۈش "
 "كۆزنىكى كۆرۈنمىسۇن"

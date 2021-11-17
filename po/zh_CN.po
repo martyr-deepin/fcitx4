@@ -1163,7 +1163,8 @@ msgid "Latin punct"
 msgstr "英文标点"
 
 #: src/module/punc/punc.c:150 src/module/punc/punc.c:569
-msgid "Toggle Full Width Punctuation"
+#: data/config.desc:114
+msgid "Switch Fullwidth Punctuation"
 msgstr "切换全角标点"
 
 #: src/module/punc/punc.c:410
@@ -1654,7 +1655,7 @@ msgstr "输入法 的 Kimpanel 支持"
 #: data/addon.desc:24 data/addon.desc:29 data/addon.desc:33 data/addon.desc:40
 #: data/addon.desc:45 data/addon.desc:50 data/addon.desc:55 data/addon.desc:64
 #: data/addon.desc:69 data/addon.desc:74 data/addon.desc:79
-msgid "Addon"
+msgid "Add-ons"
 msgstr "附加组件"
 
 #: data/addon.desc:3 data/inputmethod.desc:7
@@ -1851,8 +1852,8 @@ msgid "Custom"
 msgstr "自定义"
 
 #: data/config.desc:37
-msgid "Extra key for trigger input method"
-msgstr "额外的激活输入法快捷键"
+msgid "Extra Key for Switching to the First Input Method"
+msgstr "额外的切换首位输入法快捷键"
 
 #: data/config.desc:42
 msgid "Custom switch key"
@@ -1867,12 +1868,12 @@ msgid "Inactivate Input Method"
 msgstr "取消激活输入法"
 
 #: data/config.desc:63
-msgid "Enable Hotkey to scroll Between Input Method"
-msgstr "启用输入法间切换"
+msgid "Enable Shortcuts to Scroll Between Input Methods"
+msgstr "启用输入法间轮序切换"
 
 #: data/config.desc:68
-msgid "Include Inactivate when scrolling between Input Method"
-msgstr "输入法间切换时包含未激活状态"
+msgid "Include Inactive When Scrolling Between Input Methods"
+msgstr "输入法轮序切换时包含未激活状态"
 
 #: data/config.desc:74
 msgid "CTRL_SHIFT"
@@ -1903,28 +1904,24 @@ msgid "Interval of Two Key Input"
 msgstr "输入间隔"
 
 #: data/config.desc:96
-msgid "Switching Virtual Keyboard"
-msgstr "切换虚拟键盘"
+msgid "Switch Symbol Keyboard"
+msgstr "切换符号键盘"
 
 #: data/config.desc:102
-msgid "Switching Remind Mode"
+msgid "Switch Remind Mode"
 msgstr "切换联想模式"
 
 #: data/config.desc:108
-msgid "Switching Full Width Character Mode"
-msgstr "切换全角"
-
-#: data/config.desc:114
-msgid "Switch Full Width Punc Mode"
-msgstr "切换全角标点"
+msgid "Switch Fullwidth Character"
+msgstr "切换全角字符"
 
 #: data/config.desc:120
-msgid "Prev Page"
-msgstr "上一页"
+msgid "Previous Page"
+msgstr "上一页候选词"
 
 #: data/config.desc:125
 msgid "Next Page"
-msgstr "下一页"
+msgstr "下一页候选词"
 
 #: data/config.desc:130
 msgid "Choose Second and Third Candidate Word"
@@ -1935,7 +1932,7 @@ msgid "Saving All Config and Input History"
 msgstr "保存配置及输入历史"
 
 #: data/config.desc:142
-msgid "Switch Embedded Preedit"
+msgid "Switch Embedded Preedit String"
 msgstr "切换嵌入预编辑字符串"
 
 #: data/config.desc:148
@@ -1960,7 +1957,7 @@ msgstr "在部分插件 / 输入法中用来切换到下一个候选词的快捷
 
 #: data/config.desc:159 data/config.desc:165 data/config.desc:174
 msgid "Program"
-msgstr "程序"
+msgstr "程序设置"
 
 #: data/config.desc:162
 msgid "Seconds sleep before fcitx really start"
@@ -1975,7 +1972,7 @@ msgid "All"
 msgstr "所有"
 
 #: data/config.desc:171
-msgid "PerProgram"
+msgid "Per program"
 msgstr "按程序"
 
 #: data/config.desc:172
@@ -1997,10 +1994,10 @@ msgstr "默认输入法状态"
 #: data/config.desc:183 data/config.desc:189 data/config.desc:195
 #: data/config.desc:201 data/config.desc:208 data/config.desc:214
 msgid "Output"
-msgstr "输出"
+msgstr "输出设置"
 
 #: data/config.desc:186
-msgid "Type half width Punc After a Number"
+msgid "Type Halfwidth Punctuation After a Number"
 msgstr "数字后跟半角符号"
 
 #: data/config.desc:192
@@ -2008,7 +2005,7 @@ msgid "Disable Paging in Remind Mode"
 msgstr "联想模式禁用翻页"
 
 #: data/config.desc:198
-msgid "Commit when toggle state"
+msgid "Commit When Toggle State"
 msgstr "切换状态时提交"
 
 #: data/config.desc:199
@@ -2024,14 +2021,14 @@ msgid "Give the tips of Phrase"
 msgstr "提示词库中词组"
 
 #: data/config.desc:217
-msgid "Do not commit preedit text when unfocus a window"
+msgid "Do Not Commit Preedit Text When a Window Loses Focus"
 msgstr "窗口失去焦点时不提交预编辑文本"
 
 #: data/config.desc:220 data/config.desc:226 data/config.desc:232
 #: data/config.desc:238 data/config.desc:244 data/config.desc:250
 #: data/config.desc:256
 msgid "Appearance"
-msgstr "外观"
+msgstr "外观设置"
 
 #: data/config.desc:223
 msgid "Show Input Method Hint After Input method changed"
@@ -2042,7 +2039,7 @@ msgid "Show Input Method Hint After Input method changed and Focus in"
 msgstr "获得输入焦点并且输入法变化时显示输入法提示"
 
 #: data/config.desc:235
-msgid "Input Method Hint will be only shown when state is active"
+msgid "Show Input Method Hint Only When the State is Active"
 msgstr "输入法提示只在激活状态显示"
 
 #: data/config.desc:241
@@ -2054,11 +2051,11 @@ msgid "Show Version"
 msgstr "显示版本"
 
 #: data/config.desc:253
-msgid "Do not show input window if there is only preedit string"
+msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr "只有预编辑字符串时不显示输入窗口"
 
 #: data/config.desc:259
-msgid "Do not show input window if there is only one candidate and preedit"
+msgid "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr "只有一个候选词和预编辑字符串时不显示输入窗口"
 
 #: data/inputmethod.desc:3

@@ -192,7 +192,7 @@ msgstr "Afegeix la memòria intermèdia actual d'entrada al diccionari d'usuari"
 #: data/addon.desc:24 data/addon.desc:29 data/addon.desc:33 data/addon.desc:40
 #: data/addon.desc:45 data/addon.desc:50 data/addon.desc:55 data/addon.desc:64
 #: data/addon.desc:69 data/addon.desc:74 data/addon.desc:79
-msgid "Addon"
+msgid "Add-ons"
 msgstr "Complement"
 
 #: src/lib/fcitx/addon.c:138
@@ -708,7 +708,7 @@ msgid "Commit string when there is no match"
 msgstr "Cadena de caràcters a enviar quan no hi ha cap concordança"
 
 #: data/config.desc:198
-msgid "Commit when toggle state"
+msgid "Commit When Toggle State"
 msgstr "Envia quan s'estigui en estat commutat"
 
 #: src/im/keyboard/fcitx-keyboard.desc:4
@@ -903,7 +903,7 @@ msgid "Disabled"
 msgstr "Desactivat"
 
 #: data/config.desc:217
-msgid "Do not commit preedit text when unfocus a window"
+msgid "Do Not Commit Preedit Text When a Window Loses Focus"
 msgstr ""
 "No enviïs el text de pre-edició d'enviament quan la finestra no està enfocada"
 
@@ -916,13 +916,13 @@ msgid "Do not show in GUI"
 msgstr "No ho mostris a la interfície gràfica d'usuari"
 
 #: data/config.desc:259
-msgid "Do not show input window if there is only one candidate and preedit"
+msgid "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr ""
 "No mostris la finestra d'entrada si sols hi ha una cadena de caràcters i pre-"
 "edició"
 
 #: data/config.desc:253
-msgid "Do not show input window if there is only preedit string"
+msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr ""
 "No mostris la finestra d'entrada si sols hi ha una cadena de caràcters de "
 "pre-edició"
@@ -969,7 +969,7 @@ msgid "Enable"
 msgstr "Activa"
 
 #: data/config.desc:63
-msgid "Enable Hotkey to scroll Between Input Method"
+msgid "Enable Shortcuts to Scroll Between Input Methods"
 msgstr "Activa la drecera de teclat pel desplaçament entre mètodes d'entrada"
 
 #: data/addon.desc:27
@@ -1081,7 +1081,7 @@ msgid "Exit"
 msgstr "Surt"
 
 #: data/config.desc:37
-msgid "Extra key for trigger input method"
+msgid "Extra Key for Switching to the First Input Method"
 msgstr "Tecla addicional per activar el mètode d'entrada"
 
 #: data/script/fcitx-diagnose.sh:1394
@@ -1563,7 +1563,7 @@ msgid "Inactive Text Icon Color"
 msgstr "Color inactiu de la icona de text"
 
 #: data/config.desc:68
-msgid "Include Inactivate when scrolling between Input Method"
+msgid "Include Inactive When Scrolling Between Input Methods"
 msgstr "Inclou la desactivació al desplaçament entre mètodes d'entrada"
 
 #: src/module/clipboard/fcitx-clipboard.desc:31
@@ -1601,7 +1601,7 @@ msgid "Input Method Disabled"
 msgstr "Mètode d'entrada desactivat"
 
 #: data/config.desc:235
-msgid "Input Method Hint will be only shown when state is active"
+msgid "Show Input Method Hint Only When the State is Active"
 msgstr ""
 "Els suggerents del mètode d'entrada únicament es mostraran quan l'estat "
 "sigui actiu"
@@ -2095,8 +2095,8 @@ msgid "Parent"
 msgstr "Pare"
 
 #: data/config.desc:171
-msgid "PerProgram"
-msgstr "PerProgram"
+msgid "Per program"
+msgstr "Per program"
 
 #: src/im/table/table.c:1395
 msgid "Phrase is already in Dict "
@@ -2213,7 +2213,7 @@ msgid "Press number to make word in frequent list"
 msgstr "Premeu un número per fer una paraula a la llista de freqüents"
 
 #: data/config.desc:120
-msgid "Prev Page"
+msgid "Previous Page"
 msgstr "Re Pàg"
 
 #: src/ui/classic/skin.desc:269 src/ui/classic/skin.desc:277
@@ -2716,11 +2716,12 @@ msgid "Super+Right Ctrl"
 msgstr "Súper + CTRL dreta"
 
 #: data/config.desc:142
-msgid "Switch Embedded Preedit"
+msgid "Switch Embedded Preedit String"
 msgstr "Commuta la pre-edició incrustada"
 
 #: data/config.desc:114
-msgid "Switch Full Width Punc Mode"
+#: src/module/punc/punc.c:150 src/module/punc/punc.c:569
+msgid "Switch Fullwidth Punctuation"
 msgstr "Canvia a mode de puntuació d'amplada completa"
 
 #: src/module/imselector/fcitx-imselector.desc:54
@@ -2769,15 +2770,15 @@ msgid "Switch to the Third Input Method"
 msgstr "Canvia al tercer mètode de entrada"
 
 #: data/config.desc:108
-msgid "Switching Full Width Character Mode"
+msgid "Switch Fullwidth Character"
 msgstr "Canvi de mode de caràcter d'amplada completa"
 
 #: data/config.desc:102
-msgid "Switching Remind Mode"
+msgid "Switch Remind Mode"
 msgstr "Canvi de mode de recordatori"
 
 #: data/config.desc:96
-msgid "Switching Virtual Keyboard"
+msgid "Switch Symbol Keyboard"
 msgstr "Canvi de teclat virtual"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:9
@@ -2856,10 +2857,6 @@ msgstr ""
 "Per veure alguns problemes específics a les aplicacions que podeu tenir quan "
 "utilitzeu xim, vegeu ${link1}. Per a altres problemes més generals quant a "
 "l'ús de XIM, incloent-hi els bloquejos de les aplicacions, vegeu ${link2}."
-
-#: src/module/punc/punc.c:150 src/module/punc/punc.c:569
-msgid "Toggle Full Width Punctuation"
-msgstr "Commuta la puntuació d'amplada completa"
 
 #: src/module/fullwidthchar/fullwidthchar.c:115
 #: src/module/fullwidthchar/fullwidthchar.c:192
@@ -2948,7 +2945,7 @@ msgid "Type"
 msgstr "Tipus"
 
 #: data/config.desc:186
-msgid "Type half width Punc After a Number"
+msgid "Type Halfwidth Punctuation After a Number"
 msgstr "Escriu la puntuació d'amplada mitja després d'un número"
 
 #: data/addon.desc:21
