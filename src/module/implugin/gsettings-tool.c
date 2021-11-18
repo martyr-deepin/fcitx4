@@ -712,7 +712,7 @@ static void file_comment_modify(char *filename) {
 void delete_single_quotes(char *str) {
     int i, j;
     for (i = j = 0; str[i] != '\0'; i++, j++) {
-        if (str[i] != '\'') {
+        if (str[i] != '\'' && str[i] != '[' && str[i] != ']') {
             str[j++] = str[i];
         }
     }
@@ -734,12 +734,23 @@ static void fcitxconfig_value_changed(GSettings *settings, const gchar *key,
             file_comment_modify(global_conf_fp);
         }
         delete_single_quotes(printed);
-
         if (global_conf_fp != NULL) {
             ini_puts("Hotkey", "TriggerKey", printed, global_conf_fp);
         }
         ini_puts("Hotkey/TriggerKey", "DefaultValue", printed, global_desc_fp);
-    } else if (strcmp(key, "shortcut-function") == 0) {
+    }
+    else if (strcmp(key, "shortcut-switch-im") == 0) {
+        get_file_path();
+        if (global_conf_fp != NULL) {
+            file_comment_modify(global_conf_fp);
+        }
+        delete_single_quotes(printed);
+        if (global_conf_fp != NULL) {
+            ini_puts("Hotkey", "IMSwitchHotkey", printed, global_conf_fp);
+        }
+        ini_puts("Hotkey/IMSwitchHotkey", "DefaultValue", printed, global_desc_fp);
+    }
+    else if (strcmp(key, "shortcut-function") == 0) {
         get_file_path();
         if (strcmp(printed, "\'true\'") == 0) {
             if (global_conf_fp != NULL) {
