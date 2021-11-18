@@ -117,14 +117,14 @@ ShownInDeepin=True
 [Hotkey/PuncSwitchKey]
 Type=Hotkey
 DefaultValue=CTRL_.
-Description=Switch Full Width Punc Mode
+Description=Switch Fullwidth Punctuation
 Advance=True
 ShownInDeepin=True
 
 [Hotkey/PrevPageKey]
 Type=Hotkey
 DefaultValue=- UP
-Description=Prev Page
+Description=Previous Page
 ShownInDeepin=True
 
 [Hotkey/NextPageKey]
@@ -150,7 +150,7 @@ ShownInDeepin=True
 [Hotkey/SwitchPreedit]
 Type=Hotkey
 DefaultValue=CTRL_ALT_P
-Description=Switch Embedded Preedit
+Description=Switch Embedded Preedit String
 Advance=True
 ShownInDeepin=True
 
@@ -256,7 +256,7 @@ ShownInDeepin=True
 [Appearance/ShowInputWindowOnlyWhenActive]
 Type=Boolean
 DefaultValue=False
-Description=Input Method Hint will be only shown when state is active
+Description=Show Input Method Hint Only When the State is Active
 Advance=True
 ShownInDeepin=True
 
@@ -277,14 +277,14 @@ ShownInDeepin=True
 [Appearance/HideInputWindowWhenOnlyPreeditString]
 Type=Boolean
 DefaultValue=False
-Description=Do not show input window if there is only preedit string
+Description=Do Not Show Input Window If There Is Only Preedit String
 Advance=True
 ShownInDeepin=True
 
 [Appearance/HideInputWindowWhenOnlyOneCandidate]
 Type=Boolean
 DefaultValue=False
-Description=Do not show input window if there is only one candidate and preedit
+Description=Do Not Show Input Window If There Is Only One Candidate and Preedit String
 Advance=True
 ShownInDeepin=True
 
