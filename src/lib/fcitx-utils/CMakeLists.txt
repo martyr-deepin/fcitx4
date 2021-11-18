@@ -27,6 +27,16 @@ set(FCITX_UTILS_HEADERS
   stringmap.h
   )
 
+if(_ENABLE_DBUS)
+  include_directories(${DBUS_INCLUDE_DIRS})
+  link_directories(${DBUS_LIBRARY_DIRS})
+  set(FCITX_DBUS_LINK_LIBS ${FCITX_DBUS_LINK_LIBS}
+    ${DBUS_LIBRARIES})
+  set(dbus_noinstall)
+else()
+  set(dbus_noinstall NO_INSTALL)
+endif()
+
 fcitx_translate_add_sources(${FCITX_UTILS_SOURCES} ${FCITX_UTILS_HEADERS})
 
 if(LIBKVM_FOUND)
@@ -41,7 +51,7 @@ set_target_properties(fcitx-utils
   LINK_FLAGS "-Wl,--no-undefined"
   )
 target_link_libraries(fcitx-utils ${LIBINTL_LIBRARIES}
-  ${LIBICONV_LIBRARIES} ${LIBEXECINFO_LIBRARIES})
+  ${LIBICONV_LIBRARIES} ${LIBEXECINFO_LIBRARIES} ${DBUS_LIBRARIES})
 
 if(LIBKVM_FOUND)
   target_link_libraries(fcitx-utils ${LIBKVM_LIBRARIES})

@@ -51,6 +51,8 @@
 #include "utf8.h"
 #include "log.h"
 
+#include <dbus/dbus.h>
+
 #if defined(LIBKVM_FOUND)
 #include <kvm.h>
 #include <fcntl.h>
@@ -84,6 +86,21 @@ DEFINE_SIMPLE_UT_ICD(int64_t, int64)
 
 FCITX_EXPORT_API const UT_icd *const fcitx_str_icd = &ut_str_icd;
 FCITX_EXPORT_API const UT_icd *const fcitx_int_icd = &ut_int_icd;
+
+
+static void send_config(DBusConnection *connection)
+{
+    DBusMessage *message;
+    char * value1 = "keyboard";
+    char * value2 = "Manage Input Methods";
+    message = dbus_message_new_signal ("/com/deepin/dde/ControlCenter", "com.deepin.dde.ControlCenter", "ShowPage");
+    dbus_message_append_args(message,
+                             DBUS_TYPE_STRING, &value1,
+                             DBUS_TYPE_STRING, &value2,
+                             DBUS_TYPE_INVALID);
+    dbus_connection_send (connection, message, NULL);
+    dbus_message_unref (message);
+}
 
 FCITX_EXPORT_API UT_array*
 fcitx_utils_string_list_append_no_copy(UT_array *list, char *str)
@@ -650,15 +667,27 @@ FCITX_EXPORT_API
 void fcitx_utils_launch_configure_tool()
 {
     FcitxLog(DEBUG, "The startup of fcitx-configtool was successful");
-    char* args[] = {
-    "dde-control-center",
-    "-m",
-    "keyboard",
-    "-p",
-    "Manage Input Methods",
-    NULL
-    };
-     fcitx_utils_start_process(args);
+
+    DBusConnection *connection;
+    DBusError error;
+
+    dbus_error_init (&error);
+    connection = dbus_bus_get (DBUS_BUS_SESSION, &error);
+    if (!connection) {
+        printf ("Failed to connect to the D-BUS daemon: %s", error.message);
+        dbus_error_free (&error);
+    }
+
+    send_config(connection);
+//    char* args[] = {
+//    "dde-control-center",
+//    "-m",
+//    "keyboard",
+//    "-p",
+//    "Manage Input Methods",
+//    NULL
+//    };
+//     fcitx_utils_start_process(args);
 //    fcitx_utils_launch_tool("fcitx-configtool", NULL);
 }
 
