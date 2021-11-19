@@ -91,13 +91,16 @@ FCITX_EXPORT_API const UT_icd *const fcitx_int_icd = &ut_int_icd;
 static void send_config(DBusConnection *connection)
 {
     DBusMessage *message;
-    char * value1 = "keyboard";
-    char * value2 = "Manage Input Methods";
-    message = dbus_message_new_signal ("/com/deepin/dde/ControlCenter", "com.deepin.dde.ControlCenter", "ShowPage");
-    dbus_message_append_args(message,
-                             DBUS_TYPE_STRING, &value1,
-                             DBUS_TYPE_STRING, &value2,
-                             DBUS_TYPE_INVALID);
+//    char * value1 = "keyboard";
+//    char * value2 = "Manage Input Methods";
+//    message = dbus_message_new_signal ("/com/deepin/dde/ControlCenter", "com.deepin.dde.ControlCenter", "ShowPage");
+//    dbus_message_append_args(message,
+//                             DBUS_TYPE_STRING, &value1,
+//                             DBUS_TYPE_STRING, &value2,
+//                             DBUS_TYPE_INVALID);
+
+    message = dbus_message_new_signal ("/com/deepin/dde/ControlCenter", "com.deepin.dde.ControlCenter", "Show");
+    printf("com.deepin.dde.ControlCenter Show\n");
     dbus_connection_send (connection, message, NULL);
     dbus_message_unref (message);
 }
