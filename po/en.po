@@ -153,8 +153,8 @@ msgid "Locale:"
 msgstr "Locale:"
 
 #: data/script/fcitx-diagnose.sh:805
-msgid "All locale:"
-msgstr "All locale:"
+msgid "All locales:"
+msgstr "All locales:"
 
 #: data/script/fcitx-diagnose.sh:807
 msgid "Current locale:"
@@ -1190,8 +1190,9 @@ msgid "Latin punct"
 msgstr "Latin punct"
 
 #: src/module/punc/punc.c:150 src/module/punc/punc.c:569
-msgid "Toggle Full Width Punctuation"
-msgstr "Toggle Full Width Punctuation"
+#: data/config.desc:114 src/frontend/ipc/fcitx-ipc.conf.in:4
+msgid "Switch Fullwidth Punctuation"
+msgstr "Switch Fullwidth Punctuation"
 
 #: src/module/punc/punc.c:410
 msgid "Can't open punc file."
@@ -1428,7 +1429,6 @@ msgstr "Default Skin"
 msgid "Fcitx DBus Frontend"
 msgstr "Fcitx DBus Frontend"
 
-#: src/frontend/ipc/fcitx-ipc.conf.in:4
 #: src/frontend/ipcportal/fcitx-ipcportal.conf.in:4
 msgid "Frontend Used by IM Modules"
 msgstr "Frontend Used by IM Modules"
@@ -1683,8 +1683,8 @@ msgstr "Kimpanel Support for Fcitx"
 #: data/addon.desc:24 data/addon.desc:29 data/addon.desc:33 data/addon.desc:40
 #: data/addon.desc:45 data/addon.desc:50 data/addon.desc:55 data/addon.desc:64
 #: data/addon.desc:69 data/addon.desc:74 data/addon.desc:79
-msgid "Addon"
-msgstr "Addon"
+msgid "Add-ons"
+msgstr "Add-ons"
 
 #: data/addon.desc:3 data/inputmethod.desc:7
 msgid "Name"
@@ -1880,8 +1880,8 @@ msgid "Custom"
 msgstr "Custom"
 
 #: data/config.desc:37
-msgid "Extra key for trigger input method"
-msgstr "Extra key for trigger input method"
+msgid "Extra Key for Switching to the First Input Method"
+msgstr "Extra Key for Switching to the First Input Method"
 
 #: data/config.desc:42
 msgid "Custom switch key"
@@ -1896,12 +1896,12 @@ msgid "Inactivate Input Method"
 msgstr "Inactivate Input Method"
 
 #: data/config.desc:63
-msgid "Enable Hotkey to scroll Between Input Method"
-msgstr "Enable Hotkey to scroll Between Input Method"
+msgid "Enable Shortcuts to Scroll Between Input Methods"
+msgstr "Enable Shortcuts to Scroll Between Input Methods"
 
 #: data/config.desc:68
-msgid "Include Inactivate when scrolling between Input Method"
-msgstr "Include Inactivate when scrolling between Input Method"
+msgid "Include Inactive When Scrolling Between Input Methods"
+msgstr "Include Inactive When Scrolling Between Input Methods"
 
 #: data/config.desc:74
 msgid "CTRL_SHIFT"
@@ -1932,24 +1932,20 @@ msgid "Interval of Two Key Input"
 msgstr "Interval of Two Key Input"
 
 #: data/config.desc:96
-msgid "Switching Virtual Keyboard"
-msgstr "Switching Virtual Keyboard"
+msgid "Switch Symbol Keyboard"
+msgstr "Switch Symbol Keyboard"
 
 #: data/config.desc:102
-msgid "Switching Remind Mode"
-msgstr "Switching Remind Mode"
+msgid "Switch Remind Mode"
+msgstr "Switch Remind Mode"
 
 #: data/config.desc:108
-msgid "Switching Full Width Character Mode"
-msgstr "Switching Full Width Character Mode"
-
-#: data/config.desc:114
-msgid "Switch Full Width Punc Mode"
-msgstr "Switch Full Width Punc Mode"
+msgid "Switch Fullwidth Character"
+msgstr "Switch Fullwidth Character"
 
 #: data/config.desc:120
-msgid "Prev Page"
-msgstr "Prev Page"
+msgid "Previous Page"
+msgstr "Previous Page"
 
 #: data/config.desc:125
 msgid "Next Page"
@@ -1964,8 +1960,8 @@ msgid "Saving All Config and Input History"
 msgstr "Saving All Config and Input History"
 
 #: data/config.desc:142
-msgid "Switch Embedded Preedit"
-msgstr "Switch Embedded Preedit"
+msgid "Switch Embedded Preedit String"
+msgstr "Switch Embedded Preedit String"
 
 #: data/config.desc:148
 msgid "Previous Candidate Word"
@@ -2008,12 +2004,12 @@ msgid "All"
 msgstr "All"
 
 #: data/config.desc:171
-msgid "PerProgram"
-msgstr "PerProgram"
+msgid "Per program"
+msgstr "Per program"
 
 #: data/config.desc:172
-msgid "Share State Among Window"
-msgstr "Share State Among Window"
+msgid "Share State Among Windows"
+msgstr "Share State Among Windows"
 
 #: data/config.desc:178
 msgid "Inactive"
@@ -2033,16 +2029,16 @@ msgid "Output"
 msgstr "Output"
 
 #: data/config.desc:186
-msgid "Type half width Punc After a Number"
-msgstr "Type half width Punc After a Number"
+msgid "Type Halfwidth Punctuation After a Number"
+msgstr "Type Halfwidth Punctuation After a Number"
 
 #: data/config.desc:192
 msgid "Disable Paging in Remind Mode"
 msgstr "Disable Paging in Remind Mode"
 
 #: data/config.desc:198
-msgid "Commit when toggle state"
-msgstr "Commit when toggle state"
+msgid "Commit When Toggle State"
+msgstr "Commit When Toggle State"
 
 #: data/config.desc:199
 msgid "Send typed raw text if Switch to inactive Mode"
@@ -2057,8 +2053,8 @@ msgid "Give the tips of Phrase"
 msgstr "Give the tips of Phrase"
 
 #: data/config.desc:217
-msgid "Do not commit preedit text when unfocus a window"
-msgstr "Do not commit preedit text when unfocus a window"
+msgid "Do Not Commit Preedit Text When a Window Loses Focus"
+msgstr "Do Not Commit Preedit Text When a Window Loses Focus"
 
 #: data/config.desc:220 data/config.desc:226 data/config.desc:232
 #: data/config.desc:238 data/config.desc:244 data/config.desc:250
@@ -2067,16 +2063,16 @@ msgid "Appearance"
 msgstr "Appearance"
 
 #: data/config.desc:223
-msgid "Show Input Method Hint After Input method changed"
-msgstr "Show Input Method Hint After Input method changed"
+msgid "Show Input Method Hint After Input Method Changed"
+msgstr "Show Input Method Hint After Input Method Changed"
 
 #: data/config.desc:229
-msgid "Show Input Method Hint After Input method changed and Focus in"
-msgstr "Show Input Method Hint After Input method changed and Focus in"
+msgid "Show Input Method Hint After Input Method Changed and Focus In"
+msgstr "Show Input Method Hint After Input Method Changed and Focus In"
 
 #: data/config.desc:235
-msgid "Input Method Hint will be only shown when state is active"
-msgstr "Input Method Hint will be only shown when state is active"
+msgid "Show Input Method Hint Only When the State Is Active"
+msgstr "Show Input Method Hint Only When the State Is Active"
 
 #: data/config.desc:241
 msgid "Show Input Speed"
@@ -2087,12 +2083,12 @@ msgid "Show Version"
 msgstr "Show Version"
 
 #: data/config.desc:253
-msgid "Do not show input window if there is only preedit string"
-msgstr "Do not show input window if there is only preedit string"
+msgid "Do Not Show Input Window If There Is Only Preedit String"
+msgstr "Do Not Show Input Window If There Is Only Preedit String"
 
 #: data/config.desc:259
-msgid "Do not show input window if there is only one candidate and preedit"
-msgstr "Do not show input window if there is only one candidate and preedit"
+msgid "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
+msgstr "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 
 #: data/inputmethod.desc:3
 msgid "UniqueName"

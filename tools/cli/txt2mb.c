@@ -20,25 +20,21 @@
 #ifdef FCITX_HAVE_CONFIG_H
 #include <config.h>
 #endif
-#include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
 #ifdef HAVE_STDLIB_H
 #include <stdlib.h>
 #endif
 
-#include "fcitx-config/fcitx-config.h"
 #include "fcitx-utils/utf8.h"
 #include "fcitx/fcitx.h"
+#include "fcitx-config/fcitx-config.h"
 #include "im/table/tabledict.h"
 
-#define CHECK_OPTION(str, x)                                                   \
-    ((strstr((str), strConst[x]) == (str)) ||                                  \
-     (strstr((str), strConstNew[x]) == (str)))
-#define ADD_LENGTH(str, x)                                                     \
-    ((strstr((str), strConst[x]) == (str)) ? (strlen(strConst[x]))             \
-                                           : (strlen(strConstNew[x])))
+#define CHECK_OPTION(str, x) ((strstr((str), strConst[x]) == (str)) || (strstr((str), strConstNew[x]) == (str)))
+#define ADD_LENGTH(str, x) ((strstr((str), strConst[x]) == (str)) ? (strlen(strConst[x])) : (strlen(strConstNew[x])))
 
 #define STR_KEYCODE 0
 #define STR_CODELEN 1
@@ -52,27 +48,24 @@
 
 #define CONST_STR_SIZE 9
 
-#define MAX_CODE_LENGTH 30
-#define FH_MAX_LENGTH 10
+#define MAX_CODE_LENGTH  30
+#define FH_MAX_LENGTH  10
 #define TABLE_AUTO_SAVE_AFTER 1024
 #define AUTO_PHRASE_COUNT 10000
 #define SINGLE_HZ_COUNT 66000
 
-char *strConst[CONST_STR_SIZE] = {"键码=",      "码长=",     "规避字符=",
-                                  "拼音=",      "拼音长度=", "[数据]",
-                                  "[组词规则]", "提示=",     "构词="};
-char *strConstNew[CONST_STR_SIZE] = {
-    "KeyCode=", "Length=", "InvalidChar=", "Pinyin=",         "PinyinLength=",
-    "[Data]",   "[Rule]",  "Prompt=",      "ConstructPhrase="};
+char* strConst[CONST_STR_SIZE] = { "键码=", "码长=", "规避字符=", "拼音=", "拼音长度=" , "[数据]", "[组词规则]", "提示=", "构词="};
+char* strConstNew[CONST_STR_SIZE] = { "KeyCode=", "Length=", "InvalidChar=", "Pinyin=", "PinyinLength=" , "[Data]", "[Rule]", "Prompt=", "ConstructPhrase="};
 
-char strInputCode[100] = "\0";
-char strIgnoreChars[100] = "\0";
-char cPinyinKey = '\0';
-char cPromptKey = '&';
-char cPhraseKey = '^';
+char            strInputCode[100] = "\0";
+char            strIgnoreChars[100] = "\0";
+char            cPinyinKey = '\0';
+char            cPromptKey = '&';
+char            cPhraseKey = '^';
 
-boolean IsValidCode(char cChar) {
-    char *p;
+boolean IsValidCode(char cChar)
+{
+    char           *p;
 
     p = strInputCode;
 
@@ -98,22 +91,66 @@ boolean IsValidCode(char cChar) {
     return false;
 }
 
-int main(int argc, char *argv[]) {
-    FILE *fpDict, *fpNew;
-    RECORD *temp, *head, *newRec, *current;
-    uint32_t s = 0;
-    int i;
-    uint32_t iTemp;
-    char *pstr = 0;
-    char strTemp[10];
-    unsigned char bRule;
-    RULE *rule = NULL;
-    unsigned int l;
+void FreeRule(RULE *rrule,int length)
+{
+    int iTemp;
+    if(rrule){
+        for (iTemp = 0;iTemp <(length - 1);iTemp++) {
+            free(rrule[iTemp].rule);
+        }
+    free(rrule);
+    rrule = NULL;
+    }
+}
 
-    unsigned char iCodeLength = 0;
-    unsigned char iPYCodeLength = 0;
+void RECORDClear(RECORD *head)
+{
+    if(NULL == head){
+        return;
+    }
 
-    int8_t type;
+    RECORD *bak = head;
+    RECORD *p = head->next;
+    while(p != head){
+        head->next = p->next;
+        if(p->strCode != NULL)
+        {
+            free(p->strCode);
+        }
+        if(p->strHZ != NULL)
+        {
+            free(p->strHZ);
+        }
+        free(p);
+        p = head->next;
+    }
+
+    head->prev = head;
+
+    if(bak != NULL){
+        free(bak);
+        bak = NULL;
+    }
+
+    return;
+}
+int main(int argc, char *argv[])
+{
+    FILE           *fpDict, *fpNew;
+    RECORD         *temp, *head, *newRec, *current;
+    uint32_t        s = 0;
+    int             i;
+    uint32_t        iTemp;
+    char           *pstr = 0;
+    char            strTemp[10];
+    unsigned char   bRule;
+    RULE           *rrule = NULL;
+    unsigned int    l;
+
+    unsigned char   iCodeLength = 0;
+    unsigned char   iPYCodeLength = 0;
+
+    int8_t          type;
 
     if (argc != 3) {
         printf("\nUsage: txt2mb <Source File> <IM File>\n\n");
@@ -127,7 +164,7 @@ int main(int argc, char *argv[]) {
         exit(2);
     }
 
-    head = (RECORD *)malloc(sizeof(RECORD));
+    head = (RECORD *) malloc(sizeof(RECORD));
     head->next = head;
     head->prev = head;
     current = head;
@@ -135,7 +172,7 @@ int main(int argc, char *argv[]) {
     bRule = 0;
     l = 0;
 
-    char *buf = NULL, *buf1 = NULL;
+    char* buf = NULL, *buf1 = NULL;
     size_t len;
     for (;;) {
         l++;
@@ -206,6 +243,7 @@ int main(int argc, char *argv[]) {
 
     if (iCodeLength <= 0 || !strInputCode[0]) {
         printf("Source File Format Error!\n");
+        RECORDClear(head);
         exit(1);
     }
 
@@ -213,7 +251,7 @@ int main(int argc, char *argv[]) {
         /*
          * 组词规则数应该比键码长度小1
          */
-        rule = (RULE *)malloc(sizeof(RULE) * (iCodeLength - 1));
+        rrule = (RULE *) malloc(sizeof(RULE) * (iCodeLength - 1));
 
         for (iTemp = 0; iTemp < (iCodeLength - 1); iTemp++) {
             l++;
@@ -221,13 +259,11 @@ int main(int argc, char *argv[]) {
             if (getline(&buf, &len, fpDict) == -1)
                 break;
 
-            rule[iTemp].rule =
-                (RULE_RULE *)malloc(sizeof(RULE_RULE) * iCodeLength);
+            rrule[iTemp].rule = (RULE_RULE *) malloc(sizeof(RULE_RULE) * iCodeLength);
 
             i = strlen(buf) - 1;
 
-            while ((i >= 0) &&
-                   (buf[i] == ' ' || buf[i] == '\n' || buf[i] == '\r'))
+            while ((i >= 0) && (buf[i] == ' ' || buf[i] == '\n' || buf[i] == '\r'))
                 buf[i--] = '\0';
 
             pstr = buf;
@@ -246,24 +282,25 @@ int main(int argc, char *argv[]) {
             case 'e':
 
             case 'E':
-                rule[iTemp].iFlag = 0;
+                rrule[iTemp].iFlag = 0;
                 break;
 
             case 'a':
 
             case 'A':
-                rule[iTemp].iFlag = 1;
+                rrule[iTemp].iFlag = 1;
                 break;
 
             default:
                 printf("2   Phrase rules are not suitable!\n");
                 printf("\t\t%s\n", buf);
+                RECORDClear(head);
                 exit(1);
             }
 
             pstr++;
 
-            char *p = pstr;
+            char* p = pstr;
 
             while (*p && *p != '=')
                 p++;
@@ -271,13 +308,14 @@ int main(int argc, char *argv[]) {
             if (!(*p)) {
                 printf("3   Phrase rules are not suitable!\n");
                 printf("\t\t%s\n", buf);
+                RECORDClear(head);
                 exit(1);
             }
 
             strncpy(strTemp, pstr, p - pstr);
 
             strTemp[p - pstr] = '\0';
-            rule[iTemp].iWords = atoi(strTemp);
+            rrule[iTemp].iWords = atoi(strTemp);
 
             p++;
 
@@ -290,25 +328,26 @@ int main(int argc, char *argv[]) {
                 case 'p':
 
                 case 'P':
-                    rule[iTemp].rule[i].iFlag = 1;
+                    rrule[iTemp].rule[i].iFlag = 1;
                     break;
 
                 case 'n':
 
                 case 'N':
-                    rule[iTemp].rule[i].iFlag = 0;
+                    rrule[iTemp].rule[i].iFlag = 0;
                     break;
 
                 default:
                     printf("4   Phrase rules are not suitable!\n");
                     printf("\t\t%s\n", buf);
+                    RECORDClear(head);
                     exit(1);
                 }
 
                 p++;
 
-                rule[iTemp].rule[i].iWhich = *p++ - '0';
-                rule[iTemp].rule[i].iIndex = *p++ - '0';
+                rrule[iTemp].rule[i].iWhich = *p++ - '0';
+                rrule[iTemp].rule[i].iIndex = *p++ - '0';
 
                 while (*p == ' ')
                     p++;
@@ -317,6 +356,7 @@ int main(int argc, char *argv[]) {
                     if (*p != '+') {
                         printf("5   Phrase rules are not suitable!\n");
                         printf("\t\t%s  %d\n", buf, iCodeLength);
+                        RECORDClear(head);
                         exit(1);
                     }
 
@@ -326,7 +366,8 @@ int main(int argc, char *argv[]) {
         }
 
         if (iTemp != iCodeLength - 1) {
-            printf("6  Phrase rules are not suitable!\n");
+            FreeRule(rrule, iCodeLength);
+            RECORDClear(head);
             exit(1);
         }
 
@@ -338,8 +379,7 @@ int main(int argc, char *argv[]) {
 
             i = strlen(buf) - 1;
 
-            while ((i >= 0) &&
-                   (buf[i] == ' ' || buf[i] == '\n' || buf[i] == '\r'))
+            while ((i >= 0) && (buf[i] == ' ' || buf[i] == '\n' || buf[i] == '\r'))
                 buf[i--] = '\0';
 
             pstr = buf;
@@ -360,6 +400,8 @@ int main(int argc, char *argv[]) {
 
     if (!CHECK_OPTION(pstr, STR_DATA)) {
         printf("Source File Format Error!\n");
+        FreeRule(rrule, iCodeLength);
+        RECORDClear(head);
         exit(1);
     }
 
@@ -371,28 +413,31 @@ int main(int argc, char *argv[]) {
         char *p = buf1;
 
         while (*p && !isspace(*p))
-            p++;
+            p ++;
 
         if (*p == '\0')
             continue;
 
         while (isspace(*p)) {
             *p = '\0';
-            p++;
+            p ++;
         }
 
-        char *strHZ = p;
+        char* strHZ = p;
 
         if (!IsValidCode(buf1[0])) {
             printf("Invalid Format: Line-%d  %s %s\n", l, buf1, strHZ);
 
+            FreeRule(rrule, iCodeLength);
+            RECORDClear(head);
             exit(1);
         }
 
-        if (((buf1[0] != cPinyinKey) && (strlen(buf1) > iCodeLength)) ||
-            ((buf1[0] == cPinyinKey) && (strlen(buf1) > (iPYCodeLength + 1))) ||
-            ((buf1[0] == cPhraseKey) && (strlen(buf1) > (iCodeLength + 1))) ||
-            ((buf1[0] == cPromptKey) && (strlen(buf1) > (iPYCodeLength + 1)))) {
+        if (((buf1[0] != cPinyinKey) && (strlen(buf1) > iCodeLength))
+            || ((buf1[0] == cPinyinKey) && (strlen(buf1) > (iPYCodeLength + 1)))
+            || ((buf1[0] == cPhraseKey) && (strlen(buf1) > (iCodeLength + 1)))
+            || ((buf1[0] == cPromptKey) && (strlen(buf1) > (iPYCodeLength + 1)))
+        ) {
             printf("Delete:  %s %s, Too long\n", buf1, strHZ);
             continue;
         }
@@ -408,13 +453,13 @@ int main(int argc, char *argv[]) {
         pstr = buf1;
 
         if (buf1[0] == cPinyinKey) {
-            pstr++;
+            pstr ++;
             type = RECORDTYPE_PINYIN;
         } else if (buf1[0] == cPhraseKey) {
-            pstr++;
+            pstr ++;
             type = RECORDTYPE_CONSTRUCT;
         } else if (buf1[0] == cPromptKey) {
-            pstr++;
+            pstr ++;
             type = RECORDTYPE_PROMPT;
         }
 
@@ -424,8 +469,7 @@ int main(int argc, char *argv[]) {
         if (temp != head) {
             if (strcmp(temp->strCode, pstr) >= 0) {
                 while (temp != head && strcmp(temp->strCode, pstr) >= 0) {
-                    if (!strcmp(temp->strHZ, strHZ) &&
-                        !strcmp(temp->strCode, pstr) && temp->type == type) {
+                    if (!strcmp(temp->strHZ, strHZ) && !strcmp(temp->strCode, pstr) && temp->type == type) {
                         printf("Delete:  %s %s\n", pstr, strHZ);
                         goto _next;
                     }
@@ -440,8 +484,7 @@ int main(int argc, char *argv[]) {
                     temp = temp->next;
             } else {
                 while (temp != head && strcmp(temp->strCode, pstr) <= 0) {
-                    if (!strcmp(temp->strHZ, strHZ) &&
-                        !strcmp(temp->strCode, pstr) && temp->type == type) {
+                    if (!strcmp(temp->strHZ, strHZ) && !strcmp(temp->strCode, pstr) && temp->type == type) {
                         printf("Delete:  %s %s\n", pstr, strHZ);
                         goto _next;
                     }
@@ -452,13 +495,11 @@ int main(int argc, char *argv[]) {
         }
 
         //插在temp的前面
-        newRec = (RECORD *)fcitx_utils_malloc0(sizeof(RECORD));
+        newRec = (RECORD *) fcitx_utils_malloc0(sizeof(RECORD));
 
-        newRec->strCode =
-            (char *)fcitx_utils_malloc0(sizeof(char) * (iPYCodeLength + 1));
+        newRec->strCode = (char *) fcitx_utils_malloc0(sizeof(char) * (iPYCodeLength + 1));
 
-        newRec->strHZ =
-            (char *)fcitx_utils_malloc0(sizeof(char) * strlen(strHZ) + 1);
+        newRec->strHZ = (char *) fcitx_utils_malloc0(sizeof(char) * strlen(strHZ) + 1);
 
         strcpy(newRec->strCode, pstr);
 
@@ -484,7 +525,9 @@ int main(int argc, char *argv[]) {
 
     _next:
         continue;
+
     }
+
 
     if (buf)
         free(buf);
@@ -499,6 +542,8 @@ int main(int argc, char *argv[]) {
 
     if (!fpNew) {
         printf("\nCannot create target file!\n\n");
+        FreeRule(rrule, iCodeLength);
+        RECORDClear(head);
         exit(3);
     }
 
@@ -521,16 +566,13 @@ int main(int argc, char *argv[]) {
 
     if (bRule) {
         for (i = 0; i < iCodeLength - 1; i++) {
-            fwrite(&(rule[i].iFlag), sizeof(unsigned char), 1, fpNew);
-            fwrite(&(rule[i].iWords), sizeof(unsigned char), 1, fpNew);
+            fwrite(&(rrule[i].iFlag), sizeof(unsigned char), 1, fpNew);
+            fwrite(&(rrule[i].iWords), sizeof(unsigned char), 1, fpNew);
 
             for (iTemp = 0; iTemp < iCodeLength; iTemp++) {
-                fwrite(&(rule[i].rule[iTemp].iFlag), sizeof(unsigned char), 1,
-                       fpNew);
-                fwrite(&(rule[i].rule[iTemp].iWhich), sizeof(unsigned char), 1,
-                       fpNew);
-                fwrite(&(rule[i].rule[iTemp].iIndex), sizeof(unsigned char), 1,
-                       fpNew);
+                fwrite(&(rrule[i].rule[iTemp].iFlag), sizeof(unsigned char), 1, fpNew);
+                fwrite(&(rrule[i].rule[iTemp].iWhich), sizeof(unsigned char), 1, fpNew);
+                fwrite(&(rrule[i].rule[iTemp].iIndex), sizeof(unsigned char), 1, fpNew);
             }
         }
     }
@@ -551,7 +593,8 @@ int main(int argc, char *argv[]) {
     }
 
     fclose(fpNew);
-
+    FreeRule(rrule, iCodeLength);
+    RECORDClear(head);
     return 0;
 }
 

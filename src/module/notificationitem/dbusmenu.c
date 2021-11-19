@@ -141,12 +141,13 @@ FcitxDBusMenuAboutToShow(FcitxNotificationItem *notificationitem,
 static DBusMessage *
 FcitxDBusMenuGetLayout(FcitxNotificationItem *notificationitem,
                        DBusMessage *message);
-static void FcitxDBusMenuFillLayooutItemWrap(
+static void FcitxDBusMenuFillLayoutItemWrap(
     FcitxNotificationItem *notificationitem, int32_t id, int depth,
     FcitxStringHashSet *properties, DBusMessageIter *iter);
-static void FcitxDBusMenuFillLayooutItem(
-    FcitxNotificationItem *notificationitem, int32_t id, int depth,
-    FcitxStringHashSet *properties, DBusMessageIter *iter);
+static void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
+                                        int32_t id, int depth,
+                                        FcitxStringHashSet *properties,
+                                        DBusMessageIter *iter);
 
 const FcitxDBusPropertyTable dbusMenuPropertyTable[] = {
     {DBUS_MENU_IFACE, "Version", "u", FcitxDBusMenuGetVersion, NULL},
@@ -257,31 +258,10 @@ void FcitxDBusMenuDoEvent(void *arg) {
         return;
 
     if (menu == 0) {
-        if (index <= 8 && index > 0) {
-            switch (index) {
-            case 1: {
-                char *args[] = {"xdg-open", "https://fcitx-im.org/", 0};
-                fcitx_utils_start_process(args);
-            } break;
-            case 4: {
-                FcitxIM *im = FcitxInstanceGetCurrentIM(instance);
-                if (im && im->owner) {
-                    fcitx_utils_launch_configure_tool_for_addon(im->uniqueName);
-                } else {
-                    fcitx_utils_launch_configure_tool();
-                }
-            } break;
-            case 5:
-                fcitx_utils_launch_configure_tool();
-                break;
-            case 6:
-                FcitxInstanceRestart(instance);
-                break;
-            case 7:
-                fcitx_utils_kill_fcitx_config_gtk3();
-                FcitxInstanceEnd(instance);
-                break;
-            }
+        UT_array *imes = FcitxInstanceGetIMEs(instance);
+        int32_t count = utarray_len(imes);
+        if (count + 2 == index) {
+            fcitx_utils_launch_configure_tool();
         } else {
             int index = STATUS_INDEX(id);
             const char *name = NULL;
@@ -393,53 +373,29 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
         FcitxDBusMenuAppendProperty(&sub, properties, "children-display",
                                     DBUS_TYPE_STRING, &value);
     }
-    if (menu == 0) {
-        if (index <= 8 && index > 0) {
-            const char *value;
-            switch (index) {
-            case 1:
-                value = _("Online Help");
-                FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                            DBUS_TYPE_STRING, &value);
-                value = "help-contents";
-                FcitxDBusMenuAppendProperty(&sub, properties, "icon-name",
-                                            DBUS_TYPE_STRING, &value);
-                break;
-            case 2:
-            case 3:
-            case 8:
-                value = "separator";
-                FcitxDBusMenuAppendProperty(&sub, properties, "type",
-                                            DBUS_TYPE_STRING, &value);
-                break;
-            case 5:
-                value = _("Configure");
-                FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                            DBUS_TYPE_STRING, &value);
-                /* this icon sucks on KDE, why configure doesn't have
-                 * "configure" */
-#if 0
-                   value = "preferences-system";
-                   FcitxDBusMenuAppendProperty(&sub, properties, "icon-name", DBUS_TYPE_STRING, &value);
-#endif
-                break;
-            case 6:
-                value = _("Restart");
-                FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                            DBUS_TYPE_STRING, &value);
-                value = "view-refresh";
-                FcitxDBusMenuAppendProperty(&sub, properties, "icon-name",
-                                            DBUS_TYPE_STRING, &value);
-                break;
-            case 7:
-                value = _("Exit");
-                FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                            DBUS_TYPE_STRING, &value);
-                value = "application-exit";
-                FcitxDBusMenuAppendProperty(&sub, properties, "icon-name",
-                                            DBUS_TYPE_STRING, &value);
-                break;
-            }
+    UT_array *imes = FcitxInstanceGetIMEs(instance);
+    int32_t count = utarray_len(imes);
+    const char *value;
+    if (menu == 2) {
+        if (index <= count) {
+            FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index - 1);
+            value = (ime)->strName;
+            FcitxDBusMenuAppendProperty(&sub, properties, "label",
+                                        DBUS_TYPE_STRING, &value);
+        }
+    } else if (menu == 0) {
+        if (index == count + 1) {
+            value = "separator";
+            FcitxDBusMenuAppendProperty(&sub, properties, "type",
+                                        DBUS_TYPE_STRING, &value);
+        } else if (index == count + 2) {
+            value = _("Configure");
+            FcitxDBusMenuAppendProperty(&sub, properties, "label",
+                                        DBUS_TYPE_STRING, &value);
+            value = "preferences-system";
+            FcitxDBusMenuAppendProperty(&sub, properties, "icon-name",
+                                        DBUS_TYPE_STRING, &value);
+
         } else {
             int index = STATUS_INDEX(id);
             const char *name = NULL;
@@ -522,22 +478,22 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
     dbus_message_iter_close_container(iter, &sub);
 }
 
-void FcitxDBusMenuFillLayooutItemWrap(FcitxNotificationItem *notificationitem,
-                                      int32_t id, int depth,
-                                      FcitxStringHashSet *properties,
-                                      DBusMessageIter *iter) {
+void FcitxDBusMenuFillLayoutItemWrap(FcitxNotificationItem *notificationitem,
+                                     int32_t id, int depth,
+                                     FcitxStringHashSet *properties,
+                                     DBusMessageIter *iter) {
     DBusMessageIter variant;
     dbus_message_iter_open_container(iter, DBUS_TYPE_VARIANT, "(ia{sv}av)",
                                      &variant);
-    FcitxDBusMenuFillLayooutItem(notificationitem, id, depth, properties,
-                                 &variant);
+    FcitxDBusMenuFillLayoutItem(notificationitem, id, depth, properties,
+                                &variant);
     dbus_message_iter_close_container(iter, &variant);
 }
 
-void FcitxDBusMenuFillLayooutItem(FcitxNotificationItem *notificationitem,
-                                  int32_t id, int depth,
-                                  FcitxStringHashSet *properties,
-                                  DBusMessageIter *iter) {
+void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
+                                 int32_t id, int depth,
+                                 FcitxStringHashSet *properties,
+                                 DBusMessageIter *iter) {
     FcitxInstance *instance = notificationitem->owner;
     DBusMessageIter sub, array;
     dbus_message_iter_open_container(iter, DBUS_TYPE_STRUCT, NULL, &sub);
@@ -566,15 +522,11 @@ void FcitxDBusMenuFillLayooutItem(FcitxNotificationItem *notificationitem,
         int32_t index = ACTION_INDEX(id);
 
         UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
+        UT_array *imes = FcitxInstanceGetIMEs(instance);
+        int32_t count = utarray_len(imes);
         /* we ONLY support submenu in top level menu */
         if (menu == 0) {
             if (index == 0) {
-                FcitxDBusMenuFillLayooutItemWrap(notificationitem,
-                                                 ACTION_ID(0, 1), depth - 1,
-                                                 properties, &array);
-                FcitxDBusMenuFillLayooutItemWrap(notificationitem,
-                                                 ACTION_ID(0, 2), depth - 1,
-                                                 properties, &array);
                 boolean flag = false;
 
                 /* copied from classicui.c */
@@ -588,9 +540,9 @@ void FcitxDBusMenuFillLayooutItem(FcitxNotificationItem *notificationitem,
                         continue;
 
                     flag = true;
-                    FcitxDBusMenuFillLayooutItemWrap(notificationitem,
-                                                     STATUS_ID(0, i), depth - 1,
-                                                     properties, &array);
+                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                    STATUS_ID(0, i), depth - 1,
+                                                    properties, &array);
                 }
 
                 FcitxUIComplexStatus *compstatus;
@@ -607,15 +559,26 @@ void FcitxDBusMenuFillLayooutItem(FcitxNotificationItem *notificationitem,
                         continue;
 
                     flag = true;
-                    FcitxDBusMenuFillLayooutItemWrap(notificationitem,
-                                                     STATUS_ID(1, i), depth - 1,
-                                                     properties, &array);
+                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                    STATUS_ID(1, i), depth - 1,
+                                                    properties, &array);
                 }
 
-                if (flag)
-                    FcitxDBusMenuFillLayooutItemWrap(notificationitem,
-                                                     ACTION_ID(0, 8), depth - 1,
-                                                     properties, &array);
+                FcitxUIMenu **menupp =
+                                (FcitxUIMenu **)utarray_eltptr(uimenus, 2),
+                            *menup;
+                if (menupp) {
+                    menup = *menupp;
+                    menup->UpdateMenu(menup);
+
+                    unsigned int i = 0;
+                    for (i = 1; i < count + 1; i++) {
+                        FcitxDBusMenuFillLayoutItemWrap(
+                            notificationitem, ACTION_ID(2, i), depth - 1,
+                            properties, &array);
+                    }
+                }
+
                 if (utarray_len(uimenus) > 0) {
                     FcitxUIMenu **menupp;
                     int i = 1;
@@ -627,6 +590,13 @@ void FcitxDBusMenuFillLayooutItem(FcitxNotificationItem *notificationitem,
                                 break;
                             }
                             FcitxUIMenu *menup = *menupp;
+                            if (strcmp(menup->name, strdup(_("Skin"))) == 0 ||
+                                strcmp(menup->name,
+                                       strdup(_("Virtual Keyboard"))) == 0 ||
+                                strcmp(menup->name,
+                                       strdup(_("Input Method"))) == 0) {
+                                break;
+                            }
                             if (!menup->visible) {
                                 break;
                             }
@@ -638,25 +608,23 @@ void FcitxDBusMenuFillLayooutItem(FcitxNotificationItem *notificationitem,
                                     break;
                                 }
                             }
-                            FcitxDBusMenuFillLayooutItemWrap(
+                            FcitxDBusMenuFillLayoutItemWrap(
                                 notificationitem, ACTION_ID(i, 0), depth - 1,
                                 properties, &array);
                         } while (0);
                         i++;
                     }
-                    FcitxDBusMenuFillLayooutItemWrap(notificationitem,
-                                                     ACTION_ID(0, 3), depth - 1,
-                                                     properties, &array);
+                    flag = true;
                 }
-                FcitxDBusMenuFillLayooutItemWrap(notificationitem,
-                                                 ACTION_ID(0, 5), depth - 1,
-                                                 properties, &array);
-                FcitxDBusMenuFillLayooutItemWrap(notificationitem,
-                                                 ACTION_ID(0, 6), depth - 1,
-                                                 properties, &array);
-                FcitxDBusMenuFillLayooutItemWrap(notificationitem,
-                                                 ACTION_ID(0, 7), depth - 1,
-                                                 properties, &array);
+                if (flag) {
+                    FcitxDBusMenuFillLayoutItemWrap(
+                        notificationitem, ACTION_ID(0, count + 1), depth - 1,
+                        properties, &array);
+                }
+
+                FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                ACTION_ID(0, count + 2),
+                                                depth - 1, properties, &array);
             }
         } else {
             if (index == 0) {
@@ -670,7 +638,7 @@ void FcitxDBusMenuFillLayooutItem(FcitxNotificationItem *notificationitem,
                     unsigned int i = 0;
                     unsigned int len = utarray_len(&menup->shell);
                     for (i = 0; i < len; i++) {
-                        FcitxDBusMenuFillLayooutItemWrap(
+                        FcitxDBusMenuFillLayoutItemWrap(
                             notificationitem, ACTION_ID(menu, i + 1), depth - 1,
                             properties, &array);
                     }
@@ -726,8 +694,8 @@ DBusMessage *FcitxDBusMenuGetLayout(FcitxNotificationItem *notificationitem,
         dbus_message_iter_init_append(reply, &iter);
         dbus_message_iter_append_basic(&iter, DBUS_TYPE_UINT32,
                                        &notificationitem->revision);
-        FcitxDBusMenuFillLayooutItem(notificationitem, id, recursionDepth,
-                                     properties, &iter);
+        FcitxDBusMenuFillLayoutItem(notificationitem, id, recursionDepth,
+                                    properties, &iter);
 
         fcitx_utils_free_string_hash_set(properties);
     } while (0);
