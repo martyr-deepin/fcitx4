@@ -2035,7 +2035,7 @@ msgid "Per program"
 msgstr "བྱ་རིམ་ལྟར།"
 
 #: data/config.desc:172
-msgid "Share State Among Window"
+msgid "Share State Among Windows"
 msgstr "སྒེའུ་ཁུང་བར་མཉམ་སྤྱོད་བྱེད་པའི་རྣམ་པ།"
 
 #: data/config.desc:178
@@ -2091,16 +2091,16 @@ msgid "Appearance"
 msgstr "ཕྱི་ཚུལ།"
 
 #: data/config.desc:223
-msgid "Show Input Method Hint After Input method changed"
+msgid "Show Input Method Hint After Input Method Changed"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་བརྗེ་སྐབས་དྲན་དྐུལ་བྱེད་པ།"
 
 #: data/config.desc:229
-msgid "Show Input Method Hint After Input method changed and Focus in"
+msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr ""
 "ནང་འཇུག་མདོ་ཚེག་རག་པ་མ་ཟད་ནང་འཇུག་བྱེད་སྟངས་འགྱུར་སྐབས་དྲན་སྐུལ་བྱེད་པ།"
 
 #: data/config.desc:235
-msgid "Show Input Method Hint Only When the State is Active"
+msgid "Show Input Method Hint Only When the State Is Active"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་དྲན་སྐུལ་དེ་སྐུལ་སློང་བྱས་ཡོད་སྐབས་མངོན་པ།"
 
 #: data/config.desc:241

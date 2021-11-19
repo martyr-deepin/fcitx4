@@ -2059,7 +2059,7 @@ msgid "Per program"
 msgstr "پىروگرامما بويىچە"
 
 #: data/config.desc:172
-msgid "Share State Among Window"
+msgid "Share State Among Windows"
 msgstr "كۆزنەكلەر ئارا ھالەتنى بەھرىلىنىش"
 
 #: data/config.desc:178
@@ -2117,17 +2117,17 @@ msgid "Appearance"
 msgstr "كۆرۈنمە"
 
 #: data/config.desc:223
-msgid "Show Input Method Hint After Input method changed"
+msgid "Show Input Method Hint After Input Method Changed"
 msgstr "كىرگۈزگۈچنى ئالماشتۇرغاندا خەت كىرگۈزگۈچنىڭ ئەسكەرتمىسىنى كۆرۈنسۇن"
 
 #: data/config.desc:229
-msgid "Show Input Method Hint After Input method changed and Focus in"
+msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr ""
 "كىرگۈزۈش قىزىق نۇقتىسىغا ئېرىشىش ھەمدە كىرگۈزگۈچتە ئۆزگىرىش بولغاندا "
 "كىرگۈزگۈچتە كۆرسىتىلگەن ئەسكەرتىشنى كۆرسىتش."
 
 #: data/config.desc:235
-msgid "Show Input Method Hint Only When the State is Active"
+msgid "Show Input Method Hint Only When the State Is Active"
 msgstr "كىرگۈزگۈچتىكى ئەسكەرتمە پەقەت ئاكتىپلانغان ھالەتتىلا كۆرۈنىدۇ"
 
 #: data/config.desc:241

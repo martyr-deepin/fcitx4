@@ -2053,7 +2053,7 @@ msgid "Per program"
 msgstr "Per program"
 
 #: data/config.desc:172
-msgid "Share State Among Window"
+msgid "Share State Among Windows"
 msgstr "Comparteix l'estat entre finestres"
 
 #: data/config.desc:178
@@ -2110,19 +2110,19 @@ msgid "Appearance"
 msgstr "Aparença"
 
 #: data/config.desc:223
-msgid "Show Input Method Hint After Input method changed"
+msgid "Show Input Method Hint After Input Method Changed"
 msgstr ""
 "Mostra els suggerents del mètode d'entrada després que hagi canviat el "
 "mètode d'entrada"
 
 #: data/config.desc:229
-msgid "Show Input Method Hint After Input method changed and Focus in"
+msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr ""
 "Mostra els suggerents del mètode d'entrada després que hagi canviat el "
 "mètode d'entrada i hagi rebut el focus"
 
 #: data/config.desc:235
-msgid "Show Input Method Hint Only When the State is Active"
+msgid "Show Input Method Hint Only When the State Is Active"
 msgstr ""
 "Els suggerents del mètode d'entrada únicament es mostraran quan l'estat "
 "sigui actiu"

@@ -2008,8 +2008,8 @@ msgid "Per program"
 msgstr "Per program"
 
 #: data/config.desc:172
-msgid "Share State Among Window"
-msgstr "Share State Among Window"
+msgid "Share State Among Windows"
+msgstr "Share State Among Windows"
 
 #: data/config.desc:178
 msgid "Inactive"
@@ -2063,16 +2063,16 @@ msgid "Appearance"
 msgstr "Appearance"
 
 #: data/config.desc:223
-msgid "Show Input Method Hint After Input method changed"
-msgstr "Show Input Method Hint After Input method changed"
+msgid "Show Input Method Hint After Input Method Changed"
+msgstr "Show Input Method Hint After Input Method Changed"
 
 #: data/config.desc:229
-msgid "Show Input Method Hint After Input method changed and Focus in"
-msgstr "Show Input Method Hint After Input method changed and Focus in"
+msgid "Show Input Method Hint After Input Method Changed and Focus In"
+msgstr "Show Input Method Hint After Input Method Changed and Focus In"
 
 #: data/config.desc:235
-msgid "Show Input Method Hint Only When the State is Active"
-msgstr "Show Input Method Hint Only When the State is Active"
+msgid "Show Input Method Hint Only When the State Is Active"
+msgstr "Show Input Method Hint Only When the State Is Active"
 
 #: data/config.desc:241
 msgid "Show Input Speed"

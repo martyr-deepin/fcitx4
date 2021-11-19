@@ -183,7 +183,7 @@ EnumCount=3
 Enum0=No
 Enum1=All
 Enum2=PerProgram
-Description=Share State Among Window
+Description=Share State Among Windows
 ShownInDeepin=True
 
 [Program/DefaultInputMethodState]
@@ -242,21 +242,21 @@ ShownInDeepin=True
 [Appearance/ShowInputWindowAfterTriggering]
 Type=Boolean
 DefaultValue=False
-Description=Show Input Method Hint After Input method changed
+Description=Show Input Method Hint After Input Method Changed
 Advance=True
 ShownInDeepin=True
 
 [Appearance/ShowInputWindowWhenFocusIn]
 Type=Boolean
 DefaultValue=False
-Description=Show Input Method Hint After Input method changed and Focus in
+Description=Show Input Method Hint After Input Method Changed and Focus In
 Advance=True
 ShownInDeepin=True
 
 [Appearance/ShowInputWindowOnlyWhenActive]
 Type=Boolean
 DefaultValue=False
-Description=Show Input Method Hint Only When the State is Active
+Description=Show Input Method Hint Only When the State Is Active
 Advance=True
 ShownInDeepin=True
 

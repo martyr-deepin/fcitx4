@@ -1979,7 +1979,7 @@ msgid "Per program"
 msgstr "按程序"
 
 #: data/config.desc:172
-msgid "Share State Among Window"
+msgid "Share State Among Windows"
 msgstr "在窗口間共享狀態"
 
 #: data/config.desc:178
@@ -2034,15 +2034,15 @@ msgid "Appearance"
 msgstr "外觀"
 
 #: data/config.desc:223
-msgid "Show Input Method Hint After Input method changed"
+msgid "Show Input Method Hint After Input Method Changed"
 msgstr "切換輸入法時顯示輸入法提示"
 
 #: data/config.desc:229
-msgid "Show Input Method Hint After Input method changed and Focus in"
+msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr "獲得輸入焦點並且輸入法變化時顯示輸入法提示"
 
 #: data/config.desc:235
-msgid "Show Input Method Hint Only When the State is Active"
+msgid "Show Input Method Hint Only When the State Is Active"
 msgstr "輸入法提示只在啟動狀態顯示"
 
 #: data/config.desc:241
