@@ -756,18 +756,21 @@ static void fcitxconfig_value_changed(GSettings *settings, const gchar *key,
     }
     else if (strcmp(key, "shortcut-function") == 0) {
         get_file_path();
-        if (strcmp(printed, "\'true\'") == 0) {
+        if (strcmp(printed, "true") == 0) {
             if (global_conf_fp != NULL) {
+                ini_puts("Hotkey", "TriggerKey", "CTRL_SPACE", global_conf_fp);
+                ini_puts("Hotkey", "IMSwitchHotkey", "CTRL_SHIFT", global_conf_fp);
+            }
+            // ini_puts("Hotkey/IMSwitchHotkey", "DefaultValue", "",
+            //          global_desc_fp);
+            // ini_puts("Hotkey/IMSwitchHotkey", "DefaultValue", "",
+            //          global_desc_fp);
+        } else if (strcmp(printed, "false") == 0) {
+            if (global_conf_fp != NULL) {
+                ini_puts("Hotkey", "TriggerKey", "", global_conf_fp);
                 ini_puts("Hotkey", "IMSwitchHotkey", "", global_conf_fp);
             }
-            ini_puts("Hotkey/IMSwitchHotkey", "DefaultValue", "CTRL_SHIFT",
-                     global_desc_fp);
-        } else if (strcmp(printed, "\'false\'") == 0) {
-            if (global_conf_fp != NULL) {
-                ini_puts("Hotkey", "IMSwitchHotkey", "", global_conf_fp);
-            }
-            ini_puts("Hotkey/IMSwitchHotkey", "DefaultValue", "",
-                     global_desc_fp);
+
         }
     }
 
