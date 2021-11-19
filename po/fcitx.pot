@@ -136,7 +136,7 @@ msgid "Locale:"
 msgstr ""
 
 #: data/script/fcitx-diagnose.sh:805
-msgid "All locale:"
+msgid "All locales:"
 msgstr ""
 
 #: data/script/fcitx-diagnose.sh:807

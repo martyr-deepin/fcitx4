@@ -55,7 +55,7 @@ static void get_file_path() {
     }
     fclose(conf_fp);
     global_desc_fp = "/usr/share/fcitx/configdesc/config.desc";
-    int file_id = open(global_desc_fp, O_RDWR);
+    int file_id = open(global_desc_fp, O_RDONLY);
     if (file_id < 0) {
         global_desc_fp = NULL;
     }
@@ -673,9 +673,12 @@ static int gsettings_help(gboolean requested, const gchar *command) {
  * 获取字符目标
  */
 static void delete_comment(char str[]) {
-    int i, j;
-    for (i = j = 0; str[i] != '\0'; i++) {
-        if ((i == 3 || i == 51) && (str[i] != '#' || str[i + 1] == ' ')) {
+    int i, j, r;
+    for (i = j = 0, r = 1; str[i] != '\0'; i++) {
+        if(str[i] == '\n'){
+            r++;
+        }
+        if ((r == 3 || r == 51) && (str[i] != '#' || str[i + 1] == ' ')) {
             str[j++] = str[i];
         }
     }
@@ -711,10 +714,8 @@ static void file_comment_modify(char *filename) {
  */
 void delete_single_quotes(char *str) {
     int i, j;
-    for (i = j = 0; str[i] != '\0'; i++, j++) {
-        if (str[i] != '\'' && str[i] != '[' && str[i] != ']') {
-            str[j++] = str[i];
-        }
+    for (i = 3, j = 0; i < strlen(str) - 3; i++, j++) {
+            str[j] = str[i];
     }
     str[j] = '\0';
 }
@@ -728,7 +729,7 @@ static void fcitxconfig_value_changed(GSettings *settings, const gchar *key,
     printed = g_variant_print(value, TRUE);
     g_print("fcitx %s: %s\n", key, printed);
 
-    if (strcmp(key, "shortcut-switch-to-first") == 0) {
+    if (strcmp(key, "shortcut-switch-first-im") == 0) {
         get_file_path();
         if (global_conf_fp != NULL) {
             file_comment_modify(global_conf_fp);

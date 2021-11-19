@@ -243,7 +243,7 @@ msgid "All libraries for all addons are found."
 msgstr "Alle biblioteker til alle tilføjelse er fundet."
 
 #: data/script/fcitx-diagnose.sh:805
-msgid "All locale:"
+msgid "All locales:"
 msgstr "Alle sprog:"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:11

@@ -153,8 +153,8 @@ msgid "Locale:"
 msgstr "Locale:"
 
 #: data/script/fcitx-diagnose.sh:805
-msgid "All locale:"
-msgstr "All locale:"
+msgid "All locales:"
+msgstr "All locales:"
 
 #: data/script/fcitx-diagnose.sh:807
 msgid "Current locale:"

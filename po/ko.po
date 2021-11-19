@@ -242,7 +242,7 @@ msgid "All libraries for all addons are found."
 msgstr "모든 부가기능을 위한 모든 모음집을 찾았습니다."
 
 #: data/script/fcitx-diagnose.sh:805
-msgid "All locale:"
+msgid "All locales:"
 msgstr "모든 지역화:"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:11

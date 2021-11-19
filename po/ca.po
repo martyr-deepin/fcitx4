@@ -244,7 +244,7 @@ msgid "All libraries for all addons are found."
 msgstr "Es troben totes les llibreries de tots els complements."
 
 #: data/script/fcitx-diagnose.sh:805
-msgid "All locale:"
+msgid "All locales:"
 msgstr "Totes les configuracions regionals:"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:11

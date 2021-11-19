@@ -256,7 +256,7 @@ msgid "All libraries for all addons are found."
 msgstr "全てのアドオン用ライブラリが見つかりました。"
 
 #: data/script/fcitx-diagnose.sh:805
-msgid "All locale:"
+msgid "All locales:"
 msgstr "すべてのロケール:"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:11
