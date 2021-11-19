@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11d31489_e7a9d2c1",
+        "filename": "src/module/implugin/gsettings-tool.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-19T08:31:17Z",
+      "side": 1,
+      "message": "注释行数: 4; 改动行数(修改和新增): 11; 注释率: 36.4%",
+      "revId": "e5e6c9c1a4809a0335d4047f68f440b0500f7cce",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
