@@ -151,7 +151,7 @@ msgid "Locale:"
 msgstr "地區設定："
 
 #: data/script/fcitx-diagnose.sh:805
-msgid "All locale:"
+msgid "All locales:"
 msgstr "全部地區設定："
 
 #: data/script/fcitx-diagnose.sh:807

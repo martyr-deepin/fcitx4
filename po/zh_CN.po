@@ -152,7 +152,7 @@ msgid "Locale:"
 msgstr "Locale:"
 
 #: data/script/fcitx-diagnose.sh:805
-msgid "All locale:"
+msgid "All locales:"
 msgstr "全部可用 locale:"
 
 #: data/script/fcitx-diagnose.sh:807

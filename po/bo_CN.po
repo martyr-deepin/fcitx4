@@ -163,7 +163,7 @@ msgid "Locale:"
 msgstr "Locale:"
 
 #: data/script/fcitx-diagnose.sh:805
-msgid "All locale:"
+msgid "All locales:"
 msgstr "ཆ་ཚང་སྤྱོད་རུང་བ། locale"
 
 #: data/script/fcitx-diagnose.sh:807
