@@ -4,6 +4,11 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
+# iceleaf <iceleaf916@gmail.com>, 2021
+# pan93412 <pan93412@gmail.com>, 2021
+# 李洪武 <lihongwu1987@gmail.com>, 2021
+# Maggie Liu <maggie.liufei@gmail.com>, 2021
+# 凡凡不想平凡 <freddy4212@gmail.com>, 2021
 # Cindy0514, 2021
 # 
 #, fuzzy
@@ -12,9 +17,9 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2021-04-23 00:01+0100\n"
-"PO-Revision-Date: 2021-04-07 08:12+0000\n"
+"PO-Revision-Date: 2021-11-18 02:22+0000\n"
 "Last-Translator: Cindy0514, 2021\n"
-"Language-Team: Chinese (Taiwan) (https://www.transifex.com/linuxdeepin/teams/114346/zh_TW/)\n"
+"Language-Team: Chinese (Taiwan) (https://www.transifex.com/linuxdeepin/teams/3617/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1159,8 +1164,7 @@ msgstr "全形標點符號"
 msgid "Latin punct"
 msgstr "英文標點符號"
 
-#: data/config.desc:114
-#: src/module/punc/punc.c:150 src/module/punc/punc.c:569
+#: data/config.desc:114 src/module/punc/punc.c:150 src/module/punc/punc.c:569
 msgid "Switch Fullwidth Punctuation"
 msgstr "切換全形標點符號"
 
@@ -1850,7 +1854,7 @@ msgstr "自訂"
 
 #: data/config.desc:37
 msgid "Extra Key for Switching to the First Input Method"
-msgstr "額外的啟用輸入法快捷鍵"
+msgstr "額外的切換首位輸入法快捷鍵"
 
 #: data/config.desc:42
 msgid "Custom switch key"
@@ -2052,7 +2056,8 @@ msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr "只有預編輯字串時不顯示輸入視窗"
 
 #: data/config.desc:259
-msgid "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
+msgid ""
+"Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr "只有一個候選詞和預編輯字串時不顯示輸入視窗"
 
 #: data/inputmethod.desc:3

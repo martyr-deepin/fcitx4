@@ -8,3 +8,4 @@ file_filter = po/<lang>.po
 source_file = po/fcitx.pot
 source_lang = en
 type = PO
+
