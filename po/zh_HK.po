@@ -1371,7 +1371,7 @@ msgstr "啟動輸入法"
 msgid "Fcitx Configuration"
 msgstr "輸入法配置"
 
-#: data/fcitx-configtool.desktop.in:3
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "輸入法配置"
 

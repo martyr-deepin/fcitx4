@@ -1431,7 +1431,7 @@ msgstr "Inicia el mètode d'entrada"
 msgid "Fcitx Configuration"
 msgstr "Configuració de fcitx"
 
-#: data/fcitx-configtool.desktop.in:3
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "Configuració del mètode d'entrada"
 

@@ -1429,7 +1429,7 @@ msgstr "Eingabemethode starten"
 msgid "Fcitx Configuration"
 msgstr "Fcitx Konfiguration"
 
-#: data/fcitx-configtool.desktop.in:3
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "Konfiguration Eingabemethode"
 

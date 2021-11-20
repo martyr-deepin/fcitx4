@@ -1152,7 +1152,7 @@ msgstr "Clear local input method"
 msgid "Online Help"
 msgstr "Online Help"
 
-#: src/module/notificationitem/dbusmenu.c:386 src/ui/classic/classicui.c:525
+#: src/ui/classic/classicui.c:525
 msgid "Configure"
 msgstr "Configure"
 
@@ -1396,7 +1396,7 @@ msgstr "Start Input Method"
 msgid "Fcitx Configuration"
 msgstr "Fcitx Configuration"
 
-#: data/fcitx-configtool.desktop.in:3
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386 src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "Input Method Configuration"
 

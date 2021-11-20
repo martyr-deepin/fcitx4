@@ -1418,7 +1418,7 @@ msgstr "Запустить метод ввода"
 msgid "Fcitx Configuration"
 msgstr "Настройка Fcitx"
 
-#: data/fcitx-configtool.desktop.in:3
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "Настройка метода ввода"
 

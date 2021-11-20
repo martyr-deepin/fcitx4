@@ -1380,7 +1380,7 @@ msgstr "入力メソッドを開始"
 msgid "Fcitx Configuration"
 msgstr "Fcitx 設定"
 
-#: data/fcitx-configtool.desktop.in:3
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "入力メソッドの設定"
 

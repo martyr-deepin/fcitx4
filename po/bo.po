@@ -1421,7 +1421,7 @@ msgstr "ནང་འཇུག་བྱེད་སྟངས་འགོ་སླ
 msgid "Fcitx Configuration"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག"
 
-#: data/fcitx-configtool.desktop.in:3
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག"
 

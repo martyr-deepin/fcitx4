@@ -389,7 +389,7 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
             FcitxDBusMenuAppendProperty(&sub, properties, "type",
                                         DBUS_TYPE_STRING, &value);
         } else if (index == count + 2) {
-            value = _("Configure");
+            value = _("Input Method Configuration");
             FcitxDBusMenuAppendProperty(&sub, properties, "label",
                                         DBUS_TYPE_STRING, &value);
             value = "preferences-system";
