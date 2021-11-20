@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e158277e_3d2c750b",
+        "filename": "src/module/notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-20T13:39:06Z",
+      "side": 1,
+      "message": "注释行数: 25; 改动行数(修改和新增): 54; 注释率: 46.3%",
+      "revId": "a6caa1b894912cf0c7b49ed0c2e117e80c375f30",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
