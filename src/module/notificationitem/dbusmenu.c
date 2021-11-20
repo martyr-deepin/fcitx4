@@ -378,11 +378,66 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
     const char *value;
     if (menu == 2) {
         if (index <= count) {
+            const char *name = NULL;
+            const char *icon = NULL;
+            char *needfree = NULL;
             FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index - 1);
             value = (ime)->strName;
             FcitxDBusMenuAppendProperty(&sub, properties, "label",
                                         DBUS_TYPE_STRING, &value);
+            const char *radio = "radio";
+            FcitxDBusMenuAppendProperty(&sub, properties, "toggle-type",
+                                        DBUS_TYPE_STRING, &radio);
+            int32_t toggleState = 0;
+            if (menup->mark == index - 1) {
+                toggleState = 1;
+            }
+            FcitxDBusMenuAppendProperty(&sub, properties,
+                                        "toggle-state", DBUS_TYPE_INT32,
+                                        &toggleState);
+
+            UT_array *uicompstats = FcitxInstanceGetUIComplexStats(instance);
+            FcitxUIComplexStatus *compstatus =
+                (FcitxUIComplexStatus *)utarray_eltptr(uicompstats, index);
+            if (compstatus) {
+                name = compstatus->shortDescription;
+                icon = compstatus->getIconName(compstatus->arg);
+
+                if (CheckAddPrefix(&icon)) {
+                    fcitx_utils_alloc_cat_str(needfree, "fcitx-", icon);
+                    icon = needfree;
+                }
+            }
+            if (icon) {
+                FcitxDBusMenuAppendProperty(&sub, properties, "icon-name",
+                                            DBUS_TYPE_STRING, &icon);
+            }
         }
+//        UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
+//        FcitxUIMenu **menupp =
+//                        (FcitxUIMenu **)utarray_eltptr(uimenus, menu - 1),
+//                    *menup;
+//        if (menupp) {
+//            menup = *menupp;
+//            FcitxMenuItem *item =
+//                (FcitxMenuItem *)utarray_eltptr(&menup->shell, index - 1);
+//            if (item) {
+//                FcitxDBusMenuAppendProperty(&sub, properties, "label",
+//                                            DBUS_TYPE_STRING, &item->tipstr);
+//                if (menup->mark != -1) {
+//                    const char *radio = "radio";
+//                    FcitxDBusMenuAppendProperty(&sub, properties, "toggle-type",
+//                                                DBUS_TYPE_STRING, &radio);
+//                    int32_t toggleState = 0;
+//                    if (menup->mark == index - 1) {
+//                        toggleState = 1;
+//                    }
+//                    FcitxDBusMenuAppendProperty(&sub, properties,
+//                                                "toggle-state", DBUS_TYPE_INT32,
+//                                                &toggleState);
+//                }
+//            }
+//        }
     } else if (menu == 0) {
         if (index == count + 1) {
             value = "separator";
@@ -430,7 +485,6 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
                     icon = needfree;
                 }
             }
-
             if (name) {
                 FcitxDBusMenuAppendProperty(&sub, properties, "label",
                                             DBUS_TYPE_STRING, &name);
@@ -441,40 +495,7 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
             }
             fcitx_utils_free(needfree);
         }
-    } else {
-        UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
-        FcitxUIMenu **menupp =
-                        (FcitxUIMenu **)utarray_eltptr(uimenus, menu - 1),
-                    *menup;
-        if (menupp) {
-            menup = *menupp;
-            if (index == 0) {
-                FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                            DBUS_TYPE_STRING, &menup->name);
-            } else if (index > 0) {
-                FcitxMenuItem *item =
-                    (FcitxMenuItem *)utarray_eltptr(&menup->shell, index - 1);
-                if (item) {
-                    FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                                DBUS_TYPE_STRING,
-                                                &item->tipstr);
-                    if (menup->mark != -1) {
-                        const char *radio = "radio";
-                        FcitxDBusMenuAppendProperty(&sub, properties,
-                                                    "toggle-type",
-                                                    DBUS_TYPE_STRING, &radio);
-                        int32_t toggleState = 0;
-                        if (menup->mark == index - 1) {
-                            toggleState = 1;
-                        }
-                        FcitxDBusMenuAppendProperty(
-                            &sub, properties, "toggle-state", DBUS_TYPE_INT32,
-                            &toggleState);
-                    }
-                }
-            }
-        }
-    }
+    }fcitx-ui-classic_4.2.9.32.10-1_amd64.deb
     dbus_message_iter_close_container(iter, &sub);
 }
 
@@ -611,6 +632,7 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                             FcitxDBusMenuFillLayoutItemWrap(
                                 notificationitem, ACTION_ID(i, 0), depth - 1,
                                 properties, &array);
+
                         } while (0);
                         i++;
                     }
@@ -699,7 +721,6 @@ DBusMessage *FcitxDBusMenuGetLayout(FcitxNotificationItem *notificationitem,
 
         fcitx_utils_free_string_hash_set(properties);
     } while (0);
-
     if (!reply) {
         reply = FcitxDBusPropertyUnknownMethod(message);
     }
