@@ -2007,7 +2007,7 @@ msgstr "All"
 msgid "Per program"
 msgstr "Per program"
 
-#: data/config.desc:172
+#: data/config.desc:185
 msgid "Share State Among Windows"
 msgstr "Share State Among Windows"
 
@@ -2062,15 +2062,15 @@ msgstr "Do Not Commit Preedit Text When a Window Loses Focus"
 msgid "Appearance"
 msgstr "Appearance"
 
-#: data/config.desc:223
+#: data/config.desc:244
 msgid "Show Input Method Hint After Input Method Changed"
 msgstr "Show Input Method Hint After Input Method Changed"
 
-#: data/config.desc:229
+#: data/config.desc:251
 msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr "Show Input Method Hint After Input Method Changed and Focus In"
 
-#: data/config.desc:235
+#: data/config.desc:258
 msgid "Show Input Method Hint Only When the State Is Active"
 msgstr "Show Input Method Hint Only When the State Is Active"
 
