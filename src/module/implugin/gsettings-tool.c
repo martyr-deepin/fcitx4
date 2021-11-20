@@ -746,6 +746,7 @@ static void fcitxconfig_value_changed(GSettings *settings, const gchar *key,
             file_comment_modify(global_conf_fp);
             ini_puts("Hotkey", "IMSwitchHotkey", printed, global_conf_fp);
         }
+    }
     else if (strcmp(key, "shortcut-function") == 0) {
         get_file_path();
         if (strcmp(printed, "true") == 0) {
