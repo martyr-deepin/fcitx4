@@ -281,7 +281,6 @@ int set_layout_for_im(char *imname) {
     memset(var3, 0, 30);
     strcat(var3, "");
 
-
     dbus_error_init(&err);
 
     connection = dbus_bus_get(DBUS_BUS_SESSION, &err);
@@ -313,6 +312,16 @@ int set_layout_for_im(char *imname) {
 
     dbus_connection_flush(connection);
     dbus_message_unref(msg);
+
+    if(var2 != NULL){
+        free(var2);
+        var2 = NULL;
+    }
+
+    if(var3 != NULL){
+        free(var3);
+        var3 = NULL;
+    }
     return 0;
 }
 
