@@ -309,6 +309,16 @@ int set_layout_for_im(char *imname) {
 
     dbus_connection_flush(connection);
     dbus_message_unref(msg);
+
+    if(var2 != NULL){
+        free(var2);
+        var2 = NULL;
+    }
+
+    if(var3 != NULL){
+        free(var3);
+        var3 = NULL;
+    }
     return 0;
 }
 

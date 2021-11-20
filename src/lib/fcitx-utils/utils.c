@@ -87,22 +87,65 @@ DEFINE_SIMPLE_UT_ICD(int64_t, int64)
 FCITX_EXPORT_API const UT_icd *const fcitx_str_icd = &ut_str_icd;
 FCITX_EXPORT_API const UT_icd *const fcitx_int_icd = &ut_int_icd;
 
-
-static void send_config(DBusConnection *connection)
+static void fcitx_open_control_center()
 {
-    DBusMessage *message;
-//    char * value1 = "keyboard";
-//    char * value2 = "Manage Input Methods";
-//    message = dbus_message_new_signal ("/com/deepin/dde/ControlCenter", "com.deepin.dde.ControlCenter", "ShowPage");
-//    dbus_message_append_args(message,
-//                             DBUS_TYPE_STRING, &value1,
-//                             DBUS_TYPE_STRING, &value2,
-//                             DBUS_TYPE_INVALID);
+    DBusError err;
+    DBusConnection *connection;
+    DBusMessage *msg;
+    DBusMessageIter arg;
+    DBusPendingCall *pending;
+    char *var2 = malloc(30);
+    memset(var2, 0, 30);
+    strcat(var2, "keyboard");
+    char *var3 = malloc(30);
+    memset(var3, 0, 30);
+    strcat(var3, "Manage Input Methods");
+    dbus_error_init(&err);
+    connection = dbus_bus_get(DBUS_BUS_SESSION, &err);
+    if (dbus_error_is_set(&err)) {
+        FcitxLog(DEBUG, "ConnectionErr: %s!\n", err.message);
+        dbus_error_free(&err);
+    }
+    if (NULL == connection) {
+        return ;
+    }
 
-    message = dbus_message_new_signal ("/com/deepin/dde/ControlCenter", "com.deepin.dde.ControlCenter", "Show");
-    printf("com.deepin.dde.ControlCenter Show\n");
-    dbus_connection_send (connection, message, NULL);
-    dbus_message_unref (message);
+    if (NULL == (msg = dbus_message_new_method_call(
+                     "com.deepin.dde.ControlCenter", "/com/deepin/dde/ControlCenter",
+                     "com.deepin.dde.ControlCenter", "ShowPage"))) {
+        FcitxLog(DEBUG, "Method is NULL!\n");
+        return ;
+    }
+    dbus_message_iter_init_append(msg, &arg);
+    if (!dbus_message_iter_append_basic(&arg, DBUS_TYPE_STRING, &var2)) {
+        FcitxLog(DEBUG, "Send is error!\n");
+        return ;
+    }
+    if (!dbus_message_iter_append_basic(&arg, DBUS_TYPE_STRING, &var3)) {
+        FcitxLog(DEBUG, "Send is error!\n");
+        return ;
+    }
+    if (!dbus_connection_send_with_reply(connection, msg, &pending, -1)) {
+        FcitxLog(DEBUG, "Reply is error!\n");
+        return ;
+    }
+    if (NULL == pending) {
+        FcitxLog(DEBUG, "RPending is error!\n");
+        return ;
+    }
+
+    dbus_connection_flush(connection);
+    dbus_message_unref(msg);
+
+    if(var2 != NULL){
+        free(var2);
+        var2 = NULL;
+    }
+    if(var3 != NULL){
+        free(var3);
+        var3 = NULL;
+    }
+    return ;
 }
 
 FCITX_EXPORT_API UT_array*
@@ -670,28 +713,27 @@ FCITX_EXPORT_API
 void fcitx_utils_launch_configure_tool()
 {
     FcitxLog(DEBUG, "The startup of fcitx-configtool was successful");
+    fcitx_open_control_center();
 
-    DBusConnection *connection;
-    DBusError error;
+    //    can't use the terminal to evoke the dde control center,
+    //    The lack of deepin environment variable will cause dtk app interface exceptions.
+    //    env "XDG_CURRENT_DESKTOP" "Deepin"
+    //
+    //    char* args[] = {
+    //    "dde-control-center",
+    //    "-m",
+    //    "keyboard",
+    //    "-p",
+    //    "Manage Input Methods",
+    //    NULL
+    //    };
+    //    fcitx_utils_start_process(args);
 
-    dbus_error_init (&error);
-    connection = dbus_bus_get (DBUS_BUS_SESSION, &error);
-    if (!connection) {
-        printf ("Failed to connect to the D-BUS daemon: %s", error.message);
-        dbus_error_free (&error);
-    }
-
-    send_config(connection);
-//    char* args[] = {
-//    "dde-control-center",
-//    "-m",
-//    "keyboard",
-//    "-p",
-//    "Manage Input Methods",
-//    NULL
-//    };
-//     fcitx_utils_start_process(args);
-//    fcitx_utils_launch_tool("fcitx-configtool", NULL);
+    //    Hide the interface of GTK, Of course,
+    //    you can also optimize the  fcitx-configtool script to achieve this function later.
+    //    Look forward to your completion.
+    //
+    //    fcitx_utils_launch_tool("fcitx-configtool", NULL);
 }
 
 FCITX_EXPORT_API
