@@ -106,7 +106,7 @@ FcitxHotkey FCITX_RCTRL_RSHIFT[2] = {
 FCITX_EXPORT_API
 FcitxHotkey FCITX_RCTRL_RSHIFT2[2] = {
     {NULL, FcitxKey_Shift_R, FcitxKeyState_Ctrl},
-    {NULL, 0, 0},
+    {NULL, FcitxKey_Control_R, FcitxKeyState_Shift},
 };
 
 FCITX_EXPORT_API
