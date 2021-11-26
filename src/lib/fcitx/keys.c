@@ -178,7 +178,7 @@ FcitxHotkey FCITX_RALT_RSUPER[2] = {
 FCITX_EXPORT_API
 FcitxHotkey FCITX_RALT_RSUPER2[2] = {
     {NULL, FcitxKey_Super_R, FcitxKeyState_Alt},
-    {NULL, 0, 0},
+    {NULL, FcitxKey_Alt_R, FcitxKeyState_Super},
 };
 
 FCITX_EXPORT_API
