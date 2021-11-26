@@ -120,4 +120,5 @@ void ResetIMPluginConfig(IMPlugin *implugin) {
         "conf", "fcitx-implugin.config", "r",
         &dimConfigPath);
     remove(dimConfigPath);
+    fcitx_utils_launch_tool("fcitx-remote", "-r");
 }
