@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 %global _xinputconf %{_sysconfdir}/X11/xinit/xinput.d/fcitx.conf
-%global _fcitxsh %{_sysconfdir}/X11/xinit/xinput.d/99_fcitx.sh
+%global _fcitxsh %{_sysconfdir}/X11/xinit/xinitrc.d/99_fcitx.sh
 %{!?gtk2_binary_version: %global gtk2_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-2.0)}
 %{!?gtk3_binary_version: %global gtk3_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-3.0)}
 
