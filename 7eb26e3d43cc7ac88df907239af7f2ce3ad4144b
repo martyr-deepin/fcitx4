@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c94cf0b7_f8ab4cea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-11-26T07:41:31Z",
+      "side": 1,
+      "message": "详细信息上方缺少空行",
+      "revId": "7eb26e3d43cc7ac88df907239af7f2ce3ad4144b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2104bab8_71f62f4c",
         "filename": "src/lib/fcitx/keys.c",
         "patchSetId": 1
