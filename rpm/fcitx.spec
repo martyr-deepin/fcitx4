@@ -256,7 +256,6 @@ fi
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/x-fskin.xml
 %{_mandir}/man1/createPYMB.1*
-%{_mandir}/man1/fcitx-remote.1*
 %{_mandir}/man1/fcitx*
 %{_mandir}/man1/mb2org.1*
 %{_mandir}/man1/mb2txt.1*
@@ -273,8 +272,6 @@ fi
 %{_libdir}/%{name}/%{name}-punc.so
 %{_libdir}/%{name}/%{name}-quickphrase.so
 %{_libdir}/%{name}/libexec/
-%dir %{_libdir}/girepository-1.0/
-%{_libdir}/girepository-1.0/Fcitx-1.0.typelib
 
 %files data
 %license COPYING
@@ -309,8 +306,6 @@ fi
 %{_includedir}/fcitx*
 %{_datadir}/cmake/%{name}/
 %{_docdir}/%{name}/*
-%dir %{_datadir}/gir-1.0
-%{_datadir}/gir-1.0/Fcitx-1.0.gir
 
 %files table-chinese
 %license COPYING
