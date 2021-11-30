@@ -592,8 +592,6 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                             FcitxUIMenu *menup = *menupp;
                             if (strcmp(menup->name, strdup(_("Skin"))) == 0 ||
                                 strcmp(menup->name,
-                                       strdup(_("Virtual Keyboard"))) == 0 ||
-                                strcmp(menup->name,
                                        strdup(_("Input Method"))) == 0) {
                                 break;
                             }
