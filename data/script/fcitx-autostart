@@ -1,7 +1,14 @@
 #!/bin/sh
 
 # sleep for a little while to avoid duplicate startup
-sleep 2
+case "${XDG_SESSION_TYPE}" in
+    x11)
+        sleep 2
+        ;;
+    wayland)
+        sleep 6
+        ;;
+
 
 # Test whether fcitx is running correctly with dbus...
 fcitx-remote > /dev/null 2>&1
