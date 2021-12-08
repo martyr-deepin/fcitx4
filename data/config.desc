@@ -33,7 +33,7 @@ Enum16=Super+Left Ctrl
 Enum17=Super+Right Ctrl
 Enum18=Disabled
 Enum19=Custom
-DefaultValue=Disabled
+DefaultValue=L_SHIFT
 Description=Extra Key for Switching to the First Input Method
 ShownInDeepin=True
 
@@ -240,7 +240,7 @@ ShownInDeepin=True
 
 [Appearance/ShowInputWindowAfterTriggering]
 Type=Boolean
-DefaultValue=False
+DefaultValue=True
 Description=Show Input Method Hint After Input Method Changed
 Advance=True
 ShownInDeepin=True
