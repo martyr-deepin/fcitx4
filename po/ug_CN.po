@@ -1,0 +1,3409 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Cindy0514, 2021
+# 阿迪力 买买提明 <251078110@qq.com>, 2021
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2021-04-23 00:01+0100\n"
+"PO-Revision-Date: 2021-04-07 08:12+0000\n"
+"Last-Translator: 阿迪力 买买提明 <251078110@qq.com>, 2021\n"
+"Language-Team: Uyghur (https://www.transifex.com/linuxdeepin/teams/114346/ug/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ug\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/script/fcitx-configtool.sh:144
+msgid ""
+"You're currently running KDE, but KCModule for fcitx couldn't be found, the "
+"package name of this KCModule is usually kcm-fcitx or kde-config-fcitx. Now "
+"it will open config file with default text editor."
+msgstr ""
+"KDE نى ئىشلىتىۋاتىسىز، ئەمما fcitx نىڭ KCModule تېپىلمىدى، بۇ KCModule نىڭ "
+"دېتال بوغچىسى ئادەتتە kcm-fcitx ياكى kde-config-fcitx دەپ ئاتىلىدۇ. ھازىر "
+"سۈكۈتتىكى تېكىست تەھرىرلىگۈچتە سەپلىمە ھۆججەتنى ئاچىمىز. "
+
+#: data/script/fcitx-configtool.sh:147
+msgid ""
+"You're currently running Fcitx with GUI, but fcitx-configtool couldn't be "
+"found, the package name is usually fcitx-config-gtk, fcitx-config-gtk3 or "
+"fcitx-configtool. Now it will open config file with default text editor."
+msgstr ""
+"سىز رەسىم كۆرۈنمە يۈزى ئاستىدا كىرگۈزگۈچ سەپلىمىسىنى ئىجرا قىلىۋاتىسىز، "
+"لېكىن fcitx-configtoool تېپىلمىدى، يۇمشاق دېتال بوغچىسى ئادەتتە fcitx-"
+"config-gtk, fcitx-config-gtk 3 ياكى fcitx-configtoool بولىدۇ. ھازىر "
+"سۈكۈتتىكى تېكىست تەھرىرلىگۈچتە سەپلىمە ھۆججەتنى ئاچىمىز. "
+
+#: data/script/fcitx-diagnose.sh:514
+msgid "${1} not found."
+msgstr "${1}  تېپىلمىدى."
+
+#: data/script/fcitx-diagnose.sh:655
+msgid "Beginner's Guide"
+msgstr "كۆرسەتمە"
+
+#: data/script/fcitx-diagnose.sh:656
+msgid "/Beginner%27s_Guide"
+msgstr "/Beginner%27s_Guide"
+
+#: data/script/fcitx-diagnose.sh:663
+msgid ""
+"Please set environment variable ${env_name} to \"${value}\" using the tool "
+"your distribution provides or add ${1} to your ${2}. See ${link}."
+msgstr ""
+"سىز تارقاتقان نۇسخا تەمىنلىگەن قورالنى ئىشلىتىپ مۇھىت ئۆزگەرگۈچى مىقدار "
+"${env_name}نى \"${value}\" قىلىپ قويۇڭ ياكى ${1}  نى سىزنىڭ ${2} غا قوشۇڭ. "
+"${link}دىن پايدىلىنىڭ. "
+
+#: data/script/fcitx-diagnose.sh:666
+msgid "Input Method Related Environment Variables: "
+msgstr "كىرگۈزگۈچكە مۇناسىۋەتلىك مۇھىت ئۆزگەرگۈچى مىقدارى: "
+
+#: data/script/fcitx-diagnose.sh:667
+msgid "/Input_method_related_environment_variables"
+msgstr "/Input_method_related_environment_variables"
+
+#: data/script/fcitx-diagnose.sh:682
+msgid "Note for GNOME Later than 3.6"
+msgstr "3.6 دىن كېيىنكى نۇسخىسى GNOME توغرىسىدا ئىزاھات"
+
+#: data/script/fcitx-diagnose.sh:683
+msgid "/Note_for_GNOME_Later_than_3.6"
+msgstr "/Note_for_GNOME_Later_than_3.6"
+
+#: data/script/fcitx-diagnose.sh:689
+msgid ""
+"If you are using ${1}, you may want to uninstall ${2}, remove ${3} or use "
+"the command ${g36_disable_ibus} to disable IBus integration in order to use "
+"any input method other than ${2}. See ${link} for more detail."
+msgstr ""
+"ئەگەر سىز ${1} نى ئىشلىتىۋاتقان بولسىڭىز،  ${2} نى يۇيۇۋېتىشىڭىزگە توغرا "
+"كېلىشى مۇمكىن، ${3}نى ئۆچۈرۈۋېتىشىڭىز ياكى ئىشلىتىش بۇيرۇقى "
+"${g36_disable_ibus} نى ئىشلىتىش مەنئى قىلىنىدۇ، IBus توپلاشتۇرۇپ ئىشلىتىلگەن"
+" ${2}دىن باشقا ھەرقانداق كىرگۈزگۈچنى ئىشلىتىشىڭىز مۇمكىن. تېخىمۇ كۆپ "
+"تەپسىلاتلار ${link}دىن پايدىلىنىڭ. "
+
+#: data/script/fcitx-diagnose.sh:691
+msgid ""
+"If you are using ${1}, you may want to uninstall ${2} or remove ${3} in "
+"order to use any input method other than ${2}. See ${link} for more detail "
+"as well as alternative solutions."
+msgstr ""
+"ئەگەر سىز${1} نى ئىشلىتىۋاتقان بولسىڭىز، سىز ${2} نى يۇيۇۋېتىشىڭىز ياكى ${3}"
+" نى ئۆچۈرۈۋېتىشىڭىزگە توغرا كېلىشى مۇمكىن، ئىشلىتىۋاتقان ${2}  بۇنىڭ "
+"سىرتىدا. تېخىمۇ كۆپ تەپسىلات ۋە باشقا ھەل قىلىش ئۇسۇللىرى ${link} دىن "
+"پايدىلىنىڭ. "
+
+#: data/script/fcitx-diagnose.sh:699
+#, sh-format
+msgid ""
+"To see some application specific problems you may have when using xim, check"
+" ${link1}. For other more general problems of using XIM including "
+"application freezing, see ${link2}."
+msgstr ""
+"{link1}$ دىن بىر قىسىم xim نى ئىشلەتكەندە مەسىلە كۆرۈلىدىغان ئەپلەرنى "
+"تاپالايسىز. قوللىنىشچان پىروگرامما كارتىسى ئۆلۈمىنى ئۆز ئىچىگە ئالغان تېخىمۇ"
+" كۆپ xim ئىشلىتىش ئېھتىماللىقى بولغان ئومۇميۈزلۈك مەسىلىلەر ${link2}دىن "
+"پايدىلىنىڭ. "
+
+#: data/script/fcitx-diagnose.sh:702
+msgid "Hall of Shame for Linux IME Support"
+msgstr "Linux خەت كىرگۈزگۈچ ھاقارەت زالىنى قوللايدۇ"
+
+#: data/script/fcitx-diagnose.sh:703
+msgid "/Hall_of_Shame_for_Linux_IME_Support"
+msgstr "/Hall_of_Shame_for_Linux_IME_Support"
+
+#: data/script/fcitx-diagnose.sh:706
+msgid "here"
+msgstr "بۇ يەر"
+
+#: data/script/fcitx-diagnose.sh:707
+msgid "/XIM"
+msgstr "/XIM"
+
+#: data/script/fcitx-diagnose.sh:743
+msgid "System Info:"
+msgstr "سىستېما ئۇچۇرى:"
+
+#: data/script/fcitx-diagnose.sh:771
+msgid "Desktop Environment:"
+msgstr "ئۈستەليۈزى مۇھىتى:"
+
+#: data/script/fcitx-diagnose.sh:774
+msgid "Cannot determine desktop environment."
+msgstr "ئۈستەليۈزى مۇھىتىنى بېكىتكىلى بولمايدۇ. "
+
+#: data/script/fcitx-diagnose.sh:776
+msgid "Desktop environment is ${1}."
+msgstr "ئۈستەليۈزى مۇھىتى ${1} ."
+
+#: data/script/fcitx-diagnose.sh:779
+msgid "Bash Version:"
+msgstr "Bash نەشرى:"
+
+#: data/script/fcitx-diagnose.sh:784
+msgid "Environment:"
+msgstr "مۇھىت:"
+
+#: data/script/fcitx-diagnose.sh:787
+msgid "Keyboard Layout:"
+msgstr "كۇنۇپكا ئورۇنلاشتۇرۇشى:"
+
+#: data/script/fcitx-diagnose.sh:802
+msgid "Locale:"
+msgstr "Locale:"
+
+#: data/script/fcitx-diagnose.sh:805
+msgid "All locales:"
+msgstr "ئىشلەتكىلى بولىدىغان بارلىق locale:"
+
+#: data/script/fcitx-diagnose.sh:807
+msgid "Current locale:"
+msgstr "نۆۋەتتىكى locale:"
+
+#: data/script/fcitx-diagnose.sh:811
+msgid "Error occurs when running ${1}. Please check your locale settings."
+msgstr ""
+"${1} نى ئىجرا قىلغاندا خاتالىق كۆرۈلدى. رايون ئورۇنلاشتۇرۇشىڭىزنى تەكشۈرۈڭ. "
+
+#: data/script/fcitx-diagnose.sh:819
+msgid "Directories:"
+msgstr "مۇندەرىجە:"
+
+#: data/script/fcitx-diagnose.sh:821
+msgid "Home:"
+msgstr "باش مۇندەرىجە:"
+
+#: data/script/fcitx-diagnose.sh:825
+msgid "Environment variable ${1} is not set."
+msgstr "مۇھىت ئۆزگىرىشى ${1}  تەڭشەلمىگەن."
+
+#: data/script/fcitx-diagnose.sh:829
+msgid "Environment variable ${1} is set to ${2}."
+msgstr "مۇھىت ئۆزگىرىشى ${1} ${2} قىلىپ تەڭشەلدى."
+
+#: data/script/fcitx-diagnose.sh:833
+msgid "Current value of ${1} is ${2} (${3})."
+msgstr "${1} نىڭ نۆۋەتتىكى قىممىتى ${2} (${3}) ."
+
+#: data/script/fcitx-diagnose.sh:837
+msgid "Fcitx Settings Directory:"
+msgstr "كىرگۈزگۈچ تەڭشەك مۇندەرىجىسى:"
+
+#: data/script/fcitx-diagnose.sh:839
+msgid "Current fcitx settings directory is ${1} (${2})."
+msgstr "نۆۋەتتىكى كىرگۈزگۈچنىڭ تەڭشەك مۇندەرىجىسى ${1} (${2}) ."
+
+#: data/script/fcitx-diagnose.sh:844
+msgid "Current user:"
+msgstr "نۆۋەتتىكى ئىشلەتكۈچى:"
+
+#: data/script/fcitx-diagnose.sh:845
+msgid "The script is run as ${1} (${2})."
+msgstr "ئورىگىنال ${1} (${2}) بولۇش سۈپىتى بىلەن ئىجرا بولىدۇ. "
+
+#: data/script/fcitx-diagnose.sh:850
+msgid "${1} Environment Variables:"
+msgstr "${1}  نىڭ ئۆزگىرىش مۇھىتى:"
+
+#: data/script/fcitx-diagnose.sh:856
+msgid "${1} is set to ${2}."
+msgstr "${1}  ${2} قىلىپ تەڭشەلدى."
+
+#: data/script/fcitx-diagnose.sh:859
+msgid "${1} is not set."
+msgstr "${1} تەڭشەلمىگەن."
+
+#: data/script/fcitx-diagnose.sh:866
+msgid "Running as root:"
+msgstr "باشقۇرغۇچى سالاھىيىتىدە ئىجرا قىلىش:"
+
+#: data/script/fcitx-diagnose.sh:869
+msgid ""
+"You are probably using ${1} to run this script. This means the result of "
+"this script may not be accurate. See ${2} for more information."
+msgstr ""
+"سىز بەلكىم بۇ ئارگىنال ${1} نى ئىشلىتىۋاتقان بولۇشىڭىز مۇمكىن. بۇ بۇ "
+"ئارگىنالنىڭ نەتىجىسىنىڭ توغرا بولماسلىقىدىن دېرەك بېرىدۇ. تېخىمۇ كۆپ ئۇچۇرغا"
+" ئېرىشىش ئۈچۈن ${2} غا قاراڭ. "
+
+#: data/script/fcitx-diagnose.sh:871 data/script/fcitx-diagnose.sh:877
+msgid "sudo environment variables"
+msgstr "sudo نىڭ مۇھىت ئۆزگىرىشى"
+
+#: data/script/fcitx-diagnose.sh:874
+msgid ""
+"You are probably logging in as ${1} or using ${2} to run this script. This "
+"either means you have security problems or the result of this script may not"
+" be accurate. See ${3} or ${4} for more information."
+msgstr ""
+"سىز بەلكىم ${1}  ياكى ${2} ئارقىلىق بۇ ئارگىنالنى ئىجرا قىلغان بولۇشىڭىز "
+"مۇمكىن. بۇ ئىككى خىل ئەھۋالدىن دېرەك بېرىدۇ، بىرى سىزدە بىخەتەرلىك مەسىلىسى "
+"بار ياكى ئارگىنالنىڭ نەتىجىسى توغرا بولماسلىقى مۇمكىن. تېخىمۇ كۆپ ئۇچۇرلار "
+"توغرىسىدا، ${3} ياكى ${4} دىن پايدىلىنىڭ. "
+
+#: data/script/fcitx-diagnose.sh:876
+msgid "Why is it bad to run as root"
+msgstr "root سالاھىيىتىدە ئىجرا قىلغاندا ياخشى بولماسلىقنىڭ سەۋەبى"
+
+#: data/script/fcitx-diagnose.sh:885
+msgid "Fcitx State:"
+msgstr "كىرگۈزگۈچ ھالىتى:"
+
+#: data/script/fcitx-diagnose.sh:886
+msgid "executable:"
+msgstr "ئىجرا قىلغىلى بولىدىغان ھۆججەت:"
+
+#: data/script/fcitx-diagnose.sh:888
+msgid "Cannot find fcitx executable!"
+msgstr "fcitx ئىجرا بولىدىغان ھۆججەتنى تاپقىلى بولمىدى!"
+
+#: data/script/fcitx-diagnose.sh:890
+msgid "Please check ${1} for how to install fcitx."
+msgstr "${1} نى زىيارەت قىلىپ fcitx نى قانداق قاچىلاشنى كۆرۈڭ."
+
+#: data/script/fcitx-diagnose.sh:894
+msgid "Found fcitx at ${1}."
+msgstr "${1}  دا fcitx بايقالدى."
+
+#: data/script/fcitx-diagnose.sh:896
+msgid "version:"
+msgstr "نەشرى:"
+
+#: data/script/fcitx-diagnose.sh:899
+msgid "Fcitx version: ${1}"
+msgstr "كىرگۈزگۈچ نەشرى: ${1}"
+
+#: data/script/fcitx-diagnose.sh:900
+msgid "process:"
+msgstr "لىنىيە:"
+
+#: data/script/fcitx-diagnose.sh:910
+msgid "Fcitx is not running."
+msgstr "كىرگۈزگۈچ ئىجرا بولمىغان."
+
+#: data/script/fcitx-diagnose.sh:912
+msgid ""
+"Please check the Configure link of your distribution in ${1} for how to "
+"setup fcitx autostart."
+msgstr ""
+"${1}  بەت يۈزىگە سىز تارقاتقان نۇسقىدىكى سەپلىمە ئۇلانمىنى زىيارەت قىلىپ "
+"كىرگۈزگۈچنى قانداق  ئاپتوماتىك قوزغىتىشنى تەڭشەشنى كۆرۈڭ. "
+
+#: data/script/fcitx-diagnose.sh:917
+msgid "Found ${1} fcitx processes:"
+msgstr "${1} دانە fcitx لىنىيەسى بايقالدى:"
+
+#: data/script/fcitx-diagnose.sh:919
+msgid "Found ${1} fcitx process:"
+msgstr "${1} دانە fcitx لىنىيەسى بايقالدى:"
+
+#: data/script/fcitx-diagnose.sh:925
+msgid "Cannot connect to fcitx correctly."
+msgstr "fcitx قا ئۇلىنالمىدى."
+
+#: data/script/fcitx-diagnose.sh:927
+msgid "${1} works properly."
+msgstr "${1} نورمال خىزمەت قىلىۋاتىدۇ."
+
+#: data/script/fcitx-diagnose.sh:933
+msgid "DBus interface:"
+msgstr "DBus كۆرۈنمە يۈزى:"
+
+#: data/script/fcitx-diagnose.sh:935
+msgid "Using ${1} to check dbus."
+msgstr "${1} ئارقىلىق dbusنى تەكشۈرۈش."
+
+#: data/script/fcitx-diagnose.sh:940
+msgid "Owner of DBus name ${1} is ${2}."
+msgstr "DBus نامى ${1}نىڭ ئىگىدارى ${2} ."
+
+#: data/script/fcitx-diagnose.sh:944
+msgid "Cannot find DBus name ${1} owner."
+msgstr "DBus نامى ${1} نىڭ ئىگىدارى تېپىلمىدى."
+
+#: data/script/fcitx-diagnose.sh:948
+msgid "PID of DBus name ${1} owner is ${2}."
+msgstr "DBus نامى ${1}  نىڭ PID ئىگىدارى ${2} ."
+
+#: data/script/fcitx-diagnose.sh:952
+msgid "Cannot find pid of DBus name ${1} owner."
+msgstr "DBus نامى ${1} نىڭ pid ئىگىدارى تېپىلمىدى."
+
+#: data/script/fcitx-diagnose.sh:956
+msgid "Unable to find a program to check dbus."
+msgstr "پروگرامما تەكشۈرۈش dbus نى تاپقىلى بولمايدۇ. "
+
+#: data/script/fcitx-diagnose.sh:992
+msgid "Config GUI for gtk${1}:"
+msgstr "GTK+-${1}.0 نىڭ سەپلىمە كۆرۈنمە يۈزى ئۈچۈن ئىشلىتىلىدۇ: "
+
+#: data/script/fcitx-diagnose.sh:996
+msgid "Config GUI for gtk${1} not found."
+msgstr "gtk${1} نىڭ سەپلىمە كۆرۈنمە يۈزى تېپىلمىدى. "
+
+#: data/script/fcitx-diagnose.sh:1005
+msgid "Found ${1} at ${2}."
+msgstr "${2} دا ${1} تېپىلدى. "
+
+#: data/script/fcitx-diagnose.sh:1012
+msgid "Config GUI for kde:"
+msgstr "KDE نىڭ سەپلىمە كۆرۈنمە يۈزى: "
+
+#: data/script/fcitx-diagnose.sh:1018
+msgid "Found fcitx kcm module."
+msgstr "fcitx نىڭ kcm مودۇلى تېپىلدى."
+
+#: data/script/fcitx-diagnose.sh:1027
+msgid "Fcitx Configure UI:"
+msgstr "كىرگۈزگۈچنىڭ سەپلىمە كۆرۈنمە يۈزى: "
+
+#: data/script/fcitx-diagnose.sh:1028
+msgid "Config Tool Wrapper:"
+msgstr "سەپلەش قورالى پېچىتى: "
+
+#: data/script/fcitx-diagnose.sh:1030
+msgid "Cannot find fcitx-configtool executable!"
+msgstr "fcitx-configtool  ئىجرا بولىدىغان ھۆججەتنى تاپقىلى بولمىدى!"
+
+#: data/script/fcitx-diagnose.sh:1032
+msgid "Found fcitx-configtool at ${1}."
+msgstr "${1} دا fcitx-configtool بايقالدى."
+
+#: data/script/fcitx-diagnose.sh:1040
+msgid ""
+"Cannot find a GUI config tool, please install one of ${1}, ${2}, or ${3}."
+msgstr ""
+"بىر گرافىكلىق كۆرۈنمە يۈز سەپلەش قورالىنى تاپقىلى بولمىدى، ${1}，${2}，${3} "
+"نىڭ بىرىنى قاچىلاڭ."
+
+#: data/script/fcitx-diagnose.sh:1053
+msgid "Environment variable ${1} is set to \"${2}\" correctly."
+msgstr "مۇھىت ئۆزگىرىشى ${1} توغرا ھالدا ${2} قىلىپ تەڭشەلدى."
+
+#: data/script/fcitx-diagnose.sh:1059
+msgid ""
+"Environment variable ${1} is \"${2}\" instead of \"${3}\". Please check if "
+"you have exported it incorrectly in any of your init files."
+msgstr ""
+"مۇھىت ئۆزگەرگۈچى مىقدارى ${1} نىڭ قىممىتى« ${2}» قىلىپ تەڭشەلدى، « ${3}» "
+"ئەمەس. مەلۇم دەسلەپكى ھۆججەتتە ئۇنىڭ قىممىتىنى خاتا تەڭشەپ قويغان-"
+"قويمىغانلىقىڭىزنى تەكشۈرۈڭ. "
+
+#: data/script/fcitx-diagnose.sh:1068
+msgid "XMODIFIERS is not set"
+msgstr "XMODIFIERS تەڭشىكى يوق"
+
+#: data/script/fcitx-diagnose.sh:1081
+msgid "Cannot interpret XMODIFIERS: ${1}."
+msgstr "XMODIFIERS: ${1} نى يېشەلمىدى."
+
+#: data/script/fcitx-diagnose.sh:1089
+msgid "Xim Server Name from Environment variable is ${1}."
+msgstr "مۇھىت ئۆزگەرگۈچى مىقداردىن ئېرىشكەن Xim مۇلازىمىتېرنىڭ نامى ${1} ."
+
+#: data/script/fcitx-diagnose.sh:1091
+msgid "XIM_SERVERS on root window:"
+msgstr "غول كۆزنەكتىكى XIM_SERVERS:"
+
+#: data/script/fcitx-diagnose.sh:1101
+msgid "Xim server name is the same with that set in the environment variable."
+msgstr ""
+"Xim مۇلازىمىتىنىڭ نامى مۇھىت ئۆزگەرگۈچى مىقدار ئىچىدىكى بىلەن ئوخشاش. "
+
+#: data/script/fcitx-diagnose.sh:1103
+msgid ""
+"Xim server name: \"${1}\" is different from that set in the environment "
+"variable: \"${2}\"."
+msgstr ""
+"Xim مۇلازىمىتېر نامى «${1}» مۇھىت ئۆزگىرىشى تەڭشىكىدىكى «${2}» بىلەن "
+"ئوخشىمايدۇ."
+
+#: data/script/fcitx-diagnose.sh:1107
+msgid "Cannot find xim_server on root window."
+msgstr "غول كۆزنەكتە xim_server تېپىلمىدى."
+
+#: data/script/fcitx-diagnose.sh:1113
+msgid "XIM for Emacs:"
+msgstr "Emacs قا ئىشلىتىلىدىغان XIM: "
+
+#: data/script/fcitx-diagnose.sh:1115
+msgid ""
+"Your LC_CTYPE is set to ${1} instead of one of zh, ja, ko. You may not be "
+"able to use input method in emacs because of an really old emacs bug that "
+"upstream refuse to fix for years."
+msgstr ""
+"سىزنىڭ LC_CTYPE تەڭشىكىڭىز ${1}، ئەمما zh, ja, ko لەرنىڭ بىرى ئەمەس،  Emacs "
+"تە كىرگۈزگۈچ ئىشلىتەلمەسلىكىڭىز مۇمكىن، ئۇنىڭ تۈپ مەنبەسى يۇقىرى ئېقىندا "
+"ئەسلىگە كەلتۈرۈشنى كۆپ يىل رەت قىلغان بىر كونا كاشىلىدىن كەلگەن."
+
+#: data/script/fcitx-diagnose.sh:1118
+msgid "XIM encoding:"
+msgstr "XIM تەرتىپ نومۇرى:"
+
+#: data/script/fcitx-diagnose.sh:1120
+msgid ""
+"Your LC_CTYPE is set to ${1} whose encoding is not UTF-8. You may have "
+"trouble committing strings using XIM."
+msgstr ""
+"سىزنىڭ LC_CTYPE تەڭشىكىڭىز ${1}، بەلكى UTF-8 ئەمەس، سىز بەلكىم XIM نى "
+"ئىشلىتىپ ھەرپ-بەلگە تىزىقىنى تاپشۇرغاندا مەسىلىگە يولۇقىشىڭىز مۇمكىن."
+
+#: data/script/fcitx-diagnose.sh:1140
+msgid "You are using xim in ${1} programs."
+msgstr "سىز ھازىر ${1} پروگراممىسىدا xim نى ئىشلىتىۋاتىسىز. "
+
+#: data/script/fcitx-diagnose.sh:1145
+msgid "You may have trouble using fcitx in ${1} programs."
+msgstr ""
+" ${1} پروگراممىسىدا fcitx نى ئىشلەتكەندە مەسىلىگە يولۇقۇشىڭىز مۇمكىن. "
+
+#: data/script/fcitx-diagnose.sh:1171
+msgid "Qt IM module files:"
+msgstr "Qt كىرگۈزگۈچ مودۇلى ھۆججىتى:"
+
+#: data/script/fcitx-diagnose.sh:1178 data/script/fcitx-diagnose.sh:1183
+msgid "Found fcitx im module for ${2}: ${1}."
+msgstr "$ {2} نىڭ كىرگۈزگۈچ مودۇلى تېپىلدى: ${1} ."
+
+#: data/script/fcitx-diagnose.sh:1187
+msgid "Found fcitx qt module: ${1}."
+msgstr "fcitx نىڭ qt مودۇلىنى تېپىلدى: ${1}."
+
+#: data/script/fcitx-diagnose.sh:1190
+msgid "Found unknown fcitx qt module: ${1}."
+msgstr "نامەلۇم fcitx qt مودۇلى تېپىلدى: ${1}."
+
+#: data/script/fcitx-diagnose.sh:1197 data/script/fcitx-diagnose.sh:1202
+msgid "Cannot find fcitx input method module for ${1}."
+msgstr "${1} نىڭ fcitx  كىرگۈزگۈچ مودۇلىنى تاپقىلى بولمىدى."
+
+#: data/script/fcitx-diagnose.sh:1250
+msgid "Gtk ${1} immodule file ${2} does not exist."
+msgstr "Gtk ${1} كىرگۈزگۈچ مودۇلى ھۆججىتى ${2} مەۋجۇت ئەمەس."
+
+#: data/script/fcitx-diagnose.sh:1256
+msgid "All found Gtk ${1} immodule files exist."
+msgstr "تېپىلغان بارلىق Gtk ${1} كىرگۈزگۈچ مودۇلى ھۆججەتلىرى بىردەك مەۋجۇت. "
+
+#: data/script/fcitx-diagnose.sh:1289
+msgid "Found ${3} for gtk ${1} at ${2}."
+msgstr "${2} دە gtk ${1} نىڭ ${3} تېپىلدى."
+
+#: data/script/fcitx-diagnose.sh:1294 data/script/fcitx-diagnose.sh:1377
+msgid "Version Line:"
+msgstr "نەشر لىنىيەسى:"
+
+#: data/script/fcitx-diagnose.sh:1297
+msgid "Found ${2} for unknown gtk version at ${1}."
+msgstr "${1} دە نامەلۇم gtk نەشردىكى ${2} بايقالدى."
+
+#: data/script/fcitx-diagnose.sh:1305 data/script/fcitx-diagnose.sh:1388
+msgid "Found fcitx im modules for gtk ${1}."
+msgstr "gtk ${1} نىڭ fcitx كىرگۈزگۈچ مودۇلى تېپىلدى."
+
+#: data/script/fcitx-diagnose.sh:1311
+msgid "Failed to find fcitx in the output of ${1}"
+msgstr "${1} نىڭ چىقىرىشىدىن كىرگۈزگۈچ سەپلىمىسىنى قايتا تاپقىلى بولمىدى."
+
+#: data/script/fcitx-diagnose.sh:1317
+msgid "Cannot find ${2} for gtk ${1}"
+msgstr "gtk ${1} دىكى ${2} نى تاپقىلى بولمىدى."
+
+#: data/script/fcitx-diagnose.sh:1323
+msgid "Cannot find fcitx im module for gtk ${1}."
+msgstr "gtk ${1} نىڭ fcitx كىرگۈزگۈچ مودۇلى تېپىلمىدى."
+
+#: data/script/fcitx-diagnose.sh:1373
+msgid "Found immodules cache for gtk ${1} at ${2}."
+msgstr "${2} دە gtk ${1} كىرگۈزگۈچ مودۇلىنىڭ غەملىكى بايقالدى."
+
+#: data/script/fcitx-diagnose.sh:1381
+msgid "Found immodule cache for unknown gtk version at ${1}."
+msgstr "${1} دە نامەلۇم gtk نەشردىكى كىرگۈزگۈچ مودۇلىنىڭ غەملىكى بايقالدى."
+
+#: data/script/fcitx-diagnose.sh:1394
+msgid "Failed to find fcitx in immodule cache at ${1}"
+msgstr "كىرگۈزگۈچ مودۇلى غەملىكى ${1}دە fcitx تېپىلمىدى"
+
+#: data/script/fcitx-diagnose.sh:1400
+msgid "Cannot find immodules cache for gtk ${1}"
+msgstr "gtk ${1} نىڭ fcitx كىرگۈزگۈچ مودۇلى غەملىكى تېپىلمىدى."
+
+#: data/script/fcitx-diagnose.sh:1405
+msgid "Cannot find fcitx im module for gtk ${1} in cache."
+msgstr "غەملەكتىن gtk ${1} نىڭ fcitx كىرگۈزگۈچ مودۇلى تېپىلمىدى."
+
+#: data/script/fcitx-diagnose.sh:1418
+msgid "Gtk IM module cache:"
+msgstr "Qt كىرگۈزگۈچ مودۇلى غەملىكى:"
+
+#: data/script/fcitx-diagnose.sh:1423
+msgid "Gtk IM module files:"
+msgstr "Gtk كىرگۈزگۈچ مودۇلى ھۆججىتى:"
+
+#: data/script/fcitx-diagnose.sh:1437
+msgid "Fcitx Addons:"
+msgstr "كىرگۈزگۈچ قىستۇرمىسى:"
+
+#: data/script/fcitx-diagnose.sh:1438
+msgid "Addon Config Dir:"
+msgstr "قىستۇرما سەپلىمە ھۆججىتى مۇندەرىجىسى:"
+
+#: data/script/fcitx-diagnose.sh:1440
+msgid "Cannot find fcitx addon config directory."
+msgstr "قىستۇرمىنىڭ سەپلىمە ھۆججىتى مۇندەرىجىسى تېپىلمىدى."
+
+#: data/script/fcitx-diagnose.sh:1450
+msgid "Found fcitx addon config directory: ${1}."
+msgstr "fcitx قىستۇرمىسىنىڭ سىەپلىمە مۇندەرىجىسى تېپىلدى: ${1}."
+
+#: data/script/fcitx-diagnose.sh:1452
+msgid "Addon List:"
+msgstr "قىستۇرما جەدۋىلى:"
+
+#: data/script/fcitx-diagnose.sh:1456
+msgid "Invalid addon config file ${1}."
+msgstr ".ۈنۈمسىز قىستۇرما سەپلىمە ھۆججىتى: ${1}."
+
+#: data/script/fcitx-diagnose.sh:1480
+msgid "Found ${1} enabled addons:"
+msgstr "${1} دانە قوزغىتىلغان قىستۇرما بايقالدى:"
+
+#: data/script/fcitx-diagnose.sh:1485
+msgid "Found ${1} disabled addons:"
+msgstr "چەكلەنگەن ${1} دانە قىستۇرما بايقالدى:"
+
+#: data/script/fcitx-diagnose.sh:1491
+msgid "Addon Libraries:"
+msgstr "قىستۇرما ئامبىرى:"
+
+#: data/script/fcitx-diagnose.sh:1499
+msgid "Cannot find file ${1} of addon ${2}."
+msgstr "قىستۇرما ${2} نىڭ ھۆججىتى ${1} تېپىلمىدى."
+
+#: data/script/fcitx-diagnose.sh:1509
+msgid "Cannot find following required libraries for ${1} of addon ${2}."
+msgstr "قىستۇرما ${2} ئېھتىياجلىق ئامبار ${1} تېپىلمىدى."
+
+#: data/script/fcitx-diagnose.sh:1517
+msgid "All libraries for all addons are found."
+msgstr "بارلىق قىستۇرمىلارغا كېرەكلىك ئامبارلارنىڭ ھەممىسى تېپىلدى."
+
+#: data/script/fcitx-diagnose.sh:1518
+msgid "User Interface:"
+msgstr "ئىشلەتكۈچى كۆرۈنمە يۈزى:"
+
+#: data/script/fcitx-diagnose.sh:1520
+msgid "Cannot find enabled fcitx user interface!"
+msgstr "قوزغىتىلغان fcitx كۆرۈنمە يۈزى تېپىلمىدى!"
+
+#: data/script/fcitx-diagnose.sh:1522
+msgid "Found ${1} enabled user interface addons:"
+msgstr "${1}  دانە قوزغىتىلغان ئىشلەتكۈچى كۆرۈنمە يۈز قىستۇرمىسى بايقالدى:"
+
+#: data/script/fcitx-diagnose.sh:1531
+msgid "Kimpanel process:"
+msgstr "Kimpanel لىنىيەسى:"
+
+#: data/script/fcitx-diagnose.sh:1539
+msgid ""
+"Cannot find kimpanel dbus interface or enabled non-kimpanel user interface."
+msgstr ""
+"kimpanell dbus ئېغىزى ياكى غەيرى kimpanell ئىشلەتكۈچىلەر كۆرۈنمە يۈزىنى "
+"تاپقىلى بولمايدۇ. "
+
+#: data/script/fcitx-diagnose.sh:1545
+msgid "Input Methods:"
+msgstr "كىرگۈزگۈچ:"
+
+#: data/script/fcitx-diagnose.sh:1549
+msgid "Cannot read im list from fcitx profile."
+msgstr "كىرگۈزگۈچ سەپلىمە ھۆججىتىدىن كىرگۈزگۈچ تىزىملىكىنى ئوقۇغىلى بولمىدى."
+
+#: data/script/fcitx-diagnose.sh:1559
+msgid "Invalid item ${1} in im list."
+msgstr "كىرگۈزگۈچ جەدۋىلىدىكى ئىناۋەتسىز تۈر: ${1} ."
+
+#: data/script/fcitx-diagnose.sh:1570
+msgid "Found ${1} enabled input methods:"
+msgstr "${1} دانە ئىجرا بولۇۋاتقان كىرگۈزگۈچ بايقالدى:"
+
+#: data/script/fcitx-diagnose.sh:1575
+msgid "Default input methods:"
+msgstr "سۈكۈتتىكى كىرگۈزگۈچ:"
+
+#: data/script/fcitx-diagnose.sh:1578
+msgid "You don't have any input methods enabled."
+msgstr "ھېچقانداق كىرگۈزگۈچ قوزغاتماپسىز."
+
+#: data/script/fcitx-diagnose.sh:1582
+msgid ""
+"You only have one keyboard input method enabled. You may want to add another"
+" input method to input other languages."
+msgstr ""
+"سىزنىڭ پەقەت بىر كۇنۇپكا تاختىسى كىرگۈزگۈچىڭىز بار ئىكەن. سىز باشقا "
+"كىرگۈزگۈچلەرنى قوشۇپ باشقا تىللارنى كىرگۈزىشىڭىز مۇمكىن."
+
+#: data/script/fcitx-diagnose.sh:1584
+msgid ""
+"You only have one input method enabled, please add a keyboard input method "
+"as the first one and your main input method as the second one."
+msgstr ""
+"سىز پەقەت بىر دانە كىرگۈزگۈچنى ئىشقا كىرىشتۈردىڭىز، بىر دانە كۇنۇپكا "
+"كىرگۈزگۈچنى بىرىنچى ئورۇنغا ھەمدە سىزنىڭ ئاساسلىق كىرگۈزگۈچىڭىزنى ئىككىنچى "
+"ئورۇنغا قويۇڭ."
+
+#: data/script/fcitx-diagnose.sh:1590
+msgid ""
+"You have a keyboard input method \"${1}\" correctly added as your default "
+"input method."
+msgstr "«${1}» نى توغرا ھالدا سۈكۈتتىكى كىرگۈزگۈچ قىلىپ تەڭشىدىڭىز."
+
+#: data/script/fcitx-diagnose.sh:1594
+msgid ""
+"Your first (default) input method is ${1} instead of a keyboard input "
+"method. You may have trouble deactivate fcitx."
+msgstr ""
+"سىزنىڭ تۇنجى (سۈكۈتتىكى) كىرگۈزگۈچىڭىز ${1} ، لېكىن كونۇپكا تاختىسى "
+"كىرگۈزگۈچى ئەمەس. بەلكىم fcitx خەت كىرگۈزگۈچنى ئىشلىتەلمەسلىكىڭىز مۇمكىن."
+
+#: data/script/fcitx-diagnose.sh:1676
+msgid "Frontends setup:"
+msgstr "ئالدى تېرمىنالنى ئورۇنلاشتۇرۇش:"
+
+#: data/script/fcitx-diagnose.sh:1683
+msgid "Configuration:"
+msgstr "سەپلىمە:"
+
+#: data/script/fcitx-diagnose.sh:1689
+msgid "Log:"
+msgstr "خاتىرە:"
+
+#: src/frontend/xim/xim.c:134
+msgid "X11 not initialized"
+msgstr "X11 ئەسىلىگە قايتۇرۇلمىغان"
+
+#: src/frontend/xim/xim.c:146
+msgid "Can't Create imWindow"
+msgstr "كىرگۈزگۈچ كۆزنىكى قۇرغىلى بولمىدى."
+
+#: src/frontend/xim/xim.c:157
+msgid "XMODIFIERS Error."
+msgstr "XMODIFIERS خاتالىقى."
+
+#: src/frontend/xim/xim.c:161
+msgid "Please set XMODIFIERS."
+msgstr "مۇھىت ئۆزگىرىشى XMODIFIERS سىنى تەڭشەڭ"
+
+#: src/frontend/xim/xim.c:239
+#, c-format
+msgid "Start XIM error. Another XIM daemon named %s is running?"
+msgstr ""
+"XIM قوزغالغاندا خاتالىق كۆرۈلدى، يەن بىر %sناملىق XIM قوغدىغۇچى ھۆججىتى "
+"ئىجرا بولۇۋاتامدۇ؟"
+
+#: src/im/keyboard/keyboard.c:359 src/im/keyboard/keyboard.c:376
+#: src/im/keyboard/keyboard.c:424 src/im/keyboard/keyboard.c:437
+#: src/im/keyboard/keyboard.c:462 src/im/keyboard/keyboard.c:468
+#: src/im/keyboard/fcitx-keyboard.desc:1 src/im/keyboard/fcitx-keyboard.desc:6
+#: src/im/keyboard/fcitx-keyboard.desc:16
+#: src/im/keyboard/fcitx-keyboard.desc:21
+#: src/im/keyboard/fcitx-keyboard.desc:27
+#: src/im/keyboard/fcitx-keyboard.desc:36
+#: src/im/keyboard/fcitx-keyboard.desc:41
+msgid "Keyboard"
+msgstr "كۇنۇپكا"
+
+#: src/im/keyboard/keyboard.c:426 src/im/keyboard/keyboard.c:443
+msgid "(Unavailable)"
+msgstr "(ئىشلەتكىلى بولمايدۇ)"
+
+#: src/im/keyboard/keyboard.c:900
+msgid "Spell hint"
+msgstr "يېزىش ئەسكەرتىشى"
+
+#: src/im/keyboard/keyboard.c:901
+msgid "Spell hint is enabled."
+msgstr "يېزىش ئەسكەرتىشى قوزغىتىلدى."
+
+#: src/im/keyboard/keyboard.c:902
+msgid "Spell hint is disabled."
+msgstr "يېزىش ئەسكەرتىشى چەكلەندى."
+
+#: src/im/pinyin/py.c:106 src/im/pinyin/fcitx-pinyin.conf.in:3
+#: src/im/pinyin/pinyin.conf.in:3 src/im/pinyin/fcitx-pinyin.desc:1
+#: src/im/pinyin/fcitx-pinyin.desc:15 src/im/pinyin/fcitx-pinyin.desc:20
+#: src/im/pinyin/fcitx-pinyin.desc:25 src/im/pinyin/fcitx-pinyin.desc:30
+#: src/im/pinyin/fcitx-pinyin.desc:35 src/im/pinyin/fcitx-pinyin.desc:40
+#: src/im/pinyin/fcitx-pinyin.desc:45 src/im/pinyin/fcitx-pinyin.desc:50
+#: src/im/pinyin/fcitx-pinyin.desc:55 src/im/pinyin/fcitx-pinyin.desc:64
+#: src/im/pinyin/fcitx-pinyin.desc:73 src/im/pinyin/fcitx-pinyin.desc:82
+#: src/im/pinyin/fcitx-pinyin.desc:87 src/im/pinyin/fcitx-pinyin.desc:92
+#: src/im/pinyin/fcitx-pinyin.desc:97 src/im/pinyin/fcitx-pinyin.desc:102
+#: src/im/pinyin/fcitx-pinyin.desc:107 src/im/pinyin/fcitx-pinyin.desc:112
+#: src/im/pinyin/fcitx-pinyin.desc:117 src/im/pinyin/fcitx-pinyin.desc:122
+#: src/im/pinyin/fcitx-pinyin.desc:127 src/im/pinyin/fcitx-pinyin.desc:132
+#: src/im/pinyin/fcitx-pinyin.desc:137 src/im/pinyin/fcitx-pinyin.desc:142
+msgid "Pinyin"
+msgstr "پىنيىن"
+
+#: src/im/pinyin/py.c:121 src/im/pinyin/shuangpin.conf.in:3
+msgid "Shuangpin"
+msgstr "قوش يېزىش"
+
+#: src/im/pinyin/py.c:393
+msgid "Cannot find System Database of Pinyin!"
+msgstr "سىستېمىنىڭ پىنيىنچە سۆزلۈك ئامبىرىنى تاپقىلى بولمىدى!"
+
+#: src/im/pinyin/py.c:457
+msgid "Pinyin Index Magic Number Doesn't match"
+msgstr "پىنيىن ئىندېكسىنىڭ Magic Number ماس كەلمەيدۇ."
+
+#: src/im/pinyin/py.c:729
+msgid "Press index to delete user phrase (ESC for cancel)"
+msgstr ""
+"ئىندېكسنى بېسىپ ئىشلەتكۈچى سۆز بىرىكمىسىنى ئۆچۈرۈش (ESC نى بېسىپ بىكار "
+"قىلىڭ) "
+
+#: src/im/pinyin/py.c:743
+msgid "Press number to make word in frequent list"
+msgstr "تۆۋەندىكى سانلارنى بېسىپ دائىملىق سۆز جەدۋىلىگە قوشۇڭ"
+
+#: src/im/pinyin/py.c:769
+#, c-format
+msgid "Press 1 to delete %s in frequent list (ESC for cancel)"
+msgstr ""
+"1نى بېسىپ دائىم قوللىنىدىغان يېزىق جەدۋىلىدىكى %sنى ئۆچۈرۈڭ (ESC نى بېسىپ "
+"بىكار قىلىڭ)"
+
+#: src/im/pinyin/py.c:771
+#, c-format
+msgid "Press 1-%d to delete %s in frequent list (ESC for cancel)"
+msgstr ""
+"1-%dنى بېسىپ دائىملىق سۆز جەدۋىلىدىكى %sنى ئۆچۈرۈڭ (ESCنى بېسىپ بىكار قىلىڭ)"
+
+#: src/im/pinyin/py.c:1672
+#, c-format
+msgid "Cannot Save User Pinyin Database: %s"
+msgstr "ئىشلەتكۈچى سۆزلۈك ئامبىرىنى ساقلىغىلى بولمىدى: %s"
+
+#: src/im/pinyin/py.c:1735
+#, c-format
+msgid "Cannot Save Frequent word: %s"
+msgstr "سۆز تەكرارلىقىنى ساقلىغىلى بولمىدى: %s"
+
+#: src/im/pinyin/py.c:1798
+#, c-format
+msgid "Cannot Save Pinyin Index: %s"
+msgstr "پىنيىن ئىندېكسىنى ساقلىغىلى بولمىدى: %s"
+
+#: src/im/pinyin/py.c:2059
+msgid "Remind: "
+msgstr "بىرلەشتۈرۈپ ئويلاش"
+
+#: src/im/pinyin/py.c:2141
+msgid "Migrate the old file path to the new one"
+msgstr "كونا ھۆججەتنى يۆتكەش يولىنى يېڭى ھۆججەت يولىغا يۆتكەش "
+
+#: src/im/qw/qw.c:64 src/im/qw/fcitx-qw.conf.in:3 src/im/qw/qw.conf.in:3
+msgid "Quwei"
+msgstr "رايون"
+
+#: src/im/table/table.c:596
+msgid ""
+"Left/Right to choose selected character, Press Enter to confirm, Press "
+"Escape to Cancel"
+msgstr ""
+"سول/ئوڭ بويىچە تاق خەت تاللاڭ، مۇقىمداش كۇنۇپكسىنى بېسىپ جەزملەڭ، Escape نى "
+"بېسىپ ئەمەلدىن قالدۇرۇڭ"
+
+#: src/im/table/table.c:621
+msgid "Pinyin: "
+msgstr "پىنيىن:"
+
+#: src/im/table/table.c:645
+msgid "Cannot found Pinyin"
+msgstr "پىنيىن تېپىلمىدى"
+
+#: src/im/table/table.c:705
+msgid "Choose the phrase to be put in the front, Press Escape to Cancel"
+msgstr "ئالدىغا قويۇلغان جۈملىنى تاللاڭ ، Escape نى بېسىپ بىكار قىلىڭ"
+
+#: src/im/table/table.c:713
+msgid "Choose the phrase to be deleted, Press Escape to Cancel"
+msgstr ""
+"ئۆچۈرمەكچى بولغان سۆز بىرىكمىسىنى تاللاپ، Escape نى بېسىپ ئەمەلدىن قالدۇرۇڭ"
+
+#: src/im/table/table.c:721
+msgid "Choose the phrase to clear typing history, Press Escape to Cancel"
+msgstr ""
+"كىرگۈزۈش چاستوتىسىنى تازىلىماقچى بولغان سۆز بىرىكمىلىرىنى تاللاپ، Escape نى "
+"بېسىپ ئەمەلدىن قالدۇرۇڭ. "
+
+#: src/im/table/table.c:1287
+msgid "Remind:"
+msgstr "بىرلەشتۈرۈپ ئويلاش:"
+
+#: src/im/table/table.c:1395
+msgid "Phrase is already in Dict "
+msgstr "سۆز بىرىكمىسى كود جەدۋىلىدە"
+
+#: src/im/table/table.c:1399
+msgid "Code is "
+msgstr "كودى"
+
+#: src/im/table/table.c:1403
+msgid " Ctrl+Delete To Delete"
+msgstr "Ctrl+Delete نى بېسىپ ئۆچۈرۈڭ"
+
+#: src/im/table/tabledict.c:41
+msgid "Loading Table Dict"
+msgstr "كود جەدۋىلى لۇغىتى يۈكلىنىۋاتىدۇ"
+
+#: src/im/table/tabledict.c:248
+msgid "Load Table Dict OK"
+msgstr "كود جەدۋىلى ھۆججىتى يۈكلەندى"
+
+#: src/im/table/tabledict.c:285
+msgid "Loading Autophrase."
+msgstr "ئاپتوماتىك بىرىكمە سۆز ئۇچۇرىنى يۈكلەۋاتىدۇ"
+
+#: src/im/table/tabledict.c:341
+msgid "Load Autophrase OK"
+msgstr "ئاپتوماتىك بىرىكمە سۆز ئۇچۇرى يۈكلەندى"
+
+#: src/im/table/tabledict.c:372
+msgid "Save dict error"
+msgstr "كود جەدۋىلىنى ساقلاشتا خاتالىق كۆرۈلدى"
+
+#: src/im/table/tabledict.c:466
+msgid "Rename OK"
+msgstr "ناملاندى"
+
+#: src/lib/fcitx/addon.c:138
+#, c-format
+msgid "Addon Config %s is %s"
+msgstr "Addon Config %s is %s"
+
+#: src/lib/fcitx/addon.c:151
+#, c-format
+msgid "Load Addon Config File:%s"
+msgstr "قوشۇمچە زاپچاس سەپلىمە ھۆججىتى يۈكلەندى: %s"
+
+#: src/lib/fcitx/addon.c:298
+#, c-format
+msgid "Disable addon %s, dependency %s cannot be satisfied."
+msgstr "چەكلەنگەن قىستۇرما %s، %sگە تايىنىپ ئىشلىيەلمەيدۇ."
+
+#: src/lib/fcitx-config/fcitx-config.c:376
+msgid "Enum option duplicated."
+msgstr "ساناش تۈرى تەكرارلىنىشى"
+
+#: src/lib/fcitx-config/fcitx-config.c:386
+msgid "Enum option number must larger than 0"
+msgstr "ساناش تاللاش سانى 0 دىن چوڭ بولۇشى كېرەك."
+
+#: src/lib/fcitx-config/fcitx-config.c:400
+msgid "Enum Option is invalid, take it as string"
+msgstr ""
+"ساناش تۈرى قائىدىگە ئۇيغۇن ئەمەس، تىپىنى ھەرپ-بەلگە تىزىقى قىلىپ بىر تەرەپ "
+"قىلسۇن"
+
+#: src/lib/fcitx-config/fcitx-config.c:406
+#, c-format
+msgid "Unknown type, take it as string: %s"
+msgstr "نامەلۇم تىپ ھەرپ-بەلگە تىزىقى سۈپىتىدە بىر تەرەپ قىلىندى: %s"
+
+#: src/lib/fcitx-config/fcitx-config.c:410
+msgid "Missing type, take it as string"
+msgstr "كەم تىپ ھەرپ-بەلگە تىزىقى ئورنىدا بىر تەرەپ قىلىندى"
+
+#: src/lib/fcitx-config/fcitx-config.c:894
+#, c-format
+msgid "Configure group name error: line %d"
+msgstr "سەپلىمە گۇرۇپپىسى نامى خاتا: %d-قۇر"
+
+#: src/lib/fcitx-config/fcitx-config.c:901
+#, c-format
+msgid "Duplicate group name, merge with the previous: %s :line %d"
+msgstr ""
+"گۇرۇپپا نامى قايتىلىنىپ قالغاچقا، بۇرۇنقى گۇرۇپپا نامى بىلەن قوشۇۋېتىلدى: "
+"%s، %d-قۇر"
+
+#: src/lib/fcitx-config/fcitx-config.c:922
+#, c-format
+msgid "Invalid Entry: line %d missing '='"
+msgstr "سەپلىمە تۈرى قائىدىگە خىلاپ: %d-قۇردا '=' كەم"
+
+#: src/lib/fcitx-config/fcitx-config.c:968
+#, c-format
+msgid "Duplicate option, overwrite: line %d"
+msgstr "قايتىلانغان سەپلىمە تۈرى، باستۇرۇش: %d-قۇر"
+
+#: src/lib/fcitx-config/fcitx-config.c:1136
+#, c-format
+msgid "Option %s is Invalid, Use Default Value %s"
+msgstr ""
+"%s سەپلىمە تۈرى قائىدىگە ئۇيغۇن ئەمەس، سۈكۈتتىكى قىممەت %s ئىشلىتىلىدۇ"
+
+#: src/lib/fcitx-config/fcitx-config.c:1144
+#, c-format
+msgid "Option %s is Invalid."
+msgstr "%s سەپلىمە تۈرى قائىدىگە ئۇيغۇن ئەمەس"
+
+#: src/lib/fcitx-config/fcitx-config.c:1180
+#: src/lib/fcitx-config/fcitx-config.c:1187
+msgid "Available Value:"
+msgstr "تاللانما قىممەت:"
+
+#: src/lib/fcitx-config/fcitx-config.c:1200
+#, c-format
+msgid "no default option for %s/%s"
+msgstr "%s/%sتاللانمىنىڭ سۈكۈتتىكى تاللىشى يوق"
+
+#: src/lib/fcitx/frontend.c:530
+#, c-format
+msgid "Frontend: open %s fail %s"
+msgstr "ئالدى تېرمىنال: %sنى ئاچالمىدى %s"
+
+#: src/lib/fcitx/frontend.c:542
+msgid "Frontend: bad frontend"
+msgstr "ئالدى تېرمىنال: ئالدىنقى ئۇچتا مەسىلە بار"
+
+#: src/lib/fcitx/frontend.c:565
+msgid "No available frontend"
+msgstr "ئىشلەتكىلى بولىدىغان ئالدى تېرمىنال يوق"
+
+#: src/lib/fcitx/ime.c:303
+#, c-format
+msgid "IM: open %s fail %s"
+msgstr "كىرگۈزگۈچ: %sنى ئاچالمىدى %s"
+
+#: src/lib/fcitx/ime.c:322
+#, c-format
+msgid "IM: bad im %s"
+msgstr "كىرگۈزگۈچ: مەسىلە بار كىرگۈزگۈچ %s"
+
+#: src/lib/fcitx/ime.c:536
+msgid "No available Input Method"
+msgstr "كىرگۈزگۈچ يوق"
+
+#: src/lib/fcitx/ime.c:1719 src/module/notificationitem/notificationitem.c:410
+#: data/fcitx-autostart.desktop.in:3 data/fcitx.desktop.in:3
+msgid "Input Method"
+msgstr "كىرگۈزگۈچ"
+
+#: src/lib/fcitx/ime.c:1821
+msgid "Input Speed: "
+msgstr "كىرگۈزۈش سۈرئىتى:"
+
+#: src/lib/fcitx/ime.c:1824
+msgid "/min  Time Used: "
+msgstr "/مىنۇت، كەتكەن ۋاقىت:"
+
+#: src/lib/fcitx/ime.c:1827
+msgid "min Num of Characters: "
+msgstr "مىنۇت ھەرپ-خەت سانى:"
+
+#: src/lib/fcitx/instance.c:286 src/lib/fcitx/instance.c:555
+msgid "Use remind"
+msgstr "بىرلەشتۈرۈپ ئويلاش"
+
+#: src/lib/fcitx/instance.c:286 src/lib/fcitx/instance.c:555
+msgid "No remind"
+msgstr "بىرلەشتۈرۈپ ئويلىمىسۇن"
+
+#: src/lib/fcitx/instance.c:287 src/lib/fcitx/instance.c:556
+msgid "Toggle Remind"
+msgstr "بىرلەشتۈرۈپ ئويلىسۇن"
+
+#: src/lib/fcitx/instance.c:531
+msgid "pthread mutex init failed"
+msgstr "pthread mutex init failed"
+
+#: src/lib/fcitx/module.c:61
+#, c-format
+msgid "Module: open %s fail %s"
+msgstr "مودۇل: %sنى ئېچىش مەغلۇپ بولدى%s"
+
+#: src/lib/fcitx/module.c:73
+msgid "Module: bad module"
+msgstr "مودۇل: مەسىلە بار مودۇل"
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:161
+msgid "Clear"
+msgstr "قۇرۇقداش"
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:314
+msgid "Left"
+msgstr "سول"
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:316
+msgid "Right"
+msgstr "ئوڭ"
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:358
+msgid "Empty"
+msgstr "قۇرۇق"
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:401
+msgid "The key you just pressed is not supported by Qt."
+msgstr "سىز بايا ئىشلەتكەن كۇنۇپكىنى Qt قوللىمايدۇ."
+
+#: src/lib/fcitx-qt/fcitxqtkeysequencewidget.cpp:402
+msgid "Unsupported Key"
+msgstr "قوللىمايدۇ"
+
+#: src/lib/fcitx/ui.c:192
+#, c-format
+msgid "UI: open %s fail %s"
+msgstr "كۆرۈنمە يۈر: %sنى ئېچىش مەغلۇپ بولدى%s"
+
+#: src/lib/fcitx/ui.c:205
+msgid "UI: bad ui"
+msgstr "كۆرۈنمە يۈز: كۆرۈنمە يۈزدە مەسىلە بار"
+
+#: src/lib/fcitx-utils/desktop-parse.c:551
+#, c-format
+msgid "Invalid group name line @ line %d %s"
+msgstr "%d-قۇردا قائىدىگە خىلاپ گۇرۇپپا نامى بار: %s"
+
+#: src/lib/fcitx-utils/desktop-parse.c:563
+#, c-format
+msgid ""
+"Duplicate group %s in a desktop file,@ line %d, merge with previous one."
+msgstr ""
+"%sگۇرۇپپا نامى قايتىلىنىپ قالغان. @%d-قۇر، بۇرۇنقى گۇرۇپپا بىلەن "
+"قوشۇۋېتىلدى."
+
+#: src/lib/fcitx-utils/desktop-parse.c:587
+#, c-format
+msgid "Non-comment doesn't belongs to any group @ %d %s"
+msgstr "غەيرىي ئىزاھات ھېچقانداق گۇرۇپپىغا تەۋە ئەمەس %d%s"
+
+#: src/lib/fcitx-utils/desktop-parse.c:593
+#, c-format
+msgid "Invalid entry line @ line %d %s"
+msgstr "%d-قۇردا قائىدىگە خىلاپ كۇنۇپكا قىممىتى بار: %s"
+
+#: src/lib/fcitx-utils/desktop-parse.c:603
+#, c-format
+msgid "Duplicate entry %s in group %s,@ line %d, override previous one."
+msgstr ""
+"%sددە قايتىلىنىپ قالغان كۇنۇپكا %s بايقالدى، @%d-قۇر، بۇرۇنقى قىممەت بىلەن "
+"قوشۇۋېتىلدى."
+
+#: src/module/autoeng/AutoEng.c:557
+msgid "Too long item for AutoEng"
+msgstr "ئاپتوماتىك كۆرسەتكۈچ ئۇزۇن بولۇپ كەتتى"
+
+#: src/module/autoeng/AutoEng.c:686 src/module/quickphrase/quickphrase.c:456
+msgid "Press Enter to input text"
+msgstr "Enter نى بېسىپ تېكىست كىرگۈزۈڭ"
+
+#: src/module/chttrans/chttrans.c:151 src/module/chttrans/chttrans.c:197
+#: src/module/chttrans/chttrans.c:244
+msgid "Switch to Simplified Chinese"
+msgstr "ئاددىيلاشتۇرۇلغان خەنزۇچىغا ئالماشتۇرۇش"
+
+#: src/module/chttrans/chttrans.c:152 src/module/chttrans/chttrans.c:198
+#: src/module/chttrans/chttrans.c:245
+msgid "Switch to Traditional Chinese"
+msgstr "مۇرەككەپ خەنزۇچىغا ئالماشتۇرۇش"
+
+#: src/module/chttrans/chttrans.c:153 src/module/chttrans/chttrans.c:199
+#: src/module/chttrans/chttrans.c:246
+msgid "Toggle Simp/Trad Chinese Conversion"
+msgstr "ئاددىي-مۇرەككەپلەشتۈرۈلگىنى ئالماشتۇرۇش"
+
+#: src/module/chttrans/chttrans.c:177
+#: src/module/chttrans/fcitx-chttrans.conf.in:3
+msgid "Simplified Chinese To Traditional Chinese"
+msgstr "ئالماشتۇرۇش"
+
+#: src/module/chttrans/chttrans.c:178
+msgid "Traditional Chinese is enabled."
+msgstr "مۇرەككەپ خەنزۇچە قوزغىتىلدى"
+
+#: src/module/chttrans/chttrans.c:179
+msgid "Simplified Chinese is enabled."
+msgstr "ئاددىيلاشتۇرۇلغان خەنزۇچە قوزغىتىلدى"
+
+#: src/module/clipboard/clipboard.c:372
+msgid "Select to paste"
+msgstr "تاللاپ كۆچۈرۈش"
+
+#: src/module/freedesktop-notify/freedesktop-notify.c:620
+msgid "Do not show again"
+msgstr "ئەمدى كۆرۈنمىسۇن"
+
+#: src/module/fullwidthchar/fullwidthchar.c:114
+#: src/module/fullwidthchar/fullwidthchar.c:191
+msgid "Full width Character"
+msgstr "ئىككى بايتلىق ھەرپ-بەلگە"
+
+#: src/module/fullwidthchar/fullwidthchar.c:114
+#: src/module/fullwidthchar/fullwidthchar.c:191
+msgid "Half width Character"
+msgstr "بىر بايتلىق ھەرپ-بەلگە"
+
+#: src/module/fullwidthchar/fullwidthchar.c:115
+#: src/module/fullwidthchar/fullwidthchar.c:192
+msgid "Toggle Half/Full width Character"
+msgstr "بىر بايتلىق، ئىككى بايتلىق بويىچە ئالماشتۇرۇش"
+
+#: src/module/imselector/imselector.c:305
+msgid "Select global input method: "
+msgstr "پۈتۈن كىرگۈزگۈچنى تاللاش:"
+
+#: src/module/imselector/imselector.c:306
+msgid "Select local input method: "
+msgstr "قىسمەن كىرگۈزگۈچنى تاللاش:"
+
+#: src/module/imselector/imselector.c:312
+msgid "Current local input method is "
+msgstr "نۆۋەتتىكى قىسمەن كىرگۈزگۈچ:"
+
+#: src/module/imselector/imselector.c:316
+msgid "No local input method"
+msgstr "قىسمەن كىرگۈزگۈچ يوق"
+
+#: src/module/imselector/imselector.c:326
+msgid "Clear local input method"
+msgstr "قىسمەن كىرگۈزگۈچنى قۇرۇقداش"
+
+#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
+msgid "Online Help"
+msgstr "توردا ياردەم"
+
+#: src/module/notificationitem/dbusmenu.c:386 src/ui/classic/classicui.c:525
+msgid "Configure"
+msgstr "سەپلىمە"
+
+#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/ui/kimpanel/kimpanel.c:796
+msgid "Restart"
+msgstr "قايتا قوزغىتىش"
+
+#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
+msgid "Exit"
+msgstr "چېكىنىش"
+
+#: src/module/notificationitem/notificationitem.c:454
+#: src/ui/kimpanel/kimpanel.c:256 src/ui/kimpanel/kimpanel.c:257
+msgid "No input window"
+msgstr "كىرگۈزۈش كۆزنىكى يوق"
+
+#: src/module/notificationitem/notificationitem.c:460
+#: src/ui/kimpanel/kimpanel.c:282 src/ui/kimpanel/kimpanel.c:287
+#: data/config.desc:34
+msgid "Disabled"
+msgstr "چەكلەنگەن"
+
+#: src/module/notificationitem/notificationitem.c:461
+#: src/ui/kimpanel/kimpanel.c:283 src/ui/kimpanel/kimpanel.c:288
+msgid "Input Method Disabled"
+msgstr "كىرگۈزگۈچ چەكلەنگەن"
+
+#: src/module/punc/punc.c:148 src/module/punc/punc.c:567
+msgid "Full width punct"
+msgstr "ئىككى بايتلىق تىنىش بەلگىسى"
+
+#: src/module/punc/punc.c:149 src/module/punc/punc.c:568
+msgid "Latin punct"
+msgstr "ئېنگلىزچە تىنىش بەلگىسى"
+
+#: data/config.desc:114
+#: src/module/punc/punc.c:150 src/module/punc/punc.c:569
+msgid "Switch Fullwidth Punctuation"
+msgstr "ئىككى بايتلىق تىنىش بەلگىسىگە ئالماشتۇرۇش"
+
+#: src/module/punc/punc.c:410
+msgid "Can't open punc file."
+msgstr "تىنىش بەلگىسى ھۆججىتىنى ئاچالمىدى"
+
+#: src/module/punc/punc.c:585 src/module/punc/fcitx-punc.conf.in:3
+msgid "Punctuation Support"
+msgstr "تىنىش بەلگىلىرى ياردىمى"
+
+#: src/module/punc/punc.c:586
+msgid "Full width punctuations are used."
+msgstr "ئىككى بايتلىق تىنىش بەلگىسى قوزغىتىلدى."
+
+#: src/module/punc/punc.c:587
+msgid "Latin punctuations are used."
+msgstr "بىر بايتلىق تىنىش بەلگىسى قوزغىتىلدى."
+
+#: src/module/quickphrase/quickphrase.c:247
+#, c-format
+msgid "Space for %s Enter for %s"
+msgstr ""
+"%sنى بوشلۇق كۇنۇپكىسى بىلەن كىرگۈزۈش، %sنى Enter كۇنۇپكىسى بىلەن كىرگۈزۈش"
+
+#: src/module/quickphrase/quickphrase.c:378
+msgid "Quick Phrase: "
+msgstr "تېز كىرگۈزۈش:"
+
+#: src/module/remote/remote.c:70
+#, c-format
+msgid "Can't open socket %s: %s"
+msgstr "Socket ئېچىلمىدى %s: %s"
+
+#: src/module/unicode/charselectdata.c:245
+msgid "<Non Private Use High Surrogate>"
+msgstr "<Non Private Use High Surrogate>"
+
+#: src/module/unicode/charselectdata.c:247
+msgid "<Private Use High Surrogate>"
+msgstr "<مەخسۇس يۇقىرى يېرىم ۋاكالەت رايونى>"
+
+#: src/module/unicode/charselectdata.c:249
+msgid "<Low Surrogate>"
+msgstr "<تۆۋەن يېرىم ۋاكالەت رايونى>"
+
+#: src/module/unicode/charselectdata.c:251
+msgid "<Private Use>"
+msgstr "<مەخسۇس رايون>"
+
+#: src/module/unicode/charselectdata.c:279
+msgid "<not assigned>"
+msgstr "<بەلگىلەنمىگەن>"
+
+#: src/module/unicode/unicode.c:272
+msgid "Search unicode"
+msgstr "unicode ئىزدەش"
+
+#: src/module/vk/vk.c:51
+msgid "Latin"
+msgstr "لاتىن ھەرىپى"
+
+#: src/module/vk/vk.c:52
+msgid "Fullwidth"
+msgstr "ئىككى بايتلىق ھەرپ-بەلگە"
+
+#: src/module/vk/vk.c:53
+msgid "Greek"
+msgstr "گېرىكچە"
+
+#: src/module/vk/vk.c:54
+msgid "Russian"
+msgstr "روسچە"
+
+#: src/module/vk/vk.c:55
+msgid "Index"
+msgstr "ئىندېكىس"
+
+#: src/module/vk/vk.c:56
+msgid "Math"
+msgstr "ماتىماتىكىلىق بەلگىلەر"
+
+#: src/module/vk/vk.c:57
+msgid "Number"
+msgstr "سان"
+
+#: src/module/vk/vk.c:58
+msgid "Special"
+msgstr "ئالاھىدە بەلگە"
+
+#: src/module/vk/vk.c:59
+msgid "Hiragana"
+msgstr "ئادەتتىكى ساختا نام"
+
+#: src/module/vk/vk.c:60
+msgid "Katakana"
+msgstr "قىسمەن ساختا نام"
+
+#: src/module/vk/vk.c:61
+msgid "Table Symbol"
+msgstr "جەدۋەل ياساش بەلگىسى"
+
+#: src/module/vk/vk.c:154
+msgid "Toggle Virtual Keyboard"
+msgstr "مەۋھۇم كۇنۇپكىغا ئالماش"
+
+#: src/module/vk/vk.c:154
+msgid "Virtual Keyboard State"
+msgstr "مەۋھۇم كۇنۇپكا ھالىتى"
+
+#: src/module/vk/vk.c:179
+msgid "Virtual Keyboard"
+msgstr "مەۋھۇم كۇنۇپكا"
+
+#: src/module/vk/vk.c:212
+msgid "Close virtual keyboard"
+msgstr "مەۋھۇم كۇنۇپكىنى تاقاش"
+
+#: src/module/xkbdbus/xkbdbus.c:258
+msgid "English (US)"
+msgstr "ئېنگلىزچە (ئامېرىكا)"
+
+#: src/ui/cairostuff/font.c:46
+msgid "Error: Load fontconfig failed"
+msgstr "خاتالىق: fontconfig يۈكلەنمىدى"
+
+#: src/ui/cairostuff/font.c:119
+#, c-format
+msgid "your current font is: %s"
+msgstr "نۆۋەتتىكى خەت شەكلى: %s"
+
+#: src/ui/cairostuff/font.c:121
+msgid "no valid font."
+msgstr "ئىشلەتكىلى بولىدىغان خەت شەكلى يوق"
+
+#: src/ui/classic/fcitx-skin-installer.sh:50
+msgid "Error: skin file should only contain one directory."
+msgstr ""
+"خاتالىق: تېرە ھۆججىتى پەقەت بىرلا مۇندەرىجىنى ئۆز ئىچىگە ئېلىشى كېرەك."
+
+#: src/ui/classic/fcitx-skin-installer.sh:55
+msgid "Error: skin file doesn't contain skin config."
+msgstr "خاتالىق: تېرە ھۆججىتى تېرە سەپلىمىسىنى ئۆز ئىچىگە ئالمايدۇ. "
+
+#: src/ui/classic/fcitx-skin-installer.sh:64
+#, sh-format
+msgid ""
+"Error: $HOME or $XDG_CONFIG_HOME is not set, cannot determine the install "
+"path"
+msgstr ""
+"خاتالىق: $HOME ياكى $XDG_ CONFIG_ HOME تەڭشەلمىگەن، قاچىلاش يولىنى "
+"جەزىملەشتۈرگىلى بولمايدۇ."
+
+#: src/ui/classic/fcitx-skin-installer.sh:74
+msgid "Successfully Installed skin"
+msgstr "تېرە قاچىلاندى"
+
+#: src/ui/classic/fcitx-skin-installer.sh:76
+msgid "Error: skin failed to install"
+msgstr "خاتالىق: تېرە قاچىلانمىدى"
+
+#: src/ui/classic/skin.c:125
+msgid "Cannot load default skin, is installation correct?"
+msgstr "سۈكۈتتكى تېرە يۈكلەنمىدى، توغرا قاچىلىدىڭىزمۇ؟"
+
+#: src/ui/classic/skin.c:130
+#, c-format
+msgid "Cannot load skin %s, return to default"
+msgstr "%s تېرە يۈكلەنمىدى، سۈكۈتتىكىگە قايتۇرۇلدى"
+
+#: src/ui/classic/skin.c:708 src/ui/classic/fcitx-classic-ui.conf.in:10
+msgid "Skin"
+msgstr "تېرە"
+
+#: src/ui/classic/tray.c:160
+#, c-format
+msgid "X error %i on opcode send"
+msgstr "X error %i on opcode send"
+
+#: src/ui/kimpanel/kimpanel.c:398 data/fcitx-autostart.desktop.in:2
+#: data/fcitx.desktop.in:2
+msgid "Fcitx"
+msgstr "كىرگۈزگۈچ"
+
+#: src/ui/kimpanel/kimpanel.c:782
+msgid "Toggle Input Method"
+msgstr "كىرگۈزگۈچ ئالماشتۇرۇش"
+
+#: tools/gui/wrapper/mainwindow.cpp:40
+msgid "&Save"
+msgstr "ساقلاش(&S)"
+
+#: tools/gui/wrapper/mainwindow.cpp:41
+msgid "&Reset"
+msgstr "قايتا تەڭشەش(&R)"
+
+#: tools/gui/wrapper/mainwindow.cpp:42
+msgid "&Close"
+msgstr "تاقاش(&C)"
+
+#: data/fcitx-autostart.desktop.in:4 data/fcitx.desktop.in:4
+msgid "Start Input Method"
+msgstr "كىرگۈزگۈچنى قوزغىتىش"
+
+#: data/fcitx-configtool.desktop.in:2
+msgid "Fcitx Configuration"
+msgstr "كىرگۈزگۈچ سەپلىمىسى"
+
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
+msgid "Input Method Configuration"
+msgstr "كىرگۈزگۈچ سەپلىمىسى"
+
+#: data/fcitx-configtool.desktop.in:4
+msgid "Change Fcitx Configuration"
+msgstr "كىرگۈزگۈچ سەپلىمىسىنى ئۆزگەرتىش"
+
+#: skin/classic/fcitx_skin.conf.in:2 src/ui/classic/fcitx-classic-ui.conf.in:3
+msgid "Classic"
+msgstr "كىلاسسىك"
+
+#: skin/classic/fcitx_skin.conf.in:5
+msgid "Classic Skin"
+msgstr "كىلاسسىك تېرە"
+
+#: skin/dark/fcitx_skin.conf.in:2 skin/dark/fcitx_skin.conf.in:5
+msgid "Dark"
+msgstr "قارا"
+
+#: skin/default/fcitx_skin.conf.in:2 src/module/spell/fcitx-spell.desc:5
+msgid "Default"
+msgstr "سۈكۈتتىكى"
+
+#: skin/default/fcitx_skin.conf.in:5
+msgid "Default Skin"
+msgstr "سۈكۈتتىكى تېرە"
+
+#: src/frontend/ipc/fcitx-ipc.conf.in:3
+msgid "Fcitx DBus Frontend"
+msgstr "DBus كىرگۈزگۈچنىڭ ئالدى تېرمىنالى"
+
+#: src/frontend/ipc/fcitx-ipc.conf.in:4
+#: src/frontend/ipcportal/fcitx-ipcportal.conf.in:4
+msgid "Frontend Used by IM Modules"
+msgstr "كىرگۈزگۈچ مودۇلىنى ئىشلىتىش ئالدى تېرمىنالى"
+
+#: src/frontend/ipcportal/fcitx-ipcportal.conf.in:3
+msgid "Fcitx DBus Frontend (Portal version)"
+msgstr "DBus كىرگۈزگۈچنىڭ ئالدى تېرمىنالى (Portal نەشرى)"
+
+#: src/frontend/xim/fcitx-xim.conf.in:3
+msgid "Fcitx XIM Frontend"
+msgstr "XIM كىرگۈزگۈچنىڭ ئالدى تېرمىنالى"
+
+#: src/frontend/xim/fcitx-xim.conf.in:4
+msgid "Provides XIM support"
+msgstr "XIM ياردىمى"
+
+#: src/im/keyboard/fcitx-keyboard.conf.in:3
+msgid "Keyboard Layout"
+msgstr "كۇنۇپكا ئورۇنلاشتۇرۇشى"
+
+#: src/im/keyboard/fcitx-keyboard.conf.in:4
+msgid "Use Keyboard Layout as Input Method"
+msgstr "كىرگۈزۈش ئۇسۇلى سۈپىتىدە كۇنۇپكا تاختىسىنى ئىشلىتىڭ"
+
+#: src/im/pinyin/fcitx-pinyin.conf.in:4
+msgid "Simple Pinyin support for Fcitx"
+msgstr "كىرگۈزگۈچ  ئاددىي پىنيىننى قوللاش"
+
+#: src/im/pinyin/fcitx-pinyin.conf.in:9
+msgid "Shuang Pin Schema"
+msgstr "قوش پىنيىن لايىھەسىنى سۈكۈتتىكىسى قىلىش"
+
+#: src/im/qw/fcitx-qw.conf.in:4
+msgid "Quwei Input Method for Fcitx"
+msgstr "كىرگۈزگۈچنىڭ رايون ئورنى بويىچە كىرگۈزۈش ئۇسۇلى"
+
+#: src/im/table/data/cangjie.conf.in:3
+msgid "Cangjie"
+msgstr "ئامبار"
+
+#: src/im/table/data/db.conf.in:3
+msgid "Dianbaoma"
+msgstr "تېلېگرامما كودى"
+
+#: src/im/table/data/erbi.conf.in:3
+msgid "Erbi"
+msgstr "ئىككى بىخۇالىق"
+
+#: src/im/table/data/qxm.conf.in:3
+msgid "Bingchan"
+msgstr "بىڭچەن"
+
+#: src/im/table/data/wanfeng.conf.in:3
+msgid "Wanfeng"
+msgstr "فىڭۋەن"
+
+#: src/im/table/data/wbpy.conf.in:3
+msgid "WubiPinyin"
+msgstr "ۋۇبى پىنيىن"
+
+#: src/im/table/data/wbx.conf.in:3
+msgid "Wubi"
+msgstr "ۋۇبى خەت شەكلى"
+
+#: src/im/table/data/zrm.conf.in:3 src/im/pinyin/fcitx-pinyin.desc:4
+msgid "Ziranma"
+msgstr "تەبىئىي كود"
+
+#: src/im/table/fcitx-table.conf.in:3 src/im/table/fcitx-table.conf.in:10
+msgid "Table"
+msgstr "كود جەدۋىلى"
+
+#: src/im/table/fcitx-table.conf.in:4
+msgid "Table Input Method for Fcitx"
+msgstr "كىرگۈزگۈچنىڭ كود جەدۋىلىنى كىرگۈزۈش ئۇسۇلى"
+
+#: src/module/autoeng/fcitx-autoeng.conf.in:3
+msgid "Auto English Mode"
+msgstr "ئاپتوماتىك ئىنگلىزچە ھالەت"
+
+#: src/module/autoeng/fcitx-autoeng.conf.in:4
+msgid "Auto Change to English Mode while Input Specific String"
+msgstr ""
+"ئالاھىدە ھەرپ-بەلگە تىزىقىنى كىرگۈزگەندە ئىنگلىزچە شەكىلگە ئالماشتۇرۇش"
+
+#: src/module/autoeng/fcitx-autoeng.conf.in:9
+msgid "Auto English Trigger Word"
+msgstr "ئاپتوماتىك ئىنگلىزچە مودېلدا قوزغىتىلغان سۆز "
+
+#: src/module/chttrans/fcitx-chttrans.conf.in:4
+msgid "Convert Simplified Chinese To Traditional Chinese"
+msgstr "ئاددىيلاشتۇرۇلغان خەنزۇچىنى مۇرەككەپ خەنزۇچىغا ئالماشتۇرۇش"
+
+#: src/module/clipboard/fcitx-clipboard.conf.in:3
+#: src/module/clipboard/fcitx-clipboard.desc:1
+#: src/module/clipboard/fcitx-clipboard.desc:6
+#: src/module/clipboard/fcitx-clipboard.desc:13
+#: src/module/clipboard/fcitx-clipboard.desc:22
+#: src/module/clipboard/fcitx-clipboard.desc:27
+#: src/module/clipboard/fcitx-clipboard.desc:34
+#: src/module/clipboard/fcitx-clipboard.desc:44
+msgid "Clipboard"
+msgstr "چاپلاش تاختىسى"
+
+#: src/module/clipboard/fcitx-clipboard.conf.in:4
+msgid "Fcitx Clipboard access"
+msgstr "كىرگۈزگۈچ چاپلاش تاختىسىنى زىيارەت قىلىش ياردىمى"
+
+#: src/module/dbus/fcitx-dbus.conf.in:3
+msgid "DBus Support"
+msgstr "DBus ياردىمى"
+
+#: src/module/dbus/fcitx-dbus.conf.in:4
+msgid "Provides DBus Support (Used by other Addon)"
+msgstr "DBus ياردىمى بىلەن تەمىنلەش (باشقا قىستۇرما ئارقىلىق)"
+
+#: src/module/freedesktop-notify/fcitx-freedesktop-notify.conf.in:3
+msgid "Freedesktop.org Notification Support"
+msgstr "Freedesktop.org ئۈستەليۈزى ئەسكەرتىش ياردىمى"
+
+#: src/module/freedesktop-notify/fcitx-freedesktop-notify.conf.in:4
+msgid "Provides Freedesktop.org Notification Support (Used by other Addon)"
+msgstr ""
+"Freedesktop.org ئۈستەليۈزى ئەسكەرتىش ياردىمى بىلەن تەمىنلەش (باشقا قىستۇرما "
+"ئارقىلىق)"
+
+#: src/module/fullwidthchar/fcitx-fullwidth-char.conf.in:3
+msgid "Fullwidth Character"
+msgstr "ئىككى بايتلىق ھەرپ-بەلگە"
+
+#: src/module/fullwidthchar/fcitx-fullwidth-char.conf.in:4
+msgid "Provides Fullwidth Character Input Support"
+msgstr "ئىككى بايتلىق ھەرپ-بەلگە ياردىمى تەمىنلەش"
+
+#: src/module/imselector/fcitx-imselector.conf.in:3
+msgid "Input method selector"
+msgstr "كىرگۈزگۈچ تاللىغۇچ"
+
+#: src/module/imselector/fcitx-imselector.conf.in:4
+msgid "Select specific input method via keyboard"
+msgstr "كۇنۇپكا تاختىسى ئارقىلىق ئالاھىدە خەت كىرگۈزگۈچنى تاللاش"
+
+#: src/module/lua/fcitx-lua.conf.in:3
+msgid "Fcitx Lua Support"
+msgstr "كىرگۈزگۈچتىكى Lua ياردىمى"
+
+#: src/module/lua/fcitx-lua.conf.in:4
+msgid "Add Lua script support to Fcitx"
+msgstr "كىرگۈزگۈچكە Lua ياردىمى قوشۇش"
+
+#: src/module/notificationitem/fcitx-notificationitem.conf.in:3
+#: src/module/notificationitem/fcitx-notificationitem.conf.in:4
+msgid "DBus based new Freedesktop.org tray icon"
+msgstr "DBus ئاساسىدىكى يېڭى Freedesktop.org تەخسە سىنبەلگىسى"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
+msgid "Enchance pinyin input in Fcitx"
+msgstr "كىرگۈزگۈچنىڭ پىنيىن كىرگۈزگۈچىنى كۈچەيتىش"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
+msgid "Provide extra feature for pinyin in Fcitx"
+msgstr "كىرگۈزگۈچنىڭ پىنيىن كىرگۈزۈش ئىقتىدارىنى كۈچەيتىش"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:9
+#: src/im/table/table.desc:126
+msgid "Symbol"
+msgstr "بەلگە"
+
+#: src/module/punc/fcitx-punc.conf.in:4
+msgid "Punctuation Conversion Support"
+msgstr "تىنىش بەلگىلىرىنى ئالماشتۇرۇش ياردىمى"
+
+#: src/module/quickphrase/fcitx-quickphrase.conf.in:3
+msgid "Quickphrase"
+msgstr "تېز كىرگۈزۈش"
+
+#: src/module/quickphrase/fcitx-quickphrase.conf.in:4
+msgid "Conveniently Input English or User-Defined Simple Table"
+msgstr ""
+"قولايلىق ھالدا ئىنگلىز تىلى ياكى ئابونت ئېنىقلىمىسىنىڭ كود جەدۋىلىنى "
+"كىرگۈزۈش"
+
+#: src/module/quickphrase/fcitx-quickphrase.conf.in:9
+msgid "Quick Phrase List"
+msgstr "تېز كىرگۈزۈش تىزىملىكى"
+
+#: src/module/remote/fcitx-remote-module.conf.in:3
+msgid "Remote"
+msgstr "يىراقتىن يۆتكەپ ئىشلىتىش"
+
+#: src/module/remote/fcitx-remote-module.conf.in:4
+msgid "Used by fcitx-remote to change Fcitx state from console"
+msgstr ""
+"fcitx-remote بۇ ئارقىلىق بۇيرۇق قۇرىدىكى خەت كىرگۈزگۈچنىڭ ھالىتىنى "
+"ئۆزگەرتىدۇ"
+
+#: src/module/spell/fcitx-spell.conf.in:3
+msgid "Spell"
+msgstr "يېزىش"
+
+#: src/module/spell/fcitx-spell.conf.in:4
+msgid "Fcitx Spelling Hint/Completion Support"
+msgstr "خەت كىرگۈزگۈچنىڭ ئىملا ئەسكەرتمىسى/تۇلۇقلاش ياردىمى"
+
+#: src/module/unicode/fcitx-unicode.conf.in:3
+msgid "Fcitx Unicode Typing Support"
+msgstr "كىرگۈزگۈچنىڭ Unicode كىرگۈزۈش ياردىمى"
+
+#: src/module/unicode/fcitx-unicode.conf.in:4
+msgid "Add Unicode Typing Support"
+msgstr "Unicode لۇق كىرگۈزۈش ياردىمى قوشۇش"
+
+#: src/module/vk/fcitx-vk.conf.in:3 src/module/vk/fcitx-vk.conf.in:10
+msgid "Virtual Key Board"
+msgstr "مەۋھۇم كۇنۇپكا"
+
+#: src/module/vk/fcitx-vk.conf.in:4
+msgid "Virtual Key Board in order to input special character"
+msgstr ""
+"ئالاھىدە ھەرپ-بەلگە كىرگۈزۈش ئۈچۈن ئىشلىتىلىدىغان مەۋھۇم كۇنۇپكا تاختىسى"
+
+#: src/module/x11/fcitx-x11.conf.in:3
+msgid "X11 Support"
+msgstr "X11 ياردىمى"
+
+#: src/module/x11/fcitx-x11.conf.in:4
+msgid "X11 Utilitiy used by other Addon"
+msgstr "باشقا قىستۇرمىلار ئىشلىتىدىغان X11 قورالى فونكىسىەىسى "
+
+#: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
+#: src/module/xkbdbus/fcitx-xkbdbus.conf.in:4
+msgid "X Keyboard Integration export with DBus"
+msgstr ""
+"DBus ئارقىلىق كەلتۈرۈپ چىقىرىلغان X كۇنۇپكا تاختىسى توپلاشتۇرۇلغان ئۇلاش "
+"ئېغىزى"
+
+#: src/module/xkb/fcitx-xkb.conf.in:3 src/module/xkb/fcitx-xkb.conf.in:4
+msgid "X Keyboard Integration"
+msgstr "X كۇنۇپكا تاختىسىنى توپلاشتۇرۇش"
+
+#: src/ui/classic/fcitx-classic-ui.conf.in:4
+msgid "Classic User Interface with Skin support"
+msgstr "تېرە ياردىمى بار كىلاسسىك كۆرۈنمە يۈز"
+
+#: src/ui/classic/fcitx-skin-installer.desktop.in:3
+msgid "Fcitx Skin Installer"
+msgstr "كىرگۈزگۈچ تېرە قاچىلىغۇچ"
+
+#: src/ui/classic/fcitx-skin-installer.desktop.in:4
+msgid "Installer Script for Fcitx Skin"
+msgstr "كىرگۈزگۈچكە تېرە قاچىلىغۇچ"
+
+#: src/ui/kimpanel/fcitx-kimpanel-ui.conf.in:3
+msgid "Kimpanel"
+msgstr "Kimpanel"
+
+#: src/ui/kimpanel/fcitx-kimpanel-ui.conf.in:4
+msgid "Kimpanel Support for Fcitx"
+msgstr "كىرگۈزگۈچنىڭ Kimpanel ياردىمى"
+
+#: data/addon.desc:1 data/addon.desc:5 data/addon.desc:10 data/addon.desc:15
+#: data/addon.desc:24 data/addon.desc:29 data/addon.desc:33 data/addon.desc:40
+#: data/addon.desc:45 data/addon.desc:50 data/addon.desc:55 data/addon.desc:64
+#: data/addon.desc:69 data/addon.desc:74 data/addon.desc:79
+msgid "Add-ons"
+msgstr "قوشۇمچە زاپچاس"
+
+#: data/addon.desc:3 data/inputmethod.desc:7
+msgid "Name"
+msgstr "نامى"
+
+#: data/addon.desc:7
+msgid "Name that can be display in UI"
+msgstr "ئىشلەتكۈچى كۆرۈنمە يۈزىدە كۆرىنىدىغان نامى"
+
+#: data/addon.desc:12
+msgid "Comment"
+msgstr "تەسۋىر"
+
+#: data/addon.desc:18 data/inputmethod.desc:1 data/inputmethod.desc:5
+#: data/inputmethod.desc:9 data/inputmethod.desc:13 data/inputmethod.desc:17
+#: data/inputmethod.desc:21
+msgid "InputMethod"
+msgstr "كىرگۈزگۈچ"
+
+#: data/addon.desc:19
+msgid "Frontend"
+msgstr "ئالدى ئۇچ"
+
+#: data/addon.desc:20
+msgid "Module"
+msgstr "مودۇل"
+
+#: data/addon.desc:21
+msgid "UI"
+msgstr "كۆرۈنمە يۈز"
+
+#: data/addon.desc:22
+msgid "Category"
+msgstr "تۈرى"
+
+#: data/addon.desc:27
+msgid "Enabled"
+msgstr "قوزغىتىش"
+
+#: data/addon.desc:31
+msgid "Library"
+msgstr "ئامبار"
+
+#: data/addon.desc:36
+msgid "SharedLibrary"
+msgstr "ھەمبەھىر ئامبار"
+
+#: data/addon.desc:37
+msgid "DBus"
+msgstr "DBus"
+
+#: data/addon.desc:38
+msgid "Type"
+msgstr "تىپى"
+
+#: data/addon.desc:43
+msgid "Dependency"
+msgstr "تايىنىش"
+
+#: data/addon.desc:48
+msgid "Priority of addon"
+msgstr "قوشۇمچە زاپچاسنىڭ ئەلالىق دەرىجىسى"
+
+#: data/addon.desc:53
+msgid "Sub Configuration for Module"
+msgstr "مودۇلنىڭ قۇشۇمچە سەپلىمىسى"
+
+#: data/addon.desc:58
+msgid "Register IM"
+msgstr "كىرگۈزگۈچكە تىزىملىتىش ئۇسۇلى"
+
+#: data/addon.desc:60
+msgid "Self"
+msgstr "تەمىنلىگەن"
+
+#: data/addon.desc:61
+msgid "Exec"
+msgstr "Exec"
+
+#: data/addon.desc:62
+msgid "ConfigFile"
+msgstr "سەپلىمە ھۆججەت"
+
+#: data/addon.desc:67
+msgid "Argument for InputMethod Register"
+msgstr "كىرگۈزگۈچكە تىزىملىتىشتىكى پارامېتىرلار"
+
+#: data/addon.desc:72
+msgid "Fallback UI Addon"
+msgstr "زاپاس كۆرۈنمە يۈز قوشۇمچە بىرىكمە زاپچىسى"
+
+#: data/addon.desc:77
+msgid "Use RTLD_LOCAL to load library"
+msgstr "RTLD_GLOBAL يۈكلەش ئامبىرىنى ئىشلىتىش"
+
+#: data/addon.desc:82
+msgid "Do not show in GUI"
+msgstr "گىرافىك كۆرۈنمە يۈزدە كۆرۈنمىسۇن"
+
+#: data/config.desc:1 data/config.desc:7 data/config.desc:13
+#: data/config.desc:39 data/config.desc:46 data/config.desc:53
+#: data/config.desc:60 data/config.desc:65 data/config.desc:71
+#: data/config.desc:81 data/config.desc:87 data/config.desc:93
+#: data/config.desc:99 data/config.desc:105 data/config.desc:111
+#: data/config.desc:117 data/config.desc:122 data/config.desc:127
+#: data/config.desc:133 data/config.desc:139 data/config.desc:145
+#: data/config.desc:152
+msgid "Hotkey"
+msgstr "تېزلەتمە كۇنۇپكا"
+
+#: data/config.desc:5
+msgid "Trigger Input Method"
+msgstr "ئاكتىپلانغان/ئاكتىپلانمىغان كىرگۈزگۈچنى ئالماشتۇرۇش"
+
+#: data/config.desc:10
+msgid "Use extra trigger key only after using it to inactivate"
+msgstr ""
+"پەقەت ئوشۇقچە ئالماشتۇرۇش كۇنۇپكىسى بىلەن ئاكتىپلاشنى ئەمەلدىن قالدۇرغاندىن "
+"كېيىن ئاندىن ئۇنى ئىشلىتىپ ئالماشتۇرۇلىدۇ"
+
+#: data/config.desc:16
+msgid "R_CTRL"
+msgstr "ئوڭCtrl"
+
+#: data/config.desc:17
+msgid "R_SHIFT"
+msgstr "ئوڭShift"
+
+#: data/config.desc:18
+msgid "L_SHIFT"
+msgstr "سولShift"
+
+#: data/config.desc:19
+msgid "L_CTRL"
+msgstr "سولCtrl"
+
+#: data/config.desc:20
+msgid "ALT_L_SHIFT"
+msgstr "Alt+سولShift"
+
+#: data/config.desc:21
+msgid "ALT_R_SHIFT"
+msgstr "Alt+ئوڭShift"
+
+#: data/config.desc:22
+msgid "CTRL Both"
+msgstr "ئىككى تەرەپتىكى Ctrl"
+
+#: data/config.desc:23
+msgid "SHIFT Both"
+msgstr "ئىككى تەرەپتىكى Shift"
+
+#: data/config.desc:24
+msgid "L_ALT"
+msgstr "سول Alt"
+
+#: data/config.desc:25
+msgid "R_ALT"
+msgstr "ئوڭ Alt"
+
+#: data/config.desc:26
+msgid "ALT Both"
+msgstr "ئىككى تەرەپتىكى Alt"
+
+#: data/config.desc:27
+msgid "Left Super"
+msgstr "سول Super"
+
+#: data/config.desc:28
+msgid "Right Super"
+msgstr "ئوڭ Super"
+
+#: data/config.desc:29
+msgid "Super Both"
+msgstr "ئىككى تەرەپتىكى Super"
+
+#: data/config.desc:30
+msgid "Ctrl+Left Super"
+msgstr "Ctrl+سول Super"
+
+#: data/config.desc:31
+msgid "Ctrl+Right Super"
+msgstr "Ctrl+ئوڭ Super"
+
+#: data/config.desc:32
+msgid "Super+Left Ctrl"
+msgstr "Super+سولCtrl"
+
+#: data/config.desc:33
+msgid "Super+Right Ctrl"
+msgstr "Super+ئوڭ Ctrl"
+
+#: data/config.desc:35
+msgid "Custom"
+msgstr "بەلگىلەش"
+
+#: data/config.desc:37
+msgid "Extra Key for Switching to the First Input Method"
+msgstr "ئاكتىپلانغان باشقا تېزلەتمە كۇنۇپكىلار"
+
+#: data/config.desc:42
+msgid "Custom switch key"
+msgstr "ئالماشتۇرۇش كۇنۇپكىسى بەلگىلەش"
+
+#: data/config.desc:49
+msgid "Activate input method"
+msgstr "كىرگۈزگۈچنى ئاكتىپلاش"
+
+#: data/config.desc:56
+msgid "Inactivate Input Method"
+msgstr "ئاكتىپلاشنى بىكار قىلىش"
+
+#: data/config.desc:63
+msgid "Enable Shortcuts to Scroll Between Input Methods"
+msgstr "ئالماشتۇرۇشنى قوزغىتىش"
+
+#: data/config.desc:68
+msgid "Include Inactive When Scrolling Between Input Methods"
+msgstr "كىرگۈزگۈچ ئالماشتۇرغاندا ئاكتىپلانمىغان ھالىتىنىمۇ ئۆز ئىچىگە ئالىدۇ"
+
+#: data/config.desc:74
+msgid "CTRL_SHIFT"
+msgstr "Ctrl+Shift"
+
+#: data/config.desc:75
+msgid "ALT_SHIFT"
+msgstr "Alt+Shift"
+
+#: data/config.desc:76
+msgid "CTRL_SUPER"
+msgstr "Ctrl+Super"
+
+#: data/config.desc:77
+msgid "ALT_SUPER"
+msgstr "Alt+Super"
+
+#: data/config.desc:79
+msgid "Scroll between Input Method"
+msgstr "كىرگۈزگۈچ ئالماشتۇرۇش"
+
+#: data/config.desc:84
+msgid "Reload configuration"
+msgstr "سەپلىمىنى قايتا يۈكلەش"
+
+#: data/config.desc:90
+msgid "Interval of Two Key Input"
+msgstr "كىرگۈزۈش ئارىلىقى"
+
+#: data/config.desc:96
+msgid "Switch Symbol Keyboard"
+msgstr "مەۋھۇم كۇنۇپكىنى ئالماشتۇرۇش"
+
+#: data/config.desc:102
+msgid "Switch Remind Mode"
+msgstr "بىرلەشتۈرۈپ ئويلاش ھالىتىنى ئالماشتۇرۇش"
+
+#: data/config.desc:108
+msgid "Switch Fullwidth Character"
+msgstr "ئىككى بايتلىققا ئالماشتۇرۇش"
+
+#: data/config.desc:120
+msgid "Previous Page"
+msgstr "ئالدىنقى بەت"
+
+#: data/config.desc:125
+msgid "Next Page"
+msgstr "كېيىنكى بەت"
+
+#: data/config.desc:130
+msgid "Choose Second and Third Candidate Word"
+msgstr "2-، 3-نامزات سۆزنى تاللاش"
+
+#: data/config.desc:136
+msgid "Saving All Config and Input History"
+msgstr "سەپلىمىنى ۋە كىرگۈزۈش تارىخىنى ساقلاش"
+
+#: data/config.desc:142
+msgid "Switch Embedded Preedit String"
+msgstr " ئالدىن تەھرىرلەنگەن ھەرپ-بەلگە تىزىقىنى ئالماشتۇرۇش "
+
+#: data/config.desc:148
+msgid "Previous Candidate Word"
+msgstr "ئالدىنقى نامزات سۆز"
+
+#: data/config.desc:149
+msgid ""
+"This is used in some modules and input methods to navigate to the previous "
+"candidate word"
+msgstr ""
+"قىسمەن قىستۇرما/ كىرگۈزگۈچلەردە ئالدىنقى نامزات سۆزنى تاللاشقا "
+"ئىشلىتىلىدىغان تېزلەتمە كۇنۇپكا"
+
+#: data/config.desc:155
+msgid "Next Candidate Word"
+msgstr "كېيىنكى نامزات سۆز"
+
+#: data/config.desc:156
+msgid ""
+"This is used in some modules and input methods to navigate to the next "
+"candidate word"
+msgstr ""
+"قىسمەن قىستۇرما/ كىرگۈزگۈچلەردە كېيىنكى نامزات سۆزنى تاللاشقا ئىشلىتىلىدىغان"
+" تېزلەتمە كۇنۇپكا"
+
+#: data/config.desc:159 data/config.desc:165 data/config.desc:174
+msgid "Program"
+msgstr "پىروگرامما"
+
+#: data/config.desc:162
+msgid "Seconds sleep before fcitx really start"
+msgstr "كىرگۈزگۈچ ھەقىقىي قوزغىلىشتىن بۇرۇنقى كېچىككەن سېكۇنت سانى"
+
+#: data/config.desc:169
+msgid "No"
+msgstr "ياق"
+
+#: data/config.desc:170
+msgid "All"
+msgstr "بارلىق"
+
+#: data/config.desc:171
+msgid "Per program"
+msgstr "پىروگرامما بويىچە"
+
+#: data/config.desc:172
+msgid "Share State Among Windows"
+msgstr "كۆزنەكلەر ئارا ھالەتنى بەھرىلىنىش"
+
+#: data/config.desc:178
+msgid "Inactive"
+msgstr "ئاكتىپلانمىغان"
+
+#: data/config.desc:179
+msgid "Active"
+msgstr "ئاكتىپلانغان"
+
+#: data/config.desc:180
+msgid "Default Input Method State"
+msgstr "سۈكۈتتىكى كىرگۈزگۈچ ھالىتى"
+
+#: data/config.desc:183 data/config.desc:189 data/config.desc:195
+#: data/config.desc:201 data/config.desc:208 data/config.desc:214
+msgid "Output"
+msgstr "چىقىرىش"
+
+#: data/config.desc:186
+msgid "Type Halfwidth Punctuation After a Number"
+msgstr "ساندىن كېيىن بىر بايتلىق بەلگە چىقسۇن"
+
+#: data/config.desc:192
+msgid "Disable Paging in Remind Mode"
+msgstr "بىرلەشتۈرۈپ ئويلاش ھالىتىدە بەت ئالماشتۇرغىلى بولمايدۇ"
+
+#: data/config.desc:198
+msgid "Commit When Toggle State"
+msgstr "ھالىتىنى ئالماشتۇرغاندا تاپشۇرۇش"
+
+#: data/config.desc:199
+msgid "Send typed raw text if Switch to inactive Mode"
+msgstr ""
+"قوزغىتىلمىغان ھالەتكە ئالماشتۇرغاندا نۆۋەتتە كىرگۈزۈلگەن ئەسلى تېكىست "
+"ئېكرانغا چىقسۇن"
+
+#: data/config.desc:204 src/im/table/table.desc:176
+msgid "Candidate Word Number"
+msgstr "نامزات سۆز سانى"
+
+#: data/config.desc:211
+msgid "Give the tips of Phrase"
+msgstr "سۆز ئامبىرىدىكى سۆز بىرىكمىسىنى ئەسكەرتسۇن"
+
+#: data/config.desc:217
+msgid "Do Not Commit Preedit Text When a Window Loses Focus"
+msgstr ""
+"كۆزنەك فوكۇس نۇقتىسىنى يوقاتقاندا ئالدىن تەھرىرلەنگەن تېكىستنى تاپشۇرمىسۇن"
+
+#: data/config.desc:220 data/config.desc:226 data/config.desc:232
+#: data/config.desc:238 data/config.desc:244 data/config.desc:250
+#: data/config.desc:256
+msgid "Appearance"
+msgstr "كۆرۈنمە"
+
+#: data/config.desc:223
+msgid "Show Input Method Hint After Input Method Changed"
+msgstr "كىرگۈزگۈچنى ئالماشتۇرغاندا خەت كىرگۈزگۈچنىڭ ئەسكەرتمىسىنى كۆرۈنسۇن"
+
+#: data/config.desc:229
+msgid "Show Input Method Hint After Input Method Changed and Focus In"
+msgstr ""
+"كىرگۈزۈش قىزىق نۇقتىسىغا ئېرىشىش ھەمدە كىرگۈزگۈچتە ئۆزگىرىش بولغاندا "
+"كىرگۈزگۈچتە كۆرسىتىلگەن ئەسكەرتىشنى كۆرسىتش."
+
+#: data/config.desc:235
+msgid "Show Input Method Hint Only When the State Is Active"
+msgstr "كىرگۈزگۈچتىكى ئەسكەرتمە پەقەت ئاكتىپلانغان ھالەتتىلا كۆرۈنىدۇ"
+
+#: data/config.desc:241
+msgid "Show Input Speed"
+msgstr "كىرگۈزۈش سۈرئىتى كۆرۈنسۇن"
+
+#: data/config.desc:247
+msgid "Show Version"
+msgstr "كۆرسىتىش نەشرى"
+
+#: data/config.desc:253
+msgid "Do Not Show Input Window If There Is Only Preedit String"
+msgstr ""
+"ئالدىن تەھرىرلەنگەن ھەرپ-بەلگە تىزىقى بولغاندىلا كىرگۈزۈش كۆزنىكى كۆرۈنمىسۇن"
+
+#: data/config.desc:259
+msgid "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
+msgstr ""
+"بىر نامزات ۋە ئالدىن تەھرىرلەنگەن ھەرپ-بەلگە تىزىقى بولغاندىلا كىرگۈزۈش "
+"كۆزنىكى كۆرۈنمىسۇن"
+
+#: data/inputmethod.desc:3
+msgid "UniqueName"
+msgstr "بىردىن-بىر نام"
+
+#: data/inputmethod.desc:11
+msgid "IconName"
+msgstr "سىنبەلگە نامى"
+
+#: data/inputmethod.desc:15
+msgid "Priority"
+msgstr "ئەلالىق دەرىجىسى"
+
+#: data/inputmethod.desc:19
+msgid "LangCode"
+msgstr "تىل كودى"
+
+#: data/inputmethod.desc:23
+msgid "Parent"
+msgstr "قوشۇمچە زاپچاس تەۋەلىكى"
+
+#: data/profile.desc:1 data/profile.desc:6 data/profile.desc:11
+#: data/profile.desc:16 data/profile.desc:21 data/profile.desc:26
+msgid "Profile"
+msgstr "ئالدىن سەپلەنگەن ھۆججەت"
+
+#: data/profile.desc:2
+msgid "Use Full Width Character"
+msgstr "ئىككى بايتلىق ھەرپ-بەلگە ئىشلىتىش"
+
+#: data/profile.desc:7
+msgid "Use Wide Punctuation"
+msgstr "ئىككى بايتلىق تىنىش بەلگىسى ئىشلىتىش"
+
+#: data/profile.desc:12
+msgid "Prompt the phrases after input"
+msgstr "كىرگۈزگەندىن كېيىن سۆز بىرىكمىسىنى پەرەز قىلسۇن"
+
+#: data/profile.desc:17
+msgid "Current Input Method Name"
+msgstr "نۆۋەتتىكى كىرگۈزگۈچ نامى"
+
+#: data/profile.desc:22
+msgid "Current Enabled Input Method List"
+msgstr "نۆۋەتتىكى قوزغىتىلغان كىرگۈزگۈچ تىزىملىكى"
+
+#: data/profile.desc:29
+msgid "Show Preedit String in Client Window"
+msgstr "ئابونت كۆزنىكىدە ئالدىن تەھرىرلەنگەن ھەرپ-بەلگە تىزىقى كۆرۈنسۇن"
+
+#: src/frontend/xim/fcitx-xim.desc:1
+msgid "Xim"
+msgstr "Xim"
+
+#: src/frontend/xim/fcitx-xim.desc:4
+msgid "Use On The Spot Style for XIM (Cannot change during running)"
+msgstr ""
+"XIM غا OnT Spot ئۇسلۇبى ئىشلىتىش (ئىجرا بولغاندا ئالماشتۇرغىلى بولمايدۇ)"
+
+#: src/im/keyboard/fcitx-keyboard.desc:4
+msgid "Commit with extra space when choose candidate word"
+msgstr "نامزات سۆزنى ئىشلەتكەندە بوشلۇق قويسۇن"
+
+#: src/im/keyboard/fcitx-keyboard.desc:7 src/im/table/table.desc:141
+#: src/module/autoeng/fcitx-autoeng.desc:2
+#: src/module/clipboard/fcitx-clipboard.desc:35
+#: src/module/quickphrase/fcitx-quickphrase.desc:16
+msgid "Choose key modifier"
+msgstr "نامزات سۆزنى بېزىش كۇنۇپكىسى"
+
+#: src/im/keyboard/fcitx-keyboard.desc:11 src/im/table/table.desc:145
+#: src/module/autoeng/fcitx-autoeng.desc:6
+#: src/module/clipboard/fcitx-clipboard.desc:39
+#: src/module/quickphrase/fcitx-quickphrase.desc:5
+#: src/module/quickphrase/fcitx-quickphrase.desc:20
+msgid "None"
+msgstr "يوق"
+
+#: src/im/keyboard/fcitx-keyboard.desc:12 src/im/table/table.desc:146
+#: src/module/autoeng/fcitx-autoeng.desc:7
+#: src/module/clipboard/fcitx-clipboard.desc:40
+#: src/module/quickphrase/fcitx-quickphrase.desc:21
+msgid "Alt"
+msgstr "Alt"
+
+#: src/im/keyboard/fcitx-keyboard.desc:13 src/im/table/table.desc:147
+#: src/module/autoeng/fcitx-autoeng.desc:8
+#: src/module/clipboard/fcitx-clipboard.desc:41
+#: src/module/quickphrase/fcitx-quickphrase.desc:22
+msgid "Ctrl"
+msgstr "Ctrl"
+
+#: src/im/keyboard/fcitx-keyboard.desc:14 src/im/table/table.desc:148
+#: src/module/autoeng/fcitx-autoeng.desc:9
+#: src/module/clipboard/fcitx-clipboard.desc:42
+#: src/module/quickphrase/fcitx-quickphrase.desc:23
+msgid "Shift"
+msgstr "Shift"
+
+#: src/im/keyboard/fcitx-keyboard.desc:19
+msgid "Toggle the word hint"
+msgstr "خەت ئەسكەرتمىسىنى ئالماشتۇرۇش"
+
+#: src/im/keyboard/fcitx-keyboard.desc:25
+msgid "Minimum length to trigger word hint"
+msgstr "ئەڭ كىچىك قوزغىتىش سۆز ئەسكەرتمىسىنىڭ ئۇزۇنلۇقى"
+
+#: src/im/keyboard/fcitx-keyboard.desc:32
+msgid "Maximum length of spell hint list"
+msgstr "قوشۇپ يېزىشتا كۆرسىتىلگەن نامزات سۆزنىڭ ئەڭ چوڭ سانى"
+
+#: src/im/keyboard/fcitx-keyboard.desc:33
+msgid ""
+"A different value from the global one may be useful when using horizontal "
+"candidate list"
+msgstr ""
+"ئەگەر سىز توغرىسىغا تىزىلغان نامزاتلارنى ئىشلەتسىڭىز، بىر ئومۇملۇققا "
+"ئوخشىمايدىغان بېكىتىش ياردىمى بولۇشى مۇمكىن."
+
+#: src/im/keyboard/fcitx-keyboard.desc:39
+msgid "Use enter to commit the existing string"
+msgstr "enterنى بېسىپ ھەرپ-بەلگە تىزىقىنى كىرگۈزگەنلىكىڭىزنى جەزملەشتۈرۈڭ"
+
+#: src/im/keyboard/fcitx-keyboard.desc:44
+msgid "Add current input buffer to user dictionary"
+msgstr "نۆۋەتتىكى كىرگۈزگەن مەزمۇننى ئىشلەتكۈچى لۇغىتىگە قوشۇش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:5
+msgid "MS"
+msgstr "مىكروسوفت"
+
+#: src/im/pinyin/fcitx-pinyin.desc:6
+msgid "Ziguang"
+msgstr "زىگۇاڭ"
+
+#: src/im/pinyin/fcitx-pinyin.desc:7
+msgid "ABC"
+msgstr "ئەقلىي ABC"
+
+#: src/im/pinyin/fcitx-pinyin.desc:8
+msgid "Zhongwenzhixing"
+msgstr "جوڭۋىن جېشىڭ"
+
+#: src/im/pinyin/fcitx-pinyin.desc:9
+msgid "PinyinJiaJia"
+msgstr "پىنيىن جياجيا"
+
+#: src/im/pinyin/fcitx-pinyin.desc:10
+msgid "XiaoHe"
+msgstr "شياۋخې"
+
+#: src/im/pinyin/fcitx-pinyin.desc:11
+msgid "User Defined"
+msgstr "ئىشلەتكۈچى بەلگىلەش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:13
+msgid "Default Shuangpin Schema"
+msgstr "قوش پىنيىن لايىھەسىنى سۈكۈتتىكىسى قىلىش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:18
+msgid "Fix preedit cursor at head"
+msgstr "نۇر بەلگىسىنى ئالدىن كىرگۈزۈلگەن تېكىست بېشىغا مۇقىملاشتۇرۇش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:23
+msgid "Use V to trigger quickphrase"
+msgstr "V ئارقىلىق تېز سۈرئەتتە كىرگۈزۈشنى قوزغىتىش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:28
+msgid "Use Complete Pinyin"
+msgstr "تولۇق پىنيىن ئىشلىتىش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:33
+msgid "Auto Create Phrase"
+msgstr "ئاپتوماتىك سۆز بىرىكمىسى"
+
+#: src/im/pinyin/fcitx-pinyin.desc:38
+msgid "Save Auto Created Phrase"
+msgstr "ئاپتوماتىك سۆز بىرىكمىسىنى ساقلاش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:43
+msgid "Hotkey of Adding Frequent Word"
+msgstr "تېزلەتمە كۇنۇپكا: دائىملىق سۆز قوشۇش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:48
+msgid "Hotkey of Deleting Frequent Word"
+msgstr "تېزلەتمە كۇنۇپكا: دائىملىق سۆزنى ئۆچۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:53
+msgid "Hotkey of Delete User Phrase"
+msgstr "تېزلەتمە كۇنۇپكا: ئىشلەتكۈچى سۆز بىرىكمىسىنى ئۆچۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:58 src/im/pinyin/fcitx-pinyin.desc:67
+#: src/im/pinyin/fcitx-pinyin.desc:76 src/im/table/table.desc:23
+msgid "AdjustNo"
+msgstr "تەڭشىمەسلىك"
+
+#: src/im/pinyin/fcitx-pinyin.desc:59 src/im/pinyin/fcitx-pinyin.desc:68
+#: src/im/pinyin/fcitx-pinyin.desc:77 src/im/table/table.desc:24
+msgid "AdjustFast"
+msgstr "تېز"
+
+#: src/im/pinyin/fcitx-pinyin.desc:60 src/im/pinyin/fcitx-pinyin.desc:69
+#: src/im/pinyin/fcitx-pinyin.desc:78 src/im/table/table.desc:25
+msgid "AdjustFreq"
+msgstr "چاستوتىسى بويىچە"
+
+#: src/im/pinyin/fcitx-pinyin.desc:62
+msgid "Rule of Candidate Word Order"
+msgstr "نامزات خەت تەرتىپى"
+
+#: src/im/pinyin/fcitx-pinyin.desc:71
+msgid "Rule of Candidate Phrase Order"
+msgstr "نامزات سۆز تەرتىپى"
+
+#: src/im/pinyin/fcitx-pinyin.desc:80
+msgid "Rule of Frequent Word Order"
+msgstr "دائىملىق سۆز تەرتىپى"
+
+#: src/im/pinyin/fcitx-pinyin.desc:85
+msgid "Fuzzy an and ang"
+msgstr "nبىلەنang نى مۈجمەللەشتۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:90
+msgid "Fuzzy en and eng"
+msgstr "en بىلەن eng نى مۈجمەللەشتۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:95
+msgid "Fuzzy ian and iang"
+msgstr "ian بىلەن iang نى مۈجمەللەشتۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:100
+msgid "Fuzzy in and ing"
+msgstr "in بىلەن ing نى مۈجمەللەشتۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:105
+msgid "Fuzzy ou and u"
+msgstr "ou بىلەن u نى مۈجمەللەشتۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:110
+msgid "Fuzzy uan and uang"
+msgstr "uan بىلەن uang نى مۈجمەللەشتۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:115
+msgid "Fuzzy c and ch"
+msgstr "c بىلەن ch نى مۈجمەللەشتۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:120
+msgid "Fuzzy f and h"
+msgstr "f بىلەن h نى مۈجمەللەشتۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:125
+msgid "Fuzzy l and n"
+msgstr "l بىلەن n  نى مۈجمەللەشتۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:130
+msgid "Fuzzy s and sh"
+msgstr "s بىلەن sh نى مۈجمەللەشتۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:135
+msgid "Fuzzy z and zh"
+msgstr "z بىلەن zh نى مۈجمەللەشتۈرۈش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:140
+msgid "Fix misstype gn/ng"
+msgstr "پىنيىندىكى gn/ng خاتالىقىغا سەل قاراش"
+
+#: src/im/pinyin/fcitx-pinyin.desc:145
+msgid "Fix misstype v/u like jv, qv, xv, yv"
+msgstr "پىنيىندىكى jv, qv, xv, yv خاتالىقىغا سەل قاراش"
+
+#: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
+#: src/im/table/fcitx-table.desc:11 src/im/table/fcitx-table.desc:16
+#: src/im/table/fcitx-table.desc:21 src/module/unicode/fcitx-unicode.desc:3
+msgid "Key"
+msgstr "كۇنۇپكا"
+
+#: src/im/table/fcitx-table.desc:4
+msgid "Add Phrase"
+msgstr "سۆز بىرىكمىسى قوشۇش"
+
+#: src/im/table/fcitx-table.desc:9
+msgid "Delete Phrase"
+msgstr "سۆز بىرىكمىسىنى ئۆچۈرۈش"
+
+#: src/im/table/fcitx-table.desc:14 src/im/table/table.desc:19
+msgid "Adjust Order"
+msgstr "كىرگۈزۈش تەرتىپى"
+
+#: src/im/table/fcitx-table.desc:19
+msgid "Clear Frequency"
+msgstr "كىرگۈزۈش چاستوتىسىنى تازىلاش"
+
+#: src/im/table/fcitx-table.desc:24
+msgid "Lookup Pinyin"
+msgstr "پىنيىننى تەتۈر تەكشۈرۈش"
+
+#: src/im/table/table.desc:1 src/im/table/table.desc:6
+#: src/im/table/table.desc:10 src/im/table/table.desc:14
+#: src/im/table/table.desc:18 src/im/table/table.desc:27
+#: src/im/table/table.desc:33 src/im/table/table.desc:38
+#: src/im/table/table.desc:43 src/im/table/table.desc:48
+#: src/im/table/table.desc:53 src/im/table/table.desc:58
+#: src/im/table/table.desc:63 src/im/table/table.desc:68
+#: src/im/table/table.desc:73 src/im/table/table.desc:78
+#: src/im/table/table.desc:83 src/im/table/table.desc:87
+#: src/im/table/table.desc:92 src/im/table/table.desc:97
+#: src/im/table/table.desc:102 src/im/table/table.desc:107
+#: src/im/table/table.desc:112 src/im/table/table.desc:116
+#: src/im/table/table.desc:125 src/im/table/table.desc:130
+#: src/im/table/table.desc:135 src/im/table/table.desc:140
+#: src/im/table/table.desc:150 src/im/table/table.desc:155
+#: src/im/table/table.desc:160 src/im/table/table.desc:165
+#: src/im/table/table.desc:170 src/im/table/table.desc:175
+#: src/im/table/table.desc:182 src/im/table/table.desc:187
+#: src/im/table/table.desc:192 src/im/table/table.desc:197
+#: src/im/table/table.desc:202 src/im/table/table.desc:207
+#: src/im/table/table.desc:212 src/im/table/table.desc:217
+#: src/im/table/table.desc:222
+msgid "CodeTable"
+msgstr "كود جەدۋىلى"
+
+#: src/im/table/table.desc:2
+msgid "Unique Name for Table"
+msgstr "كود جەدۋىلىنىڭ بىردىن-بىر نامى"
+
+#: src/im/table/table.desc:7
+msgid "Code Table Name"
+msgstr "كود جەدۋىلىنىڭ نامى"
+
+#: src/im/table/table.desc:11
+msgid "Icon Name"
+msgstr "سىنبەلگە نامى"
+
+#: src/im/table/table.desc:15
+msgid "Code Table File"
+msgstr "كود جەدۋىلى ھۆججىتى"
+
+#: src/im/table/table.desc:28
+msgid "Level of simple code"
+msgstr "ئادەتتىكى كود دەرىجىسى"
+
+#: src/im/table/table.desc:29
+msgid "Do not sort word with code less than this level"
+msgstr "قىسقا كودلار تەرتىپكە تىزىلمايدۇ"
+
+#: src/im/table/table.desc:34
+msgid "Order of Code Table"
+msgstr "كود جەدۋىلى تەرتىپى"
+
+#: src/im/table/table.desc:39
+msgid "Use Pinyin"
+msgstr "پىنيىن ئىشلىتىش"
+
+#: src/im/table/table.desc:44
+msgid "Pinyin Key"
+msgstr "پىنيىن كۇنۇپكىسى"
+
+#: src/im/table/table.desc:49
+msgid "Auto Send Candidate Word"
+msgstr "ئاپتوماتىك ئېكرانغا چىقسۇن"
+
+#: src/im/table/table.desc:54
+msgid ""
+"Minimum length trigger auto send candidate word when only one candidate"
+msgstr ""
+"بىر نامزات سۆز بولغاندىلا ئاپتوماتىك ئېكراندىكى ئەڭ قىسقا كىرگۈزۈش "
+"ئۇزۇنلۇقىنى قوزغىتىش"
+
+#: src/im/table/table.desc:59
+msgid ""
+"Minimum length trigger auto send candidate when there will be no candidate"
+msgstr ""
+"نامزات بولمىسا ئاپتوماتىك ئېكرانغا چىقىدىغان ئەڭ قىسقا كىرگۈزۈش ئۇزۇنلۇقى "
+"قوزغىتىلسۇن"
+
+#: src/im/table/table.desc:64
+msgid "Send Raw Preedit"
+msgstr "دەسلەپكى كىرگۈزۈش كۇنۇپكىسىنى يوللاش"
+
+#: src/im/table/table.desc:69
+msgid "End Key"
+msgstr "ئاياغلاشتۇرۇش كۇنۇپكىسى"
+
+#: src/im/table/table.desc:74
+msgid "Use Matching Key"
+msgstr "مۈجمەللەشتۈرۈلگەن كۇنۇپكا ئىشلىتىش"
+
+#: src/im/table/table.desc:79
+msgid "Matching Key"
+msgstr "مۈجمەللەشتۈرۈلگەن كۇنۇپكا"
+
+#: src/im/table/table.desc:84
+msgid "Exact Match"
+msgstr "دەل توغرا سەپلەش"
+
+#: src/im/table/table.desc:88
+msgid "Auto Phrase"
+msgstr "ئاپتوماتىك سۆز بىرىكمىسى"
+
+#: src/im/table/table.desc:93
+msgid ""
+"Keep current buffer when there is no match item and input length is equal "
+"code length"
+msgstr ""
+"نۆۋەتتە ماس كېلىدىغان تۈر بولمىسا ھەمدە كىرگۈزۈش ئۇزۇنلۇقى كودنىڭ "
+"ئۇزۇنلىقىغا تەڭ بولغاندا نۆۋەتتىكى كىرگۈزۈش بۇففېر رايونىنى ساقلىغانغا "
+"باراۋەر بولىدۇ"
+
+#: src/im/table/table.desc:98
+msgid "Auto Phrase Length"
+msgstr "ئاپتوماتىك سۆز بىرىكمىسى ئۇزۇنلۇقى"
+
+#: src/im/table/table.desc:103
+msgid "Auto Phrase Phrase"
+msgstr "سۆز بىرىكمىسى ئاپتوماتىك سۆز ياساشقا قاتناشسۇن"
+
+#: src/im/table/table.desc:108
+msgid "Save Auto Phrase"
+msgstr "ئاپتوماتىك سۆز بىرىكمىسىنى ساقلاش"
+
+#: src/im/table/table.desc:113
+msgid "Prompt Table Code"
+msgstr "كود جەدۋىلىنىڭ نومۇرىنى ئەسكەرتسۇن"
+
+#: src/im/table/table.desc:117
+msgid "Candidate Table Layout"
+msgstr "نامزات سۆزلەرنىڭ جايلىششى"
+
+#: src/im/table/table.desc:121
+msgid "Not Set"
+msgstr "بەلگىلەنمىگەن"
+
+#: src/im/table/table.desc:122
+msgid "Vertical"
+msgstr "تىك"
+
+#: src/im/table/table.desc:123
+msgid "Horizontal"
+msgstr "يانتۇ"
+
+#: src/im/table/table.desc:131
+msgid "Symbol File"
+msgstr "بەلگە ھۆججىتى"
+
+#: src/im/table/table.desc:136
+msgid "Choose"
+msgstr "تاللاش كۇنۇپكىسى"
+
+#: src/im/table/table.desc:151
+msgid "Language Code for this table"
+msgstr "بۇ كود جەدۋىلىنىڭ تىل كودى"
+
+#: src/im/table/table.desc:156
+msgid "Enable"
+msgstr "قوزغىتىش"
+
+#: src/im/table/table.desc:161
+msgid "Use Custom Prompt String defined in table"
+msgstr "كود جەدۋىلىدىكى بەلگىلىگەن ئەسكەرتىش تېكىستىنى ئىشلىتىش"
+
+#: src/im/table/table.desc:166
+msgid "Keyboard Layout to be used"
+msgstr "كۇنۇپكا ئورۇنلاشتۇرۇشى"
+
+#: src/im/table/table.desc:171
+msgid "Use Alternative Candidate Word Number"
+msgstr "بەلگىلەنگەن نامزات سۆز سانىنى ئىشلىتىش"
+
+#: src/im/table/table.desc:183
+msgid "Use Alternative Key for paging"
+msgstr "بەلگىلەنگەن بەت ئۆرۈش كۇنۇپكىسىنى ئىشلىتىش"
+
+#: src/im/table/table.desc:188
+msgid "Alternative Prev Page Key"
+msgstr "باشقا ئالدىنقى بەت تېزلەتمە كۇنۇپكىسى"
+
+#: src/im/table/table.desc:193
+msgid "Alternative Next Page Key"
+msgstr "باشقا كېيىنكى بەت تېزلەتمە كۇنۇپكىسى"
+
+#: src/im/table/table.desc:198
+msgid "First Candidate Display as Preedit"
+msgstr "بىرىنچى نامزاتنى ئالدىن تەھرىرلەش تېكىستى قىلىپ كۆرسىتىش"
+
+#: src/im/table/table.desc:203
+msgid "Commit and pass when invalid key of this table pressed"
+msgstr ""
+"كود جەدۋىلىگە قائىدىگە خىلاپ كونۇپكا كىرگۈزگەندە كىرگۈزۈشكە تاپشۇرۇش ۋەبۇ "
+"كۇنۇپكىنى يوللاش. "
+
+#: src/im/table/table.desc:208
+msgid "Commit key for select first candidate"
+msgstr "بىرىنچى نامزاتنى تاپشۇرۇش كۇنۇپكىسى"
+
+#: src/im/table/table.desc:213
+msgid "Commit string when there is no match"
+msgstr "ماس كەلمىگەن چاغدا كىرگۈزۈشنى تاپشۇرۇش"
+
+#: src/im/table/table.desc:218
+msgid "Ignore Punctuation"
+msgstr "تىنىش بەلگىلەرنى نەزەردىن ساقىت قىلىش"
+
+#: src/im/table/table.desc:223
+msgid "Ignore some Punctuation, if it is empty, then ignore all punctuation"
+msgstr ""
+"قىسمەن تىنىش بەلگىلىرىنى نەزەردىن ساقىت قىلىش، بوشلۇق بولسا ھەممىسىنى "
+"نەزەردىن ساقىت قىلىش"
+
+#: src/module/autoeng/fcitx-autoeng.desc:1
+#: src/module/autoeng/fcitx-autoeng.desc:11
+#: src/module/autoeng/fcitx-autoeng.desc:17
+#: src/module/autoeng/fcitx-autoeng.desc:26
+#: src/module/autoeng/fcitx-autoeng.desc:34
+msgid "Auto English"
+msgstr "ئاپتوماتىك ئىنگلىزچە ھالەت"
+
+#: src/module/autoeng/fcitx-autoeng.desc:12
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:14
+#: src/module/quickphrase/fcitx-quickphrase.desc:26
+msgid "Do not show spell hint"
+msgstr "يېزىش ئەسكەرتمىسى كۆرۈنمىسۇن"
+
+#: src/module/autoeng/fcitx-autoeng.desc:22
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:23
+#: src/module/quickphrase/fcitx-quickphrase.desc:36
+msgid "Maximum hint length"
+msgstr "يېزىشتا كۆرسىتىلگەن نامزات سۆزنىڭ سانى"
+
+#: src/module/autoeng/fcitx-autoeng.desc:23
+msgid "Maximum length of spell hint list for Auto English"
+msgstr "ئاپتوماتىك ئىنگلىزچە يېزىش ئەسكەرتمىسىدىكى نامزات سۆزنىڭ سانى"
+
+#: src/module/autoeng/fcitx-autoeng.desc:30
+msgid "Maximum words number kept in preedit"
+msgstr "ئالدىن تەھرىرلەشتە ساقلاپ قېلىنغان تاق سۆز سانى"
+
+#: src/module/autoeng/fcitx-autoeng.desc:31
+msgid "0 for commit immediately, -1 for keep all words"
+msgstr ""
+"0 دەرھال تاپشۇرۇشقا، -1 تاللانغان بارلىق تاق سۆزنى ساقلاپ قېلىشقا ۋەكىللىك "
+"قىلىدۇ."
+
+#: src/module/autoeng/fcitx-autoeng.desc:37
+msgid "Add Extra space when selecting a candidate word"
+msgstr "نامزات سۆزنى ئىشلەتكەندە بوشلۇق قويسۇن"
+
+#: src/module/chttrans/fcitx-chttrans.desc:1
+#: src/module/chttrans/fcitx-chttrans.desc:9
+#: src/module/chttrans/fcitx-chttrans.desc:14
+msgid "TraditionalChinese"
+msgstr "مۇرەككەپ خەنزۇچە"
+
+#: src/module/chttrans/fcitx-chttrans.desc:4
+msgid "Native"
+msgstr "ئەسلى"
+
+#: src/module/chttrans/fcitx-chttrans.desc:5
+msgid "OpenCC"
+msgstr "OpenCC"
+
+#: src/module/chttrans/fcitx-chttrans.desc:6
+msgid "Traditional Chinese Translate Engine"
+msgstr "مۇرەككەپ-ئاددىي خەنزۇچىنى ئالماشتۇرۇش ماتورى"
+
+#: src/module/chttrans/fcitx-chttrans.desc:12
+msgid "Toggle for enable or disable"
+msgstr "چەكلەش-قوزغىتىشنى ئالماشتۇرۇش"
+
+#: src/module/chttrans/fcitx-chttrans.desc:17
+msgid "Enabled state for im"
+msgstr "كىرگۈزگۈچنى قوزغىتىش ھالىتى"
+
+#: src/module/clipboard/fcitx-clipboard.desc:4
+msgid "Save Clipboard History To File"
+msgstr "چاپلاش تاختىسىدىكى بۇرۇن خاتىرىنى ھۆججەت شەكلىدە ساقلاش"
+
+#: src/module/clipboard/fcitx-clipboard.desc:11
+msgid "Length of Clipboard History to Save"
+msgstr "چاپلاش تاختىسىدىكى بۇرۇن خاتىرىدە ساقلىنىدىغان سۆز ئۇزۇنلۇقى"
+
+#: src/module/clipboard/fcitx-clipboard.desc:19
+msgid "Maximum length of each candidate word"
+msgstr "ھەربىر نامزات سۆزنىڭ ئەڭ چوڭ ئۇزۇنلۇقى"
+
+#: src/module/clipboard/fcitx-clipboard.desc:20
+msgid ""
+"Roughly the same length with this number of english letters, the actual "
+"length depends on the font and the content"
+msgstr ""
+"تەخمىنىي ئۇزۇنلۇقى ئىنگىلىزچە ھەرپلەر بىلەن ئوخشاش، ئەمەلىي ئۇزۇنلۇقى خەت "
+"شەكلى ۋە مەزمۇنىغا باغلىق"
+
+#: src/module/clipboard/fcitx-clipboard.desc:25
+msgid "Trigger Key for Clipboard History List"
+msgstr "چاپلاش تاختىسىدىكى بۇرۇن خاتىرىنىڭ تېزلەتمە كۇنۇپكىسى"
+
+#: src/module/clipboard/fcitx-clipboard.desc:30
+msgid "Use Selection Text"
+msgstr "تاللانغان رايوندىكى خەتنى ئىشلىتىش"
+
+#: src/module/clipboard/fcitx-clipboard.desc:31
+msgid "Include the text currently selected in clipboard history."
+msgstr "نۆۋەتتە تاللانغان خەتلەرنى چاپلاش تاختىسى خاتىرىسىگە كىرگۈزۈش"
+
+#: src/module/clipboard/fcitx-clipboard.desc:45
+msgid "Ignore blank selections"
+msgstr "چاپلاش تاختىسىدىكى قۇرۇق مەزمۇننى ساقىت قىلىش"
+
+#: src/module/imselector/fcitx-imselector.desc:1
+#: src/module/imselector/fcitx-imselector.desc:6
+#: src/module/imselector/fcitx-imselector.desc:11
+msgid "IMSelector"
+msgstr "كىرگۈزگۈچ تاللىغۇچ"
+
+#: src/module/imselector/fcitx-imselector.desc:4
+msgid "Local Input Method SelectKey"
+msgstr "قىسمەن كىرگۈزگۈچنى تاللاش"
+
+#: src/module/imselector/fcitx-imselector.desc:9
+msgid "Global Input Method SelectKey"
+msgstr "تولۇق كىرگۈزگۈچنى تاللاش"
+
+#: src/module/imselector/fcitx-imselector.desc:14
+msgid "Clear local Input Method"
+msgstr "قىسمەن كىرگۈزگۈچنى قۇرۇقداش"
+
+#: src/module/imselector/fcitx-imselector.desc:16
+#: src/module/imselector/fcitx-imselector.desc:21
+#: src/module/imselector/fcitx-imselector.desc:26
+#: src/module/imselector/fcitx-imselector.desc:31
+#: src/module/imselector/fcitx-imselector.desc:36
+#: src/module/imselector/fcitx-imselector.desc:41
+#: src/module/imselector/fcitx-imselector.desc:46
+#: src/module/imselector/fcitx-imselector.desc:51
+#: src/module/imselector/fcitx-imselector.desc:56
+msgid "GlobalSelector"
+msgstr "تولۇق تاللاش"
+
+#: src/module/imselector/fcitx-imselector.desc:19
+#: src/module/imselector/fcitx-imselector.desc:64
+msgid "Switch to the First Input Method"
+msgstr "1-كىرگۈزگۈچكە ئالماشتۇرۇش"
+
+#: src/module/imselector/fcitx-imselector.desc:24
+#: src/module/imselector/fcitx-imselector.desc:69
+msgid "Switch to the Second Input Method"
+msgstr "2-كىرگۈزگۈچكە ئالماشتۇرۇش"
+
+#: src/module/imselector/fcitx-imselector.desc:29
+#: src/module/imselector/fcitx-imselector.desc:74
+msgid "Switch to the Third Input Method"
+msgstr "3-كىرگۈزگۈچكە ئالماشتۇرۇش"
+
+#: src/module/imselector/fcitx-imselector.desc:34
+#: src/module/imselector/fcitx-imselector.desc:79
+msgid "Switch to the Fourth Input Method"
+msgstr "4-كىرگۈزگۈچكە ئالماشتۇرۇش"
+
+#: src/module/imselector/fcitx-imselector.desc:39
+#: src/module/imselector/fcitx-imselector.desc:84
+msgid "Switch to the Fifth Input Method"
+msgstr "5-كىرگۈزگۈچكە ئالماشتۇرۇش"
+
+#: src/module/imselector/fcitx-imselector.desc:44
+#: src/module/imselector/fcitx-imselector.desc:89
+msgid "Switch to the Sixth Input Method"
+msgstr "6-كىرگۈزگۈچكە ئالماشتۇرۇش"
+
+#: src/module/imselector/fcitx-imselector.desc:49
+#: src/module/imselector/fcitx-imselector.desc:94
+msgid "Switch to the Seventh Input Method"
+msgstr "7-كىرگۈزگۈچكە ئالماشتۇرۇش"
+
+#: src/module/imselector/fcitx-imselector.desc:54
+#: src/module/imselector/fcitx-imselector.desc:99
+msgid "Switch to the Eighth Input Method"
+msgstr "8-كىرگۈزگۈچكە ئالماشتۇرۇش"
+
+#: src/module/imselector/fcitx-imselector.desc:59
+#: src/module/imselector/fcitx-imselector.desc:104
+msgid "Switch to the Ninth Input Method"
+msgstr "9-كىرگۈزگۈچكە ئالماشتۇرۇش"
+
+#: src/module/imselector/fcitx-imselector.desc:61
+#: src/module/imselector/fcitx-imselector.desc:66
+#: src/module/imselector/fcitx-imselector.desc:71
+#: src/module/imselector/fcitx-imselector.desc:76
+#: src/module/imselector/fcitx-imselector.desc:81
+#: src/module/imselector/fcitx-imselector.desc:86
+#: src/module/imselector/fcitx-imselector.desc:91
+#: src/module/imselector/fcitx-imselector.desc:96
+#: src/module/imselector/fcitx-imselector.desc:101
+msgid "LocalSelector"
+msgstr "قىسمەن تاللاش"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:1
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:7
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:13
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:18
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:27
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:32
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:37
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:42
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:50
+msgid "Pinyin Enhance"
+msgstr "پىنيىننى كۈچەيتىش"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:4
+msgid "Treating abbreviated Pinyin as English"
+msgstr "ئاددىي پىنيىننى ئىنگلىزچە دەپ قاراش"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:5
+msgid "Useful when you hardly ever use abbreviated pinyin."
+msgstr "ئاددىي پىنيىننى ناھايىتى ئاز ئىشلىتىدىغانلارغا ماس كېلىدۇ"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:10
+msgid "Allow replacing the first candidate"
+msgstr "بىرىنچى نامزات سۆزنى ئالماشتۇرۇشقا يول قويۇش"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:11
+msgid ""
+"Allow Pinyin Enhance to replace the first candidate word when the input "
+"string is very closed to English."
+msgstr ""
+"ھەرپ-بەلگە تىزىقى ئىنگلىزچىغا ئىنتايىن يېقىن بولسا تۇنجى نامزات سۆزنى "
+"ئالماشتۇرۇشقا رۇخسەت قىلىنىدۇ"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:24
+msgid "Maximum length of spell hint list for Pinyin Enhance"
+msgstr "كۈچەيتىلگەن پىنيىننى يېزىش ئەسكەرتمىسى نامزات سۆزىنىڭ سانى"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:30
+msgid "Hotkey for Inputing Character From Phrase"
+msgstr "سۆز ئارقىلىق خەتنى بەلگىلەش"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:35
+msgid "Hotkey for switching to Inputing Character From Phrase mode"
+msgstr "سۆز ئارقىلىق خەتنى بەلگىلەش ھالىتىگە ئالماشتۇرۇش"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:40
+msgid "Disable Pinyin Symbol"
+msgstr "پىنيىنچە بەلگىلەرنى ئىشلىتىشنى چەكلەش"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:46
+msgid "Minimum input length to trigger stroke input (set to -1 to disable)"
+msgstr ""
+"ئەڭ كىچىك قوزغىتىش سۆز ئەسكەرتمىسىنىڭ ئۇزۇنلۇقى(-1 تەڭشەلسە بىخۇا بويىچە "
+"كىرگۈزۈش چەكلىنىدۇ)"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:47
+msgid "Stroke input trigger length"
+msgstr "بىخۇا بويىچە كىرگۈزۈشنى قوزغىتىش ئۇزۇنلۇقى"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:55
+msgid "Maximum results from stroke input."
+msgstr "بىخۇا بويىچە كىرگۈزۈش نەتىجىسىنىڭ سۆز سانى"
+
+#: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:56
+msgid ""
+"This is only a soft limit, the actually number of candidate words may be "
+"larger than this when multiple characters have the same order of strokes."
+msgstr ""
+"بۇ پەقەت يۇمشاق دېتالنىڭ چەكلىمىسى. كۆپ خەتلەرنىڭ يېزىلىشى ئوخشاش بولغاندا، "
+"ئەمەلىي كىرگۈزۈش نەتىجىسىنىڭ سانى بۇ قىممەتتىن كۆپ بولۇشى مۇمكىن."
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:1
+#: src/module/quickphrase/fcitx-quickphrase.desc:10
+#: src/module/quickphrase/fcitx-quickphrase.desc:15
+#: src/module/quickphrase/fcitx-quickphrase.desc:25
+#: src/module/quickphrase/fcitx-quickphrase.desc:31
+msgid "QuickPhrase"
+msgstr "تېز كىرگۈزۈش"
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:6
+msgid "Semicolon"
+msgstr "ئايرىش بەلگىسى"
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:7
+msgid "Grave"
+msgstr "تەتۈر قوش پەش"
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:8
+msgid "Trigger Key for QuickPhrase"
+msgstr "تېز كىرگۈزۈشنى قوزغىتىش كۇنۇپكىسى"
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:13
+msgid "Alternative Trigger Key for QuickPhrase"
+msgstr "باشقا تېز كىرگۈزۈشنى قوزغىتىش كۇنۇپكىسى"
+
+#: src/module/quickphrase/fcitx-quickphrase.desc:37
+msgid "Maximum length of spell hint list for Quick Phrase"
+msgstr "تېز كىرگۈزۈشنىڭ يېزىش ئەسكەرتمىسى نامزات سۆزىنىڭ سانى"
+
+#: src/module/spell/fcitx-spell.desc:1 src/module/spell/fcitx-spell.desc:10
+msgid "Spell Hint"
+msgstr "يېزىش ئەسكەرتىشى"
+
+#: src/module/spell/fcitx-spell.desc:6
+msgid "Aspell"
+msgstr "Aspell"
+
+#: src/module/spell/fcitx-spell.desc:7
+msgid "Myspell"
+msgstr "Myspell"
+
+#: src/module/spell/fcitx-spell.desc:8
+msgid "Preferred Enchant provider"
+msgstr "ئالدىن تاللىنىدىغان ئارقا تېرمىنال"
+
+#: src/module/spell/fcitx-spell.desc:11
+msgid "Default Spell Hint Backends Order"
+msgstr "يېزىش ئەسكەرتىشىنىڭ سۈكۈتتە ئىشلىتىدىغان ئارقا تېرمىنال"
+
+#: src/module/spell/fcitx-spell.desc:14
+msgid "Possible Providers: presage, custom, enchant (separate with comma)"
+msgstr ""
+"تاللىغىلى بولىدىغان ئارقا تېرمىنال:presage, custom, enchant (ئىنگلىزچە پەش "
+"بىلەن ئايرىڭ)"
+
+#: src/module/unicode/fcitx-unicode.desc:1
+msgid "Unicode"
+msgstr "Unicode"
+
+#: src/module/xkb/fcitx-xkb.desc:1 src/module/xkb/fcitx-xkb.desc:6
+#: src/module/xkb/fcitx-xkb.desc:12 src/module/xkb/fcitx-xkb.desc:17
+msgid "X Keyboard"
+msgstr "X كۇنۇپكا"
+
+#: src/module/xkb/fcitx-xkb.desc:4
+msgid "Allow to Override System XKB Settings"
+msgstr "سىستېمىنىڭ XKB تەڭشىكىنى باستۇرۇشقا رۇخسەت قىلسۇن"
+
+#: src/module/xkb/fcitx-xkb.desc:9
+msgid ""
+"Use the layout of first keyboard input method in list as default layout"
+msgstr ""
+"تىزىملىكتىكى تۇنجى كۇنۇپكا تاختىسى كىرگۈزۈش قۇرۇلمىسىنى سۈكۈتتىكى قىلىپ "
+"ئورۇنلاشتۇرۇش"
+
+#: src/module/xkb/fcitx-xkb.desc:10
+msgid ""
+"For example, if Keyboard - English (US) is the first input method in the "
+"list, then English (US) will be applied to all other non keyboard input "
+"method layout"
+msgstr ""
+"مەسىلەن، ئەگەر كۇنۇپكا تاختىسى-ئىنگلىز تىلى (ئامېرىكا) تىزىملىكتىكى تۇنجى "
+"كىرگۈزگۈچ بولسا، ئۇ ھالدا ئىنگلىز تىلى (ئامېرىكا) بارلىق كۇنۇپكا تاختىسى "
+"ئورنىتىلمىغان باشقا كىرگۈزگۈچلەرنىڭ ئورۇنلاشتۇرۇلۇشىغا ئىشلىتىلىدۇ"
+
+#: src/module/xkb/fcitx-xkb.desc:15
+msgid "xmodmap command"
+msgstr "xmodmap بۇيرۇقى"
+
+#: src/module/xkb/fcitx-xkb.desc:20
+msgid "Apply this custom xmodmap script after layout change"
+msgstr ""
+"كۇنۇپكا تاختىسىنىڭ ئورۇنلاشتۇرۇلىشى ئۆزگەرتىلگەندىن كېيىن بەلگىلەنگەن "
+"xmodmap ئارگىنالىنى قوللىنىش"
+
+#: src/ui/classic/fcitx-classic-ui.desc:1
+#: src/ui/classic/fcitx-classic-ui.desc:7
+#: src/ui/classic/fcitx-classic-ui.desc:13
+#: src/ui/classic/fcitx-classic-ui.desc:20
+#: src/ui/classic/fcitx-classic-ui.desc:25
+#: src/ui/classic/fcitx-classic-ui.desc:30
+#: src/ui/classic/fcitx-classic-ui.desc:36
+#: src/ui/classic/fcitx-classic-ui.desc:41
+#: src/ui/classic/fcitx-classic-ui.desc:51
+#: src/ui/classic/fcitx-classic-ui.desc:56
+msgid "ClassicUI"
+msgstr "كىلاسسىك"
+
+#: src/ui/classic/fcitx-classic-ui.desc:2
+msgid "Status Panel Position X"
+msgstr "ھالەت ئىستونىنىڭ X ئورنى"
+
+#: src/ui/classic/fcitx-classic-ui.desc:8
+msgid "Status Panel Position Y"
+msgstr "ھالەت ئىستونىنىڭ Y ئورنى"
+
+#: src/ui/classic/fcitx-classic-ui.desc:16
+msgid "Font Size"
+msgstr "فونت چوڭلۇقى"
+
+#: src/ui/classic/fcitx-classic-ui.desc:18
+msgid "Override the skin font size"
+msgstr "تېرىنى قاپلايدىغان خەت نومۇرى تەڭشىكى"
+
+#: src/ui/classic/fcitx-classic-ui.desc:23
+msgid "Font"
+msgstr "فونت"
+
+#: src/ui/classic/fcitx-classic-ui.desc:28
+msgid "Menu Font"
+msgstr "تىزىملىك خەت شەكلى"
+
+#: src/ui/classic/fcitx-classic-ui.desc:33
+msgid "Font Locale to display"
+msgstr "فونت رايونى"
+
+#: src/ui/classic/fcitx-classic-ui.desc:39
+msgid "Use System Tray Icon"
+msgstr "سىستېما تەخسىسىنى ئىشلىتىش"
+
+#: src/ui/classic/fcitx-classic-ui.desc:44
+msgid "Show"
+msgstr "كۆرۈنسۇن"
+
+#: src/ui/classic/fcitx-classic-ui.desc:45
+msgid "Auto"
+msgstr "ئاپتوماتىك"
+
+#: src/ui/classic/fcitx-classic-ui.desc:46
+msgid "Hide when tray icon is available"
+msgstr "تەخسىدىكى سىنبەلگىنى ئىشلىتىشكە بولىدىغان چاغدا يوشۇرۇنسۇن"
+
+#: src/ui/classic/fcitx-classic-ui.desc:47
+msgid "Hide"
+msgstr "يوشۇرۇش"
+
+#: src/ui/classic/fcitx-classic-ui.desc:49
+msgid "Status Panel Hide Mode"
+msgstr "ھالەت ئىستونىنى يوشۇرۇش ئەندىزىسى"
+
+#: src/ui/classic/fcitx-classic-ui.desc:54
+msgid "Vertical Candidate Word List"
+msgstr "تىك تىزىلغان نامزات سۆز تىزىملىكى"
+
+#: src/ui/classic/fcitx-classic-ui.desc:59 src/ui/classic/skin.desc:3
+msgid "Skin Name"
+msgstr "تېرە نامى"
+
+#: src/ui/classic/skin.desc:1 src/ui/classic/skin.desc:5
+#: src/ui/classic/skin.desc:9 src/ui/classic/skin.desc:13
+msgid "SkinInfo"
+msgstr "تېرە ئۇچۇرى"
+
+#: src/ui/classic/skin.desc:7
+msgid "Skin Version"
+msgstr "تېرە نەشرى"
+
+#: src/ui/classic/skin.desc:11
+msgid "Skin Author"
+msgstr "ئاپتورى"
+
+#: src/ui/classic/skin.desc:15
+msgid "Description of Skin"
+msgstr "تەسۋىر"
+
+#: src/ui/classic/skin.desc:17 src/ui/classic/skin.desc:21
+#: src/ui/classic/skin.desc:26 src/ui/classic/skin.desc:31
+#: src/ui/classic/skin.desc:35 src/ui/classic/skin.desc:39
+#: src/ui/classic/skin.desc:43 src/ui/classic/skin.desc:47
+#: src/ui/classic/skin.desc:51 src/ui/classic/skin.desc:55
+#: src/ui/classic/skin.desc:59 src/ui/classic/skin.desc:63
+msgid "SkinFont"
+msgstr "تېرە خەت شەكلى"
+
+#: src/ui/classic/skin.desc:19
+msgid "Input Font Size"
+msgstr "فونت چوكلۇقىنى كىرگۈزۈڭ"
+
+#: src/ui/classic/skin.desc:23
+msgid "Menu Font Size"
+msgstr "تىزىملىك خەت شەكلىنىڭ چوڭلۇقى"
+
+#: src/ui/classic/skin.desc:28
+msgid "Font sizes respect dpi setting"
+msgstr "فونتنىڭ چوڭلۇقى dpi تەڭشىكىگە بويسۇنىدۇ"
+
+#: src/ui/classic/skin.desc:33
+msgid "Tip Message Color"
+msgstr "ئۇچۇر رەڭگىنى  ئەسكەرتىش"
+
+#: src/ui/classic/skin.desc:37
+msgid "Input Message Color"
+msgstr "ئۇچۇر رەڭگىنى  كىرگۈزۈش"
+
+#: src/ui/classic/skin.desc:41
+msgid "Candidate Index Color"
+msgstr "نامزات سۆز ئىندېكىسىنىڭ رەڭگى"
+
+#: src/ui/classic/skin.desc:45
+msgid "First Candidate Color"
+msgstr "1-نامزات سۆزنىڭ رەڭگى"
+
+#: src/ui/classic/skin.desc:49
+msgid "User Phrase Color"
+msgstr "ئىشلەتكۈچى سۆز بىرىكمىسىنىڭ رەڭگى"
+
+#: src/ui/classic/skin.desc:53
+msgid "Table Code Color"
+msgstr "كود جەدۋىلىنىڭ رەڭگى"
+
+#: src/ui/classic/skin.desc:57
+msgid "Other Color"
+msgstr "باشقا رەڭلەر"
+
+#: src/ui/classic/skin.desc:61
+msgid "Active Menu Item Character Color"
+msgstr "ھەرىكەتچان تىزىملىكتىكى يەككە تۈرنىڭ رەڭگى"
+
+#: src/ui/classic/skin.desc:65
+msgid "Inactive Menu Item Character Color"
+msgstr "ھەرىكەتسىز تىزىملىكتىكى يەككە تۈرنىڭ رەڭگى"
+
+#: src/ui/classic/skin.desc:67 src/ui/classic/skin.desc:71
+#: src/ui/classic/skin.desc:75 src/ui/classic/skin.desc:79
+#: src/ui/classic/skin.desc:83 src/ui/classic/skin.desc:87
+#: src/ui/classic/skin.desc:91 src/ui/classic/skin.desc:95
+#: src/ui/classic/skin.desc:99 src/ui/classic/skin.desc:104
+#: src/ui/classic/skin.desc:109 src/ui/classic/skin.desc:114
+#: src/ui/classic/skin.desc:119 src/ui/classic/skin.desc:124
+#: src/ui/classic/skin.desc:139 src/ui/classic/skin.desc:144
+#: src/ui/classic/skin.desc:149 src/ui/classic/skin.desc:157
+#: src/ui/classic/skin.desc:165 src/ui/classic/skin.desc:170
+#: src/ui/classic/skin.desc:175 src/ui/classic/skin.desc:180
+msgid "SkinMainBar"
+msgstr "تېرىنىڭ ئاساسىي كۆزنەك تەڭشىكى"
+
+#: src/ui/classic/skin.desc:69 src/ui/classic/skin.desc:187
+#: src/ui/classic/skin.desc:317
+msgid "Background Image"
+msgstr "تەگلىك سۈرەت"
+
+#: src/ui/classic/skin.desc:73
+msgid "Logo Icon"
+msgstr "Logo سىنبەلگىسى"
+
+#: src/ui/classic/skin.desc:77
+msgid "English Mode Icon"
+msgstr "ئىنگلىزچە ھالەتتىكى سىنەلگە"
+
+#: src/ui/classic/skin.desc:81
+msgid "Active Mode Icon"
+msgstr "ئاكتىپلانغان ھالەتتىكى كىرگۈزگۈچنىڭ سىنبەلگىسى"
+
+#: src/ui/classic/skin.desc:85 src/ui/classic/skin.desc:191
+#: src/ui/classic/skin.desc:329
+msgid "Resize Margin Left"
+msgstr "سول ئارىلىقى"
+
+#: src/ui/classic/skin.desc:89 src/ui/classic/skin.desc:195
+#: src/ui/classic/skin.desc:333
+msgid "Resize Margin Right"
+msgstr "ئوڭ ئارىلىقى"
+
+#: src/ui/classic/skin.desc:93 src/ui/classic/skin.desc:199
+#: src/ui/classic/skin.desc:321
+msgid "Resize Margin Top"
+msgstr "ئۈستى ئارىلىقى"
+
+#: src/ui/classic/skin.desc:97 src/ui/classic/skin.desc:203
+#: src/ui/classic/skin.desc:325
+msgid "Resize Margin Bottom"
+msgstr "ئاستى ئارىلىقى"
+
+#: src/ui/classic/skin.desc:102 src/ui/classic/skin.desc:208
+#: src/ui/classic/skin.desc:338
+msgid "Margin Left for clickable region"
+msgstr "رايوننىڭ سول ئارىلىقىنى چەكسىڭىز بولىدۇ"
+
+#: src/ui/classic/skin.desc:107 src/ui/classic/skin.desc:213
+#: src/ui/classic/skin.desc:343
+msgid "Margin Right for clickable region"
+msgstr "رايوننىڭ ئوڭ ئارىلىقىنى چەكسىڭىز بولىدۇ"
+
+#: src/ui/classic/skin.desc:112 src/ui/classic/skin.desc:218
+#: src/ui/classic/skin.desc:348
+msgid "Margin Top for clickable region"
+msgstr "رايوننىڭ ئۈستى ئارىلىقىنى چەكسىڭىز بولىدۇ"
+
+#: src/ui/classic/skin.desc:117 src/ui/classic/skin.desc:223
+#: src/ui/classic/skin.desc:353
+msgid "Margin Bottom for clickable region"
+msgstr "رايوننىڭ ئاستى ئارىلىقىنى چەكسىڭىز بولىدۇ"
+
+#: src/ui/classic/skin.desc:122 src/ui/classic/skin.desc:228
+#: src/ui/classic/skin.desc:358
+msgid "Overlay image"
+msgstr "سۈرەتنى قاپلاش"
+
+#: src/ui/classic/skin.desc:128 src/ui/classic/skin.desc:234
+#: src/ui/classic/skin.desc:364
+msgid "TopLeft"
+msgstr "سول ئۈستى"
+
+#: src/ui/classic/skin.desc:129 src/ui/classic/skin.desc:235
+#: src/ui/classic/skin.desc:365
+msgid "TopCenter"
+msgstr "ئۈستى تەرەپ ئوتتۇرىسى"
+
+#: src/ui/classic/skin.desc:130 src/ui/classic/skin.desc:236
+#: src/ui/classic/skin.desc:366
+msgid "TopRight"
+msgstr "ئوڭ ئۈستى"
+
+#: src/ui/classic/skin.desc:131 src/ui/classic/skin.desc:237
+#: src/ui/classic/skin.desc:367
+msgid "CenterLeft"
+msgstr "ئوتتورا تەرەپ سول"
+
+#: src/ui/classic/skin.desc:132 src/ui/classic/skin.desc:238
+#: src/ui/classic/skin.desc:368
+msgid "Center"
+msgstr "ئوتتۇرا"
+
+#: src/ui/classic/skin.desc:133 src/ui/classic/skin.desc:239
+#: src/ui/classic/skin.desc:369
+msgid "CenterRight"
+msgstr "ئوتتۇرا تەرەپ ئوڭ"
+
+#: src/ui/classic/skin.desc:134 src/ui/classic/skin.desc:240
+#: src/ui/classic/skin.desc:370
+msgid "BottomLeft"
+msgstr "سول ئاستى"
+
+#: src/ui/classic/skin.desc:135 src/ui/classic/skin.desc:241
+#: src/ui/classic/skin.desc:371
+msgid "BottomCenter"
+msgstr "ئاستى تەرەپ ئوتتۇرىسى"
+
+#: src/ui/classic/skin.desc:136 src/ui/classic/skin.desc:242
+#: src/ui/classic/skin.desc:372
+msgid "BottomRight"
+msgstr "ئوڭ ئاستى"
+
+#: src/ui/classic/skin.desc:137 src/ui/classic/skin.desc:243
+#: src/ui/classic/skin.desc:373
+msgid "Overlay dock position"
+msgstr "سۈرەت ئورنىنى قاپلىسۇن"
+
+#: src/ui/classic/skin.desc:142 src/ui/classic/skin.desc:248
+#: src/ui/classic/skin.desc:378
+msgid "Overlay X offset"
+msgstr "سۈرەتنىڭ X يانتولۇقىنى قاپلاش"
+
+#: src/ui/classic/skin.desc:147 src/ui/classic/skin.desc:253
+#: src/ui/classic/skin.desc:383
+msgid "Overlay Y offset"
+msgstr "سۈرەتنىڭ Y يانتولۇقىنى قاپلاش"
+
+#: src/ui/classic/skin.desc:151 src/ui/classic/skin.desc:293
+#: src/ui/classic/skin.desc:395
+msgid "Fill Background Vertical rule"
+msgstr "توغرا يۆنىلىشلىك تولدۇرۇش قائىدىسى"
+
+#: src/ui/classic/skin.desc:153 src/ui/classic/skin.desc:161
+#: src/ui/classic/skin.desc:295 src/ui/classic/skin.desc:303
+#: src/ui/classic/skin.desc:397 src/ui/classic/skin.desc:405
+msgid "Copy"
+msgstr "كۆچۈرۈش"
+
+#: src/ui/classic/skin.desc:154 src/ui/classic/skin.desc:162
+#: src/ui/classic/skin.desc:296 src/ui/classic/skin.desc:304
+#: src/ui/classic/skin.desc:398 src/ui/classic/skin.desc:406
+msgid "Resize"
+msgstr "شەكلىنى ئۆزگەرتىش قائىدىسى"
+
+#: src/ui/classic/skin.desc:159 src/ui/classic/skin.desc:301
+#: src/ui/classic/skin.desc:403
+msgid "Fill Background Horizontal rule"
+msgstr "توغرا يۆنىلىشلىك تولدۇرۇش قائىدىسى"
+
+#: src/ui/classic/skin.desc:167
+msgid "Use Custom text icon color"
+msgstr "ئۆزى بېكىتكەن تېكىست سىنبەلگىسىنىڭ رەڭگىنى ئىشلىتىش"
+
+#: src/ui/classic/skin.desc:172
+msgid "Active Text Icon Color"
+msgstr "ھەرىكەتچان تېكىست سىنبەلگىسىنىڭ رەڭگى"
+
+#: src/ui/classic/skin.desc:177
+msgid "Inactive Text Icon Color"
+msgstr "ھەرىكەتسىز تېكىست سىنبەلگىسىنىڭ رەڭگى"
+
+#: src/ui/classic/skin.desc:182
+msgid "Special Icon position"
+msgstr "ئالاھىدە سىنبەلگىنىڭ ئورنى"
+
+#: src/ui/classic/skin.desc:185 src/ui/classic/skin.desc:189
+#: src/ui/classic/skin.desc:193 src/ui/classic/skin.desc:197
+#: src/ui/classic/skin.desc:201 src/ui/classic/skin.desc:205
+#: src/ui/classic/skin.desc:210 src/ui/classic/skin.desc:215
+#: src/ui/classic/skin.desc:220 src/ui/classic/skin.desc:225
+#: src/ui/classic/skin.desc:230 src/ui/classic/skin.desc:245
+#: src/ui/classic/skin.desc:250 src/ui/classic/skin.desc:255
+#: src/ui/classic/skin.desc:259 src/ui/classic/skin.desc:263
+#: src/ui/classic/skin.desc:267 src/ui/classic/skin.desc:271
+#: src/ui/classic/skin.desc:275 src/ui/classic/skin.desc:279
+#: src/ui/classic/skin.desc:283 src/ui/classic/skin.desc:287
+#: src/ui/classic/skin.desc:291 src/ui/classic/skin.desc:299
+msgid "SkinInputBar"
+msgstr "تېرە كىرگۈزۈش رامكىسى تەڭشىكى"
+
+#: src/ui/classic/skin.desc:257
+msgid "Color of Cursor"
+msgstr "نۇر بەلگە رەڭگى"
+
+#: src/ui/classic/skin.desc:261
+msgid "Position or offset of Preedit"
+msgstr "ئالدىن تەھرىرلەنگەن تېكىستنىڭ ئورنى ئېغىپ كەتكەن بولۇشى مۇمكىن"
+
+#: src/ui/classic/skin.desc:265
+msgid "Position or offset of LookupTable"
+msgstr "نامزات سۆزنىڭ ئورنى ئېغىپ كەتكەن بولۇشى مۇمكىن"
+
+#: src/ui/classic/skin.desc:269 src/ui/classic/skin.desc:277
+#: src/ui/classic/skin.desc:285
+msgid "Prev Page Icon"
+msgstr "ئالدىنقى سىنبەلگە"
+
+#: src/ui/classic/skin.desc:273 src/ui/classic/skin.desc:281
+#: src/ui/classic/skin.desc:289
+msgid "Next Page Icon"
+msgstr "كېيىنكى سىنبەلگە"
+
+#: src/ui/classic/skin.desc:307 src/ui/classic/skin.desc:311
+msgid "SkinTrayIcon"
+msgstr "تېرە پەتنۇسى سىنبەلگىسىنى ئورۇنلاشتۇرۇش"
+
+#: src/ui/classic/skin.desc:309
+msgid "Active Tray Icon"
+msgstr "ھەرىكەتچان كىرگۈزگۈچ سىنبەلگىسى"
+
+#: src/ui/classic/skin.desc:313
+msgid "Inctive Tray Icon"
+msgstr "ھەرىكەتسىز كىرگۈزگۈچ سىنبەلگىسى"
+
+#: src/ui/classic/skin.desc:315 src/ui/classic/skin.desc:319
+#: src/ui/classic/skin.desc:323 src/ui/classic/skin.desc:327
+#: src/ui/classic/skin.desc:331 src/ui/classic/skin.desc:335
+#: src/ui/classic/skin.desc:340 src/ui/classic/skin.desc:345
+#: src/ui/classic/skin.desc:350 src/ui/classic/skin.desc:355
+#: src/ui/classic/skin.desc:360 src/ui/classic/skin.desc:375
+#: src/ui/classic/skin.desc:380 src/ui/classic/skin.desc:385
+#: src/ui/classic/skin.desc:389 src/ui/classic/skin.desc:393
+#: src/ui/classic/skin.desc:401
+msgid "SkinMenu"
+msgstr "تېرە تىزىملىكى تەڭشىكى"
+
+#: src/ui/classic/skin.desc:387
+msgid "Active Menu Color"
+msgstr "ھەرىكەتچان تىزىملىك تۈرى رەڭگى"
+
+#: src/ui/classic/skin.desc:391
+msgid "Space Line Color"
+msgstr "ئايرىش سىزىقى رەڭگى"
+
+#: src/ui/classic/skin.desc:409 src/ui/classic/skin.desc:414
+msgid "SkinKeyboard"
+msgstr "كۇنۇپكا"
+
+#: src/ui/classic/skin.desc:411
+msgid "Virtual Keyboard Image"
+msgstr "مەۋھۇم كۇنۇپكا سۈرىتى"
+
+#: src/ui/classic/skin.desc:416
+msgid "Key Color On Virtual Keyboard"
+msgstr "يۇمشاق كۇنۇپكا تاختىسى كۇنۇپكىسىنىڭ خەت رەڭگى"

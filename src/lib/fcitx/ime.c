@@ -946,6 +946,7 @@ void FcitxInstanceChooseCandidateByTotalIndex(
     FcitxInstanceProcessInputReturnValue(instance, retVal);
 }
 
+
 FCITX_EXPORT_API
 INPUT_RETURN_VALUE FcitxInstanceDoInputCallback(
     FcitxInstance* instance,
@@ -2016,6 +2017,8 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
         return;
 
     UT_array* imList = fcitx_utils_split_string(instance->profile->imList, ',');
+    UT_array* imList_bak = fcitx_utils_split_string(instance->profile->imList, ',');
+
     utarray_sort(&instance->availimes, IMPriorityCmp);
     utarray_clear(&instance->imes);
     UnusedIMItemFreeAll(instance->unusedItem);
@@ -2023,12 +2026,13 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
 
     boolean imListIsEmpty = utarray_len(imList) == 0;
 
-
+    int index;
     char** pstr;
+    char** pstr_bak;
     FcitxIM* ime;
-    for (pstr = (char**) utarray_front(imList);
+    for (pstr = (char**) utarray_front(imList),index = 0,utarray_front(imList_bak);
             pstr != NULL;
-            pstr = (char**) utarray_next(imList, pstr)) {
+            pstr = (char**) utarray_next(imList, pstr),index++,pstr_bak = (char**)utarray_next(imList_bak, pstr_bak)) {
         char* str = *pstr;
         char* pos = strchr(str, ':');
         if (pos) {
@@ -2037,6 +2041,7 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
             pos ++;
             ime = FcitxInstanceGetIMFromIMList(instance, IMAS_Disable, str);
             boolean status = (strcmp(pos, "True") == 0);
+
             if (status && ime)
                 utarray_push_back(&instance->imes, ime);
 
@@ -2049,6 +2054,10 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
                     item->status = status;
                     HASH_ADD_KEYPTR(hh, instance->unusedItem, item->name, strlen(item->name), item);
                 }
+                utarray_prev(imList_bak, pstr_bak);
+                utarray_erase(imList_bak,index,1);
+
+                index --;
             }
         }
     }
@@ -2075,7 +2084,11 @@ void FcitxInstanceUpdateIMList(FcitxInstance* instance)
     }
     free(lang);
 
+    free(instance->profile->imList);
+    instance->profile->imList = fcitx_utils_join_string_list(imList_bak,',');
+
     utarray_free(imList);
+    utarray_free(imList_bak);
 
     FcitxInstanceUpdateCurrentIM(instance, true, false);
     FcitxInstanceProcessUpdateIMListHook(instance);

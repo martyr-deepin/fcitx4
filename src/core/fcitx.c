@@ -26,10 +26,10 @@
 #include "config.h"
 #endif
 
-#include <fcntl.h>
-#include <libintl.h>
 #include <locale.h>
+#include <libintl.h>
 #include <semaphore.h>
+#include <fcntl.h>
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -39,22 +39,22 @@
 #include <malloc.h>
 #endif // HAVE_MALLOC_H
 
-#include "errorhandler.h"
-#include "fcitx-utils/utils.h"
-#include "fcitx/addon.h"
 #include "fcitx/configfile.h"
-#include "fcitx/frontend.h"
-#include "fcitx/ime-internal.h"
-#include "fcitx/instance-internal.h"
-#include "fcitx/instance.h"
+#include "fcitx/addon.h"
 #include "fcitx/module.h"
+#include "fcitx/ime-internal.h"
+#include "fcitx/frontend.h"
 #include "fcitx/profile.h"
+#include "fcitx/instance.h"
+#include "fcitx/instance-internal.h"
+#include "fcitx-utils/utils.h"
+#include "errorhandler.h"
 
-FcitxInstance *instance = NULL;
+FcitxInstance* instance = NULL;
 int selfpipe[2];
-char *crashlog = NULL;
+char* crashlog = NULL;
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     if (!fcitx_utils_judge_implugin_service_exist()) {
         FcitxLog(DEBUG, "start fcitx-implugin-service");
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
         FcitxLog(DEBUG, "exited no start fcitx-implugin-service");
     }
 
-    char *localedir = fcitx_utils_get_fcitx_path("localedir");
+    char* localedir = fcitx_utils_get_fcitx_path("localedir");
     setlocale(LC_ALL, "");
     bindtextdomain("fcitx", localedir);
     free(localedir);

@@ -291,6 +291,11 @@ FcitxConfigFileDesc *FcitxConfigParseConfigFileDescFp(FILE *fp)
         else
             codesc2->longDesc = strdup("");
 
+        HASH_FIND_STR(options, "ShownInDeepin", option);
+        if (option)
+            codesc->shownInDeepin = strdup(option->rawValue);
+        else
+            codesc->shownInDeepin = strdup("");
 
         /* Processing Type */
         HASH_FIND_STR(options, "Type", option);
@@ -336,6 +341,8 @@ FcitxConfigFileDesc *FcitxConfigParseConfigFileDescFp(FILE *fp)
                 codesc->type = T_File;
             else if (!strcmp(option->rawValue, "Font"))
                 codesc->type = T_Font;
+            else if (!strcmp(option->rawValue, "ExternalOption"))
+                codesc->type = T_ExternalOption;
             else if (!strcmp(option->rawValue, "Hotkey")) {
                 codesc->type = T_Hotkey;
                 FcitxConfigOption* coption;

@@ -1,0 +1,92 @@
+[chineseime/SettingWizard]
+Type=String
+DefaultValue=/opt/apps/org.deepin.chineseime/files/bin/chinime-sett
+Description= chineseime setting wizard path
+
+[chineseime/Setting]
+Type=String
+DefaultValue=/opt/apps/org.deepin.chineseime/files/bin/chinime-sett
+Description= chineseime setting path
+
+[chineseime/Parameter]
+Type=String
+DefaultValue=
+Description= chineseime parameter
+
+[iflyime/SettingWizard]
+Type=String
+DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-setw
+Description= iflyime setting wizard path
+
+[iflyime/Setting]
+Type=String
+DefaultValue=/opt/apps/com.iflytek.iflyime/files/bin/iflyime-sett
+Description= iflyime setting path
+
+[iflyime/Parameter]
+Type=String
+DefaultValue=
+Description= iflyime parameter
+
+[huayupy/SettingWizard]
+Type=String
+DefaultValue=/opt/apps/com.thunisoft.input/files/bin/huayupy-config-tools-fcitx
+Description= huayupy setting wizard path
+
+[huayupy/Setting]
+Type=String
+DefaultValue=/opt/apps/com.thunisoft.input/files/bin/huayupy-config-tools-fcitx
+Description= huayupy setting path
+
+[huayupy/Parameter]
+Type=String
+DefaultValue=14760634-a01a-4919-872a-f5844996b1d2
+Description= huayupy parameter
+
+[sogoupinyin/SettingWizard]
+Type=String
+DefaultValue=/opt/sogoupinyin/files/bin/sogoupinyin-configtool
+Description= sogoupinyin setting wizard path
+
+[sogoupinyin/Setting]
+Type=String
+DefaultValue=/opt/sogoupinyin/files/bin/sogoupinyin-configtool
+Description= sogoupinyin setting path
+
+[sogoupinyin/Parameter]
+Type=String
+DefaultValue=
+Description= sogoupinyin parameter
+
+[sogoupinyinuos/SettingWizard]
+Type=String
+DefaultValue=
+Description=
+
+[sogoupinyinuos/Setting]
+Type=String
+DefaultValue=/opt/apps/com.sogou.sogoupinyin-uos/files/bin/sogouIme-configtool-uos
+Description= sogoupinyinuos setting path
+
+[sogoupinyinuos/Parameter]
+Type=String
+DefaultValue=
+Description= sogoupinyinuos parameter
+
+[baidupinyin/SettingWizard]
+Type=String
+DefaultValue=/opt/apps/com.baidu.fcitx-baidupinyin/files/bin/BDIMWizard
+Description= baidupinyin setting wizard path
+
+[baidupinyin/Setting]
+Type=String
+DefaultValue=/opt/apps/com.baidu.fcitx-baidupinyin/files/bin/BDIMSettings
+Description= baidupinyin setting path
+
+[baidupinyin/Parameter]
+Type=String
+DefaultValue=
+Description= baidupinyin parameter
+
+[DescriptionFile]
+LocaleDomain= implugin

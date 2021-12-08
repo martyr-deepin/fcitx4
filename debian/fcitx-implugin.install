@@ -1,0 +1,7 @@
+usr/bin/fcitx-implugin-service
+usr/bin/fcitx-gsettingtool
+usr/lib/*/fcitx/fcitx-implugin.so
+usr/share/fcitx/addon/fcitx-implugin.conf
+usr/share/fcitx/configdesc/fcitx-implugin.desc
+usr/share/man/man1/fcitx-implugin-service.1
+usr/share/man/man1/fcitx-gsettingtool.1

@@ -1,15 +1,19 @@
+%global _enable_debug_package 0
+%global debug_package %{nil}
+%global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 %global _xinputconf %{_sysconfdir}/X11/xinit/xinput.d/fcitx.conf
+%global _fcitxsh %{_sysconfdir}/X11/xinit/xinitrc.d/99_fcitx.sh
 %{!?gtk2_binary_version: %global gtk2_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-2.0)}
 %{!?gtk3_binary_version: %global gtk3_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-3.0)}
 
 Name:			fcitx
 Summary:		An input method framework
-Version:		4.2.9.21
+Version:		4.2.9.31.79
 Release:		1%{?dist}
 License:		GPLv2+
 URL:			https://fcitx-im.org/wiki/Fcitx
-Source0:		%{name}_%{version}_dict.tar.xz
-#Source1:		xinput_%{name}
+Source0:		%{name}-%{version}.tar.gz
+#Source1:		xinput_%%{name}
 BuildRequires:		gcc-c++
 BuildRequires:		pango-devel, dbus-devel
 %if 0%{?rhel} < 8
@@ -103,8 +107,8 @@ This package contains Fcitx IM module for gtk3.
 %if 0%{?rhel} < 8
 #%package qt4
 #Summary:		Fcitx IM module for qt4
-#Requires:		%{name} = %{version}-%{release}
-#Requires:		%{name}-libs%{?_isa} = %{version}-%{release}
+#Requires:		%%{name} = %%{version}-%%{release}
+#Requires:		%%{name}-libs%%{?_isa} = %%{version}-%%{release}
 
 #%description qt4
 #This package contains Fcitx IM module for qt4.
@@ -163,21 +167,33 @@ else
 fi
 EOF
 
+# cp %{_specdir}/99_fcitx.sh %{_sourcedir}
+
+cat > %{_sourcedir}/99_fcitx.sh <<EOF
+#!/bin/sh
+
+systemctl --user import-environment GTK_IM_MODULE QT_IM_MODULE XMODIFIERS
+
+if command -v dbus-update-activation-environment >/dev/null 2>&1; then
+    dbus-update-activation-environment GTK_IM_MODULE QT_IM_MODULE XMODIFIERS
+fi
+EOF
+
 %setup -q
 
 %build
 mkdir -p build
 pushd build
-%cmake .. -DENABLE_GTK3_IM_MODULE=On -DENABLE_QT_IM_MODULE=On -DENABLE_QT=Off -DENABLE_OPENCC=Off -DENABLE_ENCHANT=Off -DENABLE_LUA=On -DENABLE_GIR=On  -DENABLE_XDGAUTOSTART=Off 
+cmake .. -DENABLE_GTK3_IM_MODULE=On -DENABLE_QT_IM_MODULE=On -DENABLE_QT=Off -DENABLE_OPENCC=Off -DENABLE_ENCHANT=Off -DENABLE_LUA=On -DENABLE_GIR=On  -DENABLE_XDGAUTOSTART=Off  -DCMAKE_INSTALL_PREFIX:PATH=/usr -DLIB_INSTALL_DIR=/usr/lib64 
 
 make VERBOSE=1 %{?_smp_mflags}
 
 %install
 %make_install INSTALL="install -p" -C build
 
-find %{buildroot}%{_libdir} -name '*.la' -delete -print
+#find %{buildroot}%{_libdir} -name '*.la' -delete -print
 
-#install -pm 644 -D %{Source1} %{buildroot}%{_xinputconf}
+install -pm 644 -D %{_sourcedir}/99_fcitx.sh %{buildroot}%{_fcitxsh}
 install -pm 644 -D %{_sourcedir}/xinput_fcitx %{buildroot}%{_xinputconf}
 
 # patch fcitx4-config to use pkg-config to solve libdir to avoid multiarch
@@ -203,12 +219,18 @@ desktop-file-install --delete-original \
 
 %post 
 %{_sbindir}/alternatives --install %{_sysconfdir}/X11/xinit/xinputrc xinputrc %{_xinputconf} 55 || :
+%{_sbindir}/alternatives --install %{_sysconfdir}/X11/xinit/99_fcitx.sh 99_fcitx.sh %{_fcitxsh} 55 || :
 
 %postun  
 if [ "$1" = "0" ]; then
   %{_sbindir}/alternatives --remove xinputrc %{_xinputconf} || :
   # if alternative was set to manual, reset to auto
   [ -L %{_sysconfdir}/alternatives/xinputrc -a "`readlink %{_sysconfdir}/alternatives/xinputrc`" = "%{_xinputconf}" ] && %{_sbindir}/alternatives --auto xinputrc || :
+fi
+if [ "$1" = "0" ]; then
+  %{_sbindir}/alternatives --remove 99_fcitx.sh %{_fcitxsh} || :
+  # if alternative was set to manual, reset to auto
+  [ -L %{_sysconfdir}/alternatives/99_fcitx.sh -a "`readlink %{_sysconfdir}/alternatives/99_fcitx.sh`" = "%{_fcitxsh}" ] && %{_sbindir}/alternatives --auto 99_fcitx.sh || :
 fi
 
 %ldconfig_scriptlets libs
@@ -217,6 +239,7 @@ fi
 %doc AUTHORS ChangeLog THANKS TODO
 %license COPYING
 %config %{_xinputconf}
+%config %{_fcitxsh}
 %{_bindir}/fcitx-*
 %{_bindir}/fcitx
 %{_bindir}/createPYMB
@@ -234,7 +257,7 @@ fi
 %{_datadir}/mime/packages/x-fskin.xml
 %{_mandir}/man1/createPYMB.1*
 %{_mandir}/man1/fcitx-remote.1*
-%{_mandir}/man1/fcitx.1*
+%{_mandir}/man1/fcitx*
 %{_mandir}/man1/mb2org.1*
 %{_mandir}/man1/mb2txt.1*
 %{_mandir}/man1/readPYBase.1*
@@ -290,11 +313,13 @@ fi
 %{_datadir}/gir-1.0/Fcitx-1.0.gir
 
 %files table-chinese
+%license COPYING
 %doc
 %{_datadir}/%{name}/table/*
 %{_datadir}/%{name}/imicon/[!ps]*.png
 
 %files pinyin
+%license COPYING
 %doc
 %{_datadir}/%{name}/inputmethod/pinyin.conf
 %{_datadir}/%{name}/inputmethod/shuangpin.conf
@@ -310,27 +335,31 @@ fi
 %{_datadir}/%{name}/py-enhance/
 
 %files qw
+%license COPYING
 %doc
 %{_datadir}/%{name}/inputmethod/qw.conf
 %{_libdir}/%{name}/%{name}-qw.so
 %{_datadir}/%{name}/addon/fcitx-qw.conf
 
 %files table
+%license COPYING
 %doc
 %{_datadir}/%{name}/configdesc/table.desc
 %{_libdir}/%{name}/%{name}-table.so
 %{_datadir}/%{name}/addon/fcitx-table.conf
 
 %files gtk2
+%license COPYING
 %{_libdir}/gtk-2.0/%{gtk2_binary_version}/immodules/im-fcitx.so
 
 %files gtk3
+%license COPYING
 %{_libdir}/gtk-3.0/%{gtk3_binary_version}/immodules/im-fcitx.so
 
-%if 0%{?rhel} < 8
+#%%if 0%%{?rhel} < 8
 #%files qt4
-#%{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
-%endif
+#%%{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
+#%%endif
 
 %changelog
 * Fri Mar 20 2020 Robin Lee <cheeselee@fedoraproject.org> - 4.2.9.7-3

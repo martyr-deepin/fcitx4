@@ -147,7 +147,7 @@ void* PuncCreate(FcitxInstance* instance)
     FcitxUIRegisterStatus(instance, puncState, "punc",
                           profile->bUseWidePunc ? _("Full width punct") :
                           _("Latin punct"),
-                          _("Toggle Full Width Punctuation"), TogglePuncState,
+                          _("Switch Fullwidth Punctuation"), TogglePuncState,
                           GetPuncState);
 
     puncState->slot = FcitxInstanceAllocDataForIC(instance, PuncWhichAlloc,
@@ -566,7 +566,7 @@ void TogglePuncState(void* arg)
     FcitxUISetStatusString(puncState->owner, "punc",
                            profile->bUseWidePunc ? _("Full width punct") :
                            _("Latin punct"),
-                           _("Toggle Full Width Punctuation"));
+                           _("Switch Fullwidth Punctuation"));
     FcitxProfileSave(profile);
 }
 

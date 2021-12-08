@@ -33,8 +33,9 @@ Enum16=Super+Left Ctrl
 Enum17=Super+Right Ctrl
 Enum18=Disabled
 Enum19=Custom
-DefaultValue=L_SHIFT
-Description=Extra key for trigger input method
+DefaultValue=Disabled
+Description=Extra Key for Switching to the First Input Method
+ShownInDeepin=True
 
 [Hotkey/CustomSwitchKey]
 Type=Hotkey
@@ -60,13 +61,15 @@ Advance=True
 [Hotkey/IMSwitchKey]
 Type=Boolean
 DefaultValue=True
-Description=Enable Hotkey to scroll Between Input Method
+Description=Enable Shortcuts to Scroll Between Input Methods
+ShownInDeepin=True
 
 [Hotkey/IMSwitchIncludeInactive]
 Type=Boolean
 DefaultValue=True
-Description=Include Inactivate when scrolling between Input Method
+Description=Include Inactive When Scrolling Between Input Methods
 Advance=True
+ShownInDeepin=True
 
 [Hotkey/IMSwitchHotkey]
 Type=Enum
@@ -93,36 +96,42 @@ Advance=True
 [Hotkey/VKSwitchKey]
 Type=Hotkey
 DefaultValue=CTRL_ALT_B
-Description=Switching Virtual Keyboard
+Description=Switch Symbol Keyboard
 Advance=True
+ShownInDeepin=True
 
 [Hotkey/RemindSwitchKey]
 Type=Hotkey
 DefaultValue=
-Description=Switching Remind Mode
+Description=Switch Remind Mode
 Advance=True
+ShownInDeepin=True
 
 [Hotkey/FullWidthSwitchKey]
 Type=Hotkey
 DefaultValue=
-Description=Switching Full Width Character Mode
+Description=Switch Fullwidth Character
 Advance=True
+ShownInDeepin=True
 
 [Hotkey/PuncSwitchKey]
 Type=Hotkey
 DefaultValue=CTRL_.
-Description=Switch Full Width Punc Mode
+Description=Switch Fullwidth Punctuation
 Advance=True
+ShownInDeepin=True
 
 [Hotkey/PrevPageKey]
 Type=Hotkey
 DefaultValue=- UP
-Description=Prev Page
+Description=Previous Page
+ShownInDeepin=True
 
 [Hotkey/NextPageKey]
 Type=Hotkey
 DefaultValue== DOWN
 Description=Next Page
+ShownInDeepin=True
 
 [Hotkey/SecondThirdCandWordKey]
 Type=String
@@ -135,12 +144,14 @@ Type=Hotkey
 DefaultValue=CTRL_ALT_S
 Description=Saving All Config and Input History
 Advance=True
+ShownInDeepin=True
 
 [Hotkey/SwitchPreedit]
 Type=Hotkey
 DefaultValue=CTRL_ALT_P
-Description=Switch Embedded Preedit
+Description=Switch Embedded Preedit String
 Advance=True
+ShownInDeepin=True
 
 [Hotkey/PrevWord]
 Type=Hotkey
@@ -148,6 +159,7 @@ DefaultValue=SHIFT_TAB
 Description=Previous Candidate Word
 LongDescription=This is used in some modules and input methods to navigate to the previous candidate word
 Advance=True
+ShownInDeepin=True
 
 [Hotkey/NextWord]
 Type=Hotkey
@@ -155,6 +167,7 @@ DefaultValue=TAB
 Description=Next Candidate Word
 LongDescription=This is used in some modules and input methods to navigate to the next candidate word
 Advance=True
+ShownInDeepin=True
 
 [Program/DelayStart]
 Type=Integer
@@ -169,7 +182,8 @@ EnumCount=3
 Enum0=No
 Enum1=All
 Enum2=PerProgram
-Description=Share State Among Window
+Description=Share State Among Windows
+ShownInDeepin=True
 
 [Program/DefaultInputMethodState]
 Type=Enum
@@ -179,24 +193,28 @@ Enum0=Inactive
 Enum1=Active
 Description=Default Input Method State
 Advance=True
+ShownInDeepin=True
 
 [Output/HalfPuncAfterNumber]
 Type=Boolean
 DefaultValue=True
-Description=Type half width Punc After a Number
+Description=Type Halfwidth Punctuation After a Number
 Advance=True
+ShownInDeepin=True
 
 [Output/RemindModeDisablePaging]
 Type=Boolean
 DefaultValue=True
 Description=Disable Paging in Remind Mode
 Advance=True
+ShownInDeepin=True
 
 [Output/SendTextWhenSwitchEng]
 Type=Boolean
 DefaultValue=True
-Description=Commit when toggle state
+Description=Commit When Toggle State
 LongDescription=Send typed raw text if Switch to inactive Mode
+ShownInDeepin=True
 
 [Output/CandidateWordNumber]
 Type=Integer
@@ -204,60 +222,70 @@ DefaultValue=5
 Description=Candidate Word Number
 Min=1
 Max=10
+ShownInDeepin=True
 
 [Output/PhraseTips]
 Type=Boolean
 DefaultValue=True
 Description=Give the tips of Phrase
 Advance=True
+ShownInDeepin=True
 
 [Output/DontCommitPreeditWhenUnfocus]
 Type=Boolean
 DefaultValue=False
-Description=Do not commit preedit text when unfocus a window
+Description=Do Not Commit Preedit Text When a Window Loses Focus
 Advance=True
+ShownInDeepin=True
 
 [Appearance/ShowInputWindowAfterTriggering]
 Type=Boolean
-DefaultValue=True
-Description=Show Input Method Hint After Input method changed
+DefaultValue=False
+Description=Show Input Method Hint After Input Method Changed
 Advance=True
+ShownInDeepin=True
 
 [Appearance/ShowInputWindowWhenFocusIn]
 Type=Boolean
 DefaultValue=False
-Description=Show Input Method Hint After Input method changed and Focus in
+Description=Show Input Method Hint After Input Method Changed and Focus In
 Advance=True
+ShownInDeepin=True
 
 [Appearance/ShowInputWindowOnlyWhenActive]
 Type=Boolean
 DefaultValue=False
-Description=Input Method Hint will be only shown when state is active
+Description=Show Input Method Hint Only When the State Is Active
 Advance=True
+ShownInDeepin=True
 
 [Appearance/ShowInputSpeed]
 Type=Boolean
 DefaultValue=False
 Description=Show Input Speed
 Advance=True
+ShownInDeepin=True
 
 [Appearance/ShowVersion]
 Type=Boolean
 DefaultValue=False
 Description=Show Version
 Advance=True
+ShownInDeepin=True
 
 [Appearance/HideInputWindowWhenOnlyPreeditString]
 Type=Boolean
 DefaultValue=False
-Description=Do not show input window if there is only preedit string
+Description=Do Not Show Input Window If There Is Only Preedit String
 Advance=True
+ShownInDeepin=True
 
 [Appearance/HideInputWindowWhenOnlyOneCandidate]
 Type=Boolean
 DefaultValue=False
-Description=Do not show input window if there is only one candidate and preedit
+Description=Do Not Show Input Window If There Is Only One Candidate and Preedit String
 Advance=True
+ShownInDeepin=True
 
 [DescriptionFile]
 LocaleDomain=fcitx
