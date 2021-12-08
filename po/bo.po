@@ -1177,7 +1177,7 @@ msgstr "ཆ་ཤས་ཀྱི་ནང་འཇུག་བྱེད་སྟ
 msgid "Online Help"
 msgstr "དྲ་ཐོག་རོགས་རམ།"
 
-#: src/module/notificationitem/dbusmenu.c:386 src/ui/classic/classicui.c:525
+#: src/ui/classic/classicui.c:525
 msgid "Configure"
 msgstr "སྡེབ་སྒྲིག"
 
@@ -1421,7 +1421,9 @@ msgstr "ནང་འཇུག་བྱེད་སྟངས་འགོ་སླ
 msgid "Fcitx Configuration"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག"
 
-#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
+#: data/fcitx-configtool.desktop.in:3
+#: src/module/notificationitem/dbusmenu.c:386
+#: src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག"
 
@@ -2034,7 +2036,7 @@ msgstr "ཆ་ཚང་།"
 msgid "Per program"
 msgstr "བྱ་རིམ་ལྟར།"
 
-#: data/config.desc:172
+#: data/config.desc:185
 msgid "Share State Among Windows"
 msgstr "སྒེའུ་ཁུང་བར་མཉམ་སྤྱོད་བྱེད་པའི་རྣམ་པ།"
 
@@ -2090,16 +2092,16 @@ msgstr "སྒེའུ་ཁུལ་ལ་མདོ་ཚེག་མེད་
 msgid "Appearance"
 msgstr "ཕྱི་ཚུལ།"
 
-#: data/config.desc:223
+#: data/config.desc:244
 msgid "Show Input Method Hint After Input Method Changed"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་བརྗེ་སྐབས་དྲན་དྐུལ་བྱེད་པ།"
 
-#: data/config.desc:229
+#: data/config.desc:251
 msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr ""
 "ནང་འཇུག་མདོ་ཚེག་རག་པ་མ་ཟད་ནང་འཇུག་བྱེད་སྟངས་འགྱུར་སྐབས་དྲན་སྐུལ་བྱེད་པ།"
 
-#: data/config.desc:235
+#: data/config.desc:258
 msgid "Show Input Method Hint Only When the State Is Active"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་ཀྱི་དྲན་སྐུལ་དེ་སྐུལ་སློང་བྱས་ཡོད་སྐབས་མངོན་པ།"
 

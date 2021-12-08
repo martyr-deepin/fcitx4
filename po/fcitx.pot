@@ -1396,7 +1396,9 @@ msgstr "Start Input Method"
 msgid "Fcitx Configuration"
 msgstr "Fcitx Configuration"
 
-#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386 src/module/notificationitem/dbusmenu.c:386
+#: data/fcitx-configtool.desktop.in:3
+#: src/module/notificationitem/dbusmenu.c:386
+#: src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "Input Method Configuration"
 

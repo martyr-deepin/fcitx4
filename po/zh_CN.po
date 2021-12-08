@@ -1132,7 +1132,7 @@ msgstr "清除局部输入法"
 msgid "Online Help"
 msgstr "在线帮助"
 
-#: src/module/notificationitem/dbusmenu.c:386 src/ui/classic/classicui.c:525
+#: src/ui/classic/classicui.c:525
 msgid "Configure"
 msgstr "配置"
 
@@ -1374,7 +1374,9 @@ msgstr "启动输入法"
 msgid "Fcitx Configuration"
 msgstr "输入法配置"
 
-#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
+#: data/fcitx-configtool.desktop.in:3
+#: src/module/notificationitem/dbusmenu.c:386
+#: src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "输入法配置"
 
@@ -1771,7 +1773,7 @@ msgstr "不在图形界面显示"
 #: data/config.desc:133 data/config.desc:139 data/config.desc:145
 #: data/config.desc:152
 msgid "Hotkey"
-msgstr "快捷键"
+msgstr "更多快捷键"
 
 #: data/config.desc:5
 msgid "Trigger Input Method"
@@ -1981,7 +1983,7 @@ msgstr "所有"
 msgid "Per program"
 msgstr "按程序"
 
-#: data/config.desc:172
+#: data/config.desc:185
 msgid "Share State Among Windows"
 msgstr "在窗口间共享状态"
 
@@ -2036,15 +2038,15 @@ msgstr "窗口失去焦点时不提交预编辑文本"
 msgid "Appearance"
 msgstr "外观设置"
 
-#: data/config.desc:223
+#: data/config.desc:244
 msgid "Show Input Method Hint After Input Method Changed"
 msgstr "切换输入法时显示输入法提示"
 
-#: data/config.desc:229
+#: data/config.desc:251
 msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr "获得输入焦点并且输入法变化时显示输入法提示"
 
-#: data/config.desc:235
+#: data/config.desc:258
 msgid "Show Input Method Hint Only When the State Is Active"
 msgstr "输入法提示只在激活状态显示"
 

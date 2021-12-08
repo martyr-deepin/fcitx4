@@ -1189,7 +1189,7 @@ msgstr "قىسمەن كىرگۈزگۈچنى قۇرۇقداش"
 msgid "Online Help"
 msgstr "توردا ياردەم"
 
-#: src/module/notificationitem/dbusmenu.c:386 src/ui/classic/classicui.c:525
+#: src/ui/classic/classicui.c:525
 msgid "Configure"
 msgstr "سەپلىمە"
 
@@ -1435,7 +1435,9 @@ msgstr "كىرگۈزگۈچنى قوزغىتىش"
 msgid "Fcitx Configuration"
 msgstr "كىرگۈزگۈچ سەپلىمىسى"
 
-#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
+#: data/fcitx-configtool.desktop.in:3
+#: src/module/notificationitem/dbusmenu.c:386
+#: src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "كىرگۈزگۈچ سەپلىمىسى"
 
@@ -2058,7 +2060,7 @@ msgstr "بارلىق"
 msgid "Per program"
 msgstr "پىروگرامما بويىچە"
 
-#: data/config.desc:172
+#: data/config.desc:185
 msgid "Share State Among Windows"
 msgstr "كۆزنەكلەر ئارا ھالەتنى بەھرىلىنىش"
 
@@ -2116,17 +2118,17 @@ msgstr ""
 msgid "Appearance"
 msgstr "كۆرۈنمە"
 
-#: data/config.desc:223
+#: data/config.desc:244
 msgid "Show Input Method Hint After Input Method Changed"
 msgstr "كىرگۈزگۈچنى ئالماشتۇرغاندا خەت كىرگۈزگۈچنىڭ ئەسكەرتمىسىنى كۆرۈنسۇن"
 
-#: data/config.desc:229
+#: data/config.desc:251
 msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr ""
 "كىرگۈزۈش قىزىق نۇقتىسىغا ئېرىشىش ھەمدە كىرگۈزگۈچتە ئۆزگىرىش بولغاندا "
 "كىرگۈزگۈچتە كۆرسىتىلگەن ئەسكەرتىشنى كۆرسىتش."
 
-#: data/config.desc:235
+#: data/config.desc:258
 msgid "Show Input Method Hint Only When the State Is Active"
 msgstr "كىرگۈزگۈچتىكى ئەسكەرتمە پەقەت ئاكتىپلانغان ھالەتتىلا كۆرۈنىدۇ"
 

@@ -1169,7 +1169,7 @@ msgstr "Ryd lokal inputmetode"
 msgid "Online Help"
 msgstr "Onlinehjælp"
 
-#: src/module/notificationitem/dbusmenu.c:386 src/ui/classic/classicui.c:525
+#: src/ui/classic/classicui.c:525
 msgid "Configure"
 msgstr "Konfigurer"
 
@@ -1413,7 +1413,9 @@ msgstr "Start inputmetode"
 msgid "Fcitx Configuration"
 msgstr "Fcitx-konfiguration"
 
-#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
+#: data/fcitx-configtool.desktop.in:3
+#: src/module/notificationitem/dbusmenu.c:386
+#: src/module/notificationitem/dbusmenu.c:386
 msgid "Input Method Configuration"
 msgstr "Konfiguration af inputmetode"
 
@@ -1431,7 +1433,7 @@ msgstr ""
 
 #: skin/dark/fcitx_skin.conf.in:2 skin/dark/fcitx_skin.conf.in:5
 msgid "Dark"
-msgstr ""
+msgstr "Mørkt"
 
 #: skin/default/fcitx_skin.conf.in:2 src/module/spell/fcitx-spell.desc:5
 msgid "Default"
@@ -2027,9 +2029,9 @@ msgstr "Alle"
 msgid "Per program"
 msgstr "Per program"
 
-#: data/config.desc:172
+#: data/config.desc:185
 msgid "Share State Among Windows"
-msgstr "Del tilstand mellem vinduer"
+msgstr ""
 
 #: data/config.desc:178
 msgid "Inactive"
@@ -2082,17 +2084,17 @@ msgstr "Udfør ikke preedit-tekst når et vindue mister fokus"
 msgid "Appearance"
 msgstr "Udseende"
 
-#: data/config.desc:223
+#: data/config.desc:244
 msgid "Show Input Method Hint After Input Method Changed"
-msgstr "Vis inputmetodetip efter inputmetode er blevet ændret"
+msgstr ""
 
-#: data/config.desc:229
+#: data/config.desc:251
 msgid "Show Input Method Hint After Input Method Changed and Focus In"
-msgstr "Vis inputmetodetip efter inputmetode er blevet ændret og har fokuser"
+msgstr ""
 
-#: data/config.desc:235
+#: data/config.desc:258
 msgid "Show Input Method Hint Only When the State Is Active"
-msgstr "Inputmetodetip vil kun blive vist når tilstand er aktiv"
+msgstr ""
 
 #: data/config.desc:241
 msgid "Show Input Speed"
