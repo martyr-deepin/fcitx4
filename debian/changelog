@@ -1,4 +1,4 @@
-fcitx (4.2.9.30.3-1) unstable; urgency=medium
+fcitx (1:4.2.9.30.3-1) unstable; urgency=medium
 
  * 去掉1040需求部分,设定为klu单独分支
 
