@@ -790,5 +790,6 @@ Depends: ${misc:Depends}, ${shlibs:Depends}
 Breaks: fcitx (<< ${source:Upstream-Version})
 Description: Closed source input method configuration software support
  Improve some closed source input method support, add shortcuts to open
- the on-screen keyboard function, add automatic loading installation input 
-method, automatically remove uninstall input method.
+ the on-screen keyboard function, add automatic loading installation input
+ method, automatically remove uninstall input method.
+
