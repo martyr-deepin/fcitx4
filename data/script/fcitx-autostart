@@ -6,7 +6,7 @@ case "${XDG_SESSION_TYPE}" in
         sleep 2
         ;;
     wayland)
-        sleep 6
+        sleep 9
         ;;
 esac
 
