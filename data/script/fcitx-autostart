@@ -1,12 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 
 # sleep for a little while to avoid duplicate startup
+
 case "${XDG_SESSION_TYPE}" in
     x11)
         sleep 2
         ;;
     wayland)
-        sleep 9
+        CPUINFO=$(grep "model name" /proc/cpuinfo | awk -F[:@] '{print $2}' | sed 's/ \+$//g'| uniq) 
+        if [[ $CPUINFO == "*Loongson*" ]]; then
+            sleep 17
+        else
+            sleep 9
+        fi
         ;;
 esac
 
