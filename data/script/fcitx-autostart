@@ -9,7 +9,7 @@ case "${XDG_SESSION_TYPE}" in
     wayland)
         CPUINFO=$(grep "model name" /proc/cpuinfo | awk -F[:@] '{print $2}' | sed 's/ \+$//g'| uniq) 
         if [[ $CPUINFO == "*Loongson*" ]]; then
-            sleep 17
+            sleep 30
         else
             sleep 9
         fi
