@@ -3259,7 +3259,7 @@ msgid "Active Tray Icon"
 msgstr "活动输入法图标"
 
 #: src/ui/classic/skin.desc:313
-msgid "Inctive Tray Icon"
+msgid "Inactive Tray Icon"
 msgstr "非活动输入法图标"
 
 #: src/ui/classic/skin.desc:315 src/ui/classic/skin.desc:319

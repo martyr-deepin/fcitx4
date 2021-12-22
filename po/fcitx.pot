@@ -3302,8 +3302,8 @@ msgid "Active Tray Icon"
 msgstr "Active Tray Icon"
 
 #: src/ui/classic/skin.desc:313
-msgid "Inctive Tray Icon"
-msgstr "Inctive Tray Icon"
+msgid "Inactive Tray Icon"
+msgstr "Inactive Tray Icon"
 
 #: src/ui/classic/skin.desc:315 src/ui/classic/skin.desc:319
 #: src/ui/classic/skin.desc:323 src/ui/classic/skin.desc:327

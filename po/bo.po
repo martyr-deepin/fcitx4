@@ -235,8 +235,8 @@ msgid ""
 "this script may not be accurate. See ${2} for more information."
 msgstr ""
 "ཁྱོད་ཀྱིས་${1} སྤྱད་ནས་འཁྲབ་གཞུང་འདི་ཉིད་འཁོར་སྐྱོད་བྱེད་བཞིན་ཡོད་སྲིད། "
-"དེས་ན་འཁྲབ་གཞུང་དེའི་འབྲས་བུ་ཡང་དག་མིན་གཏན་ཁེལ་མེད།  "
-"དེ་བས་མང་བའི་ཆ་འཕྲིན་${2}ན་གསལ།"
+"དེས་ན་འཁྲབ་གཞུང་དེའི་འབྲས་བུ་ཡང་དག་མིན་གཏན་ཁེལ་མེད། "
+" དེ་བས་མང་བའི་ཆ་འཕྲིན་${2}ན་གསལ།"
 
 #: data/script/fcitx-diagnose.sh:871 data/script/fcitx-diagnose.sh:877
 msgid "sudo environment variables"
@@ -3336,7 +3336,7 @@ msgid "Active Tray Icon"
 msgstr "བྱེད་སྒོའི་ནང་འཇུག་བྱེད་སྟངས་རྟགས་རིས།"
 
 #: src/ui/classic/skin.desc:313
-msgid "Inctive Tray Icon"
+msgid "Inactive Tray Icon"
 msgstr "བྱེད་སྒོ་མིན་པའི་ནང་འཇུག་བྱེད་སྟངས་རྟགས་རིས།"
 
 #: src/ui/classic/skin.desc:315 src/ui/classic/skin.desc:319
