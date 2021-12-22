@@ -3254,7 +3254,7 @@ msgid "Active Tray Icon"
 msgstr "活動中操作列圖示"
 
 #: src/ui/classic/skin.desc:313
-msgid "Inctive Tray Icon"
+msgid "Inactive Tray Icon"
 msgstr "非活動中操作列圖示"
 
 #: src/ui/classic/skin.desc:315 src/ui/classic/skin.desc:319
