@@ -645,9 +645,7 @@ void FcitxNotificationItemSetAvailable(FcitxNotificationItem* notificationitem, 
             }
         } else {
             if (notificationitem->callback) {
-                if (notificationitem->callback) {
-                    notificationitem->callback(notificationitem->data, false);
-                }
+                notificationitem->callback(notificationitem->data, false);
             }
         }
     }
