@@ -11,6 +11,9 @@ if(_ENABLE_DBUS AND ENABLE_XDGAUTOSTART)
   install(FILES fcitx-autostart DESTINATION "${bindir}"
     PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
     GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+  install(FILES fcitx-wayland-start.sh DESTINATION "${bindir}"
+    PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+    GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 endif()
 
 fcitx_translate_add_sources(fcitx-diagnose.sh fcitx-configtool.sh)
