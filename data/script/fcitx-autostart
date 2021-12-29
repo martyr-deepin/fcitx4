@@ -5,14 +5,10 @@
 case "${XDG_SESSION_TYPE}" in
     x11)
         sleep 2
+        bash /bin/fcitx-wayland-start.sh
         ;;
     wayland)
-        CPUINFO=$(grep "model name" /proc/cpuinfo | awk -F[:@] '{print $2}' | sed 's/ \+$//g'| uniq) 
-        if [[ $CPUINFO == "*Loongson*" ]]; then
-            sleep 30
-        else
-            sleep 9
-        fi
+        bash /bin/fcitx-wayland-start.sh
         ;;
 esac
 
