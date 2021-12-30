@@ -13,7 +13,14 @@ case "${XDG_SESSION_TYPE}" in
         sleep 2
         ;;
     wayland)
-        bash /bin/fcitx-wayland-start.sh
+        var=$DISPLAY
+	 if [ -n "$var" ]; then
+            fcitx
+	else
+	sleep 2
+	bash /bin/fcitx-autostart &
+       exit $?
+	fi
         ;;
 esac
 
