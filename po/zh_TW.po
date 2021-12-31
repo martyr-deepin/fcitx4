@@ -1367,7 +1367,7 @@ msgstr "啓動輸入法"
 
 #: data/fcitx-configtool.desktop.in:2
 msgid "Fcitx Configuration"
-msgstr "Fcitx 設定"
+msgstr "輸入法設定"
 
 #: data/fcitx-configtool.desktop.in:3
 #: src/module/notificationitem/dbusmenu.c:386
@@ -3254,7 +3254,7 @@ msgid "Active Tray Icon"
 msgstr "活動中操作列圖示"
 
 #: src/ui/classic/skin.desc:313
-msgid "Inctive Tray Icon"
+msgid "Inactive Tray Icon"
 msgstr "非活動中操作列圖示"
 
 #: src/ui/classic/skin.desc:315 src/ui/classic/skin.desc:319
