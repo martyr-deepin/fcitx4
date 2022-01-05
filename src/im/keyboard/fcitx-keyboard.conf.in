@@ -8,3 +8,4 @@ Library=fcitx-keyboard.so
 Type=SharedLibrary
 Dependency=
 IMRegisterMethod=Self
+Advance=True
