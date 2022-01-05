@@ -31,9 +31,16 @@
 #include "fcitx/module.h"
 #include "fcitx/hook.h"
 
+#define NOTIFICATION_WATCHER_DBUS_ADDR    "org.kde.StatusNotifierWatcher"
+#define NOTIFICATION_WATCHER_DBUS_OBJ     "/StatusNotifierWatcher"
+#define NOTIFICATION_WATCHER_DBUS_IFACE   "org.kde.StatusNotifierWatcher"
+
+#define NOTIFICATION_ITEM_DBUS_IFACE      "org.kde.StatusNotifierItem"
+#define NOTIFICATION_ITEM_DEFAULT_OBJ     "/StatusNotifierItem"
+
 const char * _notification_item =
 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-"<node name=\"/StatusNotifierItem\">"
+"<node name=\"" NOTIFICATION_ITEM_DEFAULT_OBJ ">"
 "<interface name=\"" DBUS_INTERFACE_INTROSPECTABLE "\">"
 "<method name=\"Introspect\">"
 "<arg name=\"data\" direction=\"out\" type=\"s\"/>"
@@ -60,7 +67,7 @@ const char * _notification_item =
 "<arg name=\"invalidated_properties\" type=\"as\"/>"
 "</signal>"
 "</interface>"
-"<interface name=\"org.kde.StatusNotifierItem\">"
+"<interface name=\"" NOTIFICATION_ITEM_DBUS_IFACE "\">"
 "<property name=\"Id\" type=\"s\" access=\"read\" />"
 "<property name=\"Category\" type=\"s\" access=\"read\" />"
 "<property name=\"Status\" type=\"s\" access=\"read\" />"
@@ -106,13 +113,6 @@ const char * _notification_item =
 "</interface>"
 "</node>"
 ;
-
-#define NOTIFICATION_WATCHER_DBUS_ADDR    "org.kde.StatusNotifierWatcher"
-#define NOTIFICATION_WATCHER_DBUS_OBJ     "/StatusNotifierWatcher"
-#define NOTIFICATION_WATCHER_DBUS_IFACE   "org.kde.StatusNotifierWatcher"
-
-#define NOTIFICATION_ITEM_DBUS_IFACE      "org.kde.StatusNotifierItem"
-#define NOTIFICATION_ITEM_DEFAULT_OBJ     "/StatusNotifierItem"
 
 #ifndef DBUS_TIMEOUT_USE_DEFAULT
 #  define DBUS_TIMEOUT_USE_DEFAULT (-1)
@@ -645,9 +645,7 @@ void FcitxNotificationItemSetAvailable(FcitxNotificationItem* notificationitem, 
             }
         } else {
             if (notificationitem->callback) {
-                if (notificationitem->callback) {
-                    notificationitem->callback(notificationitem->data, false);
-                }
+                notificationitem->callback(notificationitem->data, false);
             }
         }
     }
