@@ -258,12 +258,12 @@ void FcitxDBusMenuDoEvent(void *arg) {
     /* for uos dbus menu, we have
      * root (0,0) -> some status (0,8 + X) do cache
      *            -> separator (0,1)
-     *            -> registered im menu (x,0)
-     *            -> registered im menu (y,0)
+     *            -> registered im menu (0 ... x,2)
+     *            -> registered im menu (1 ... y,2)
      *            -> registered vk menu (x,1)
      *            -> separator (0,2)
      *            -> online help (0,3)
-     *            -> registered skin menu (x,2)
+     *            -> registered skin menu (x,3)
      *            -> configure (0,4)
      *            -> separator (0,5)
      *            -> restart (0,6)
@@ -319,7 +319,7 @@ void FcitxDBusMenuDoEvent(void *arg) {
                 FcitxUIUpdateStatus(instance, name);
             }
         }
-    } else if (menu > 0) {
+    } else if (menu > 0 && menu != 2) {
         UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
         FcitxUIMenu **menup = (FcitxUIMenu **)utarray_eltptr(uimenus, menu - 1),
                     *menu;
@@ -328,6 +328,16 @@ void FcitxDBusMenuDoEvent(void *arg) {
         menu = *menup;
         if (menu->MenuAction) {
             menu->MenuAction(menu, index - 1);
+        }
+    } else if (menu == 2) {
+        UT_array *imes = FcitxInstanceGetIMEs(instance);
+        FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index - 1);
+        const char *name = NULL;
+        if (ime) {
+            name = ime->strName;
+        }
+        if (name) {
+            FcitxUIUpdateStatus(instance, name);
         }
     }
 }
@@ -406,12 +416,12 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
     /* for uos dbus menu, we have
      * root (0,0) -> some status (0,8 + X) do cache
      *            -> separator (0,1)
-     *            -> registered im menu (x,0)
-     *            -> registered im menu (y,0)
+     *            -> registered im menu (0 ... x,2)
+     *            -> registered im menu (1 ... y,2)
      *            -> registered vk menu (x,1)
      *            -> separator (0,2)
      *            -> online help (0,3)
-     *            -> registered skin menu (x,2)
+     *            -> registered skin menu (x,3)
      *            -> configure (0,4)
      *            -> separator (0,5)
      *            -> restart (0,6)
@@ -419,14 +429,42 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
      */
 
     /* index == 0 means it has a sub menu */
-    if (index == 0) {
+    if (index == 0 && menu != 2) {
         const char *value = "submenu";
         FcitxDBusMenuAppendProperty(&sub, properties, "children-display",
                                     DBUS_TYPE_STRING, &value);
     }
-    if (menu == 0) {
+    const char *value;
+    if (menu == 2) {
+        UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
+        FcitxUIMenu *menup = utarray_eltptr(uimenus, menu - 1);
+
+        if (!menup)
+            return;
+
+        UT_array *imes =
+        FcitxInstanceGetIMEs(instance);
+        FcitxLog(DEBUG, "FcitxDBusMenuFillProperty index (id): %d", index);
+        if (index < (unsigned int)utarray_len(imes)) {
+           FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index);
+           value = (ime)->strName;
+           FcitxDBusMenuAppendProperty(&sub, properties, "label",
+                                       DBUS_TYPE_STRING, &value);
+        }
+        const char *radio = "radio";
+        FcitxDBusMenuAppendProperty(&sub, properties,
+                                    "toggle-type",
+                                    DBUS_TYPE_STRING, &radio);
+        int32_t toggleState = 0;
+        if (menup->mark == index - 1) {
+            toggleState = 1;
+        }
+        FcitxDBusMenuAppendProperty(
+            &sub, properties, "toggle-state", DBUS_TYPE_INT32,
+            &toggleState);
+    }
+    else if (menu == 0) {
         if (index <= 8 && index > 0) {
-            const char *value;
 
             switch (index) {
             case 1:
@@ -529,7 +567,7 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
 
         if (menupp) {
             menup = *menupp;
-            if (index == 0) {
+            if (index == 0 && menu != 2) {
                 FcitxDBusMenuAppendProperty(&sub, properties, "label",
                                             DBUS_TYPE_STRING, &menup->name);
             } else if (index > 0) {
@@ -586,12 +624,12 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
     /* for uos dbus menu, we have
      * root (0,0) -> some status (0,8 + X) do cache
      *            -> separator (0,1)
-     *            -> registered im menu (1,x)
-     *            -> registered im menu (1,y)
-     *            -> registered vk menu (2,1) -> (2,1), (2,2), (2,3)
+     *            -> registered im menu (0 ... x,2)
+     *            -> registered im menu (1 ... y,2)
+     *            -> registered vk menu (x,1)
      *            -> separator (0,2)
      *            -> online help (0,3)
-     *            -> registered skin menu (3,1) -> (3,1), (3,2), (3,3)
+     *            -> registered skin menu (x,3)
      *            -> configure (0,4)
      *            -> separator (0,5)
      *            -> restart (0,6)
@@ -673,9 +711,20 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                                     properties, &array);
                 }
 
-                if (utarray_len(uimenus) > 0) {
+                UT_array *imes =
+                FcitxInstanceGetIMEs(instance);
+                if (utarray_len(imes) > 0) {
+                    for(i = 0;i < (unsigned int)utarray_len(imes); i++)
+                    {
+                        FcitxDBusMenuFillLayoutItemWrap(
+                            notificationitem, ACTION_ID(2, i), depth - 1,
+                            properties, &array);
+                    }
+
+                }
+                if(utarray_len(uimenus) > 0){
+                    i = 1;
                     FcitxUIMenu **menupp;
-                    int i = 2;
                     for (menupp = (FcitxUIMenu **)utarray_front(uimenus);
                          menupp != NULL; menupp = (FcitxUIMenu **)utarray_next(
                                              uimenus, menupp)) {
@@ -728,7 +777,7 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
 
                 if (utarray_len(uimenus) > 0) {
                     FcitxUIMenu **menupp;
-                    int i = 1;
+                    i = 1;
                     for (menupp = (FcitxUIMenu **)utarray_front(uimenus);
                          menupp != NULL; menupp = (FcitxUIMenu **)utarray_next(
                                              uimenus, menupp)) {
