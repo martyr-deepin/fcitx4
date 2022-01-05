@@ -19,6 +19,57 @@
     },
     {
       "key": {
+        "uuid": "8bf9e025_11c0df7c",
+        "filename": "src/lib/fcitx/instance.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-05T13:46:57Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16413904131660.41730580572777864/changeCache/src/lib/fcitx/instance.c:532]: (style) Local variable frontend shadows outer variabl",
+      "revId": "14948d7d605abf088ccb0b27e1594e907df1637a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5320d27a_a2375088",
+        "filename": "src/lib/fcitx/instance.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-05T13:46:57Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16413904131660.41730580572777864/changeCache/src/lib/fcitx/instance.c:530]: (warning) Opposite inner \u0027if\u0027 condition leads to a dead code block",
+      "revId": "14948d7d605abf088ccb0b27e1594e907df1637a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ef71689_fc093907",
+        "filename": "src/lib/fcitx/instance.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-05T13:46:57Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16413904131660.41730580572777864/changeCache/src/lib/fcitx/instance.c:540]: (warning) Opposite inner \u0027if\u0027 condition leads to a dead code block",
+      "revId": "14948d7d605abf088ccb0b27e1594e907df1637a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72be1966_4a270b2b",
         "filename": "src/module/notificationitem/dbusmenu.c",
         "patchSetId": 1
@@ -30,6 +81,57 @@
       "writtenOn": "2022-01-05T13:46:56Z",
       "side": 1,
       "message": "注释行数: 34; 改动行数(修改和新增): 261; 注释率: 13.0%",
+      "revId": "14948d7d605abf088ccb0b27e1594e907df1637a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ffd26b7_96e4f953",
+        "filename": "src/module/notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-05T13:46:57Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16413904131660.41730580572777864/changeCache/src/module/notificationitem/dbusmenu.c:325]: (style) Local variable menu shadows outer variabl",
+      "revId": "14948d7d605abf088ccb0b27e1594e907df1637a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56f2b942_7efc3c7a",
+        "filename": "src/module/notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-05T13:46:57Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16413904131660.41730580572777864/changeCache/src/module/notificationitem/dbusmenu.c:297]: (style) Local variable index shadows outer variabl",
+      "revId": "14948d7d605abf088ccb0b27e1594e907df1637a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ad2997e_42bc15e6",
+        "filename": "src/module/notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-05T13:46:57Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16413904131660.41730580572777864/changeCache/src/module/notificationitem/dbusmenu.c:513]: (style) Local variable index shadows outer variabl",
       "revId": "14948d7d605abf088ccb0b27e1594e907df1637a",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
@@ -64,6 +166,40 @@
       "writtenOn": "2022-01-05T13:46:56Z",
       "side": 1,
       "message": "注释行数: 1; 改动行数(修改和新增): 2; 注释率: 50.0%",
+      "revId": "14948d7d605abf088ccb0b27e1594e907df1637a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09eee6e7_90779cba",
+        "filename": "src/module/vk/vk.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-05T13:46:57Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027iIndex\u0027 can be reduced",
+      "revId": "14948d7d605abf088ccb0b27e1594e907df1637a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1841eea_cdd314b9",
+        "filename": "src/module/vk/vk.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-05T13:46:57Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027pstr\u0027 can be reduced",
       "revId": "14948d7d605abf088ccb0b27e1594e907df1637a",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
