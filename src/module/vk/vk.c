@@ -157,7 +157,7 @@ void *VKCreate(FcitxInstance* instance)
     hotkey.arg = vkstate;
     FcitxInstanceRegisterHotkeyFilter(instance, hotkey);
 
-    FcitxUIRegisterStatus(instance, vkstate, "vk", _("Toggle Virtual Keyboard"), _("Virtual Keyboard State"),  ToggleVKState, GetVKState);
+    // FcitxUIRegisterStatus(instance, vkstate, "vk", _("Toggle Virtual Keyboard"), _("Virtual Keyboard State"),  ToggleVKState, GetVKState);
 
     LoadVKMapFile(vkstate);
 
@@ -285,6 +285,7 @@ boolean GetVKState(void *arg)
 
 void ToggleVKState(void *arg)
 {
+    printf("ToggleVKState \n");
     FcitxVKState *vkstate = (FcitxVKState*) arg;
     SwitchVK(vkstate);
 }
