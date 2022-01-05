@@ -495,8 +495,8 @@ int main(int argc, char *argv[]) {
                                 dir.path[event->wd], event->name, event_str[i]);
                         display_inotify_event(event);
 
-                        if ((strcmp(event_str[i], "IN_CREATE") == 0) ||
-                            (strcmp(event_str[i], "IN_MOVED_TO") == 0)) {
+                        if ((strcmp(event_str[i], "IN_CREATE") == 0)/* ||
+                            (strcmp(event_str[i], "IN_MOVED_TO") == 0)*/) {
                             memset(path, 0, sizeof path);
                             strncat(path, dir.path[event->wd], BUFSIZ);
                             strncat(path, "/", 1);
@@ -506,8 +506,7 @@ int main(int argc, char *argv[]) {
                                 id_add(path);
                                 inotify_add_watch(
                                     fd, path,
-                                    IN_CREATE | IN_ATTRIB | IN_DELETE |
-                                        IN_MOVED_FROM | IN_MOVED_TO);
+                                    IN_CREATE | IN_MOVED_TO);
                                 fprintf(gFp, "%s: %s/%s --- %s %d %d\n",
                                         gettime(), dir.path[event->wd],
                                         event->name, event_str[i], event->wd,
