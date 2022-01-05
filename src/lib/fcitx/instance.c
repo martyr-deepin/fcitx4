@@ -283,7 +283,7 @@ void* RunInstance(void* arg)
     }
 
     FcitxInstanceInitIMMenu(instance);
-    FcitxUIRegisterMenu(instance, &instance->imMenu);
+//    FcitxUIRegisterMenu(instance, &instance->imMenu);
     FcitxUIRegisterStatus(instance, instance, "remind",
                            instance->profile->bUseRemind ? _("Use remind") :  _("No remind"),
                           _("Toggle Remind"), ToggleRemindState, GetRemindEnabled);
