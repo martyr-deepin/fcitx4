@@ -329,10 +329,11 @@ void FcitxDBusMenuDoEvent(void *arg) {
         if (menu->MenuAction) {
             menu->MenuAction(menu, index - 1);
         }
-    }else if (menu == 2) {
-        FcitxLog(DEBUG, "FcitxDBusMenuFillProperty menu: %d index: %d", menu, index);
+    } else if (menu == 2) {
+        FcitxLog(DEBUG, "FcitxDBusMenuFillProperty menu: %d index: %d", menu,
+                 index);
 
-        FcitxIM* im = FcitxInstanceGetIMByIndex(instance, index);
+        FcitxIM *im = FcitxInstanceGetIMByIndex(instance, index);
         // this contains delay support, so we don't use switch im by index here.
         if (im) {
             FcitxInstanceSwitchIMByName(instance, im->uniqueName);
@@ -458,10 +459,10 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
         if (menup->mark == index - 1) {
             toggleState = 1;
         }
-
         FcitxDBusMenuAppendProperty(&sub, properties, "toggle-state",
                                     DBUS_TYPE_INT32, &toggleState);
     } else if (menu == 0) {
+
         if (index <= 8 && index > 0) {
 
             switch (index) {
@@ -708,10 +709,10 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                                     STATUS_ID(1, i), depth - 1,
                                                     properties, &array);
                 }
-
                 UT_array *imes = FcitxInstanceGetIMEs(instance);
                 if (utarray_len(imes) > 0) {
                     for (i = 0; i < (unsigned int)utarray_len(imes); i++) {
+
                         FcitxDBusMenuFillLayoutItemWrap(
                             notificationitem, ACTION_ID(2, i), depth - 1,
                             properties, &array);
