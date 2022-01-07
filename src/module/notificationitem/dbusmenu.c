@@ -45,6 +45,11 @@
 
 static const UT_icd ut_int32_icd = {sizeof(int32_t), NULL, NULL, NULL};
 
+#define MENU_MAIN 0
+#define MENU_IM 1
+#define MENU_SKIN 2
+#define MENU_VK 3
+
 const char *dbus_menu_interface =
     "<!DOCTYPE node PUBLIC \"-//freedesktop//DTD D-BUS Object Introspection "
     "1.0//EN\" "
@@ -270,9 +275,6 @@ void FcitxDBusMenuDoEvent(void *arg) {
      *            -> exit (0,7)
      */
 
-    FcitxLog(DEBUG, "FcitxDBusMenuDoEvent menu: %d, id : %d", menu, id);
-    FcitxLog(DEBUG, "FcitxDBusMenuDoEvent index: %d, id : %d", index, id);
-
     if (index <= 0)
         return;
 
@@ -295,10 +297,8 @@ void FcitxDBusMenuDoEvent(void *arg) {
             }
         } else {
             int index = STATUS_INDEX(id);
-            FcitxLog(DEBUG, "FcitxDBusMenuDoEvent index: %d", index);
             const char *name = NULL;
-            FcitxLog(DEBUG, "FcitxDBusMenuDoEvent STATUS_ISCOMP(id): %d",
-                     STATUS_ISCOMP(id));
+
             if (STATUS_ISCOMP(id)) {
                 UT_array *uicompstats =
                     FcitxInstanceGetUIComplexStats(instance);
@@ -330,9 +330,6 @@ void FcitxDBusMenuDoEvent(void *arg) {
             menu->MenuAction(menu, index - 1);
         }
     } else if (menu == 2) {
-        FcitxLog(DEBUG, "FcitxDBusMenuFillProperty menu: %d index: %d", menu,
-                 index);
-
         FcitxIM *im = FcitxInstanceGetIMByIndex(instance, index);
         // this contains delay support, so we don't use switch im by index here.
         if (im) {
@@ -409,8 +406,6 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
     dbus_message_iter_open_container(iter, DBUS_TYPE_ARRAY, "{sv}", &sub);
     int32_t menu = ACTION_MENU(id);
     int32_t index = ACTION_INDEX(id);
-    //     FcitxLog(DEBUG, "FcitxDBusMenuFillProperty menu: %d", menu);
-    //     FcitxLog(DEBUG, "FcitxDBusMenuFillProperty index: %d", index);
 
     /* for uos dbus menu, we have
      * root (0,0) -> some status (0,8 + X) do cache
@@ -640,9 +635,6 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
         notificationitem->ids = MenuIdSetAdd(notificationitem->ids, id);
         int32_t menu = ACTION_MENU(id);
         int32_t index = ACTION_INDEX(id);
-        FcitxLog(DEBUG, "FcitxDBusMenuFillLayoutItem menu: %d", menu);
-        FcitxLog(DEBUG, "FcitxDBusMenuFillLayoutItem index: %d", index);
-
         UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
         /* we ONLY support submenu in top level menu */
         if (menu == 0) {
@@ -679,10 +671,6 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                                     properties, &array);
                 }
 
-                FcitxLog(DEBUG,
-                         "FcitxDBusMenuFillLayoutItem ACTION_ID(0,3): %d "
-                         ",(depth - 1): %d",
-                         ACTION_ID(0, 3), depth - 1);
                 FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                 ACTION_ID(0, 3), depth - 1,
                                                 properties, &array);
@@ -797,11 +785,6 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                     break;
                                 }
                             }
-                            FcitxLog(
-                                DEBUG,
-                                "FcitxDBusMenuFillLayoutItem ACTION_ID(i,0): "
-                                "%d ,(depth - 1): %d,i: %d",
-                                ACTION_ID(i, 0), (depth - 1), i);
                             FcitxDBusMenuFillLayoutItemWrap(
                                 notificationitem, ACTION_ID(i, 0), depth - 1,
                                 properties, &array);
@@ -809,34 +792,18 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                         i++;
                     }
                 }
-                FcitxLog(DEBUG,
-                         "FcitxDBusMenuFillLayoutItem ACTION_ID(0,4): %d "
-                         ",(depth - 1): %d",
-                         ACTION_ID(0, 4), depth - 1);
                 FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                 ACTION_ID(0, 4), depth - 1,
                                                 properties, &array);
 
-                FcitxLog(DEBUG,
-                         "FcitxDBusMenuFillLayoutItem ACTION_ID(0,5): %d "
-                         ",(depth - 1): %d",
-                         ACTION_ID(0, 5), depth - 1);
                 FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                 ACTION_ID(0, 5), depth - 1,
                                                 properties, &array);
 
-                FcitxLog(DEBUG,
-                         "FcitxDBusMenuFillLayoutItem ACTION_ID(0,6): %d "
-                         ",(depth - 1): %d",
-                         ACTION_ID(0, 6), depth - 1);
                 FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                 ACTION_ID(0, 6), depth - 1,
                                                 properties, &array);
 
-                FcitxLog(DEBUG,
-                         "FcitxDBusMenuFillLayoutItem ACTION_ID(0,7): %d "
-                         ",(depth - 1): %d",
-                         ACTION_ID(0, 7), depth - 1);
                 FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                 ACTION_ID(0, 7), depth - 1,
                                                 properties, &array);
@@ -853,10 +820,7 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                     unsigned int i = 0;
                     unsigned int len = utarray_len(&menup->shell);
                     for (i = 0; i < len; i++) {
-                        FcitxLog(DEBUG,
-                                 "FcitxDBusMenuFillLayoutItem ACTION_ID(menu,i "
-                                 "+ 1): %d ,(depth - 1) : %d, menu : %d",
-                                 ACTION_ID(menu, i + 1), (depth - 1), menu);
+
                         FcitxDBusMenuFillLayoutItemWrap(
                             notificationitem, ACTION_ID(menu, i + 1), depth - 1,
                             properties, &array);
