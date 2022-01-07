@@ -647,7 +647,7 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                 for (i = 0, status = (FcitxUIStatus *)utarray_front(uistats);
                      status != NULL; i++,
                     status = (FcitxUIStatus *)utarray_next(uistats, status)) {
-                    if (!status->visible)
+                    if (strcmp(status->name, "vk") == 0 || !status->visible)
                         continue;
                     flag = true;
                     FcitxDBusMenuFillLayoutItemWrap(notificationitem,
@@ -677,7 +677,6 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                         continue;
                     if (FcitxUIGetMenuByStatusName(instance, compstatus->name))
                         continue;
-
                     flag = true;
                     FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                     STATUS_ID(1, i), depth - 1,
