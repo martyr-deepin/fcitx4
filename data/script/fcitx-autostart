@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# 脚本解释器 强制设置为 bash
+if [ "$BASH" != "/bin/bash" ] && [ "$BASH" != "/usr/bin/bash" ]; then
+    bash "$0" "$@"
+    exit $?
+fi
+
 # sleep for a little while to avoid duplicate startup
 
 case "${XDG_SESSION_TYPE}" in
@@ -7,12 +13,14 @@ case "${XDG_SESSION_TYPE}" in
         sleep 2
         ;;
     wayland)
-        CPUINFO=$(grep "model name" /proc/cpuinfo | awk -F[:@] '{print $2}' | sed 's/ \+$//g'| uniq) 
-        if [[ $CPUINFO == "*Loongson*" ]]; then
-            sleep 30
-        else
-            sleep 9
-        fi
+        var=$DISPLAY
+	 if [ -n "$var" ]; then
+            fcitx
+	else
+	sleep 2
+	bash /bin/fcitx-autostart &
+       exit $?
+	fi
         ;;
 esac
 

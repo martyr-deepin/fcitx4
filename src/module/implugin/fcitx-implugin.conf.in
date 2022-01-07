@@ -7,3 +7,4 @@ Enabled=True
 Library=fcitx-implugin.so
 Type=SharedLibrary
 Priority=40
+Advance=True

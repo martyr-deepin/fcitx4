@@ -3370,8 +3370,8 @@ msgid "Active Tray Icon"
 msgstr "Icona de la safata activa"
 
 #: src/ui/classic/skin.desc:313
-msgid "Inctive Tray Icon"
-msgstr "Icona de la safata inactiva"
+msgid "Inactive Tray Icon"
+msgstr ""
 
 #: src/ui/classic/skin.desc:315 src/ui/classic/skin.desc:319
 #: src/ui/classic/skin.desc:323 src/ui/classic/skin.desc:327
