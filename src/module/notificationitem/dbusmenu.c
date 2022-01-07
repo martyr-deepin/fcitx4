@@ -46,8 +46,8 @@
 static const UT_icd ut_int32_icd = {sizeof(int32_t), NULL, NULL, NULL};
 
 #define MENU_MAIN 0
-#define MENU_IM 2
 #define MENU_SKIN 1
+#define MENU_IM 2
 #define MENU_VK 3
 
 const char *dbus_menu_interface =
@@ -278,7 +278,7 @@ void FcitxDBusMenuDoEvent(void *arg) {
     if (index < 0)
         return;
 
-    if (menu == 0) {
+    if (menu == MENU_MAIN) {
         if (index <= 8 && index > 0) {
             switch (index) {
             case 3: {
@@ -319,7 +319,7 @@ void FcitxDBusMenuDoEvent(void *arg) {
                 FcitxUIUpdateStatus(instance, name);
             }
         }
-    } else if (menu > 0 && menu != MENU_IM) {
+    } else if (menu > MENU_MAIN && menu != MENU_IM) {
         UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
         FcitxUIMenu **menup = (FcitxUIMenu **)utarray_eltptr(uimenus, menu - 1),
                     *menu;
@@ -430,32 +430,35 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
     }
     const char *value;
     if (menu == MENU_IM) {
-        UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
-        FcitxUIMenu *menup = utarray_eltptr(uimenus, menu - 1);
+            UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
+            FcitxUIMenu **menupp = (FcitxUIMenu **)utarray_eltptr(uimenus,
+                                                                    menu - 1),
+                        *menup;
+            if (menupp) {
+                menup = *menupp;
+                menup->UpdateMenu(menup);
 
-        if (!menup)
-            return;
+            UT_array *imes = FcitxInstanceGetIMEs(instance);
 
-        UT_array *imes = FcitxInstanceGetIMEs(instance);
+            if (index < (unsigned int)utarray_len(imes)) {
+                FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index);
+                value = (ime)->strName;
+                FcitxDBusMenuAppendProperty(&sub, properties, "label",
+                                            DBUS_TYPE_STRING, &value);
+            }
 
-        if (index < (unsigned int)utarray_len(imes)) {
-            FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index);
-            value = (ime)->strName;
-            FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                        DBUS_TYPE_STRING, &value);
+            const char *radio = "radio";
+            FcitxDBusMenuAppendProperty(&sub, properties, "toggle-type",
+                                        DBUS_TYPE_STRING, &radio);
+
+            int32_t toggleState = 0;
+            if (menup->mark == index) {
+                toggleState = 1;
+            }
+            FcitxDBusMenuAppendProperty(&sub, properties, "toggle-state",
+                                        DBUS_TYPE_INT32, &toggleState);
         }
-
-        const char *radio = "radio";
-        FcitxDBusMenuAppendProperty(&sub, properties, "toggle-type",
-                                    DBUS_TYPE_STRING, &radio);
-
-        int32_t toggleState = 0;
-        if (menup->mark == index - 1) {
-            toggleState = 1;
-        }
-        FcitxDBusMenuAppendProperty(&sub, properties, "toggle-state",
-                                    DBUS_TYPE_INT32, &toggleState);
-    } else if (menu == 0) {
+    } else if (menu == MENU_MAIN) {
 
         if (index <= 8 && index > 0) {
 
@@ -505,8 +508,6 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
             }
         } else {
             int index = STATUS_INDEX(id);
-            FcitxLog(DEBUG, "FcitxDBusMenuFillProperty index: %d, id: %d",
-                     index, id);
             const char *name = NULL;
             const char *icon = NULL;
             char *needfree = NULL;
@@ -635,7 +636,7 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
         int32_t index = ACTION_INDEX(id);
         UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
         /* we ONLY support submenu in top level menu */
-        if (menu == 0) {
+        if (menu == MENU_MAIN) {
             if (index == 0) {
                 boolean flag = false;
 
@@ -719,10 +720,6 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                         } while (0);
                         i--;
                         if (i == 0) {
-                            FcitxLog(DEBUG,
-                                     "FcitxDBusMenuFillLayoutItem "
-                                     "ACTION_ID(0,2): %d ,(depth - 1): %d",
-                                     ACTION_ID(0, 2), depth - 1);
                             FcitxDBusMenuFillLayoutItemWrap(
                                 notificationitem, ACTION_ID(0, 2), depth - 1,
                                 properties, &array);
