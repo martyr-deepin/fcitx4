@@ -430,33 +430,24 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
     }
     const char *value;
     if (menu == MENU_IM) {
-        UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
-        FcitxUIMenu **menupp =
-                        (FcitxUIMenu **)utarray_eltptr(uimenus, menu - 1),
-                    *menup;
-        if (menupp) {
-            menup = *menupp;
-            menup->UpdateMenu(menup);
+        UT_array *imes = FcitxInstanceGetIMEs(instance);
+        if (index < (unsigned int)utarray_len(imes)) {
+            FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index);
+            value = (ime)->strName;
+            FcitxDBusMenuAppendProperty(&sub, properties, "label",
+                                        DBUS_TYPE_STRING, &value);
 
-            UT_array *imes = FcitxInstanceGetIMEs(instance);
-
-            if (index < (unsigned int)utarray_len(imes)) {
-                FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index);
-                value = (ime)->strName;
-                FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                            DBUS_TYPE_STRING, &value);
-            }
-
+            int32_t toggleState = 0;
             const char *radio = "radio";
             FcitxDBusMenuAppendProperty(&sub, properties, "toggle-type",
                                         DBUS_TYPE_STRING, &radio);
-
-            int32_t toggleState = 0;
-            if (menup->mark == index) {
+            FcitxIM* currentIM = FcitxInstanceGetCurrentIM(instance);
+            if (currentIM && strcmp(currentIM->strName, value) == 0) {
                 toggleState = 1;
             }
             FcitxDBusMenuAppendProperty(&sub, properties, "toggle-state",
                                         DBUS_TYPE_INT32, &toggleState);
+
         }
     } else if (menu == MENU_MAIN) {
 
