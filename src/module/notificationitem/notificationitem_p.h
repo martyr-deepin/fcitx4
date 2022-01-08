@@ -20,38 +20,57 @@
 #ifndef NOTIFICATIONITEM_P_H
 #define NOTIFICATIONITEM_P_H
 
-#include <dbus/dbus.h>
 #include "fcitx/instance.h"
 #include "notificationitem.h"
+#include <dbus/dbus.h>
 
 typedef struct _MenuIdSet {
     int id;
     UT_hash_handle hh;
 } MenuIdSet;
 
-typedef struct _FcitxNotificationItem {
-    FcitxInstance* owner;
-    DBusConnection* conn;
+struct _FcitxNotificationItem {
+    FcitxInstance *owner;
+    DBusConnection *conn;
     FcitxNotificationItemAvailableCallback callback;
-    void* data;
+    void *data;
     boolean available;
     int index;
-    char* serviceName;
+    char *serviceName;
     uint32_t revision;
     int pendingActionId;
     boolean isUnity;
     char layoutNameBuffer[3];
     MenuIdSet *ids;
-} FcitxNotificationItem;
+};
 
-boolean FcitxDBusMenuCreate(FcitxNotificationItem* notificationitem);
+/**
+ * FcitxNotificationItem v2
+ */
+struct _FcitxNotificationItem2 {
+    FcitxGenericConfig gconfig;
+    boolean showReboot;
+    boolean showVk;
+    boolean showExit;
+    boolean showSkins;
+    boolean showHelp;
+    boolean nonExistentDesc;
+    struct _FcitxNotificationItem *notificationItem;
+};
 
-MenuIdSet* MenuIdSetAdd(MenuIdSet *ids, int id);
+typedef struct _FcitxNotificationItem FcitxNotificationItem;
+
+typedef struct _FcitxNotificationItem2 FcitxNotificationItem2;
+
+boolean FcitxDBusMenuCreate(FcitxNotificationItem *notificationitem);
+
+MenuIdSet *MenuIdSetAdd(MenuIdSet *ids, int id);
 boolean MenuIdSetContains(MenuIdSet *ids, int id);
-MenuIdSet* MenuIdSetClear(MenuIdSet* ids);
+MenuIdSet *MenuIdSetClear(MenuIdSet *ids);
 
-static inline boolean CheckAddPrefix( const char** name) {
-    boolean result = !((*name)[0] == '\0' || (*name)[0] == '/' || (*name)[0] == '@');
+static inline boolean CheckAddPrefix(const char **name) {
+    boolean result =
+        !((*name)[0] == '\0' || (*name)[0] == '/' || (*name)[0] == '@');
     if ((*name)[0] == '@') {
         (*name) += 1;
     }

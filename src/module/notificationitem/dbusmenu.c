@@ -46,9 +46,9 @@
 static const UT_icd ut_int32_icd = {sizeof(int32_t), NULL, NULL, NULL};
 
 #define MENU_MAIN 0
-#define MENU_SKIN 1
+#define MENU_VK 1
 #define MENU_IM 2
-#define MENU_VK 3
+#define MENU_SKIN 3
 
 const char *dbus_menu_interface =
     "<!DOCTYPE node PUBLIC \"-//freedesktop//DTD D-BUS Object Introspection "
@@ -430,34 +430,25 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
     }
     const char *value;
     if (menu == MENU_IM) {
-            UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
-            FcitxUIMenu **menupp = (FcitxUIMenu **)utarray_eltptr(uimenus,
-                                                                    menu - 1),
-                        *menup;
-            if (menupp) {
-                menup = *menupp;
-                menup->UpdateMenu(menup);
-
-            UT_array *imes = FcitxInstanceGetIMEs(instance);
-
-            if (index < (unsigned int)utarray_len(imes)) {
-                FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index);
-                value = (ime)->strName;
-                FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                            DBUS_TYPE_STRING, &value);
-            }
-
-            const char *radio = "radio";
-            FcitxDBusMenuAppendProperty(&sub, properties, "toggle-type",
-                                        DBUS_TYPE_STRING, &radio);
-
-            int32_t toggleState = 0;
-            if (menup->mark == index) {
-                toggleState = 1;
-            }
-            FcitxDBusMenuAppendProperty(&sub, properties, "toggle-state",
-                                        DBUS_TYPE_INT32, &toggleState);
+        UT_array *imes = FcitxInstanceGetIMEs(instance);
+        if (index >= (unsigned int)utarray_len(imes)) {
+            return;
         }
+        FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index);
+        value = (ime)->strName;
+        FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING,
+                                    &value);
+
+        int32_t toggleState = 0;
+        const char *radio = "radio";
+        FcitxDBusMenuAppendProperty(&sub, properties, "toggle-type",
+                                    DBUS_TYPE_STRING, &radio);
+        FcitxIM *currentIM = FcitxInstanceGetCurrentIM(instance);
+        if (currentIM && strcmp(currentIM->strName, value) == 0) {
+            toggleState = 1;
+        }
+        FcitxDBusMenuAppendProperty(&sub, properties, "toggle-state",
+                                    DBUS_TYPE_INT32, &toggleState);
     } else if (menu == MENU_MAIN) {
 
         if (index <= 8 && index > 0) {
@@ -647,7 +638,7 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                 for (i = 0, status = (FcitxUIStatus *)utarray_front(uistats);
                      status != NULL; i++,
                     status = (FcitxUIStatus *)utarray_next(uistats, status)) {
-                    if (!status->visible)
+                    if (strcmp(status->name, "vk") == 0 || !status->visible)
                         continue;
                     flag = true;
                     FcitxDBusMenuFillLayoutItemWrap(notificationitem,
@@ -677,7 +668,6 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                         continue;
                     if (FcitxUIGetMenuByStatusName(instance, compstatus->name))
                         continue;
-
                     flag = true;
                     FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                     STATUS_ID(1, i), depth - 1,
@@ -737,7 +727,7 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                     for (menupp = (FcitxUIMenu **)utarray_front(uimenus);
                          menupp != NULL; menupp = (FcitxUIMenu **)utarray_next(
                                              uimenus, menupp)) {
-                        if (i == MENU_SKIN || i == MENU_IM) {
+                        if (i == MENU_VK || i == MENU_IM) {
                             i++;
                             continue;
                         }

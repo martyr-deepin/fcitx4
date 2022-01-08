@@ -1,0 +1,24 @@
+[Notificationitem/Reboot]
+Type=Boolean
+DefaultValue=True
+Description=Whether this option “Reboot” appears
+
+[Notificationitem/Vk]
+Type=Boolean
+DefaultValue=True
+Description=Whether this option “Vk” appears
+
+[Notificationitem/Exit]
+Type=Boolean
+DefaultValue=True
+Description=Whether this option “Exit” appears
+
+[Notificationitem/Skins]
+Type=Boolean
+DefaultValue=True
+Description=Whether this option “Skins” appears
+
+[Notificationitem/Help]
+Type=Boolean
+DefaultValue=True
+Description=Whether this option “Help” appears
