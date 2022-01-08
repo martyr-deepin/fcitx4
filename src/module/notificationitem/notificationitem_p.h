@@ -48,12 +48,14 @@ struct _FcitxNotificationItem {
  * FcitxNotificationItem v2
  */
 struct _FcitxNotificationItem2 {
-    struct _FcitxNotificationItem notificationItem;
+    FcitxGenericConfig gconfig;
     boolean showReboot;
     boolean showVk;
     boolean showExit;
     boolean showSkins;
     boolean showHelp;
+    boolean nonExistentDesc;
+    struct _FcitxNotificationItem* notificationItem;
 };
 
 typedef struct _FcitxNotificationItem FcitxNotificationItem;

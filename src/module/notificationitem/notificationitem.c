@@ -119,6 +119,11 @@ const char * _notification_item =
 #endif
 
 static void* FcitxNotificationItemCreate(struct _FcitxInstance* instance);
+
+static void FcitxNotificationItemReload(void *arg);
+static boolean LoadFcitxNotificationItemConfig(FcitxNotificationItem2 *notificationitem2);
+static void SaveFcitxNotificationItemConfig(FcitxNotificationItem2 *notificationitem2);
+
 static void FcitxNotificationItemDestroy(void* arg);
 
 FCITX_DEFINE_PLUGIN(fcitx_notificationitem, module, FcitxModule) = {
@@ -175,9 +180,25 @@ const FcitxDBusPropertyTable propertTable[] = {
 
 DECLARE_ADDFUNCTIONS(NotificationItem)
 
+CONFIG_BINDING_BEGIN(FcitxNotificationItem2)
+CONFIG_BINDING_REGISTER("Notificationitem", "Reboot", showReboot)
+CONFIG_BINDING_REGISTER("Notificationitem", "Vk", showVk)
+CONFIG_BINDING_REGISTER("Notificationitem", "Exit", showExit)
+CONFIG_BINDING_REGISTER("Notificationitem", "Skins", showSkins)
+CONFIG_BINDING_REGISTER("Notificationitem", "Help", showHelp)
+CONFIG_BINDING_END()
+
 void* FcitxNotificationItemCreate(FcitxInstance* instance)
 {
+    FcitxNotificationItem2 *notificationitem2 = fcitx_utils_malloc0(sizeof(FcitxNotificationItem2));
+    notificationitem2->nonExistentDesc = false;
+    if (!LoadFcitxNotificationItemConfig(notificationitem2)) {
+        notificationitem2->nonExistentDesc = true;
+    }
+
     FcitxNotificationItem* notificationitem = fcitx_utils_new(FcitxNotificationItem);
+    notificationitem2->notificationItem = notificationitem;
+
     notificationitem->owner = instance;
     notificationitem->revision = 2;
     DBusError err;
@@ -250,6 +271,43 @@ void* FcitxNotificationItemCreate(FcitxInstance* instance)
 
     return NULL;
 }
+
+void FcitxNotificationItemReload(void *arg) {
+    FcitxNotificationItem2 *notificationitem2 = arg;
+    LoadFcitxNotificationItemConfig(notificationitem2);
+}
+
+CONFIG_DESC_DEFINE(GetFcitxNotificationItemConfig, "fcitx-notificationitem.desc")
+
+boolean LoadFcitxNotificationItemConfig(FcitxNotificationItem2 *notificationitem2) {
+    FcitxConfigFileDesc *configDesc = GetFcitxNotificationItemConfig();
+    if (configDesc == NULL)
+        return false;
+    FILE *fp;
+    fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-notificationitem.config", "r",
+                                       NULL);
+    if (!fp) {
+        if (errno == ENOENT)
+            SaveFcitxNotificationItemConfig(notificationitem2);
+    }
+    FcitxConfigFile *cfile = FcitxConfigParseConfigFileFp(fp, configDesc);
+    FcitxNotificationItem2ConfigBind(notificationitem2, cfile, configDesc);
+    FcitxConfigBindSync((FcitxGenericConfig *)notificationitem2);
+    if (fp)
+        fclose(fp);
+    return true;
+}
+
+void SaveFcitxNotificationItemConfig(FcitxNotificationItem2 *notificationitem2) {
+    FcitxConfigFileDesc *configDesc = GetFcitxNotificationItemConfig();
+    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-notificationitem.config",
+                                             "w", NULL);
+    FcitxConfigSaveConfigFileFp(fp, &notificationitem2->gconfig, configDesc);
+    if (fp)
+        fclose(fp);
+}
+
+// CONFIG_DESC_DEFINE(GetFcitxNotificationItemConfig, "fcitx-notificationitem.desc")
 
 void FcitxNotificationItemDestroy(void* arg)
 {
