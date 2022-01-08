@@ -441,13 +441,12 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
             const char *radio = "radio";
             FcitxDBusMenuAppendProperty(&sub, properties, "toggle-type",
                                         DBUS_TYPE_STRING, &radio);
-            FcitxIM* currentIM = FcitxInstanceGetCurrentIM(instance);
+            FcitxIM *currentIM = FcitxInstanceGetCurrentIM(instance);
             if (currentIM && strcmp(currentIM->strName, value) == 0) {
                 toggleState = 1;
             }
             FcitxDBusMenuAppendProperty(&sub, properties, "toggle-state",
                                         DBUS_TYPE_INT32, &toggleState);
-
         }
     } else if (menu == MENU_MAIN) {
 
