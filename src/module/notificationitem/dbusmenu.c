@@ -46,9 +46,9 @@
 static const UT_icd ut_int32_icd = {sizeof(int32_t), NULL, NULL, NULL};
 
 #define MENU_MAIN 0
-#define MENU_SKIN 1
+#define MENU_VK 1
 #define MENU_IM 2
-#define MENU_VK 3
+#define MENU_SKIN 3
 
 const char *dbus_menu_interface =
     "<!DOCTYPE node PUBLIC \"-//freedesktop//DTD D-BUS Object Introspection "
@@ -726,7 +726,7 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                     for (menupp = (FcitxUIMenu **)utarray_front(uimenus);
                          menupp != NULL; menupp = (FcitxUIMenu **)utarray_next(
                                              uimenus, menupp)) {
-                        if (i == MENU_SKIN || i == MENU_IM) {
+                        if (i == MENU_VK || i == MENU_IM) {
                             i++;
                             continue;
                         }
