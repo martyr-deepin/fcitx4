@@ -29,7 +29,7 @@ typedef struct _MenuIdSet {
     UT_hash_handle hh;
 } MenuIdSet;
 
-typedef struct _FcitxNotificationItem {
+struct _FcitxNotificationItem {
     FcitxInstance* owner;
     DBusConnection* conn;
     FcitxNotificationItemAvailableCallback callback;
@@ -42,7 +42,23 @@ typedef struct _FcitxNotificationItem {
     boolean isUnity;
     char layoutNameBuffer[3];
     MenuIdSet *ids;
-} FcitxNotificationItem;
+};
+
+/**
+ * FcitxNotificationItem v2
+ */
+struct _FcitxNotificationItem2 {
+    struct _FcitxNotificationItem notificationItem;
+    boolean showReboot;
+    boolean showVk;
+    boolean showExit;
+    boolean showSkins;
+    boolean showHelp;
+};
+
+typedef struct _FcitxNotificationItem FcitxNotificationItem;
+
+typedef struct _FcitxNotificationItem2 FcitxNotificationItem2;
 
 boolean FcitxDBusMenuCreate(FcitxNotificationItem* notificationitem);
 
