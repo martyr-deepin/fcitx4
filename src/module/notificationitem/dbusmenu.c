@@ -620,6 +620,9 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
      *            -> exit (0,7)
      */
 
+    FcitxNotificationItem3 *notificationitem3 =
+        (FcitxNotificationItem3 *)notificationitem;
+
     /* using != 0 can make -1 recursive to infinite */
     if (depth != 0) {
         notificationitem->ids = MenuIdSetAdd(notificationitem->ids, id);
@@ -652,9 +655,12 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                                     properties, &array);
                 }
 
-                FcitxDBusMenuFillLayoutItemWrap(notificationitem,
-                                                ACTION_ID(0, 3), depth - 1,
-                                                properties, &array);
+                if (notificationitem3->notificationitem2.nonExistentDesc ||
+                    notificationitem3->notificationitem2.showHelp) {
+                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                    ACTION_ID(0, 3), depth - 1,
+                                                    properties, &array);
+                }
 
                 FcitxUIComplexStatus *compstatus;
                 UT_array *uicompstats =
@@ -683,7 +689,8 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                     }
                 }
                 if (utarray_len(uimenus) > 0) {
-                    i = 1;
+                    i = MENU_VK;
+
                     FcitxUIMenu **menupp;
                     for (menupp = (FcitxUIMenu **)utarray_front(uimenus);
                          menupp != NULL; menupp = (FcitxUIMenu **)utarray_next(
@@ -704,10 +711,16 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                     break;
                                 }
                             }
-                            FcitxDBusMenuFillLayoutItemWrap(
-                                notificationitem, ACTION_ID(i, 0), depth - 1,
-                                properties, &array);
+                            if (notificationitem3->notificationitem2
+                                    .nonExistentDesc ||
+                                notificationitem3->notificationitem2.showVk) {
+
+                                FcitxDBusMenuFillLayoutItemWrap(
+                                    notificationitem, ACTION_ID(i, 0),
+                                    depth - 1, properties, &array);
+                            }
                         } while (0);
+
                         i--;
                         if (i == 0) {
                             FcitxDBusMenuFillLayoutItemWrap(
@@ -728,6 +741,13 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                          menupp != NULL; menupp = (FcitxUIMenu **)utarray_next(
                                              uimenus, menupp)) {
                         if (i == MENU_VK || i == MENU_IM) {
+                            i++;
+                            continue;
+                        }
+                        if (i == MENU_SKIN &&
+                            (notificationitem3->notificationitem2
+                                 .nonExistentDesc ||
+                             notificationitem3->notificationitem2.showSkins)) {
                             i++;
                             continue;
                         }
@@ -758,17 +778,26 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                                 ACTION_ID(0, 4), depth - 1,
                                                 properties, &array);
 
-                FcitxDBusMenuFillLayoutItemWrap(notificationitem,
-                                                ACTION_ID(0, 5), depth - 1,
-                                                properties, &array);
+                if (notificationitem3->notificationitem2.nonExistentDesc ||
+                    (notificationitem3->notificationitem2.showReboot ||
+                     notificationitem3->notificationitem2.showExit)) {
+                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                    ACTION_ID(0, 5), depth - 1,
+                                                    properties, &array);
+                }
+                if (notificationitem3->notificationitem2.nonExistentDesc ||
+                    notificationitem3->notificationitem2.showReboot) {
+                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                    ACTION_ID(0, 6), depth - 1,
+                                                    properties, &array);
+                }
 
-                FcitxDBusMenuFillLayoutItemWrap(notificationitem,
-                                                ACTION_ID(0, 6), depth - 1,
-                                                properties, &array);
-
-                FcitxDBusMenuFillLayoutItemWrap(notificationitem,
-                                                ACTION_ID(0, 7), depth - 1,
-                                                properties, &array);
+                if (notificationitem3->notificationitem2.nonExistentDesc ||
+                    notificationitem3->notificationitem2.showExit) {
+                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                    ACTION_ID(0, 7), depth - 1,
+                                                    properties, &array);
+                }
             }
         } else {
             if (index == 0) {
