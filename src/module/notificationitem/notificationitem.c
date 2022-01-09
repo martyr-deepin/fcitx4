@@ -211,16 +211,14 @@ CONFIG_BINDING_REGISTER("Notificationitem", "Help", showHelp)
 CONFIG_BINDING_END()
 
 void *FcitxNotificationItemCreate(FcitxInstance *instance) {
-    FcitxNotificationItem2 *notificationitem2 =
-        fcitx_utils_malloc0(sizeof(FcitxNotificationItem2));
-    notificationitem2->nonExistentDesc = false;
-    if (!LoadFcitxNotificationItemConfig(notificationitem2)) {
-        notificationitem2->nonExistentDesc = true;
+    FcitxNotificationItem3 *notificationitem3 =
+        fcitx_utils_malloc0(sizeof(FcitxNotificationItem3));
+    notificationitem3->notificationitem2.nonExistentDesc = false;
+    if (!LoadFcitxNotificationItemConfig(&(notificationitem3->notificationitem2))) {
+        notificationitem3->notificationitem2.nonExistentDesc = true;
     }
 
-    FcitxNotificationItem *notificationitem =
-        fcitx_utils_new(FcitxNotificationItem);
-    notificationitem2->notificationItem = notificationitem;
+    FcitxNotificationItem *notificationitem = &(notificationitem3->notificationitem1) ;
 
     notificationitem->owner = instance;
     notificationitem->revision = 2;
@@ -284,6 +282,13 @@ void *FcitxNotificationItemCreate(FcitxInstance *instance) {
         notificationitem->isUnity =
             fcitx_utils_strcmp0(getenv("XDG_CURRENT_DESKTOP"), "Unity") == 0;
 
+        FcitxLog(DEBUG, "fcitx-notificationitem showReboot : %d",notificationitem3->notificationitem2.showReboot);
+        FcitxLog(DEBUG, "fcitx-notificationitem showVk : %d",notificationitem3->notificationitem2.showVk);
+        FcitxLog(DEBUG, "fcitx-notificationitem showExit : %d",notificationitem3->notificationitem2.showExit);
+        FcitxLog(DEBUG, "fcitx-notificationitem showSkins : %d",notificationitem3->notificationitem2.showSkins);
+        FcitxLog(DEBUG, "fcitx-notificationitem showHelp : %d",notificationitem3->notificationitem2.showHelp);
+        FcitxLog(DEBUG, "fcitx-notificationitem nonExistentDesc : %d",notificationitem3->notificationitem2.nonExistentDesc);
+
         return notificationitem;
     } while (0);
 
@@ -331,9 +336,6 @@ void SaveFcitxNotificationItemConfig(
         fclose(fp);
 }
 
-// CONFIG_DESC_DEFINE(GetFcitxNotificationItemConfig,
-// "fcitx-notificationitem.desc")
-
 void FcitxNotificationItemDestroy(void *arg) {
     FcitxNotificationItem *notificationitem = (FcitxNotificationItem *)arg;
     if (notificationitem->conn) {
@@ -346,7 +348,7 @@ void FcitxNotificationItemDestroy(void *arg) {
     }
     notificationitem->ids = MenuIdSetClear(notificationitem->ids);
 
-    free(notificationitem);
+    free((FcitxNotificationItem3 *)notificationitem);
 }
 
 void FcitxNotificationItemRegister(FcitxNotificationItem *notificationitem) {

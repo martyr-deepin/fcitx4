@@ -55,12 +55,21 @@ struct _FcitxNotificationItem2 {
     boolean showSkins;
     boolean showHelp;
     boolean nonExistentDesc;
-    struct _FcitxNotificationItem *notificationItem;
+};
+
+/**
+ * FcitxNotificationItem v3
+ */
+struct _FcitxNotificationItem3 {
+    struct _FcitxNotificationItem notificationitem1;
+    struct _FcitxNotificationItem2 notificationitem2;
 };
 
 typedef struct _FcitxNotificationItem FcitxNotificationItem;
 
 typedef struct _FcitxNotificationItem2 FcitxNotificationItem2;
+
+typedef struct _FcitxNotificationItem3 FcitxNotificationItem3;
 
 boolean FcitxDBusMenuCreate(FcitxNotificationItem *notificationitem);
 
