@@ -46,9 +46,9 @@
 static const UT_icd ut_int32_icd = {sizeof(int32_t), NULL, NULL, NULL};
 
 #define MENU_MAIN 0
-#define MENU_SKIN 1
+#define MENU_VK 1
 #define MENU_IM 2
-#define MENU_VK 3
+#define MENU_SKIN 3
 
 const char *dbus_menu_interface =
     "<!DOCTYPE node PUBLIC \"-//freedesktop//DTD D-BUS Object Introspection "
@@ -430,34 +430,25 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
     }
     const char *value;
     if (menu == MENU_IM) {
-        UT_array *uimenus = FcitxInstanceGetUIMenus(instance);
-        FcitxUIMenu **menupp =
-                        (FcitxUIMenu **)utarray_eltptr(uimenus, menu - 1),
-                    *menup;
-        if (menupp) {
-            menup = *menupp;
-            menup->UpdateMenu(menup);
-
-            UT_array *imes = FcitxInstanceGetIMEs(instance);
-
-            if (index < (unsigned int)utarray_len(imes)) {
-                FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index);
-                value = (ime)->strName;
-                FcitxDBusMenuAppendProperty(&sub, properties, "label",
-                                            DBUS_TYPE_STRING, &value);
-            }
-
-            const char *radio = "radio";
-            FcitxDBusMenuAppendProperty(&sub, properties, "toggle-type",
-                                        DBUS_TYPE_STRING, &radio);
-
-            int32_t toggleState = 0;
-            if (menup->mark == index) {
-                toggleState = 1;
-            }
-            FcitxDBusMenuAppendProperty(&sub, properties, "toggle-state",
-                                        DBUS_TYPE_INT32, &toggleState);
+        UT_array *imes = FcitxInstanceGetIMEs(instance);
+        if (index >= (unsigned int)utarray_len(imes)) {
+            return;
         }
+        FcitxIM *ime = (FcitxIM *)utarray_eltptr(imes, index);
+        value = (ime)->strName;
+        FcitxDBusMenuAppendProperty(&sub, properties, "label", DBUS_TYPE_STRING,
+                                    &value);
+
+        int32_t toggleState = 0;
+        const char *radio = "radio";
+        FcitxDBusMenuAppendProperty(&sub, properties, "toggle-type",
+                                    DBUS_TYPE_STRING, &radio);
+        FcitxIM *currentIM = FcitxInstanceGetCurrentIM(instance);
+        if (currentIM && strcmp(currentIM->strName, value) == 0) {
+            toggleState = 1;
+        }
+        FcitxDBusMenuAppendProperty(&sub, properties, "toggle-state",
+                                    DBUS_TYPE_INT32, &toggleState);
     } else if (menu == MENU_MAIN) {
 
         if (index <= 8 && index > 0) {
@@ -629,6 +620,9 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
      *            -> exit (0,7)
      */
 
+    FcitxNotificationItem3 *notificationitem3 =
+        (FcitxNotificationItem3 *)notificationitem;
+
     /* using != 0 can make -1 recursive to infinite */
     if (depth != 0) {
         notificationitem->ids = MenuIdSetAdd(notificationitem->ids, id);
@@ -661,9 +655,12 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                                     properties, &array);
                 }
 
-                FcitxDBusMenuFillLayoutItemWrap(notificationitem,
-                                                ACTION_ID(0, 3), depth - 1,
-                                                properties, &array);
+                if (notificationitem3->notificationitem2.nonExistentDesc ||
+                    notificationitem3->notificationitem2.showHelp) {
+                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                    ACTION_ID(0, 3), depth - 1,
+                                                    properties, &array);
+                }
 
                 FcitxUIComplexStatus *compstatus;
                 UT_array *uicompstats =
@@ -692,7 +689,8 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                     }
                 }
                 if (utarray_len(uimenus) > 0) {
-                    i = 1;
+                    i = MENU_VK;
+
                     FcitxUIMenu **menupp;
                     for (menupp = (FcitxUIMenu **)utarray_front(uimenus);
                          menupp != NULL; menupp = (FcitxUIMenu **)utarray_next(
@@ -713,10 +711,16 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                     break;
                                 }
                             }
-                            FcitxDBusMenuFillLayoutItemWrap(
-                                notificationitem, ACTION_ID(i, 0), depth - 1,
-                                properties, &array);
+                            if (notificationitem3->notificationitem2
+                                    .nonExistentDesc ||
+                                notificationitem3->notificationitem2.showVk) {
+
+                                FcitxDBusMenuFillLayoutItemWrap(
+                                    notificationitem, ACTION_ID(i, 0),
+                                    depth - 1, properties, &array);
+                            }
                         } while (0);
+
                         i--;
                         if (i == 0) {
                             FcitxDBusMenuFillLayoutItemWrap(
@@ -736,7 +740,14 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                     for (menupp = (FcitxUIMenu **)utarray_front(uimenus);
                          menupp != NULL; menupp = (FcitxUIMenu **)utarray_next(
                                              uimenus, menupp)) {
-                        if (i == MENU_SKIN || i == MENU_IM) {
+                        if (i == MENU_VK || i == MENU_IM) {
+                            i++;
+                            continue;
+                        }
+                        if (i == MENU_SKIN &&
+                            (notificationitem3->notificationitem2
+                                 .nonExistentDesc ||
+                             notificationitem3->notificationitem2.showSkins)) {
                             i++;
                             continue;
                         }
@@ -767,17 +778,26 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                                 ACTION_ID(0, 4), depth - 1,
                                                 properties, &array);
 
-                FcitxDBusMenuFillLayoutItemWrap(notificationitem,
-                                                ACTION_ID(0, 5), depth - 1,
-                                                properties, &array);
+                if (notificationitem3->notificationitem2.nonExistentDesc ||
+                    (notificationitem3->notificationitem2.showReboot ||
+                     notificationitem3->notificationitem2.showExit)) {
+                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                    ACTION_ID(0, 5), depth - 1,
+                                                    properties, &array);
+                }
+                if (notificationitem3->notificationitem2.nonExistentDesc ||
+                    notificationitem3->notificationitem2.showReboot) {
+                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                    ACTION_ID(0, 6), depth - 1,
+                                                    properties, &array);
+                }
 
-                FcitxDBusMenuFillLayoutItemWrap(notificationitem,
-                                                ACTION_ID(0, 6), depth - 1,
-                                                properties, &array);
-
-                FcitxDBusMenuFillLayoutItemWrap(notificationitem,
-                                                ACTION_ID(0, 7), depth - 1,
-                                                properties, &array);
+                if (notificationitem3->notificationitem2.nonExistentDesc ||
+                    notificationitem3->notificationitem2.showExit) {
+                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                    ACTION_ID(0, 7), depth - 1,
+                                                    properties, &array);
+                }
             }
         } else {
             if (index == 0) {

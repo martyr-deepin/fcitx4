@@ -13,5 +13,5 @@ set(FCITX_NOTIFICATIONITEM_SOURCES
 fcitx_add_addon_full(notificationitem ${notificationitem_noinstall}
   SCAN SCAN_PRIV
   HEADERS notificationitem.h
-  SOURCES ${FCITX_NOTIFICATIONITEM_SOURCES}
+  DESC SOURCES ${FCITX_NOTIFICATIONITEM_SOURCES}
   LINK_LIBS ${DBUS_LIBRARIES})
