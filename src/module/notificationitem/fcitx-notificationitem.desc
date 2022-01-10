@@ -10,15 +10,15 @@ Description=Whether this option “Vk” appears
 
 [Notificationitem/Exit]
 Type=Boolean
-DefaultValue=True
+DefaultValue=False
 Description=Whether this option “Exit” appears
 
 [Notificationitem/Skins]
 Type=Boolean
-DefaultValue=True
+DefaultValue=False
 Description=Whether this option “Skins” appears
 
 [Notificationitem/Help]
 Type=Boolean
-DefaultValue=True
+DefaultValue=False
 Description=Whether this option “Help” appears
