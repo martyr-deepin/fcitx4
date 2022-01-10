@@ -1,24 +1,24 @@
 [Notificationitem/Reboot]
 Type=Boolean
 DefaultValue=True
-Description=Whether this option “Reboot” appears
+Description=Whether to display the right-click menu configuration item "Reboot"
 
 [Notificationitem/Vk]
 Type=Boolean
 DefaultValue=True
-Description=Whether this option “Vk” appears
+Description=Whether to display the right-click menu configuration item "Vk"
 
 [Notificationitem/Exit]
 Type=Boolean
 DefaultValue=False
-Description=Whether this option “Exit” appears
+Description=Whether to display the right-click menu configuration item "Exit"
 
 [Notificationitem/Skins]
 Type=Boolean
 DefaultValue=False
-Description=Whether this option “Skins” appears
+Description=Whether to display the right-click menu configuration item "Skins"
 
 [Notificationitem/Help]
 Type=Boolean
 DefaultValue=False
-Description=Whether this option “Help” appears
+Description=Whether to display the right-click menu configuration item "Help"

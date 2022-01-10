@@ -9,7 +9,7 @@
 # 李洪武 <lihongwu1987@gmail.com>, 2021
 # Maggie Liu <maggie.liufei@gmail.com>, 2021
 # 凡凡不想平凡 <freddy4212@gmail.com>, 2021
-# Cindy0514, 2021
+# Cindy0514, 2022
 # 
 #, fuzzy
 msgid ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2021-04-23 00:01+0100\n"
 "PO-Revision-Date: 2021-11-18 02:22+0000\n"
-"Last-Translator: Cindy0514, 2021\n"
+"Last-Translator: Cindy0514, 2022\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/linuxdeepin/teams/3617/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1557,8 +1557,8 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "基於 DBus 的新 Freedesktop.org 系統匣圖示"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
-msgstr "增強 Fcitx 的拼音輸入"
+msgid "Enhance pinyin input in Fcitx"
+msgstr "增強 輸入法 的拼音輸入"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
 msgid "Provide extra feature for pinyin in Fcitx"
@@ -1622,8 +1622,8 @@ msgid "X11 Support"
 msgstr "X11 支援"
 
 #: src/module/x11/fcitx-x11.conf.in:4
-msgid "X11 Utilitiy used by other Addon"
-msgstr "給其他附加元件使用的 X11 工具"
+msgid "X11 Utility used by other Addon"
+msgstr "由其他外掛程式使用的 X11 工具函數"
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:4
@@ -3288,3 +3288,23 @@ msgstr "虛擬鍵盤圖片"
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "軟鍵盤按鍵文字顏色"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:4
+msgid "Whether to display the right-click configuration item \"Restart\""
+msgstr "是否顯示右鍵配置項目“重啟”"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:9
+msgid "Whether to display the right-click configuration item \"Vk\""
+msgstr "是否顯示右鍵配置項目“虛擬鍵盤”"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:14
+msgid "Whether to display the right-click configuration item \"Exit\""
+msgstr "是否顯示右鍵配置項目“退出”"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:19
+msgid "Whether to display the right-click configuration item \"Skins\""
+msgstr "是否顯示右鍵配置項目“外觀”"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:24
+msgid "Whether to display the right-click configuration item \"Help\""
+msgstr "是否顯示右鍵配置項目“線上幫助”"
