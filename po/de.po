@@ -1621,8 +1621,8 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "DBus basiertes, neues Trayicon von Freedesktop.org"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
-msgstr "Erweiterte Pinyineingabe in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
+msgstr ""
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
 msgid "Provide extra feature for pinyin in Fcitx"
@@ -1687,8 +1687,8 @@ msgid "X11 Support"
 msgstr "X11-Unterstützung"
 
 #: src/module/x11/fcitx-x11.conf.in:4
-msgid "X11 Utilitiy used by other Addon"
-msgstr "X11 Werkzeug (von anderem Addon verwendet)"
+msgid "X11 Utility used by other Addon"
+msgstr ""
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:4

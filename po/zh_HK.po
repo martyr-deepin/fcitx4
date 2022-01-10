@@ -8,7 +8,7 @@
 # Wyatt <wkyung@outlook.com>, 2021
 # Philip CHEUNG, 2021
 # 李洪武 <lihongwu1987@gmail.com>, 2021
-# Cindy0514, 2021
+# Cindy0514, 2022
 # 
 #, fuzzy
 msgid ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2021-04-23 00:01+0100\n"
 "PO-Revision-Date: 2021-11-18 02:22+0000\n"
-"Last-Translator: Cindy0514, 2021\n"
+"Last-Translator: Cindy0514, 2022\n"
 "Language-Team: Chinese (Hong Kong) (https://www.transifex.com/linuxdeepin/teams/3617/zh_HK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1559,7 +1559,7 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "基於 DBus 的新 Freedesktop.org 托盤圖標"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
 msgstr "增強 輸入法 的拼音輸入"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
@@ -1624,7 +1624,7 @@ msgid "X11 Support"
 msgstr "X11 支持"
 
 #: src/module/x11/fcitx-x11.conf.in:4
-msgid "X11 Utilitiy used by other Addon"
+msgid "X11 Utility used by other Addon"
 msgstr "由其他插件使用的 X11 工具函數"
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3

@@ -8,8 +8,8 @@
 # Basil Russu <basil_russu@hotmail.com>, 2021
 # evilscorpio <scorpkillerx@gmail.com>, 2021
 # Анатолий Валерианович <ffox909@mail.ru>, 2021
-# Cindy0514, 2021
 # Dober Man, 2021
+# Cindy0514, 2022
 # 
 #, fuzzy
 msgid ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2021-04-23 00:01+0100\n"
 "PO-Revision-Date: 2021-11-18 02:22+0000\n"
-"Last-Translator: Dober Man, 2021\n"
+"Last-Translator: Cindy0514, 2022\n"
 "Language-Team: Russian (https://www.transifex.com/linuxdeepin/teams/3617/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1611,7 +1611,7 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "Новый значок области уведомлений DBus, основанный на Freedesktop.org"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
 msgstr "Улучшение ввода пиньинь в Fcitx"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
@@ -1676,7 +1676,7 @@ msgid "X11 Support"
 msgstr "Поддержка X11"
 
 #: src/module/x11/fcitx-x11.conf.in:4
-msgid "X11 Utilitiy used by other Addon"
+msgid "X11 Utility used by other Addon"
 msgstr "Утилита X11, используемая другим дополнением"
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3

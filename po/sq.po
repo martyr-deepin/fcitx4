@@ -1613,8 +1613,8 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "Ikonë e re paneli Freedesktop.org, bazuar në DBus"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
-msgstr "Zgjeroni dhënie pinyin në Fcitx"
+msgid "Enhance pinyin input in Fcitx"
+msgstr ""
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
 msgid "Provide extra feature for pinyin in Fcitx"
@@ -1680,8 +1680,8 @@ msgid "X11 Support"
 msgstr "Mbulim për X11"
 
 #: src/module/x11/fcitx-x11.conf.in:4
-msgid "X11 Utilitiy used by other Addon"
-msgstr "Mjet X11 përdorur nga tjetër Shtesë"
+msgid "X11 Utility used by other Addon"
+msgstr ""
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:4

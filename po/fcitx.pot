@@ -3336,3 +3336,23 @@ msgstr "Virtual Keyboard Image"
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "Key Color On Virtual Keyboard"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:4
+msgid "Whether to display the right-click menu configuration item "Reboot""
+msgstr "Whether to display the right-click menu configuration item "Reboot""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:9
+msgid "Whether to display the right-click menu configuration item "Vk""
+msgstr "Whether to display the right-click menu configuration item "Vk""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:14
+msgid "Whether to display the right-click menu configuration item "Exit""
+msgstr "Whether to display the right-click menu configuration item "Exit""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:19
+msgid "Whether to display the right-click menu configuration item "Skins""
+msgstr "Whether to display the right-click menu configuration item "Skins""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:24
+msgid "Whether to display the right-click menu configuration item "Help""
+msgstr "Whether to display the right-click menu configuration item "Help""
