@@ -1172,20 +1172,20 @@ msgstr "ཆ་ཤས་ཀྱི་ནང་འཇུག་བྱེད་སྟ
 msgid "Clear local input method"
 msgstr "ཆ་ཤས་ཀྱི་ནང་འཇུག་བྱེད་སྟངས་གཙང་སེལ།"
 
-#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
+#: src/module/notificationitem/dbusmenu.c:465 src/ui/classic/classicui.c:464
 msgid "Online Help"
 msgstr "དྲ་ཐོག་རོགས་རམ།"
 
-#: src/module/notificationitem/dbusmenu.c:386 src/ui/classic/classicui.c:525
+#: src/module/notificationitem/dbusmenu.c:475 src/ui/classic/classicui.c:525
 msgid "Configure"
 msgstr "སྡེབ་སྒྲིག"
 
-#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/module/notificationitem/dbusmenu.c:484 src/ui/classic/classicui.c:526
 #: src/ui/kimpanel/kimpanel.c:796
 msgid "Restart"
 msgstr "ཡང་བསྐྱར་འགོ་སློང་།"
 
-#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
+#: src/module/notificationitem/dbusmenu.c:492 src/ui/classic/classicui.c:527
 msgid "Exit"
 msgstr "ཕྱིར་དོན།"
 
@@ -1421,7 +1421,7 @@ msgstr "ནང་འཇུག་བྱེད་སྟངས་འགོ་སླ
 msgid "Fcitx Configuration"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག"
 
-#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:475
 msgid "Input Method Configuration"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག"
 

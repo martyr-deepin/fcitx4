@@ -1544,7 +1544,7 @@ msgstr ""
 msgid "Input Method"
 msgstr ""
 
-#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:475
 msgid "Input Method Configuration"
 msgstr ""
 

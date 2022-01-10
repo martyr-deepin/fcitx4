@@ -1183,20 +1183,20 @@ msgstr "قىسمەن كىرگۈزگۈچ يوق"
 msgid "Clear local input method"
 msgstr "قىسمەن كىرگۈزگۈچنى قۇرۇقداش"
 
-#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
+#: src/module/notificationitem/dbusmenu.c:465 src/ui/classic/classicui.c:464
 msgid "Online Help"
 msgstr "توردا ياردەم"
 
-#: src/module/notificationitem/dbusmenu.c:386 src/ui/classic/classicui.c:525
+#: src/module/notificationitem/dbusmenu.c:475 src/ui/classic/classicui.c:525
 msgid "Configure"
 msgstr "سەپلىمە"
 
-#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/module/notificationitem/dbusmenu.c:484 src/ui/classic/classicui.c:526
 #: src/ui/kimpanel/kimpanel.c:796
 msgid "Restart"
 msgstr "قايتا قوزغىتىش"
 
-#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
+#: src/module/notificationitem/dbusmenu.c:492 src/ui/classic/classicui.c:527
 msgid "Exit"
 msgstr "چېكىنىش"
 
@@ -1434,7 +1434,7 @@ msgstr "كىرگۈزگۈچنى قوزغىتىش"
 msgid "Fcitx Configuration"
 msgstr "كىرگۈزگۈچ سەپلىمىسى"
 
-#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:475
 msgid "Input Method Configuration"
 msgstr "كىرگۈزگۈچ سەپلىمىسى"
 

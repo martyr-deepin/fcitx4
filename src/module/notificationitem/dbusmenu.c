@@ -470,7 +470,7 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
                                             DBUS_TYPE_STRING, &value);
                 break;
             case 4:
-                value = _("Configure");
+                value = _("Input Method Configuration");
                 FcitxDBusMenuAppendProperty(&sub, properties, "label",
                                             DBUS_TYPE_STRING, &value);
                 /* this icon sucks on KDE, why configure doesn't have

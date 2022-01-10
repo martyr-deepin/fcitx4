@@ -1173,7 +1173,7 @@ msgstr "ཆ་ཤས་ཀྱི་ནང་འཇུག་བྱེད་སྟ
 msgid "Clear local input method"
 msgstr "ཆ་ཤས་ཀྱི་ནང་འཇུག་བྱེད་སྟངས་གཙང་སེལ།"
 
-#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
+#: src/module/notificationitem/dbusmenu.c:465 src/ui/classic/classicui.c:464
 msgid "Online Help"
 msgstr "དྲ་ཐོག་རོགས་རམ།"
 
@@ -1181,12 +1181,12 @@ msgstr "དྲ་ཐོག་རོགས་རམ།"
 msgid "Configure"
 msgstr "སྡེབ་སྒྲིག"
 
-#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/module/notificationitem/dbusmenu.c:484 src/ui/classic/classicui.c:526
 #: src/ui/kimpanel/kimpanel.c:796
 msgid "Restart"
 msgstr "ཡང་བསྐྱར་འགོ་སློང་།"
 
-#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
+#: src/module/notificationitem/dbusmenu.c:492 src/ui/classic/classicui.c:527
 msgid "Exit"
 msgstr "ཕྱིར་དོན།"
 
@@ -1422,8 +1422,8 @@ msgid "Fcitx Configuration"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག"
 
 #: data/fcitx-configtool.desktop.in:3
-#: src/module/notificationitem/dbusmenu.c:386
-#: src/module/notificationitem/dbusmenu.c:386
+#: src/module/notificationitem/dbusmenu.c:475
+#: src/module/notificationitem/dbusmenu.c:475
 msgid "Input Method Configuration"
 msgstr "ནང་འཇུག་བྱེད་སྟངས་སྡེབ་སྒྲིག"
 
@@ -3372,21 +3372,21 @@ msgid "Key Color On Virtual Keyboard"
 msgstr "མཉེན་མཐེབ་ཡི་གེའི་མདོག"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
-msgid "Whether to display the right-click configuration item \"Restart\""
+msgid "Whether to display the right-click configuration item 'Restart'"
 msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:9
-msgid "Whether to display the right-click configuration item \"Vk\""
+msgid "Whether to display the right-click configuration item 'Vk'"
 msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:14
-msgid "Whether to display the right-click configuration item \"Exit\""
+msgid "Whether to display the right-click configuration item 'Exit'"
 msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:19
-msgid "Whether to display the right-click configuration item \"Skins\""
+msgid "Whether to display the right-click configuration item 'Skins'"
 msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:24
-msgid "Whether to display the right-click configuration item \"Help\""
+msgid "Whether to display the right-click configuration item 'Help'"
 msgstr ""
