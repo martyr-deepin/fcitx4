@@ -1,6 +1,6 @@
 [Addon]
 Name=fcitx-pinyin-enhance
-_GeneralName=Enchance pinyin input in Fcitx
+_GeneralName=Enhance pinyin input in Fcitx
 _Comment=Provide extra feature for pinyin in Fcitx
 Category=Module
 Enabled=True

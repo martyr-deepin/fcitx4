@@ -1613,8 +1613,8 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "Ikonë e re paneli Freedesktop.org, bazuar në DBus"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
-msgstr "Zgjeroni dhënie pinyin në Fcitx"
+msgid "Enhance pinyin input in Fcitx"
+msgstr ""
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
 msgid "Provide extra feature for pinyin in Fcitx"
@@ -1680,8 +1680,8 @@ msgid "X11 Support"
 msgstr "Mbulim për X11"
 
 #: src/module/x11/fcitx-x11.conf.in:4
-msgid "X11 Utilitiy used by other Addon"
-msgstr "Mjet X11 përdorur nga tjetër Shtesë"
+msgid "X11 Utility used by other Addon"
+msgstr ""
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:4
@@ -3384,3 +3384,23 @@ msgstr "Figurë Tastiere Virtuale"
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "Ngjyrë Tastesh Në Tastierë Virtuale"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:4
+msgid "Whether to display the right-click configuration item \"Restart\""
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:9
+msgid "Whether to display the right-click configuration item \"Vk\""
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:14
+msgid "Whether to display the right-click configuration item \"Exit\""
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:19
+msgid "Whether to display the right-click configuration item \"Skins\""
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:24
+msgid "Whether to display the right-click configuration item \"Help\""
+msgstr ""

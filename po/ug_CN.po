@@ -1623,7 +1623,7 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "DBus ئاساسىدىكى يېڭى Freedesktop.org تەخسە سىنبەلگىسى"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
 msgstr "كىرگۈزگۈچنىڭ پىنيىن كىرگۈزگۈچىنى كۈچەيتىش"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4

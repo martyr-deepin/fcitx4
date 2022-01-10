@@ -956,7 +956,7 @@ msgid "Enabled state for im"
 msgstr ""
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
 msgstr ""
 
 #: src/im/table/table.desc:69

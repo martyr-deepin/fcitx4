@@ -1582,8 +1582,8 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "DBus based new Freedesktop.org tray icon"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
-msgstr "Enchance pinyin input in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
+msgstr "Enhance pinyin input in Fcitx"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
 msgid "Provide extra feature for pinyin in Fcitx"
