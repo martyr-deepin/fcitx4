@@ -19,6 +19,57 @@
     },
     {
       "key": {
+        "uuid": "4bc605b4_3d0c3fef",
+        "filename": "src/module/notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-11T09:16:33Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16418925837900.3009716562204384/changeCache/src/module/notificationitem/dbusmenu.c:325]: (style) Local variable menu shadows outer variabl",
+      "revId": "5dba491915018312c30b1238cce70cb0c98091b8",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff2cbcc7_3fe1a3f6",
+        "filename": "src/module/notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-11T09:16:33Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16418925837900.3009716562204384/changeCache/src/module/notificationitem/dbusmenu.c:299]: (style) Local variable index shadows outer variabl",
+      "revId": "5dba491915018312c30b1238cce70cb0c98091b8",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b83b7c2e_6c5d40df",
+        "filename": "src/module/notificationitem/dbusmenu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-11T09:16:33Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16418925837900.3009716562204384/changeCache/src/module/notificationitem/dbusmenu.c:501]: (style) Local variable index shadows outer variabl",
+      "revId": "5dba491915018312c30b1238cce70cb0c98091b8",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48bb935d_fe68b4c8",
         "filename": "src/module/notificationitem/notificationitem.c",
         "patchSetId": 1
