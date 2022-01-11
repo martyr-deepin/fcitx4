@@ -773,14 +773,14 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                                 properties, &array);
 
                 if (notificationitem3->notificationitem2.nonExistentDesc ||
-                    (notificationitem3->notificationitem2.showReboot ||
+                    (notificationitem3->notificationitem2.showRestart ||
                      notificationitem3->notificationitem2.showExit)) {
                     FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                     ACTION_ID(0, 5), depth - 1,
                                                     properties, &array);
                 }
                 if (notificationitem3->notificationitem2.nonExistentDesc ||
-                    notificationitem3->notificationitem2.showReboot) {
+                    notificationitem3->notificationitem2.showRestart) {
                     FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                     ACTION_ID(0, 6), depth - 1,
                                                     properties, &array);

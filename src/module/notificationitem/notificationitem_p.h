@@ -49,7 +49,7 @@ struct _FcitxNotificationItem {
  */
 struct _FcitxNotificationItem2 {
     FcitxGenericConfig gconfig;
-    boolean showReboot;
+    boolean showRestart;
     boolean showVk;
     boolean showExit;
     boolean showSkins;
