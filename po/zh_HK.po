@@ -2323,11 +2323,11 @@ msgid "Fuzzy z and zh"
 msgstr "模糊z和zh"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
+msgid "Fix mistype gn/ng"
 msgstr "忽略拼音中ng->gn的輸入錯誤"
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
 msgstr "忽略拼音jv，qv，xv，yv中u->v的輸入錯誤"
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
@@ -3292,21 +3292,21 @@ msgid "Key Color On Virtual Keyboard"
 msgstr "軟鍵盤按鍵文字顏色"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
-msgid "Whether to display the right-click configuration item 'Restart'"
-msgstr "是否顯示右鍵配置項目“重啟”"
+msgid "Whether to display the right-click menu configuration item <Restart>"
+msgstr "是否顯示右鍵配置項目<重啟>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:9
-msgid "Whether to display the right-click configuration item 'Vk'"
-msgstr "是否顯示右鍵配置項目“虛擬鍵盤”"
+msgid "Whether to display the right-click configuration item <Vk>"
+msgstr "是否顯示右鍵配置項目<虛擬鍵盤>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:14
-msgid "Whether to display the right-click configuration item 'Exit'"
-msgstr "是否顯示右鍵配置項目“退出”"
+msgid "Whether to display the right-click configuration item <Exit>"
+msgstr "是否顯示右鍵配置項目<退出>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:19
-msgid "Whether to display the right-click configuration item 'Skins'"
-msgstr "是否顯示右鍵配置項目“皮膚”"
+msgid "Whether to display the right-click configuration item <Skins>"
+msgstr "是否顯示右鍵配置項目<皮膚>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:24
-msgid "Whether to display the right-click configuration item 'Help'"
-msgstr "是否顯示右鍵配置項目“在線幫助”"
+msgid "Whether to display the right-click configuration item <Help>"
+msgstr "是否顯示右鍵配置項目<在線幫助>"

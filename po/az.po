@@ -6,8 +6,8 @@
 # Translators:
 # Mehman Bashirov <mehman.b@gmail.com>, 2021
 # Nicat Məmmədov <n1c4t97@gmail.com>, 2021
-# Xəyyam Qocayev <xxmn77@gmail.com>, 2021
 # Cindy0514, 2022
+# Xəyyam Qocayev <xxmn77@gmail.com>, 2022
 # 
 #, fuzzy
 msgid ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2021-04-23 00:01+0100\n"
 "PO-Revision-Date: 2021-11-18 02:22+0000\n"
-"Last-Translator: Cindy0514, 2022\n"
+"Last-Translator: Xəyyam Qocayev <xxmn77@gmail.com>, 2022\n"
 "Language-Team: Azerbaijani (https://www.transifex.com/linuxdeepin/teams/3617/az/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2396,12 +2396,12 @@ msgid "Fuzzy z and zh"
 msgstr "Qeyri-səliş z və zh"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
-msgstr "Səhv gn/ng növünü düzəldin"
+msgid "Fix mistype gn/ng"
+msgstr ""
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
-msgstr "jv, qv, xv, yv kimi v/u səhv yazılışını düzəltmək"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
+msgstr ""
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
 #: src/im/table/fcitx-table.desc:11 src/im/table/fcitx-table.desc:16
@@ -3386,21 +3386,23 @@ msgid "Key Color On Virtual Keyboard"
 msgstr "Virtual klaviaturada düymənin rəngi"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
-msgid "Whether to display the right-click configuration item 'Restart'"
+msgid "Whether to display the right-click menu configuration item <Restart>"
 msgstr ""
+"\"Yenidən başladın\" sağ klik tənzimləmə elementinin göstərilib-"
+"göstərilməməsi"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:9
-msgid "Whether to display the right-click configuration item 'Vk'"
-msgstr ""
+msgid "Whether to display the right-click configuration item <Vk>"
+msgstr "\"Vk\" sağ klik tənzimləmə elementinin göstərilib-göstərilməməsi"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:14
-msgid "Whether to display the right-click configuration item 'Exit'"
-msgstr ""
+msgid "Whether to display the right-click configuration item <Exit>"
+msgstr "\"Çıxış\" sağ klik tənzimləmə elementinin göstərilib-göstərilməməsi"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:19
-msgid "Whether to display the right-click configuration item 'Skins'"
-msgstr ""
+msgid "Whether to display the right-click configuration item <Skins>"
+msgstr "\"Örtüklər\" sağ klik tənzimləmə elementinin göstərilib-göstərilməməsi"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:24
-msgid "Whether to display the right-click configuration item 'Help'"
-msgstr ""
+msgid "Whether to display the right-click configuration item <Help>"
+msgstr "\"Kömək\" sağ klik tənzimləmə elementinin göstərilib-göstərilməməsi"

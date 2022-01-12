@@ -2355,12 +2355,12 @@ msgid "Fuzzy z and zh"
 msgstr "Fuzzy z and zh"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
-msgstr "Fix misstype gn/ng"
+msgid "Fix mistype gn/ng"
+msgstr "Fix mistype gn/ng"
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
-msgstr "Fix misstype v/u like jv, qv, xv, yv"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
+msgstr "Fix mistype v/u like jv, qv, xv, yv"
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
 #: src/im/table/fcitx-table.desc:11 src/im/table/fcitx-table.desc:16
@@ -3337,22 +3337,30 @@ msgstr "Virtual Keyboard Image"
 msgid "Key Color On Virtual Keyboard"
 msgstr "Key Color On Virtual Keyboard"
 
+#: src/module/notificationitem/fcitx-notificationitem.desc:1
+#: src/module/notificationitem/fcitx-notificationitem.desc:6
+#: src/module/notificationitem/fcitx-notificationitem.desc:11
+#: src/module/notificationitem/fcitx-notificationitem.desc:16
+#: src/module/notificationitem/fcitx-notificationitem.desc:21
+msgid "Notificationitem"
+msgstr "Notificationitem"
+
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
-msgid "Whether to display the right-click configuration item 'Restart'"
-msgstr "Whether to display the right-click configuration item 'Restart'"
+msgid "Whether to display the right-click menu configuration item <Restart>"
+msgstr "Whether to display the right-click menu configuration item <Restart>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:9
-msgid "Whether to display the right-click configuration item 'Vk'"
-msgstr "Whether to display the right-click configuration item 'Vk'"
+msgid "Whether to display the right-click configuration item <Vk>"
+msgstr "Whether to display the right-click configuration item <Vk>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:14
-msgid "Whether to display the right-click configuration item 'Exit'"
-msgstr "Whether to display the right-click configuration item 'Exit'"
+msgid "Whether to display the right-click configuration item <Exit>"
+msgstr "Whether to display the right-click configuration item <Exit>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:19
-msgid "Whether to display the right-click configuration item 'Skins'"
-msgstr "Whether to display the right-click configuration item 'Skins'"
+msgid "Whether to display the right-click configuration item <Skins>"
+msgstr "Whether to display the right-click configuration item <Skins>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:24
-msgid "Whether to display the right-click configuration item 'Help'"
-msgstr "Whether to display the right-click configuration item 'Help'"
+msgid "Whether to display the right-click configuration item <Help>"
+msgstr "Whether to display the right-click configuration item <Help>"

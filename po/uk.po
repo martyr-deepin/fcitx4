@@ -1625,7 +1625,7 @@ msgstr "Заснована на DBus нова піктограма лотка Fr
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
 msgid "Enhance pinyin input in Fcitx"
-msgstr ""
+msgstr "Удосконалити введення піньїну у Fcitx"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
 msgid "Provide extra feature for pinyin in Fcitx"
@@ -1690,7 +1690,7 @@ msgstr "Підтримка X11"
 
 #: src/module/x11/fcitx-x11.conf.in:4
 msgid "X11 Utility used by other Addon"
-msgstr ""
+msgstr "Допоміжний інструмент X11, який використовується іншим додатком"
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:4
@@ -2099,6 +2099,7 @@ msgstr "Надавати підказки фрази"
 #: data/config.desc:217
 msgid "Do Not Commit Preedit Text When a Window Loses Focus"
 msgstr ""
+"Не вписувати попередньо редагований текст, якщо вікно втрачає фокусування"
 
 #: data/config.desc:220 data/config.desc:226 data/config.desc:232
 #: data/config.desc:238 data/config.desc:244 data/config.desc:250
@@ -2109,14 +2110,17 @@ msgstr "Вигляд"
 #: data/config.desc:244
 msgid "Show Input Method Hint After Input Method Changed"
 msgstr ""
+"Показувати підказку щодо способу введення після зміни способу введення"
 
 #: data/config.desc:251
 msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr ""
+"Показувати підказку щодо способу введення після зміни способу введення і "
+"фокусування"
 
 #: data/config.desc:258
 msgid "Show Input Method Hint Only When the State Is Active"
-msgstr ""
+msgstr "Показувати підказку щодо способу введення, лише якщо стан є активним"
 
 #: data/config.desc:241
 msgid "Show Input Speed"
@@ -2129,15 +2133,19 @@ msgstr "Показати версію"
 #: data/config.desc:253
 msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr ""
+"Не показувати вікно введення, якщо є лише один рядок попереднього "
+"редагування"
 
 #: data/config.desc:259
 msgid ""
 "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr ""
+"Не показувати вікно введення, якщо є лише один варіант і рядок попереднього "
+"редагування"
 
 #: data/inputmethod.desc:3
 msgid "UniqueName"
-msgstr ""
+msgstr "Унікальна назва"
 
 #: data/inputmethod.desc:11
 msgid "IconName"
@@ -2191,10 +2199,12 @@ msgstr "Xim"
 #: src/frontend/xim/fcitx-xim.desc:4
 msgid "Use On The Spot Style for XIM (Cannot change during running)"
 msgstr ""
+"Використовувати оптимальний стиль для XIM (не можна змінювати під час "
+"роботи)"
 
 #: src/im/keyboard/fcitx-keyboard.desc:4
 msgid "Commit with extra space when choose candidate word"
-msgstr ""
+msgstr "Вписувати з додатковим пробілом, якщо вибрано слово-варіант"
 
 #: src/im/keyboard/fcitx-keyboard.desc:7 src/im/table/table.desc:141
 #: src/module/autoeng/fcitx-autoeng.desc:2
@@ -2249,6 +2259,8 @@ msgid ""
 "A different value from the global one may be useful when using horizontal "
 "candidate list"
 msgstr ""
+"Значення, яке є відмінним від загального, може бути корисним при "
+"використанні горизонтального списку варіантів"
 
 #: src/im/keyboard/fcitx-keyboard.desc:39
 msgid "Use enter to commit the existing string"
@@ -2288,19 +2300,19 @@ msgstr "Визначений користувачем"
 
 #: src/im/pinyin/fcitx-pinyin.desc:13
 msgid "Default Shuangpin Schema"
-msgstr ""
+msgstr "Типова схема шуанпіню"
 
 #: src/im/pinyin/fcitx-pinyin.desc:18
 msgid "Fix preedit cursor at head"
-msgstr ""
+msgstr "Виправляти курсор попереднього редагування у заголовку"
 
 #: src/im/pinyin/fcitx-pinyin.desc:23
 msgid "Use V to trigger quickphrase"
-msgstr ""
+msgstr "Використовувати V для вмикання «Швидкої фрази»"
 
 #: src/im/pinyin/fcitx-pinyin.desc:28
 msgid "Use Complete Pinyin"
-msgstr ""
+msgstr "Використовувати повний піньїнь"
 
 #: src/im/pinyin/fcitx-pinyin.desc:33
 msgid "Auto Create Phrase"
@@ -2325,21 +2337,21 @@ msgstr "Клавіші для вилучення фрази користувач
 #: src/im/pinyin/fcitx-pinyin.desc:58 src/im/pinyin/fcitx-pinyin.desc:67
 #: src/im/pinyin/fcitx-pinyin.desc:76 src/im/table/table.desc:23
 msgid "AdjustNo"
-msgstr ""
+msgstr "Без коригування"
 
 #: src/im/pinyin/fcitx-pinyin.desc:59 src/im/pinyin/fcitx-pinyin.desc:68
 #: src/im/pinyin/fcitx-pinyin.desc:77 src/im/table/table.desc:24
 msgid "AdjustFast"
-msgstr ""
+msgstr "Швидке коригування"
 
 #: src/im/pinyin/fcitx-pinyin.desc:60 src/im/pinyin/fcitx-pinyin.desc:69
 #: src/im/pinyin/fcitx-pinyin.desc:78 src/im/table/table.desc:25
 msgid "AdjustFreq"
-msgstr ""
+msgstr "Коригування частоти"
 
 #: src/im/pinyin/fcitx-pinyin.desc:62
 msgid "Rule of Candidate Word Order"
-msgstr ""
+msgstr "Правило порядку слів-варіантів"
 
 #: src/im/pinyin/fcitx-pinyin.desc:71
 msgid "Rule of Candidate Phrase Order"
@@ -2351,55 +2363,55 @@ msgstr "Правило для порядку частих слів"
 
 #: src/im/pinyin/fcitx-pinyin.desc:85
 msgid "Fuzzy an and ang"
-msgstr ""
+msgstr "Неточні an і ang"
 
 #: src/im/pinyin/fcitx-pinyin.desc:90
 msgid "Fuzzy en and eng"
-msgstr ""
+msgstr "Неточні en і eng"
 
 #: src/im/pinyin/fcitx-pinyin.desc:95
 msgid "Fuzzy ian and iang"
-msgstr ""
+msgstr "Неточні ian і iang"
 
 #: src/im/pinyin/fcitx-pinyin.desc:100
 msgid "Fuzzy in and ing"
-msgstr ""
+msgstr "Неточні in і ing"
 
 #: src/im/pinyin/fcitx-pinyin.desc:105
 msgid "Fuzzy ou and u"
-msgstr ""
+msgstr "Неточні ou і u"
 
 #: src/im/pinyin/fcitx-pinyin.desc:110
 msgid "Fuzzy uan and uang"
-msgstr ""
+msgstr "Неточні uan і uang"
 
 #: src/im/pinyin/fcitx-pinyin.desc:115
 msgid "Fuzzy c and ch"
-msgstr ""
+msgstr "Неточні c і ch"
 
 #: src/im/pinyin/fcitx-pinyin.desc:120
 msgid "Fuzzy f and h"
-msgstr ""
+msgstr "Неточні f і h"
 
 #: src/im/pinyin/fcitx-pinyin.desc:125
 msgid "Fuzzy l and n"
-msgstr ""
+msgstr "Неточні l і n"
 
 #: src/im/pinyin/fcitx-pinyin.desc:130
 msgid "Fuzzy s and sh"
-msgstr ""
+msgstr "Неточні s і sh"
 
 #: src/im/pinyin/fcitx-pinyin.desc:135
 msgid "Fuzzy z and zh"
-msgstr ""
+msgstr "Неточні z і zh"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
-msgstr ""
+msgid "Fix mistype gn/ng"
+msgstr "Виправляти помилкові gn/ng"
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
-msgstr ""
+msgid "Fix mistype v/u like jv, qv, xv, yv"
+msgstr "Виправляти помилки v/u, зокрема jv, qv, xv, yv"
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
 #: src/im/table/fcitx-table.desc:11 src/im/table/fcitx-table.desc:16
@@ -2425,7 +2437,7 @@ msgstr "Очистити частоту"
 
 #: src/im/table/fcitx-table.desc:24
 msgid "Lookup Pinyin"
-msgstr ""
+msgstr "Пошук піньїну"
 
 #: src/im/table/table.desc:1 src/im/table/table.desc:6
 #: src/im/table/table.desc:10 src/im/table/table.desc:14
@@ -2496,23 +2508,27 @@ msgstr "Автоматичне надсилання варіанта слова"
 msgid ""
 "Minimum length trigger auto send candidate word when only one candidate"
 msgstr ""
+"Мінімальна довжина для автоматичного надсилання слова-варіанта, якщо є лише "
+"один варіант"
 
 #: src/im/table/table.desc:59
 msgid ""
 "Minimum length trigger auto send candidate when there will be no candidate"
 msgstr ""
+"Мінімальна довжина для автоматичного надсилання варіанта, якщо не буде "
+"варіантів"
 
 #: src/im/table/table.desc:64
 msgid "Send Raw Preedit"
-msgstr ""
+msgstr "Надсилати необроблене попереднє редагування"
 
 #: src/im/table/table.desc:69
 msgid "End Key"
-msgstr ""
+msgstr "Клавіша завершення"
 
 #: src/im/table/table.desc:74
 msgid "Use Matching Key"
-msgstr ""
+msgstr "Використовувати відповідну клавішу"
 
 #: src/im/table/table.desc:79
 msgid "Matching Key"
@@ -2531,6 +2547,8 @@ msgid ""
 "Keep current buffer when there is no match item and input length is equal "
 "code length"
 msgstr ""
+"Зберігати поточний буфер, якщо немає відповідного запису, а вхідна довжина "
+"рівна довжині коду"
 
 #: src/im/table/table.desc:98
 msgid "Auto Phrase Length"
@@ -2546,11 +2564,11 @@ msgstr "Зберегти автофразу"
 
 #: src/im/table/table.desc:113
 msgid "Prompt Table Code"
-msgstr ""
+msgstr "Запитувати код таблиці"
 
 #: src/im/table/table.desc:117
 msgid "Candidate Table Layout"
-msgstr ""
+msgstr "Розкладка таблиці варіантів"
 
 #: src/im/table/table.desc:121
 msgid "Not Set"
@@ -2574,7 +2592,7 @@ msgstr "Вибрати"
 
 #: src/im/table/table.desc:151
 msgid "Language Code for this table"
-msgstr ""
+msgstr "Код мови для цієї таблиці"
 
 #: src/im/table/table.desc:156
 msgid "Enable"
@@ -2582,7 +2600,7 @@ msgstr "Увімкнути"
 
 #: src/im/table/table.desc:161
 msgid "Use Custom Prompt String defined in table"
-msgstr ""
+msgstr "Використовувати нетиповий рядок запиту, визначений у таблиці"
 
 #: src/im/table/table.desc:166
 msgid "Keyboard Layout to be used"
@@ -2590,7 +2608,7 @@ msgstr "Розкладка клавіатури, якою слід корист�
 
 #: src/im/table/table.desc:171
 msgid "Use Alternative Candidate Word Number"
-msgstr ""
+msgstr "Використовувати номер альтернативного варіанта слова"
 
 #: src/im/table/table.desc:183
 msgid "Use Alternative Key for paging"
@@ -2606,19 +2624,19 @@ msgstr "Альтернативна клавіша наступної сторі�
 
 #: src/im/table/table.desc:198
 msgid "First Candidate Display as Preedit"
-msgstr ""
+msgstr "Показ першого варіанта у попередньому редагуванні"
 
 #: src/im/table/table.desc:203
 msgid "Commit and pass when invalid key of this table pressed"
-msgstr ""
+msgstr "Вписати і пропустити, якщо у цій таблиці натиснуто некоректну клавішу"
 
 #: src/im/table/table.desc:208
 msgid "Commit key for select first candidate"
-msgstr ""
+msgstr "Клавіша вписування для вибору першого варіанта"
 
 #: src/im/table/table.desc:213
 msgid "Commit string when there is no match"
-msgstr ""
+msgstr "Вписувати рядок, якщо немає відповідників"
 
 #: src/im/table/table.desc:218
 msgid "Ignore Punctuation"
@@ -2627,6 +2645,8 @@ msgstr "Ігнорувати пунктуацію"
 #: src/im/table/table.desc:223
 msgid "Ignore some Punctuation, if it is empty, then ignore all punctuation"
 msgstr ""
+"Ігнорувати вказану пунктуацію; якщо список порожній, ігнорувати усю "
+"пунктуацію"
 
 #: src/module/autoeng/fcitx-autoeng.desc:1
 #: src/module/autoeng/fcitx-autoeng.desc:11
@@ -2708,18 +2728,20 @@ msgid ""
 "Roughly the same length with this number of english letters, the actual "
 "length depends on the font and the content"
 msgstr ""
+"Приблизно така сама довжина із цією кількістю літер англійської; справжня "
+"довжина залежить від шрифту і даних"
 
 #: src/module/clipboard/fcitx-clipboard.desc:25
 msgid "Trigger Key for Clipboard History List"
-msgstr ""
+msgstr "Клавіша-перемикач для списку журналу буфера обміну даними"
 
 #: src/module/clipboard/fcitx-clipboard.desc:30
 msgid "Use Selection Text"
-msgstr ""
+msgstr "Використовувати позначений текст"
 
 #: src/module/clipboard/fcitx-clipboard.desc:31
 msgid "Include the text currently selected in clipboard history."
-msgstr ""
+msgstr "Включити поточний позначений текст до журналу буфера обміну даними."
 
 #: src/module/clipboard/fcitx-clipboard.desc:45
 msgid "Ignore blank selections"
@@ -2741,7 +2763,7 @@ msgstr "Клавіша вибору загального способу введ
 
 #: src/module/imselector/fcitx-imselector.desc:14
 msgid "Clear local Input Method"
-msgstr ""
+msgstr "Очистити локальний спосіб введення"
 
 #: src/module/imselector/fcitx-imselector.desc:16
 #: src/module/imselector/fcitx-imselector.desc:21
@@ -2753,7 +2775,7 @@ msgstr ""
 #: src/module/imselector/fcitx-imselector.desc:51
 #: src/module/imselector/fcitx-imselector.desc:56
 msgid "GlobalSelector"
-msgstr ""
+msgstr "Загальний вибір"
 
 #: src/module/imselector/fcitx-imselector.desc:19
 #: src/module/imselector/fcitx-imselector.desc:64
@@ -2810,7 +2832,7 @@ msgstr "Перемкнутися на дев'ятий спосіб введен�
 #: src/module/imselector/fcitx-imselector.desc:96
 #: src/module/imselector/fcitx-imselector.desc:101
 msgid "LocalSelector"
-msgstr ""
+msgstr "Вибір локалі"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:1
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:7
@@ -2822,37 +2844,40 @@ msgstr ""
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:42
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:50
 msgid "Pinyin Enhance"
-msgstr ""
+msgstr "Удосконалення піньїну"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:4
 msgid "Treating abbreviated Pinyin as English"
-msgstr ""
+msgstr "Вважати скорочений піньїнь як англійську"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:5
 msgid "Useful when you hardly ever use abbreviated pinyin."
-msgstr ""
+msgstr "Корисно, якщо ви навряд чи використовуватимете скорочений піньїнь."
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:10
 msgid "Allow replacing the first candidate"
-msgstr ""
+msgstr "Дозволити заміну першого варіанта"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:11
 msgid ""
 "Allow Pinyin Enhance to replace the first candidate word when the input "
 "string is very closed to English."
 msgstr ""
+"Дозволити удосконаленню піньїну замінювати перше слово-варіант, якщо "
+"введений рядок дуже близький до слова англійською."
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:24
 msgid "Maximum length of spell hint list for Pinyin Enhance"
 msgstr ""
+"Максимальна довжина списку підказок щодо правопису для удосконалення піньїну"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:30
 msgid "Hotkey for Inputing Character From Phrase"
-msgstr ""
+msgstr "Комбінація клавіш для введення символу з фрази"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:35
 msgid "Hotkey for switching to Inputing Character From Phrase mode"
-msgstr ""
+msgstr "Комбінація клавіш для перемикання на режим вставлення символу з фрази"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:40
 msgid "Disable Pinyin Symbol"
@@ -2861,10 +2886,11 @@ msgstr "Вимкнути символ піньїну"
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:46
 msgid "Minimum input length to trigger stroke input (set to -1 to disable)"
 msgstr ""
+"Мінімальна довжина введення для вмикання введення штриха (-1 — вимкнути)"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:47
 msgid "Stroke input trigger length"
-msgstr ""
+msgstr "Довжина вмикання введення штриха"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.desc:55
 msgid "Maximum results from stroke input."
@@ -2900,11 +2926,11 @@ msgstr "Клавіша вмикання «Швидкої фрази»"
 
 #: src/module/quickphrase/fcitx-quickphrase.desc:13
 msgid "Alternative Trigger Key for QuickPhrase"
-msgstr ""
+msgstr "Альтернативна клавіша вмикання «Швидкої фрази»"
 
 #: src/module/quickphrase/fcitx-quickphrase.desc:37
 msgid "Maximum length of spell hint list for Quick Phrase"
-msgstr ""
+msgstr "Максимальна довжина списку підказок щодо правопису для швидких фраз"
 
 #: src/module/spell/fcitx-spell.desc:1 src/module/spell/fcitx-spell.desc:10
 msgid "Spell Hint"
@@ -2920,7 +2946,7 @@ msgstr "Myspell"
 
 #: src/module/spell/fcitx-spell.desc:8
 msgid "Preferred Enchant provider"
-msgstr ""
+msgstr "Бажаний надавач даних Enchant"
 
 #: src/module/spell/fcitx-spell.desc:11
 msgid "Default Spell Hint Backends Order"
@@ -2929,6 +2955,7 @@ msgstr "Типовий порядок модулів підказок щодо �
 #: src/module/spell/fcitx-spell.desc:14
 msgid "Possible Providers: presage, custom, enchant (separate with comma)"
 msgstr ""
+"Можливі засоби надання: presage, custom, enchant (відокремлення комами)"
 
 #: src/module/unicode/fcitx-unicode.desc:1
 msgid "Unicode"
@@ -2947,6 +2974,8 @@ msgstr "Дозволити перевизначення параметрів с�
 msgid ""
 "Use the layout of first keyboard input method in list as default layout"
 msgstr ""
+"Використовувати розкладку першого способу введення з клавіатури у списку як "
+"типову розкладку"
 
 #: src/module/xkb/fcitx-xkb.desc:10
 msgid ""
@@ -2954,14 +2983,17 @@ msgid ""
 "list, then English (US) will be applied to all other non keyboard input "
 "method layout"
 msgstr ""
+"Наприклад, якщо першим способом введення у списку є «Клавіатура - Англійська"
+" (США)», розкладку «Англійська (США)» буде застосовано для усіх інших "
+"неклавіатурних способів введення"
 
 #: src/module/xkb/fcitx-xkb.desc:15
 msgid "xmodmap command"
-msgstr ""
+msgstr "Команда xmodmap"
 
 #: src/module/xkb/fcitx-xkb.desc:20
 msgid "Apply this custom xmodmap script after layout change"
-msgstr ""
+msgstr "Застосувати цей нетиповий скрипт xmodmap після зміни розкладки"
 
 #: src/ui/classic/fcitx-classic-ui.desc:1
 #: src/ui/classic/fcitx-classic-ui.desc:7
@@ -3164,22 +3196,22 @@ msgstr "Змінити розмір нижнього поля"
 #: src/ui/classic/skin.desc:102 src/ui/classic/skin.desc:208
 #: src/ui/classic/skin.desc:338
 msgid "Margin Left for clickable region"
-msgstr ""
+msgstr "Ліве поле для придатної до клацання області"
 
 #: src/ui/classic/skin.desc:107 src/ui/classic/skin.desc:213
 #: src/ui/classic/skin.desc:343
 msgid "Margin Right for clickable region"
-msgstr ""
+msgstr "Праве поле для придатної до клацання області"
 
 #: src/ui/classic/skin.desc:112 src/ui/classic/skin.desc:218
 #: src/ui/classic/skin.desc:348
 msgid "Margin Top for clickable region"
-msgstr ""
+msgstr "Верхнє поле для придатної до клацання області"
 
 #: src/ui/classic/skin.desc:117 src/ui/classic/skin.desc:223
 #: src/ui/classic/skin.desc:353
 msgid "Margin Bottom for clickable region"
-msgstr ""
+msgstr "Нижнє поле для придатної до клацання області"
 
 #: src/ui/classic/skin.desc:122 src/ui/classic/skin.desc:228
 #: src/ui/classic/skin.desc:358
@@ -3249,7 +3281,7 @@ msgstr "Зсув накладки за Y"
 #: src/ui/classic/skin.desc:151 src/ui/classic/skin.desc:293
 #: src/ui/classic/skin.desc:395
 msgid "Fill Background Vertical rule"
-msgstr ""
+msgstr "Заповнювати фонову вертикальну лінійку"
 
 #: src/ui/classic/skin.desc:153 src/ui/classic/skin.desc:161
 #: src/ui/classic/skin.desc:295 src/ui/classic/skin.desc:303
@@ -3266,19 +3298,19 @@ msgstr "Змінити розмір"
 #: src/ui/classic/skin.desc:159 src/ui/classic/skin.desc:301
 #: src/ui/classic/skin.desc:403
 msgid "Fill Background Horizontal rule"
-msgstr ""
+msgstr "Заповнювати фонову горизонтальну лінійку"
 
 #: src/ui/classic/skin.desc:167
 msgid "Use Custom text icon color"
-msgstr ""
+msgstr "Використати нетиповий колір піктограми тексту"
 
 #: src/ui/classic/skin.desc:172
 msgid "Active Text Icon Color"
-msgstr ""
+msgstr "Колір піктограми активного тексту"
 
 #: src/ui/classic/skin.desc:177
 msgid "Inactive Text Icon Color"
-msgstr ""
+msgstr "Колір піктограми неактивного тексту"
 
 #: src/ui/classic/skin.desc:182
 msgid "Special Icon position"
@@ -3297,7 +3329,7 @@ msgstr "Розташування спеціальної піктограми"
 #: src/ui/classic/skin.desc:283 src/ui/classic/skin.desc:287
 #: src/ui/classic/skin.desc:291 src/ui/classic/skin.desc:299
 msgid "SkinInputBar"
-msgstr ""
+msgstr "Панель введення обгортки"
 
 #: src/ui/classic/skin.desc:257
 msgid "Color of Cursor"
@@ -3305,11 +3337,11 @@ msgstr "Колір курсора"
 
 #: src/ui/classic/skin.desc:261
 msgid "Position or offset of Preedit"
-msgstr ""
+msgstr "Розташування або відступ попереднього редагування"
 
 #: src/ui/classic/skin.desc:265
 msgid "Position or offset of LookupTable"
-msgstr ""
+msgstr "Розташування або відступ таблиці пошуку"
 
 #: src/ui/classic/skin.desc:269 src/ui/classic/skin.desc:277
 #: src/ui/classic/skin.desc:285
@@ -3323,7 +3355,7 @@ msgstr "Піктограма наступної сторінки"
 
 #: src/ui/classic/skin.desc:307 src/ui/classic/skin.desc:311
 msgid "SkinTrayIcon"
-msgstr ""
+msgstr "Піктограма лотка обгортки"
 
 #: src/ui/classic/skin.desc:309
 msgid "Active Tray Icon"
@@ -3343,44 +3375,44 @@ msgstr "Неактивна піктограма лотка"
 #: src/ui/classic/skin.desc:389 src/ui/classic/skin.desc:393
 #: src/ui/classic/skin.desc:401
 msgid "SkinMenu"
-msgstr ""
+msgstr "Меню обгортки"
 
 #: src/ui/classic/skin.desc:387
 msgid "Active Menu Color"
-msgstr ""
+msgstr "Колір активного меню"
 
 #: src/ui/classic/skin.desc:391
 msgid "Space Line Color"
-msgstr ""
+msgstr "Колір пробільного рядка"
 
 #: src/ui/classic/skin.desc:409 src/ui/classic/skin.desc:414
 msgid "SkinKeyboard"
-msgstr ""
+msgstr "Обгортка клавіатури"
 
 #: src/ui/classic/skin.desc:411
 msgid "Virtual Keyboard Image"
-msgstr ""
+msgstr "Зображення віртуальної клавіатури"
 
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "Колір клавіш на віртуальній клавіатурі"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
-msgid "Whether to display the right-click configuration item 'Restart'"
-msgstr ""
+msgid "Whether to display the right-click menu configuration item <Restart>"
+msgstr "Чи слід показувати пункт контекстного меню «Перезапустити»"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:9
-msgid "Whether to display the right-click configuration item 'Vk'"
-msgstr ""
+msgid "Whether to display the right-click configuration item <Vk>"
+msgstr "Чи слід показувати пункт контекстного меню «Vk»"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:14
-msgid "Whether to display the right-click configuration item 'Exit'"
-msgstr ""
+msgid "Whether to display the right-click configuration item <Exit>"
+msgstr "Чи слід показувати пункт контекстного меню «Вийти»"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:19
-msgid "Whether to display the right-click configuration item 'Skins'"
-msgstr ""
+msgid "Whether to display the right-click configuration item <Skins>"
+msgstr "Чи слід показувати пункт контекстного меню «Обгортки»"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:24
-msgid "Whether to display the right-click configuration item 'Help'"
-msgstr ""
+msgid "Whether to display the right-click configuration item <Help>"
+msgstr "Чи слід показувати пункт контекстного меню «Довідка»"

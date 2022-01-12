@@ -2374,12 +2374,12 @@ msgid "Fuzzy z and zh"
 msgstr "Uafklarede z og zh"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
-msgstr "Ret forkert skrevet gn/ng"
+msgid "Fix mistype gn/ng"
+msgstr ""
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
-msgstr "Ret forkert skrevet v/u såsom jv, qv, xv, yv"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
+msgstr ""
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
 #: src/im/table/fcitx-table.desc:11 src/im/table/fcitx-table.desc:16
@@ -3359,21 +3359,21 @@ msgid "Key Color On Virtual Keyboard"
 msgstr "Tastfarve på virtuelt tastatur"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
-msgid "Whether to display the right-click configuration item 'Restart'"
+msgid "Whether to display the right-click menu configuration item <Restart>"
 msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:9
-msgid "Whether to display the right-click configuration item 'Vk'"
+msgid "Whether to display the right-click configuration item <Vk>"
 msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:14
-msgid "Whether to display the right-click configuration item 'Exit'"
+msgid "Whether to display the right-click configuration item <Exit>"
 msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:19
-msgid "Whether to display the right-click configuration item 'Skins'"
+msgid "Whether to display the right-click configuration item <Skins>"
 msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:24
-msgid "Whether to display the right-click configuration item 'Help'"
+msgid "Whether to display the right-click configuration item <Help>"
 msgstr ""

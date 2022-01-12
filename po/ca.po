@@ -7,8 +7,8 @@
 # 2a27ff3f4907f1f338efe1928e595b4d_1774882 <9c8d5b1d7f3f3c4c5b013ffae9c4837c_207701>, 2021
 # Marc Sancho <msgsistemes@gmail.com>, 2021
 # el_libre como el chaval <el.libre@gmail.com>, 2021
-# Davidmp <medipas@gmail.com>, 2021
 # Cindy0514, 2022
+# Davidmp <medipas@gmail.com>, 2022
 # 
 #, fuzzy
 msgid ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2021-04-23 00:01+0100\n"
 "PO-Revision-Date: 2021-11-18 02:22+0000\n"
-"Last-Translator: Cindy0514, 2022\n"
+"Last-Translator: Davidmp <medipas@gmail.com>, 2022\n"
 "Language-Team: Catalan (https://www.transifex.com/linuxdeepin/teams/3617/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2408,12 +2408,12 @@ msgid "Fuzzy z and zh"
 msgstr "Z i sh difuses"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
-msgstr "Corregeix l'error tipogràfic gn/ng"
+msgid "Fix mistype gn/ng"
+msgstr ""
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
-msgstr "Corregeix l'error tipogràfic v/u, com ara jv, qv, xv o yv"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
+msgstr ""
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
 #: src/im/table/fcitx-table.desc:11 src/im/table/fcitx-table.desc:16
@@ -3406,21 +3406,23 @@ msgid "Key Color On Virtual Keyboard"
 msgstr "Color de la tecla al teclat virtual"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
-msgid "Whether to display the right-click configuration item 'Restart'"
+msgid "Whether to display the right-click menu configuration item <Restart>"
 msgstr ""
+"Si s'ha de mostrar l'element de configuració del clic contrari Reinicia."
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:9
-msgid "Whether to display the right-click configuration item 'Vk'"
-msgstr ""
+msgid "Whether to display the right-click configuration item <Vk>"
+msgstr "Si s'ha de mostrar l'element de configuració del clic contrari Vk."
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:14
-msgid "Whether to display the right-click configuration item 'Exit'"
-msgstr ""
+msgid "Whether to display the right-click configuration item <Exit>"
+msgstr "Si s'ha de mostrar l'element de configuració del clic contrari Surt."
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:19
-msgid "Whether to display the right-click configuration item 'Skins'"
+msgid "Whether to display the right-click configuration item <Skins>"
 msgstr ""
+"Si s'ha de mostrar l'element de configuració del clic contrari Aparença."
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:24
-msgid "Whether to display the right-click configuration item 'Help'"
-msgstr ""
+msgid "Whether to display the right-click configuration item <Help>"
+msgstr "Si s'ha de mostrar l'element de configuració del clic contrari Ajuda."

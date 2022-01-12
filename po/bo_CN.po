@@ -2382,11 +2382,11 @@ msgid "Fuzzy z and zh"
 msgstr "zདང་zhམི་གསལ།"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
+msgid "Fix mistype gn/ng"
 msgstr "སྒྲ་སྦྱོར་ཁྲོད་ཀྱི་ng->gnཡི་ནང་འཇུག་ནོར་འཁྲུལ་སྣང་མེད་དུ་གཏོང་བ།"
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
 msgstr ""
 "སྒྲ་སྦྱོར་vདང་qv  xv  yvཁྲོད་ཀྱི་u->vཡི་ནང་འཇུག་ནོར་འཁྲུལ་སྣང་མེད་དུ་གཏོང་བ།"
 
