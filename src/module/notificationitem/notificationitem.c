@@ -203,7 +203,7 @@ const FcitxDBusPropertyTable propertTable[] = {
 DECLARE_ADDFUNCTIONS(NotificationItem)
 
 CONFIG_BINDING_BEGIN(FcitxNotificationItem2)
-CONFIG_BINDING_REGISTER("Notificationitem", "Reboot", showReboot)
+CONFIG_BINDING_REGISTER("Notificationitem", "Restart", showRestart)
 CONFIG_BINDING_REGISTER("Notificationitem", "Vk", showVk)
 CONFIG_BINDING_REGISTER("Notificationitem", "Exit", showExit)
 CONFIG_BINDING_REGISTER("Notificationitem", "Skins", showSkins)
@@ -282,7 +282,7 @@ void *FcitxNotificationItemCreate(FcitxInstance *instance) {
         notificationitem->isUnity =
             fcitx_utils_strcmp0(getenv("XDG_CURRENT_DESKTOP"), "Unity") == 0;
 
-        FcitxLog(DEBUG, "fcitx-notificationitem showReboot : %d",notificationitem3->notificationitem2.showReboot);
+        FcitxLog(DEBUG, "fcitx-notificationitem showRestart : %d",notificationitem3->notificationitem2.showRestart);
         FcitxLog(DEBUG, "fcitx-notificationitem showVk : %d",notificationitem3->notificationitem2.showVk);
         FcitxLog(DEBUG, "fcitx-notificationitem showExit : %d",notificationitem3->notificationitem2.showExit);
         FcitxLog(DEBUG, "fcitx-notificationitem showSkins : %d",notificationitem3->notificationitem2.showSkins);

@@ -1183,20 +1183,20 @@ msgstr "قىسمەن كىرگۈزگۈچ يوق"
 msgid "Clear local input method"
 msgstr "قىسمەن كىرگۈزگۈچنى قۇرۇقداش"
 
-#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
+#: src/module/notificationitem/dbusmenu.c:465 src/ui/classic/classicui.c:464
 msgid "Online Help"
 msgstr "توردا ياردەم"
 
-#: src/module/notificationitem/dbusmenu.c:386 src/ui/classic/classicui.c:525
+#: src/module/notificationitem/dbusmenu.c:475 src/ui/classic/classicui.c:525
 msgid "Configure"
 msgstr "سەپلىمە"
 
-#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/module/notificationitem/dbusmenu.c:484 src/ui/classic/classicui.c:526
 #: src/ui/kimpanel/kimpanel.c:796
 msgid "Restart"
 msgstr "قايتا قوزغىتىش"
 
-#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
+#: src/module/notificationitem/dbusmenu.c:492 src/ui/classic/classicui.c:527
 msgid "Exit"
 msgstr "چېكىنىش"
 
@@ -1434,7 +1434,7 @@ msgstr "كىرگۈزگۈچنى قوزغىتىش"
 msgid "Fcitx Configuration"
 msgstr "كىرگۈزگۈچ سەپلىمىسى"
 
-#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:475
 msgid "Input Method Configuration"
 msgstr "كىرگۈزگۈچ سەپلىمىسى"
 
@@ -1623,7 +1623,7 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "DBus ئاساسىدىكى يېڭى Freedesktop.org تەخسە سىنبەلگىسى"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
 msgstr "كىرگۈزگۈچنىڭ پىنيىن كىرگۈزگۈچىنى كۈچەيتىش"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
@@ -2410,11 +2410,11 @@ msgid "Fuzzy z and zh"
 msgstr "z بىلەن zh نى مۈجمەللەشتۈرۈش"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
+msgid "Fix mistype gn/ng"
 msgstr "پىنيىندىكى gn/ng خاتالىقىغا سەل قاراش"
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
 msgstr "پىنيىندىكى jv, qv, xv, yv خاتالىقىغا سەل قاراش"
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6

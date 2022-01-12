@@ -9,7 +9,7 @@
 # ElnathK <drjekyll1@gmail.com>, 2021
 # Thomas Sungjin Kang <potopro@gmail.com>, 2021
 # Maggie Liu <maggie.liufei@gmail.com>, 2021
-# Cindy0514, 2021
+# Cindy0514, 2022
 # 
 #, fuzzy
 msgid ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2021-04-23 00:01+0100\n"
 "PO-Revision-Date: 2021-11-18 02:22+0000\n"
-"Last-Translator: Cindy0514, 2021\n"
+"Last-Translator: Cindy0514, 2022\n"
 "Language-Team: Korean (https://www.transifex.com/linuxdeepin/teams/3617/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1129,7 +1129,7 @@ msgstr "지역 입력 방식 없음"
 msgid "Clear local input method"
 msgstr "지역 입력 방식 초기화"
 
-#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
+#: src/module/notificationitem/dbusmenu.c:465 src/ui/classic/classicui.c:464
 msgid "Online Help"
 msgstr "온라인 도움말"
 
@@ -1137,12 +1137,12 @@ msgstr "온라인 도움말"
 msgid "Configure"
 msgstr "설정"
 
-#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/module/notificationitem/dbusmenu.c:484 src/ui/classic/classicui.c:526
 #: src/ui/kimpanel/kimpanel.c:796
 msgid "Restart"
 msgstr "재시작"
 
-#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
+#: src/module/notificationitem/dbusmenu.c:492 src/ui/classic/classicui.c:527
 msgid "Exit"
 msgstr "나가기"
 
@@ -1376,8 +1376,8 @@ msgid "Fcitx Configuration"
 msgstr "Fcitx 설정"
 
 #: data/fcitx-configtool.desktop.in:3
-#: src/module/notificationitem/dbusmenu.c:386
-#: src/module/notificationitem/dbusmenu.c:386
+#: src/module/notificationitem/dbusmenu.c:475
+#: src/module/notificationitem/dbusmenu.c:475
 msgid "Input Method Configuration"
 msgstr "입력기 설정"
 
@@ -1563,7 +1563,7 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "DBus 기반 새 Freedesktop.org 트레이 아이콘"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
 msgstr "향상된 Fcitx 병음 입력"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
@@ -1628,7 +1628,7 @@ msgid "X11 Support"
 msgstr "X11 지원"
 
 #: src/module/x11/fcitx-x11.conf.in:4
-msgid "X11 Utilitiy used by other Addon"
+msgid "X11 Utility used by other Addon"
 msgstr "다른 부가기능에 의해 사용되는 X11 유틸리티"
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
@@ -2327,12 +2327,12 @@ msgid "Fuzzy z and zh"
 msgstr "퍼지 z - zh"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
-msgstr "잘못된 gn/ng 고치기"
+msgid "Fix mistype gn/ng"
+msgstr ""
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
-msgstr "jv, qv, xv, yv 등의 잘못된 v/ 고치지"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
+msgstr ""
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
 #: src/im/table/fcitx-table.desc:11 src/im/table/fcitx-table.desc:16
@@ -3295,3 +3295,23 @@ msgstr "가상 키보드 이미지"
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "가상 키보드의 키 색상"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:4
+msgid "Whether to display the right-click menu configuration item <Restart>"
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:9
+msgid "Whether to display the right-click configuration item <Vk>"
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:14
+msgid "Whether to display the right-click configuration item <Exit>"
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:19
+msgid "Whether to display the right-click configuration item <Skins>"
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:24
+msgid "Whether to display the right-click configuration item <Help>"
+msgstr ""

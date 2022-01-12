@@ -7,7 +7,7 @@
 # Maggie Liu <maggie.liufei@gmail.com>, 2021
 # 31c8ff7daf246c6bd598eefe84c1433c, 2021
 # scootergrisen, 2021
-# Cindy0514, 2021
+# Cindy0514, 2022
 # 
 #, fuzzy
 msgid ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2021-04-23 00:01+0100\n"
 "PO-Revision-Date: 2021-11-18 02:22+0000\n"
-"Last-Translator: Cindy0514, 2021\n"
+"Last-Translator: Cindy0514, 2022\n"
 "Language-Team: Danish (https://www.transifex.com/linuxdeepin/teams/3617/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1165,7 +1165,7 @@ msgstr "Ingen lokal inputmetode"
 msgid "Clear local input method"
 msgstr "Ryd lokal inputmetode"
 
-#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
+#: src/module/notificationitem/dbusmenu.c:465 src/ui/classic/classicui.c:464
 msgid "Online Help"
 msgstr "Onlinehjælp"
 
@@ -1173,12 +1173,12 @@ msgstr "Onlinehjælp"
 msgid "Configure"
 msgstr "Konfigurer"
 
-#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/module/notificationitem/dbusmenu.c:484 src/ui/classic/classicui.c:526
 #: src/ui/kimpanel/kimpanel.c:796
 msgid "Restart"
 msgstr "Genstart"
 
-#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
+#: src/module/notificationitem/dbusmenu.c:492 src/ui/classic/classicui.c:527
 msgid "Exit"
 msgstr "Afslut"
 
@@ -1414,8 +1414,8 @@ msgid "Fcitx Configuration"
 msgstr "Fcitx-konfiguration"
 
 #: data/fcitx-configtool.desktop.in:3
-#: src/module/notificationitem/dbusmenu.c:386
-#: src/module/notificationitem/dbusmenu.c:386
+#: src/module/notificationitem/dbusmenu.c:475
+#: src/module/notificationitem/dbusmenu.c:475
 msgid "Input Method Configuration"
 msgstr "Konfiguration af inputmetode"
 
@@ -1604,8 +1604,8 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "DBus-baseret nyt Freedesktop.org-bakkeikon"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
-msgstr "Enchance pinyin-input i Fcitx"
+msgid "Enhance pinyin input in Fcitx"
+msgstr ""
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
 msgid "Provide extra feature for pinyin in Fcitx"
@@ -1669,7 +1669,7 @@ msgid "X11 Support"
 msgstr "Understøttelse af X11"
 
 #: src/module/x11/fcitx-x11.conf.in:4
-msgid "X11 Utilitiy used by other Addon"
+msgid "X11 Utility used by other Addon"
 msgstr "X11-redskab bruges af anden tilføjelse"
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
@@ -2374,12 +2374,12 @@ msgid "Fuzzy z and zh"
 msgstr "Uafklarede z og zh"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
-msgstr "Ret forkert skrevet gn/ng"
+msgid "Fix mistype gn/ng"
+msgstr ""
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
-msgstr "Ret forkert skrevet v/u såsom jv, qv, xv, yv"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
+msgstr ""
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
 #: src/im/table/fcitx-table.desc:11 src/im/table/fcitx-table.desc:16
@@ -3357,3 +3357,23 @@ msgstr "Virtuelt tastaturbillede"
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "Tastfarve på virtuelt tastatur"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:4
+msgid "Whether to display the right-click menu configuration item <Restart>"
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:9
+msgid "Whether to display the right-click configuration item <Vk>"
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:14
+msgid "Whether to display the right-click configuration item <Exit>"
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:19
+msgid "Whether to display the right-click configuration item <Skins>"
+msgstr ""
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:24
+msgid "Whether to display the right-click configuration item <Help>"
+msgstr ""

@@ -4,10 +4,10 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Cindy0514, 2021
 # Mehman Bashirov <mehman.b@gmail.com>, 2021
 # Nicat Məmmədov <n1c4t97@gmail.com>, 2021
-# Xəyyam Qocayev <xxmn77@gmail.com>, 2021
+# Cindy0514, 2022
+# Xəyyam Qocayev <xxmn77@gmail.com>, 2022
 # 
 #, fuzzy
 msgid ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2021-04-23 00:01+0100\n"
 "PO-Revision-Date: 2021-11-18 02:22+0000\n"
-"Last-Translator: Xəyyam Qocayev <xxmn77@gmail.com>, 2021\n"
+"Last-Translator: Xəyyam Qocayev <xxmn77@gmail.com>, 2022\n"
 "Language-Team: Azerbaijani (https://www.transifex.com/linuxdeepin/teams/3617/az/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1175,7 +1175,7 @@ msgstr "Yerli daxiletmə üsulu yoxdur"
 msgid "Clear local input method"
 msgstr "Yerli daxiletmə üsulunu təmizləyin"
 
-#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
+#: src/module/notificationitem/dbusmenu.c:465 src/ui/classic/classicui.c:464
 msgid "Online Help"
 msgstr "Onlayn kömək"
 
@@ -1183,12 +1183,12 @@ msgstr "Onlayn kömək"
 msgid "Configure"
 msgstr "Tənzimləmək"
 
-#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/module/notificationitem/dbusmenu.c:484 src/ui/classic/classicui.c:526
 #: src/ui/kimpanel/kimpanel.c:796
 msgid "Restart"
 msgstr "Yenidən başlat"
 
-#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
+#: src/module/notificationitem/dbusmenu.c:492 src/ui/classic/classicui.c:527
 msgid "Exit"
 msgstr "Çıxış"
 
@@ -1424,8 +1424,8 @@ msgid "Fcitx Configuration"
 msgstr "Fcitx tənzimləməsi"
 
 #: data/fcitx-configtool.desktop.in:3
-#: src/module/notificationitem/dbusmenu.c:386
-#: src/module/notificationitem/dbusmenu.c:386
+#: src/module/notificationitem/dbusmenu.c:475
+#: src/module/notificationitem/dbusmenu.c:475
 msgid "Input Method Configuration"
 msgstr "Daxiletmə üsulu ayarı"
 
@@ -1613,7 +1613,7 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "DBus, yeni Freedesktop.org trey nişanına əsaslanır"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
 msgstr "Fcitx-də pinyin daxiletmənin yaxşılaşdırılması"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
@@ -1682,7 +1682,7 @@ msgid "X11 Support"
 msgstr "X11 dəstəyi"
 
 #: src/module/x11/fcitx-x11.conf.in:4
-msgid "X11 Utilitiy used by other Addon"
+msgid "X11 Utility used by other Addon"
 msgstr "Başqa əlavələr üçün X11 vasitəsi istifadə olundu"
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
@@ -2396,12 +2396,12 @@ msgid "Fuzzy z and zh"
 msgstr "Qeyri-səliş z və zh"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
-msgstr "Səhv gn/ng növünü düzəldin"
+msgid "Fix mistype gn/ng"
+msgstr ""
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
-msgstr "jv, qv, xv, yv kimi v/u səhv yazılışını düzəltmək"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
+msgstr ""
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
 #: src/im/table/fcitx-table.desc:11 src/im/table/fcitx-table.desc:16
@@ -3384,3 +3384,25 @@ msgstr "Virtual klaviatura surəti"
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "Virtual klaviaturada düymənin rəngi"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:4
+msgid "Whether to display the right-click menu configuration item <Restart>"
+msgstr ""
+"\"Yenidən başladın\" sağ klik tənzimləmə elementinin göstərilib-"
+"göstərilməməsi"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:9
+msgid "Whether to display the right-click configuration item <Vk>"
+msgstr "\"Vk\" sağ klik tənzimləmə elementinin göstərilib-göstərilməməsi"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:14
+msgid "Whether to display the right-click configuration item <Exit>"
+msgstr "\"Çıxış\" sağ klik tənzimləmə elementinin göstərilib-göstərilməməsi"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:19
+msgid "Whether to display the right-click configuration item <Skins>"
+msgstr "\"Örtüklər\" sağ klik tənzimləmə elementinin göstərilib-göstərilməməsi"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:24
+msgid "Whether to display the right-click configuration item <Help>"
+msgstr "\"Kömək\" sağ klik tənzimləmə elementinin göstərilib-göstərilməməsi"

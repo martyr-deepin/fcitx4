@@ -956,7 +956,7 @@ msgid "Enabled state for im"
 msgstr ""
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
 msgstr ""
 
 #: src/im/table/table.desc:69
@@ -1148,11 +1148,11 @@ msgid "First Candidate Display as Preedit"
 msgstr ""
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
+msgid "Fix mistype gn/ng"
 msgstr ""
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
 msgstr ""
 
 #: src/im/pinyin/fcitx-pinyin.desc:18
@@ -1544,7 +1544,7 @@ msgstr ""
 msgid "Input Method"
 msgstr "Método de entrada"
 
-#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:386
+#: data/fcitx-configtool.desktop.in:3 src/module/notificationitem/dbusmenu.c:475
 msgid "Input Method Configuration"
 msgstr ""
 

@@ -1148,7 +1148,7 @@ msgstr "No local input method"
 msgid "Clear local input method"
 msgstr "Clear local input method"
 
-#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
+#: src/module/notificationitem/dbusmenu.c:465 src/ui/classic/classicui.c:464
 msgid "Online Help"
 msgstr "Online Help"
 
@@ -1156,12 +1156,12 @@ msgstr "Online Help"
 msgid "Configure"
 msgstr "Configure"
 
-#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/module/notificationitem/dbusmenu.c:484 src/ui/classic/classicui.c:526
 #: src/ui/kimpanel/kimpanel.c:796
 msgid "Restart"
 msgstr "Restart"
 
-#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
+#: src/module/notificationitem/dbusmenu.c:492 src/ui/classic/classicui.c:527
 msgid "Exit"
 msgstr "Exit"
 
@@ -1397,8 +1397,8 @@ msgid "Fcitx Configuration"
 msgstr "Fcitx Configuration"
 
 #: data/fcitx-configtool.desktop.in:3
-#: src/module/notificationitem/dbusmenu.c:386
-#: src/module/notificationitem/dbusmenu.c:386
+#: src/module/notificationitem/dbusmenu.c:475
+#: src/module/notificationitem/dbusmenu.c:475
 msgid "Input Method Configuration"
 msgstr "Input Method Configuration"
 
@@ -1584,8 +1584,8 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "DBus based new Freedesktop.org tray icon"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
-msgstr "Enchance pinyin input in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
+msgstr "Enhance pinyin input in Fcitx"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
 msgid "Provide extra feature for pinyin in Fcitx"
@@ -1649,8 +1649,8 @@ msgid "X11 Support"
 msgstr "X11 Support"
 
 #: src/module/x11/fcitx-x11.conf.in:4
-msgid "X11 Utilitiy used by other Addon"
-msgstr "X11 Utilitiy used by other Addon"
+msgid "X11 Utility used by other Addon"
+msgstr "X11 Utility used by other Addon"
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:4
@@ -2355,12 +2355,12 @@ msgid "Fuzzy z and zh"
 msgstr "Fuzzy z and zh"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
-msgstr "Fix misstype gn/ng"
+msgid "Fix mistype gn/ng"
+msgstr "Fix mistype gn/ng"
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
-msgstr "Fix misstype v/u like jv, qv, xv, yv"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
+msgstr "Fix mistype v/u like jv, qv, xv, yv"
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
 #: src/im/table/fcitx-table.desc:11 src/im/table/fcitx-table.desc:16
@@ -3336,3 +3336,31 @@ msgstr "Virtual Keyboard Image"
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "Key Color On Virtual Keyboard"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:1
+#: src/module/notificationitem/fcitx-notificationitem.desc:6
+#: src/module/notificationitem/fcitx-notificationitem.desc:11
+#: src/module/notificationitem/fcitx-notificationitem.desc:16
+#: src/module/notificationitem/fcitx-notificationitem.desc:21
+msgid "Notificationitem"
+msgstr "Notificationitem"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:4
+msgid "Whether to display the right-click menu configuration item <Restart>"
+msgstr "Whether to display the right-click menu configuration item <Restart>"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:9
+msgid "Whether to display the right-click configuration item <Vk>"
+msgstr "Whether to display the right-click configuration item <Vk>"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:14
+msgid "Whether to display the right-click configuration item <Exit>"
+msgstr "Whether to display the right-click configuration item <Exit>"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:19
+msgid "Whether to display the right-click configuration item <Skins>"
+msgstr "Whether to display the right-click configuration item <Skins>"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:24
+msgid "Whether to display the right-click configuration item <Help>"
+msgstr "Whether to display the right-click configuration item <Help>"

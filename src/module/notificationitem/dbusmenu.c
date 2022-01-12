@@ -470,7 +470,7 @@ void FcitxDBusMenuFillProperty(FcitxNotificationItem *notificationitem,
                                             DBUS_TYPE_STRING, &value);
                 break;
             case 4:
-                value = _("Configure");
+                value = _("Input Method Configuration");
                 FcitxDBusMenuAppendProperty(&sub, properties, "label",
                                             DBUS_TYPE_STRING, &value);
                 /* this icon sucks on KDE, why configure doesn't have
@@ -655,13 +655,6 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                                     properties, &array);
                 }
 
-                if (notificationitem3->notificationitem2.nonExistentDesc ||
-                    notificationitem3->notificationitem2.showHelp) {
-                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
-                                                    ACTION_ID(0, 3), depth - 1,
-                                                    properties, &array);
-                }
-
                 FcitxUIComplexStatus *compstatus;
                 UT_array *uicompstats =
                     FcitxInstanceGetUIComplexStats(instance);
@@ -730,9 +723,12 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                         }
                     }
                 }
-                FcitxDBusMenuFillLayoutItemWrap(notificationitem,
-                                                ACTION_ID(0, 3), depth - 1,
-                                                properties, &array);
+                if (notificationitem3->notificationitem2.nonExistentDesc ||
+                    notificationitem3->notificationitem2.showHelp) {
+                    FcitxDBusMenuFillLayoutItemWrap(notificationitem,
+                                                    ACTION_ID(0, 3), depth - 1,
+                                                    properties, &array);
+                }
 
                 if (utarray_len(uimenus) > 0) {
                     FcitxUIMenu **menupp;
@@ -748,30 +744,28 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                             (notificationitem3->notificationitem2
                                  .nonExistentDesc ||
                              notificationitem3->notificationitem2.showSkins)) {
-                            i++;
-                            continue;
-                        }
-                        do {
-                            if (!menupp) {
-                                break;
-                            }
-                            FcitxUIMenu *menup = *menupp;
-                            if (!menup->visible) {
-                                break;
-                            }
-                            if (menup->candStatusBind) {
-                                FcitxUIComplexStatus *compStatus =
-                                    FcitxUIGetComplexStatusByName(
-                                        instance, menup->candStatusBind);
-                                if (compStatus && !compStatus->visible) {
+                            do {
+                                if (!menupp) {
                                     break;
                                 }
-                            }
-                            FcitxDBusMenuFillLayoutItemWrap(
-                                notificationitem, ACTION_ID(i, 0), depth - 1,
-                                properties, &array);
-                        } while (0);
-                        i++;
+                                FcitxUIMenu *menup = *menupp;
+                                if (!menup->visible) {
+                                    break;
+                                }
+                                if (menup->candStatusBind) {
+                                    FcitxUIComplexStatus *compStatus =
+                                        FcitxUIGetComplexStatusByName(
+                                            instance, menup->candStatusBind);
+                                    if (compStatus && !compStatus->visible) {
+                                        break;
+                                    }
+                                }
+                                FcitxDBusMenuFillLayoutItemWrap(
+                                    notificationitem, ACTION_ID(i, 0),
+                                    depth - 1, properties, &array);
+                            } while (0);
+                            i++;
+                        }
                     }
                 }
                 FcitxDBusMenuFillLayoutItemWrap(notificationitem,
@@ -779,14 +773,14 @@ void FcitxDBusMenuFillLayoutItem(FcitxNotificationItem *notificationitem,
                                                 properties, &array);
 
                 if (notificationitem3->notificationitem2.nonExistentDesc ||
-                    (notificationitem3->notificationitem2.showReboot ||
+                    (notificationitem3->notificationitem2.showRestart ||
                      notificationitem3->notificationitem2.showExit)) {
                     FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                     ACTION_ID(0, 5), depth - 1,
                                                     properties, &array);
                 }
                 if (notificationitem3->notificationitem2.nonExistentDesc ||
-                    notificationitem3->notificationitem2.showReboot) {
+                    notificationitem3->notificationitem2.showRestart) {
                     FcitxDBusMenuFillLayoutItemWrap(notificationitem,
                                                     ACTION_ID(0, 6), depth - 1,
                                                     properties, &array);

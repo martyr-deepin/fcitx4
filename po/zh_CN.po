@@ -11,7 +11,7 @@
 # electricface <songwentai@linuxdeepin.com>, 2021
 # cxbii <mycxbii@gmail.com>, 2021
 # hualet <mr.asianwang@gmail.com>, 2021
-# Cindy0514, 2021
+# Cindy0514, 2022
 # 
 #, fuzzy
 msgid ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2021-04-23 00:01+0100\n"
 "PO-Revision-Date: 2021-11-18 02:22+0000\n"
-"Last-Translator: Cindy0514, 2021\n"
+"Last-Translator: Cindy0514, 2022\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/linuxdeepin/teams/3617/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1128,7 +1128,7 @@ msgstr "无局部输入法"
 msgid "Clear local input method"
 msgstr "清除局部输入法"
 
-#: src/module/notificationitem/dbusmenu.c:373 src/ui/classic/classicui.c:464
+#: src/module/notificationitem/dbusmenu.c:465 src/ui/classic/classicui.c:464
 msgid "Online Help"
 msgstr "在线帮助"
 
@@ -1136,12 +1136,12 @@ msgstr "在线帮助"
 msgid "Configure"
 msgstr "配置"
 
-#: src/module/notificationitem/dbusmenu.c:395 src/ui/classic/classicui.c:526
+#: src/module/notificationitem/dbusmenu.c:484 src/ui/classic/classicui.c:526
 #: src/ui/kimpanel/kimpanel.c:796
 msgid "Restart"
 msgstr "重新启动"
 
-#: src/module/notificationitem/dbusmenu.c:401 src/ui/classic/classicui.c:527
+#: src/module/notificationitem/dbusmenu.c:492 src/ui/classic/classicui.c:527
 msgid "Exit"
 msgstr "退出"
 
@@ -1375,8 +1375,8 @@ msgid "Fcitx Configuration"
 msgstr "输入法配置"
 
 #: data/fcitx-configtool.desktop.in:3
-#: src/module/notificationitem/dbusmenu.c:386
-#: src/module/notificationitem/dbusmenu.c:386
+#: src/module/notificationitem/dbusmenu.c:475
+#: src/module/notificationitem/dbusmenu.c:475
 msgid "Input Method Configuration"
 msgstr "输入法配置"
 
@@ -1562,7 +1562,7 @@ msgid "DBus based new Freedesktop.org tray icon"
 msgstr "基于 DBus 的新 Freedesktop.org 托盘图标"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:3
-msgid "Enchance pinyin input in Fcitx"
+msgid "Enhance pinyin input in Fcitx"
 msgstr "增强 输入法 的拼音输入"
 
 #: src/module/pinyin-enhance/fcitx-pinyin-enhance.conf.in:4
@@ -1627,7 +1627,7 @@ msgid "X11 Support"
 msgstr "X11 支持"
 
 #: src/module/x11/fcitx-x11.conf.in:4
-msgid "X11 Utilitiy used by other Addon"
+msgid "X11 Utility used by other Addon"
 msgstr "由其他插件使用的 X11 工具函数"
 
 #: src/module/xkbdbus/fcitx-xkbdbus.conf.in:3
@@ -2326,11 +2326,11 @@ msgid "Fuzzy z and zh"
 msgstr "模糊z和zh"
 
 #: src/im/pinyin/fcitx-pinyin.desc:140
-msgid "Fix misstype gn/ng"
+msgid "Fix mistype gn/ng"
 msgstr "忽略拼音中ng->gn的输入错误"
 
 #: src/im/pinyin/fcitx-pinyin.desc:145
-msgid "Fix misstype v/u like jv, qv, xv, yv"
+msgid "Fix mistype v/u like jv, qv, xv, yv"
 msgstr "忽略拼音jv，qv，xv，yv中u->v的输入错误"
 
 #: src/im/table/fcitx-table.desc:1 src/im/table/fcitx-table.desc:6
@@ -3293,3 +3293,23 @@ msgstr "虚拟键盘图片"
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "软键盘按键文字颜色"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:4
+msgid "Whether to display the right-click menu configuration item <Restart>"
+msgstr "是否显示右键配置项目<重启>"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:9
+msgid "Whether to display the right-click configuration item <Vk>"
+msgstr "是否显示右键配置项目<虚拟键盘>"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:14
+msgid "Whether to display the right-click configuration item <Exit>"
+msgstr "是否显示右键配置项目<退出>"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:19
+msgid "Whether to display the right-click configuration item <Skins>"
+msgstr "是否显示右键配置项目<皮肤>"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:24
+msgid "Whether to display the right-click configuration item <Help>"
+msgstr "是否显示右键配置项目<在线帮助>"

@@ -87,7 +87,7 @@ int FindPYFAIndex(FcitxPinyinConfig *pyconfig, const char *strPY, boolean bMode)
             if (!pyconfig->PYTable[i].pMH)
                 return i;
             else if (*(pyconfig->PYTable[i].pMH)) {
-                /* trick: not the kind of misstype */
+                /* trick: not the kind of mistype */
                 if (pyconfig->PYTable[i].pMH != &pyconfig->bMisstypeNGGN)
                     return i;
                 else
