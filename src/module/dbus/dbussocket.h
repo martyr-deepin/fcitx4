@@ -25,9 +25,9 @@
 #include <dbus/dbus.h>
 
 typedef struct _FcitxDBusWatch {
-    DBusWatch *watch;
     struct _FcitxDBusWatch *next;
-} FcitxDBusWatch;
+    DBusWatch *watch;
+} __attribute__((packed)) FcitxDBusWatch;
 
 dbus_bool_t DBusAddWatch(DBusWatch *watch, void *data);
 void DBusRemoveWatch(DBusWatch *watch, void *data);
