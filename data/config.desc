@@ -1,3 +1,10 @@
+[Hotkey/HKTriggerKey]
+Type=Boolean
+DefaultValue=True
+Description=Enable Trigger Input Method
+Advance=True
+ShownInDeepin=False
+
 [Hotkey/TriggerKey]
 Type=Hotkey
 DefaultValue=CTRL_SPACE
