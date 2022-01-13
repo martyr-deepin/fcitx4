@@ -1766,270 +1766,274 @@ msgid "Do not show in GUI"
 msgstr "GUI에 보이지 않기"
 
 #: data/config.desc:1 data/config.desc:7 data/config.desc:13
-#: data/config.desc:39 data/config.desc:46 data/config.desc:53
-#: data/config.desc:60 data/config.desc:65 data/config.desc:71
-#: data/config.desc:81 data/config.desc:87 data/config.desc:93
-#: data/config.desc:99 data/config.desc:105 data/config.desc:111
-#: data/config.desc:117 data/config.desc:122 data/config.desc:127
-#: data/config.desc:133 data/config.desc:139 data/config.desc:145
-#: data/config.desc:152
+#: data/config.desc:19 data/config.desc:46 data/config.desc:53
+#: data/config.desc:60 data/config.desc:67 data/config.desc:74
+#: data/config.desc:81 data/config.desc:91 data/config.desc:97
+#: data/config.desc:103 data/config.desc:110 data/config.desc:117
+#: data/config.desc:124 data/config.desc:131 data/config.desc:137
+#: data/config.desc:143 data/config.desc:149 data/config.desc:156
+#: data/config.desc:163 data/config.desc:171
 msgid "Hotkey"
 msgstr "단축키"
 
-#: data/config.desc:5
+#: data/config.desc:4
+msgid "Enable Trigger Input Method"
+msgstr ""
+
+#: data/config.desc:11
 msgid "Trigger Input Method"
 msgstr "입력기 전환"
 
-#: data/config.desc:10
+#: data/config.desc:16
 msgid "Use extra trigger key only after using it to inactivate"
 msgstr "트리거 키를 사용하여 비활성화 한 후에 만 ​​추가 트리거 키 사용"
 
-#: data/config.desc:16
+#: data/config.desc:22
 msgid "R_CTRL"
 msgstr "오른쪽 Ctrl"
 
-#: data/config.desc:17
+#: data/config.desc:23
 msgid "R_SHIFT"
 msgstr "오른쪽 시프트"
 
-#: data/config.desc:18
+#: data/config.desc:24
 msgid "L_SHIFT"
 msgstr "왼쪽 시프트"
 
-#: data/config.desc:19
+#: data/config.desc:25
 msgid "L_CTRL"
 msgstr "오른쪽 Ctrl"
 
-#: data/config.desc:20
+#: data/config.desc:26
 msgid "ALT_L_SHIFT"
 msgstr "Alt+왼쪽 시프트"
 
-#: data/config.desc:21
+#: data/config.desc:27
 msgid "ALT_R_SHIFT"
 msgstr "Alt+오른쪽 시프트"
 
-#: data/config.desc:22
+#: data/config.desc:28
 msgid "CTRL Both"
 msgstr "양쪽 Ctrl"
 
-#: data/config.desc:23
+#: data/config.desc:29
 msgid "SHIFT Both"
 msgstr "양쪽 시프트"
 
-#: data/config.desc:24
+#: data/config.desc:30
 msgid "L_ALT"
 msgstr "왼쪽 Alt"
 
-#: data/config.desc:25
+#: data/config.desc:31
 msgid "R_ALT"
 msgstr "오른쪽 Alt"
 
-#: data/config.desc:26
+#: data/config.desc:32
 msgid "ALT Both"
 msgstr "양쪽 Alt"
 
-#: data/config.desc:27
+#: data/config.desc:33
 msgid "Left Super"
 msgstr "왼쪽 Super"
 
-#: data/config.desc:28
+#: data/config.desc:34
 msgid "Right Super"
 msgstr "오른쪽 Super"
 
-#: data/config.desc:29
+#: data/config.desc:35
 msgid "Super Both"
 msgstr "양쪽 Super"
 
-#: data/config.desc:30
+#: data/config.desc:36
 msgid "Ctrl+Left Super"
 msgstr "Ctrl+왼쪽 Super"
 
-#: data/config.desc:31
+#: data/config.desc:37
 msgid "Ctrl+Right Super"
 msgstr "Ctrl+오른쪽 Super"
 
-#: data/config.desc:32
+#: data/config.desc:38
 msgid "Super+Left Ctrl"
 msgstr "Super+왼쪽 Ctrl"
 
-#: data/config.desc:33
+#: data/config.desc:39
 msgid "Super+Right Ctrl"
 msgstr "Super+오른쪽 Ctrl"
 
-#: data/config.desc:35
+#: data/config.desc:41
 msgid "Custom"
 msgstr "사용자 설정"
 
-#: data/config.desc:37
+#: data/config.desc:43
 msgid "Extra Key for Switching to the First Input Method"
 msgstr "트리거 입력 방법을 위한 추가 키"
 
-#: data/config.desc:42
+#: data/config.desc:49
 msgid "Custom switch key"
 msgstr "커스텀 변경키"
 
-#: data/config.desc:49
+#: data/config.desc:56
 msgid "Activate input method"
 msgstr "입력기 활성화"
 
-#: data/config.desc:56
+#: data/config.desc:63
 msgid "Inactivate Input Method"
 msgstr "입력기 비활성화"
 
-#: data/config.desc:63
+#: data/config.desc:70
 msgid "Enable Shortcuts to Scroll Between Input Methods"
 msgstr "입력기 사이에 스크롤을 위한 단축키 활성"
 
-#: data/config.desc:68
+#: data/config.desc:77
 msgid "Include Inactive When Scrolling Between Input Methods"
 msgstr "입력기 사이에 스크롤 할 때 비활성화 포함"
 
-#: data/config.desc:74
+#: data/config.desc:84
 msgid "CTRL_SHIFT"
 msgstr "Ctrl+Shift"
 
-#: data/config.desc:75
+#: data/config.desc:85
 msgid "ALT_SHIFT"
 msgstr "Alt+Shift"
 
-#: data/config.desc:76
+#: data/config.desc:86
 msgid "CTRL_SUPER"
 msgstr "Ctrl+Super"
 
-#: data/config.desc:77
+#: data/config.desc:87
 msgid "ALT_SUPER"
 msgstr "Alt+Super"
 
-#: data/config.desc:79
+#: data/config.desc:89
 msgid "Scroll between Input Method"
 msgstr "입력기 사이에 스크롤"
 
-#: data/config.desc:84
+#: data/config.desc:94
 msgid "Reload configuration"
 msgstr "설정 다시읽기"
 
-#: data/config.desc:90
+#: data/config.desc:100
 msgid "Interval of Two Key Input"
 msgstr "두 입력 사이의 시간 간격"
 
-#: data/config.desc:96
+#: data/config.desc:106
 msgid "Switch Symbol Keyboard"
 msgstr "가상 키보드 전환"
 
-#: data/config.desc:102
+#: data/config.desc:113
 msgid "Switch Remind Mode"
 msgstr "다시 알림 모드 전환"
 
-#: data/config.desc:108
+#: data/config.desc:127
 msgid "Switch Fullwidth Character"
 msgstr "전각 문자 모드 전환"
 
-#: data/config.desc:120
+#: data/config.desc:134
 msgid "Previous Page"
 msgstr "이전 페이지"
 
-#: data/config.desc:125
+#: data/config.desc:140
 msgid "Next Page"
 msgstr "다음 페이지"
 
-#: data/config.desc:130
+#: data/config.desc:146
 msgid "Choose Second and Third Candidate Word"
 msgstr "두 번째 및 세 번째 후보 단어 선택"
 
-#: data/config.desc:136
+#: data/config.desc:152
 msgid "Saving All Config and Input History"
 msgstr "모든 입력정보 및 설정 저장"
 
-#: data/config.desc:142
+#: data/config.desc:159
 msgid "Switch Embedded Preedit String"
 msgstr "내장 사전 전환"
 
-#: data/config.desc:148
+#: data/config.desc:166
 msgid "Previous Candidate Word"
 msgstr "이전 후보단어"
 
-#: data/config.desc:149
+#: data/config.desc:167
 msgid ""
 "This is used in some modules and input methods to navigate to the previous "
 "candidate word"
 msgstr "일부 모듈이나 입력기가 이전 단어 후보를 선택하기 위해 사용합니다."
 
-#: data/config.desc:155
+#: data/config.desc:174
 msgid "Next Candidate Word"
 msgstr "다음 후보 단어"
 
-#: data/config.desc:156
+#: data/config.desc:175
 msgid ""
 "This is used in some modules and input methods to navigate to the next "
 "candidate word"
 msgstr "일부 모듈이나 입력기가 다음 단어 후보를 선택하기 위해 사용합니다."
 
-#: data/config.desc:159 data/config.desc:165 data/config.desc:174
+#: data/config.desc:179 data/config.desc:185 data/config.desc:195
 msgid "Program"
 msgstr "프로그램"
 
-#: data/config.desc:162
+#: data/config.desc:182
 msgid "Seconds sleep before fcitx really start"
 msgstr "fcitx가 실제 시작하기 전 대기하는 초단위 시간"
 
-#: data/config.desc:169
+#: data/config.desc:189
 msgid "No"
 msgstr "No"
 
-#: data/config.desc:170
+#: data/config.desc:190
 msgid "All"
 msgstr "모두"
 
-#: data/config.desc:171
-msgid "Per program"
-msgstr "프로그램별"
+#: data/config.desc:191
+msgid "PerProgram"
+msgstr ""
 
-#: data/config.desc:185
+#: data/config.desc:192
 msgid "Share State Among Windows"
 msgstr ""
 
-#: data/config.desc:178
+#: data/config.desc:197 data/config.desc:199
 msgid "Inactive"
 msgstr "비활성"
 
-#: data/config.desc:179
+#: data/config.desc:200
 msgid "Active"
 msgstr "활성"
 
-#: data/config.desc:180
+#: data/config.desc:201
 msgid "Default Input Method State"
 msgstr "기본 입력기 상태"
 
-#: data/config.desc:183 data/config.desc:189 data/config.desc:195
-#: data/config.desc:201 data/config.desc:208 data/config.desc:214
+#: data/config.desc:205 data/config.desc:212 data/config.desc:219
+#: data/config.desc:226 data/config.desc:234 data/config.desc:241
 msgid "Output"
 msgstr "출력"
 
-#: data/config.desc:186
+#: data/config.desc:208
 msgid "Type Halfwidth Punctuation After a Number"
 msgstr "숫자 뒤에 반각 문장부호 입력"
 
-#: data/config.desc:192
+#: data/config.desc:215
 msgid "Disable Paging in Remind Mode"
 msgstr "다시 알림 모드에서 페이징 사용 안 함"
 
-#: data/config.desc:198
+#: data/config.desc:222
 msgid "Commit When Toggle State"
 msgstr "상태가 전환되면 입력완료"
 
-#: data/config.desc:199
+#: data/config.desc:223
 msgid "Send typed raw text if Switch to inactive Mode"
 msgstr "비활성 모드로 전환 시 가공되지 않은 문자열 전송"
 
-#: data/config.desc:204 src/im/table/table.desc:176
+#: data/config.desc:229 src/im/table/table.desc:176
 msgid "Candidate Word Number"
 msgstr "후보 단어 수"
 
-#: data/config.desc:211
+#: data/config.desc:237
 msgid "Give the tips of Phrase"
 msgstr "구문의 팁 주기"
 
-#: data/config.desc:217
+#: data/config.desc:244
 msgid "Do Not Commit Preedit Text When a Window Loses Focus"
 msgstr "창이 비활성화될 때 편집된 문자열 보내지 않기"
 
@@ -2039,31 +2043,31 @@ msgstr "창이 비활성화될 때 편집된 문자열 보내지 않기"
 msgid "Appearance"
 msgstr "모양새"
 
-#: data/config.desc:244
+#: data/config.desc:251
 msgid "Show Input Method Hint After Input Method Changed"
 msgstr ""
 
-#: data/config.desc:251
+#: data/config.desc:258
 msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr ""
 
-#: data/config.desc:258
+#: data/config.desc:265
 msgid "Show Input Method Hint Only When the State Is Active"
 msgstr ""
 
-#: data/config.desc:241
+#: data/config.desc:272
 msgid "Show Input Speed"
 msgstr "입력 속도 보이기"
 
-#: data/config.desc:247
+#: data/config.desc:279
 msgid "Show Version"
 msgstr "버전 보이기"
 
-#: data/config.desc:253
+#: data/config.desc:286
 msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr "사전편집 문자열만 있으면 입력 윈도우 보이지 않기"
 
-#: data/config.desc:259
+#: data/config.desc:293
 msgid ""
 "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr "단어 후보가 하나뿐일 때 입력창 보이지 않기"
@@ -3295,6 +3299,14 @@ msgstr "가상 키보드 이미지"
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "가상 키보드의 키 색상"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:1
+#: src/module/notificationitem/fcitx-notificationitem.desc:6
+#: src/module/notificationitem/fcitx-notificationitem.desc:11
+#: src/module/notificationitem/fcitx-notificationitem.desc:16
+#: src/module/notificationitem/fcitx-notificationitem.desc:21
+msgid "Notificationitem"
+msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
 msgid "Whether to display the right-click menu configuration item <Restart>"

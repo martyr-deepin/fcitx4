@@ -1762,270 +1762,274 @@ msgid "Do not show in GUI"
 msgstr "不在圖形界面顯示"
 
 #: data/config.desc:1 data/config.desc:7 data/config.desc:13
-#: data/config.desc:39 data/config.desc:46 data/config.desc:53
-#: data/config.desc:60 data/config.desc:65 data/config.desc:71
-#: data/config.desc:81 data/config.desc:87 data/config.desc:93
-#: data/config.desc:99 data/config.desc:105 data/config.desc:111
-#: data/config.desc:117 data/config.desc:122 data/config.desc:127
-#: data/config.desc:133 data/config.desc:139 data/config.desc:145
-#: data/config.desc:152
+#: data/config.desc:19 data/config.desc:46 data/config.desc:53
+#: data/config.desc:60 data/config.desc:67 data/config.desc:74
+#: data/config.desc:81 data/config.desc:91 data/config.desc:97
+#: data/config.desc:103 data/config.desc:110 data/config.desc:117
+#: data/config.desc:124 data/config.desc:131 data/config.desc:137
+#: data/config.desc:143 data/config.desc:149 data/config.desc:156
+#: data/config.desc:163 data/config.desc:171
 msgid "Hotkey"
 msgstr "更多快捷鍵"
 
-#: data/config.desc:5
+#: data/config.desc:4
+msgid "Enable Trigger Input Method"
+msgstr ""
+
+#: data/config.desc:11
 msgid "Trigger Input Method"
 msgstr "切換啟動/非啟動輸入法"
 
-#: data/config.desc:10
+#: data/config.desc:16
 msgid "Use extra trigger key only after using it to inactivate"
 msgstr "只在用額外切換鍵取消啟動後才使用它進行切換"
 
-#: data/config.desc:16
+#: data/config.desc:22
 msgid "R_CTRL"
 msgstr "右Ctrl"
 
-#: data/config.desc:17
+#: data/config.desc:23
 msgid "R_SHIFT"
 msgstr "右Shift"
 
-#: data/config.desc:18
+#: data/config.desc:24
 msgid "L_SHIFT"
 msgstr "左Shift"
 
-#: data/config.desc:19
+#: data/config.desc:25
 msgid "L_CTRL"
 msgstr "左Ctrl"
 
-#: data/config.desc:20
+#: data/config.desc:26
 msgid "ALT_L_SHIFT"
 msgstr "Alt+左Shift"
 
-#: data/config.desc:21
+#: data/config.desc:27
 msgid "ALT_R_SHIFT"
 msgstr "Alt+右Shift"
 
-#: data/config.desc:22
+#: data/config.desc:28
 msgid "CTRL Both"
 msgstr "兩側 Ctrl"
 
-#: data/config.desc:23
+#: data/config.desc:29
 msgid "SHIFT Both"
 msgstr "兩側 Shift"
 
-#: data/config.desc:24
+#: data/config.desc:30
 msgid "L_ALT"
 msgstr "左 Alt"
 
-#: data/config.desc:25
+#: data/config.desc:31
 msgid "R_ALT"
 msgstr "右 Alt"
 
-#: data/config.desc:26
+#: data/config.desc:32
 msgid "ALT Both"
 msgstr "兩側 Alt"
 
-#: data/config.desc:27
+#: data/config.desc:33
 msgid "Left Super"
 msgstr "左 Super"
 
-#: data/config.desc:28
+#: data/config.desc:34
 msgid "Right Super"
 msgstr "右 Super"
 
-#: data/config.desc:29
+#: data/config.desc:35
 msgid "Super Both"
 msgstr "兩側 Super"
 
-#: data/config.desc:30
+#: data/config.desc:36
 msgid "Ctrl+Left Super"
 msgstr "Ctrl+左 Super"
 
-#: data/config.desc:31
+#: data/config.desc:37
 msgid "Ctrl+Right Super"
 msgstr "Ctrl+右 Super"
 
-#: data/config.desc:32
+#: data/config.desc:38
 msgid "Super+Left Ctrl"
 msgstr "Super+左 Ctrl"
 
-#: data/config.desc:33
+#: data/config.desc:39
 msgid "Super+Right Ctrl"
 msgstr "Super+右 Ctrl"
 
-#: data/config.desc:35
+#: data/config.desc:41
 msgid "Custom"
 msgstr "自定義"
 
-#: data/config.desc:37
+#: data/config.desc:43
 msgid "Extra Key for Switching to the First Input Method"
 msgstr "額外的切換首位輸入法快捷鍵"
 
-#: data/config.desc:42
+#: data/config.desc:49
 msgid "Custom switch key"
 msgstr "自定義切換鍵"
 
-#: data/config.desc:49
+#: data/config.desc:56
 msgid "Activate input method"
 msgstr "啟動輸入法"
 
-#: data/config.desc:56
+#: data/config.desc:63
 msgid "Inactivate Input Method"
 msgstr "取消啟動輸入法"
 
-#: data/config.desc:63
+#: data/config.desc:70
 msgid "Enable Shortcuts to Scroll Between Input Methods"
 msgstr "啟用輸入法間切換"
 
-#: data/config.desc:68
+#: data/config.desc:77
 msgid "Include Inactive When Scrolling Between Input Methods"
 msgstr "輸入法間切換時包含未啟動狀態"
 
-#: data/config.desc:74
+#: data/config.desc:84
 msgid "CTRL_SHIFT"
 msgstr "Ctrl+Shift"
 
-#: data/config.desc:75
+#: data/config.desc:85
 msgid "ALT_SHIFT"
 msgstr "Alt+Shift"
 
-#: data/config.desc:76
+#: data/config.desc:86
 msgid "CTRL_SUPER"
 msgstr "Ctrl+Super"
 
-#: data/config.desc:77
+#: data/config.desc:87
 msgid "ALT_SUPER"
 msgstr "Alt+Super"
 
-#: data/config.desc:79
+#: data/config.desc:89
 msgid "Scroll between Input Method"
 msgstr "輸入法切換鍵"
 
-#: data/config.desc:84
+#: data/config.desc:94
 msgid "Reload configuration"
 msgstr "重新載入配置"
 
-#: data/config.desc:90
+#: data/config.desc:100
 msgid "Interval of Two Key Input"
 msgstr "輸入間隔"
 
-#: data/config.desc:96
+#: data/config.desc:106
 msgid "Switch Symbol Keyboard"
 msgstr "切換虛擬鍵盤"
 
-#: data/config.desc:102
+#: data/config.desc:113
 msgid "Switch Remind Mode"
 msgstr "切換聯想模式"
 
-#: data/config.desc:108
+#: data/config.desc:127
 msgid "Switch Fullwidth Character"
 msgstr "切換全形"
 
-#: data/config.desc:120
+#: data/config.desc:134
 msgid "Previous Page"
 msgstr "上一頁"
 
-#: data/config.desc:125
+#: data/config.desc:140
 msgid "Next Page"
 msgstr "下一頁"
 
-#: data/config.desc:130
+#: data/config.desc:146
 msgid "Choose Second and Third Candidate Word"
 msgstr "選擇第二第三候選詞"
 
-#: data/config.desc:136
+#: data/config.desc:152
 msgid "Saving All Config and Input History"
 msgstr "保存配置及輸入歷史"
 
-#: data/config.desc:142
+#: data/config.desc:159
 msgid "Switch Embedded Preedit String"
 msgstr "切換嵌入預編輯字符串"
 
-#: data/config.desc:148
+#: data/config.desc:166
 msgid "Previous Candidate Word"
 msgstr "上一個候選詞"
 
-#: data/config.desc:149
+#: data/config.desc:167
 msgid ""
 "This is used in some modules and input methods to navigate to the previous "
 "candidate word"
 msgstr "在部分插件 / 輸入法中用來切換到上一個候選詞的快捷鍵"
 
-#: data/config.desc:155
+#: data/config.desc:174
 msgid "Next Candidate Word"
 msgstr "下一個候選詞"
 
-#: data/config.desc:156
+#: data/config.desc:175
 msgid ""
 "This is used in some modules and input methods to navigate to the next "
 "candidate word"
 msgstr "在部分插件 / 輸入法中用來切換到下一個候選詞的快捷鍵"
 
-#: data/config.desc:159 data/config.desc:165 data/config.desc:174
+#: data/config.desc:179 data/config.desc:185 data/config.desc:195
 msgid "Program"
 msgstr "程序"
 
-#: data/config.desc:162
+#: data/config.desc:182
 msgid "Seconds sleep before fcitx really start"
 msgstr "輸入法真正啟動前延遲的秒數"
 
-#: data/config.desc:169
+#: data/config.desc:189
 msgid "No"
 msgstr "否"
 
-#: data/config.desc:170
+#: data/config.desc:190
 msgid "All"
 msgstr "所有"
 
-#: data/config.desc:171
-msgid "Per program"
-msgstr "按程序"
+#: data/config.desc:191
+msgid "PerProgram"
+msgstr ""
 
-#: data/config.desc:185
+#: data/config.desc:192
 msgid "Share State Among Windows"
 msgstr "在窗口間共享狀態"
 
-#: data/config.desc:178
+#: data/config.desc:197 data/config.desc:199
 msgid "Inactive"
 msgstr "非啟動"
 
-#: data/config.desc:179
+#: data/config.desc:200
 msgid "Active"
 msgstr "啟動"
 
-#: data/config.desc:180
+#: data/config.desc:201
 msgid "Default Input Method State"
 msgstr "默認輸入法狀態"
 
-#: data/config.desc:183 data/config.desc:189 data/config.desc:195
-#: data/config.desc:201 data/config.desc:208 data/config.desc:214
+#: data/config.desc:205 data/config.desc:212 data/config.desc:219
+#: data/config.desc:226 data/config.desc:234 data/config.desc:241
 msgid "Output"
 msgstr "輸出"
 
-#: data/config.desc:186
+#: data/config.desc:208
 msgid "Type Halfwidth Punctuation After a Number"
 msgstr "數字後跟半角符號"
 
-#: data/config.desc:192
+#: data/config.desc:215
 msgid "Disable Paging in Remind Mode"
 msgstr "聯想模式禁用翻頁"
 
-#: data/config.desc:198
+#: data/config.desc:222
 msgid "Commit When Toggle State"
 msgstr "切換狀態時提交"
 
-#: data/config.desc:199
+#: data/config.desc:223
 msgid "Send typed raw text if Switch to inactive Mode"
 msgstr "切換到非啟動模式時當前輸入的原始文本上屏"
 
-#: data/config.desc:204 src/im/table/table.desc:176
+#: data/config.desc:229 src/im/table/table.desc:176
 msgid "Candidate Word Number"
 msgstr "候選詞個數"
 
-#: data/config.desc:211
+#: data/config.desc:237
 msgid "Give the tips of Phrase"
 msgstr "提示詞庫中詞組"
 
-#: data/config.desc:217
+#: data/config.desc:244
 msgid "Do Not Commit Preedit Text When a Window Loses Focus"
 msgstr "窗口失去焦點時不提交預編輯文本"
 
@@ -2035,31 +2039,31 @@ msgstr "窗口失去焦點時不提交預編輯文本"
 msgid "Appearance"
 msgstr "外觀"
 
-#: data/config.desc:244
+#: data/config.desc:251
 msgid "Show Input Method Hint After Input Method Changed"
 msgstr "切換輸入法時顯示輸入法提示"
 
-#: data/config.desc:251
+#: data/config.desc:258
 msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr "獲得輸入焦點並且輸入法變化時顯示輸入法提示"
 
-#: data/config.desc:258
+#: data/config.desc:265
 msgid "Show Input Method Hint Only When the State Is Active"
 msgstr "輸入法提示只在啟動狀態顯示"
 
-#: data/config.desc:241
+#: data/config.desc:272
 msgid "Show Input Speed"
 msgstr "顯示輸入速度"
 
-#: data/config.desc:247
+#: data/config.desc:279
 msgid "Show Version"
 msgstr "顯示版本"
 
-#: data/config.desc:253
+#: data/config.desc:286
 msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr "只有預編輯字符串時不顯示輸入窗口"
 
-#: data/config.desc:259
+#: data/config.desc:293
 msgid ""
 "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr "只有一個候選詞和預編輯字符串時不顯示輸入窗口"
@@ -3291,22 +3295,30 @@ msgstr "虛擬鍵盤圖片"
 msgid "Key Color On Virtual Keyboard"
 msgstr "軟鍵盤按鍵文字顏色"
 
+#: src/module/notificationitem/fcitx-notificationitem.desc:1
+#: src/module/notificationitem/fcitx-notificationitem.desc:6
+#: src/module/notificationitem/fcitx-notificationitem.desc:11
+#: src/module/notificationitem/fcitx-notificationitem.desc:16
+#: src/module/notificationitem/fcitx-notificationitem.desc:21
+msgid "Notificationitem"
+msgstr ""
+
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
 msgid "Whether to display the right-click menu configuration item <Restart>"
-msgstr "是否顯示右鍵配置項目<重啟>"
+msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:9
 msgid "Whether to display the right-click configuration item <Vk>"
-msgstr "是否顯示右鍵配置項目<虛擬鍵盤>"
+msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:14
 msgid "Whether to display the right-click configuration item <Exit>"
-msgstr "是否顯示右鍵配置項目<退出>"
+msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:19
 msgid "Whether to display the right-click configuration item <Skins>"
-msgstr "是否顯示右鍵配置項目<皮膚>"
+msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:24
 msgid "Whether to display the right-click configuration item <Help>"
-msgstr "是否顯示右鍵配置項目<在線幫助>"
+msgstr ""
