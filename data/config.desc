@@ -2,7 +2,7 @@
 Type=Boolean
 DefaultValue=True
 Description=Enable Trigger Input Method
-Advance=False
+Advance=True
 
 [Hotkey/TriggerKey]
 Type=Hotkey
@@ -68,6 +68,7 @@ Advance=True
 Type=Boolean
 DefaultValue=False
 Description=Enable Shortcuts to Scroll Between Input Methods
+Advance=True
 ShownInDeepin=False
 
 [Hotkey/IMSwitchIncludeInactive]
