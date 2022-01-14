@@ -1016,14 +1016,18 @@ static int IPCProcessKey(FcitxIPCFrontend* ipc, FcitxInputContext* callic, const
     state = originstate & FcitxKeyState_SimpleMask;
     state &= FcitxKeyState_UsedMask;
     FcitxHotkeyGetKey(originsym, state, &sym, &state);
+//    FcitxLog(DEBUG,
+//             "KeyRelease=%d  state=%d  KEYCODE=%d  KEYSYM=%u ",
+//             (type == FCITX_RELEASE_KEY), state, keycode, sym);
 
     if (originsym == 0)
         return 0;
-    if (cofig->bHKTriggerKey && ic->state == IS_CLOSED && type == FCITX_PRESS_KEY && FcitxHotkeyIsHotKey(sym, state, config->hkTrigger)) {
+
+    if (ic->state == IS_CLOSED && type == FCITX_PRESS_KEY && FcitxHotkeyIsHotKey(sym, state, config->hkTrigger)) {
         FcitxInstanceEnableIM(ipc->owner, ic, false);
         return 1;
     }
-    else if (ic->state == IS_CLOSED && !cofig->bHKTriggerKey) {
+    else if (ic->state == IS_CLOSED) {
         return 0;
     }
 
