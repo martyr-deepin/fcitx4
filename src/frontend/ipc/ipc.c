@@ -1019,11 +1019,11 @@ static int IPCProcessKey(FcitxIPCFrontend* ipc, FcitxInputContext* callic, const
 
     if (originsym == 0)
         return 0;
-    if (config->bHKTriggerKey && ic->state == IS_CLOSED && type == FCITX_PRESS_KEY && FcitxHotkeyIsHotKey(sym, state, config->hkTrigger)) {
+    if (cofig->bHKTriggerKey && ic->state == IS_CLOSED && type == FCITX_PRESS_KEY && FcitxHotkeyIsHotKey(sym, state, config->hkTrigger)) {
         FcitxInstanceEnableIM(ipc->owner, ic, false);
         return 1;
     }
-    else if (ic->state == IS_CLOSED && !config->bHKTriggerKey) {
+    else if (ic->state == IS_CLOSED && !cofig->bHKTriggerKey) {
         return 0;
     }
 
