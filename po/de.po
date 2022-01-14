@@ -1826,192 +1826,196 @@ msgid "Do not show in GUI"
 msgstr "Nicht in grafischen Anwendungen zeigen"
 
 #: data/config.desc:1 data/config.desc:7 data/config.desc:13
-#: data/config.desc:39 data/config.desc:46 data/config.desc:53
-#: data/config.desc:60 data/config.desc:65 data/config.desc:71
-#: data/config.desc:81 data/config.desc:87 data/config.desc:93
-#: data/config.desc:99 data/config.desc:105 data/config.desc:111
-#: data/config.desc:117 data/config.desc:122 data/config.desc:127
-#: data/config.desc:133 data/config.desc:139 data/config.desc:145
-#: data/config.desc:152
+#: data/config.desc:19 data/config.desc:46 data/config.desc:53
+#: data/config.desc:60 data/config.desc:67 data/config.desc:74
+#: data/config.desc:81 data/config.desc:91 data/config.desc:97
+#: data/config.desc:103 data/config.desc:110 data/config.desc:117
+#: data/config.desc:124 data/config.desc:131 data/config.desc:137
+#: data/config.desc:143 data/config.desc:149 data/config.desc:156
+#: data/config.desc:163 data/config.desc:171
 msgid "Hotkey"
 msgstr "Kurzbefehl"
 
-#: data/config.desc:5
+#: data/config.desc:4
+msgid "Enable Trigger Input Method"
+msgstr ""
+
+#: data/config.desc:11
 msgid "Trigger Input Method"
 msgstr "Eingabemethode aktivieren"
 
-#: data/config.desc:10
+#: data/config.desc:16
 msgid "Use extra trigger key only after using it to inactivate"
 msgstr ""
 "Extra Triggertaste nur benutzen, wenn sie vorher zum Inaktivieren benutzt "
 "wurde"
 
-#: data/config.desc:16
+#: data/config.desc:22
 msgid "R_CTRL"
 msgstr "R_CTRL"
 
-#: data/config.desc:17
+#: data/config.desc:23
 msgid "R_SHIFT"
 msgstr "R_SHIFT"
 
-#: data/config.desc:18
+#: data/config.desc:24
 msgid "L_SHIFT"
 msgstr "L_SHIFT"
 
-#: data/config.desc:19
+#: data/config.desc:25
 msgid "L_CTRL"
 msgstr "L_CTRL"
 
-#: data/config.desc:20
+#: data/config.desc:26
 msgid "ALT_L_SHIFT"
 msgstr "ALT_L_SHIFT"
 
-#: data/config.desc:21
+#: data/config.desc:27
 msgid "ALT_R_SHIFT"
 msgstr "ALT_R_SHIFT"
 
-#: data/config.desc:22
+#: data/config.desc:28
 msgid "CTRL Both"
 msgstr "CTRL Beide"
 
-#: data/config.desc:23
+#: data/config.desc:29
 msgid "SHIFT Both"
 msgstr "SHIFT Beide"
 
-#: data/config.desc:24
+#: data/config.desc:30
 msgid "L_ALT"
 msgstr "L_ALT"
 
-#: data/config.desc:25
+#: data/config.desc:31
 msgid "R_ALT"
 msgstr "R_ALT"
 
-#: data/config.desc:26
+#: data/config.desc:32
 msgid "ALT Both"
 msgstr "Beide ALT-Tasten"
 
-#: data/config.desc:27
+#: data/config.desc:33
 msgid "Left Super"
 msgstr "Linke Super-Taste"
 
-#: data/config.desc:28
+#: data/config.desc:34
 msgid "Right Super"
 msgstr "Rechte Super-Taste"
 
-#: data/config.desc:29
+#: data/config.desc:35
 msgid "Super Both"
 msgstr "Super (Beide)"
 
-#: data/config.desc:30
+#: data/config.desc:36
 msgid "Ctrl+Left Super"
 msgstr "Ctrl-L Super"
 
-#: data/config.desc:31
+#: data/config.desc:37
 msgid "Ctrl+Right Super"
 msgstr "Ctrl-R Super"
 
-#: data/config.desc:32
+#: data/config.desc:38
 msgid "Super+Left Ctrl"
 msgstr "Super + Ctrl-L"
 
-#: data/config.desc:33
+#: data/config.desc:39
 msgid "Super+Right Ctrl"
 msgstr "Super+Ctrl_R"
 
-#: data/config.desc:35
+#: data/config.desc:41
 msgid "Custom"
 msgstr "Anwenderspezifisch"
 
-#: data/config.desc:37
+#: data/config.desc:43
 msgid "Extra Key for Switching to the First Input Method"
 msgstr "Extrataste zum Aktivieren der Eingabemethode"
 
-#: data/config.desc:42
+#: data/config.desc:49
 msgid "Custom switch key"
 msgstr ""
 
-#: data/config.desc:49
+#: data/config.desc:56
 msgid "Activate input method"
 msgstr "Eingabemethode aktivieren"
 
-#: data/config.desc:56
+#: data/config.desc:63
 msgid "Inactivate Input Method"
 msgstr "Eingabemethode deaktivieren"
 
-#: data/config.desc:63
+#: data/config.desc:70
 msgid "Enable Shortcuts to Scroll Between Input Methods"
 msgstr "Hotkey aktivieren, um durch die Eingabemethoden zu scrollen"
 
-#: data/config.desc:68
+#: data/config.desc:77
 msgid "Include Inactive When Scrolling Between Input Methods"
 msgstr ""
 "\"Deaktiviert\" einschließen, wenn durch die Eingabemethoden gescrollt wird"
 
-#: data/config.desc:74
+#: data/config.desc:84
 msgid "CTRL_SHIFT"
 msgstr "CTRL_SHIFT"
 
-#: data/config.desc:75
+#: data/config.desc:85
 msgid "ALT_SHIFT"
 msgstr "ALT_SHIFT"
 
-#: data/config.desc:76
+#: data/config.desc:86
 msgid "CTRL_SUPER"
 msgstr "CTRL_SUPER"
 
-#: data/config.desc:77
+#: data/config.desc:87
 msgid "ALT_SUPER"
 msgstr "ALT_SUPER"
 
-#: data/config.desc:79
+#: data/config.desc:89
 msgid "Scroll between Input Method"
 msgstr "Durch Eingabemethoden scrollen"
 
-#: data/config.desc:84
+#: data/config.desc:94
 msgid "Reload configuration"
 msgstr "Konfiguration erneut laden"
 
-#: data/config.desc:90
+#: data/config.desc:100
 msgid "Interval of Two Key Input"
 msgstr "Tastenwiederholung/Sekunde"
 
-#: data/config.desc:96
+#: data/config.desc:106
 msgid "Switch Symbol Keyboard"
 msgstr "Wechsel der Virtuellen Tastatur"
 
-#: data/config.desc:102
+#: data/config.desc:113
 msgid "Switch Remind Mode"
 msgstr "Erinnerungsmodus wechseln"
 
-#: data/config.desc:108
+#: data/config.desc:127
 msgid "Switch Fullwidth Character"
 msgstr "Wechsel zum Modus Vollbreite Zeichen"
 
-#: data/config.desc:120
+#: data/config.desc:134
 msgid "Previous Page"
 msgstr "Taste vorherige Kandidaten"
 
-#: data/config.desc:125
+#: data/config.desc:140
 msgid "Next Page"
 msgstr "Taste für weitere Kanditaten"
 
-#: data/config.desc:130
+#: data/config.desc:146
 msgid "Choose Second and Third Candidate Word"
 msgstr "Zweiten und dritten Kandidaten auswählen"
 
-#: data/config.desc:136
+#: data/config.desc:152
 msgid "Saving All Config and Input History"
 msgstr "Konfiguration und Eingabeverlauf sichern"
 
-#: data/config.desc:142
+#: data/config.desc:159
 msgid "Switch Embedded Preedit String"
 msgstr ""
 
-#: data/config.desc:148
+#: data/config.desc:166
 msgid "Previous Candidate Word"
 msgstr "Vorheriger Kandidat (Wort)"
 
-#: data/config.desc:149
+#: data/config.desc:167
 msgid ""
 "This is used in some modules and input methods to navigate to the previous "
 "candidate word"
@@ -2019,11 +2023,11 @@ msgstr ""
 "Dies wird in einigen Modulen und Eingabemethoden benutzt um zum vorherigen "
 "Kandidaten (Wort) zu navigieren"
 
-#: data/config.desc:155
+#: data/config.desc:174
 msgid "Next Candidate Word"
 msgstr "Nächster Kandidat (Wort)"
 
-#: data/config.desc:156
+#: data/config.desc:175
 msgid ""
 "This is used in some modules and input methods to navigate to the next "
 "candidate word"
@@ -2031,72 +2035,72 @@ msgstr ""
 "Dies wird in einigen Modulen und Eingabemethoden benutzt um zum nächsten "
 "Kandidaten (Wort) zu navigieren"
 
-#: data/config.desc:159 data/config.desc:165 data/config.desc:174
+#: data/config.desc:179 data/config.desc:185 data/config.desc:195
 msgid "Program"
 msgstr "Programm"
 
-#: data/config.desc:162
+#: data/config.desc:182
 msgid "Seconds sleep before fcitx really start"
 msgstr "Warten, bevor fcitx started (sec.)"
 
-#: data/config.desc:169
+#: data/config.desc:189
 msgid "No"
 msgstr "Keine"
 
-#: data/config.desc:170
+#: data/config.desc:190
 msgid "All"
 msgstr "Für alle Programme"
 
-#: data/config.desc:171
-msgid "Per program"
-msgstr "Für jedes Programm"
+#: data/config.desc:191
+msgid "PerProgram"
+msgstr ""
 
-#: data/config.desc:185
+#: data/config.desc:192
 msgid "Share State Among Windows"
 msgstr "Status unter Fenstern teilen"
 
-#: data/config.desc:178
+#: data/config.desc:197 data/config.desc:199
 msgid "Inactive"
 msgstr "Inaktiv"
 
-#: data/config.desc:179
+#: data/config.desc:200
 msgid "Active"
 msgstr "Aktiv"
 
-#: data/config.desc:180
+#: data/config.desc:201
 msgid "Default Input Method State"
 msgstr "Standard Status Eingabemethode"
 
-#: data/config.desc:183 data/config.desc:189 data/config.desc:195
-#: data/config.desc:201 data/config.desc:208 data/config.desc:214
+#: data/config.desc:205 data/config.desc:212 data/config.desc:219
+#: data/config.desc:226 data/config.desc:234 data/config.desc:241
 msgid "Output"
 msgstr "Ausgabe"
 
-#: data/config.desc:186
+#: data/config.desc:208
 msgid "Type Halfwidth Punctuation After a Number"
 msgstr "Halbweite Interpunktion nach Zahlen"
 
-#: data/config.desc:192
+#: data/config.desc:215
 msgid "Disable Paging in Remind Mode"
 msgstr ""
 
-#: data/config.desc:198
+#: data/config.desc:222
 msgid "Commit When Toggle State"
 msgstr "Bestätigen, wenn der Status verändert wird"
 
-#: data/config.desc:199
+#: data/config.desc:223
 msgid "Send typed raw text if Switch to inactive Mode"
 msgstr "Raw-Text eingeben, wenn zum inaktiven Modus gewechselt wird"
 
-#: data/config.desc:204 src/im/table/table.desc:176
+#: data/config.desc:229 src/im/table/table.desc:176
 msgid "Candidate Word Number"
 msgstr "Anzahl Zeichenvorschläge"
 
-#: data/config.desc:211
+#: data/config.desc:237
 msgid "Give the tips of Phrase"
 msgstr "Phrasenvorschläge aktivieren"
 
-#: data/config.desc:217
+#: data/config.desc:244
 msgid "Do Not Commit Preedit Text When a Window Loses Focus"
 msgstr "Preedittext nicht eingeben, wenn das Fenster den Fokus verliert"
 
@@ -2106,33 +2110,33 @@ msgstr "Preedittext nicht eingeben, wenn das Fenster den Fokus verliert"
 msgid "Appearance"
 msgstr "Aussehen"
 
-#: data/config.desc:244
+#: data/config.desc:251
 msgid "Show Input Method Hint After Input Method Changed"
 msgstr ""
 "Hinweis zur Eingabemethode anzeigen, nachdem die Eingabemethode geändert "
 "wurde"
 
-#: data/config.desc:251
+#: data/config.desc:258
 msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr ""
 
-#: data/config.desc:258
+#: data/config.desc:265
 msgid "Show Input Method Hint Only When the State Is Active"
 msgstr "Hinweis zur Eingabemethode nur anzeigen, wenn der Status aktiv ist"
 
-#: data/config.desc:241
+#: data/config.desc:272
 msgid "Show Input Speed"
 msgstr "Eingabegeschwindigkeit zeigen"
 
-#: data/config.desc:247
+#: data/config.desc:279
 msgid "Show Version"
 msgstr "Version zeigen"
 
-#: data/config.desc:253
+#: data/config.desc:286
 msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr "Fcitx Fenster nicht anzeigen, wenn es nur einen Vorschlag gibt"
 
-#: data/config.desc:259
+#: data/config.desc:293
 msgid ""
 "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr ""
@@ -3383,6 +3387,14 @@ msgstr "Bild der virtuellen Tastatur"
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "Tastenfarbe auf der virtuellen Tastatur"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:1
+#: src/module/notificationitem/fcitx-notificationitem.desc:6
+#: src/module/notificationitem/fcitx-notificationitem.desc:11
+#: src/module/notificationitem/fcitx-notificationitem.desc:16
+#: src/module/notificationitem/fcitx-notificationitem.desc:21
+msgid "Notificationitem"
+msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
 msgid "Whether to display the right-click menu configuration item <Restart>"

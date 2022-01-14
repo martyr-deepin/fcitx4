@@ -579,11 +579,14 @@ static inline boolean IsTriggerOnRelease(FcitxKeySym sym, unsigned int state) {
 
 INPUT_RETURN_VALUE _DoTrigger(FcitxInstance* instance)
 {
-    if (FcitxInstanceGetCurrentState(instance) == IS_INACTIVE) {
-        FcitxInstanceChangeIMState(instance, instance->CurrentIC);
-        FcitxInstanceShowInputSpeed(instance, false);
-    } else {
-        FcitxInstanceCloseIM(instance, instance->CurrentIC);
+    FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(instance);
+    if(config->bHKTriggerKey){
+        if (FcitxInstanceGetCurrentState(instance) == IS_INACTIVE) {
+            FcitxInstanceChangeIMState(instance, instance->CurrentIC);
+            FcitxInstanceShowInputSpeed(instance, false);
+        } else {
+            FcitxInstanceCloseIM(instance, instance->CurrentIC);
+        }
     }
     return IRV_DO_NOTHING;
 }

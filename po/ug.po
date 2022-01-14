@@ -1836,191 +1836,195 @@ msgid "Do not show in GUI"
 msgstr "گىرافىك كۆرۈنمە يۈزدە كۆرۈنمىسۇن"
 
 #: data/config.desc:1 data/config.desc:7 data/config.desc:13
-#: data/config.desc:39 data/config.desc:46 data/config.desc:53
-#: data/config.desc:60 data/config.desc:65 data/config.desc:71
-#: data/config.desc:81 data/config.desc:87 data/config.desc:93
-#: data/config.desc:99 data/config.desc:105 data/config.desc:111
-#: data/config.desc:117 data/config.desc:122 data/config.desc:127
-#: data/config.desc:133 data/config.desc:139 data/config.desc:145
-#: data/config.desc:152
+#: data/config.desc:19 data/config.desc:46 data/config.desc:53
+#: data/config.desc:60 data/config.desc:67 data/config.desc:74
+#: data/config.desc:81 data/config.desc:91 data/config.desc:97
+#: data/config.desc:103 data/config.desc:110 data/config.desc:117
+#: data/config.desc:124 data/config.desc:131 data/config.desc:137
+#: data/config.desc:143 data/config.desc:149 data/config.desc:156
+#: data/config.desc:163 data/config.desc:171
 msgid "Hotkey"
 msgstr "تېزلەتمە كۇنۇپكا"
 
-#: data/config.desc:5
+#: data/config.desc:4
+msgid "Enable Trigger Input Method"
+msgstr ""
+
+#: data/config.desc:11
 msgid "Trigger Input Method"
 msgstr "ئاكتىپلانغان/ئاكتىپلانمىغان كىرگۈزگۈچنى ئالماشتۇرۇش"
 
-#: data/config.desc:10
+#: data/config.desc:16
 msgid "Use extra trigger key only after using it to inactivate"
 msgstr ""
 "پەقەت ئوشۇقچە ئالماشتۇرۇش كۇنۇپكىسى بىلەن ئاكتىپلاشنى ئەمەلدىن قالدۇرغاندىن "
 "كېيىن ئاندىن ئۇنى ئىشلىتىپ ئالماشتۇرۇلىدۇ"
 
-#: data/config.desc:16
+#: data/config.desc:22
 msgid "R_CTRL"
 msgstr "ئوڭCtrl"
 
-#: data/config.desc:17
+#: data/config.desc:23
 msgid "R_SHIFT"
 msgstr "ئوڭShift"
 
-#: data/config.desc:18
+#: data/config.desc:24
 msgid "L_SHIFT"
 msgstr "سولShift"
 
-#: data/config.desc:19
+#: data/config.desc:25
 msgid "L_CTRL"
 msgstr "سولCtrl"
 
-#: data/config.desc:20
+#: data/config.desc:26
 msgid "ALT_L_SHIFT"
 msgstr "Alt+سولShift"
 
-#: data/config.desc:21
+#: data/config.desc:27
 msgid "ALT_R_SHIFT"
 msgstr "Alt+ئوڭShift"
 
-#: data/config.desc:22
+#: data/config.desc:28
 msgid "CTRL Both"
 msgstr "ئىككى تەرەپتىكى Ctrl"
 
-#: data/config.desc:23
+#: data/config.desc:29
 msgid "SHIFT Both"
 msgstr "ئىككى تەرەپتىكى Shift"
 
-#: data/config.desc:24
+#: data/config.desc:30
 msgid "L_ALT"
 msgstr "سول Alt"
 
-#: data/config.desc:25
+#: data/config.desc:31
 msgid "R_ALT"
 msgstr "ئوڭ Alt"
 
-#: data/config.desc:26
+#: data/config.desc:32
 msgid "ALT Both"
 msgstr "ئىككى تەرەپتىكى Alt"
 
-#: data/config.desc:27
+#: data/config.desc:33
 msgid "Left Super"
 msgstr "سول Super"
 
-#: data/config.desc:28
+#: data/config.desc:34
 msgid "Right Super"
 msgstr "ئوڭ Super"
 
-#: data/config.desc:29
+#: data/config.desc:35
 msgid "Super Both"
 msgstr "ئىككى تەرەپتىكى Super"
 
-#: data/config.desc:30
+#: data/config.desc:36
 msgid "Ctrl+Left Super"
 msgstr "Ctrl+سول Super"
 
-#: data/config.desc:31
+#: data/config.desc:37
 msgid "Ctrl+Right Super"
 msgstr "Ctrl+ئوڭ Super"
 
-#: data/config.desc:32
+#: data/config.desc:38
 msgid "Super+Left Ctrl"
 msgstr "Super+سولCtrl"
 
-#: data/config.desc:33
+#: data/config.desc:39
 msgid "Super+Right Ctrl"
 msgstr "Super+ئوڭ Ctrl"
 
-#: data/config.desc:35
+#: data/config.desc:41
 msgid "Custom"
 msgstr "بەلگىلەش"
 
-#: data/config.desc:37
+#: data/config.desc:43
 msgid "Extra Key for Switching to the First Input Method"
 msgstr "ئاكتىپلانغان باشقا تېزلەتمە كۇنۇپكىلار"
 
-#: data/config.desc:42
+#: data/config.desc:49
 msgid "Custom switch key"
 msgstr "ئالماشتۇرۇش كۇنۇپكىسى بەلگىلەش"
 
-#: data/config.desc:49
+#: data/config.desc:56
 msgid "Activate input method"
 msgstr "كىرگۈزگۈچنى ئاكتىپلاش"
 
-#: data/config.desc:56
+#: data/config.desc:63
 msgid "Inactivate Input Method"
 msgstr "ئاكتىپلاشنى بىكار قىلىش"
 
-#: data/config.desc:63
+#: data/config.desc:70
 msgid "Enable Shortcuts to Scroll Between Input Methods"
 msgstr "ئالماشتۇرۇشنى قوزغىتىش"
 
-#: data/config.desc:68
+#: data/config.desc:77
 msgid "Include Inactive When Scrolling Between Input Methods"
 msgstr "كىرگۈزگۈچ ئالماشتۇرغاندا ئاكتىپلانمىغان ھالىتىنىمۇ ئۆز ئىچىگە ئالىدۇ"
 
-#: data/config.desc:74
+#: data/config.desc:84
 msgid "CTRL_SHIFT"
 msgstr "Ctrl+Shift"
 
-#: data/config.desc:75
+#: data/config.desc:85
 msgid "ALT_SHIFT"
 msgstr "Alt+Shift"
 
-#: data/config.desc:76
+#: data/config.desc:86
 msgid "CTRL_SUPER"
 msgstr "Ctrl+Super"
 
-#: data/config.desc:77
+#: data/config.desc:87
 msgid "ALT_SUPER"
 msgstr "Alt+Super"
 
-#: data/config.desc:79
+#: data/config.desc:89
 msgid "Scroll between Input Method"
 msgstr "كىرگۈزگۈچ ئالماشتۇرۇش"
 
-#: data/config.desc:84
+#: data/config.desc:94
 msgid "Reload configuration"
 msgstr "سەپلىمىنى قايتا يۈكلەش"
 
-#: data/config.desc:90
+#: data/config.desc:100
 msgid "Interval of Two Key Input"
 msgstr "كىرگۈزۈش ئارىلىقى"
 
-#: data/config.desc:96
+#: data/config.desc:106
 msgid "Switch Symbol Keyboard"
 msgstr "مەۋھۇم كۇنۇپكىنى ئالماشتۇرۇش"
 
-#: data/config.desc:102
+#: data/config.desc:113
 msgid "Switch Remind Mode"
 msgstr "بىرلەشتۈرۈپ ئويلاش ھالىتىنى ئالماشتۇرۇش"
 
-#: data/config.desc:108
+#: data/config.desc:127
 msgid "Switch Fullwidth Character"
 msgstr "ئىككى بايتلىققا ئالماشتۇرۇش"
 
-#: data/config.desc:120
+#: data/config.desc:134
 msgid "Previous Page"
 msgstr "ئالدىنقى بەت"
 
-#: data/config.desc:125
+#: data/config.desc:140
 msgid "Next Page"
 msgstr "كېيىنكى بەت"
 
-#: data/config.desc:130
+#: data/config.desc:146
 msgid "Choose Second and Third Candidate Word"
 msgstr "2-، 3-نامزات سۆزنى تاللاش"
 
-#: data/config.desc:136
+#: data/config.desc:152
 msgid "Saving All Config and Input History"
 msgstr "سەپلىمىنى ۋە كىرگۈزۈش تارىخىنى ساقلاش"
 
-#: data/config.desc:142
+#: data/config.desc:159
 msgid "Switch Embedded Preedit String"
 msgstr " ئالدىن تەھرىرلەنگەن ھەرپ-بەلگە تىزىقىنى ئالماشتۇرۇش "
 
-#: data/config.desc:148
+#: data/config.desc:166
 msgid "Previous Candidate Word"
 msgstr "ئالدىنقى نامزات سۆز"
 
-#: data/config.desc:149
+#: data/config.desc:167
 msgid ""
 "This is used in some modules and input methods to navigate to the previous "
 "candidate word"
@@ -2028,11 +2032,11 @@ msgstr ""
 "قىسمەن قىستۇرما/ كىرگۈزگۈچلەردە ئالدىنقى نامزات سۆزنى تاللاشقا "
 "ئىشلىتىلىدىغان تېزلەتمە كۇنۇپكا"
 
-#: data/config.desc:155
+#: data/config.desc:174
 msgid "Next Candidate Word"
 msgstr "كېيىنكى نامزات سۆز"
 
-#: data/config.desc:156
+#: data/config.desc:175
 msgid ""
 "This is used in some modules and input methods to navigate to the next "
 "candidate word"
@@ -2040,74 +2044,74 @@ msgstr ""
 "قىسمەن قىستۇرما/ كىرگۈزگۈچلەردە كېيىنكى نامزات سۆزنى تاللاشقا ئىشلىتىلىدىغان"
 " تېزلەتمە كۇنۇپكا"
 
-#: data/config.desc:159 data/config.desc:165 data/config.desc:174
+#: data/config.desc:179 data/config.desc:185 data/config.desc:195
 msgid "Program"
 msgstr "پىروگرامما"
 
-#: data/config.desc:162
+#: data/config.desc:182
 msgid "Seconds sleep before fcitx really start"
 msgstr "كىرگۈزگۈچ ھەقىقىي قوزغىلىشتىن بۇرۇنقى كېچىككەن سېكۇنت سانى"
 
-#: data/config.desc:169
+#: data/config.desc:189
 msgid "No"
 msgstr "ياق"
 
-#: data/config.desc:170
+#: data/config.desc:190
 msgid "All"
 msgstr "بارلىق"
 
-#: data/config.desc:171
-msgid "Per program"
-msgstr "پىروگرامما بويىچە"
+#: data/config.desc:191
+msgid "PerProgram"
+msgstr ""
 
-#: data/config.desc:185
+#: data/config.desc:192
 msgid "Share State Among Windows"
 msgstr "كۆزنەكلەر ئارا ھالەتنى بەھرىلىنىش"
 
-#: data/config.desc:178
+#: data/config.desc:197 data/config.desc:199
 msgid "Inactive"
 msgstr "ئاكتىپلانمىغان"
 
-#: data/config.desc:179
+#: data/config.desc:200
 msgid "Active"
 msgstr "ئاكتىپلانغان"
 
-#: data/config.desc:180
+#: data/config.desc:201
 msgid "Default Input Method State"
 msgstr "سۈكۈتتىكى كىرگۈزگۈچ ھالىتى"
 
-#: data/config.desc:183 data/config.desc:189 data/config.desc:195
-#: data/config.desc:201 data/config.desc:208 data/config.desc:214
+#: data/config.desc:205 data/config.desc:212 data/config.desc:219
+#: data/config.desc:226 data/config.desc:234 data/config.desc:241
 msgid "Output"
 msgstr "چىقىرىش"
 
-#: data/config.desc:186
+#: data/config.desc:208
 msgid "Type Halfwidth Punctuation After a Number"
 msgstr "ساندىن كېيىن بىر بايتلىق بەلگە چىقسۇن"
 
-#: data/config.desc:192
+#: data/config.desc:215
 msgid "Disable Paging in Remind Mode"
 msgstr "بىرلەشتۈرۈپ ئويلاش ھالىتىدە بەت ئالماشتۇرغىلى بولمايدۇ"
 
-#: data/config.desc:198
+#: data/config.desc:222
 msgid "Commit When Toggle State"
 msgstr "ھالىتىنى ئالماشتۇرغاندا تاپشۇرۇش"
 
-#: data/config.desc:199
+#: data/config.desc:223
 msgid "Send typed raw text if Switch to inactive Mode"
 msgstr ""
 "قوزغىتىلمىغان ھالەتكە ئالماشتۇرغاندا نۆۋەتتە كىرگۈزۈلگەن ئەسلى تېكىست "
 "ئېكرانغا چىقسۇن"
 
-#: data/config.desc:204 src/im/table/table.desc:176
+#: data/config.desc:229 src/im/table/table.desc:176
 msgid "Candidate Word Number"
 msgstr "نامزات سۆز سانى"
 
-#: data/config.desc:211
+#: data/config.desc:237
 msgid "Give the tips of Phrase"
 msgstr "سۆز ئامبىرىدىكى سۆز بىرىكمىسىنى ئەسكەرتسۇن"
 
-#: data/config.desc:217
+#: data/config.desc:244
 msgid "Do Not Commit Preedit Text When a Window Loses Focus"
 msgstr ""
 "كۆزنەك فوكۇس نۇقتىسىنى يوقاتقاندا ئالدىن تەھرىرلەنگەن تېكىستنى تاپشۇرمىسۇن"
@@ -2118,34 +2122,34 @@ msgstr ""
 msgid "Appearance"
 msgstr "كۆرۈنمە"
 
-#: data/config.desc:244
+#: data/config.desc:251
 msgid "Show Input Method Hint After Input Method Changed"
 msgstr "كىرگۈزگۈچنى ئالماشتۇرغاندا خەت كىرگۈزگۈچنىڭ ئەسكەرتمىسىنى كۆرۈنسۇن"
 
-#: data/config.desc:251
+#: data/config.desc:258
 msgid "Show Input Method Hint After Input Method Changed and Focus In"
 msgstr ""
 "كىرگۈزۈش قىزىق نۇقتىسىغا ئېرىشىش ھەمدە كىرگۈزگۈچتە ئۆزگىرىش بولغاندا "
 "كىرگۈزگۈچتە كۆرسىتىلگەن ئەسكەرتىشنى كۆرسىتش."
 
-#: data/config.desc:258
+#: data/config.desc:265
 msgid "Show Input Method Hint Only When the State Is Active"
 msgstr "كىرگۈزگۈچتىكى ئەسكەرتمە پەقەت ئاكتىپلانغان ھالەتتىلا كۆرۈنىدۇ"
 
-#: data/config.desc:241
+#: data/config.desc:272
 msgid "Show Input Speed"
 msgstr "كىرگۈزۈش سۈرئىتى كۆرۈنسۇن"
 
-#: data/config.desc:247
+#: data/config.desc:279
 msgid "Show Version"
 msgstr "كۆرسىتىش نەشرى"
 
-#: data/config.desc:253
+#: data/config.desc:286
 msgid "Do Not Show Input Window If There Is Only Preedit String"
 msgstr ""
 "ئالدىن تەھرىرلەنگەن ھەرپ-بەلگە تىزىقى بولغاندىلا كىرگۈزۈش كۆزنىكى كۆرۈنمىسۇن"
 
-#: data/config.desc:259
+#: data/config.desc:293
 msgid ""
 "Do Not Show Input Window If There Is Only One Candidate and Preedit String"
 msgstr ""
@@ -3411,6 +3415,14 @@ msgstr "مەۋھۇم كۇنۇپكا سۈرىتى"
 #: src/ui/classic/skin.desc:416
 msgid "Key Color On Virtual Keyboard"
 msgstr "يۇمشاق كۇنۇپكا تاختىسى كۇنۇپكىسىنىڭ خەت رەڭگى"
+
+#: src/module/notificationitem/fcitx-notificationitem.desc:1
+#: src/module/notificationitem/fcitx-notificationitem.desc:6
+#: src/module/notificationitem/fcitx-notificationitem.desc:11
+#: src/module/notificationitem/fcitx-notificationitem.desc:16
+#: src/module/notificationitem/fcitx-notificationitem.desc:21
+msgid "Notificationitem"
+msgstr ""
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
 msgid "Whether to display the right-click menu configuration item <Restart>"

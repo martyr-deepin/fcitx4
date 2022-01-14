@@ -1,3 +1,9 @@
+[Hotkey/HKTriggerKey]
+Type=Boolean
+DefaultValue=True
+Description=Enable Trigger Input Method
+Advance=True
+
 [Hotkey/TriggerKey]
 Type=Hotkey
 DefaultValue=CTRL_SPACE
@@ -60,9 +66,10 @@ Advance=True
 
 [Hotkey/IMSwitchKey]
 Type=Boolean
-DefaultValue=True
+DefaultValue=False
 Description=Enable Shortcuts to Scroll Between Input Methods
-ShownInDeepin=True
+Advance=True
+ShownInDeepin=False
 
 [Hotkey/IMSwitchIncludeInactive]
 Type=Boolean
