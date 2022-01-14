@@ -3308,20 +3308,20 @@ msgstr "通知项"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
 msgid "Whether to display the right-click menu configuration item <Restart>"
-msgstr ""
+msgstr "是否显示右键配置项目<重启>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:9
 msgid "Whether to display the right-click configuration item <Vk>"
-msgstr ""
+msgstr "是否显示右键配置项目<虚拟键盘>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:14
 msgid "Whether to display the right-click configuration item <Exit>"
-msgstr ""
+msgstr "是否显示右键配置项目<退出>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:19
 msgid "Whether to display the right-click configuration item <Skins>"
-msgstr ""
+msgstr "是否显示右键配置项目<皮肤>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:24
 msgid "Whether to display the right-click configuration item <Help>"
-msgstr ""
+msgstr "是否显示右键配置项目<在线帮助>"

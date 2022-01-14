@@ -1847,7 +1847,7 @@ msgstr "Gyorsbillentyűk"
 
 #: data/config.desc:4
 msgid "Enable Trigger Input Method"
-msgstr ""
+msgstr "Trigger beviteli mód engedélyezése"
 
 #: data/config.desc:11
 msgid "Trigger Input Method"
@@ -2060,7 +2060,7 @@ msgstr "Összes"
 
 #: data/config.desc:191
 msgid "PerProgram"
-msgstr ""
+msgstr "Programonként"
 
 #: data/config.desc:192
 msgid "Share State Among Windows"
@@ -3418,24 +3418,34 @@ msgstr "Gombok színe a virtuális billentyűzeten"
 #: src/module/notificationitem/fcitx-notificationitem.desc:16
 #: src/module/notificationitem/fcitx-notificationitem.desc:21
 msgid "Notificationitem"
-msgstr ""
+msgstr "Értesítési elem"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
 msgid "Whether to display the right-click menu configuration item <Restart>"
 msgstr ""
+"A  <Restart> elem megjelenítése a jobb gombbal kattintva megjelenő "
+"konfigurációs elemek között"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:9
 msgid "Whether to display the right-click configuration item <Vk>"
 msgstr ""
+"A <Vk> elem megjelenítése a jobb gombbal kattintva megjelenő konfigurációs "
+"elemek között"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:14
 msgid "Whether to display the right-click configuration item <Exit>"
 msgstr ""
+"A <Exit> elem megjelenítése a jobb gombbal kattintva megjelenő konfigurációs"
+" elemek között"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:19
 msgid "Whether to display the right-click configuration item <Skins>"
 msgstr ""
+"A <Skins> elem megjelenítése a jobb gombbal kattintva megjelenő "
+"konfigurációs elemek között"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:24
 msgid "Whether to display the right-click configuration item <Help>"
 msgstr ""
+"A<Help> elem megjelenítése a jobb gombbal kattintva megjelenő konfigurációs "
+"elemek között"

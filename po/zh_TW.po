@@ -1772,7 +1772,7 @@ msgstr "更多快捷鍵"
 
 #: data/config.desc:4
 msgid "Enable Trigger Input Method"
-msgstr ""
+msgstr "啟用切換啟動/非啟動輸入法"
 
 #: data/config.desc:11
 msgid "Trigger Input Method"
@@ -1980,7 +1980,7 @@ msgstr "所有"
 
 #: data/config.desc:191
 msgid "PerProgram"
-msgstr ""
+msgstr "按程式"
 
 #: data/config.desc:192
 msgid "Share State Among Windows"
@@ -3299,24 +3299,24 @@ msgstr "軟鍵盤按鍵文字顏色"
 #: src/module/notificationitem/fcitx-notificationitem.desc:16
 #: src/module/notificationitem/fcitx-notificationitem.desc:21
 msgid "Notificationitem"
-msgstr ""
+msgstr "通知項"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:4
 msgid "Whether to display the right-click menu configuration item <Restart>"
-msgstr ""
+msgstr "是否顯示右鍵配置項目<重啟>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:9
 msgid "Whether to display the right-click configuration item <Vk>"
-msgstr ""
+msgstr "是否顯示右鍵配置項目<虛擬鍵盤>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:14
 msgid "Whether to display the right-click configuration item <Exit>"
-msgstr ""
+msgstr "是否顯示右鍵配置項目<退出>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:19
 msgid "Whether to display the right-click configuration item <Skins>"
-msgstr ""
+msgstr "是否顯示右鍵配置項目<外觀>"
 
 #: src/module/notificationitem/fcitx-notificationitem.desc:24
 msgid "Whether to display the right-click configuration item <Help>"
-msgstr ""
+msgstr "是否顯示右鍵配置項目<線上幫助>"
