@@ -148,7 +148,11 @@ extern "C" {
             FcitxHotkey hkCustomSwitchKey[2];
             int _dummy7[8];
         };
-        int padding[7]; /**< padding */
+
+        boolean bHKTriggerKey; /**< Enable trigger key*/
+
+        int padding[6]; /**< padding */
+        char padding2[3];
     } FcitxGlobalConfig;
 
     /**
