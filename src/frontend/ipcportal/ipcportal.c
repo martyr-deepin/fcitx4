@@ -594,11 +594,11 @@ static int PortalProcessKey(FcitxPortalFrontend* ipc, FcitxInputContext* callic,
     if (originsym == 0)
         return 0;
 
-    if (cofig->bHKTriggerKey && ic->state == IS_CLOSED && type == FCITX_PRESS_KEY && FcitxHotkeyIsHotKey(sym, state, config->hkTrigger)) {
+    if (config->bHKTriggerKey && ic->state == IS_CLOSED && type == FCITX_PRESS_KEY && FcitxHotkeyIsHotKey(sym, state, config->hkTrigger)) {
         FcitxInstanceEnableIM(ipc->owner, ic, false);
         return 1;
     }
-    else if (ic->state == IS_CLOSED && !cofig->bHKTriggerKey) {
+    else if (ic->state == IS_CLOSED && !config->bHKTriggerKey) {
         return 0;
     }
 
