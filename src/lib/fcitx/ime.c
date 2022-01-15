@@ -580,7 +580,7 @@ static inline boolean IsTriggerOnRelease(FcitxKeySym sym, unsigned int state) {
 INPUT_RETURN_VALUE _DoTrigger(FcitxInstance* instance)
 {
     FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(instance);
-    if(config->bHKTriggerKey){
+    if(config->bHKtriggerKey){
         if (FcitxInstanceGetCurrentState(instance) == IS_INACTIVE) {
             FcitxInstanceChangeIMState(instance, instance->CurrentIC);
             FcitxInstanceShowInputSpeed(instance, false);
