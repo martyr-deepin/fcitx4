@@ -50,6 +50,74 @@
       "revId": "9820f3e37bd639b422b47df2a52889689f0e0e3a",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e49089de_eea3aa10",
+        "filename": "src/lib/fcitx/ime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-15T09:18:12Z",
+      "side": 1,
+      "message": "(style) struct member \u0027Anonymous0::hk1\u0027 is never used",
+      "revId": "9820f3e37bd639b422b47df2a52889689f0e0e3a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b97d5ed7_cd6f5e3f",
+        "filename": "src/lib/fcitx/ime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-15T09:18:12Z",
+      "side": 1,
+      "message": "(style) struct member \u0027Anonymous0::hk2\u0027 is never used",
+      "revId": "9820f3e37bd639b422b47df2a52889689f0e0e3a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42d810b7_57c8128a",
+        "filename": "src/lib/fcitx/ime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-15T09:18:12Z",
+      "side": 1,
+      "message": "(style) Condition \u0027index\u003e\u003d0\u0027 is always tru",
+      "revId": "9820f3e37bd639b422b47df2a52889689f0e0e3a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00c39c0f_fd0d8120",
+        "filename": "src/lib/fcitx/ime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-01-15T09:18:12Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027cur\u0027 can be reduced",
+      "revId": "9820f3e37bd639b422b47df2a52889689f0e0e3a",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
     }
   ]
 }
