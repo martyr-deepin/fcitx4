@@ -149,7 +149,7 @@ extern "C" {
             int _dummy7[8];
         };
 
-        boolean bHKTriggerKey; /**< Enable trigger key*/
+        boolean bHKtriggerKey; /**< Enable trigger key*/
 
         int padding[6]; /**< padding */
         char padding2[3];

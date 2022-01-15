@@ -1,4 +1,4 @@
-[Hotkey/HKTriggerKey]
+[Hotkey/HKtriggerKey]
 Type=Boolean
 DefaultValue=True
 Description=Enable Trigger Input Method
@@ -69,7 +69,7 @@ Type=Boolean
 DefaultValue=False
 Description=Enable Shortcuts to Scroll Between Input Methods
 Advance=True
-ShownInDeepin=False
+ShownInDeepin=True
 
 [Hotkey/IMSwitchIncludeInactive]
 Type=Boolean
