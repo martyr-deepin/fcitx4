@@ -66,7 +66,7 @@ Advance=True
 
 [Hotkey/IMSwitchKey]
 Type=Boolean
-DefaultValue=False
+DefaultValue=True
 Description=Enable Shortcuts to Scroll Between Input Methods
 Advance=True
 ShownInDeepin=True
