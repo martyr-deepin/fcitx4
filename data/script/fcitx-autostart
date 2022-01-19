@@ -1,28 +1,25 @@
 #!/bin/bash
 
 # 脚本解释器 强制设置为 bash
-if [ "$BASH" != "/bin/bash" ] && [ "$BASH" != "/usr/bin/bash" ]; then
-    bash "$0" "$@"
-    exit $?
-fi
+# if [ "$BASH" != "/bin/bash" ] && [ "$BASH" != "/usr/bin/bash" ]; then
+#     bash "$0" "$@"
+#     exit $?
+# fi
 
 # sleep for a little while to avoid duplicate startup
-
-case "${XDG_SESSION_TYPE}" in
-    x11)
+function autostart()
+{
+    local LOCAL_DISPLAY=$DISPLAY
+    if [ -n "$LOCAL_DISPLAY" ];then
+        /usr/bin/fcitx -d
+    else
         sleep 2
-        ;;
-    wayland)
-        var=$DISPLAY
-	 if [ -n "$var" ]; then
-            fcitx
-	else
-	sleep 2
-	bash /bin/fcitx-autostart &
-       exit $?
-	fi
-        ;;
-esac
+    fi
+}
+
+autostart
+
+sleep 1
 
 # Test whether fcitx is running correctly with dbus...
 fcitx-remote > /dev/null 2>&1

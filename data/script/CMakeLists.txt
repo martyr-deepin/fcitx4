@@ -2,6 +2,10 @@ install(FILES fcitx-configtool.sh DESTINATION "${bindir}" RENAME fcitx-configtoo
   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
   GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
+install(FILES fcitx-diagnose.sh DESTINATION "${bindir}" RENAME fcitx-diagnose
+  PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+  GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+
 configure_file(fcitx4-config.in "${CMAKE_CURRENT_BINARY_DIR}/fcitx4-config")
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/fcitx4-config
   DESTINATION "${bindir}" PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
@@ -14,6 +18,3 @@ if(_ENABLE_DBUS AND ENABLE_XDGAUTOSTART)
 endif()
 
 fcitx_translate_add_sources(fcitx-diagnose.sh fcitx-configtool.sh)
-install(FILES fcitx-diagnose.sh DESTINATION "${bindir}" RENAME fcitx-diagnose
-  PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
-  GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
