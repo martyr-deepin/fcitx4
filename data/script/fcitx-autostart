@@ -14,12 +14,12 @@ function autostart()
         /usr/bin/fcitx -d
     else
         sleep 2
+        autostart
     fi
 }
 
 autostart
-
-sleep 1
+sleep 2
 
 # Test whether fcitx is running correctly with dbus...
 fcitx-remote > /dev/null 2>&1
