@@ -406,8 +406,8 @@ void display_inotify_event(struct inotify_event *i) {
                 }
             } else if ((NULL != imName) &&
                        strcmp(dir.path[i->wd], "/usr/share/fcitx/table") == 0) {
-                sleep(10);
-                fcitx_utils_launch_configure_tool_for_addon("fcitx-table");
+                // sleep(10);
+                // fcitx_utils_launch_configure_tool_for_addon("fcitx-table");
             }
             sleep(3);
             set_layout_for_im(imName);
