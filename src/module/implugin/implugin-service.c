@@ -389,21 +389,26 @@ void display_inotify_event(struct inotify_event *i) {
                 }
             } else if ((NULL != imName) &&
                        strcmp(dir.path[i->wd], "/usr/share/fcitx/table") != 0 &&
-                       strcmp(imName, "sunpinyin") != 0) {
-                fprintf(gFp, "%s: commod is %s; \n", gettime(), "start");
-                sleep(10);
-                char *result = malloc(DATA_W);
-                memset(result, 0, DATA_W);
-                strcat(result, "fcitx-");
-                strcat(result, imName);
-                fprintf(gFp, "%s: commod is end %s; \n", gettime(), result);
-                fcitx_utils_launch_configure_tool_for_addon(result);
-                if (NULL != result) {
-                    safe_free(result);
-                    result = NULL;
+                       strcmp(imName, "sunpinyin") != 0 &&
+                       strcmp(imName, "pinyin") != 0 &&
+                       strcmp(imName, "shuangpin") != 0 &&
+                       strcmp(imName, "qw") != 0 &&
+                       strcmp(imName, "aiassistant") != 0) {
+                    fprintf(gFp, "%s: commod is %s; \n", gettime(), "start");
+                    sleep(10);
+                    char *result = malloc(DATA_W);
+                    memset(result, 0, DATA_W);
+                    strcat(result, "fcitx-");
+                    strcat(result, imName);
+                    fprintf(gFp, "%s: commod is end %s; \n", gettime(), result);
+                    fcitx_utils_launch_configure_tool_for_addon(result);
+                    if (NULL != result) {
+                        safe_free(result);
+                        result = NULL;
+                    }
                 }
-            } else if ((NULL != imName) &&
-                       strcmp(dir.path[i->wd], "/usr/share/fcitx/table") == 0) {
+            else if ((NULL != imName) &&
+                     strcmp(dir.path[i->wd], "/usr/share/fcitx/table") == 0) {
                 // sleep(10);
                 // fcitx_utils_launch_configure_tool_for_addon("fcitx-table");
             }
