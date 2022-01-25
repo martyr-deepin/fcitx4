@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # 脚本解释器 强制设置为 bash
-# if [ "$BASH" != "/bin/bash" ] && [ "$BASH" != "/usr/bin/bash" ]; then
-#     bash "$0" "$@"
-#     exit $?
-# fi
+#if [ "$BASH" != "/bin/bash" ] && [ "$BASH" != "/usr/bin/bash" ]; then
+#    bash "$0" "$@"
+#    exit $?
+#fi
 
 # sleep for a little while to avoid duplicate startup
 function autostart()
@@ -26,7 +26,7 @@ fcitx-remote > /dev/null 2>&1
 
 if [ $? = "1" ]; then
     echo "Fcitx seems is not running"
-    fcitx
+    /usr/bin/fcitx -d
 else
     echo "Fcitx is running correctly."
 fi
