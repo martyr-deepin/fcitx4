@@ -19,6 +19,125 @@
     },
     {
       "key": {
+        "uuid": "199aff13_0c0af726",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-15T02:53:41Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16448936158740.4239584763533475/changeCache/src/lib/fcitx-config/fcitx-config.c:654]: (warning, inconclusive) Either the condition \u0027len\u003e40\u0027 is redundant or the array \u0027buf[40]\u0027 is accessed at index 40, which is out of bounds",
+      "revId": "3bd48b80bc9e4f3a5dc32437f18abe43287d4119",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfc3e449_ed7abc46",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-15T02:53:41Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16448936158740.4239584763533475/changeCache/src/lib/fcitx-config/fcitx-config.c:654]: (warning, inconclusive) Either the condition \u0027len\u003esizeof(buf)\u0027 is redundant or the array \u0027buf[40]\u0027 is accessed at index 40, which is out of bounds",
+      "revId": "3bd48b80bc9e4f3a5dc32437f18abe43287d4119",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93490b60_bfb1701a",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-15T02:53:41Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027curGroup\u0027 can be reduced",
+      "revId": "3bd48b80bc9e4f3a5dc32437f18abe43287d4119",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "059c1669_7af69cc6",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-15T02:53:41Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027curGroup\u0027 can be reduced",
+      "revId": "3bd48b80bc9e4f3a5dc32437f18abe43287d4119",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "711c1cd9_23b38f4e",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-15T02:53:41Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027curOption\u0027 can be reduced",
+      "revId": "3bd48b80bc9e4f3a5dc32437f18abe43287d4119",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5a318de_1b16bea7",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-15T02:53:41Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027curOption\u0027 can be reduced",
+      "revId": "3bd48b80bc9e4f3a5dc32437f18abe43287d4119",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ebede41_fe6e18b3",
+        "filename": "src/lib/fcitx-config/fcitx-config.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-15T02:53:41Z",
+      "side": 1,
+      "message": "(warning) Possible null pointer dereference: optio",
+      "revId": "3bd48b80bc9e4f3a5dc32437f18abe43287d4119",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3368c2c7_cfaab8f5",
         "filename": "src/lib/fcitx-config/fcitx-config.h",
         "patchSetId": 1
@@ -47,6 +166,23 @@
       "writtenOn": "2022-02-15T02:53:40Z",
       "side": 1,
       "message": "注释行数: 4; 改动行数(修改和新增): 35; 注释率: 11.4%",
+      "revId": "3bd48b80bc9e4f3a5dc32437f18abe43287d4119",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24a35e57_54f9a060",
+        "filename": "src/module/implugin/implugin-service.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-15T02:53:41Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16448936158740.4239584763533475/changeCache/src/module/implugin/implugin-service.c:0]: (error) Internal Error. MathLib::normalizeCharacterLiteral: Unhandled char constant \u0027\\#\u0027",
       "revId": "3bd48b80bc9e4f3a5dc32437f18abe43287d4119",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
