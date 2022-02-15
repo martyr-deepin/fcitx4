@@ -238,6 +238,7 @@ extern "C"
         FcitxConfigEnum configEnum; /**< if type is enum, the enum item info */
 
         UT_hash_handle hh; /**< hash handle */
+        char *shownInDeepin; /**< is shown in deepin controlcenter */
     };
 
     union _FcitxConfigConstrain {
