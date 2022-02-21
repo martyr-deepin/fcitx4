@@ -67,6 +67,74 @@
       "revId": "97d098ffe8d8892d58ddf5d9e7483c35738e2f82",
       "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "044101b1_a8d973e3",
+        "filename": "src/module/chttrans/chttrans.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-21T08:25:17Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027fp\u0027 can be reduced",
+      "revId": "97d098ffe8d8892d58ddf5d9e7483c35738e2f82",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b731619c_7de67c2f",
+        "filename": "src/module/chttrans/chttrans.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-21T08:25:17Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16454319134280.7397742228180411/changeCache/src/module/chttrans/chttrans.c:313]: (style) Local variable ps shadows outer variabl",
+      "revId": "97d098ffe8d8892d58ddf5d9e7483c35738e2f82",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f4393c5_92dc69f8",
+        "filename": "src/module/chttrans/chttrans.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-21T08:25:17Z",
+      "side": 1,
+      "message": "(style) The scope of the variable \u0027fp\u0027 can be reduced",
+      "revId": "97d098ffe8d8892d58ddf5d9e7483c35738e2f82",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9af5acb_b9f637e3",
+        "filename": "src/module/chttrans/chttrans.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-02-21T08:25:17Z",
+      "side": 1,
+      "message": "\u003e [/tmp/16454319134280.7397742228180411/changeCache/src/module/chttrans/chttrans.c:416]: (style) Local variable ps shadows outer variabl",
+      "revId": "97d098ffe8d8892d58ddf5d9e7483c35738e2f82",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
     }
   ]
 }
