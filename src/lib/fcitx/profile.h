@@ -73,6 +73,11 @@ extern "C" {
         boolean bUsePreedit;
 
         /**
+         * chineseime use traditional
+         **/
+        boolean bUseTraditional;
+
+        /**
          * enabled im list
          **/
         char* imList;

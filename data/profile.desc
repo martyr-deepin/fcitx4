@@ -28,5 +28,10 @@ Type=Boolean
 DefaultValue=False
 Description=Show Preedit String in Client Window
 
+[Profile/ChineseimeUseTraditional]
+Type=Boolean
+DefaultValue=False
+Description=Current Chineseime Use Traditional
+
 [DescriptionFile]
 LocaleDomain=fcitx

@@ -39,6 +39,7 @@ CONFIG_BINDING_REGISTER("Profile", "UseRemind", bUseRemind)
 CONFIG_BINDING_REGISTER_WITH_FILTER_ARG("Profile", "IMName", imName, FilterIMName, instance)
 CONFIG_BINDING_REGISTER("Profile", "WidePunc", bUseWidePunc)
 CONFIG_BINDING_REGISTER("Profile", "PreeditStringInClientWindow", bUsePreedit)
+CONFIG_BINDING_REGISTER("Profile", "ChineseimeUseTraditional", bUseTraditional)
 CONFIG_BINDING_REGISTER_WITH_FILTER_ARG("Profile", "EnabledIMList", imList, FilterIMList, instance)
 CONFIG_BINDING_END()
 

@@ -23,7 +23,7 @@
 
 #include <libintl.h>
 #include <errno.h>
-
+#include "fcitx/instance-internal.h"
 #include "fcitx/module.h"
 #include "fcitx-utils/utf8.h"
 #include "fcitx-utils/uthash.h"
@@ -204,6 +204,8 @@ void ToggleChttransState(void* arg)
                            enabled ? _("Switch to Simplified Chinese") :
                            _("Switch to Traditional Chinese"),
                           _("Toggle Simp/Trad Chinese Conversion"));
+    instance->profile->bUseTraditional = enabled;
+    FcitxProfileSave(instance->profile);
     FcitxUIUpdateInputWindow(instance);
     SaveChttransConfig(transState);
 }
