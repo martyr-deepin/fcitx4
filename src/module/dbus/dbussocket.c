@@ -1,7 +1,7 @@
 #include "fcitx-utils/utils.h"
 #include "dbussocket.h"
 
-dbus_bool_t isEmptyWatches = FALSE;
+dbus_bool_t isEmptyWatches = TRUE;
 
 dbus_bool_t DBusAddWatch(DBusWatch *watch, void *data)
 {
