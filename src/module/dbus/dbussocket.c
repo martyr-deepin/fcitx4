@@ -1,7 +1,7 @@
 #include "fcitx-utils/utils.h"
 #include "dbussocket.h"
 
-dbus_bool_t isEmptyWatches = FALSE;
+dbus_bool_t isEmptyWatches = TRUE;
 
 dbus_bool_t DBusAddWatch(DBusWatch *watch, void *data)
 {
@@ -51,7 +51,7 @@ int DBusUpdateFDSet(FcitxDBusWatch* watches, fd_set* rfds, fd_set* wfds, fd_set*
 {
     int maxfd = 0;
     FcitxDBusWatch* w;
-    for (w = watches; w && (!isEmptyWatches); w = w->next)
+    for (w = watches; w && (!isEmptyWatches); w = w->next) {
         if (w->watch && dbus_watch_get_enabled(w->watch)) {
             unsigned int flags = dbus_watch_get_flags(w->watch);
             int fd = dbus_watch_get_unix_fd(w->watch);
@@ -67,6 +67,7 @@ int DBusUpdateFDSet(FcitxDBusWatch* watches, fd_set* rfds, fd_set* wfds, fd_set*
 
             FD_SET(fd, efds);
         }
+    }
 
     return maxfd;
 }
@@ -75,7 +76,7 @@ void DBusProcessEventForWatches(FcitxDBusWatch* watches, fd_set* rfds, fd_set* w
 {
     FcitxDBusWatch *w;
 
-    for (w = watches; w; w = w->next) {
+    for (w = watches; w && (!isEmptyWatches); w = w->next) {
         if (w->watch && dbus_watch_get_enabled(w->watch)) {
             unsigned int flags = 0;
             int fd = dbus_watch_get_unix_fd(w->watch);
