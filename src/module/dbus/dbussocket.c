@@ -75,7 +75,7 @@ void DBusProcessEventForWatches(FcitxDBusWatch* watches, fd_set* rfds, fd_set* w
 {
     FcitxDBusWatch *w;
 
-    for (w = watches; w; w = w->next) {
+    for (w = watches; w && (!isEmptyWatches); w = w->next) {
         if (w->watch && dbus_watch_get_enabled(w->watch)) {
             unsigned int flags = 0;
             int fd = dbus_watch_get_unix_fd(w->watch);
