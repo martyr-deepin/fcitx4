@@ -151,11 +151,14 @@ void FcitxUILoad(FcitxInstance* instance)
             addon != NULL;
             addon = (FcitxAddon *) utarray_next(addons, addon)) {
         if (addon->bEnabled && addon->category == AC_UI) {
-            if (FcitxUILoadInternal(instance, addon))
-                instance->uinormal = addon;
-
-            if (instance->uinormal != NULL)
-                break;
+            if (FcitxUILoadInternal(instance, addon)){
+                if (strcmp(addon->name, "fcitx-classic-ui") != 0){
+                    instance->uinormal = addon;
+                    if (addon->uifallback) {
+                        instance->fallbackuiName = strdup(addon->uifallback);
+                    }
+                }
+            }
         }
     }
 
@@ -166,8 +169,7 @@ void FcitxUILoad(FcitxInstance* instance)
         return;
     }
 
-    if (addon->uifallback)
-        instance->fallbackuiName = strdup(addon->uifallback);
+
 }
 
 boolean FcitxUILoadInternal(FcitxInstance* instance, FcitxAddon* addon)
@@ -1070,7 +1072,17 @@ void FcitxUIResumeFromFallback(struct _FcitxInstance* instance)
         instance->uinormal->ui->Resume(instance->uinormal->addonInstance);
 
     instance->ui = instance->uinormal;
+}
 
+FCITX_EXPORT_API
+void FcitxUIResumeFromFallbackWithUIName(struct _FcitxInstance* instance, const char* uiAddonName)
+{
+    FcitxAddon* fallbackAddon = FcitxAddonsGetAddonByName(&instance->addons, uiAddonName);
+    if (fallbackAddon)
+    {
+        instance->uinormal =  fallbackAddon;
+    }
+    FcitxUIResumeFromFallback(instance);
 }
 
 FCITX_EXPORT_API
