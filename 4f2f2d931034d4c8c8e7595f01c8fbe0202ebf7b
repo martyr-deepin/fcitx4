@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "603d3fd2_c455d215",
+        "filename": "src/lib/fcitx/addon.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-03-01T10:21:25Z",
+      "side": 1,
+      "message": "注释行数: 8; 改动行数(修改和新增): 9; 注释率: 88.9%",
+      "revId": "4f2f2d931034d4c8c8e7595f01c8fbe0202ebf7b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f947270b_8b22692a",
+        "filename": "src/lib/fcitx/ui.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-03-01T10:21:25Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 18; 注释率: 0.0%",
+      "revId": "4f2f2d931034d4c8c8e7595f01c8fbe0202ebf7b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6f73631_e2deea1a",
+        "filename": "src/lib/fcitx/ui.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-03-01T10:21:25Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 7; 注释率: 0.0%",
+      "revId": "4f2f2d931034d4c8c8e7595f01c8fbe0202ebf7b",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
