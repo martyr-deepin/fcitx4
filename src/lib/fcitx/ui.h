@@ -870,6 +870,14 @@ extern "C" {
     void FcitxUIResumeFromFallback(struct _FcitxInstance* instance);
 
     /**
+     * User interface should resume from the fallback, allow inputmethord specify ui addon to resume
+     *
+     * @param instance fcitx instance
+     * @return void
+     **/
+    void FcitxUIResumeFromFallbackWithUIName(struct _FcitxInstance* instance, const char* uiAddonName);
+
+    /**
      * checkk a user interface is fallback or not
      *
      * @param instance fcitx instance
