@@ -264,14 +264,15 @@ void FcitxInstanceResolveAddonDependencyInternal(FcitxInstance* instance, FcitxA
                 }
             }
         }
-
-        for (addon = startAddon;
-                addon != NULL;
-                addon = (FcitxAddon *) utarray_next(addons, addon)) {
-            if (addon->category == AC_UI && addon != uiaddon && addon != uifallbackaddon) {
-                addon->bEnabled = false;
-            }
-        }
+        
+        /*allow multy kimpanel AC_UI addon to load, let inputmethord to chose which AC_UI addon to use*/
+        // for (addon = startAddon;
+        //         addon != NULL;
+        //         addon = (FcitxAddon *) utarray_next(addons, addon)) {
+        //     if (addon->category == AC_UI && addon != uiaddon && addon != uifallbackaddon) {
+        //         addon->bEnabled = false;
+        //     }
+        // }
     }
 
     while (remove) {

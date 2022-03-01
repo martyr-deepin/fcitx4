@@ -312,6 +312,7 @@ libfcitx-core.so.0 libfcitx-core0 #MINVER#
  FcitxUIRegisterMenu@Base 4.2.9.29
  FcitxUIRegisterStatus@Base 4.2.9.29
  FcitxUIResumeFromFallback@Base 4.2.9.29
+ FcitxUIResumeFromFallbackWithUIName@Base 4.2.9.32.25
  FcitxUISetStatusString@Base 4.2.9.29
  FcitxUISetStatusVisable@Base 4.2.9.29
  FcitxUISupportMainWindow@Base 4.2.9.29
