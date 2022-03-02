@@ -152,8 +152,8 @@ void FcitxUILoad(FcitxInstance* instance)
             addon = (FcitxAddon *) utarray_next(addons, addon)) {
         if (addon->bEnabled && addon->category == AC_UI) {
             if (FcitxUILoadInternal(instance, addon)){
+                instance->uinormal = addon;
                 if (strcmp(addon->name, "fcitx-classic-ui") != 0){
-                    instance->uinormal = addon;
                     if (addon->uifallback) {
                         instance->fallbackuiName = strdup(addon->uifallback);
                     }
@@ -1040,7 +1040,7 @@ void FcitxUISwitchToFallback(struct _FcitxInstance* instance)
     if (!instance->uifallback) {
         // load fallback ui
         FcitxAddon* fallbackAddon = FcitxAddonsGetAddonByName(&instance->addons, instance->fallbackuiName);
-        if (!fallbackAddon || !fallbackAddon->bEnabled || !FcitxUILoadInternal(instance, fallbackAddon)) {
+        if (!fallbackAddon || !fallbackAddon->bEnabled || (fallbackAddon->addonInstance == NULL) &&  !FcitxUILoadInternal(instance, fallbackAddon)) {
             // reset fallbackuiName, never load it again and again
             free(instance->fallbackuiName);
             instance->fallbackuiName = NULL;
