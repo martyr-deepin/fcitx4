@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "333012ba_9e7ffee3",
+        "filename": "src/lib/fcitx/ui.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-03-03T01:23:45Z",
+      "side": 1,
+      "message": "注释行数: 0; 改动行数(修改和新增): 283; 注释率: 0.0%",
+      "revId": "d5ac2cefc42cf371fe37cfb1ad0a52957cf9ebb6",
+      "serverId": "7c03bcd7-3a90-48d7-8881-a48a22a829d2",
+      "unresolved": true
+    }
+  ]
+}
