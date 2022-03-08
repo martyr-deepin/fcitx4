@@ -151,8 +151,7 @@ extern "C" {
 
         boolean bHKtriggerKey; /**< Enable trigger key*/
 
-        int padding[6]; /**< padding */
-        char padding2[3];
+        char padding[27]; /**< padding */
     } FcitxGlobalConfig;
 
     /**

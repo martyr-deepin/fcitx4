@@ -36,7 +36,7 @@ enum {
     FX_DESKTOP_ENTRY_UPDATED = 1 << 0,
 };
 
-static const void *empty_vtable_padding[DESKTOP_PADDING_LEN] = {};
+static const char empty_vtable_padding[DESKTOP_PADDING_LEN] = {};
 
 /**
  * Check if vtable is valid. (Padding has to be zero).

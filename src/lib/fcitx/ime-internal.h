@@ -78,7 +78,7 @@ struct _FcitxInputState {
     uint32_t keysym;
     uint32_t keystate;
 
-    int padding[60];
+    char padding[240];
 };
 
 struct _FcitxIMEntry {

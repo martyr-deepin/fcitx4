@@ -124,7 +124,7 @@ extern "C" {
             void* dummy3;
         };
 
-        void* padding[7]; /**< padding */
+        char padding[28]; /**< padding */
     } FcitxAddon;
 
     /**

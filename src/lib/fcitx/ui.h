@@ -130,7 +130,7 @@ extern "C" {
             int dummy[2];
         };
 
-        int padding[14]; /**< padding */
+        char padding[56]; /**< padding */
     };
 
     /**
@@ -178,7 +178,7 @@ extern "C" {
 
         boolean visible; /**< menu is visible or not */
 
-        int padding[15]; /**< padding */
+        char padding[60]; /**< padding */
     };
 
     /**
@@ -218,7 +218,7 @@ extern "C" {
          */
         boolean visible;
 
-        int padding[16]; /**< padding */
+        char padding[64]; /**< padding */
     };
 
 
@@ -259,7 +259,7 @@ extern "C" {
          */
         boolean visible;
 
-        int padding[16]; /**< padding */
+        char padding[64]; /**< padding */
     };
 
     struct _FcitxInstance;

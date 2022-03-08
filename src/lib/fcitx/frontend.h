@@ -105,7 +105,7 @@ extern "C" {
             FcitxTriState mayUsePreedit;
             void* _dummy;
         };
-        void* padding[12];
+        char padding[52];
     } FcitxInputContext2;
 
     /**

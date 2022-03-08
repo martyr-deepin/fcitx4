@@ -218,7 +218,7 @@ extern "C" {
         FcitxIMDoInput DoReleaseInput; /**< process key release event */
         FcitxIMOnClose OnClose; /**< process when im being switched away */
         FcitxIMGetSubModeName GetSubModeName; /**< return a string owned by im */
-        void* padding[61]; /**< padding */
+        char padding[244]; /**< padding */
     } FcitxIMIFace;
 
     /**
@@ -302,7 +302,7 @@ extern "C" {
         FcitxIMOnClose OnClose;
 
         FcitxIMGetSubModeName GetSubModeName; /**< return a string owned by im */
-        void* padding[7]; /**< padding */
+        char padding[28]; /**< padding */
     } FcitxIM;
 
     /** a key event is press or release */

@@ -258,7 +258,7 @@ extern "C"
             boolean allowModifierOnly;
         } hotkeyConstrain;
 
-        void* padding[10];
+        char padding[40];
     };
 
     /**
@@ -270,7 +270,7 @@ extern "C"
         FcitxConfigConstrain constrain;
         char* longDesc;
         boolean shownInDeepin; /**< is shown in deepin controlcenter */
-        void* padding[15];
+        char padding[60];
     };
 
     /**

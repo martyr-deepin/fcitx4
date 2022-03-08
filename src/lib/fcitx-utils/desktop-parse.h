@@ -27,14 +27,14 @@ typedef struct _FcitxDesktopFile FcitxDesktopFile;
 typedef struct _FcitxDesktopGroup FcitxDesktopGroup;
 typedef struct _FcitxDesktopEntry FcitxDesktopEntry;
 
-#define DESKTOP_PADDING_LEN 6
+#define DESKTOP_PADDING_LEN 24
 
 typedef struct {
     FcitxDesktopGroup *(*new_group)(void *owner);
     void (*free_group)(void *owner, FcitxDesktopGroup *group);
     FcitxDesktopEntry *(*new_entry)(void *owner);
     void (*free_entry)(void *owner, FcitxDesktopEntry *entry);
-    void *padding[DESKTOP_PADDING_LEN];
+    char padding[DESKTOP_PADDING_LEN];
 } FcitxDesktopVTable;
 
 struct _FcitxDesktopFile {
@@ -46,7 +46,7 @@ struct _FcitxDesktopFile {
     const FcitxDesktopVTable *vtable;
     FcitxDesktopGroup *groups;
     void *owner;
-    void *padding[3];
+    char padding[12];
 };
 
 struct _FcitxDesktopGroup {
@@ -64,7 +64,7 @@ struct _FcitxDesktopGroup {
     uint32_t flags;
     void *owner;
     int32_t ref_count;
-    void *padding[3];
+    char padding[12];
 };
 
 struct _FcitxDesktopEntry {
@@ -80,7 +80,7 @@ struct _FcitxDesktopEntry {
     uint32_t flags;
     void *owner;
     int32_t ref_count;
-    void *padding[3];
+    char padding[12];
 };
 
 #ifdef __cplusplus
