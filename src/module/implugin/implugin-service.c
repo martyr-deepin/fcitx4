@@ -463,9 +463,6 @@ void display_inotify_event(struct inotify_event *i) {
 int main(int argc, char *argv[]) {
     fcitx_utils_launch_tool("fcitx-gsettingtool", NULL);
 
-    //    char *commod[] = {"./fcitx-gsettingtool", NULL};
-    //    fcitx_utils_start_process(commod);
-
     dir.id = 1;
     dir.path = (char **)malloc(65534);
     char *watchpath = fcitx_utils_get_fcitx_path("pkgdatadir");

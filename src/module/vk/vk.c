@@ -285,7 +285,6 @@ boolean GetVKState(void *arg)
 
 void ToggleVKState(void *arg)
 {
-    printf("ToggleVKState \n");
     FcitxVKState *vkstate = (FcitxVKState*) arg;
     SwitchVK(vkstate);
 }

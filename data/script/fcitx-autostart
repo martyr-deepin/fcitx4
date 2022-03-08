@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# 脚本解释器 强制设置为 bash
-#if [ "$BASH" != "/bin/bash" ] && [ "$BASH" != "/usr/bin/bash" ]; then
-#    bash "$0" "$@"
-#    exit $?
-#fi
-
 # sleep for a little while to avoid duplicate startup
 function autostart()
 {
